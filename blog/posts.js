@@ -51,6 +51,64 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 
 window.POSTS = [
   {
+    slug: "contratei-de-madrugada",
+    capa: "assets/silvia-capa.jpg",
+    titulo: "O dia em que eu contratei alguém ==às 2h da manhã==",
+    data: "2026-09-30",
+    categoria: "Gestão",
+    resumo: "86 candidatos, 12 que seguiram a instrução e uma ligação de madrugada. Não contrate currículo. Contrate comportamento.",
+    texto: `
+Na Bendito Seja Filmes, eu precisava de uma gestora de marketing. Alguém que pegasse as minhas ideias e transformasse em realidade.
+
+Se eu publicasse "vaga para gestor de marketing", eu ia receber o que todo mundo recebe: uma pilha de currículos iguais, de gente interessada no salário.
+
+## Primeiro, eu vendi a vaga
+
+A mente humana trabalha com rótulos. Quando você muda o rótulo, muda o valor que a pessoa enxerga.
+
+Então eu não anunciei um cargo. Eu anunciei uma missão: ==precisa-se de pessoas capazes de transformar uma pedra bruta em diamante==.
+
+Em vez de um anúncio comum, fiz uma página que contava uma história. Começava pelo propósito e só depois mostrava os detalhes da vaga.
+
+## Depois, eu filtrei comportamento
+
+Não pedi currículo. Pedi que a pessoa respondesse **por que aquela vaga deveria ser dela**, e deixei uma instrução no final do vídeo para saber quem tinha assistido até o fim.
+
+- **86 candidatos** se inscreveram.
+- Só **12** mandaram a resposta que eu pedi.
+
+Currículo mostra histórico. O que eu queria ver era execução.
+
+## A ligação das 2h da manhã
+
+Liguei para os 12 às duas horas da manhã.
+
+Eu não queria alguém que trabalhasse de madrugada. Eu queria alguém que **não se importasse com horário, e sim com o resultado**. A reação de cada um àquela ligação me disse mais do que qualquer entrevista.
+
+## O teste do restaurante japonês
+
+Quem passou recebeu um desafio: criar o conceito de um restaurante japonês.
+
+A candidata comum entregou uma fachada simples, foco em desconto e um diferencial genérico: vender comida.
+
+A **Silvia** criou o **Dip**. Um nome que vinha de onomatopeia, ingredientes de pequenos produtores, horta própria, cuidado com a experiência do cliente e uma identidade visual coerente em todas as peças.
+
+O teste não mediu técnica. Mediu ==o tamanho da mente== de cada um.
+
+## O resultado
+
+A Silvia entrou com uma pretensão salarial de **R$ 1.200**. Virou peça fundamental no negócio e passou a ganhar **25% do faturamento**.
+
+> Não contrate currículo. Contrate comportamento.
+
+Contratação é venda. Se você trata a vaga como um anúncio qualquer, atrai gente qualquer. Se você vende a vaga e filtra comportamento, quem chega ao final é alguém que já provou que quer estar ali.
+
+[video: Como eu vendi a vaga](https://www.youtube.com/watch?v=FRX0H1b-OG8)
+
+[video: O resultado do teste do restaurante japonês](https://youtu.be/NsnpfEYWloc)
+`
+  },
+  {
     slug: "o-dia-que-me-vesti-de-noiva",
     capa: "assets/anuncio-bendito-seja.jpg",
     titulo: "O dia em que eu me vesti de ==noiva==",

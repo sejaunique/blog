@@ -89,6 +89,6 @@ module.exports = async (req, res) => {
 
     return res.status(400).json({ ok: false });
   } catch (e) {
-    return res.status(500).json({ ok: false });
+    return res.status(500).json({ ok: false, erro: String(e && e.message || e).slice(0, 200) });
   }
 };

@@ -122,8 +122,6 @@ Antes de publicar qualquer coisa, faça quatro perguntas: isso chama a atenção
 
 A maioria das empresas tenta melhorar vendas investindo em CRM, treinamento e marketing. Mas ignora um fator silencioso e extremamente poderoso: **o ambiente onde o time trabalha todos os dias.**
 
-[video](https://youtu.be/JDAxoq3qD8U)
-
 ![O ambiente comum: cada vendedor isolado na sua mesa](assets/sala-comum.jpg)
 
 > Você não constrói performance só com estratégia. Você constrói com ambiente.
@@ -235,6 +233,8 @@ Não é sobre mesa. Não é sobre cadeira. Não é sobre estética. É sobre **c
 > Se o ambiente não empurra o vendedor para vender, ele puxa o vendedor para baixo.
 
 É isso que separa empresas comuns de times de alta performance: elas não deixam o ambiente ao acaso. Elas constroem o ambiente de forma estratégica.
+
+[video](https://youtu.be/JDAxoq3qD8U)
 
 [video](https://www.youtube.com/watch?v=ELd5QDM54NM)
 `

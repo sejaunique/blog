@@ -103,6 +103,18 @@ strong{font-weight:700}
 button.btn{font:inherit;font-size:.78rem;font-weight:600;cursor:pointer;background:transparent;color:inherit}
 button.btn.solid{background:var(--pill);color:var(--pill-fg)}
 .cta-ok{flex-basis:100%;font-size:.78rem;color:var(--muted)}
+.cta .btn .icon{width:15px;height:15px}
+#sheet[hidden]{display:none}
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:40}
+.sheet{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(520px,100%);background:var(--bg);color:var(--fg);border-radius:22px 22px 0 0;padding:18px 20px calc(24px + env(safe-area-inset-bottom,0px));z-index:41;box-shadow:0 -10px 40px rgba(0,0,0,.2)}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.sheet-x{background:var(--soft);border:0;color:var(--fg);width:34px;height:34px;border-radius:50%;font-size:1.3rem;line-height:1;cursor:pointer}
+.sheet-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.sheet-grid a,.sheet-grid button{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 4px;border-radius:16px;background:var(--soft);border:0;color:var(--fg);text-decoration:none;font:inherit;font-size:.72rem;cursor:pointer}
+.sheet-grid .icon{width:22px;height:22px}
+.sheet-ok{margin:14px 0 0;font-size:.8rem;color:var(--muted);text-align:center;word-break:break-all}
+@media (min-width:681px){.sheet{bottom:auto;top:50%;transform:translate(-50%,-50%);border-radius:22px}}
+
 
 /* post */
 .head{text-align:center;padding-block:44px 44px}
@@ -227,6 +239,11 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
     insta:'<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/>',
     globe:'<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 2.5 14.4 0 17M12 3.5c-2.5 2.6-2.5 14.4 0 17"/>',
     linkedin:'<rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 10.5V16M8 7.8v.1M11.5 16v-5.5M11.5 13c0-1.6 1-2.6 2.3-2.6s2.2.9 2.2 2.6V16"/>',
+    share:'<path d="M12 3v12M7.5 7.5 12 3l4.5 4.5M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7"/>',
+    facebook:'<path d="M14 8h2.5V4.5H14A3.5 3.5 0 0 0 10.5 8v2.5H8V14h2.5v6.5H14V14h2.5l.5-3.5h-3V8.5c0-.3.2-.5.5-.5z"/>',
+    send:'<path d="M21 4 3 11l7 2.5L12.5 21 21 4zM10 13.5 21 4"/>',
+    x:'<path d="M5 4l14 16M19 4 5 20"/>',
+    mail:'<rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 7 8 6 8-6"/>',
     link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 18.7l1-1"/>'
   };
   function icon(n){ return '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">'+ICONS[n]+'</svg>'; }
@@ -317,27 +334,47 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
       '<div class="body"><aside class="share" aria-label="Compartilhar"><div>'+
         '<a href="https://wa.me/?text='+encodeURIComponent(titulo+' '+url)+'" target="_blank" rel="noopener" aria-label="Compartilhar no WhatsApp">'+icon('chat')+'</a>'+
         '<a href="https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(url)+'" target="_blank" rel="noopener" aria-label="Compartilhar no LinkedIn">'+icon('linkedin')+'</a>'+
-        '<button type="button" id="copiar" aria-label="Copiar link">'+icon('link')+'</button><span class="copied" id="copiado" hidden>Link copiado</span>'+
+        '<button type="button" class="js-share" aria-label="Compartilhar">'+icon('share')+'</button>'+
       '</div></aside>'+
       '<div class="content">'+corpo(p.texto)+'</div>'+
-      '<div class="cta"><p>'+inline(C.chamada||'Gostou? Mande para alguém que precisa ler isso.')+'</p><div class="btns"><button type="button" class="btn solid" id="compartilhar">Compartilhar</button></div><span class="cta-ok" id="cta-ok" hidden>Link copiado. É só colar onde quiser.</span></div>'+
+      '<div class="cta"><p>'+inline(C.chamada||'Gostou? Mande para alguém que precisa ler isso.')+'</p><div class="btns"><button type="button" class="btn solid js-share">'+icon('share')+' Compartilhar</button></div></div>'+
       '</div>'+
       (outros.length?'<section class="more"><h3>Leia também</h3><ul class="grid">'+outros.map(card).join('')+'</ul></section>':'')+
       '</article>';
-    var b=document.getElementById('copiar'), ok=document.getElementById('copiado');
-    b.onclick=function(){
-      var done=function(){ ok.hidden=false; setTimeout(function(){ok.hidden=true;},1800); };
-      try{ navigator.clipboard.writeText(url).then(done,function(){ ok.textContent=url; done(); }); }catch(e){ ok.textContent=url; done(); }
+    app.querySelectorAll('.js-share').forEach(function(bt){ bt.onclick=function(){ compartilhar(titulo, plain(p.resumo||''), url); }; });
+  }
+
+  // Compartilhar: no celular abre o menu do próprio aparelho (WhatsApp, Instagram, etc.).
+  // Onde o navegador não tem esse menu (computador ou navegador dentro de apps), abre a nossa lista de opções.
+  function compartilhar(titulo, resumo, url){
+    if(navigator.share){
+      navigator.share({title:titulo, text:titulo, url:url}).catch(function(e){ if(!e || e.name!=='AbortError') abrirOpcoes(titulo, url); });
+    } else abrirOpcoes(titulo, url);
+  }
+  function abrirOpcoes(titulo, url){
+    var u=encodeURIComponent(url), t=encodeURIComponent(titulo), tu=encodeURIComponent(titulo+' '+url);
+    var ops=[
+      ['WhatsApp','https://wa.me/?text='+tu,'chat'],
+      ['LinkedIn','https://www.linkedin.com/sharing/share-offsite/?url='+u,'linkedin'],
+      ['Facebook','https://www.facebook.com/sharer/sharer.php?u='+u,'facebook'],
+      ['Telegram','https://t.me/share/url?url='+u+'&text='+t,'send'],
+      ['X','https://x.com/intent/post?text='+t+'&url='+u,'x'],
+      ['E-mail','mailto:?subject='+t+'&body='+tu,'mail']
+    ];
+    var el=document.getElementById('sheet');
+    if(!el){ el=document.createElement('div'); el.id='sheet'; document.body.appendChild(el); }
+    el.innerHTML='<div class="sheet-bg" data-close></div><div class="sheet" role="dialog" aria-modal="true" aria-label="Compartilhar"><div class="sheet-head"><b>Compartilhar</b><button type="button" class="sheet-x" data-close aria-label="Fechar">×</button></div><div class="sheet-grid">'+
+      ops.map(function(o){ return '<a href="'+o[1]+'" target="_blank" rel="noopener">'+icon(o[2])+'<span>'+o[0]+'</span></a>'; }).join('')+
+      '<button type="button" id="sheet-copy">'+icon('link')+'<span>Copiar link</span></button></div><p class="sheet-ok" id="sheet-ok" hidden>Link copiado. É só colar onde quiser.</p></div>';
+    el.hidden=false;
+    el.querySelectorAll('[data-close]').forEach(function(x){ x.onclick=function(){ el.hidden=true; }; });
+    el.querySelectorAll('.sheet-grid a').forEach(function(x){ x.addEventListener('click',function(){ setTimeout(function(){el.hidden=true;},300); }); });
+    var ok=document.getElementById('sheet-ok');
+    document.getElementById('sheet-copy').onclick=function(){
+      var show=function(){ ok.hidden=false; };
+      try{ navigator.clipboard.writeText(url).then(show,function(){ ok.textContent=url; show(); }); }catch(e){ ok.textContent=url; show(); }
     };
-    var sh=document.getElementById('compartilhar'), shOk=document.getElementById('cta-ok');
-    sh.onclick=function(){
-      var copiar=function(){
-        var show=function(){ shOk.hidden=false; setTimeout(function(){shOk.hidden=true;},2500); };
-        try{ navigator.clipboard.writeText(url).then(show,function(){ shOk.textContent=url; show(); }); }catch(e){ shOk.textContent=url; show(); }
-      };
-      if(navigator.share){ navigator.share({title:titulo,text:plain(p.resumo||titulo),url:url}).catch(function(e){ if(e && e.name!=='AbortError') copiar(); }); }
-      else copiar();
-    };
+    document.onkeydown=function(e){ if(e.key==='Escape') el.hidden=true; };
   }
 
   function rota(){

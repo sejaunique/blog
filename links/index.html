@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Unique · Links</title>
+<meta name="description" content="Carlos Ribeiro, Unique Consultoria Comercial. Diagnóstico comercial, site, blog, Instagram e ALDA CRM em um só lugar.">
+<meta property="og:title" content="Unique · Links">
+<meta property="og:description" content="Vendas previsíveis não dependem de sorte. Dependem de processo.">
+<meta property="og:image" content="/assets/carlos-hero.jpg">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap">
+<style>
+/* Linktree da Unique: preto da marca, Montserrat, o "I" como janela da foto e verde só como grifo. */
+:root{
+  --bg:#000;--fg:#f5f5f5;--muted:#a1a1a8;--line:#26262a;--soft:#111113;
+  --grifo:#00ff80;--focus:#ff2e7e;
+  --font:"Montserrat",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{color:var(--fg);font-family:var(--font);margin:0;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:inherit;text-decoration:none}
+a:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+.page{max-width:520px;margin:0 auto;padding:calc(36px + env(safe-area-inset-top,0px)) 16px calc(40px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:28px}
+.spaced{font-size:.66rem;font-weight:500;text-transform:uppercase;letter-spacing:.42em;color:var(--muted)}
+.grifo{background:linear-gradient(transparent 60%,var(--grifo) 60%,var(--grifo) 74%,transparent 74%);padding-inline:.04em}
+.icon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* topo */
+.logo{display:flex;justify-content:center}
+.logo svg{height:18px;width:auto;color:var(--fg)}
+.hero{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
+.photo{position:relative;width:176px;height:236px;margin-bottom:6px}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:24px;border:1px solid var(--line)}
+.hero h1{font-size:1.55rem;font-weight:700;letter-spacing:-.02em;margin:0}
+.hero p{margin:0;color:var(--muted);font-size:.95rem;max-width:34ch}
+.hero p b{color:var(--fg);font-weight:600}
+
+/* links */
+.links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.lk{display:flex;align-items:center;gap:16px;min-height:64px;padding:14px 18px;border:1px solid var(--line);border-radius:20px;background:var(--soft);transition:transform .15s,border-color .2s}
+.lk:hover{border-color:#44444a;transform:translateY(-1px)}
+.lk .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#1c1c1f;flex:none}
+.lk .tx{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.lk .tx strong{font-size:.98rem;font-weight:600}
+.lk .tx small{font-size:.8rem;color:var(--muted)}
+.lk .go{color:var(--muted)}
+.lk.main{background:var(--fg);color:#000;border-color:var(--fg)}
+.lk.main .ic{background:#000;color:var(--fg)}
+.lk.main .tx small,.lk.main .go{color:#4a4a50}
+
+/* blog */
+.blog{display:flex;flex-direction:column;gap:12px}
+.blog .head{display:flex;justify-content:space-between;align-items:baseline}
+.blog .head a{font-size:.8rem;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.post{display:grid;grid-template-columns:96px minmax(0,1fr);gap:14px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:20px}
+.post .cv{width:96px;height:72px;border-radius:12px;overflow:hidden;background:#1c1c1f;display:grid;place-items:center}
+.post .cv img{width:100%;height:100%;object-fit:cover}
+.post .cv svg{height:34px;color:#3a3a40}
+.post .tag{font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:var(--muted)}
+.post h3{margin:2px 0 0;font-size:.92rem;font-weight:600;line-height:1.35}
+
+/* rodapé */
+.foot{display:flex;flex-direction:column;align-items:center;gap:14px;padding-top:8px}
+.social{display:flex;gap:10px}
+.social a{width:44px;height:44px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center}
+.foot small{color:var(--muted);font-size:.72rem}
+@media (prefers-reduced-motion:reduce){.lk{transition:none}.lk:hover{transform:none}}
+</style>
+</head>
+<body>
+<main class="page">
+
+  <a class="logo" href="/" aria-label="Unique, site oficial"><svg viewBox="0 0 2696 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M2304 50L2300 56L2301 60L2309 66L2329 73L2338 83L2343 97L2343 395L2338 411L2326 422L2304 430L2301 440L2309 445L2629 444L2635 436L2647 391L2645 380L2637 383L2598 423L2585 430L2564 433L2525 434L2484 430L2458 417L2441 396L2434 363L2435 244L2440 241L2532 241L2554 246L2575 265L2596 301L2603 301L2605 173L2596 171L2568 215L2561 222L2545 229L2438 230L2434 226L2433 69L2441 60L2571 60L2591 63L2605 71L2624 91L2641 116L2647 119L2652 116L2641 52L2636 49ZM1801 52L1801 61L1820 72L1831 90L1833 334L1848 371L1871 399L1899 421L1932 437L1963 446L2007 450L2075 447L2118 438L2155 422L2183 399L2198 379L2206 361L2212 325L2215 85L2225 72L2245 60L2245 53L2242 50L2163 49L2158 53L2159 62L2181 76L2187 92L2189 307L2182 339L2160 366L2128 383L2093 390L2055 392L2004 391L1973 383L1949 368L1936 354L1927 338L1922 314L1922 53L1917 49L1805 49ZM1027 49L1024 53L1025 62L1048 77L1054 92L1055 381L1054 401L1049 414L1042 422L1025 431L1024 440L1029 445L1170 445L1175 440L1175 433L1151 415L1145 394L1145 99L1152 76L1175 61L1175 52L1172 49ZM548 50L545 55L548 63L578 74L592 86L591 405L578 423L562 432L562 441L565 444L642 445L648 440L647 431L624 415L619 400L615 123L620 118L904 435L917 445L927 443L930 438L936 92L944 75L967 61L967 52L964 49L884 49L880 54L883 64L903 75L909 85L911 98L912 288L906 292L682 50ZM51 52L50 60L73 77L79 90L81 333L89 358L98 374L119 399L149 422L183 438L211 446L255 450L323 447L366 438L403 422L431 399L446 379L454 361L460 328L463 85L473 72L493 60L493 53L490 50L411 49L406 55L407 61L413 67L430 77L435 92L437 310L430 339L422 352L408 366L376 383L340 390L303 392L252 391L221 383L197 368L184 354L175 338L170 313L170 53L165 49L56 49ZM1248 158L1232 201L1227 256L1233 298L1249 339L1271 370L1300 398L1350 430L1440 478L1512 510L1579 534L1669 557L1702 560L1796 559L1824 550L1866 524L1915 483L1907 481L1899 487L1870 495L1777 498L1676 496L1588 486L1485 463L1465 453L1459 445L1427 439L1388 416L1362 386L1344 352L1336 328L1328 287L1327 222L1336 172L1353 132L1380 96L1414 71L1432 63L1462 56L1505 56L1537 63L1560 73L1581 87L1605 110L1623 135L1639 172L1648 215L1647 288L1639 322L1615 371L1585 404L1560 422L1522 438L1494 442L1485 446L1498 449L1540 447L1609 430L1659 405L1703 367L1725 337L1742 297L1748 255L1742 196L1725 155L1703 124L1675 98L1634 73L1592 57L1552 48L1466 46L1407 50L1357 65L1310 90L1273 122Z"/></svg></a>
+
+  <header class="hero">
+    <div class="photo"><img src="/assets/carlos-hero.jpg" alt="Carlos Ribeiro"></div>
+    <span class="spaced">Consultoria em Vendas</span>
+    <h1>Carlos Ribeiro</h1>
+    <p>Vendas previsíveis não dependem de sorte. Dependem de <span class="grifo" style="color:var(--fg)">processo</span>. Criador do <b>Método CRM</b>: Comportamento Repetido Muda.</p>
+  </header>
+
+  <ul class="links">
+    <li><a class="lk main" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Vim%20pelo%20Instagram%20e%20quero%20um%20diagn%C3%B3stico%20comercial%20para%20a%20minha%20empresa." target="_blank" rel="noopener">
+      <span class="ic"><svg class="icon" viewBox="0 0 24 24"><path d="M3 21l1.7-4.6A8.5 8.5 0 1 1 8 19.6z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-1.9-1-1 .8a4 4 0 0 1-2.2-2.2l.8-1-1-1.9z"/></svg></span>
+      <span class="tx"><strong>Quero um diagnóstico comercial</strong><small>Fale comigo no WhatsApp</small></span>
+      <svg class="icon go" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a></li>
+
+    <li><a class="lk" href="/">
+      <span class="ic"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9S14.5 18.3 12 21c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg></span>
+      <span class="tx"><strong>Site da Unique</strong><small>Método, serviços e cases</small></span>
+      <svg class="icon go" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a></li>
+
+    <li><a class="lk" href="/blog/">
+      <span class="ic"><svg class="icon" viewBox="0 0 24 24"><path d="M5 4h10l4 4v12H5z"/><path d="M9 12h6M9 16h6M9 8h3"/></svg></span>
+      <span class="tx"><strong>Blog Seja Unique</strong><small>Opiniões curtas sobre vender</small></span>
+      <svg class="icon go" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a></li>
+
+    <li><a class="lk" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Quero%20saber%20sobre%20treinamentos%20e%20palestras%20para%20o%20meu%20time." target="_blank" rel="noopener">
+      <span class="ic"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 1 3 3v5a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3z"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M8 21h8"/></svg></span>
+      <span class="tx"><strong>Treinamentos e palestras</strong><small>Para o seu time comercial</small></span>
+      <svg class="icon go" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a></li>
+
+    <li><a class="lk" href="https://aldacrm.com" target="_blank" rel="noopener">
+      <span class="ic"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v4H4zM4 11h10v4H4zM4 17h6v3H4z"/></svg></span>
+      <span class="tx"><strong>ALDA CRM</strong><small>O CRM que eu implanto nas empresas</small></span>
+      <svg class="icon go" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a></li>
+
+    <li><a class="lk" href="https://www.instagram.com/sejauniqueoficial" target="_blank" rel="noopener">
+      <span class="ic"><svg class="icon" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/></svg></span>
+      <span class="tx"><strong>Instagram</strong><small>@sejauniqueoficial</small></span>
+      <svg class="icon go" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a></li>
+  </ul>
+
+  <section class="blog" aria-labelledby="ult">
+    <div class="head"><span class="spaced" id="ult">Últimos posts</span><a href="/blog/">Ver todos</a></div>
+    <div id="posts"></div>
+  </section>
+
+  <footer class="foot">
+    <div class="social">
+      <a href="https://www.instagram.com/sejauniqueoficial" target="_blank" rel="noopener" aria-label="Instagram"><svg class="icon" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/></svg></a>
+      <a href="https://wa.me/5562996007574" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="icon" viewBox="0 0 24 24"><path d="M3 21l1.7-4.6A8.5 8.5 0 1 1 8 19.6z"/></svg></a>
+      <a href="/" aria-label="Site"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/></svg></a>
+    </div>
+    <small>© 2018–2026 Seja Unique</small>
+  </footer>
+</main>
+
+<script src="/blog/posts.js"></script>
+<script>
+(function(){
+  var MARK='<svg viewBox="0 0 318 879" aria-hidden="true"><path fill="currentColor" d="M3 0L0 3L1 30L36 48L49 60L56 72L61 102L62 761L54 812L36 831L1 849L0 876L3 879L313 879L318 875L317 851L272 825L261 810L255 789L254 111L257 79L265 61L278 49L317 28L318 4L313 0Z"/></svg>';
+  function esc(s){return String(s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function inline(s){return esc(s).replace(/==(.+?)==/g,'<span class="grifo">$1</span>');}
+  function yt(u){var m=(u||'').match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([\w-]{11})/);return m?m[1]:null;}
+  var P=(window.POSTS||[]).slice().sort(function(a,b){return a.data<b.data?1:-1;}).slice(0,2);
+  var box=document.getElementById('posts');
+  if(!P.length){box.parentNode.hidden=true;return;}
+  box.innerHTML=P.map(function(p){
+    var id=yt(p.video), img=p.capa?(/^https?:/.test(p.capa)?p.capa:'/blog/'+p.capa):(id?'https://img.youtube.com/vi/'+id+'/hqdefault.jpg':'');
+    return '<a class="post" href="/blog/#'+esc(p.slug)+'"><div class="cv">'+(img?'<img src="'+esc(img)+'" alt="" loading="lazy">':MARK)+'</div>'+
+      '<div><span class="tag">'+esc(p.categoria||'Blog')+'</span><h3>'+inline(p.titulo)+'</h3></div></a>';
+  }).join('');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+{
+ "formato": "carrossel",
+ "slides": [
+  {
+   "tipo": "capa",
+   "img": "blog/assets/mercado-livre-netflix.jpg",
+   "tag": "Estratégia",
+   "titulo": "Mercado Livre e Netflix se uniram. Com quem a sua empresa pode ==somar==?"
+  },
+  {
+   "tipo": "texto",
+   "titulo": "Um tem a tela. O outro sabe quem compra.",
+   "texto": "Separados, cada um tem metade. **Juntos, eles fecham a conta.**"
+  },
+  {
+   "tipo": "lista",
+   "titulo": "Como funciona",
+   "itens": [
+    "Anúncios segmentados pelo comportamento de compra de mais de **131 milhões** de compradores.",
+    "Rodam no plano da Netflix com publicidade.",
+    "A marca vê se quem assistiu **comprou de verdade**."
+   ]
+  },
+  {
+   "tipo": "foto",
+   "img": "blog/assets/collab-bendito-seja.jpg",
+   "titulo": "Eu já fiz isso, em pequena escala",
+   "texto": "Minha proposta de filmagem chegava numa caixa de chocolates da Brigadeiria das Meninas. ==Sem gastar nenhum real.=="
+  },
+  {
+   "tipo": "texto",
+   "titulo": "A ideia de agora",
+   "texto": "Uniforme de graça para empresas de RH. Em troca, a base delas para uma **prospecção inteligente**: turnover, admissões e quem está contratando agora."
+  },
+  {
+   "tipo": "texto",
+   "titulo": "A soma pode ser várias coisas",
+   "texto": "Servir de ==escada== para outra empresa ser vista. Troca de favores. Troca de clientes."
+  },
+  {
+   "tipo": "frase",
+   "texto": "A conta nunca pode dividir nem subtrair. Ela precisa sempre ==somar e multiplicar==."
+  },
+  {
+   "tipo": "cta",
+   "titulo": "Com quem você pode somar?",
+   "texto": "Leia o post completo no blog. Link na bio.",
+   "url": "sejaunique.vercel.app/blog"
+  }
+ ],
+ "legenda": "Mercado Livre e Netflix se uniram. Um tem a tela, o outro sabe quem compra.\n\nEu já fiz algo parecido em pequena escala: na Bendito Seja Filmes, minha proposta chegava dentro de uma caixa de chocolates da Brigadeiria das Meninas. Proposta diferenciada, sem gastar nenhum real.\n\nAgora estou pensando em vestir empresas de RH em troca de uma prospecção mais inteligente.\n\nA pergunta que fica: quem pode somar com a sua empresa a partir de agora?\n\n📌 O post completo está no blog. Link na bio.\n\n#parcerias #collab #estrategiadevendas #marketing #empreendedorismo #consultoriadevendas #sejaunique"
+}

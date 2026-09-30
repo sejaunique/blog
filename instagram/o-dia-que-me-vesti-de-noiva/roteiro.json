@@ -1,0 +1,62 @@
+{
+ "formato": "carrossel",
+ "slides": [
+  {
+   "tipo": "capa",
+   "img": "blog/assets/anuncio-bendito-seja.jpg",
+   "tag": "Técnica",
+   "titulo": "O dia em que eu me vesti de ==noiva=="
+  },
+  {
+   "tipo": "texto",
+   "titulo": "A revista que todo mundo precisava estar",
+   "texto": "Na Bendito Seja Filmes, anunciar em revista de casamento dava **autoridade**. A noiva lia na sala de espera e levava para casa como guia de fornecedores."
+  },
+  {
+   "tipo": "texto",
+   "titulo": "O problema",
+   "texto": "Todos os anúncios eram iguais: noiva bonita, chique, elegante, dentro do padrão.\n\nVocê virava a página e encontrava ==a mesma coisa==."
+  },
+  {
+   "tipo": "foto",
+   "img": "blog/assets/anuncio-bendito-seja.jpg",
+   "titulo": "Então eu e mais dois colaboradores nos vestimos de noiva.",
+   "texto": "O risco do ridículo era real. Mas a mensagem era clara."
+  },
+  {
+   "tipo": "frase",
+   "texto": "Nós pensamos ==como você==."
+  },
+  {
+   "tipo": "lista",
+   "titulo": "No fundo, foi só AIDA",
+   "itens": [
+    "**Atenção:** três homens de noiva numa revista onde tudo era igual.",
+    "**Interesse:** a noiva parava para entender o porquê.",
+    "**Desejo:** a gente pensava como ela.",
+    "**Ação:** ela guardava a revista e sabia a quem procurar."
+   ]
+  },
+  {
+   "tipo": "lista",
+   "titulo": "Dá para aplicar em qualquer lugar",
+   "itens": [
+    "**Abordagem:** comece com o que o cliente não espera ouvir.",
+    "**Site:** fale da dor dele antes de falar de você.",
+    "**Post:** a primeira linha decide se a pessoa para.",
+    "**Outdoor:** uma imagem que quebra o padrão e uma frase curta."
+   ]
+  },
+  {
+   "tipo": "frase",
+   "texto": "Quando todo mundo mostra a mesma coisa, a atenção vai para quem tem coragem de ser ==diferente==."
+  },
+  {
+   "tipo": "cta",
+   "titulo": "Leia a história completa",
+   "texto": "O post inteiro está no blog. Link na bio.",
+   "url": "sejaunique.vercel.app/blog"
+  }
+ ],
+ "legenda": "O dia em que eu me vesti de noiva. 👰\n\nNa Bendito Seja Filmes, todo anúncio da revista de casamento era igual: noiva bonita, elegante, dentro do padrão.\n\nO nosso trazia três homens vestidos de noiva, com uma frase: \"Nós pensamos como você.\"\n\nO risco do ridículo era real. Mas o anúncio fez exatamente o que eu queria. E, no fundo, não foi nada além da técnica AIDA aplicada na prática: Atenção, Interesse, Desejo e Ação.\n\nDá para usar a mesma lógica na abordagem, no site, no post, no outdoor e na proposta.\n\nQuando todo mundo mostra a mesma coisa, a atenção vai para quem tem coragem de ser diferente.\n\n📌 A história completa está no blog. Link na bio.\n\n#vendas #marketing #AIDA #estrategiadevendas #empreendedorismo #consultoriadevendas #sejaunique"
+}

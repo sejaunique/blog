@@ -15,3 +15,11 @@ Cada envio para a branch `main` é publicado automaticamente na Vercel.
 Depois de publicar ou editar um post, rode `python3 tools/gerar_paginas.py`.
 Ele cria `blog/<slug>/`, com a capa do post como imagem da prévia.
 O link para compartilhar um post é `https://sejaunique.vercel.app/blog/<slug>/`.
+
+## Instagram (carrossel ou post único)
+
+Cada post do blog pode virar carrossel em `instagram/<slug>/`:
+
+1. Escreva `instagram/<slug>/roteiro.json` (tipos de slide: capa, texto, lista, frase, foto, cta; veja o topo de `tools/instagram.py`).
+2. `python3 tools/instagram.py <slug>` gera as imagens 1080x1350 e a `legenda.txt`.
+3. `python3 tools/instagram_pagina.py` atualiza a página https://sejaunique.vercel.app/instagram/ (com .zip e botão de postar).

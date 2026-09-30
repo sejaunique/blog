@@ -1,0 +1,62 @@
+{
+ "formato": "carrossel",
+ "slides": [
+  {
+   "tipo": "capa",
+   "img": "blog/assets/sala-comercial-capa.jpg",
+   "tag": "Cultura",
+   "titulo": "Sala comercial de ==alta performance=="
+  },
+  {
+   "tipo": "texto",
+   "titulo": "O fator que quase ninguém olha",
+   "texto": "Empresas investem em CRM, treinamento e marketing. E ignoram **o ambiente onde o time trabalha todos os dias**."
+  },
+  {
+   "tipo": "lista",
+   "titulo": "O layout central",
+   "itens": [
+    "Uma mesa central.",
+    "Três vendedores de cada lado, frente a frente.",
+    "O supervisor na ponta.",
+    "Uma TV visível para todo mundo."
+   ]
+  },
+  {
+   "tipo": "lista",
+   "titulo": "Por que funciona",
+   "itens": [
+    "**Competição natural:** ninguém quer ser o mais lento da mesa.",
+    "**Aprendizado por observação:** você aprende vendo o outro vender.",
+    "**Ritmo coletivo:** quando um acelera, puxa os outros."
+   ]
+  },
+  {
+   "tipo": "foto",
+   "img": "blog/assets/sala-fones.jpg",
+   "titulo": "Equipamento não é detalhe",
+   "texto": "Fone com isolamento, webcam boa e duas telas por vendedor. **Produtividade pura.**"
+  },
+  {
+   "tipo": "texto",
+   "titulo": "A TV não é decoração",
+   "texto": "Ranking, metas do dia e alertas de performance. Isso gera ==urgência visível==. E urgência gera ação."
+  },
+  {
+   "tipo": "texto",
+   "titulo": "O supervisor define o jogo",
+   "texto": "Não é chefe de cadeira. É **líder de campo**: circula, ouve ligações, entra na negociação e corrige na hora.\n\nFeedback tardio é aprendizado lento."
+  },
+  {
+   "tipo": "frase",
+   "texto": "Se o ambiente não empurra o vendedor para vender, ele puxa o vendedor ==para baixo==."
+  },
+  {
+   "tipo": "cta",
+   "titulo": "Veja o guia completo",
+   "texto": "Layout, rotina, paredes e o vídeo da sala estão no blog. Link na bio.",
+   "url": "sejaunique.vercel.app/blog"
+  }
+ ],
+ "legenda": "Você não constrói performance só com estratégia. Você constrói com ambiente.\n\nA maioria das empresas investe em CRM, treinamento e marketing, mas ignora o lugar onde o time passa o dia inteiro.\n\nNo carrossel:\n→ o layout central que elimina o isolamento\n→ os equipamentos que parecem detalhe, mas não são\n→ a TV como cérebro visual da operação\n→ o papel do supervisor como líder de campo\n\nSe o ambiente não empurra o vendedor para vender, ele puxa o vendedor para baixo.\n\n📌 O guia completo, com o vídeo da sala, está no blog. Link na bio.\n\n#vendas #timedevendas #gestaocomercial #altaperformance #vendasb2b #consultoriadevendas #sejaunique"
+}

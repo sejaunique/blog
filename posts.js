@@ -58,6 +58,8 @@ window.POSTS = [
 
 A maioria das empresas tenta melhorar vendas investindo em CRM, treinamento e marketing. Mas ignora um fator silencioso e extremamente poderoso: **o ambiente onde o time trabalha todos os dias.**
 
+![O ambiente comum: cada vendedor isolado na sua mesa](assets/sala-comum.jpg)
+
 > Você não constrói performance só com estratégia. Você constrói com ambiente.
 
 ## O objetivo dessa estrutura
@@ -79,6 +81,8 @@ O modelo mais eficiente para times comerciais B2B é o **layout central**:
 - o supervisor na ponta;
 - uma TV visível para todo mundo.
 
+![Layout central: mesa única, time frente a frente e placar do dia na TV](assets/sala-mesa-central.jpg)
+
 Simples, mas extremamente estratégico. Ele ativa três coisas que fazem qualquer time vender mais:
 
 - **Competição natural:** ninguém quer ser o mais lento da mesa.
@@ -89,9 +93,14 @@ E o mais importante: ele ==elimina o isolamento==.
 
 ## Equipamentos que parecem detalhe (mas não são)
 
+![Fone com isolamento: concentração e menos ruído entre ligações](assets/sala-fones.jpg)
+
 **Fones com isolamento.** Sem eles, o ambiente vira ruído. Com eles, você tem concentração, clareza na comunicação e menos interferência entre ligações. O resultado direto é mais qualidade na venda.
 
 **Webcam boa.** Em venda B2B, muita coisa acontece por videochamada. Boa imagem e boa luz aumentam a percepção de profissionalismo e deixam a reunião mais fluida. Isso mexe com a credibilidade, a atenção e o rapport, porque a expressão facial fica clara. Parece detalhe, mas é um multiplicador de conversão.
+
+![Duas telas](assets/sala-duas-telas.jpg)
+![Superwide](assets/sala-superwide.jpg)
 
 **Duas telas por vendedor (ou uma superwide).** Uma tela só obriga o cérebro a ficar alternando tarefas, e isso gera perda de foco, lentidão e mais erro. Com duas telas, uma fica no CRM e a outra na conversa ou na proposta. O ganho aqui é **produtividade pura**.
 
@@ -107,6 +116,8 @@ Não adianta layout bom com liderança fraca. O supervisor não pode ser um "che
 Porque feedback tardio é aprendizado lento.
 
 ## A TV não é decoração
+
+![A TV como cérebro visual da operação: metas, ranking e funil](assets/sala-tv.jpg)
 
 Ela é o cérebro visual da operação. Ali devem aparecer:
 
@@ -134,6 +145,8 @@ Aprendizado aplicado vale muito mais que teoria.
 ## As paredes também vendem
 
 Pode parecer detalhe, mas o ambiente visual influencia comportamento.
+
+![Vision board, frases estratégicas e técnicas de venda nas paredes](assets/sala-paredes.jpg)
 
 - **Metas emocionais:** casa, carro, família, viagem. Conecta o esforço com o propósito.
 - **Frases estratégicas:** nada de frase bonita e vazia. Use coisas como "sem atividade não há resultado" e "disciplina vence motivação".

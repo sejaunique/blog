@@ -129,6 +129,9 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
 .content a{text-underline-offset:3px}
 .content figure{margin:2em 0}
 .content figure img{border-radius:18px}
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:2em 0}
+.pair figure{margin:0}
+.pair img{aspect-ratio:4/3;object-fit:cover;width:100%}
 .content figcaption{font-size:.78rem;color:var(--muted);margin-top:10px;text-align:center}
 .video{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:18px;overflow:hidden;background:var(--ph)}
 .video iframe,.video video{position:absolute;inset:0;width:100%;height:100%;border:0}
@@ -268,6 +271,7 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
       if(b.indexOf('## ')===0) return '<h2>'+inline(b.slice(3))+'</h2>';
       if(b.indexOf('> ')===0) return '<blockquote>'+inline(b.replace(/^>\s?/gm,''))+'</blockquote>';
       if((m=b.match(/^!\[([^\]]*)\]\(([^)]+)\)$/))) return '<figure><img src="'+esc(m[2])+'" alt="'+esc(m[1])+'" loading="lazy">'+(m[1]?'<figcaption>'+inline(m[1])+'</figcaption>':'')+'</figure>';
+      var ls=b.split(/\n/); if(ls.length>1 && ls.every(function(l){return /^!\[[^\]]*\]\([^)]+\)$/.test(l.trim());})) return '<div class="pair">'+ls.map(function(l){var q=l.trim().match(/^!\[([^\]]*)\]\(([^)]+)\)$/);return '<figure><img src="'+esc(q[2])+'" alt="'+esc(q[1])+'" loading="lazy">'+(q[1]?'<figcaption>'+inline(q[1])+'</figcaption>':'')+'</figure>';}).join('')+'</div>';
       if((m=b.match(/^\[video(?::\s*([^\]]*))?\]\(([^)]+)\)$/i))) return video(m[2],m[1]);
       if(/^- /.test(b)) return '<ul>'+b.split(/\n/).map(function(l){return '<li>'+inline(l.replace(/^- /,''))+'</li>';}).join('')+'</ul>';
       return '<p>'+inline(b).replace(/\n/g,'<br>')+'</p>';

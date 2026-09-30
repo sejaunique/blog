@@ -37,6 +37,7 @@ function corpo(req) {
 module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
   if ((req.query || {}).a === 'ping') return res.json({ ok: true, db: !!(URL_DB && TOKEN), chaves: Object.keys(process.env).filter(k => /KV|REDIS|UPSTASH/.test(k)) });
+  if ((req.query || {}).a === 'pingdb') { try { const r = await redis([['PING']]); return res.json({ ok: true, r }); } catch (e) { return res.json({ ok: false, erro: String(e && e.message || e).slice(0, 200) }); } }
   if (!URL_DB || !TOKEN) return res.status(503).json({ ok: false, off: true });
 
   const ip = String(req.headers['x-forwarded-for'] || 'x').split(',')[0].trim();

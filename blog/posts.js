@@ -52,6 +52,7 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 window.POSTS = [
   {
     slug: "o-dia-que-levei-a-aida-a-serio",
+    capa: "assets/anuncio-bendito-seja.jpg",
     titulo: "O dia em que eu levei a técnica ==AIDA== muito a sério",
     data: "2026-09-30",
     categoria: "Técnica",
@@ -72,6 +73,8 @@ O problema é que todos os anúncios eram iguais: noiva bonita, chique, elegante
 ## Três homens vestidos de noiva
 
 O primeiro anúncio da Bendito Seja foi eu e mais dois colaboradores **vestidos de noiva**.
+
+![O primeiro anúncio da Bendito Seja Filmes na revista de casamento](assets/anuncio-bendito-seja.jpg)
 
 A linha entre a criatividade e a breguice era muito tênue. O risco do ridículo era real. A gente discutiu se ia se maquiar ou não, e como ia se apresentar para não virar chacota e ser visto como algo criativo.
 

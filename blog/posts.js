@@ -74,8 +74,6 @@ O problema é que todos os anúncios eram iguais: noiva bonita, chique, elegante
 
 O primeiro anúncio da Bendito Seja foi eu e mais dois colaboradores **vestidos de noiva**.
 
-![O primeiro anúncio da Bendito Seja Filmes na revista de casamento](assets/anuncio-bendito-seja.jpg)
-
 A linha entre a criatividade e a breguice era muito tênue. O risco do ridículo era real. A gente discutiu se ia se maquiar ou não, e como ia se apresentar para não virar chacota e ser visto como algo criativo.
 
 > Nós pensamos como você.

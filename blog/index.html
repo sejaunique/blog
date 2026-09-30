@@ -287,7 +287,7 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
 
   function sobre(){
     var s=C.sobre||{};
-    return '<section class="about" id="sobre">'+(s.foto?'<img src="'+esc(s.foto)+'" alt="'+esc(s.nome||'')+'" width="609" height="786">':'<div class="cover" style="aspect-ratio:3/4"><div class="ph">'+MARK+'</div></div>')+
+    return '<section class="about" id="sobre">'+(s.foto?'<img src="'+esc(s.foto)+'" alt="'+esc(s.nome||'')+'" width="720" height="835">':'<div class="cover" style="aspect-ratio:3/4"><div class="ph">'+MARK+'</div></div>')+
       '<div><span class="tag">Quem escreve</span><h2>'+inline(s.titulo||'')+'</h2>'+String(s.texto||'').split(/\n\s*\n/).map(function(t){return '<p>'+inline(t.trim())+'</p>';}).join('')+'<div class="btns">'+
       (L.whatsapp?'<a class="btn solid" href="'+L.whatsapp+'" target="_blank" rel="noopener">Falar no WhatsApp</a>':'')+
       (L.instagram?'<a class="btn" href="'+L.instagram+'" target="_blank" rel="noopener">Instagram</a>':'')+'</div></div></section>';

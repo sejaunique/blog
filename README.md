@@ -9,3 +9,9 @@ Site oficial da Unique Consultoria Comercial e o Blog Seja Unique.
 - `blog/assets/`: fotos dos posts.
 
 Cada envio para a branch `main` é publicado automaticamente na Vercel.
+
+## Prévia dos links (WhatsApp, Instagram, LinkedIn)
+
+Depois de publicar ou editar um post, rode `python3 tools/gerar_paginas.py`.
+Ele cria `blog/<slug>/`, com a capa do post como imagem da prévia.
+O link para compartilhar um post é `https://sejaunique.vercel.app/blog/<slug>/`.

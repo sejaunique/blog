@@ -3,7 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta property="og:title" content="Blog Seja Unique"><meta property="og:description" content="Opiniões curtas sobre técnicas e estratégias de vendas. Por Carlos, Unique."><meta name="description" content="Opiniões curtas sobre técnicas e estratégias de vendas. Por Carlos, Unique.">
+<meta property="og:title" content="Blog Seja Unique"><meta property="og:description" content="Opiniões curtas sobre técnicas e estratégias de vendas. Por Carlos Ribeiro, Unique."><meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://sejaunique.vercel.app/blog/">
+<meta property="og:image" content="https://sejaunique.vercel.app/assets/og-blog.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Blog Seja Unique">
+<meta name="twitter:description" content="Opiniões curtas sobre técnicas e estratégias de vendas. Por Carlos Ribeiro, Unique.">
+<meta name="twitter:image" content="https://sejaunique.vercel.app/assets/og-blog.jpg">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#000000">
+<meta name="description" content="Opiniões curtas sobre técnicas e estratégias de vendas. Por Carlos Ribeiro, Unique.">
 <title>Blog Seja Unique</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -324,7 +338,7 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
 
   function post(p){
     var outros=POSTS.filter(function(x){return x!==p;}).slice(0,3);
-    var url=location.href, titulo=plain(p.titulo);
+    var url=location.origin+'/blog/'+p.slug+'/', titulo=plain(p.titulo);
     document.title=titulo+' · '+(C.nome||'Blog');
     app.innerHTML='<article class="view wrap post">'+
       '<header class="head"><span class="tag">'+esc(p.categoria||'')+'</span><h1>'+inline(p.titulo)+'</h1>'+

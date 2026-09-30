@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Unique · Links</title>
-<meta name="description" content="Carlos Ribeiro, Unique Consultoria Comercial. Diagnóstico comercial, site, blog, Instagram e ALDA CRM em um só lugar.">
+<meta name="description" content="Carlos Ribeiro, Unique Consultoria Comercial. Diagnóstico comercial, site, blog, Instagram e Alda.CRM em um só lugar.">
 <meta property="og:title" content="Unique · Links">
 <meta property="og:description" content="Vendas previsíveis não dependem de sorte. Dependem de processo.">
 <meta property="og:image" content="/assets/carlos-hero.jpg">
@@ -63,6 +63,12 @@ a:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .post .tag{font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:var(--muted)}
 .post h3{margin:2px 0 0;font-size:.92rem;font-weight:600;line-height:1.35}
 
+/* depoimentos */
+.depo{display:flex;flex-direction:column;gap:12px}
+.depo .frame{position:relative;width:100%;aspect-ratio:16/9;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--soft)}
+.depo iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.depo p{margin:0;font-size:.78rem;color:var(--muted)}
+
 /* rodapé */
 .foot{display:flex;flex-direction:column;align-items:center;gap:14px;padding-top:8px}
 .social{display:flex;gap:10px}
@@ -106,7 +112,7 @@ a:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 
     <li><a class="lk" href="https://aldacrm.com" target="_blank" rel="noopener">
       <span class="ic"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v4H4zM4 11h10v4H4zM4 17h6v3H4z"/></svg></span>
-      <span class="tx"><strong>ALDA CRM</strong><small>O CRM que eu implanto nas empresas</small></span>
+      <span class="tx"><strong>Alda.CRM</strong><small>O CRM que eu implanto nas empresas</small></span>
       <svg class="icon go" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a></li>
 
     <li><a class="lk" href="https://www.instagram.com/sejauniqueoficial" target="_blank" rel="noopener">
@@ -114,6 +120,14 @@ a:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
       <span class="tx"><strong>Instagram</strong><small>@sejauniqueoficial</small></span>
       <svg class="icon go" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a></li>
   </ul>
+
+  <section class="depo" aria-labelledby="dep">
+    <span class="spaced" id="dep">Depoimentos</span>
+    <div class="frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=PLW0bdrUUNqcU&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playsinline=1&amp;rel=0&amp;modestbranding=1" title="Depoimentos de clientes da Unique" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <p>Os vídeos passam sozinhos. Toque para ativar o som.</p>
+  </section>
 
   <section class="blog" aria-labelledby="ult">
     <div class="head"><span class="spaced" id="ult">Últimos posts</span><a href="/blog/">Ver todos</a></div>

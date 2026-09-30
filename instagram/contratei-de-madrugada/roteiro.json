@@ -18,9 +18,10 @@
    "texto": "Pedi que cada um respondesse **por que aquela vaga deveria ser sua**.\n\n86 se inscreveram. Só ==12== fizeram o que eu pedi."
   },
   {
-   "tipo": "texto",
-   "titulo": "Liguei para os 12 às 2h da manhã",
-   "texto": "Eu não queria alguém que trabalhasse de madrugada. Queria alguém que **se importasse com o resultado, não com o horário**."
+   "tipo": "fotofundo",
+   "img": "blog/assets/carlos-ligacao-4x5.jpg",
+   "titulo": "Liguei para os 12 ==às 2h da manhã==",
+   "texto": "Não queria alguém que trabalhasse de madrugada. Queria alguém que **se importasse com o resultado, não com o horário**."
   },
   {
    "tipo": "lista",

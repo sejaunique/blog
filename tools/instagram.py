@@ -16,6 +16,7 @@ Roteiro: instagram/<slug>/roteiro.json
     {"tipo":"lista","titulo":"...","itens":["...","..."]},
     {"tipo":"frase","texto":"..."},
     {"tipo":"foto","img":"blog/assets/y.jpg","titulo":"...","texto":"..."},
+    {"tipo":"fotofundo","img":"blog/assets/z.jpg","titulo":"...","texto":"..."},
     {"tipo":"cta","titulo":"...","texto":"..."}
   ]
 }
@@ -99,6 +100,11 @@ def slide_html(sl, i, n):
                  '<div class="txt">%s<h1>%s</h1></div>%s</div>') % (
             img_uri(sl["img"]), LOGO, ('<span class="tag">%s</span>' % html.escape(sl["tag"])) if sl.get("tag") else "",
             inline(sl["titulo"]), rodape(i, n, True))
+    elif t == "fotofundo":
+        corpo = ('<div class="s capa escuro"><div class="foto"><img src="%s"></div>'
+                 '<div class="txt"><h2 style="margin:0">%s</h2>%s</div>%s</div>') % (
+            img_uri(sl["img"]), inline(sl["titulo"]),
+            ('<p style="color:#e6e6e8">%s</p>' % inline(sl["texto"])) if sl.get("texto") else "", rodape(i, n, True))
     elif t == "texto":
         corpo = '<div class="s %s"><div class="meio">%s<p>%s</p></div>%s</div>' % (
             "escuro" if sl.get("escuro") else "claro",

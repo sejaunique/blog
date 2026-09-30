@@ -83,6 +83,8 @@ Currículo mostra histórico. O que eu queria ver era execução.
 
 Liguei para os 12 às duas horas da manhã.
 
+![](assets/carlos-ligacao.jpg)
+
 Eu não queria alguém que trabalhasse de madrugada. Eu queria alguém que **não se importasse com horário, e sim com o resultado**. A reação de cada um àquela ligação me disse mais do que qualquer entrevista.
 
 ## O teste do restaurante japonês

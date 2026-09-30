@@ -51,6 +51,49 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 
 window.POSTS = [
   {
+    slug: "o-dia-que-levei-a-aida-a-serio",
+    titulo: "O dia em que eu levei a técnica ==AIDA== muito a sério",
+    data: "2026-09-30",
+    categoria: "Técnica",
+    resumo: "Numa revista cheia de noivas bonitas e iguais, o anúncio da Bendito Seja trazia três homens vestidos de noiva.",
+    texto: `
+Uma das empresas que eu tive se chama **Bendito Seja Filmes**. Entrei no mercado de casamentos e sempre explorei a criatividade. Eu queria fugir do óbvio no filme que os noivos recebiam.
+
+Esse era o nosso diferencial: ==criatividade, inovação e, principalmente, ousadia==.
+
+## A revista que todo mundo precisava estar
+
+Naquela época, anunciar em revista de casamento era normal e muito valioso. Estar ali dava um ar de **autoridade**: se você estava na revista, era uma empresa séria, que tinha condição até de pagar aquele anúncio.
+
+A revista também estava onde a noiva estava. Ela folheava na sala de espera e ganhava um exemplar para levar para casa, como um guia de fornecedores de casamento. Anunciar ali era praticamente obrigatório.
+
+O problema é que todos os anúncios eram iguais: noiva bonita, chique, elegante, dentro do padrão. Você virava a página e encontrava a mesma coisa.
+
+## Três homens vestidos de noiva
+
+O primeiro anúncio da Bendito Seja foi eu e mais dois colaboradores **vestidos de noiva**.
+
+A linha entre a criatividade e a breguice era muito tênue. O risco do ridículo era real. A gente discutiu se ia se maquiar ou não, e como ia se apresentar para não virar chacota e ser visto como algo criativo.
+
+> Nós pensamos como você.
+
+Essa era a mensagem. Mesmo sendo homens, editores e videomakers, a gente pensava como noiva. Não só como mulher, nem só como casal. A gente vestiu a camisa de corpo e alma para entender o que ela pensa.
+
+## A AIDA na prática
+
+A técnica AIDA descreve o caminho de uma venda: **Atenção, Interesse, Desejo e Ação**. Nesse anúncio, cada etapa aconteceu assim:
+
+- **Atenção:** numa revista cheia de noivas iguais, o nosso anúncio quebrava o estereótipo. Era impossível passar direto.
+- **Interesse:** a noiva parava para entender por que aqueles três homens estavam vestidos daquele jeito.
+- **Desejo:** a mensagem mostrava que a gente pensava como ela, e ela queria alguém assim filmando o dia dela.
+- **Ação:** ela guardava a revista e sabia a quem procurar.
+
+O anúncio trouxe exatamente o que eu queria.
+
+> Quando todo mundo mostra a mesma coisa, a atenção vai para quem tem coragem de ser ==diferente==.
+`
+  },
+  {
     slug: "sala-comercial-de-alta-performance",
     video: "https://youtu.be/JDAxoq3qD8U",
     titulo: "Sala comercial de ==alta performance==",

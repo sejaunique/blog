@@ -86,6 +86,10 @@ strong{font-weight:700}
 .chip{font:inherit;font-size:.72rem;font-weight:500;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:7px 16px;cursor:pointer}
 .chip:hover{color:var(--fg);border-color:var(--fg)}
 .chip[aria-pressed="true"]{background:var(--pill);color:var(--pill-fg);border-color:var(--pill)}
+.ordem{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:16px;font-size:.72rem;color:var(--muted)}
+.ordem select{font:inherit;font-size:.72rem;font-weight:600;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:7px 30px 7px 14px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);background-position:calc(100% - 16px) 50%,calc(100% - 11px) 50%;background-size:5px 5px;background-repeat:no-repeat}
+.card .row .n{display:inline-flex;align-items:center;gap:4px}
+.card .row .n .icon{width:13px;height:13px}
 
 /* grade de posts */
 .grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:48px 28px}
@@ -167,6 +171,24 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
 .video-link small{display:block;opacity:.65;font-size:.72rem;word-break:break-all}
 .cta{margin-top:48px;padding:28px 30px;border:1px solid var(--line);border-radius:22px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
 .cta p{margin:0;font-weight:600;font-size:1.05rem;max-width:30ch;line-height:1.4}
+.btn.liked{background:var(--soft);border-color:var(--fg)}
+.btn.liked .icon{fill:currentColor}
+.coments{margin-top:56px;padding-top:40px;border-top:1px solid var(--line)}
+.coments h3{font-size:1.25rem;font-weight:500;letter-spacing:-.01em;margin:0 0 20px}
+.cform{display:grid;gap:10px}
+.cform input,.cform textarea{font:inherit;font-size:.92rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px 14px;width:100%}
+.cform textarea{min-height:110px;resize:vertical;line-height:1.6}
+.cform input:focus,.cform textarea:focus{outline:2px solid var(--focus);outline-offset:1px}
+.cform .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.cform .linha{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.cform small{color:var(--muted);font-size:.75rem}
+.cform .msg{font-size:.8rem;color:var(--muted);margin:0}
+.clist{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:14px}
+.clist li{background:var(--soft);border-radius:18px;padding:16px 18px}
+.clist b{font-size:.85rem}
+.clist time{font-size:.72rem;color:var(--muted);margin-left:8px}
+.clist p{margin:6px 0 0;font-size:.95rem;line-height:1.65;white-space:pre-line;overflow-wrap:anywhere}
+.cvazio{color:var(--muted);font-size:.9rem;margin:24px 0 0}
 .more{margin-top:100px;padding-top:56px;border-top:1px solid var(--line)}
 .more h3{text-align:center;font-size:1.5rem;font-weight:500;letter-spacing:-.015em;margin:0 0 36px}
 .more .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -258,6 +280,9 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
     send:'<path d="M21 4 3 11l7 2.5L12.5 21 21 4zM10 13.5 21 4"/>',
     x:'<path d="M5 4l14 16M19 4 5 20"/>',
     mail:'<rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 7 8 6 8-6"/>',
+    heart:'<path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/>',
+    eye:'<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/>',
+    coment:'<path d="M20 15a2 2 0 0 1-2 2H8l-4 3.5V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/>',
     link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 18.7l1-1"/>'
   };
   function icon(n){ return '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">'+ICONS[n]+'</svg>'; }
@@ -266,8 +291,33 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
   swap('[data-icon]', function(i){ return icon(i.dataset.icon); });
   document.querySelectorAll('[data-link]').forEach(function(a){ var u=L[a.dataset.link]; if(u) a.href=u; else a.hidden=true; });
 
-  var app = document.getElementById('app'), filtro = 'Todos';
-  POSTS.sort(function(a,b){ return a.data < b.data ? 1 : -1; });
+  var app = document.getElementById('app'), filtro = 'Todos', ordem = 'recentes';
+  // Ordem cronológica: mais novo primeiro. Na mesma data, vale a ordem do posts.js (o de cima é o mais novo).
+  POSTS.forEach(function(p,i){ p._i=i; });
+  function porData(a,b){ return a.data===b.data ? a._i-b._i : (a.data < b.data ? 1 : -1); }
+  POSTS.sort(porData);
+
+  // Números do blog (visualizações, curtidas, comentários)
+  var API='/api/blog', ST={views:{},likes:{},comentarios:{}}, API_ON=false;
+  function n(tipo, slug){ return (ST[tipo]||{})[slug]||0; }
+  function dias(p){ return Math.max(0,(Date.now()-new Date(p.data+'T12:00:00').getTime())/864e5); }
+  function relevancia(p){ return (n('likes',p.slug)*3 + n('views',p.slug) + n('comentarios',p.slug)*4 + 1) / Math.pow(dias(p)+2, .6); }
+  var ORDENS={
+    recentes:['Mais recentes', porData],
+    relevantes:['Mais relevantes', function(a,b){ return relevancia(b)-relevancia(a) || porData(a,b); }],
+    curtidos:['Mais curtidos', function(a,b){ return n('likes',b.slug)-n('likes',a.slug) || porData(a,b); }],
+    lidos:['Mais lidos', function(a,b){ return n('views',b.slug)-n('views',a.slug) || porData(a,b); }],
+    antigos:['Mais antigos', function(a,b){ return -porData(a,b); }]
+  };
+  function api(metodo, dados, q){
+    return fetch(API+(q||''), metodo==='GET'?{cache:'no-store'}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(dados)})
+      .then(function(r){ return r.json().catch(function(){return {};}).then(function(j){ j._status=r.status; return j; }); });
+  }
+  function guardado(k,v){ try{ if(v===undefined) return localStorage.getItem(k); if(v===null) localStorage.removeItem(k); else localStorage.setItem(k,v); }catch(e){ return null; } }
+  api('GET',null,'?a=stats').then(function(j){
+    if(!j.ok) return; API_ON=true; ST=j;
+    if(!POSTS.some(function(x){return '#'+x.slug===location.hash;})) lista(true);
+  }).catch(function(){});
 
   var MESES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
   function data(d){ var p=d.split('-'); return +p[2]+' '+MESES[+p[1]-1]+' '+p[0]; }
@@ -312,7 +362,9 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
 
   function card(p){
     return '<li class="card"><a href="#'+p.slug+'">'+capa(p)+
-      '<div class="txt"><div class="row"><span class="tag">'+esc(p.categoria||'')+'</span><time datetime="'+p.data+'">'+data(p.data)+'</time><span>'+minutos(p.texto)+' min</span></div>'+
+      '<div class="txt"><div class="row"><span class="tag">'+esc(p.categoria||'')+'</span><time datetime="'+p.data+'">'+data(p.data)+'</time><span>'+minutos(p.texto)+' min</span>'+
+      (n('likes',p.slug)?'<span class="n" title="Curtidas">'+icon('heart')+n('likes',p.slug)+'</span>':'')+
+      (n('comentarios',p.slug)?'<span class="n" title="Comentários">'+icon('coment')+n('comentarios',p.slug)+'</span>':'')+'</div>'+
       '<h2><span class="t">'+inline(p.titulo)+'</span></h2><p>'+inline(p.resumo||'')+'</p></div></a></li>';
   }
 
@@ -324,16 +376,20 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
       (L.instagram?'<a class="btn" href="'+L.instagram+'" target="_blank" rel="noopener">Instagram</a>':'')+'</div></div></section>';
   }
 
-  function lista(){
+  function lista(manter){
+    var y=window.scrollY;
     var cats=['Todos'].concat(POSTS.map(function(p){return p.categoria;}).filter(function(c,i,a){return c&&a.indexOf(c)===i;}));
-    var vis=POSTS.filter(function(p){return filtro==='Todos'||p.categoria===filtro;});
+    var vis=POSTS.filter(function(p){return filtro==='Todos'||p.categoria===filtro;}).slice().sort(ORDENS[ordem][1]);
     var h=C.abertura||{};
     app.innerHTML='<div class="view wrap">'+
       '<section class="hero"><span class="tag">'+esc(h.selo||'')+'</span><h1>'+inline(h.titulo||'')+'</h1><p>'+inline(h.texto||'')+'</p>'+
-      '<div class="filters" role="group" aria-label="Filtrar por assunto">'+cats.map(function(c){return '<button class="chip" type="button" aria-pressed="'+(c===filtro)+'" data-cat="'+esc(c)+'">'+esc(c)+'</button>';}).join('')+'</div></section>'+
+      '<div class="filters" role="group" aria-label="Filtrar por assunto">'+cats.map(function(c){return '<button class="chip" type="button" aria-pressed="'+(c===filtro)+'" data-cat="'+esc(c)+'">'+esc(c)+'</button>';}).join('')+'</div>'+
+      '<label class="ordem">Ordenar por <select id="ordem">'+Object.keys(ORDENS).map(function(k){return '<option value="'+k+'"'+(k===ordem?' selected':'')+'>'+ORDENS[k][0]+'</option>';}).join('')+'</select></label></section>'+
       (vis.length?'<ul class="grid">'+vis.map(card).join('')+'</ul>':'<p class="empty">Nenhum post nesse assunto ainda.</p>')+
       sobre()+'</div>';
-    app.querySelectorAll('.chip').forEach(function(b){ b.onclick=function(){ filtro=b.dataset.cat; lista(); }; });
+    app.querySelectorAll('.chip').forEach(function(b){ b.onclick=function(){ filtro=b.dataset.cat; lista(true); }; });
+    document.getElementById('ordem').onchange=function(){ ordem=this.value; lista(true); };
+    if(manter) window.scrollTo(0,y);
   }
 
   function post(p){
@@ -351,11 +407,74 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
         '<button type="button" class="js-share" aria-label="Compartilhar">'+icon('share')+'</button>'+
       '</div></aside>'+
       '<div class="content">'+corpo(p.texto)+'</div>'+
-      '<div class="cta"><p>'+inline(C.chamada||'Gostou? Mande para alguém que precisa ler isso.')+'</p><div class="btns"><button type="button" class="btn solid js-share">'+icon('share')+' Compartilhar</button></div></div>'+
+      '<div class="cta"><p>'+inline(C.chamada||'Gostou? Mande para alguém que precisa ler isso.')+'</p><div class="btns"><button type="button" class="btn js-like" aria-pressed="false">'+icon('heart')+' <span>Curtir</span></button><button type="button" class="btn solid js-share">'+icon('share')+' Compartilhar</button></div></div>'+
+      '<section class="coments" id="comentarios"><h3>Comentários</h3>'+
+        '<form class="cform" novalidate><input name="nome" maxlength="60" placeholder="Seu nome" autocomplete="name" required>'+
+        '<textarea name="texto" maxlength="1500" placeholder="O que você achou?" required></textarea>'+
+        '<input class="hp" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">'+
+        '<div class="linha"><small>Seu comentário aparece para todo mundo.</small><button type="submit" class="btn solid">Comentar</button></div><p class="msg" hidden></p></form>'+
+        '<ul class="clist"></ul></section>'+
       '</div>'+
       (outros.length?'<section class="more"><h3>Leia também</h3><ul class="grid">'+outros.map(card).join('')+'</ul></section>':'')+
       '</article>';
     app.querySelectorAll('.js-share').forEach(function(bt){ bt.onclick=function(){ compartilhar(titulo, plain(p.resumo||''), url); }; });
+    interacoes(p);
+  }
+
+  function quando(iso){
+    var d=new Date(iso), s=(Date.now()-d)/1000;
+    if(s<60) return 'agora';
+    if(s<3600) return 'há '+Math.floor(s/60)+' min';
+    if(s<86400) return 'há '+Math.floor(s/3600)+' h';
+    if(s<86400*7) return 'há '+Math.floor(s/86400)+' dia'+(s<172800?'':'s');
+    return d.getDate()+' '+MESES[d.getMonth()]+' '+d.getFullYear();
+  }
+  function itemComentario(c){ return '<li><b>'+esc(c.nome)+'</b><time datetime="'+esc(c.data)+'">'+quando(c.data)+'</time><p>'+esc(c.texto)+'</p></li>'; }
+
+  function interacoes(p){
+    var slug=p.slug;
+    // visualização: conta uma vez por dia por navegador
+    var hoje=new Date().toISOString().slice(0,10), kv='v:'+slug;
+    if(guardado(kv)!==hoje){ api('POST',{a:'view',slug:slug}).then(function(j){ if(j.ok){ guardado(kv,hoje); if(j.views) ST.views[slug]=j.views; } }).catch(function(){}); }
+
+    // curtir
+    var bt=app.querySelector('.js-like'), kl='l:'+slug, busy=false;
+    function pintar(){
+      var on=guardado(kl)==='1', q=n('likes',slug);
+      bt.classList.toggle('liked',on); bt.setAttribute('aria-pressed',on);
+      bt.querySelector('span').textContent=(on?'Curtido':'Curtir')+(q?' · '+q:'');
+    }
+    pintar();
+    bt.onclick=function(){
+      if(busy) return; busy=true;
+      var on=guardado(kl)==='1', d=on?-1:1;
+      guardado(kl,on?null:'1'); ST.likes[slug]=Math.max(0,n('likes',slug)+d); pintar();
+      api('POST',{a:'like',slug:slug,d:d}).then(function(j){ if(j.ok){ ST.likes[slug]=j.likes; } else { guardado(kl,on?'1':null); ST.likes[slug]=Math.max(0,n('likes',slug)-d); } pintar(); busy=false; })
+        .catch(function(){ guardado(kl,on?'1':null); ST.likes[slug]=Math.max(0,n('likes',slug)-d); pintar(); busy=false; });
+    };
+
+    // comentários
+    var box=app.querySelector('.coments'), ul=box.querySelector('.clist'), h3=box.querySelector('h3'), f=box.querySelector('form'), msg=f.querySelector('.msg');
+    function titulo(q){ h3.textContent='Comentários'+(q?' ('+q+')':''); }
+    var lista=[];
+    function desenhar(){ titulo(lista.length); ul.innerHTML=lista.map(itemComentario).join(''); if(!lista.length) ul.innerHTML='<li class="cvazio" style="background:none;padding:0">Seja o primeiro a comentar.</li>'; }
+    api('GET',null,'?a=comments&slug='+encodeURIComponent(slug)).then(function(j){
+      if(j.off||j._status===503){ ul.innerHTML='<li class="cvazio" style="background:none;padding:0">Os comentários abrem em breve.</li>'; f.querySelector('button').disabled=true; return; }
+      if(j.ok){ lista=j.comentarios||[]; desenhar(); }
+    }).catch(function(){});
+    f.onsubmit=function(e){
+      e.preventDefault();
+      var nome=f.nome.value.trim(), texto=f.texto.value.trim(), b=f.querySelector('button[type=submit]');
+      if(nome.length<2||texto.length<2){ msg.hidden=false; msg.textContent='Preencha seu nome e o comentário.'; return; }
+      b.disabled=true; msg.hidden=false; msg.textContent='Enviando...';
+      guardado('nome', nome);
+      api('POST',{a:'comment',slug:slug,nome:nome,texto:texto,site:f.site.value}).then(function(j){
+        b.disabled=false;
+        if(j.ok && j.comentario){ lista.unshift(j.comentario); ST.comentarios[slug]=n('comentarios',slug)+1; desenhar(); f.texto.value=''; msg.textContent='Comentário publicado. Obrigado!'; }
+        else msg.textContent=j.erro||'Não deu para enviar agora. Tente de novo.';
+      }).catch(function(){ b.disabled=false; msg.textContent='Não deu para enviar agora. Tente de novo.'; });
+    };
+    var nm=guardado('nome'); if(nm) f.nome.value=nm;
   }
 
   // Compartilhar: no celular abre o menu do próprio aparelho (WhatsApp, Instagram, etc.).

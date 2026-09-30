@@ -113,7 +113,7 @@ Antes de publicar qualquer coisa, faça quatro perguntas: isso chama a atenção
     slug: "sala-comercial-de-alta-performance",
     video: "https://youtu.be/JDAxoq3qD8U",
     titulo: "Sala comercial de ==alta performance==",
-    data: "2026-09-30",
+    data: "2026-09-28",
     categoria: "Cultura",
     resumo: "Transforme o ambiente, eleve a performance: vendas que nascem do espaço certo.",
     texto: `

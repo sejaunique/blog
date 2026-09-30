@@ -312,7 +312,7 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
         '<button type="button" id="copiar" aria-label="Copiar link">'+icon('link')+'</button><span class="copied" id="copiado" hidden>Link copiado</span>'+
       '</div></aside>'+
       '<div class="content">'+corpo(p.texto)+'</div>'+
-      '<div class="cta"><p>'+inline(C.chamada||'Gostou? Mande para alguém que precisa ler isso.')+'</p><div class="btns"><button type="button" class="btn solid" id="compartilhar">Compartilhar</button><a class="btn" href="https://wa.me/?text='+encodeURIComponent(titulo+' '+url)+'" target="_blank" rel="noopener">Enviar no WhatsApp</a></div><span class="cta-ok" id="cta-ok" hidden>Link copiado. É só colar onde quiser.</span></div>'+
+      '<div class="cta"><p>'+inline(C.chamada||'Gostou? Mande para alguém que precisa ler isso.')+'</p><div class="btns"><button type="button" class="btn solid" id="compartilhar">Compartilhar</button></div><span class="cta-ok" id="cta-ok" hidden>Link copiado. É só colar onde quiser.</span></div>'+
       '</div>'+
       (outros.length?'<section class="more"><h3>Leia também</h3><ul class="grid">'+outros.map(card).join('')+'</ul></section>':'')+
       '</article>';

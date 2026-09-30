@@ -4,10 +4,10 @@
    ========================================================= */
 
 window.BLOG = {
-  nome: "Canivete de Vendas",
+  nome: "Blog Seja Unique",
 
   abertura: {
-    selo: "Blog · Unique",
+    selo: "Blog Seja Unique",
     titulo: "Opiniões curtas sobre ==vender==.",
     texto: "Técnicas e estratégias de vendas do jeito que eu vejo no dia a dia com empresários. Sem tutorial, sem fórmula. Direto ao ponto."
   },
@@ -22,7 +22,7 @@ window.BLOG = {
   chamada: "Gostou? Mande para alguém que precisa ler isso.",
 
   links: {
-    site: "https://www.sejaunique.com",
+    site: "/",
     instagram: "https://www.instagram.com/sejauniqueoficial",
     whatsapp: "https://wa.me/5562996007574"
   }

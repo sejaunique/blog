@@ -3,354 +3,515 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta property="og:title" content="Canivete de Vendas"><meta property="og:description" content="Opiniões curtas sobre técnicas e estratégias de vendas. Por Carlos, Unique."><meta name="description" content="Opiniões curtas sobre técnicas e estratégias de vendas. Por Carlos, Unique.">
-<title>Canivete de Vendas</title>
+<title>Unique Consultoria Comercial</title>
+<meta name="description" content="Estruturamos processos, tecnologia e pessoas para transformar o comercial da sua empresa em uma operação previsível. Carlos Ribeiro, criador do Método CRM: Comportamento Repetido Muda.">
+<meta property="og:title" content="Unique Consultoria Comercial">
+<meta property="og:description" content="Vendas previsíveis não dependem de sorte. Dependem de processo.">
+<meta property="og:image" content="/assets/carlos-hero.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
 <style>
-/* Layout: cabeçalho com menu em pílula no centro; páginas centralizadas; capas grandes com cantos arredondados; texto em coluna estreita com ícones de compartilhar ao lado. Preto e branco da Unique, verde só no grifo. */
+/* Layout: blocos alternando preto e branco da marca Unique; tipografia Montserrat com rótulos espaçados; o "I" da marca como janela de foto; verde só como grifo. */
 :root{
   --bg:#ffffff;
   --fg:#0b0b0c;
-  --muted:#6a6a70;
-  --line:#e6e6e8;
+  --muted:#626268;
+  --line:#e4e4e7;
   --soft:#f4f4f5;
-  --pill:#0b0b0c;
-  --pill-fg:#ffffff;
-  --ph:#0b0b0c;
-  --ph-fg:#ffffff;
+  --ink:#000000;
+  --ink-fg:#f5f5f5;
+  --ink-muted:#a1a1a8;
+  --ink-line:#26262a;
   --grifo:#00e676;
   --focus:#dc0a5a;
   --font:"Montserrat",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
-  --wide:1120px;
-  --read:600px;
-  --r:28px;
+  --wide:1180px;
+  --r:24px;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#000;--fg:#f5f5f5;--muted:#9a9aa1;--line:#232326;--soft:#111113;--pill:#f5f5f5;--pill-fg:#000;--ph:#141416;--ph-fg:#f5f5f5;--grifo:#00ff80;--focus:#ff2e7e;color-scheme:dark}}
+  --bg:#000;--fg:#f5f5f5;--muted:#a1a1a8;--line:#232326;--soft:#111113;--ink:#000000;--ink-fg:#f5f5f5;--ink-muted:#a1a1a8;--ink-line:#26262a;--grifo:#00ff80;--focus:#ff2e7e;color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#000;--fg:#f5f5f5;--muted:#9a9aa1;--line:#232326;--soft:#111113;--pill:#f5f5f5;--pill-fg:#000;--ph:#141416;--ph-fg:#f5f5f5;--grifo:#00ff80;--focus:#ff2e7e;color-scheme:dark}
+  --bg:#000;--fg:#f5f5f5;--muted:#a1a1a8;--line:#232326;--soft:#111113;--ink:#000000;--ink-fg:#f5f5f5;--ink-muted:#a1a1a8;--ink-line:#26262a;--grifo:#00ff80;--focus:#ff2e7e;color-scheme:dark}
 
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:16px;line-height:1.75;margin:0;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:16px;line-height:1.7;margin:0;-webkit-font-smoothing:antialiased}
 a{color:inherit}
 img{max-width:100%;display:block}
 .wrap{max-width:var(--wide);margin-inline:auto;padding-inline:20px}
 a:focus-visible,button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
-.grifo{background:linear-gradient(transparent 58%,var(--grifo) 58%,var(--grifo) 72%,transparent 72%);color:inherit;padding-inline:.06em}
-strong{font-weight:700}
+.grifo{background:linear-gradient(transparent 60%,var(--grifo) 60%,var(--grifo) 74%,transparent 74%);padding-inline:.04em}
+.spaced{font-size:.7rem;font-weight:500;text-transform:uppercase;letter-spacing:.42em}
 .icon{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+section{padding-block:104px}
+.sec-head{display:grid;gap:14px;max-width:760px;margin-bottom:56px}
+.sec-head .spaced{color:var(--muted)}
+.sec-head h2{font-size:clamp(1.9rem,4.2vw,3rem);line-height:1.1;font-weight:600;letter-spacing:-.025em;margin:0;text-wrap:balance}
+.sec-head p{margin:0;color:var(--muted);max-width:60ch;font-size:1.05rem}
+.btn{display:inline-flex;align-items:center;gap:10px;font:inherit;font-size:.82rem;font-weight:600;text-decoration:none;border-radius:999px;padding:14px 24px;border:1px solid currentColor;cursor:pointer;transition:opacity .2s}
+.btn:hover{opacity:.85}
+.btn.solid{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.dark .btn.solid{background:var(--ink-fg);color:var(--ink);border-color:var(--ink-fg)}
 
 /* cabeçalho */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px)}
-.top .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;min-height:76px}
-.brand{justify-self:start;display:flex;align-items:center;text-decoration:none}
-.brand svg{height:16px;width:auto;color:var(--fg)}
-.pill{display:flex;align-items:center;gap:4px;background:var(--pill);color:var(--pill-fg);border-radius:999px;padding:5px 5px 5px 18px}
-.pill a{text-decoration:none;font-size:.78rem;font-weight:500;padding:6px 10px;opacity:.75;border-radius:999px}
-.pill a:hover,.pill a[aria-current="page"]{opacity:1}
-.pill .round{opacity:1;width:32px;height:32px;padding:0;display:grid;place-items:center;background:var(--pill-fg);color:var(--pill);margin-left:6px}
-.pill .round .icon{width:15px;height:15px}
-.social{justify-self:end;display:flex;gap:6px}
-.social a{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;color:var(--fg);text-decoration:none}
-.social a:hover{background:var(--soft)}
+.top{position:fixed;left:0;right:0;top:0;z-index:10;padding-top:env(safe-area-inset-top,0px);color:var(--ink-fg);transition:background .25s,color .25s,border-color .25s;border-bottom:1px solid transparent}
+.top.solid{background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);color:var(--fg);border-bottom-color:var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:72px}
+.brand{display:flex;align-items:center;text-decoration:none}
+.brand svg{height:17px;width:auto}
+.menu{display:flex;align-items:center;gap:28px;font-size:.8rem;font-weight:500}
+.menu a{text-decoration:none;opacity:.8}
+.menu a:hover{opacity:1}
+.menu .btn{opacity:1;padding:10px 18px;font-size:.78rem}
+.top .btn{background:currentColor}
+.top .btn span{color:var(--ink)}
+.top.solid .btn span{color:var(--bg)}
+.burger{display:none;background:none;border:0;color:inherit;padding:8px;cursor:pointer}
+.burger svg{width:22px;height:22px}
 
-/* elementos comuns */
-.tag{display:inline-block;font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.14em;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:4px 12px;line-height:1.4}
-.cover{border-radius:var(--r);overflow:hidden;aspect-ratio:16/9;max-width:100%;background:var(--ph)}
-.cover img{width:100%;height:100%;object-fit:cover}
-.ph{position:relative;width:100%;height:100%;display:grid;place-items:center;background:var(--ph);color:var(--ph-fg)}
-.ph svg{height:46%;width:auto}
-.ph span{position:absolute;left:0;right:0;bottom:7%;text-align:center;font-size:.62rem;font-weight:300;text-transform:uppercase;letter-spacing:.5em;opacity:.7}
+/* abertura */
+.dark{background:var(--ink);color:var(--ink-fg)}
+.dark .muted{color:var(--ink-muted)}
+.hero{padding-block:140px 0;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:end}
+.hero .txt{padding-bottom:96px}
+.hero .spaced{color:var(--ink-muted);display:block;margin-bottom:26px}
+.hero h1{font-size:clamp(2.4rem,5.8vw,4.6rem);line-height:1.02;font-weight:700;letter-spacing:-.035em;margin:0 0 26px;text-wrap:balance}
+.hero p{font-size:1.1rem;color:var(--ink-muted);max-width:46ch;margin:0 0 36px}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.hero .ctas .btn:not(.solid){color:var(--ink-fg)}
+.hero figure{margin:0;align-self:end}
+.hero figure img{width:100%;max-width:520px;margin-left:auto;height:auto}
+.proof{border-top:1px solid var(--ink-line);padding-block:26px;overflow:hidden}
+.marquee{display:flex;gap:48px;white-space:nowrap;width:max-content;animation:roll 60s linear infinite}
+.marquee span{font-size:.7rem;font-weight:500;text-transform:uppercase;letter-spacing:.3em;color:var(--ink-muted)}
+@keyframes roll{to{transform:translateX(-50%)}}
 
-/* abertura da lista */
-.hero{text-align:center;padding-block:56px 48px}
-.hero h1{font-size:clamp(2rem,5.4vw,3.4rem);line-height:1.1;font-weight:500;letter-spacing:-.025em;margin:18px auto 16px;max-width:18ch;text-wrap:balance}
-.hero p{margin:0 auto;max-width:48ch;color:var(--muted)}
-.filters{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:30px}
-.chip{font:inherit;font-size:.72rem;font-weight:500;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:7px 16px;cursor:pointer}
-.chip:hover{color:var(--fg);border-color:var(--fg)}
-.chip[aria-pressed="true"]{background:var(--pill);color:var(--pill-fg);border-color:var(--pill)}
+/* manifesto */
+.manifesto{padding-block:120px}
+.manifesto p{font-size:clamp(1.6rem,3.6vw,2.7rem);line-height:1.25;font-weight:500;letter-spacing:-.02em;margin:0;max-width:22ch;text-wrap:balance}
+.manifesto p b{font-weight:700}
+.manifesto .sig{margin-top:28px;color:var(--muted);font-size:.9rem}
 
-/* grade de posts */
-.grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:48px 28px}
-.card a{display:flex;flex-direction:column;gap:14px;text-decoration:none}
-.card .cover{aspect-ratio:4/3;border-radius:22px;transition:transform .3s ease}
-.card a:hover .cover{transform:scale(.985)}
-.card .row{display:flex;align-items:center;gap:12px;font-size:.75rem;color:var(--muted);font-variant-numeric:tabular-nums}
-.card .txt{display:flex;flex-direction:column;gap:10px;min-width:0}
-.card h2{font-size:1.35rem;line-height:1.3;font-weight:500;letter-spacing:-.015em;margin:0;text-wrap:balance}
-.card p{margin:0;color:var(--muted);font-size:.92rem;line-height:1.6}
-.card a:hover h2 .t{background:linear-gradient(transparent 58%,var(--grifo) 58%,var(--grifo) 72%,transparent 72%)}
-.grid .card:first-child{grid-column:1/-1}
-.grid .card:first-child a{display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:center}
-.grid .card:first-child .cover{aspect-ratio:16/10;border-radius:var(--r)}
-.grid .card:first-child h2{font-size:clamp(1.5rem,3vw,2.1rem)}
-.grid .card:first-child .txt{display:flex;flex-direction:column;gap:14px;min-width:0}
-.empty{text-align:center;color:var(--muted);padding-block:40px}
+/* problema */
+.pain{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.pain div{background:var(--bg);padding:32px 28px}
+.pain h3{font-size:1.05rem;font-weight:600;margin:0 0 8px}
+.pain p{margin:0;color:var(--muted);font-size:.93rem;line-height:1.6}
+.pain .quote{grid-column:1/-1;background:var(--soft);padding:36px 28px;font-size:1.25rem;font-weight:500;line-height:1.45}
+
+/* método */
+.frentes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.frente{border:1px solid var(--ink-line);border-radius:var(--r);padding:30px 26px;display:flex;flex-direction:column;gap:10px;min-height:250px}
+.frente .n{font-size:.7rem;letter-spacing:.3em;color:var(--ink-muted);font-variant-numeric:tabular-nums}
+.frente h3{font-size:1.35rem;font-weight:600;margin:auto 0 0;letter-spacing:-.01em}
+.frente p{margin:0;color:var(--ink-muted);font-size:.9rem;line-height:1.55}
+.pilares{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px;align-items:center}
+.pilares span{border:1px solid var(--ink-line);border-radius:999px;padding:8px 18px;font-size:.8rem}
+.pilares small{color:var(--ink-muted);font-size:.8rem;margin-right:6px}
+
+/* crm */
+.crm{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.crm .big{font-size:clamp(3.2rem,9vw,7rem);line-height:.9;font-weight:800;letter-spacing:-.04em;margin:0}
+.crm .big span{display:block}
+.crm .big em{font-style:normal;font-weight:300;font-size:.28em;letter-spacing:.35em;display:block;margin-top:18px;color:var(--muted);text-transform:uppercase}
+.crm p{margin:0 0 16px;color:var(--muted);font-size:1.05rem}
+.crm p strong{color:var(--fg)}
+
+/* jornada */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--fg)}
+.steps li{padding:26px 24px 0 0;display:flex;flex-direction:column;gap:10px}
+.steps .n{font-size:.7rem;letter-spacing:.3em;color:var(--muted);font-variant-numeric:tabular-nums}
+.steps h3{font-size:1.15rem;font-weight:600;margin:0}
+.steps p{margin:0;color:var(--muted);font-size:.92rem;line-height:1.6}
+.entregas{margin-top:64px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:48px;background:var(--soft);border-radius:var(--r);padding:44px}
+.entregas h3{font-size:1.5rem;font-weight:600;margin:0 0 10px;letter-spacing:-.015em}
+.entregas p{margin:0;color:var(--muted)}
+.entregas ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 28px}
+.entregas li{display:flex;gap:12px;font-size:.95rem;line-height:1.5}
+.entregas li::before{content:"";flex:none;width:12px;height:2px;background:var(--fg);margin-top:.7em}
+.nao{margin-top:18px;font-size:.85rem;color:var(--muted)}
+
+/* serviços */
+.servicos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.servico{border:1px solid var(--line);border-radius:var(--r);padding:34px 32px;display:flex;flex-direction:column;gap:12px}
+.servico .spaced{color:var(--muted)}
+.servico h3{font-size:1.5rem;font-weight:600;margin:0;letter-spacing:-.015em}
+.servico p{margin:0;color:var(--muted);font-size:.95rem}
+.servico ul{margin:6px 0 0;padding-left:1.1em;font-size:.92rem;color:var(--muted);display:grid;gap:4px}
+.servico.destaque{background:var(--ink);color:var(--ink-fg);border-color:var(--ink)}
+.servico.destaque p,.servico.destaque ul,.servico.destaque .spaced{color:var(--ink-muted)}
+
+/* segmentos */
+.segmentos{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px}
+.segmentos span{background:var(--soft);border-radius:999px;padding:10px 20px;font-size:.88rem;font-weight:500}
+
+/* cases */
+.cases{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:start}
+.yt{position:relative;aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;background:#111;cursor:pointer;border:0;padding:0;width:100%;display:block;color:#fff}
+.yt img{width:100%;height:100%;object-fit:cover;opacity:.85;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt .play{position:absolute;inset:0;margin:auto;width:72px;height:72px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;font-size:1.1rem}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.yt-row .yt .play{width:52px;height:52px;font-size:.9rem}
+.quotes{display:grid;gap:16px}
+.q{border-left:2px solid var(--fg);padding:4px 0 4px 22px}
+.q p{margin:0 0 10px;font-size:1.08rem;line-height:1.55;font-weight:500}
+.q cite{font-style:normal;font-size:.8rem;color:var(--muted)}
+.q cite b{color:var(--fg);font-weight:600}
+.clientes{margin-top:64px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.clientes span{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 18px;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.14em;text-align:center;color:var(--muted)}
 
 /* sobre */
-.about{margin-top:112px;padding:40px;background:var(--soft);border-radius:var(--r);display:grid;grid-template-columns:minmax(0,240px) 1fr;gap:44px;align-items:center}
-.about img{width:100%;height:auto;border-radius:18px;background:#000}
-.about h2{font-size:1.7rem;font-weight:500;line-height:1.2;letter-spacing:-.015em;margin:14px 0 12px}
-.about p{margin:0 0 24px;color:var(--muted);max-width:50ch}
-.btns{display:flex;flex-wrap:wrap;gap:10px}
-.btn{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;text-decoration:none;border-radius:999px;padding:11px 20px;border:1px solid var(--fg)}
-.btn.solid{background:var(--pill);color:var(--pill-fg);border-color:var(--pill)}
-.btn:hover{opacity:.85}
-button.btn{font:inherit;font-size:.78rem;font-weight:600;cursor:pointer;background:transparent;color:inherit}
-button.btn.solid{background:var(--pill);color:var(--pill-fg)}
-.cta-ok{flex-basis:100%;font-size:.78rem;color:var(--muted)}
+.sobre{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
+.istrip{display:flex;gap:10px;justify-content:center}
+.istrip img{width:calc(20% - 8px);height:auto;border-radius:4px}
+.sobre h2{font-size:clamp(2rem,4.2vw,3rem);line-height:1.08;font-weight:600;letter-spacing:-.025em;margin:14px 0 22px}
+.sobre ul{list-style:none;margin:0 0 28px;padding:0;display:grid;gap:12px}
+.sobre li{display:flex;gap:14px;line-height:1.5}
+.sobre li::before{content:"";flex:none;width:12px;height:2px;background:var(--ink-fg);margin-top:.7em}
+.sobre p{color:var(--ink-muted);margin:0 0 28px;max-width:52ch}
 
-/* post */
-.head{text-align:center;padding-block:44px 44px}
-.head h1{font-size:clamp(2rem,5.4vw,3.3rem);line-height:1.12;font-weight:500;letter-spacing:-.025em;margin:18px auto 16px;max-width:20ch;text-wrap:balance}
-.head .sub{margin:0 auto;max-width:52ch;color:var(--muted);font-size:.95rem;line-height:1.65}
-.meta{display:flex;justify-content:center;margin-top:30px}
-.meta div{padding-inline:32px;text-align:center;font-size:.72rem;line-height:1.5;font-variant-numeric:tabular-nums}
-.meta div+div{border-left:1px solid var(--line)}
-.meta b{display:block;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:2px}
-.meta span{color:var(--muted)}
-.post .cover{max-width:920px;margin-inline:auto;aspect-ratio:16/9}
-.body{position:relative;max-width:var(--read);margin:56px auto 0}
-.share{position:absolute;left:-84px;top:4px;height:100%}
-.share div{position:sticky;top:110px;display:flex;flex-direction:column;gap:6px}
-.share a,.share button{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;border:0;background:transparent;color:var(--fg);cursor:pointer;text-decoration:none;font:inherit}
-.share a:hover,.share button:hover{background:var(--soft)}
-.copied{position:absolute;left:40px;white-space:nowrap;font-size:.7rem;color:var(--muted)}
-.content>*{margin:0 0 1.2em}
-.content>p:first-child{font-size:1.08rem}
-.content h2{font-size:1.45rem;line-height:1.3;font-weight:500;letter-spacing:-.015em;margin:1.9em 0 .6em}
-.content>h2:first-child{margin-top:0}
-.content blockquote{margin:2em 0;padding:26px 30px;background:var(--soft);border-radius:18px;font-size:1.2rem;line-height:1.5;font-weight:500}
-.content ul{padding-left:1.1em}
-.content li{margin-bottom:.35em}
-.content a{text-underline-offset:3px}
-.content figure{margin:2em 0}
-.content figure img{border-radius:18px}
-.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:2em 0}
-.pair figure{margin:0}
-.pair img{aspect-ratio:4/3;object-fit:cover;width:100%}
-.content figcaption{font-size:.78rem;color:var(--muted);margin-top:10px;text-align:center}
-.video{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:18px;overflow:hidden;background:var(--ph)}
-.video iframe,.video video{position:absolute;inset:0;width:100%;height:100%;border:0}
-.video-link{display:flex;align-items:center;gap:16px;padding:20px 22px;border-radius:18px;background:var(--ph);color:var(--ph-fg);text-decoration:none}
-.video-link .play{width:44px;height:44px;border-radius:50%;background:var(--ph-fg);color:var(--ph);display:grid;place-items:center;flex:none;font-size:.8rem}
-.video-link small{display:block;opacity:.65;font-size:.72rem;word-break:break-all}
-.cta{margin-top:48px;padding:28px 30px;border:1px solid var(--line);border-radius:22px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
-.cta p{margin:0;font-weight:600;font-size:1.05rem;max-width:30ch;line-height:1.4}
-.more{margin-top:100px;padding-top:56px;border-top:1px solid var(--line)}
-.more h3{text-align:center;font-size:1.5rem;font-weight:500;letter-spacing:-.015em;margin:0 0 36px}
-.more .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-.more .grid .card:first-child{grid-column:auto}
-.more .grid .card:first-child a{display:flex;flex-direction:column;gap:14px}
-.more .grid .card:first-child .cover{aspect-ratio:4/3;border-radius:22px}
-.more .grid .card:first-child h2{font-size:1.1rem}
-.more .card h2{font-size:1.1rem}
-.more .card p{display:none}
+/* blog */
+.posts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.posts a{display:flex;flex-direction:column;gap:14px;text-decoration:none}
+.posts .cover{aspect-ratio:4/3;border-radius:20px;overflow:hidden;background:var(--ink);display:grid;place-items:center;color:var(--ink-fg)}
+.posts .cover img{width:100%;height:100%;object-fit:cover}
+.posts .cover svg{height:40%;width:auto}
+.posts .row{font-size:.75rem;color:var(--muted);display:flex;gap:10px;align-items:center}
+.posts .tag{border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.14em}
+.posts h3{font-size:1.2rem;font-weight:500;line-height:1.3;margin:0;letter-spacing:-.01em}
+.posts a:hover h3 .t{background:linear-gradient(transparent 60%,var(--grifo) 60%,var(--grifo) 74%,transparent 74%)}
+.blog-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:48px}
+.blog-head .sec-head{margin:0}
+
+/* chamada final */
+.final{text-align:center;padding-block:130px}
+.final h2{font-size:clamp(2.2rem,5.4vw,4.2rem);line-height:1.05;font-weight:700;letter-spacing:-.035em;margin:18px auto 22px;max-width:16ch;text-wrap:balance}
+.final p{color:var(--ink-muted);max-width:50ch;margin:0 auto 36px;font-size:1.05rem}
+.final .spaced{color:var(--ink-muted)}
 
 /* rodapé */
-.foot{margin-top:112px;border-top:1px solid var(--line)}
-.foot .wrap{display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between;padding-block:32px}
-.foot .mk{display:flex;align-items:center;gap:12px;font-size:.75rem;line-height:1.3;color:var(--muted)}
-.foot .mk svg{height:30px;width:auto;color:var(--fg)}
-.foot nav{display:flex;flex-wrap:wrap;gap:22px;font-size:.78rem}
-.foot nav a{text-decoration:none;color:var(--muted)}
-.foot nav a:hover{color:var(--fg)}
+.foot{border-top:1px solid var(--ink-line)}
+.foot .wrap{display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;padding-block:36px}
+.foot .mk{display:flex;align-items:center;gap:12px;font-size:.75rem;line-height:1.3;color:var(--ink-muted)}
+.foot .mk svg{height:30px;width:auto;color:var(--ink-fg)}
+.foot nav{display:flex;flex-wrap:wrap;gap:24px;font-size:.8rem}
+.foot nav a{text-decoration:none;color:var(--ink-muted)}
+.foot nav a:hover{color:var(--ink-fg)}
+.foot small{color:var(--ink-muted);font-size:.72rem}
 
-@media (max-width:900px){
-  .share{position:static;height:auto;margin-bottom:28px}
-  .share div{position:static;flex-direction:row;justify-content:center}
-  .copied{position:static;align-self:center}
-  .grid,.more .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:980px){
+  .hero .wrap,.crm,.cases,.sobre,.entregas{grid-template-columns:1fr}
+  .hero .txt{padding-bottom:24px}
+  .hero figure img{margin:0 auto;max-width:380px}
+  .frentes{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 0}
+  .pain{grid-template-columns:1fr 1fr}
+  .posts{grid-template-columns:1fr 1fr}
+  .clientes{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
-@media (max-width:680px){
-  .top .wrap{grid-template-columns:auto 1fr;min-height:64px}
-  .social{display:none}
-  .pill{justify-self:end;padding-left:10px}
-  .pill a{padding:6px 7px}
-  .grid,.more .grid{grid-template-columns:1fr;gap:40px}
-  .grid .card:first-child a{grid-template-columns:1fr;gap:14px}
-  .about{grid-template-columns:1fr;padding:24px;gap:24px}
-  .about img{max-width:200px}
-  .meta div{padding-inline:16px}
-  .head,.hero{padding-block:32px 32px}
-  .body{margin-top:36px}
+@media (max-width:720px){
+  section{padding-block:72px}
+  .menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:flex-start;gap:4px;padding:16px 20px 24px;background:var(--bg);color:var(--fg);border-bottom:1px solid var(--line)}
+  .menu a{padding:10px 0;font-size:1rem}
+  .menu.open{display:flex}
+  .burger{display:block}
+  .hero{padding-top:112px}
+  .servicos,.posts,.frentes,.steps,.pain,.yt-row{grid-template-columns:1fr}
+  .entregas{padding:28px}
+  .entregas ul{grid-template-columns:1fr}
+  .clientes{grid-template-columns:1fr 1fr}
+  .istrip{gap:6px}
 }
-@media (prefers-reduced-motion:no-preference){
-  .view{animation:in .35s ease-out both}
-  @keyframes in{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
-}
+@media (prefers-reduced-motion:reduce){.marquee{animation:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-<header class="top">
+
+<header class="top" id="top">
   <div class="wrap">
-    <a class="brand" href="#inicio" aria-label="Início do blog"><i data-svg="logo"></i></a>
-    <nav class="pill" aria-label="Principal">
-      <a href="#inicio" data-nav="inicio">Posts</a>
-      <a href="#sobre" data-nav="sobre">Sobre</a>
-      <a data-link="site" target="_blank" rel="noopener">Site</a>
-      <a class="round" data-link="whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp"><i data-icon="chat"></i></a>
+    <a class="brand" href="#inicio" aria-label="Unique, início"><svg viewBox="0 0 2696 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Unique"><path fill="currentColor" fill-rule="evenodd" d="M2304 50L2300 56L2301 60L2309 66L2329 73L2338 83L2343 97L2343 395L2338 411L2326 422L2304 430L2301 440L2309 445L2629 444L2635 436L2647 391L2645 380L2637 383L2598 423L2585 430L2564 433L2525 434L2484 430L2458 417L2441 396L2434 363L2435 244L2440 241L2532 241L2554 246L2575 265L2596 301L2603 301L2605 173L2596 171L2568 215L2561 222L2545 229L2438 230L2434 226L2433 69L2441 60L2571 60L2591 63L2605 71L2624 91L2641 116L2647 119L2652 116L2641 52L2636 49ZM1801 52L1801 61L1820 72L1831 90L1833 334L1848 371L1871 399L1899 421L1932 437L1963 446L2007 450L2075 447L2118 438L2155 422L2183 399L2198 379L2206 361L2212 325L2215 85L2225 72L2245 60L2245 53L2242 50L2163 49L2158 53L2159 62L2181 76L2187 92L2189 307L2182 339L2160 366L2128 383L2093 390L2055 392L2004 391L1973 383L1949 368L1936 354L1927 338L1922 314L1922 53L1917 49L1805 49ZM1027 49L1024 53L1025 62L1048 77L1054 92L1055 381L1054 401L1049 414L1042 422L1025 431L1024 440L1029 445L1170 445L1175 440L1175 433L1151 415L1145 394L1145 99L1152 76L1175 61L1175 52L1172 49ZM548 50L545 55L548 63L578 74L592 86L591 405L578 423L562 432L562 441L565 444L642 445L648 440L647 431L624 415L619 400L615 123L620 118L904 435L917 445L927 443L930 438L936 92L944 75L967 61L967 52L964 49L884 49L880 54L883 64L903 75L909 85L911 98L912 288L906 292L682 50ZM51 52L50 60L73 77L79 90L81 333L89 358L98 374L119 399L149 422L183 438L211 446L255 450L323 447L366 438L403 422L431 399L446 379L454 361L460 328L463 85L473 72L493 60L493 53L490 50L411 49L406 55L407 61L413 67L430 77L435 92L437 310L430 339L422 352L408 366L376 383L340 390L303 392L252 391L221 383L197 368L184 354L175 338L170 313L170 53L165 49L56 49ZM1248 158L1232 201L1227 256L1233 298L1249 339L1271 370L1300 398L1350 430L1440 478L1512 510L1579 534L1669 557L1702 560L1796 559L1824 550L1866 524L1915 483L1907 481L1899 487L1870 495L1777 498L1676 496L1588 486L1485 463L1465 453L1459 445L1427 439L1388 416L1362 386L1344 352L1336 328L1328 287L1327 222L1336 172L1353 132L1380 96L1414 71L1432 63L1462 56L1505 56L1537 63L1560 73L1581 87L1605 110L1623 135L1639 172L1648 215L1647 288L1639 322L1615 371L1585 404L1560 422L1522 438L1494 442L1485 446L1498 449L1540 447L1609 430L1659 405L1703 367L1725 337L1742 297L1748 255L1742 196L1725 155L1703 124L1675 98L1634 73L1592 57L1552 48L1466 46L1407 50L1357 65L1310 90L1273 122Z"/></svg></a>
+    <button class="burger" type="button" id="burger" aria-label="Abrir menu" aria-expanded="false"><svg viewBox="0 0 24 24" class="icon" style="width:22px;height:22px"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <nav class="menu" id="menu" aria-label="Principal">
+      <a href="#metodo">Método</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#cases">Cases</a>
+      <a href="#sobre">Sobre</a>
+      <a href="/blog/">Blog</a>
+      <a class="btn" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Vim%20pelo%20site%20da%20Unique%20e%20quero%20um%20diagn%C3%B3stico%20comercial%20para%20a%20minha%20empresa." target="_blank" rel="noopener"><span>Quero um diagnóstico</span></a>
     </nav>
-    <div class="social">
-      <a data-link="instagram" target="_blank" rel="noopener" aria-label="Instagram"><i data-icon="insta"></i></a>
-      <a data-link="whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp"><i data-icon="chat"></i></a>
-      <a data-link="site" target="_blank" rel="noopener" aria-label="Site"><i data-icon="globe"></i></a>
-    </div>
   </div>
 </header>
 
-<main id="app"></main>
+<main id="inicio">
 
-<footer class="foot">
+<section class="dark hero">
   <div class="wrap">
-    <div class="mk"><i data-svg="mark"></i><span>Marketing para<br>Empresas</span></div>
-    <nav aria-label="Contato">
-      <a data-link="site" target="_blank" rel="noopener">sejaunique.com</a>
-      <a data-link="instagram" target="_blank" rel="noopener">Instagram</a>
-      <a data-link="whatsapp" target="_blank" rel="noopener">WhatsApp</a>
-    </nav>
+    <div class="txt">
+      <span class="spaced">Unique · Consultoria Comercial</span>
+      <h1>Vendas previsíveis não dependem de sorte. Dependem de <span class="grifo">processo</span>.</h1>
+      <p>Estruturamos processos, tecnologia e pessoas para transformar o comercial da sua empresa em uma operação previsível, organizada e escalável.</p>
+      <div class="ctas">
+        <a class="btn solid" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Vim%20pelo%20site%20da%20Unique%20e%20quero%20um%20diagn%C3%B3stico%20comercial%20para%20a%20minha%20empresa." target="_blank" rel="noopener">Quero um diagnóstico comercial</a>
+        <a class="btn" href="#metodo">Conhecer o método</a>
+      </div>
+    </div>
+    <figure><img src="/assets/carlos-hero.jpg" alt="Carlos Ribeiro, fundador da Unique, dentro do I da marca" width="600" height="810"></figure>
   </div>
-</footer>
+  <div class="proof" aria-label="Empresas atendidas">
+    <div class="marquee" aria-hidden="true"><span>Clínica Brasil</span><span>Multiodonto</span><span>Tendas Aluban</span><span>Global Química</span><span>Grupo Siqueira Gaipo</span><span>Casa Lis</span><span>IDO Odontologia</span><span>URBS</span><span>SuperBolla</span><span>Instituto Rogério Penna</span><span>Laboratório Alcântara</span><span>Holanda Empresarial</span><span>Clínica Brasil</span><span>Multiodonto</span><span>Tendas Aluban</span><span>Global Química</span><span>Grupo Siqueira Gaipo</span><span>Casa Lis</span><span>IDO Odontologia</span><span>URBS</span><span>SuperBolla</span><span>Instituto Rogério Penna</span><span>Laboratório Alcântara</span><span>Holanda Empresarial</span></div>
+  </div>
+</section>
 
-<script src="posts.js"></script>
+<section class="manifesto">
+  <div class="wrap">
+    <p>A Unique não oferece consultoria nem mentoria. Oferece <b>execução estratégica</b> com <span class="grifo">inteligência comercial</span>.</p>
+    <div class="sig">Carlos Ribeiro, fundador da Unique</div>
+  </div>
+</section>
+
+<section id="problema" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="spaced">O diagnóstico que mais se repete</span>
+      <h2>O problema quase nunca é falta de cliente. É estrutura.</h2>
+      <p>Existe venda. Existe demanda. Mas ainda não existe um sistema comercial preparado para sustentar o crescimento.</p>
+    </div>
+    <div class="pain">
+      <div><h3>Depende do dono</h3><p>As vendas grandes ainda passam pela mão de uma ou duas pessoas-chave.</p></div>
+      <div><h3>Funil na memória</h3><p>Sem CRM de verdade, ninguém sabe o que vai fechar no mês que vem.</p></div>
+      <div><h3>Follow-up sem padrão</h3><p>Cada vendedor faz de um jeito, e o lead que não comprou some do radar.</p></div>
+      <div><h3>WhatsApp sem estratégia</h3><p>O canal que mais vende é usado só como operação, sem régua nem automação.</p></div>
+      <div><h3>Regras que se dobram</h3><p>A política comercial existe, mas é quebrada conforme a situação.</p></div>
+      <div><h3>Sem indicador</h3><p>Conversão, perdas e objeções não são medidas. Decisão vira achismo.</p></div>
+      <div class="quote">"A empresa não sofre por falta de mercado. Sofre porque o comercial ainda depende demais das pessoas e pouco do processo."</div>
+    </div>
+  </div>
+</section>
+
+<section class="dark" id="metodo">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="spaced muted">Growth Sales</span>
+      <h2>Um modelo que olha para as quatro frentes do comercial.</h2>
+      <p class="muted">Do diagnóstico à execução, o Growth Sales une visão estratégica com implementação prática e mensurável.</p>
+    </div>
+    <div class="frentes">
+      <div class="frente"><span class="n">01</span><h3>Prospecção</h3><p>Como a empresa encontra e aborda o cliente certo.</p></div>
+      <div class="frente"><span class="n">02</span><h3>Vendas</h3><p>Atendimento, nutrição e fechamento com roteiro e ritmo.</p></div>
+      <div class="frente"><span class="n">03</span><h3>Fidelização</h3><p>Frequência de compra, pós-venda e indicação.</p></div>
+      <div class="frente"><span class="n">04</span><h3>Recuperação</h3><p>Clientes inativos e oportunidades que ficaram pelo caminho.</p></div>
+    </div>
+    <div class="pilares"><small>Sempre em três pilares:</small><span>Processos</span><span>Tecnologia</span><span>Pessoas</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap crm">
+    <p class="big"><span>C.</span><span>R.</span><span>M.</span><em>Método autoral</em></p>
+    <div>
+      <div class="sec-head" style="margin-bottom:24px">
+        <span class="spaced">Método CRM</span>
+        <h2>Comportamento <span class="grifo">Repetido</span> Muda.</h2>
+      </div>
+      <p>CRM não é só um sistema. É o comportamento certo, repetido todos os dias, até virar cultura.</p>
+      <p>É por isso que a Unique não entrega só a ferramenta. Entrega <strong>rotina comercial, scripts, régua de follow-up e leitura de dados</strong>, para o time sair do modo "apagar incêndio" e o resultado deixar de depender de sorte.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="spaced">Como funciona</span>
+      <h2>Um projeto de até 3 meses, com começo, meio e fim.</h2>
+    </div>
+    <ol class="steps">
+      <li><span class="n">01</span><h3>Diagnóstico</h3><p>Análise da estrutura comercial atual, score de maturidade e mapa de gargalos.</p></li>
+      <li><span class="n">02</span><h3>Planejamento</h3><p>Mapeamento das ações comerciais e organização do processo de vendas.</p></li>
+      <li><span class="n">03</span><h3>Estruturação</h3><p>Funil no CRM, scripts, materiais de apoio e rotinas do time.</p></li>
+      <li><span class="n">04</span><h3>Acompanhamento</h3><p>Encontros estratégicos, testes A/B e ajustes até o processo rodar.</p></li>
+    </ol>
+    <div class="entregas">
+      <div>
+        <h3>O que você recebe</h3>
+        <p>Toda a documentação fica organizada na plataforma do projeto, com acesso contínuo para a sua equipe.</p>
+        <p class="nao">O projeto não inclui gestão de tráfego pago, compra de mídia nem a operação diária do time de vendas.</p>
+      </div>
+      <ul>
+        <li>Diagnóstico comercial estruturado</li>
+        <li>Mapeamento de ações estratégicas</li>
+        <li>Estruturação do funil comercial no CRM</li>
+        <li>Scripts por etapa e por nicho</li>
+        <li>Rotinas comerciais e régua de follow-up</li>
+        <li>Estratégia de cross-sell e recompra</li>
+        <li>Bonificação vinculada a metas</li>
+        <li>Encontros presenciais e acompanhamento online</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="servicos" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="spaced">Serviços</span>
+      <h2>Por onde a sua empresa pode começar.</h2>
+    </div>
+    <div class="servicos">
+      <div class="servico destaque">
+        <span class="spaced">Porta de entrada</span>
+        <h3>Diagnóstico comercial</h3>
+        <p>Um raio-x do seu comercial com score de maturidade, falhas tecnológicas, retrato do funil atual e um relatório de gargalos com as ações prioritárias.</p>
+      </div>
+      <div class="servico">
+        <span class="spaced">Projeto</span>
+        <h3>Estruturação comercial</h3>
+        <p>O Growth Sales aplicado na sua empresa: processo, funil, scripts, rotinas e indicadores para vender com previsibilidade.</p>
+      </div>
+      <div class="servico">
+        <span class="spaced">Tecnologia</span>
+        <h3>Implantação de CRM e automações</h3>
+        <p>Escolha e implantação do software certo para o seu momento, com WhatsApp integrado, funis e automações comerciais.</p>
+      </div>
+      <div class="servico">
+        <span class="spaced">Pessoas</span>
+        <h3>Treinamentos e palestras</h3>
+        <p>Capacitação do time em abordagem, objeções, fechamento e atendimento humanizado, dentro da realidade da sua empresa.</p>
+      </div>
+    </div>
+    <div class="segmentos" aria-label="Segmentos atendidos">
+      <span>Clínicas e odontologia</span><span>Indústria e distribuição</span><span>Têxtil e confecção</span><span>Serviços e eventos</span><span>Varejo</span>
+    </div>
+  </div>
+</section>
+
+<section id="cases" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="spaced">Cases</span>
+      <h2>O que falam de nós.</h2>
+    </div>
+    <div class="cases">
+      <div>
+        <button class="yt" type="button" data-id="ELd5QDM54NM" aria-label="Assistir ao depoimento em vídeo"><img src="https://img.youtube.com/vi/ELd5QDM54NM/hqdefault.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true">▶</span></button>
+        <div class="yt-row">
+          <button class="yt" type="button" data-id="hPJOKWCvEQo" aria-label="Assistir a outro case em vídeo"><img src="https://img.youtube.com/vi/hPJOKWCvEQo/hqdefault.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true">▶</span></button>
+          <button class="yt" type="button" data-id="OCxVrZ1iskE" aria-label="Assistir a mais um case em vídeo"><img src="https://img.youtube.com/vi/OCxVrZ1iskE/hqdefault.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true">▶</span></button>
+        </div>
+      </div>
+      <div class="quotes">
+        <blockquote class="q"><p>"Foi muito positivo, prático. Conseguimos levar para a realidade da empresa. Sentimos o envolvimento dos colaboradores e seguramente a sistemática vai dar um retorno muito bom para a clínica."</p><cite><b>Dr. Evandro Queiroz e Evandro Vitoy</b> · Diretores da Clínica Brasil</cite></blockquote>
+        <blockquote class="q"><p>"Minha primeira impressão sobre o Carlos foi que ele era louco. Mas depois, vi o quanto ele agregou para nós. Atendimento humanizado e um aumento nas conversões que ninguém esperava."</p><cite><b>Rafael</b> · Supervisor de Atendimento Online, Clínica Brasil</cite></blockquote>
+        <blockquote class="q"><p>"Cada centavo que investi, eu não me arrependo. O Carlos me deu a realidade e me mostrou o que precisava ser feito sem rodeios."</p><cite><b>Laboratório Alcântara</b></cite></blockquote>
+      </div>
+    </div>
+    <div class="clientes" aria-label="Algumas empresas atendidas"><span>Clínica Brasil</span><span>Multiodonto</span><span>Tendas Aluban</span><span>Global Química</span><span>Grupo Siqueira Gaipo</span><span>Casa Lis</span><span>IDO Odontologia</span><span>URBS</span><span>SuperBolla</span><span>Instituto Rogério Penna</span><span>Laboratório Alcântara</span><span>Holanda Empresarial</span></div>
+  </div>
+</section>
+
+<section class="dark" id="sobre">
+  <div class="wrap sobre">
+    <div class="istrip">
+      <img src="/assets/i-palco.jpg" alt="Carlos em palestra" loading="lazy" width="576" height="1536">
+      <img src="/assets/i-treinamento.jpg" alt="Carlos conduzindo um treinamento" loading="lazy" width="576" height="1536">
+      <img src="/assets/i-reuniao.jpg" alt="Reunião na Unique" loading="lazy" width="576" height="1536">
+      <img src="/assets/i-estudio.jpg" alt="Carlos em gravação no estúdio" loading="lazy" width="576" height="1536">
+      <img src="/assets/i-reflexao.jpg" alt="Carlos em momento de reflexão" loading="lazy" width="576" height="1536">
+    </div>
+    <div>
+      <span class="spaced muted">Quem está por trás</span>
+      <h2>Olá, sou Carlos Ribeiro.</h2>
+      <ul>
+        <li>Fundador da Unique Consultoria Comercial</li>
+        <li>Estrategista comercial e especialista em processos de vendas</li>
+        <li>Criador do Método CRM: Comportamento Repetido Muda</li>
+        <li>Mentor comercial da Têxtil Club Academy</li>
+        <li>Especialista em implantação de CRM e automações comerciais</li>
+      </ul>
+      <p>Desde 2018 ajudando empresários a construir previsibilidade de vendas, com estratégia, dados e o comportamento certo no time.</p>
+      <a class="btn solid" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Vim%20pelo%20site%20da%20Unique%20e%20quero%20um%20diagn%C3%B3stico%20comercial%20para%20a%20minha%20empresa." target="_blank" rel="noopener">Conversar com o Carlos</a>
+    </div>
+  </div>
+</section>
+
+<section id="blog">
+  <div class="wrap">
+    <div class="blog-head">
+      <div class="sec-head">
+        <span class="spaced">Blog Seja Unique</span>
+        <h2>Opiniões curtas sobre vender.</h2>
+      </div>
+      <a class="btn" href="/blog/">Ver todos os posts</a>
+    </div>
+    <ul class="posts" id="posts"><li style="color:var(--muted)">Carregando os posts do blog…</li></ul>
+  </div>
+</section>
+
+<section class="dark final" id="contato">
+  <div class="wrap">
+    <span class="spaced">Próximo passo</span>
+    <h2>Qual é o score comercial da sua empresa?</h2>
+    <p>Comece pelo diagnóstico. Em uma conversa, a gente entende o seu cenário e mostra onde está o maior gargalo das suas vendas.</p>
+    <a class="btn solid" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Vim%20pelo%20site%20da%20Unique%20e%20quero%20um%20diagn%C3%B3stico%20comercial%20para%20a%20minha%20empresa." target="_blank" rel="noopener">Falar no WhatsApp</a>
+  </div>
+  <footer class="foot">
+    <div class="wrap">
+      <div class="mk"><svg viewBox="0 0 318 879" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M3 0L0 3L1 30L36 48L49 60L56 72L61 102L62 761L54 812L36 831L1 849L0 876L3 879L313 879L318 875L317 851L272 825L261 810L255 789L254 111L257 79L265 61L278 49L317 28L318 4L313 0Z"/></svg><span>Consultoria<br>Comercial</span></div>
+      <nav aria-label="Rodapé">
+        <a href="#metodo">Método</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#cases">Cases</a>
+        <a href="/blog/">Blog</a>
+        <a href="https://www.instagram.com/sejauniqueoficial" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Vim%20pelo%20site%20da%20Unique%20e%20quero%20um%20diagn%C3%B3stico%20comercial%20para%20a%20minha%20empresa." target="_blank" rel="noopener">WhatsApp</a>
+      </nav>
+      <small>© 2018–2026 Seja Unique</small>
+    </div>
+  </footer>
+</section>
+
+</main>
+
+<script src="/blog/posts.js"></script>
 <script>
 (function(){
-  var C = window.BLOG || {}, POSTS = (window.POSTS || []).slice(), L = C.links || {};
-  var LOGO = '<svg viewBox="0 0 2696 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Unique"><path fill="currentColor" fill-rule="evenodd" d="M2304 50L2300 56L2301 60L2309 66L2329 73L2338 83L2343 97L2343 395L2338 411L2326 422L2304 430L2301 440L2309 445L2629 444L2635 436L2647 391L2645 380L2637 383L2598 423L2585 430L2564 433L2525 434L2484 430L2458 417L2441 396L2434 363L2435 244L2440 241L2532 241L2554 246L2575 265L2596 301L2603 301L2605 173L2596 171L2568 215L2561 222L2545 229L2438 230L2434 226L2433 69L2441 60L2571 60L2591 63L2605 71L2624 91L2641 116L2647 119L2652 116L2641 52L2636 49ZM1801 52L1801 61L1820 72L1831 90L1833 334L1848 371L1871 399L1899 421L1932 437L1963 446L2007 450L2075 447L2118 438L2155 422L2183 399L2198 379L2206 361L2212 325L2215 85L2225 72L2245 60L2245 53L2242 50L2163 49L2158 53L2159 62L2181 76L2187 92L2189 307L2182 339L2160 366L2128 383L2093 390L2055 392L2004 391L1973 383L1949 368L1936 354L1927 338L1922 314L1922 53L1917 49L1805 49ZM1027 49L1024 53L1025 62L1048 77L1054 92L1055 381L1054 401L1049 414L1042 422L1025 431L1024 440L1029 445L1170 445L1175 440L1175 433L1151 415L1145 394L1145 99L1152 76L1175 61L1175 52L1172 49ZM548 50L545 55L548 63L578 74L592 86L591 405L578 423L562 432L562 441L565 444L642 445L648 440L647 431L624 415L619 400L615 123L620 118L904 435L917 445L927 443L930 438L936 92L944 75L967 61L967 52L964 49L884 49L880 54L883 64L903 75L909 85L911 98L912 288L906 292L682 50ZM51 52L50 60L73 77L79 90L81 333L89 358L98 374L119 399L149 422L183 438L211 446L255 450L323 447L366 438L403 422L431 399L446 379L454 361L460 328L463 85L473 72L493 60L493 53L490 50L411 49L406 55L407 61L413 67L430 77L435 92L437 310L430 339L422 352L408 366L376 383L340 390L303 392L252 391L221 383L197 368L184 354L175 338L170 313L170 53L165 49L56 49ZM1248 158L1232 201L1227 256L1233 298L1249 339L1271 370L1300 398L1350 430L1440 478L1512 510L1579 534L1669 557L1702 560L1796 559L1824 550L1866 524L1915 483L1907 481L1899 487L1870 495L1777 498L1676 496L1588 486L1485 463L1465 453L1459 445L1427 439L1388 416L1362 386L1344 352L1336 328L1328 287L1327 222L1336 172L1353 132L1380 96L1414 71L1432 63L1462 56L1505 56L1537 63L1560 73L1581 87L1605 110L1623 135L1639 172L1648 215L1647 288L1639 322L1615 371L1585 404L1560 422L1522 438L1494 442L1485 446L1498 449L1540 447L1609 430L1659 405L1703 367L1725 337L1742 297L1748 255L1742 196L1725 155L1703 124L1675 98L1634 73L1592 57L1552 48L1466 46L1407 50L1357 65L1310 90L1273 122Z"/></svg>';
-  var MARK = '<svg viewBox="0 0 318 879" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M3 0L0 3L1 30L36 48L49 60L56 72L61 102L62 761L54 812L36 831L1 849L0 876L3 879L313 879L318 875L317 851L272 825L261 810L255 789L254 111L257 79L265 61L278 49L317 28L318 4L313 0Z"/></svg>';
-  var ICONS = {
-    chat:'<path d="M20 11.5a8 8 0 0 1-11.6 7.1L4 20l1.4-4.2A8 8 0 1 1 20 11.5z"/>',
-    insta:'<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/>',
-    globe:'<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 2.5 14.4 0 17M12 3.5c-2.5 2.6-2.5 14.4 0 17"/>',
-    linkedin:'<rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 10.5V16M8 7.8v.1M11.5 16v-5.5M11.5 13c0-1.6 1-2.6 2.3-2.6s2.2.9 2.2 2.6V16"/>',
-    link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 18.7l1-1"/>'
-  };
-  function icon(n){ return '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">'+ICONS[n]+'</svg>'; }
-  function swap(sel, html){ document.querySelectorAll(sel).forEach(function(i){ var t=document.createElement('div'); t.innerHTML=html(i); i.replaceWith(t.firstChild); }); }
-  swap('[data-svg]', function(i){ return i.dataset.svg==='logo'?LOGO:MARK; });
-  swap('[data-icon]', function(i){ return icon(i.dataset.icon); });
-  document.querySelectorAll('[data-link]').forEach(function(a){ var u=L[a.dataset.link]; if(u) a.href=u; else a.hidden=true; });
+  // links antigos do blog (sejaunique.vercel.app/#post) vão para /blog/
+  var h=location.hash.replace('#','');
+  if(h && window.POSTS && window.POSTS.some(function(p){return p.slug===h;})){ location.replace('/blog/#'+h); return; }
 
-  var app = document.getElementById('app'), filtro = 'Todos';
-  POSTS.sort(function(a,b){ return a.data < b.data ? 1 : -1; });
+  var top=document.getElementById('top');
+  function onScroll(){ top.classList.toggle('solid', window.scrollY>40); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
 
+  var burger=document.getElementById('burger'), menu=document.getElementById('menu');
+  burger.onclick=function(){ var o=menu.classList.toggle('open'); burger.setAttribute('aria-expanded',o); top.classList.add('solid'); };
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ menu.classList.remove('open'); burger.setAttribute('aria-expanded','false'); }); });
+
+  document.querySelectorAll('.yt').forEach(function(b){
+    b.addEventListener('click',function(){
+      b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+b.dataset.id+'?autoplay=1" title="Vídeo" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+    },{once:true});
+  });
+
+  var MARK='<svg viewBox="0 0 318 879" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M3 0L0 3L1 30L36 48L49 60L56 72L61 102L62 761L54 812L36 831L1 849L0 876L3 879L313 879L318 875L317 851L272 825L261 810L255 789L254 111L257 79L265 61L278 49L317 28L318 4L313 0Z"/></svg>';
   var MESES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
-  function data(d){ var p=d.split('-'); return +p[2]+' '+MESES[+p[1]-1]+' '+p[0]; }
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
-  function inline(s){
-    return esc(s)
-      .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-      .replace(/==(.+?)==/g,'<mark class="grifo">$1</mark>')
-      .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
-  }
-  function plain(s){ return String(s).replace(/==|\*\*/g,''); }
-  function minutos(t){ return Math.max(1, Math.round(t.split(/\s+/).length/200)); }
-
-  function capa(p, noPost){
-    var yt=p.video?ytId(p.video):null;
-    if(noPost && yt && !preview) return '<div class="cover"><iframe src="https://www.youtube-nocookie.com/embed/'+yt+'" title="Vídeo" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen style="width:100%;height:100%;border:0;display:block"></iframe></div>';
-    var img=p.capa||(yt?'https://img.youtube.com/vi/'+yt+'/hqdefault.jpg':'');
-    if(img) return '<div class="cover"><img src="'+esc(img)+'" alt="" loading="lazy"></div>';
-    return '<div class="cover"><div class="ph">'+MARK+'<span>'+esc(p.categoria||'')+'</span></div></div>';
-  }
-
-  function ytId(u){ var m=u.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([\w-]{11})/); return m?m[1]:null; }
-  var preview = /claude|anthropic/.test(location.hostname);
-  function video(u, leg){
-    var id=ytId(u), cap=leg?'<figcaption>'+inline(leg)+'</figcaption>':'';
-    if(/\.(mp4|webm|mov)(\?|$)/i.test(u)) return '<figure><div class="video"><video controls preload="metadata" src="'+esc(u)+'"></video></div>'+cap+'</figure>';
-    if(id && !preview) return '<figure><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/'+id+'" title="Vídeo" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>'+cap+'</figure>';
-    return '<figure><a class="video-link" href="'+esc(u)+'" target="_blank" rel="noopener"><span class="play" aria-hidden="true">▶</span><span><strong>Assistir o vídeo</strong><small>'+esc(u)+'</small></span></a>'+cap+'</figure>';
-  }
-  function corpo(txt){
-    return txt.trim().split(/\n\s*\n/).map(function(b){
-      b=b.trim(); var m;
-      if(b.indexOf('## ')===0) return '<h2>'+inline(b.slice(3))+'</h2>';
-      if(b.indexOf('> ')===0) return '<blockquote>'+inline(b.replace(/^>\s?/gm,''))+'</blockquote>';
-      if((m=b.match(/^!\[([^\]]*)\]\(([^)]+)\)$/))) return '<figure><img src="'+esc(m[2])+'" alt="'+esc(m[1])+'" loading="lazy">'+(m[1]?'<figcaption>'+inline(m[1])+'</figcaption>':'')+'</figure>';
-      var ls=b.split(/\n/); if(ls.length>1 && ls.every(function(l){return /^!\[[^\]]*\]\([^)]+\)$/.test(l.trim());})) return '<div class="pair">'+ls.map(function(l){var q=l.trim().match(/^!\[([^\]]*)\]\(([^)]+)\)$/);return '<figure><img src="'+esc(q[2])+'" alt="'+esc(q[1])+'" loading="lazy">'+(q[1]?'<figcaption>'+inline(q[1])+'</figcaption>':'')+'</figure>';}).join('')+'</div>';
-      if((m=b.match(/^\[video(?::\s*([^\]]*))?\]\(([^)]+)\)$/i))) return video(m[2],m[1]);
-      if(/^- /.test(b)) return '<ul>'+b.split(/\n/).map(function(l){return '<li>'+inline(l.replace(/^- /,''))+'</li>';}).join('')+'</ul>';
-      return '<p>'+inline(b).replace(/\n/g,'<br>')+'</p>';
-    }).join('');
-  }
-
-  function card(p){
-    return '<li class="card"><a href="#'+p.slug+'">'+capa(p)+
-      '<div class="txt"><div class="row"><span class="tag">'+esc(p.categoria||'')+'</span><time datetime="'+p.data+'">'+data(p.data)+'</time><span>'+minutos(p.texto)+' min</span></div>'+
-      '<h2><span class="t">'+inline(p.titulo)+'</span></h2><p>'+inline(p.resumo||'')+'</p></div></a></li>';
-  }
-
-  function sobre(){
-    var s=C.sobre||{};
-    return '<section class="about" id="sobre">'+(s.foto?'<img src="'+esc(s.foto)+'" alt="'+esc(s.nome||'')+'" width="609" height="786">':'<div class="cover" style="aspect-ratio:3/4"><div class="ph">'+MARK+'</div></div>')+
-      '<div><span class="tag">Quem escreve</span><h2>'+inline(s.titulo||'')+'</h2><p>'+inline(s.texto||'')+'</p><div class="btns">'+
-      (L.whatsapp?'<a class="btn solid" href="'+L.whatsapp+'" target="_blank" rel="noopener">Falar no WhatsApp</a>':'')+
-      (L.instagram?'<a class="btn" href="'+L.instagram+'" target="_blank" rel="noopener">Instagram</a>':'')+'</div></div></section>';
-  }
-
-  function lista(){
-    var cats=['Todos'].concat(POSTS.map(function(p){return p.categoria;}).filter(function(c,i,a){return c&&a.indexOf(c)===i;}));
-    var vis=POSTS.filter(function(p){return filtro==='Todos'||p.categoria===filtro;});
-    var h=C.abertura||{};
-    app.innerHTML='<div class="view wrap">'+
-      '<section class="hero"><span class="tag">'+esc(h.selo||'')+'</span><h1>'+inline(h.titulo||'')+'</h1><p>'+inline(h.texto||'')+'</p>'+
-      '<div class="filters" role="group" aria-label="Filtrar por assunto">'+cats.map(function(c){return '<button class="chip" type="button" aria-pressed="'+(c===filtro)+'" data-cat="'+esc(c)+'">'+esc(c)+'</button>';}).join('')+'</div></section>'+
-      (vis.length?'<ul class="grid">'+vis.map(card).join('')+'</ul>':'<p class="empty">Nenhum post nesse assunto ainda.</p>')+
-      sobre()+'</div>';
-    app.querySelectorAll('.chip').forEach(function(b){ b.onclick=function(){ filtro=b.dataset.cat; lista(); }; });
-  }
-
-  function post(p){
-    var outros=POSTS.filter(function(x){return x!==p;}).slice(0,3);
-    var url=location.href, titulo=plain(p.titulo);
-    document.title=titulo+' · '+(C.nome||'Blog');
-    app.innerHTML='<article class="view wrap post">'+
-      '<header class="head"><span class="tag">'+esc(p.categoria||'')+'</span><h1>'+inline(p.titulo)+'</h1>'+
-      (p.resumo?'<p class="sub">'+inline(p.resumo)+'</p>':'')+
-      '<div class="meta"><div><b>Data</b><span>'+data(p.data)+'</span></div><div><b>Autor</b><span>'+esc((C.sobre||{}).nome||'')+'</span></div><div><b>Leitura</b><span>'+minutos(p.texto)+' min</span></div></div></header>'+
-      capa(p,true)+
-      '<div class="body"><aside class="share" aria-label="Compartilhar"><div>'+
-        '<a href="https://wa.me/?text='+encodeURIComponent(titulo+' '+url)+'" target="_blank" rel="noopener" aria-label="Compartilhar no WhatsApp">'+icon('chat')+'</a>'+
-        '<a href="https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(url)+'" target="_blank" rel="noopener" aria-label="Compartilhar no LinkedIn">'+icon('linkedin')+'</a>'+
-        '<button type="button" id="copiar" aria-label="Copiar link">'+icon('link')+'</button><span class="copied" id="copiado" hidden>Link copiado</span>'+
-      '</div></aside>'+
-      '<div class="content">'+corpo(p.texto)+'</div>'+
-      '<div class="cta"><p>'+inline(C.chamada||'Gostou? Mande para alguém que precisa ler isso.')+'</p><div class="btns"><button type="button" class="btn solid" id="compartilhar">Compartilhar</button></div><span class="cta-ok" id="cta-ok" hidden>Link copiado. É só colar onde quiser.</span></div>'+
-      '</div>'+
-      (outros.length?'<section class="more"><h3>Leia também</h3><ul class="grid">'+outros.map(card).join('')+'</ul></section>':'')+
-      '</article>';
-    var b=document.getElementById('copiar'), ok=document.getElementById('copiado');
-    b.onclick=function(){
-      var done=function(){ ok.hidden=false; setTimeout(function(){ok.hidden=true;},1800); };
-      try{ navigator.clipboard.writeText(url).then(done,function(){ ok.textContent=url; done(); }); }catch(e){ ok.textContent=url; done(); }
-    };
-    var sh=document.getElementById('compartilhar'), shOk=document.getElementById('cta-ok');
-    sh.onclick=function(){
-      var copiar=function(){
-        var show=function(){ shOk.hidden=false; setTimeout(function(){shOk.hidden=true;},2500); };
-        try{ navigator.clipboard.writeText(url).then(show,function(){ shOk.textContent=url; show(); }); }catch(e){ shOk.textContent=url; show(); }
-      };
-      if(navigator.share){ navigator.share({title:titulo,text:plain(p.resumo||titulo),url:url}).catch(function(e){ if(e && e.name!=='AbortError') copiar(); }); }
-      else copiar();
-    };
-  }
-
-  function rota(){
-    var h=location.hash.replace('#','');
-    var p=POSTS.filter(function(x){return x.slug===h;})[0];
-    document.querySelectorAll('[data-nav]').forEach(function(a){a.removeAttribute('aria-current');});
-    if(p){ post(p); window.scrollTo(0,0); return; }
-    document.title=C.nome||'Blog';
-    lista();
-    var n=document.querySelector('[data-nav="'+(h==='sobre'?'sobre':'inicio')+'"]'); if(n) n.setAttribute('aria-current','page');
-    if(h==='sobre'){ var s=document.getElementById('sobre'); if(s) s.scrollIntoView(); } else window.scrollTo(0,0);
-  }
-  window.addEventListener('hashchange', rota);
-  rota();
+  function inline(s){ return esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/==(.+?)==/g,'$1'); }
+  function yt(u){ var m=(u||'').match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([\w-]{11})/); return m?m[1]:null; }
+  var P=(window.POSTS||[]).slice().sort(function(a,b){return a.data<b.data?1:-1;}).slice(0,3);
+  var ul=document.getElementById('posts');
+  if(!P.length){ ul.innerHTML='<li style="color:var(--muted)">Os primeiros posts chegam em breve.</li>'; return; }
+  ul.innerHTML=P.map(function(p){
+    var id=yt(p.video), img=p.capa?(/^https?:/.test(p.capa)?p.capa:'/blog/'+p.capa):(id?'https://img.youtube.com/vi/'+id+'/hqdefault.jpg':'');
+    var d=p.data.split('-');
+    return '<li><a href="/blog/#'+p.slug+'"><div class="cover">'+(img?'<img src="'+esc(img)+'" alt="" loading="lazy">':MARK)+'</div>'+
+      '<div class="row"><span class="tag">'+esc(p.categoria||'')+'</span><span>'+(+d[2])+' '+MESES[+d[1]-1]+' '+d[0]+'</span></div>'+
+      '<h3><span class="t">'+inline(p.titulo)+'</span></h3></a></li>';
+  }).join('');
 })();
 </script>
 </body>

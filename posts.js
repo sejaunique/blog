@@ -19,7 +19,7 @@ window.BLOG = {
     texto: "Eu trabalho com empresários que querem um time que vende de verdade. Aqui eu escrevo o que penso sobre vendas, do jeito que eu falaria numa conversa de café."
   },
 
-  chamada: "Quer levar isso para o seu time?",
+  chamada: "Gostou? Mande para alguém que precisa ler isso.",
 
   links: {
     site: "https://www.sejaunique.com",

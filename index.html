@@ -99,6 +99,9 @@ strong{font-weight:700}
 .btn{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;text-decoration:none;border-radius:999px;padding:11px 20px;border:1px solid var(--fg)}
 .btn.solid{background:var(--pill);color:var(--pill-fg);border-color:var(--pill)}
 .btn:hover{opacity:.85}
+button.btn{font:inherit;font-size:.78rem;font-weight:600;cursor:pointer;background:transparent;color:inherit}
+button.btn.solid{background:var(--pill);color:var(--pill-fg)}
+.cta-ok{flex-basis:100%;font-size:.78rem;color:var(--muted)}
 
 /* post */
 .head{text-align:center;padding-block:44px 44px}
@@ -309,7 +312,7 @@ strong{font-weight:700}
         '<button type="button" id="copiar" aria-label="Copiar link">'+icon('link')+'</button><span class="copied" id="copiado" hidden>Link copiado</span>'+
       '</div></aside>'+
       '<div class="content">'+corpo(p.texto)+'</div>'+
-      (L.whatsapp?'<div class="cta"><p>'+inline(C.chamada||'Quer aplicar isso no seu time?')+'</p><a class="btn solid" href="'+L.whatsapp+'" target="_blank" rel="noopener">Conversar no WhatsApp</a></div>':'')+
+      '<div class="cta"><p>'+inline(C.chamada||'Gostou? Mande para alguém que precisa ler isso.')+'</p><div class="btns"><button type="button" class="btn solid" id="compartilhar">Compartilhar</button><a class="btn" href="https://wa.me/?text='+encodeURIComponent(titulo+' '+url)+'" target="_blank" rel="noopener">Enviar no WhatsApp</a></div><span class="cta-ok" id="cta-ok" hidden>Link copiado. É só colar onde quiser.</span></div>'+
       '</div>'+
       (outros.length?'<section class="more"><h3>Leia também</h3><ul class="grid">'+outros.map(card).join('')+'</ul></section>':'')+
       '</article>';
@@ -317,6 +320,15 @@ strong{font-weight:700}
     b.onclick=function(){
       var done=function(){ ok.hidden=false; setTimeout(function(){ok.hidden=true;},1800); };
       try{ navigator.clipboard.writeText(url).then(done,function(){ ok.textContent=url; done(); }); }catch(e){ ok.textContent=url; done(); }
+    };
+    var sh=document.getElementById('compartilhar'), shOk=document.getElementById('cta-ok');
+    sh.onclick=function(){
+      var copiar=function(){
+        var show=function(){ shOk.hidden=false; setTimeout(function(){shOk.hidden=true;},2500); };
+        try{ navigator.clipboard.writeText(url).then(show,function(){ shOk.textContent=url; show(); }); }catch(e){ shOk.textContent=url; show(); }
+      };
+      if(navigator.share){ navigator.share({title:titulo,text:plain(p.resumo||titulo),url:url}).catch(function(e){ if(e && e.name!=='AbortError') copiar(); }); }
+      else copiar();
     };
   }
 

@@ -111,6 +111,7 @@ Antes de publicar qualquer coisa, faça quatro perguntas: isso chama a atenção
   },
   {
     slug: "sala-comercial-de-alta-performance",
+    capa: "assets/sala-comercial-capa.jpg",
     video: "https://youtu.be/JDAxoq3qD8U",
     titulo: "Sala comercial de ==alta performance==",
     data: "2026-09-28",
@@ -120,6 +121,8 @@ Antes de publicar qualquer coisa, faça quatro perguntas: isso chama a atenção
 ## O ambiente que transforma comportamento em resultado
 
 A maioria das empresas tenta melhorar vendas investindo em CRM, treinamento e marketing. Mas ignora um fator silencioso e extremamente poderoso: **o ambiente onde o time trabalha todos os dias.**
+
+[video](https://youtu.be/JDAxoq3qD8U)
 
 ![O ambiente comum: cada vendedor isolado na sua mesa](assets/sala-comum.jpg)
 

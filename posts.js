@@ -46,6 +46,7 @@ window.BLOG = {
 window.POSTS = [
   {
     slug: "mercado-livre-netflix",
+    capa: "assets/mercado-livre-netflix.jpg",
     titulo: "Mercado Livre e Netflix se uniram. A lição é sobre ==dado de compra==.",
     data: "2026-09-29",
     categoria: "Mercado",

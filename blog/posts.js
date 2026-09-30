@@ -51,9 +51,9 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 
 window.POSTS = [
   {
-    slug: "o-dia-que-levei-a-aida-a-serio",
+    slug: "o-dia-que-me-vesti-de-noiva",
     capa: "assets/anuncio-bendito-seja.jpg",
-    titulo: "O dia em que eu levei a técnica ==AIDA== muito a sério",
+    titulo: "O dia em que eu me vesti de ==noiva==",
     data: "2026-09-30",
     categoria: "Técnica",
     resumo: "Numa revista cheia de noivas bonitas e iguais, o anúncio da Bendito Seja trazia três homens vestidos de noiva.",
@@ -72,7 +72,7 @@ O problema é que todos os anúncios eram iguais: noiva bonita, chique, elegante
 
 ## Três homens vestidos de noiva
 
-O primeiro anúncio da Bendito Seja foi eu e mais dois colaboradores **vestidos de noiva**.
+Então o primeiro anúncio da Bendito Seja foi eu e mais dois colaboradores **vestidos de noiva**.
 
 A linha entre a criatividade e a breguice era muito tênue. O risco do ridículo era real. A gente discutiu se ia se maquiar ou não, e como ia se apresentar para não virar chacota e ser visto como algo criativo.
 
@@ -80,16 +80,31 @@ A linha entre a criatividade e a breguice era muito tênue. O risco do ridículo
 
 Essa era a mensagem. Mesmo sendo homens, editores e videomakers, a gente pensava como noiva. Não só como mulher, nem só como casal. A gente vestiu a camisa de corpo e alma para entender o que ela pensa.
 
-## A AIDA na prática
+No meio de tantas noivas iguais, o nosso anúncio quebrava o estereótipo. Era impossível virar a página sem parar nele. O anúncio trouxe exatamente o que eu queria.
 
-A técnica AIDA descreve o caminho de uma venda: **Atenção, Interesse, Desejo e Ação**. Nesse anúncio, cada etapa aconteceu assim:
+## No fundo, foi só AIDA
 
-- **Atenção:** numa revista cheia de noivas iguais, o nosso anúncio quebrava o estereótipo. Era impossível passar direto.
-- **Interesse:** a noiva parava para entender por que aqueles três homens estavam vestidos daquele jeito.
+Nada mais é do que a técnica **AIDA** aplicada na prática:
+
+- **Atenção:** três homens vestidos de noiva numa revista em que todo anúncio era igual.
+- **Interesse:** a noiva parava para entender o porquê daquilo.
 - **Desejo:** a mensagem mostrava que a gente pensava como ela, e ela queria alguém assim filmando o dia dela.
 - **Ação:** ela guardava a revista e sabia a quem procurar.
 
-O anúncio trouxe exatamente o que eu queria.
+> AIDA não é teoria de livro. É o caminho que qualquer pessoa percorre antes de comprar.
+
+## Dá para aplicar em qualquer lugar
+
+Você não precisa se vestir de noiva. Mas pode usar a mesma lógica em tudo o que coloca na frente do cliente:
+
+- **Abordagem:** comece com uma pergunta ou uma frase que o cliente não espera ouvir, não com "tudo bem? posso te apresentar nossa empresa?".
+- **Site:** a primeira tela precisa prender em três segundos. Fale da dor do cliente antes de falar de você.
+- **Postagem:** a primeira linha e a imagem decidem se a pessoa para de rolar o feed. Se parecer com todo o resto, ela passa direto.
+- **Outdoor:** a pessoa tem poucos segundos. Uma imagem que quebra o padrão e uma frase curta valem mais que uma lista de serviços.
+- **WhatsApp e proposta:** abra com o problema dele, mostre o que muda na vida dele e termine com um próximo passo claro.
+- **Vitrine ou ponto de venda:** o que está na frente precisa fazer a pessoa entrar. Dentro, o atendimento cuida do interesse e do desejo.
+
+Antes de publicar qualquer coisa, faça quatro perguntas: isso chama a atenção? Desperta interesse? Faz a pessoa querer? Deixa claro o que ela faz agora?
 
 > Quando todo mundo mostra a mesma coisa, a atenção vai para quem tem coragem de ser ==diferente==.
 `

@@ -45,6 +45,39 @@ window.BLOG = {
 
 window.POSTS = [
   {
+    slug: "mercado-livre-netflix",
+    titulo: "Mercado Livre e Netflix se uniram. A lição é sobre ==dado de compra==.",
+    data: "2026-09-29",
+    categoria: "Mercado",
+    resumo: "Agora dá para anunciar na Netflix usando o que 131 milhões de pessoas compram no Mercado Livre. Para mim, isso é notícia de vendas, não de streaming.",
+    texto: `
+O Mercado Livre e a Netflix anunciaram uma parceria de publicidade no Brasil e no México. Parece notícia de marketing, mas eu leio como notícia de vendas.
+
+## Como funciona
+
+- **Dados de compra:** quem anuncia pode segmentar campanhas pelo comportamento de compra de mais de 131 milhões de compradores do Mercado Livre por ano.
+- **Onde aparece:** os anúncios rodam no plano da Netflix com publicidade, nos dois países.
+- **Resultado medido:** a marca consegue ver se quem assistiu ao anúncio comprou de verdade dentro do Mercado Livre.
+- **Ecossistema:** a Netflix entra numa rede que já tem Disney+, HBO Max e Roku.
+
+## O que eu vejo nisso
+
+O anúncio deixou de ser medido por quem viu. Agora ele é medido por ==quem comprou==.
+
+> Atenção é bom. Compra é o que paga a conta.
+
+Duas das maiores empresas do mundo se juntaram para responder uma pergunta simples: esse dinheiro virou venda? Tem muito empresário que investe em anúncio todo mês e não consegue responder isso.
+
+## E na sua empresa?
+
+Você não precisa ser o Mercado Livre para pensar assim. Precisa saber **de onde veio cada cliente** e **o que ele comprou**. Quem registra isso direito já tem o dado mais valioso que existe: o histórico de compra dos próprios clientes.
+
+O resto é ferramenta.
+
+Fonte: [Meio & Mensagem](https://www.meioemensagem.com.br/midia/como-funciona-a-parceria-entre-netflix-ads-e-mercado-ads)
+`
+  },
+  {
     slug: "ta-caro",
     titulo: "Quando o cliente diz \"tá caro\", ele não está falando de preço",
     data: "2026-09-29",

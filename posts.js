@@ -40,10 +40,126 @@ window.BLOG = {
    - Vídeo:            [video](https://youtu.be/XXXXXXXXXXX)
                        [video: legenda do vídeo](https://youtu.be/XXXXXXXXXXX)
    - Link:             [texto do link](https://site.com)
+   Capa: use  capa: "assets/foto.jpg"  ou  video: "link do YouTube"
+   (o vídeo vira a capa do post e a miniatura aparece na lista).
    O post mais novo (pela data) aparece primeiro.
    --------------------------------------------------------- */
 
 window.POSTS = [
+  {
+    slug: "sala-comercial-de-alta-performance",
+    video: "https://youtu.be/JDAxoq3qD8U",
+    titulo: "Sala comercial de ==alta performance==",
+    data: "2026-09-30",
+    categoria: "Cultura",
+    resumo: "Transforme o ambiente, eleve a performance: vendas que nascem do espaço certo.",
+    texto: `
+## O ambiente que transforma comportamento em resultado
+
+A maioria das empresas tenta melhorar vendas investindo em CRM, treinamento e marketing. Mas ignora um fator silencioso e extremamente poderoso: **o ambiente onde o time trabalha todos os dias.**
+
+> Você não constrói performance só com estratégia. Você constrói com ambiente.
+
+## O objetivo dessa estrutura
+
+Não é deixar o escritório bonito. É criar um espaço que **estimule foco, ritmo e aprendizado constante**, a ponto de o resultado virar consequência natural.
+
+Quando o ambiente é certo, o vendedor:
+
+- procrastina menos;
+- aprende mais rápido;
+- entra em ação com mais frequência.
+
+## O layout que muda o jogo
+
+O modelo mais eficiente para times comerciais B2B é o **layout central**:
+
+- uma mesa central;
+- três vendedores de cada lado, todos frente a frente;
+- o supervisor na ponta;
+- uma TV visível para todo mundo.
+
+Simples, mas extremamente estratégico. Ele ativa três coisas que fazem qualquer time vender mais:
+
+- **Competição natural:** ninguém quer ser o mais lento da mesa.
+- **Aprendizado por observação:** você aprende vendo o outro vender.
+- **Ritmo coletivo:** quando um acelera, puxa os outros.
+
+E o mais importante: ele ==elimina o isolamento==.
+
+## Equipamentos que parecem detalhe (mas não são)
+
+**Fones com isolamento.** Sem eles, o ambiente vira ruído. Com eles, você tem concentração, clareza na comunicação e menos interferência entre ligações. O resultado direto é mais qualidade na venda.
+
+**Webcam boa.** Em venda B2B, muita coisa acontece por videochamada. Boa imagem e boa luz aumentam a percepção de profissionalismo e deixam a reunião mais fluida. Isso mexe com a credibilidade, a atenção e o rapport, porque a expressão facial fica clara. Parece detalhe, mas é um multiplicador de conversão.
+
+**Duas telas por vendedor (ou uma superwide).** Uma tela só obriga o cérebro a ficar alternando tarefas, e isso gera perda de foco, lentidão e mais erro. Com duas telas, uma fica no CRM e a outra na conversa ou na proposta. O ganho aqui é **produtividade pura**.
+
+## O supervisor define o jogo
+
+Não adianta layout bom com liderança fraca. O supervisor não pode ser um "chefe de cadeira". Ele precisa ser um **líder de campo**:
+
+- circular o tempo todo;
+- ouvir ligações;
+- entrar em negociações quando necessário;
+- corrigir na hora.
+
+Porque feedback tardio é aprendizado lento.
+
+## A TV não é decoração
+
+Ela é o cérebro visual da operação. Ali devem aparecer:
+
+- o ranking do time;
+- as metas do dia;
+- alertas de performance;
+- mensagens curtas de ativação.
+
+Isso gera algo poderoso: ==urgência visível==. E urgência gera ação.
+
+## O que mantém o ambiente funcionando
+
+Ambiente bom sem rotina vira bagunça. A operação precisa de ritmo:
+
+- **Power hours:** blocos de foco total, por exemplo das 9h às 11h. Execução pura.
+- **Aquecimento diário:** antes de começar, treinar abordagem, revisar objeções e alinhar metas. O vendedor entra preparado, e não improvisando.
+- **Pós-bloco:** pequenos ajustes sobre o que funcionou, o que travou e o que precisa mudar. Melhoria contínua em tempo real.
+
+## A sala também é uma escola
+
+Um erro clássico é separar "treinamento" de "operação". Os melhores times fazem o contrário e usam o próprio ambiente para ouvir ligações reais, simular negociações, corrigir na hora e ensinar na prática.
+
+Aprendizado aplicado vale muito mais que teoria.
+
+## As paredes também vendem
+
+Pode parecer detalhe, mas o ambiente visual influencia comportamento.
+
+- **Metas emocionais:** casa, carro, família, viagem. Conecta o esforço com o propósito.
+- **Frases estratégicas:** nada de frase bonita e vazia. Use coisas como "sem atividade não há resultado" e "disciplina vence motivação".
+- **Técnicas visuais:** quebra de objeção, estrutura de fechamento e perguntas-chave, para consulta rápida no meio da venda.
+- **Painel de metas:** evolução diária e progresso do mês. O cérebro responde melhor ao que ele vê.
+
+## As regras que sustentam tudo
+
+Sem isso, o sistema quebra:
+
+- clareza de comportamento (hora de foco e hora de interação);
+- controle de ruído;
+- ritmo constante;
+- liderança ativa.
+
+## No final, o que isso realmente é?
+
+Não é sobre mesa. Não é sobre cadeira. Não é sobre estética. É sobre **comportamento, pressão positiva, estímulo constante e execução em alta intensidade**.
+
+> Se o ambiente não empurra o vendedor para vender, ele puxa o vendedor para baixo.
+
+É isso que separa empresas comuns de times de alta performance: elas não deixam o ambiente ao acaso. Elas constroem o ambiente de forma estratégica.
+
+[video](https://www.youtube.com/watch?v=ELd5QDM54NM)
+`
+  },
   {
     slug: "mercado-livre-netflix",
     capa: "assets/mercado-livre-netflix.jpg",

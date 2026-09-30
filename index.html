@@ -246,8 +246,11 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
   function plain(s){ return String(s).replace(/==|\*\*/g,''); }
   function minutos(t){ return Math.max(1, Math.round(t.split(/\s+/).length/200)); }
 
-  function capa(p){
-    if(p.capa) return '<div class="cover"><img src="'+esc(p.capa)+'" alt="" loading="lazy"></div>';
+  function capa(p, noPost){
+    var yt=p.video?ytId(p.video):null;
+    if(noPost && yt && !preview) return '<div class="cover"><iframe src="https://www.youtube-nocookie.com/embed/'+yt+'" title="Vídeo" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen style="width:100%;height:100%;border:0;display:block"></iframe></div>';
+    var img=p.capa||(yt?'https://img.youtube.com/vi/'+yt+'/hqdefault.jpg':'');
+    if(img) return '<div class="cover"><img src="'+esc(img)+'" alt="" loading="lazy"></div>';
     return '<div class="cover"><div class="ph">'+MARK+'<span>'+esc(p.categoria||'')+'</span></div></div>';
   }
 
@@ -305,7 +308,7 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
       '<header class="head"><span class="tag">'+esc(p.categoria||'')+'</span><h1>'+inline(p.titulo)+'</h1>'+
       (p.resumo?'<p class="sub">'+inline(p.resumo)+'</p>':'')+
       '<div class="meta"><div><b>Data</b><span>'+data(p.data)+'</span></div><div><b>Autor</b><span>'+esc((C.sobre||{}).nome||'')+'</span></div><div><b>Leitura</b><span>'+minutos(p.texto)+' min</span></div></div></header>'+
-      capa(p)+
+      capa(p,true)+
       '<div class="body"><aside class="share" aria-label="Compartilhar"><div>'+
         '<a href="https://wa.me/?text='+encodeURIComponent(titulo+' '+url)+'" target="_blank" rel="noopener" aria-label="Compartilhar no WhatsApp">'+icon('chat')+'</a>'+
         '<a href="https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(url)+'" target="_blank" rel="noopener" aria-label="Compartilhar no LinkedIn">'+icon('linkedin')+'</a>'+

@@ -94,7 +94,8 @@ strong{font-weight:700}
 .about{margin-top:112px;padding:40px;background:var(--soft);border-radius:var(--r);display:grid;grid-template-columns:minmax(0,240px) 1fr;gap:44px;align-items:center}
 .about img{width:100%;height:auto;border-radius:18px;background:#000}
 .about h2{font-size:1.7rem;font-weight:500;line-height:1.2;letter-spacing:-.015em;margin:14px 0 12px}
-.about p{margin:0 0 24px;color:var(--muted);max-width:50ch}
+.about p{margin:0 0 14px;color:var(--muted);max-width:56ch}
+.about .btns{margin-top:22px}
 .btns{display:flex;flex-wrap:wrap;gap:10px}
 .btn{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;text-decoration:none;border-radius:999px;padding:11px 20px;border:1px solid var(--fg)}
 .btn.solid{background:var(--pill);color:var(--pill-fg);border-color:var(--pill)}
@@ -206,7 +207,7 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
 
 <footer class="foot">
   <div class="wrap">
-    <div class="mk"><i data-svg="mark"></i><span>Marketing para<br>Empresas</span></div>
+    <div class="mk"><i data-svg="mark"></i><span>Consultoria<br>em Vendas</span></div>
     <nav aria-label="Contato">
       <a href="/">Site Unique</a>
       <a data-link="instagram" target="_blank" rel="noopener">Instagram</a>
@@ -287,7 +288,7 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
   function sobre(){
     var s=C.sobre||{};
     return '<section class="about" id="sobre">'+(s.foto?'<img src="'+esc(s.foto)+'" alt="'+esc(s.nome||'')+'" width="609" height="786">':'<div class="cover" style="aspect-ratio:3/4"><div class="ph">'+MARK+'</div></div>')+
-      '<div><span class="tag">Quem escreve</span><h2>'+inline(s.titulo||'')+'</h2><p>'+inline(s.texto||'')+'</p><div class="btns">'+
+      '<div><span class="tag">Quem escreve</span><h2>'+inline(s.titulo||'')+'</h2>'+String(s.texto||'').split(/\n\s*\n/).map(function(t){return '<p>'+inline(t.trim())+'</p>';}).join('')+'<div class="btns">'+
       (L.whatsapp?'<a class="btn solid" href="'+L.whatsapp+'" target="_blank" rel="noopener">Falar no WhatsApp</a>':'')+
       (L.instagram?'<a class="btn" href="'+L.instagram+'" target="_blank" rel="noopener">Instagram</a>':'')+'</div></div></section>';
   }

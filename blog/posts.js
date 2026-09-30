@@ -13,10 +13,14 @@ window.BLOG = {
   },
 
   sobre: {
-    nome: "Carlos · Unique",
+    nome: "Carlos Ribeiro",
     foto: "assets/carlos.jpg",
-    titulo: "Consultor de vendas para quem é dono do negócio.",
-    texto: "Eu trabalho com empresários que querem um time que vende de verdade. Aqui eu escrevo o que penso sobre vendas, do jeito que eu falaria numa conversa de café."
+    titulo: "Quem é Carlos Ribeiro?",
+    texto: `Sou Carlos Ribeiro, casado com a Gabriela e pai do Theo e da Alda. Sou cristão e acredito profundamente em família, responsabilidade, trabalho, propósito e legado.
+
+Gosto de entender como as coisas funcionam e transformar ideias em algo concreto. Minha trajetória passou por áreas criativas, tecnologia, vendas, marketing e processos. Hoje, tudo isso se encontra no meu trabalho com empresas e empresários.
+
+Antes de qualquer profissão, eu me vejo como alguém que está **construindo**. O que faço profissionalmente é consequência daquilo em que acredito.`
   },
 
   chamada: "Gostou? Mande para alguém que precisa ler isso.",

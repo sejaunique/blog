@@ -165,14 +165,18 @@ section{padding-block:104px}
 .clientes span{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 18px;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.14em;text-align:center;color:var(--muted)}
 
 /* sobre */
-.sobre{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
+.sobre{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:start}
+.sobre .istrip{position:sticky;top:110px}
 .istrip{display:flex;gap:10px;justify-content:center}
 .istrip img{width:calc(20% - 8px);height:auto;border-radius:4px}
 .sobre h2{font-size:clamp(2rem,4.2vw,3rem);line-height:1.08;font-weight:600;letter-spacing:-.025em;margin:14px 0 22px}
 .sobre ul{list-style:none;margin:0 0 28px;padding:0;display:grid;gap:12px}
 .sobre li{display:flex;gap:14px;line-height:1.5}
 .sobre li::before{content:"";flex:none;width:12px;height:2px;background:var(--ink-fg);margin-top:.7em}
-.sobre p{color:var(--ink-muted);margin:0 0 28px;max-width:52ch}
+.sobre .bio p{color:var(--ink-muted);margin:0 0 14px;max-width:56ch}
+.sobre .bio p.lead{color:var(--ink-fg);font-size:1.12rem;font-weight:500}
+.sobre .bio{margin-bottom:28px}
+.sobre ul{font-size:.9rem}
 
 /* blog */
 .posts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
@@ -205,6 +209,7 @@ section{padding-block:104px}
 
 @media (max-width:980px){
   .hero .wrap,.crm,.cases,.sobre,.entregas{grid-template-columns:1fr}
+  .sobre .istrip{position:static}
   .hero .txt{padding-bottom:24px}
   .hero figure img{margin:0 auto;max-width:380px}
   .frentes{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -424,15 +429,21 @@ section{padding-block:104px}
     </div>
     <div>
       <span class="spaced muted">Quem está por trás</span>
-      <h2>Olá, sou Carlos Ribeiro.</h2>
+      <h2>Quem é Carlos Ribeiro?</h2>
+      <div class="bio">
+        <p class="lead">Sou Carlos Ribeiro, casado com a Gabriela e pai do Theo e da Alda.</p>
+        <p>Sou cristão e acredito profundamente em família, responsabilidade, trabalho, propósito e legado.</p>
+        <p>Tenho uma característica que sempre esteve presente na minha vida: gosto de entender como as coisas funcionam e transformar ideias em algo concreto.</p>
+        <p>Minha trajetória passou por áreas criativas, tecnologia, vendas, marketing e processos. Hoje, tudo isso se encontra no meu trabalho com empresas e empresários.</p>
+        <p>Mas, antes de qualquer profissão, eu me vejo como alguém que está <span class="grifo">construindo</span>. Construindo uma família forte, negócios melhores, projetos com significado e uma história da qual meus filhos possam se orgulhar.</p>
+        <p class="lead">O que faço profissionalmente é consequência daquilo em que acredito.</p>
+      </div>
       <ul>
         <li>Fundador da Unique Consultoria Comercial</li>
-        <li>Estrategista comercial e especialista em processos de vendas</li>
         <li>Criador do Método CRM: Comportamento Repetido Muda</li>
         <li>Mentor comercial da Têxtil Club Academy</li>
-        <li>Especialista em implantação de CRM e automações comerciais</li>
+        <li>Especialista em processos de vendas, CRM e automações comerciais</li>
       </ul>
-      <p>Desde 2018 ajudando empresários a construir previsibilidade de vendas, com estratégia, dados e o comportamento certo no time.</p>
       <a class="btn solid" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Vim%20pelo%20site%20da%20Unique%20e%20quero%20um%20diagn%C3%B3stico%20comercial%20para%20a%20minha%20empresa." target="_blank" rel="noopener">Conversar com o Carlos</a>
     </div>
   </div>
@@ -460,7 +471,7 @@ section{padding-block:104px}
   </div>
   <footer class="foot">
     <div class="wrap">
-      <div class="mk"><svg viewBox="0 0 318 879" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M3 0L0 3L1 30L36 48L49 60L56 72L61 102L62 761L54 812L36 831L1 849L0 876L3 879L313 879L318 875L317 851L272 825L261 810L255 789L254 111L257 79L265 61L278 49L317 28L318 4L313 0Z"/></svg><span>Consultoria<br>Comercial</span></div>
+      <div class="mk"><svg viewBox="0 0 318 879" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M3 0L0 3L1 30L36 48L49 60L56 72L61 102L62 761L54 812L36 831L1 849L0 876L3 879L313 879L318 875L317 851L272 825L261 810L255 789L254 111L257 79L265 61L278 49L317 28L318 4L313 0Z"/></svg><span>Consultoria<br>em Vendas</span></div>
       <nav aria-label="Rodapé">
         <a href="#metodo">Método</a>
         <a href="#servicos">Serviços</a>

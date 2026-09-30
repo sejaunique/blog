@@ -47,12 +47,12 @@ window.POSTS = [
   {
     slug: "mercado-livre-netflix",
     capa: "assets/mercado-livre-netflix.jpg",
-    titulo: "Mercado Livre e Netflix se uniram. A lição é sobre ==dado de compra==.",
+    titulo: "Mercado Livre e Netflix se uniram. Com quem a sua empresa pode ==somar==?",
     data: "2026-09-29",
-    categoria: "Mercado",
-    resumo: "Agora dá para anunciar na Netflix usando o que 131 milhões de pessoas compram no Mercado Livre. Para mim, isso é notícia de vendas, não de streaming.",
+    categoria: "Estratégia",
+    resumo: "Um tem a tela, o outro sabe quem compra. Eu já fiz uma collab parecida com uma caixa de chocolates, e agora estou pensando em uniformes.",
     texto: `
-O Mercado Livre e a Netflix anunciaram uma parceria de publicidade no Brasil e no México. Parece notícia de marketing, mas eu leio como notícia de vendas.
+O Mercado Livre e a Netflix anunciaram uma parceria de publicidade no Brasil e no México. Um tem a tela. O outro sabe quem compra. Separados, cada um tem metade. Juntos, eles fecham a conta.
 
 ## Como funciona
 
@@ -61,21 +61,39 @@ O Mercado Livre e a Netflix anunciaram uma parceria de publicidade no Brasil e n
 - **Resultado medido:** a marca consegue ver se quem assistiu ao anúncio comprou de verdade dentro do Mercado Livre.
 - **Ecossistema:** a Netflix entra numa rede que já tem Disney+, HBO Max e Roku.
 
-## O que eu vejo nisso
+## Eu já fiz isso, em pequena escala
 
-O anúncio deixou de ser medido por quem viu. Agora ele é medido por ==quem comprou==.
+Antes da consultoria, eu tinha a **Bendito Seja Filmes**, uma empresa de filmes de casamento. Eu queria que a minha proposta fosse diferente de todas as outras que os noivos recebiam.
 
-> Atenção é bom. Compra é o que paga a conta.
+Então eu fiz uma collab com a **Brigadeiria das Meninas**. A minha proposta chegava dentro de uma caixa com chocolates extraordinários. Ela queria mostrar que vendia chocolate, e o meu público era exatamente o público ideal dela.
 
-Duas das maiores empresas do mundo se juntaram para responder uma pergunta simples: esse dinheiro virou venda? Tem muito empresário que investe em anúncio todo mês e não consegue responder isso.
+![A proposta da Bendito Seja Filmes dentro da caixa de chocolates da collab com a Brigadeiria das Meninas](assets/collab-bendito-seja.jpg)
 
-## E na sua empresa?
+Eu tive uma proposta diferenciada ==sem gastar nenhum real==. Ela colocou os chocolates dela nas mãos de quem ia casar.
 
-Você não precisa ser o Mercado Livre para pensar assim. Precisa saber **de onde veio cada cliente** e **o que ele comprou**. Quem registra isso direito já tem o dado mais valioso que existe: o histórico de compra dos próprios clientes.
+## A ideia que eu estou pensando agora
 
-O resto é ferramenta.
+Hoje eu atendo muitas empresas do setor têxtil. E eu fiquei pensando: por que não **vestir as empresas de RH**?
 
-Fonte: [Meio & Mensagem](https://www.meioemensagem.com.br/midia/como-funciona-a-parceria-entre-netflix-ads-e-mercado-ads)
+Funciona assim: o uniforme vai de graça para a empresa de RH. Em troca, ela compartilha a base dela para uma prospecção inteligente. Uma empresa de RH sabe coisas que nenhuma lista comprada sabe:
+
+- quais empresas têm **turnover** alto;
+- qual é a taxa de **admissão e readmissão** de cada uma;
+- quem está contratando agora e vai precisar de uniforme.
+
+E dá para ir além: quem contratar a empresa de RH ganha um **voucher de desconto no uniforme**. A collab passa a vender para os dois lados.
+
+![Profissionais uniformizados de vários setores](assets/uniformes.jpg)
+
+## A pergunta que fica
+
+Da mesma forma que a Netflix e o Mercado Livre se uniram, com um somando no objetivo do outro: quem pode somar com a sua empresa a partir de agora?
+
+A soma pode ser várias coisas. Pode ser você servir de ==escada== para outra empresa ser vista. Pode ser troca de favores. Pode ser troca de clientes.
+
+> O importante é que a conta nunca divida nem subtraia. Ela precisa sempre somar e multiplicar.
+
+Fonte da notícia: [Meio & Mensagem](https://www.meioemensagem.com.br/midia/como-funciona-a-parceria-entre-netflix-ads-e-mercado-ads)
 `
   },
   {

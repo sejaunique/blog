@@ -9,6 +9,7 @@ Uso:
 Roteiro: instagram/<slug>/roteiro.json
 {
   "formato": "carrossel" | "unico",
+  "tema": "classico" | "editorial" | "neon" | "centro" | "bloco",   (varie entre posts seguidos)
   "legenda": "texto da legenda com hashtags",
   "slides": [
     {"tipo":"capa","img":"blog/assets/x.jpg","titulo":"Título com ==grifo==","tag":"Técnica"},
@@ -88,12 +89,54 @@ ol li i{font-style:normal;font-weight:700;font-size:30px;width:56px;height:56px;
 .cta .logo svg{height:40px;width:auto;color:#f5f5f5}
 """ % (W, H)
 
+
+TEMAS_CSS = """
+.num{display:none}
+/* EDITORIAL: papel, serifa, fio fino */
+.t-editorial .claro{background:#f4f1ea;color:#161616}
+.t-editorial .escuro{background:#1b1a17;color:#f4f1ea}
+.t-editorial h1,.t-editorial h2,.t-editorial .frase{font-family:"Lora",Georgia,serif;font-weight:600;letter-spacing:-.01em}
+.t-editorial h2{font-size:72px;font-style:italic}
+.t-editorial .frase{font-size:80px;font-style:italic}
+.t-editorial .aspas{font-family:"Lora",serif;color:#c9c3b6}
+.t-editorial .g{background:none;border-bottom:6px solid #00e676;padding:0}
+.t-editorial .rod{border-top:2px solid currentColor;padding-top:22px;opacity:.8}
+.t-editorial ol li i{background:none;color:inherit;border:2px solid currentColor;font-family:"Lora",serif}
+.t-editorial .tag{border-radius:0;letter-spacing:.3em}
+/* NEON: verde da marca de fundo */
+.t-neon .claro{background:#00e676;color:#0b0b0c}
+.t-neon .claro p{color:#0b0b0c}
+.t-neon .claro .g{background:#0b0b0c;color:#00e676;padding:0 .12em}
+.t-neon .escuro .g{background:none;color:#00e676}
+.t-neon .escuro .aspas{color:#00e676}
+.t-neon h2{font-size:84px;text-transform:uppercase;letter-spacing:-.035em;line-height:.98}
+.t-neon .seta{background:#0b0b0c;color:#00e676;border-color:#0b0b0c}
+.t-neon .escuro .seta{background:#00e676;color:#0b0b0c;border-color:#00e676}
+/* CENTRO: centralizado, número grande vazado */
+.t-centro .meio{align-items:center;text-align:center}
+.t-centro ol{align-self:center;text-align:left;max-width:860px}
+.t-centro .num{display:block;font-size:220px;font-weight:700;line-height:1;color:transparent;-webkit-text-stroke:3px #d9d9de;margin-bottom:30px}
+.t-centro .escuro .num{-webkit-text-stroke:3px #2e2e33}
+.t-centro .g{background:none;color:inherit;box-shadow:inset 0 -.22em 0 #00e676}
+.t-centro h2{font-size:64px}
+.t-centro .frase{font-size:70px}
+/* BLOCO: tudo escuro, barra verde, grifo em caixa */
+.t-bloco .claro{background:#141414;color:#f5f5f5}
+.t-bloco .claro p{color:#cfcfd4}
+.t-bloco .s:before{content:"";position:absolute;left:0;top:0;bottom:0;width:22px;background:#00e676;z-index:3}
+.t-bloco .g{background:#00e676;color:#0b0b0c;padding:0 .14em}
+.t-bloco h2{font-size:80px}
+.t-bloco ol li i{background:#00e676;color:#0b0b0c}
+.t-bloco .num{display:block;font-size:30px;font-weight:700;letter-spacing:.3em;color:#00e676;margin-bottom:26px}
+.t-bloco .aspas{color:#00e676}
+"""
+
 def rodape(i, n, escuro):
     seta = '<span class="seta">&rarr;</span>' if i < n else ''
     num = ('%02d/%02d' % (i, n)) if n > 1 else ''
     return '<div class="rod"><div class="mk">%s<span>%s</span></div><div class="pg"><span>%s</span>%s</div></div>' % (MARK, ARROBA, num, seta)
 
-def slide_html(sl, i, n):
+def slide_html(sl, i, n, tema="classico"):
     t = sl["tipo"]
     if t == "capa":
         corpo = ('<div class="s capa escuro"><div class="foto"><img src="%s"></div><div class="logo">%s</div>'
@@ -130,7 +173,8 @@ def slide_html(sl, i, n):
             html.escape(sl.get("url", "sejaunique.vercel.app/blog")), rodape(i, n, True))
     else:
         raise ValueError("tipo desconhecido: " + t)
-    return '<!doctype html><html><head><meta charset="utf-8"><style>%s</style></head><body>%s</body></html>' % (CSS, corpo)
+    corpo = corpo.replace('<div class="meio">', '<div class="meio"><div class="num">%02d</div>' % i, 1)
+    return '<!doctype html><html><head><meta charset="utf-8"><style>%s%s</style></head><body class="t-%s">%s</body></html>' % (CSS, TEMAS_CSS, tema, corpo)
 
 def gerar(slug, pg):
     pasta = os.path.join(RAIZ, "instagram", slug)
@@ -139,7 +183,7 @@ def gerar(slug, pg):
         if re.match(r"\d\d\.png$", f): os.remove(os.path.join(pasta, f))
     n = len(r["slides"])
     for i, sl in enumerate(r["slides"], 1):
-        pg.set_content(slide_html(sl, i, n), wait_until="load")
+        pg.set_content(slide_html(sl, i, n, r.get("tema", "classico")), wait_until="load")
         pg.wait_for_timeout(150)
         pg.screenshot(path=os.path.join(pasta, "%02d.png" % i))
     open(os.path.join(pasta, "legenda.txt"), "w", encoding="utf-8").write(r.get("legenda", "").strip() + "\n")

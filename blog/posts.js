@@ -111,6 +111,184 @@ Contratação é venda. Se você trata a vaga como um anúncio qualquer, atrai g
 `
   },
   {
+    slug: "crm-nao-e-software",
+    titulo: "CRM não é software. É ==Comportamento Repetido Muda==",
+    data: "2026-09-30",
+    categoria: "Cultura",
+    resumo: "Empresas trocam de sistema, de vendedor e de preço. Raramente trocam a rotina. E é a rotina que trava o crescimento.",
+    texto: `
+Empresas não quebram por falta de produto. Não travam por falta de mercado. E raramente deixam de vender por falta de esforço.
+
+Elas travam porque repetem **comportamentos errados todos os dias**, e chamam isso de rotina.
+
+## O cansaço do improviso
+
+Se você é dono ou gestor, talvez reconheça isso:
+
+- cada mês começa com esperança e termina com ansiedade;
+- algumas vendas grandes salvam o resultado, mas você não sabe exatamente por quê;
+- quando um vendedor sai, o faturamento treme;
+- quando você entra na venda, as coisas andam. Quando se afasta, o comercial desacelera.
+
+Isso não é azar. É ==improviso estruturado==. E o perigo do improviso é que ele funciona no curto prazo. Por isso ele se perpetua.
+
+## A solução errada
+
+Quando o resultado não vem, a empresa troca o vendedor, o gerente, o sistema, o discurso, o preço. Raramente troca **o comportamento diário**.
+
+É mais fácil mudar a ferramenta do que a rotina. É mais rápido dar desconto do que qualificar melhor.
+
+## CRM nasce no comportamento
+
+O mercado ensinou que CRM é um sistema para organizar clientes e controlar vendedor. Essa visão é rasa.
+
+Um CRM só funciona quando existe disciplina de etapas, rotina de acompanhamento e intenção em cada conversa. Sem isso, qualquer ferramenta vira um ==lugar bonito para esconder bagunça==.
+
+> CRM não é software. CRM é Comportamento Repetido Muda.
+
+## O problema não é gente. É rotina.
+
+O vendedor não acorda querendo bagunçar o CRM. Ele aprende que pode preencher depois. O dono não acorda querendo entrar na venda. Ele aprende que, sem ele, o número não sai.
+
+Comportamento repetido vira cultura. Para o bem ou para o mal.
+
+Em 90 dias de rotina bem aplicada, uma empresa descobre onde perde dinheiro, quem realmente performa e se o preço é problema ou desculpa. Isso não vem de feeling. Vem de **consistência**.
+
+> Você não precisa de um sistema novo. Precisa repetir o comportamento certo até ele vender por você.
+`
+  },
+  {
+    slug: "indicacao-preco-camarada",
+    titulo: "“Ele disse que você faria um ==preço camarada==”",
+    data: "2026-09-30",
+    categoria: "Técnica",
+    resumo: "Quem te indica é um vendedor que você não contratou. E quase sempre a recompensa dele é um obrigado. Ou nada.",
+    texto: `
+Todo dono de empresa já ouviu essa frase: "Estou aqui porque o Fulano me indicou. Ele disse que você faria um ==preço camarada==."
+
+A indicação chega, a venda acontece e o Fulano recebe, no máximo, um obrigado.
+
+Só que, se ele convenceu uma pessoa a comprar de você, ele pode convencer outras. Ele não é só um cliente satisfeito. É um **vendedor que você não contratou**.
+
+## O que eu fiz numa ligação
+
+Um cliente meu indicou outro. Em vez de mandar uma mensagem de agradecimento, eu liguei para ele e perguntei:
+
+> Por que você está me indicando?
+
+Essa pergunta faz o cliente dizer em voz alta por que gosta do seu trabalho. Ele reforça o valor para ele mesmo, e você ganha um depoimento espontâneo. No meu caso, ele lembrou que eu tinha entregado "em 5 minutos nome, telefone e decisor" de um cliente que ele precisava.
+
+Depois veio a segunda pergunta:
+
+> O que você quer ganhar com essa indicação?
+
+Ele tentou fugir: "não precisa". Eu insisti. E combinei: ==se o Danilo fechar, o presente já está garantido==.
+
+## Por que isso funciona
+
+- **Ligar, e não mandar mensagem:** a voz gera atenção e conexão que o texto não gera.
+- **Deixar o cliente escolher o prêmio:** cria expectativa e dá autonomia.
+- **Condicionar ao fechamento:** o cliente passa a torcer pela venda, e às vezes até ajuda a fechar.
+- **Ensinar o cliente a fazer igual:** ele leva a técnica para a empresa dele, e a indicação vira rede.
+
+## Os erros mais comuns
+
+- só agradecer;
+- mandar mensagem em vez de ligar;
+- dar o prêmio sem condição;
+- premiar sem estratégia, e aí vira custo, não investimento.
+
+> Relacionamento só vira ativo quando você trata a indicação como canal de venda.
+`
+  },
+  {
+    slug: "o-dinheiro-esta-nos-orcamentos",
+    titulo: "O dinheiro do mês está nos ==orçamentos que você já mandou==",
+    data: "2026-09-30",
+    categoria: "Estratégia",
+    resumo: "Antes de caçar cliente novo, olhe para o que ficou parado. A Missão Fecha Tudo é o sprint que eu uso na última semana do mês.",
+    texto: `
+Chega a última semana do mês, a meta está longe e o time corre atrás de cliente novo.
+
+Enquanto isso, o dinheiro está parado no próprio funil.
+
+## Onde está o dinheiro
+
+Antes de prospectar, procure:
+
+- clientes que disseram "me chama depois";
+- orçamentos enviados sem resposta;
+- negociações que esfriaram;
+- clientes recorrentes que ainda não repuseram estoque;
+- objeções que nunca receberam uma nova tentativa;
+- clientes que visualizaram e não responderam.
+
+Tudo isso já passou pela parte mais cara da venda: o cliente já te conhece e já recebeu proposta. Falta ==uma última tentativa==.
+
+## A Missão Fecha Tudo
+
+Na última semana do mês, eu transformo isso num sprint com pontuação:
+
+- **cliente novo:** 10 pontos;
+- **cliente recorrente:** 7 pontos;
+- **recuperou uma objeção:** +3;
+- **destravou uma negociação parada:** +2.
+
+O bônus só vale para objeções e negociações que já existiam antes do sprint. A ideia é ir atrás do que ficou para trás, e não criar problema novo para resolver depois.
+
+Tem prêmio individual para quem mais pontua e uma meta coletiva em que todo mundo ganha junto. Competição saudável, mas time que compartilha oportunidade.
+
+## A pergunta antes de fechar o dia
+
+> Existe alguém que ainda não recebeu uma última tentativa minha?
+
+Se a resposta for sim, ainda tem trabalho a fazer.
+
+Não vence quem começou melhor. Não vence quem recebeu os clientes mais fáceis. **Vence quem executou.**
+`
+  },
+  {
+    slug: "o-atendente-reage-o-vendedor-conduz",
+    titulo: "O atendente reage. O vendedor ==conduz==",
+    data: "2026-09-30",
+    categoria: "Técnica",
+    resumo: "Responder WhatsApp rápido não é vender. Tem time inteiro trabalhando como atendente e achando que está vendendo.",
+    texto: `
+Existe uma confusão grave no mercado: achar que atendimento rápido é venda eficiente.
+
+Responder WhatsApp rápido não é vender. Responder todas as notificações não é estratégia. Estar sempre disponível não é controle.
+
+## Os dois modos
+
+O **atendente** trabalha no modo vertical:
+
+> notificação → resposta → próxima notificação
+
+O **vendedor** trabalha no modo horizontal:
+
+> etapa → intenção → próximo passo
+
+O atendente responde perguntas. O vendedor ==cria caminho==.
+
+## Como saber em qual modo seu time está
+
+- a conversa termina quando o cliente para de perguntar;
+- ninguém sabe dizer em que etapa cada negociação está;
+- o vendedor não termina a mensagem com uma pergunta ou um próximo passo;
+- o CRM parece burocracia.
+
+Se isso soa familiar, seu time está atendendo, não vendendo.
+
+## Por que o CRM parece chato
+
+Enquanto o time atua como atendente, o CRM sempre vai parecer burocrático. Porque ele foi feito para **organizar estratégia**, não reação.
+
+Quando o vendedor sabe qual é a intenção de cada conversa e qual é o próximo passo, preencher o CRM deixa de ser tarefa e vira mapa.
+
+> Toda conversa precisa terminar com o cliente um passo mais perto da decisão.
+`
+  },
+  {
     slug: "o-dia-que-me-vesti-de-noiva",
     capa: "assets/anuncio-bendito-seja.jpg",
     titulo: "O dia em que eu me vesti de ==noiva==",

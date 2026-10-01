@@ -100,6 +100,11 @@ def slide_html(sl, i, n):
                  '<div class="txt">%s<h1>%s</h1></div>%s</div>') % (
             img_uri(sl["img"]), LOGO, ('<span class="tag">%s</span>' % html.escape(sl["tag"])) if sl.get("tag") else "",
             inline(sl["titulo"]), rodape(i, n, True))
+    elif t == "capatexto":
+        corpo = ('<div class="s escuro"><div class="logo" style="color:#f5f5f5">%s</div><div class="meio">%s<h1 style="margin-top:34px">%s</h1>%s</div>%s</div>') % (
+            LOGO.replace('<svg ', '<svg style="height:34px;width:auto" ', 1),
+            ('<span class="tag">%s</span>' % html.escape(sl["tag"])) if sl.get("tag") else "", inline(sl["titulo"]),
+            ('<p style="margin-top:34px;color:#b9b9bf">%s</p>' % inline(sl["texto"])) if sl.get("texto") else "", rodape(i, n, True))
     elif t == "fotofundo":
         corpo = ('<div class="s capa escuro"><div class="foto"><img src="%s"></div>'
                  '<div class="txt"><h2 style="margin:0">%s</h2>%s</div>%s</div>') % (

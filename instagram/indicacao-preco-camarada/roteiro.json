@@ -1,0 +1,51 @@
+{
+ "slides": [
+  {
+   "tipo": "capatexto",
+   "tag": "Técnica",
+   "titulo": "“Ele disse que você faria um ==preço camarada==.”"
+  },
+  {
+   "tipo": "texto",
+   "titulo": "Quem te indica é um vendedor",
+   "texto": "Um vendedor que você não contratou. E quase sempre a recompensa dele é um **obrigado**. Ou nada."
+  },
+  {
+   "tipo": "texto",
+   "titulo": "Eu não mandei mensagem. Liguei.",
+   "texto": "E perguntei:\n\n**“Por que você está me indicando?”**"
+  },
+  {
+   "tipo": "texto",
+   "titulo": "O que essa pergunta faz",
+   "texto": "O cliente diz em voz alta por que gosta do seu trabalho. Ele reforça o valor para ele mesmo, e você ganha ==um depoimento espontâneo==."
+  },
+  {
+   "tipo": "texto",
+   "titulo": "Depois, a segunda pergunta",
+   "texto": "**“O que você quer ganhar com essa indicação?”**\n\nE a condição: se o indicado fechar, ==o presente está garantido==."
+  },
+  {
+   "tipo": "lista",
+   "titulo": "Os erros mais comuns",
+   "itens": [
+    "Só agradecer.",
+    "Mandar mensagem em vez de ligar.",
+    "Dar o prêmio sem condição.",
+    "Premiar sem estratégia."
+   ]
+  },
+  {
+   "tipo": "frase",
+   "texto": "Relacionamento só vira ativo quando a indicação vira ==canal de venda==."
+  },
+  {
+   "tipo": "cta",
+   "titulo": "Veja a técnica completa",
+   "texto": "No blog. Link na bio.",
+   "url": "sejaunique.vercel.app/blog"
+  }
+ ],
+ "legenda": "“Ele disse que você faria um preço camarada.”\n\nTodo dono de empresa já ouviu isso. A indicação chega, a venda acontece e quem indicou recebe, no máximo, um obrigado.\n\nQuem te indica é um vendedor que você não contratou.\n\nNa última indicação que recebi, eu liguei e fiz duas perguntas:\n1. Por que você está me indicando?\n2. O que você quer ganhar com isso?\n\nE combinei: se o indicado fechar, o presente está garantido.\n\n📌 A técnica completa está no blog. Link na bio.\n\n#indicacao #vendas #relacionamento #estrategiadevendas #empreendedorismo #consultoriadevendas #sejaunique",
+ "formato": "carrossel"
+}

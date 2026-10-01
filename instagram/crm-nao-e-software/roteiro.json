@@ -1,0 +1,50 @@
+{
+ "slides": [
+  {
+   "tipo": "capatexto",
+   "tag": "Cultura",
+   "titulo": "CRM não é software. É ==Comportamento Repetido Muda==."
+  },
+  {
+   "tipo": "texto",
+   "titulo": "Empresas não travam por falta de produto",
+   "texto": "Travam porque repetem **comportamentos errados todos os dias**. E chamam isso de rotina."
+  },
+  {
+   "tipo": "lista",
+   "titulo": "Você reconhece isso?",
+   "itens": [
+    "O mês começa com esperança e termina com ansiedade.",
+    "Quando um vendedor sai, o faturamento treme.",
+    "Quando você entra na venda, as coisas andam.",
+    "Quando você se afasta, o comercial para."
+   ]
+  },
+  {
+   "tipo": "frase",
+   "texto": "Isso não é azar. É ==improviso estruturado==."
+  },
+  {
+   "tipo": "texto",
+   "titulo": "A solução errada",
+   "texto": "Troca o vendedor, o sistema, o preço. Raramente troca **a rotina**.\n\nÉ mais rápido dar desconto do que qualificar melhor."
+  },
+  {
+   "tipo": "texto",
+   "titulo": "Sem disciplina, o CRM vira…",
+   "texto": "…um ==lugar bonito para esconder bagunça==.\n\nCRM nasce no comportamento de quem vende, não no sistema."
+  },
+  {
+   "tipo": "frase",
+   "texto": "Você não precisa de um sistema novo. Precisa repetir o comportamento certo até ele ==vender por você==."
+  },
+  {
+   "tipo": "cta",
+   "titulo": "Leia o texto completo",
+   "texto": "No blog. Link na bio.",
+   "url": "sejaunique.vercel.app/blog"
+  }
+ ],
+ "legenda": "CRM não é software. É Comportamento Repetido Muda.\n\nEmpresas não travam por falta de produto, de mercado ou de esforço. Travam porque repetem comportamentos errados todos os dias e chamam isso de rotina.\n\nQuando o resultado não vem, trocam o vendedor, o sistema, o preço. Raramente trocam a rotina.\n\nSem disciplina, qualquer CRM vira um lugar bonito para esconder bagunça.\n\nVocê não precisa de um sistema novo. Precisa repetir o comportamento certo até ele vender por você.\n\n📌 O texto completo está no blog. Link na bio.\n\n#crm #gestaocomercial #vendas #culturaorganizacional #empreendedorismo #consultoriadevendas #sejaunique",
+ "formato": "carrossel"
+}

@@ -1,0 +1,55 @@
+{
+ "slides": [
+  {
+   "tipo": "capatexto",
+   "tag": "Estratégia",
+   "titulo": "O dinheiro do mês está nos ==orçamentos que você já mandou==."
+  },
+  {
+   "tipo": "lista",
+   "titulo": "Antes de caçar cliente novo, procure:",
+   "itens": [
+    "Quem disse “me chama depois”.",
+    "Orçamento enviado sem resposta.",
+    "Negociação que esfriou.",
+    "Cliente que visualizou e não respondeu."
+   ]
+  },
+  {
+   "tipo": "texto",
+   "titulo": "Por que começar por aí",
+   "texto": "Esse cliente já passou pela parte mais cara da venda. Ele já te conhece e já recebeu proposta.\n\nFalta ==uma última tentativa==."
+  },
+  {
+   "tipo": "lista",
+   "titulo": "A Missão Fecha Tudo",
+   "itens": [
+    "**Cliente novo:** 10 pontos.",
+    "**Cliente recorrente:** 7 pontos.",
+    "**Recuperou uma objeção:** +3.",
+    "**Destravou negociação parada:** +2."
+   ]
+  },
+  {
+   "tipo": "texto",
+   "titulo": "Prêmio individual e meta coletiva",
+   "texto": "Quem mais pontua ganha. E se o time bate a meta, ==todo mundo ganha junto==."
+  },
+  {
+   "tipo": "frase",
+   "texto": "Existe alguém que ainda não recebeu ==uma última tentativa minha==?"
+  },
+  {
+   "tipo": "frase",
+   "texto": "Não vence quem recebeu os clientes mais fáceis. ==Vence quem executou.=="
+  },
+  {
+   "tipo": "cta",
+   "titulo": "Monte o sprint no seu time",
+   "texto": "As regras completas estão no blog. Link na bio.",
+   "url": "sejaunique.vercel.app/blog"
+  }
+ ],
+ "legenda": "O dinheiro do mês está nos orçamentos que você já mandou.\n\nChega a última semana do mês e o time corre atrás de cliente novo. Enquanto isso, o dinheiro está parado no próprio funil: o “me chama depois”, o orçamento sem resposta, a negociação que esfriou.\n\nNa última semana do mês, eu transformo isso num sprint com pontuação: a Missão Fecha Tudo.\n\nAntes de fechar o dia, uma pergunta: existe alguém que ainda não recebeu uma última tentativa minha?\n\n📌 As regras completas estão no blog. Link na bio.\n\n#metas #vendas #gestaocomercial #timedevendas #followup #consultoriadevendas #sejaunique",
+ "formato": "carrossel"
+}

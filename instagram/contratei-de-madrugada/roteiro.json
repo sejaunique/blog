@@ -15,7 +15,6 @@
    "tipo": "texto",
    "layout": "gigante",
    "fundo": "papel",
-   "img": "blog/assets/silvia-4x5.jpg",
    "pos": "55% 30%",
    "tag": "A vaga",
    "titulo": "Eu não anunciei um cargo. Anunciei uma ==missão==.",
@@ -47,7 +46,6 @@
   {
    "tipo": "frase",
    "layout": "aspas",
-   "img": "blog/assets/carlos-ligacao-4x5.jpg",
    "pos": "center 15%",
    "rotulo": "Por que de madrugada?",
    "texto": "Eu queria alguém que se importasse com o resultado, não com o horário.",
@@ -57,7 +55,6 @@
   {
    "tipo": "texto",
    "layout": "bloco",
-   "img": "blog/assets/silvia-4x5.jpg",
    "pos": "60% 30%",
    "tag": "O teste",
    "titulo": "Crie um restaurante japonês.",
@@ -72,13 +69,11 @@
    "titulo": "Não foi técnica. Foi o ==tamanho da mente==.",
    "rodape": "Senso estético\nplanejamento\nvisão",
    "tam": 132,
-   "img": "blog/assets/carlos-microfone.jpg",
    "pos": "center 20%"
   },
   {
    "tipo": "texto",
    "layout": "central",
-   "img": "blog/assets/silvia-4x5.jpg",
    "pos": "60% 30%",
    "pre": "O resultado",
    "titulo": "De R$ 1.200 a [[25%]] do faturamento",
@@ -89,7 +84,6 @@
   {
    "tipo": "texto",
    "layout": "grade",
-   "img": "blog/assets/carlos-vermelho.jpg",
    "pos": "center 20%",
    "tag": "Lição",
    "titulo": "Não contrate currículo. Contrate ==comportamento==.",
@@ -98,7 +92,6 @@
   {
    "tipo": "cta",
    "layout": "fim",
-   "img": "blog/assets/carlos-microfone.jpg",
    "pos": "center 20%",
    "titulo": "A história completa",
    "texto": "Com os vídeos do processo. Link na bio.",

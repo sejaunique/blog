@@ -15,7 +15,6 @@
    "tipo": "texto",
    "layout": "gigante",
    "fundo": "papel",
-   "img": "blog/assets/carlos-call.jpg",
    "pos": "center 20%",
    "tag": "A verdade",
    "titulo": "Quem te indica é um ==vendedor==.",
@@ -35,7 +34,6 @@
   {
    "tipo": "texto",
    "layout": "central",
-   "img": "blog/assets/carlos-videochamada.jpg",
    "pos": "center 25%",
    "pre": "Pergunta 1",
    "titulo": "“Por que você está me [[indicando]]?”",
@@ -45,7 +43,6 @@
   {
    "tipo": "texto",
    "layout": "bloco",
-   "img": "blog/assets/carlos-explicando.jpg",
    "pos": "40% 30%",
    "tag": "Pergunta 2",
    "titulo": "O que você quer ganhar?",
@@ -55,7 +52,6 @@
   {
    "tipo": "lista",
    "layout": "lateral",
-   "img": "blog/assets/carlos-notebook.jpg",
    "pos": "40% 30%",
    "rotulo": "Não faça",
    "titulo": "Os erros mais comuns",
@@ -82,13 +78,11 @@
    "titulo": "Indicação é ==canal de venda==.",
    "rodape": "Ligue\npergunte\nrecompense",
    "tam": 140,
-   "img": "blog/assets/carlos-time-uniforme.jpg",
    "pos": "center 30%"
   },
   {
    "tipo": "cta",
    "layout": "fim",
-   "img": "blog/assets/carlos-palestra.jpg",
    "pos": "center 20%",
    "titulo": "A técnica completa",
    "texto": "Passo a passo no blog. Link na bio.",

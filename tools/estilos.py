@@ -291,6 +291,11 @@ def _hd(mk):
 def impacto(sl, i, n, mk):
     t = sl["tipo"]; lay = sl.get("layout") or {"capa": "central", "texto": "grade", "lista": "lateral", "frase": "aspas", "cta": "fim", "foto": "central", "fotofundo": "central"}.get(t, "grade")
     foto = sl.get("img"); pos = sl.get("pos", "center 30%")
+    if lay == "central" and not foto:
+        lay = "gigante"; sl = dict(sl); sl.setdefault("fundo", "verde"); sl["titulo"] = sl.get("titulo", "").replace("[[", "==").replace("]]", "==")
+        if sl.get("pre"): sl.setdefault("tag", sl["pre"])
+        sl["tam"] = max(sl.get("tam", 140), 140); sl.setdefault("rodape", "Seja Unique\nconsultoria\nem vendas")
+        if sl.get("texto"): sl["sub"] = sl["texto"]
     arr = '<div class="arr">ARRASTE</div>' if i < n else ""
     sub = ('<div class="sub" style="margin-top:26px">%s</div>' % inline(sl["texto"])) if sl.get("texto") else ""
     tit = inline(sl.get("titulo", sl.get("texto", "")))
@@ -320,24 +325,31 @@ def impacto(sl, i, n, mk):
         body += '<div class="A" style="position:absolute;left:60px;top:90px;right:240px;font-size:%dpx;color:#0a0a0a">%s</div>' % (sl.get("tam", 120), tit)
         if foto:
             body += '<div style="position:absolute;right:0;bottom:0;width:640px;height:760px;background:#0a0a0a;clip-path:polygon(22%% 0,100%% 0,100%% 100%%,0 100%%,0 14%%)"></div><div style="position:absolute;right:60px;bottom:110px;width:520px;height:600px;overflow:hidden;border-radius:0 0 0 110px"><img src="%s" style="width:100%%;height:100%%;object-fit:cover;object-position:%s;filter:grayscale(1) contrast(1.15)"></div>' % (mk["img_uri"](foto), pos)
+        if not foto:
+            body += '<div style="position:absolute;left:60px;right:60px;bottom:170px;background:#0a0a0a;color:#fff;padding:50px 54px;font-size:38px;line-height:1.45;font-weight:600;clip-path:polygon(0 0,92%% 0,100%% 12%%,100%% 100%%,0 100%%)">%s</div><div class="meta" style="left:60px;bottom:60px;opacity:.8">@sejauniqueoficial</div>%s</div>' % (inline(sl.get("texto", "")), arr.replace('class="arr"', 'class="arr" style="color:#0a0a0a;border-color:#0a0a0a"'))
+            return body
         body += '<div style="position:absolute;left:60px;width:350px;bottom:150px;font-size:28px;line-height:1.45;font-weight:600">%s</div><div class="meta" style="left:60px;bottom:60px;opacity:.8">@sejauniqueoficial</div>%s</div>' % (inline(sl.get("texto", "")), arr.replace('class="arr"', 'class="arr" style="color:#fff;border-color:#fff"'))
         return body
     if lay == "gigante":   # tipografia enorme, palavra em itálico verde (ref. LA)
         cls = sl.get("fundo", "papel")
-        cor = "#0a0a0a" if cls == "papel" else "#fff"
+        cor = "#0a0a0a" if cls in ("papel", "verde") else "#fff"
         body = '<div class="s %s" style="color:%s">' % (cls if cls != "preto" else "", cor)
         if foto and sl.get("fotofundo"):
             body = '<div class="s">' + _ph(mk, foto, pos) + '<div class="sh" style="background:rgba(0,0,0,.55)"></div>'
             cor = "#fff"
         body += '<div class="meta" style="top:60px;left:60px;color:#0a7d42;opacity:1;font-weight:800">%s</div>' % html.escape(sl.get("tag", "Seja Unique"))
         body += '<div class="A" style="position:absolute;left:60px;right:60px;top:160px;font-size:%dpx;line-height:.95">%s</div>' % (sl.get("tam", 150), tit)
+        if sl.get("sub"):
+            body += '<div style="position:absolute;left:60px;right:120px;bottom:300px;font-size:44px;line-height:1.35;font-weight:600">%s</div>' % inline(sl["sub"])
         if foto and not sl.get("fotofundo"):
             body += '<div style="position:absolute;right:60px;bottom:170px;width:420px;height:470px;overflow:hidden;border-radius:0 0 0 120px"><img src="%s" style="width:100%%;height:100%%;object-fit:cover;object-position:%s;filter:grayscale(1) contrast(1.15)"></div>' % (mk["img_uri"](foto), pos)
         body += '<div style="position:absolute;left:60px;bottom:110px;font-size:24px;line-height:1.5;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:pre-line">%s</div>' % html.escape(sl.get("rodape", "Vendas\nprocesso\nresultado"))
         body += '<div class="meta" style="right:60px;bottom:60px;opacity:.7">@sejauniqueoficial</div>%s</div>' % arr.replace('class="arr"', 'class="arr" style="right:60px;bottom:110px;border-color:currentColor"')
-        return body.replace('<span class="g">', '<span class="g it2">')
+        body = body.replace('<span class="g">', '<span class="g it2"%s>' % (' style="color:#fff;-webkit-text-stroke:0"' if cls == "verde" else ""))
+        if cls == "verde": body = body.replace('color:#0a7d42', 'color:#0a0a0a')
+        return body
     if lay == "fim":
-        body = _ph(mk, foto or "blog/assets/carlos-vermelho.jpg", pos) + '<div class="sh"></div>' + _hd(mk)
+        body = (_ph(mk, foto, pos) + '<div class="sh"></div>' if foto else '<div class="grid" style="opacity:.6"></div>') + _hd(mk)
         body += '<div style="position:absolute;left:70px;right:70px;bottom:190px;text-align:center"><div class="A" style="font-size:110px">%s</div><div class="sub" style="margin-top:22px">%s</div><div style="margin:34px auto 0;display:inline-block;background:#00e676;color:#0a0a0a;font-weight:800;font-size:30px;padding:16px 34px;border-radius:999px">%s</div></div><div class="frame"></div>' % (tit, inline(sl.get("texto", "")), html.escape(sl.get("url", "sejaunique.vercel.app/blog")))
         return '<div class="s">%s</div>' % body
     return '<div class="s"></div>'

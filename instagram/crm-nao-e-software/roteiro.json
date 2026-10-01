@@ -18,7 +18,6 @@
    "titulo": "Empresas não travam por falta de ==produto==.",
    "rodape": "Travam por\ncomportamento\nrepetido",
    "tam": 140,
-   "img": "blog/assets/carlos-time-uniforme.jpg",
    "pos": "center 30%"
   },
   {
@@ -46,7 +45,6 @@
   {
    "tipo": "texto",
    "layout": "bloco",
-   "img": "blog/assets/carlos-call.jpg",
    "pos": "center 20%",
    "tag": "A solução errada",
    "titulo": "Troca tudo. Menos a rotina.",
@@ -56,7 +54,6 @@
   {
    "tipo": "frase",
    "layout": "aspas",
-   "img": "blog/assets/carlos-vermelho.jpg",
    "pos": "center 20%",
    "rotulo": "Sem disciplina:",
    "texto": "qualquer CRM vira um lugar bonito para esconder bagunça.",
@@ -66,7 +63,6 @@
   {
    "tipo": "texto",
    "layout": "grade",
-   "img": "blog/assets/carlos-palestra.jpg",
    "pos": "center 25%",
    "tag": "90 dias",
    "titulo": "Em 90 dias você descobre onde ==perde dinheiro==.",
@@ -81,13 +77,11 @@
    "titulo": "Repita o certo até ele ==vender por você==.",
    "rodape": "Comportamento\nrepetido\nmuda",
    "tam": 138,
-   "img": "blog/assets/carlos-videochamada.jpg",
    "pos": "center 30%"
   },
   {
    "tipo": "cta",
    "layout": "fim",
-   "img": "blog/assets/carlos-microfone.jpg",
    "pos": "center 20%",
    "titulo": "Leia o texto completo",
    "texto": "No blog. Link na bio.",

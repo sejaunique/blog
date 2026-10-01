@@ -36,7 +36,6 @@
    "tipo": "texto",
    "layout": "gigante",
    "fundo": "papel",
-   "img": "blog/assets/carlos-call.jpg",
    "pos": "center 20%",
    "tag": "Por quê",
    "titulo": "Falta só ==uma última tentativa==.",
@@ -46,7 +45,6 @@
   {
    "tipo": "texto",
    "layout": "grade",
-   "img": "blog/assets/grupo-clientes.jpg",
    "pos": "55% 40%",
    "tag": "O sprint",
    "titulo": "Cliente novo 10. Recorrente 7. Objeção +3. Destravou +2.",
@@ -56,7 +54,6 @@
   {
    "tipo": "texto",
    "layout": "central",
-   "img": "blog/assets/carlos-time-uniforme.jpg",
    "pos": "center 35%",
    "pre": "Prêmio individual. Meta coletiva.",
    "titulo": "Se o time bate, [[todo mundo]] ganha",
@@ -65,7 +62,6 @@
   {
    "tipo": "frase",
    "layout": "aspas",
-   "img": "blog/assets/carlos-vermelho.jpg",
    "pos": "center 20%",
    "rotulo": "Antes de fechar o dia:",
    "texto": "Existe alguém que ainda não recebeu uma última tentativa minha?",
@@ -80,13 +76,11 @@
    "titulo": "Não vence quem teve sorte. ==Vence quem executou.==",
    "rodape": "Uma ligação\na mais",
    "tam": 124,
-   "img": "blog/assets/carlos-palestra.jpg",
    "pos": "center 20%"
   },
   {
    "tipo": "cta",
    "layout": "fim",
-   "img": "blog/assets/carlos-microfone.jpg",
    "pos": "center 20%",
    "titulo": "Monte o sprint no seu time",
    "texto": "Regras completas no blog. Link na bio.",

@@ -24,7 +24,6 @@
   {
    "tipo": "texto",
    "layout": "bloco",
-   "img": "blog/assets/carlos-notebook.jpg",
    "pos": "40% 30%",
    "tag": "Modo vertical",
    "titulo": "Notificação. Resposta. Próxima.",
@@ -34,7 +33,6 @@
   {
    "tipo": "texto",
    "layout": "central",
-   "img": "blog/assets/carlos-palestra.jpg",
    "pos": "center 20%",
    "pre": "Modo horizontal",
    "titulo": "Etapa. Intenção. [[Próximo passo]].",
@@ -44,7 +42,6 @@
   {
    "tipo": "lista",
    "layout": "lateral",
-   "img": "blog/assets/carlos-videochamada.jpg",
    "pos": "40% 30%",
    "rotulo": "Diagnóstico",
    "titulo": "Seu time está atendendo se:",
@@ -71,13 +68,11 @@
    "titulo": "Toda conversa termina com ==um passo a mais==.",
    "rodape": "Rumo à\ndecisão",
    "tam": 130,
-   "img": "blog/assets/carlos-microfone.jpg",
    "pos": "center 20%"
   },
   {
    "tipo": "cta",
    "layout": "fim",
-   "img": "blog/assets/carlos-vermelho.jpg",
    "pos": "center 20%",
    "titulo": "Leia o texto completo",
    "texto": "No blog. Link na bio.",

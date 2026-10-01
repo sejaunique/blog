@@ -23,3 +23,12 @@ Cada post do blog pode virar carrossel em `instagram/<slug>/`:
 1. Escreva `instagram/<slug>/roteiro.json` (tipos de slide: capa, texto, lista, frase, foto, cta; veja o topo de `tools/instagram.py`).
 2. `python3 tools/instagram.py <slug>` gera as imagens 1080x1350 e a `legenda.txt`.
 3. `python3 tools/instagram_pagina.py` atualiza a página https://sejaunique.vercel.app/instagram/ (com .zip e botão de postar).
+
+### Layouts de carrossel (rodízio)
+Aprovados pelo Carlos (usar em rodízio, nunca dois iguais seguidos):
+- `impacto` — foto P&B + tipografia condensada (Anton) + verde. Modelo aprovado: carrossel da indicação.
+
+Em teste (aguardando aprovação):
+- `duotone` — editorial verde: foto em duotom, grade fina, serifa itálica (Lora) + Montserrat.
+
+Regras: no máximo 2 fotos por carrossel. Fontes ficam em tools/fonts (instale em ~/.fonts antes de gerar).

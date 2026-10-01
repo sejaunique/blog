@@ -358,3 +358,51 @@ def _impacto(sl, i, n, mk):
     return IMPACTO, impacto(sl, i, n, mk)
 
 ESTILOS["impacto"] = _impacto
+
+# ================================================================ DUOTONE (editorial verde, serifa + grade)
+DUO = """
+.s{background:#04140c;color:#eafff3;font-family:"Montserrat",sans-serif}
+.ft{position:absolute;inset:0}.ft img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.25) brightness(1.05)}
+.tint{position:absolute;inset:0;background:linear-gradient(180deg,#00e676 0%,#00a352 55%,#02331b 100%);mix-blend-mode:multiply}
+.tint2{position:absolute;inset:0;background:radial-gradient(120% 80% at 30% 20%,rgba(0,230,118,.0),rgba(2,20,12,.75) 70%)}
+.glow{position:absolute;inset:0;background:radial-gradient(70% 55% at 75% 25%,rgba(0,230,118,.55),rgba(0,230,118,0) 70%),radial-gradient(60% 50% at 10% 90%,rgba(0,170,90,.35),rgba(0,0,0,0) 70%),#04140c}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(234,255,243,.14) 1px,transparent 1px),linear-gradient(90deg,rgba(234,255,243,.14) 1px,transparent 1px);background-size:135px 168.75px}
+.m{position:absolute;font-size:18px;letter-spacing:.06em;font-weight:500;opacity:.85}
+.sr{font-family:"Lora",serif;font-style:italic;font-weight:500;letter-spacing:-.01em}
+.sb{font-family:"Montserrat",sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:-.03em;line-height:.92}
+.g{font-family:"Lora",serif;font-style:italic;font-weight:600;text-transform:none;color:#00e676;letter-spacing:-.01em}
+.hl{background:#eafff3;color:#04140c;padding:0 .12em;border-radius:999px}
+.sq{position:absolute;background:#00e676}
+.bar{position:absolute;display:flex;gap:4px;height:46px}.bar i{display:block;background:#eafff3;width:4px}.bar i:nth-child(3n){width:9px}.bar i:nth-child(4n){width:2px}
+.line{position:absolute;height:1px;background:rgba(234,255,243,.6)}
+.it{display:grid;grid-template-columns:140px 1fr;padding:30px 0;border-top:1px solid rgba(234,255,243,.35)}
+.it .n{font-family:"Lora",serif;font-style:italic;font-size:64px;line-height:1;color:#00e676}
+.it b{display:block;font-size:44px;font-weight:800;text-transform:uppercase;letter-spacing:-.02em;line-height:1}
+.it span{display:block;font-size:28px;line-height:1.4;opacity:.85;margin-top:10px}
+"""
+
+def _duo_frame(i, n, tag):
+    return ('<div class="grid"></div><div class="m" style="top:46px;left:54px">Seja Unique — Série Vendas</div><div class="m" style="top:46px;left:50%%">@sejauniqueoficial</div><div class="m" style="top:46px;right:54px">2026</div>'
+            '<div class="m" style="top:360px;left:54px;text-transform:uppercase;letter-spacing:.2em">%s</div><div class="m" style="top:360px;right:54px">Nº %02d</div>'
+            '<div class="m" style="bottom:46px;left:54px;font-size:30px;font-weight:300;letter-spacing:0">00%02d —— %02d</div><div class="m" style="bottom:46px;right:54px">%s</div>') % (html.escape(tag), i, i, n, "Arraste →" if i < n else "Salve para depois")
+
+def duotone(sl, i, n, mk):
+    t = sl["tipo"]; foto = sl.get("img"); pos = sl.get("pos", "center 30%"); tag = sl.get("tag", "Cultura comercial")
+    fundo = ('<div class="ft"><img src="%s" style="object-position:%s"></div><div class="tint"></div><div class="tint2"></div>' % (mk["img_uri"](foto), pos)) if foto else '<div class="glow"></div>'
+    fr = _duo_frame(i, n, tag)
+    tit = inline(sl.get("titulo", ""))
+    if t == "capa":
+        body = fundo + fr + '<div class="sq" style="right:135px;top:168px;width:135px;height:169px"></div><div class="bar" style="right:54px;top:110px">%s</div>' % ("<i></i>" * 14)
+        body += '<div style="position:absolute;left:54px;right:54px;bottom:150px"><div class="sr" style="font-size:54px;margin-bottom:6px">%s</div><div class="sb" style="font-size:%dpx">%s</div><div style="font-size:30px;margin-top:26px;max-width:640px;line-height:1.35;font-weight:500">%s</div></div>' % (html.escape(sl.get("pre", "")), sl.get("tam", 132), tit, inline(sl.get("texto", "")))
+    elif t == "texto":
+        body = fundo + fr + '<div style="position:absolute;left:54px;right:54px;top:470px"><div class="sb" style="font-size:%dpx">%s</div><div class="line" style="position:relative;margin:44px 0 34px;width:220px"></div><div style="font-size:36px;line-height:1.45;font-weight:500;max-width:820px">%s</div></div>' % (sl.get("tam", 104), tit, inline(sl.get("texto", "")))
+    elif t == "lista":
+        itens = "".join('<div class="it"><div class="n">%02d</div><div><b>%s</b><span>%s</span></div></div>' % (k + 1, inline(x[0]), inline(x[1]) if len(x) > 1 else "") for k, x in enumerate(sl["itens"]))
+        body = fundo + fr + '<div style="position:absolute;left:54px;right:54px;top:430px"><div class="sr" style="font-size:72px;margin-bottom:30px">%s</div>%s</div>' % (tit, itens)
+    elif t == "frase":
+        body = fundo + fr + '<div class="sq" style="left:54px;top:470px;width:16px;height:300px"></div><div style="position:absolute;left:110px;right:80px;top:450px"><div class="sr" style="font-size:%dpx;line-height:1.1">%s</div><div class="m" style="position:relative;margin-top:40px;font-size:22px;letter-spacing:.2em;text-transform:uppercase">— Carlos Ribeiro</div></div>' % (sl.get("tam", 84), inline(sl.get("texto", "")))
+    else:  # cta
+        body = fundo + fr + '<div style="position:absolute;left:54px;right:54px;top:470px;text-align:left"><div class="sr" style="font-size:60px">%s</div><div class="sb" style="font-size:118px;margin-top:10px">%s</div><div style="margin-top:50px;display:inline-flex;align-items:center;gap:18px;border:1px solid #eafff3;border-radius:999px;padding:18px 34px;font-size:30px;font-weight:700">%s <span style="display:inline-block;width:22px;height:22px;border-radius:50%%;background:#00e676"></span></div></div>' % (html.escape(sl.get("pre", "")), tit, html.escape(sl.get("url", "sejaunique.vercel.app/blog")))
+    return DUO, '<div class="s">%s</div>' % body
+
+ESTILOS["duotone"] = duotone

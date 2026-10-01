@@ -2,51 +2,92 @@
  "slides": [
   {
    "tipo": "capa",
+   "layout": "bloco",
    "img": "blog/assets/grupo-clientes.jpg",
-   "pos": "center 40%",
+   "pos": "55% 40%",
    "tag": "Missão Fecha Tudo",
-   "titulo": "O dinheiro está nos orçamentos que você já mandou"
+   "titulo": "O dinheiro está nos orçamentos que você já mandou.",
+   "texto": "Antes de caçar cliente novo, olhe para o que ficou parado.",
+   "tam": 104
   },
   {
    "tipo": "lista",
-   "titulo": "Procure primeiro:",
+   "layout": "lateral",
+   "img": "blog/assets/carlos-notebook.jpg",
+   "pos": "40% 30%",
+   "rotulo": "Procure",
+   "titulo": "Onde está o dinheiro",
    "itens": [
-    "“Me chama depois”",
-    "Orçamento sem resposta",
-    "Negociação que esfriou",
-    "Visualizou e não respondeu"
+    [
+     "Me chama depois",
+     "Quem pediu para você voltar."
+    ],
+    [
+     "Sem resposta",
+     "Orçamentos enviados e esquecidos."
+    ],
+    [
+     "Esfriou",
+     "Negociações que pararam no meio."
+    ]
    ]
   },
   {
    "tipo": "texto",
-   "titulo": "Por que começar por aí",
-   "texto": "Esse cliente já passou pela parte mais cara da venda. Já te conhece e já recebeu proposta. Falta ==uma última tentativa==."
-  },
-  {
-   "tipo": "lista",
-   "titulo": "Placar do sprint",
-   "itens": [
-    "Cliente novo: <b>10 pts</b>",
-    "Cliente recorrente: <b>7 pts</b>",
-    "Recuperou objeção: <b>+3</b>",
-    "Destravou negociação: <b>+2</b>"
-   ]
+   "layout": "gigante",
+   "fundo": "papel",
+   "img": "blog/assets/carlos-call.jpg",
+   "pos": "center 20%",
+   "tag": "Por quê",
+   "titulo": "Falta só ==uma última tentativa==.",
+   "rodape": "Ele já te conhece\njá recebeu proposta\njá passou da parte cara",
+   "tam": 130
   },
   {
    "tipo": "texto",
-   "titulo": "Prêmio individual. Meta coletiva.",
-   "texto": "Quem mais pontua ganha. Se o time bate a meta, ==todo mundo ganha junto==."
+   "layout": "grade",
+   "img": "blog/assets/grupo-clientes.jpg",
+   "pos": "55% 40%",
+   "tag": "O sprint",
+   "titulo": "Cliente novo 10. Recorrente 7. Objeção +3. Destravou +2.",
+   "texto": "Pontuação da última semana do mês.",
+   "tam": 92
+  },
+  {
+   "tipo": "texto",
+   "layout": "central",
+   "img": "blog/assets/carlos-time-uniforme.jpg",
+   "pos": "center 35%",
+   "pre": "Prêmio individual. Meta coletiva.",
+   "titulo": "Se o time bate, [[todo mundo]] ganha",
+   "tam": 112
   },
   {
    "tipo": "frase",
-   "texto": "Alguém ainda não recebeu ==uma última tentativa== sua?"
+   "layout": "aspas",
+   "img": "blog/assets/carlos-vermelho.jpg",
+   "pos": "center 20%",
+   "rotulo": "Antes de fechar o dia:",
+   "texto": "Existe alguém que ainda não recebeu uma última tentativa minha?",
+   "titulo": "Última.",
+   "tam": 150
   },
   {
-   "tipo": "frase",
-   "texto": "Não vence quem teve sorte. ==Vence quem executou.=="
+   "tipo": "texto",
+   "layout": "gigante",
+   "fundo": "preto",
+   "tag": "O espírito do sprint",
+   "titulo": "Não vence quem teve sorte. ==Vence quem executou.==",
+   "rodape": "Uma ligação\na mais",
+   "tam": 124,
+   "img": "blog/assets/carlos-palestra.jpg",
+   "pos": "center 20%"
   },
   {
    "tipo": "cta",
+   "layout": "fim",
+   "img": "blog/assets/carlos-microfone.jpg",
+   "pos": "center 20%",
    "titulo": "Monte o sprint no seu time",
    "texto": "Regras completas no blog. Link na bio.",
    "url": "sejaunique.vercel.app/blog"
@@ -55,5 +96,5 @@
  "legenda": "O dinheiro do mês está nos orçamentos que você já mandou.\n\nChega a última semana do mês e o time corre atrás de cliente novo. Enquanto isso, o dinheiro está parado no próprio funil: o “me chama depois”, o orçamento sem resposta, a negociação que esfriou.\n\nNa última semana do mês, eu transformo isso num sprint com pontuação: a Missão Fecha Tudo.\n\nAntes de fechar o dia, uma pergunta: existe alguém que ainda não recebeu uma última tentativa minha?\n\n📌 As regras completas estão no blog. Link na bio.\n\n#metas #vendas #gestaocomercial #timedevendas #followup #consultoriadevendas #sejaunique",
  "formato": "carrossel",
  "tema": "centro",
- "estilo": "brutal"
+ "estilo": "impacto"
 }

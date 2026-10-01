@@ -2,102 +2,101 @@
  "slides": [
   {
    "tipo": "capa",
-   "tag": "Técnica",
-   "titulo": "“Ele disse que você faria um ==preço camarada==.”",
-   "notificacoes": [
-    "<b>Novo contato:</b> Oi! O Fulano me indicou você 😊",
-    "<b>Novo contato:</b> Ele disse que você faz um preço camarada"
-   ]
-  },
-  {
-   "tipo": "chat",
-   "contato": "Novo cliente",
-   "status": "indicado pelo Fulano",
-   "msgs": [
-    [
-     "cliente",
-     "Oi! Estou aqui porque o Fulano me indicou."
-    ],
-    [
-     "cliente",
-     "Ele disse que você faria um preço camarada 😅"
-    ],
-    [
-     "voce",
-     "Que bom! Vamos conversar."
-    ]
-   ],
-   "texto": "A venda acontece. E quem indicou recebe, no máximo, ==um obrigado==."
+   "layout": "aspas",
+   "img": "blog/assets/carlos-videochamada.jpg",
+   "pos": "center 25%",
+   "rotulo": "Todo dono já ouviu:",
+   "texto": "“Estou aqui porque o Fulano me indicou. Ele disse que você faria um preço camarada.”",
+   "titulo": "Camarada?",
+   "tam": 150,
+   "rodape": "Seja Unique · Técnica de indicação"
   },
   {
    "tipo": "texto",
-   "contato": "Fulano",
-   "status": "cliente",
-   "titulo": "Quem te indica é um vendedor",
-   "texto": "Um vendedor que você não contratou. Então eu não mandei mensagem. ==Liguei.=="
+   "layout": "gigante",
+   "fundo": "papel",
+   "img": "blog/assets/carlos-call.jpg",
+   "pos": "center 20%",
+   "tag": "A verdade",
+   "titulo": "Quem te indica é um ==vendedor==.",
+   "rodape": "Que você\nnão\ncontratou",
+   "tam": 140
   },
   {
-   "tipo": "chat",
-   "contato": "Fulano",
-   "status": "em ligação · 02:14",
-   "titulo": "A primeira pergunta",
-   "msgs": [
-    [
-     "voce",
-     "Me fala uma coisa: por que você está me indicando?"
-    ],
-    [
-     "cliente",
-     "Você me entregou em 5 minutos nome, telefone e decisor."
-    ]
-   ],
-   "texto": "Ele reforça o valor para ele mesmo. E você ganha ==um depoimento espontâneo==."
+   "tipo": "texto",
+   "layout": "grade",
+   "img": "blog/assets/carlos-call.jpg",
+   "pos": "center 15%",
+   "tag": "O que eu fiz",
+   "titulo": "Não mandei mensagem. ==Liguei.==",
+   "texto": "E fiz a pergunta que quase ninguém faz.",
+   "tam": 120
   },
   {
-   "tipo": "chat",
-   "contato": "Fulano",
-   "status": "em ligação · 03:40",
-   "titulo": "A segunda pergunta",
-   "msgs": [
-    [
-     "voce",
-     "O que você quer ganhar com essa indicação?"
-    ],
-    [
-     "cliente",
-     "Não precisa, cara…"
-    ],
-    [
-     "voce",
-     "Precisa sim. Se o Danilo fechar, o presente já está garantido."
-    ]
-   ]
+   "tipo": "texto",
+   "layout": "central",
+   "img": "blog/assets/carlos-videochamada.jpg",
+   "pos": "center 25%",
+   "pre": "Pergunta 1",
+   "titulo": "“Por que você está me [[indicando]]?”",
+   "texto": "Ele reforça o valor para ele mesmo. E você ganha um depoimento espontâneo.",
+   "tam": 104
+  },
+  {
+   "tipo": "texto",
+   "layout": "bloco",
+   "img": "blog/assets/carlos-explicando.jpg",
+   "pos": "40% 30%",
+   "tag": "Pergunta 2",
+   "titulo": "O que você quer ganhar?",
+   "texto": "Ele disse “não precisa”. Eu insisti: se o Danilo fechar, o presente está garantido.",
+   "tam": 112
   },
   {
    "tipo": "lista",
-   "contato": "Erros comuns",
-   "status": "leia antes de agradecer",
+   "layout": "lateral",
+   "img": "blog/assets/carlos-notebook.jpg",
+   "pos": "40% 30%",
+   "rotulo": "Não faça",
    "titulo": "Os erros mais comuns",
    "itens": [
-    "Só agradecer.",
-    "Mandar mensagem em vez de ligar.",
-    "Dar o prêmio sem condição.",
-    "Premiar sem estratégia."
+    [
+     "Só agradecer",
+     "Obrigado não é recompensa."
+    ],
+    [
+     "Mandar mensagem",
+     "Voz cria conexão que texto não cria."
+    ],
+    [
+     "Prêmio sem condição",
+     "Condicione ao fechamento."
+    ]
    ]
   },
   {
-   "tipo": "frase",
-   "texto": "Relacionamento só vira ativo quando a indicação vira canal de venda."
+   "tipo": "texto",
+   "layout": "gigante",
+   "fundo": "preto",
+   "tag": "Resumo",
+   "titulo": "Indicação é ==canal de venda==.",
+   "rodape": "Ligue\npergunte\nrecompense",
+   "tam": 140,
+   "img": "blog/assets/carlos-time-uniforme.jpg",
+   "pos": "center 30%"
   },
   {
    "tipo": "cta",
-   "titulo": "Onde eu leio a técnica completa?",
-   "texto": "Está no blog. Link na bio 👇",
+   "layout": "fim",
+   "img": "blog/assets/carlos-palestra.jpg",
+   "pos": "center 20%",
+   "titulo": "A técnica completa",
+   "texto": "Passo a passo no blog. Link na bio.",
    "url": "sejaunique.vercel.app/blog"
   }
  ],
  "legenda": "“Ele disse que você faria um preço camarada.”\n\nTodo dono de empresa já ouviu isso. A indicação chega, a venda acontece e quem indicou recebe, no máximo, um obrigado.\n\nQuem te indica é um vendedor que você não contratou.\n\nNa última indicação que recebi, eu liguei e fiz duas perguntas:\n1. Por que você está me indicando?\n2. O que você quer ganhar com isso?\n\nE combinei: se o indicado fechar, o presente está garantido.\n\n📌 A técnica completa está no blog. Link na bio.\n\n#indicacao #vendas #relacionamento #estrategiadevendas #empreendedorismo #consultoriadevendas #sejaunique",
  "formato": "carrossel",
  "tema": "neon",
- "estilo": "chat"
+ "estilo": "impacto"
 }

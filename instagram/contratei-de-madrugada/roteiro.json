@@ -3,56 +3,109 @@
  "slides": [
   {
    "tipo": "capa",
-   "img": "blog/assets/silvia-4x5.jpg",
-   "tag": "Gestão · Contratação",
-   "titulo": "O dia em que eu contratei alguém às 2h da manhã"
-  },
-  {
-   "tipo": "texto",
-   "titulo": "Eu não anunciei um cargo",
-   "texto": "Anunciei uma missão: ==transformar uma pedra bruta em diamante==. Quando você muda o rótulo, muda o valor que a pessoa enxerga."
-  },
-  {
-   "tipo": "texto",
-   "titulo": "86 inscritos. 12 seguiram a instrução.",
-   "texto": "Não pedi currículo. Pedi que cada um respondesse **por que aquela vaga deveria ser sua**, e deixei uma instrução escondida no fim do vídeo."
-  },
-  {
-   "tipo": "foto",
+   "layout": "grade",
    "img": "blog/assets/carlos-ligacao-4x5.jpg",
-   "pos": "center 20%",
-   "titulo": "Liguei para os 12 às 2h da manhã.",
-   "texto": "Eu queria alguém que se importasse com o resultado, não com o horário."
+   "pos": "center 15%",
+   "tag": "Contratação",
+   "titulo": "Contratei alguém às [[2h da manhã]]",
+   "texto": "E foi a melhor contratação que eu já fiz.",
+   "tam": 124
+  },
+  {
+   "tipo": "texto",
+   "layout": "gigante",
+   "fundo": "papel",
+   "img": "blog/assets/silvia-4x5.jpg",
+   "pos": "55% 30%",
+   "tag": "A vaga",
+   "titulo": "Eu não anunciei um cargo. Anunciei uma ==missão==.",
+   "rodape": "Transformar\npedra bruta\nem diamante",
+   "tam": 118
   },
   {
    "tipo": "lista",
-   "titulo": "O teste do restaurante japonês",
+   "layout": "lateral",
+   "img": "blog/assets/carlos-explicando.jpg",
+   "pos": "30% 30%",
+   "rotulo": "O filtro",
+   "titulo": "Comportamento, não currículo",
    "itens": [
-    "**A candidata comum:** fachada simples, desconto e “vendemos comida”.",
-    "**A Silvia:** criou o Dip, com pequenos produtores, horta própria e identidade coerente."
+    [
+     "86 inscritos",
+     "Ninguém mandou currículo. Pedi: por que essa vaga deve ser sua?"
+    ],
+    [
+     "12 seguiram",
+     "Só 12 cumpriram a instrução escondida no fim do vídeo."
+    ],
+    [
+     "2h da manhã",
+     "Liguei para os 12 de madrugada."
+    ]
    ]
   },
   {
    "tipo": "frase",
-   "texto": "O teste não mediu técnica. Mediu o tamanho da mente."
+   "layout": "aspas",
+   "img": "blog/assets/carlos-ligacao-4x5.jpg",
+   "pos": "center 15%",
+   "rotulo": "Por que de madrugada?",
+   "texto": "Eu queria alguém que se importasse com o resultado, não com o horário.",
+   "titulo": "Resultado.",
+   "tam": 140
   },
   {
    "tipo": "texto",
-   "titulo": "Pediu R$ 1.200. Terminou com 25%.",
-   "texto": "A Silvia virou peça fundamental do negócio e passou a ganhar ==25% do faturamento==."
+   "layout": "bloco",
+   "img": "blog/assets/silvia-4x5.jpg",
+   "pos": "60% 30%",
+   "tag": "O teste",
+   "titulo": "Crie um restaurante japonês.",
+   "texto": "A candidata comum entregou desconto e fachada simples. A Silvia criou o Dip: pequenos produtores, horta própria, identidade coerente.",
+   "tam": 110
   },
   {
-   "tipo": "frase",
-   "texto": "Não contrate currículo. Contrate comportamento."
+   "tipo": "texto",
+   "layout": "gigante",
+   "fundo": "preto",
+   "tag": "O que o teste mediu",
+   "titulo": "Não foi técnica. Foi o ==tamanho da mente==.",
+   "rodape": "Senso estético\nplanejamento\nvisão",
+   "tam": 132,
+   "img": "blog/assets/carlos-microfone.jpg",
+   "pos": "center 20%"
+  },
+  {
+   "tipo": "texto",
+   "layout": "central",
+   "img": "blog/assets/silvia-4x5.jpg",
+   "pos": "60% 30%",
+   "pre": "O resultado",
+   "titulo": "De R$ 1.200 a [[25%]] do faturamento",
+   "texto": "Ela virou peça fundamental do negócio.",
+   "tam": 112,
+   "align": "left"
+  },
+  {
+   "tipo": "texto",
+   "layout": "grade",
+   "img": "blog/assets/carlos-vermelho.jpg",
+   "pos": "center 20%",
+   "tag": "Lição",
+   "titulo": "Não contrate currículo. Contrate ==comportamento==.",
+   "tam": 110
   },
   {
    "tipo": "cta",
-   "titulo": "A história completa está no blog",
+   "layout": "fim",
+   "img": "blog/assets/carlos-microfone.jpg",
+   "pos": "center 20%",
+   "titulo": "A história completa",
    "texto": "Com os vídeos do processo. Link na bio.",
    "url": "sejaunique.vercel.app/blog"
   }
  ],
  "legenda": "O dia em que eu contratei alguém às 2h da manhã. 📞\n\nEu precisava de uma gestora de marketing. Em vez de anunciar um cargo, anunciei uma missão: transformar uma pedra bruta em diamante.\n\nNão pedi currículo. 86 pessoas se inscreveram e só 12 fizeram o que eu pedi.\n\nLiguei para as 12 de madrugada. Não porque o trabalho seria de madrugada, mas porque eu queria ver quem se importava com o resultado, e não com o horário.\n\nNo teste final, cada um criou o conceito de um restaurante japonês. A Silvia criou o Dip, e mostrou o tamanho da mente dela.\n\nEla entrou pedindo R$ 1.200. Terminou ganhando 25% do faturamento.\n\nNão contrate currículo. Contrate comportamento.\n\n📌 A história completa, com os vídeos, está no blog. Link na bio.\n\n#contratacao #gestaodepessoas #recrutamento #lideranca #empreendedorismo #consultoriadevendas #sejaunique",
  "tema": "editorial",
- "estilo": "revista"
+ "estilo": "impacto"
 }

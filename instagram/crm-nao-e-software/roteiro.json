@@ -2,50 +2,93 @@
  "slides": [
   {
    "tipo": "capa",
+   "layout": "central",
    "img": "blog/assets/carlos-notebook.jpg",
-   "pos": "center 30%",
-   "tag": "Cultura",
-   "titulo": "CRM não é software. É ==Comportamento Repetido Muda==.",
-   "notas": [
-    "preencho depois…",
-    "o dono resolve no braço"
-   ]
+   "pos": "center 25%",
+   "pre": "O que ninguém te contou:",
+   "titulo": "CRM não é [[software]]",
+   "texto": "É **Comportamento Repetido Muda**.",
+   "tam": 160
   },
   {
    "tipo": "texto",
-   "titulo": "Empresas não travam por falta de produto",
-   "texto": "Travam porque repetem comportamentos errados todos os dias. E chamam isso de ==rotina==."
+   "layout": "gigante",
+   "fundo": "papel",
+   "tag": "Cultura comercial",
+   "titulo": "Empresas não travam por falta de ==produto==.",
+   "rodape": "Travam por\ncomportamento\nrepetido",
+   "tam": 140,
+   "img": "blog/assets/carlos-time-uniforme.jpg",
+   "pos": "center 30%"
   },
   {
    "tipo": "lista",
-   "titulo": "O mural do improviso:",
+   "layout": "lateral",
+   "img": "blog/assets/carlos-explicando.jpg",
+   "pos": "30% 30%",
+   "rotulo": "Improviso",
+   "titulo": "Você reconhece?",
    "itens": [
-    "O mês começa com esperança e termina com ansiedade.",
-    "Quando um vendedor sai, o faturamento treme.",
-    "Quando você entra na venda, as coisas andam.",
-    "Quando você se afasta, o comercial para."
+    [
+     "Esperança",
+     "O mês começa com esperança e termina com ansiedade."
+    ],
+    [
+     "Tremor",
+     "Quando um vendedor sai, o faturamento treme."
+    ],
+    [
+     "Dependência",
+     "Quando você se afasta, o comercial para."
+    ]
    ]
   },
   {
-   "tipo": "frase",
-   "texto": "Isso não é azar. É improviso estruturado."
-  },
-  {
    "tipo": "texto",
-   "titulo": "A solução errada",
-   "texto": "Troca o vendedor, o sistema, o preço. Raramente troca ==a rotina==. É mais rápido dar desconto do que qualificar melhor."
-  },
-  {
-   "tipo": "texto",
-   "titulo": "Sem disciplina, o CRM vira…",
-   "texto": "…um ==lugar bonito para esconder bagunça==. CRM nasce no comportamento de quem vende."
+   "layout": "bloco",
+   "img": "blog/assets/carlos-call.jpg",
+   "pos": "center 20%",
+   "tag": "A solução errada",
+   "titulo": "Troca tudo. Menos a rotina.",
+   "texto": "Troca o vendedor, o sistema e o preço. É mais rápido dar desconto do que qualificar melhor.",
+   "tam": 118
   },
   {
    "tipo": "frase",
-   "texto": "Repita o comportamento certo até ele vender por você."
+   "layout": "aspas",
+   "img": "blog/assets/carlos-vermelho.jpg",
+   "pos": "center 20%",
+   "rotulo": "Sem disciplina:",
+   "texto": "qualquer CRM vira um lugar bonito para esconder bagunça.",
+   "titulo": "Bagunça.",
+   "tam": 150
+  },
+  {
+   "tipo": "texto",
+   "layout": "grade",
+   "img": "blog/assets/carlos-palestra.jpg",
+   "pos": "center 25%",
+   "tag": "90 dias",
+   "titulo": "Em 90 dias você descobre onde ==perde dinheiro==.",
+   "texto": "E se o preço é problema ou desculpa. Isso vem de **consistência**, não de feeling.",
+   "tam": 96
+  },
+  {
+   "tipo": "texto",
+   "layout": "gigante",
+   "fundo": "preto",
+   "tag": "Frase-chave",
+   "titulo": "Repita o certo até ele ==vender por você==.",
+   "rodape": "Comportamento\nrepetido\nmuda",
+   "tam": 138,
+   "img": "blog/assets/carlos-videochamada.jpg",
+   "pos": "center 30%"
   },
   {
    "tipo": "cta",
+   "layout": "fim",
+   "img": "blog/assets/carlos-microfone.jpg",
+   "pos": "center 20%",
    "titulo": "Leia o texto completo",
    "texto": "No blog. Link na bio.",
    "url": "sejaunique.vercel.app/blog"
@@ -54,5 +97,5 @@
  "legenda": "CRM não é software. É Comportamento Repetido Muda.\n\nEmpresas não travam por falta de produto, de mercado ou de esforço. Travam porque repetem comportamentos errados todos os dias e chamam isso de rotina.\n\nQuando o resultado não vem, trocam o vendedor, o sistema, o preço. Raramente trocam a rotina.\n\nSem disciplina, qualquer CRM vira um lugar bonito para esconder bagunça.\n\nVocê não precisa de um sistema novo. Precisa repetir o comportamento certo até ele vender por você.\n\n📌 O texto completo está no blog. Link na bio.\n\n#crm #gestaocomercial #vendas #culturaorganizacional #empreendedorismo #consultoriadevendas #sejaunique",
  "formato": "carrossel",
  "tema": "bloco",
- "estilo": "postit"
+ "estilo": "impacto"
 }

@@ -422,10 +422,11 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
       '<div class="body"><aside class="share" aria-label="Compartilhar"><div>'+
         '<a href="https://wa.me/?text='+encodeURIComponent(titulo+' '+url)+'" target="_blank" rel="noopener" aria-label="Compartilhar no WhatsApp">'+icon('chat')+'</a>'+
         '<a href="https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(url)+'" target="_blank" rel="noopener" aria-label="Compartilhar no LinkedIn">'+icon('linkedin')+'</a>'+
+        '<button type="button" class="js-story" aria-label="Compartilhar nos Stories do Instagram">'+icon('insta')+'</button>'+
         '<button type="button" class="js-share" aria-label="Compartilhar">'+icon('share')+'</button>'+
       '</div></aside>'+
       '<div class="content">'+corpo(p.texto)+'</div>'+
-      '<div class="cta"><p>'+inline(C.chamada||'Gostou? Mande para alguém que precisa ler isso.')+'</p><div class="btns"><button type="button" class="btn js-like" aria-pressed="false">'+icon('heart')+' <span>Curtir</span></button><button type="button" class="btn solid js-share">'+icon('share')+' Compartilhar</button></div></div>'+
+      '<div class="cta"><p>'+inline(C.chamada||'Gostou? Mande para alguém que precisa ler isso.')+'</p><div class="btns"><button type="button" class="btn js-like" aria-pressed="false">'+icon('heart')+' <span>Curtir</span></button><button type="button" class="btn js-story">'+icon('insta')+' Postar nos Stories</button><button type="button" class="btn solid js-share">'+icon('share')+' Compartilhar</button></div></div>'+
       '<section class="coments" id="comentarios"><h3>Comentários</h3>'+
         '<form class="cform" novalidate><input name="nome" maxlength="60" placeholder="Seu nome" autocomplete="name" required>'+
         '<textarea name="texto" maxlength="1500" placeholder="O que você achou?" required></textarea>'+
@@ -436,6 +437,8 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
       (outros.length?'<section class="more"><h3>Leia também</h3><ul class="grid">'+outros.map(card).join('')+'</ul></section>':'')+
       '</article>';
     app.querySelectorAll('.js-share').forEach(function(bt){ bt.onclick=function(){ compartilhar(titulo, plain(p.resumo||''), url); }; });
+    var arte=storyArte(p);
+    app.querySelectorAll('.js-story').forEach(function(bt){ bt.onclick=function(){ postarStory(arte, p, url); }; });
     interacoes(p);
   }
 
@@ -526,6 +529,83 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
       try{ navigator.clipboard.writeText(url).then(show,function(){ ok.textContent=url; show(); }); }catch(e){ ok.textContent=url; show(); }
     };
     document.onkeydown=function(e){ if(e.key==='Escape') el.hidden=true; };
+  }
+
+  // Stories do Instagram: monta uma arte 1080x1920 com a capa e o título do post.
+  // No celular abre o menu do aparelho já com a imagem (escolha Instagram > Stories).
+  // O link do post vai copiado, para colar na figurinha "Link" do Stories.
+  function storyArte(p){
+    return new Promise(function(ok){
+      var W=1080,H=1920,c=document.createElement('canvas'); c.width=W; c.height=H;
+      var g=c.getContext('2d');
+      var logo=null;
+      function fim(img){
+        var fonte='"Montserrat",system-ui,Arial,sans-serif';
+        g.fillStyle='#000'; g.fillRect(0,0,W,H);
+        var y=150;
+        // logo
+        g.fillStyle='#fff'; g.font='700 34px '+fonte; g.textBaseline='top';
+        if(logo) g.drawImage(logo, 90, y, 216, 48); else g.fillText('UNIQUE', 90, y);
+        g.fillStyle='#9a9aa1'; g.font='500 26px '+fonte; g.fillText('Blog · Canivete de Vendas', 90, y+70);
+        y=300;
+        if(img){
+          var iw=900, ih=Math.round(iw*9/16), x=90, r=36;
+          g.save(); g.beginPath();
+          if(g.roundRect) g.roundRect(x,y,iw,ih,r); else g.rect(x,y,iw,ih);
+          g.clip();
+          var s=Math.max(iw/img.width, ih/img.height), dw=img.width*s, dh=img.height*s;
+          g.drawImage(img, x+(iw-dw)/2, y+(ih-dh)/2, dw, dh); g.restore();
+          y+=ih+80;
+        } else y+=120;
+        // categoria
+        var cat=(p.categoria||'').toUpperCase();
+        if(cat){ g.font='700 28px '+fonte; var cw=g.measureText(cat).width+48;
+          g.fillStyle='#00ff80'; if(g.roundRect){g.beginPath();g.roundRect(90,y,cw,56,28);g.fill();} else g.fillRect(90,y,cw,56);
+          g.fillStyle='#000'; g.fillText(cat, 114, y+14); y+=100; }
+        // título
+        var tit=plain(p.titulo), tam=86;
+        function linhas(t){ g.font='800 '+tam+'px '+fonte; var ws=t.split(' '), ls=[], l='';
+          ws.forEach(function(w){ var tt=l?l+' '+w:w; if(g.measureText(tt).width>900&&l){ls.push(l);l=w;} else l=tt; }); if(l) ls.push(l); return ls; }
+        var ls=linhas(tit); while(ls.length>5&&tam>56){ tam-=6; ls=linhas(tit); }
+        g.fillStyle='#fff';
+        ls.forEach(function(l){ g.fillText(l, 90, y); y+=Math.round(tam*1.1); });
+        // chamada
+        var cy=H-330;
+        g.fillStyle='#fff'; if(g.roundRect){g.beginPath();g.roundRect(90,cy,900,130,65);g.fill();} else g.fillRect(90,cy,900,130);
+        g.fillStyle='#000'; g.font='800 40px '+fonte; g.textAlign='center'; g.fillText('LEIA O POST COMPLETO ↗', W/2, cy+44); g.textAlign='left';
+        g.fillStyle='#9a9aa1'; g.font='500 30px '+fonte; g.textAlign='center'; g.fillText('sejaunique.vercel.app/blog', W/2, cy+170); g.textAlign='left';
+        c.toBlob(function(b){ ok(b?new File([b], p.slug+'-stories.png', {type:'image/png'}):null); }, 'image/png');
+      }
+      var pronto=(document.fonts&&document.fonts.ready)||Promise.resolve();
+      var lg=new Image(), lgSrc='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(LOGO.replace('fill="currentColor"','fill="#ffffff"').replace('<svg ','<svg width="2696" height="600" '));
+      var logoPronto=new Promise(function(r){ lg.onload=function(){ logo=lg; r(); }; lg.onerror=r; lg.src=lgSrc; });
+      Promise.all([pronto,logoPronto]).then(function(){
+        if(!p.capa) return fim(null);
+        var im=new Image(); im.onload=function(){ fim(im); }; im.onerror=function(){ fim(null); }; im.src=p.capa;
+      });
+    });
+  }
+  function avisoStory(txt){
+    var el=document.getElementById('sheet');
+    if(!el){ el=document.createElement('div'); el.id='sheet'; document.body.appendChild(el); }
+    el.innerHTML='<div class="sheet-bg" data-close></div><div class="sheet" role="dialog" aria-modal="true" aria-label="Stories"><div class="sheet-head"><b>Postar nos Stories</b><button type="button" class="sheet-x" data-close aria-label="Fechar">×</button></div><p style="margin:0;font-size:.85rem;line-height:1.6">'+txt+'</p></div>';
+    el.hidden=false;
+    el.querySelectorAll('[data-close]').forEach(function(x){ x.onclick=function(){ el.hidden=true; }; });
+  }
+  function postarStory(arte, p, url){
+    try{ navigator.clipboard.writeText(url).catch(function(){}); }catch(e){}
+    arte.then(function(f){
+      if(!f){ compartilhar(plain(p.titulo),'',url); return; }
+      if(navigator.canShare && navigator.canShare({files:[f]})){
+        navigator.share({files:[f]}).then(function(){
+          avisoStory('Pronto! O link do post já está copiado: no Stories, toque na figurinha <b>Link</b> e cole.');
+        }).catch(function(e){ if(e && e.name!=='AbortError') baixar(f); });
+      } else baixar(f);
+    });
+    function baixar(f){
+      var a=document.createElement('a'); a.href=URL.createObjectURL(f); a.download=f.name; document.body.appendChild(a); a.click(); a.remove();
+      avisoStory('Baixamos a arte do Stories para você. Abra o Instagram, crie um Stories com essa imagem e use a figurinha <b>Link</b> para colar o endereço do post (já copiado).');
+    }
   }
 
   function rota(){

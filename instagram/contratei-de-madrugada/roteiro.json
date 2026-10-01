@@ -4,53 +4,55 @@
   {
    "tipo": "capa",
    "img": "blog/assets/silvia-4x5.jpg",
-   "tag": "Gestão",
-   "titulo": "O dia em que eu contratei alguém ==às 2h da manhã=="
+   "tag": "Gestão · Contratação",
+   "titulo": "O dia em que eu contratei alguém às 2h da manhã"
   },
   {
    "tipo": "texto",
    "titulo": "Eu não anunciei um cargo",
-   "texto": "Anunciei uma missão: ==transformar uma pedra bruta em diamante==.\n\nQuando você muda o rótulo, muda o valor que a pessoa enxerga."
+   "texto": "Anunciei uma missão: ==transformar uma pedra bruta em diamante==. Quando você muda o rótulo, muda o valor que a pessoa enxerga."
   },
   {
    "tipo": "texto",
-   "titulo": "Não pedi currículo",
-   "texto": "Pedi que cada um respondesse **por que aquela vaga deveria ser sua**.\n\n86 se inscreveram. Só ==12== fizeram o que eu pedi."
+   "titulo": "86 inscritos. 12 seguiram a instrução.",
+   "texto": "Não pedi currículo. Pedi que cada um respondesse **por que aquela vaga deveria ser sua**, e deixei uma instrução escondida no fim do vídeo."
   },
   {
-   "tipo": "fotofundo",
+   "tipo": "foto",
    "img": "blog/assets/carlos-ligacao-4x5.jpg",
-   "titulo": "Liguei para os 12 ==às 2h da manhã==",
-   "texto": "Não queria alguém que trabalhasse de madrugada. Queria alguém que **se importasse com o resultado, não com o horário**."
+   "pos": "center 20%",
+   "titulo": "Liguei para os 12 às 2h da manhã.",
+   "texto": "Eu queria alguém que se importasse com o resultado, não com o horário."
   },
   {
    "tipo": "lista",
-   "titulo": "O teste: criar um restaurante japonês",
+   "titulo": "O teste do restaurante japonês",
    "itens": [
-    "**A candidata comum:** fachada simples, desconto e \"vendemos comida\".",
-    "**A Silvia:** criou o Dip, com pequenos produtores, horta própria e identidade visual coerente."
+    "**A candidata comum:** fachada simples, desconto e “vendemos comida”.",
+    "**A Silvia:** criou o Dip, com pequenos produtores, horta própria e identidade coerente."
    ]
   },
   {
    "tipo": "frase",
-   "texto": "O teste não mediu técnica. Mediu ==o tamanho da mente==."
+   "texto": "O teste não mediu técnica. Mediu o tamanho da mente."
   },
   {
    "tipo": "texto",
-   "titulo": "O resultado",
-   "texto": "Ela entrou pedindo **R$ 1.200**.\n\nVirou peça fundamental do negócio e passou a ganhar ==25% do faturamento==."
+   "titulo": "Pediu R$ 1.200. Terminou com 25%.",
+   "texto": "A Silvia virou peça fundamental do negócio e passou a ganhar ==25% do faturamento==."
   },
   {
    "tipo": "frase",
-   "texto": "Não contrate currículo. Contrate ==comportamento==."
+   "texto": "Não contrate currículo. Contrate comportamento."
   },
   {
    "tipo": "cta",
-   "titulo": "Veja a história completa",
-   "texto": "Com os vídeos do processo, no blog. Link na bio.",
+   "titulo": "A história completa está no blog",
+   "texto": "Com os vídeos do processo. Link na bio.",
    "url": "sejaunique.vercel.app/blog"
   }
  ],
  "legenda": "O dia em que eu contratei alguém às 2h da manhã. 📞\n\nEu precisava de uma gestora de marketing. Em vez de anunciar um cargo, anunciei uma missão: transformar uma pedra bruta em diamante.\n\nNão pedi currículo. 86 pessoas se inscreveram e só 12 fizeram o que eu pedi.\n\nLiguei para as 12 de madrugada. Não porque o trabalho seria de madrugada, mas porque eu queria ver quem se importava com o resultado, e não com o horário.\n\nNo teste final, cada um criou o conceito de um restaurante japonês. A Silvia criou o Dip, e mostrou o tamanho da mente dela.\n\nEla entrou pedindo R$ 1.200. Terminou ganhando 25% do faturamento.\n\nNão contrate currículo. Contrate comportamento.\n\n📌 A história completa, com os vídeos, está no blog. Link na bio.\n\n#contratacao #gestaodepessoas #recrutamento #lideranca #empreendedorismo #consultoriadevendas #sejaunique",
- "tema": "editorial"
+ "tema": "editorial",
+ "estilo": "revista"
 }

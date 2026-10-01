@@ -1,27 +1,33 @@
 {
  "slides": [
   {
-   "tipo": "capatexto",
+   "tipo": "capa",
+   "img": "blog/assets/carlos-explicando.jpg",
+   "pos": "center 25%",
    "tag": "Técnica",
-   "titulo": "O atendente reage. O vendedor ==conduz==."
+   "titulo": "O atendente reage.<br>O vendedor ==conduz==."
   },
   {
    "tipo": "texto",
-   "titulo": "Responder rápido não é vender",
+   "tag": "Técnica",
+   "titulo": "Responder rápido não é vender.",
    "texto": "Responder todas as notificações não é estratégia. Estar sempre disponível não é controle."
   },
   {
    "tipo": "texto",
+   "tag": "Modo vertical",
    "titulo": "O atendente",
-   "texto": "Trabalha no modo vertical:\n\n**notificação → resposta → próxima notificação**"
+   "texto": "notificação → resposta → próxima notificação"
   },
   {
    "tipo": "texto",
+   "tag": "Modo horizontal",
    "titulo": "O vendedor",
-   "texto": "Trabalha no modo horizontal:\n\n**etapa → intenção → ==próximo passo==**"
+   "texto": "etapa → intenção → ==próximo passo=="
   },
   {
    "tipo": "lista",
+   "tag": "Diagnóstico",
    "titulo": "Seu time está atendendo se:",
    "itens": [
     "A conversa acaba quando o cliente para de perguntar.",
@@ -32,7 +38,8 @@
   },
   {
    "tipo": "frase",
-   "texto": "Toda conversa precisa terminar com o cliente ==um passo mais perto== da decisão."
+   "tag": "Regra",
+   "texto": "Toda conversa termina com o cliente um passo mais perto da decisão."
   },
   {
    "tipo": "cta",
@@ -43,5 +50,6 @@
  ],
  "legenda": "O atendente reage. O vendedor conduz.\n\nResponder WhatsApp rápido não é vender. Tem time inteiro trabalhando como atendente e achando que está vendendo.\n\nO atendente vive no modo: notificação → resposta → próxima notificação.\nO vendedor vive no modo: etapa → intenção → próximo passo.\n\nToda conversa precisa terminar com o cliente um passo mais perto da decisão.\n\n📌 O texto completo está no blog. Link na bio.\n\n#vendas #whatsapp #atendimento #timedevendas #gestaocomercial #consultoriadevendas #sejaunique",
  "formato": "carrossel",
- "tema": "classico"
+ "tema": "classico",
+ "estilo": "minimal"
 }

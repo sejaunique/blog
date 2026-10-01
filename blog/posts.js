@@ -112,6 +112,7 @@ Contratação é venda. Se você trata a vaga como um anúncio qualquer, atrai g
   },
   {
     slug: "crm-nao-e-software",
+    capa: "assets/capa-crm.jpg",
     titulo: "CRM não é software. É ==Comportamento Repetido Muda==",
     data: "2026-09-30",
     categoria: "Cultura",
@@ -159,6 +160,7 @@ Em 90 dias de rotina bem aplicada, uma empresa descobre onde perde dinheiro, que
   },
   {
     slug: "indicacao-preco-camarada",
+    capa: "assets/capa-indicacao.jpg",
     titulo: "“Ele disse que você faria um ==preço camarada==”",
     data: "2026-09-30",
     categoria: "Técnica",
@@ -203,6 +205,7 @@ Ele tentou fugir: "não precisa". Eu insisti. E combinei: ==se o Danilo fechar, 
   },
   {
     slug: "o-dinheiro-esta-nos-orcamentos",
+    capa: "assets/capa-fecha-tudo.jpg",
     titulo: "O dinheiro do mês está nos ==orçamentos que você já mandou==",
     data: "2026-09-30",
     categoria: "Estratégia",
@@ -249,6 +252,7 @@ Não vence quem começou melhor. Não vence quem recebeu os clientes mais fácei
   },
   {
     slug: "o-atendente-reage-o-vendedor-conduz",
+    capa: "assets/capa-atendente.jpg",
     titulo: "O atendente reage. O vendedor ==conduz==",
     data: "2026-09-30",
     categoria: "Técnica",

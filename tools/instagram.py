@@ -9,6 +9,7 @@ Uso:
 Roteiro: instagram/<slug>/roteiro.json
 {
   "formato": "carrossel" | "unico",
+  "estilo": "brutal" | "minimal" | "revista" | "chat" | "postit"   (conceito completo; ver tools/estilos.py)
   "tema": "classico" | "editorial" | "neon" | "centro" | "bloco",   (varie entre posts seguidos)
   "legenda": "texto da legenda com hashtags",
   "slides": [
@@ -28,6 +29,7 @@ import json, os, re, sys, html, base64, mimetypes
 from playwright.sync_api import sync_playwright
 sys.path.insert(0, os.path.dirname(__file__))
 from marca import LOGO, MARK
+import estilos
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 W, H = 1080, 1350
@@ -183,7 +185,11 @@ def gerar(slug, pg):
         if re.match(r"\d\d\.png$", f): os.remove(os.path.join(pasta, f))
     n = len(r["slides"])
     for i, sl in enumerate(r["slides"], 1):
-        pg.set_content(slide_html(sl, i, n, r.get("tema", "classico")), wait_until="load")
+        if r.get("estilo") in estilos.ESTILOS:
+            h = estilos.render(r["estilo"], sl, i, n, {"LOGO": LOGO, "MARK": MARK, "img_uri": img_uri})
+        else:
+            h = slide_html(sl, i, n, r.get("tema", "classico"))
+        pg.set_content(h, wait_until="load")
         pg.wait_for_timeout(150)
         pg.screenshot(path=os.path.join(pasta, "%02d.png" % i))
     open(os.path.join(pasta, "legenda.txt"), "w", encoding="utf-8").write(r.get("legenda", "").strip() + "\n")

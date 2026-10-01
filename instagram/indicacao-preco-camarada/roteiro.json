@@ -1,32 +1,82 @@
 {
  "slides": [
   {
-   "tipo": "capatexto",
+   "tipo": "capa",
    "tag": "Técnica",
-   "titulo": "“Ele disse que você faria um ==preço camarada==.”"
+   "titulo": "“Ele disse que você faria um ==preço camarada==.”",
+   "notificacoes": [
+    "<b>Novo contato:</b> Oi! O Fulano me indicou você 😊",
+    "<b>Novo contato:</b> Ele disse que você faz um preço camarada"
+   ]
+  },
+  {
+   "tipo": "chat",
+   "contato": "Novo cliente",
+   "status": "indicado pelo Fulano",
+   "msgs": [
+    [
+     "cliente",
+     "Oi! Estou aqui porque o Fulano me indicou."
+    ],
+    [
+     "cliente",
+     "Ele disse que você faria um preço camarada 😅"
+    ],
+    [
+     "voce",
+     "Que bom! Vamos conversar."
+    ]
+   ],
+   "texto": "A venda acontece. E quem indicou recebe, no máximo, ==um obrigado==."
   },
   {
    "tipo": "texto",
+   "contato": "Fulano",
+   "status": "cliente",
    "titulo": "Quem te indica é um vendedor",
-   "texto": "Um vendedor que você não contratou. E quase sempre a recompensa dele é um **obrigado**. Ou nada."
+   "texto": "Um vendedor que você não contratou. Então eu não mandei mensagem. ==Liguei.=="
   },
   {
-   "tipo": "texto",
-   "titulo": "Eu não mandei mensagem. Liguei.",
-   "texto": "E perguntei:\n\n**“Por que você está me indicando?”**"
+   "tipo": "chat",
+   "contato": "Fulano",
+   "status": "em ligação · 02:14",
+   "titulo": "A primeira pergunta",
+   "msgs": [
+    [
+     "voce",
+     "Me fala uma coisa: por que você está me indicando?"
+    ],
+    [
+     "cliente",
+     "Você me entregou em 5 minutos nome, telefone e decisor."
+    ]
+   ],
+   "texto": "Ele reforça o valor para ele mesmo. E você ganha ==um depoimento espontâneo==."
   },
   {
-   "tipo": "texto",
-   "titulo": "O que essa pergunta faz",
-   "texto": "O cliente diz em voz alta por que gosta do seu trabalho. Ele reforça o valor para ele mesmo, e você ganha ==um depoimento espontâneo==."
-  },
-  {
-   "tipo": "texto",
-   "titulo": "Depois, a segunda pergunta",
-   "texto": "**“O que você quer ganhar com essa indicação?”**\n\nE a condição: se o indicado fechar, ==o presente está garantido==."
+   "tipo": "chat",
+   "contato": "Fulano",
+   "status": "em ligação · 03:40",
+   "titulo": "A segunda pergunta",
+   "msgs": [
+    [
+     "voce",
+     "O que você quer ganhar com essa indicação?"
+    ],
+    [
+     "cliente",
+     "Não precisa, cara…"
+    ],
+    [
+     "voce",
+     "Precisa sim. Se o Danilo fechar, o presente já está garantido."
+    ]
+   ]
   },
   {
    "tipo": "lista",
+   "contato": "Erros comuns",
+   "status": "leia antes de agradecer",
    "titulo": "Os erros mais comuns",
    "itens": [
     "Só agradecer.",
@@ -37,16 +87,17 @@
   },
   {
    "tipo": "frase",
-   "texto": "Relacionamento só vira ativo quando a indicação vira ==canal de venda==."
+   "texto": "Relacionamento só vira ativo quando a indicação vira canal de venda."
   },
   {
    "tipo": "cta",
-   "titulo": "Veja a técnica completa",
-   "texto": "No blog. Link na bio.",
+   "titulo": "Onde eu leio a técnica completa?",
+   "texto": "Está no blog. Link na bio 👇",
    "url": "sejaunique.vercel.app/blog"
   }
  ],
  "legenda": "“Ele disse que você faria um preço camarada.”\n\nTodo dono de empresa já ouviu isso. A indicação chega, a venda acontece e quem indicou recebe, no máximo, um obrigado.\n\nQuem te indica é um vendedor que você não contratou.\n\nNa última indicação que recebi, eu liguei e fiz duas perguntas:\n1. Por que você está me indicando?\n2. O que você quer ganhar com isso?\n\nE combinei: se o indicado fechar, o presente está garantido.\n\n📌 A técnica completa está no blog. Link na bio.\n\n#indicacao #vendas #relacionamento #estrategiadevendas #empreendedorismo #consultoriadevendas #sejaunique",
  "formato": "carrossel",
- "tema": "neon"
+ "tema": "neon",
+ "estilo": "chat"
 }

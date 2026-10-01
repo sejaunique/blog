@@ -28,7 +28,8 @@
    "tag": "Modo vertical",
    "titulo": "Notificação. Resposta. Próxima.",
    "texto": "Esse é o atendente: reage ao que chega e para quando o cliente para de perguntar.",
-   "tam": 112
+   "tam": 112,
+   "lh": "1.14"
   },
   {
    "tipo": "texto",

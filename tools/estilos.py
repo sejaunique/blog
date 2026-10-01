@@ -322,7 +322,7 @@ def impacto(sl, i, n, mk):
         return '<div class="s">%s</div>' % body
     if lay == "bloco":     # fundo verde, título condensado, foto em bloco preto com cantos (ref. vermelho/preto)
         body = '<div class="s verde"><div class="meta" style="top:60px;right:60px;opacity:.8">%s</div>' % html.escape(sl.get("tag", ""))
-        body += '<div class="A" style="position:absolute;left:60px;top:90px;right:240px;font-size:%dpx;color:#0a0a0a">%s</div>' % (sl.get("tam", 120), tit)
+        body += '<div class="A" style="position:absolute;left:60px;top:90px;right:240px;font-size:%dpx;line-height:%s;color:#0a0a0a">%s</div>' % (sl.get("tam", 120), sl.get("lh", ".92"), tit)
         if foto:
             body += '<div style="position:absolute;right:0;bottom:0;width:640px;height:760px;background:#0a0a0a;clip-path:polygon(22%% 0,100%% 0,100%% 100%%,0 100%%,0 14%%)"></div><div style="position:absolute;right:60px;bottom:110px;width:520px;height:600px;overflow:hidden;border-radius:0 0 0 110px"><img src="%s" style="width:100%%;height:100%%;object-fit:cover;object-position:%s;filter:grayscale(1) contrast(1.15)"></div>' % (mk["img_uri"](foto), pos)
         if not foto:

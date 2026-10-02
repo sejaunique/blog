@@ -1,0 +1,73 @@
+{
+ "slides": [
+  {
+   "tipo": "capa",
+   "layout": "aspas",
+   "img": "blog/assets/colete-frente.jpg",
+   "pos": "center 20%",
+   "rotulo": "O cliente pensou:",
+   "texto": "“Essa empresa faz camisa polo. Colete eu vou ter que procurar em outro lugar.”",
+   "titulo": "Procurou outro.",
+   "tam": 128,
+   "rodape": "Seja Unique · Estratégia comercial"
+  },
+  {
+   "tipo": "texto",
+   "layout": "gigante",
+   "fundo": "papel",
+   "tag": "A verdade",
+   "titulo": "O cliente compra o que ele ==sabe== que você vende.",
+   "rodape": "Não tudo\no que você\nvende",
+   "tam": 118
+  },
+  {
+   "tipo": "texto",
+   "layout": "grade",
+   "img": "blog/assets/colete-costas.jpg",
+   "pos": "center 45%",
+   "tag": "A história",
+   "titulo": "Comprou a polo. O colete, ==no concorrente.==",
+   "texto": "Não por insatisfação. Ele só não sabia que a mesma empresa fazia.",
+   "tam": 104
+  },
+  {
+   "tipo": "texto",
+   "layout": "bloco",
+   "tag": "O efeito",
+   "titulo": "Guerra de preço pelo mesmo cliente.",
+   "texto": "Você perde a venda e ainda abre a porta para o concorrente entrar na sua carteira.",
+   "tam": 104
+  },
+  {
+   "tipo": "lista",
+   "layout": "lateral",
+   "rotulo": "Faça",
+   "titulo": "Como virar o jogo",
+   "itens": [
+    ["Mostre o mix inteiro", "Catálogo e fotos reais do produto em uso."],
+    ["Use a base mapeada", "Você já sabe quem precisa de quê."],
+    ["Faça mala direta", "A oferta certa para o cliente certo."]
+   ]
+  },
+  {
+   "tipo": "texto",
+   "layout": "gigante",
+   "fundo": "preto",
+   "tag": "Resumo",
+   "titulo": "Pare de esperar. ==Ative vendas.==",
+   "rodape": "Mostre\nmapeie\nofereça",
+   "tam": 140
+  },
+  {
+   "tipo": "cta",
+   "layout": "fim",
+   "titulo": "O texto completo",
+   "texto": "A história e o passo a passo no blog. Link na bio.",
+   "url": "sejaunique.vercel.app/blog"
+  }
+ ],
+ "legenda": "Ele comprou a polo com você. E o colete, com o concorrente.\n\nUma alfaiataria de uniformes, cliente da Unique, recebeu uma indicação por causa da camisa polo. O cliente comprou, gostou e voltou.\n\nMeses depois, precisou de coletes de treinamento e foi procurar outra empresa. Não porque estava insatisfeito. Ele só não sabia que a mesma empresa fazia colete.\n\nO cliente compra o que ele sabe que você vende.\n\nComo virar o jogo:\n1. Mostre o mix inteiro, com fotos reais do produto em uso\n2. Use a base que você já mapeou: você sabe quem precisa de quê\n3. Faça a oferta certa para o cliente certo\n\nPare de esperar o cliente lembrar. Ative vendas.\n\nSeus clientes sabem tudo o que você vende? 👇\n\n📌 O texto completo está no blog. Link na bio.\n\n#vendas #uniformes #mixdeprodutos #carteiradeclientes #gestaocomercial #consultoriadevendas #sejaunique",
+ "formato": "carrossel",
+ "tema": "neon",
+ "estilo": "impacto"
+}

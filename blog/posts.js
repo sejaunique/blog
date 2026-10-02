@@ -51,6 +51,72 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 
 window.POSTS = [
   {
+    slug: "seu-cliente-nao-conhece-seu-mix",
+    capa: "assets/capa-colete.jpg",
+    titulo: "Ele comprou a polo com você. E o colete, com o ==concorrente==.",
+    data: "2026-10-02",
+    categoria: "Estratégia",
+    resumo: "O cliente compra o que ele sabe que você vende. Se ele não conhece o seu mix, ele vai comprar do vizinho e você nem fica sabendo.",
+    texto: `
+Quem tem empresa sabe que boa parte dos clientes que voltam chegou por indicação. Alguém confiou em você e mandou outra pessoa.
+
+O problema é o que acontece depois.
+
+## A história da camisa polo
+
+Uma alfaiataria de uniformes, cliente da Unique, recebe uma indicação: "Fala com eles, a camisa polo deles é muito boa."
+
+O cliente chega, compra as polos, gosta e volta para comprar de novo.
+
+Meses depois, ele precisa de coletes de treinamento para a equipe nova. E vai procurar **outra empresa**.
+
+Não porque ficou insatisfeito. Porque ==ele não sabia que a alfaiataria também fazia colete==. Na cabeça dele, ela era "a empresa da polo".
+
+> O cliente compra o que ele sabe que você vende. Não tudo o que você vende.
+
+## A indicação chega com um rótulo
+
+Quem indica fala do produto que comprou. E o cliente novo guarda a sua empresa com esse rótulo.
+
+Se ninguém mostra o resto, o rótulo fica. E aí acontece o pior: você perde a venda e ainda abre a porta para o concorrente entrar no seu cliente. A disputa deixa de ser por cliente novo e vira uma ==guerra de preço entre fornecedores pelo mesmo cliente==.
+
+## Primeiro: mostre o mix inteiro
+
+O cliente precisa ver tudo o que você faz, e não só ouvir falar.
+
+- Tenha um catálogo atualizado, com fotos reais dos produtos em uso
+- Apresente o mix na primeira compra, na entrega e no pós-venda
+- Mostre os produtos no Instagram e no status do WhatsApp, com gente usando
+
+![O colete de treinamento nas costas: o tipo de foto que mostra o produto em uso.](assets/colete-costas.jpg)
+
+Foi isso que a alfaiataria fez: produziu fotos do colete de treinamento em uso. Isso não é só conteúdo. É ==material de venda==.
+
+## Depois: ative a base que você já tem
+
+Aqui é onde muda o jogo.
+
+Com o material pronto, a alfaiataria não precisa esperar o cliente lembrar dela. Ela olha para a própria base: quem já é cliente e quem tem a necessidade mapeada. Por exemplo, empresas que contratam com frequência e precisam identificar quem está em treinamento.
+
+Se a qualificação foi bem feita, a empresa **sabe** quem precisa daquele colete. Aí é só montar uma mala direta (WhatsApp, e-mail ou ligação) e oferecer exatamente aquilo para exatamente aquele cliente.
+
+![Material de apoio pronto vira oferta para a base de clientes.](assets/colete-lado.jpg)
+
+## Venda passiva x venda ativa
+
+- **Passiva:** você espera o cliente lembrar de você e pedir
+- **Ativa:** você sabe do que o cliente precisa e chega primeiro com a oferta certa
+
+> A partir de agora, a gente ativa vendas. Não fica mais esperando o cliente lembrar.
+
+## Faça o teste hoje
+
+Pergunte para os seus 5 últimos clientes: "Você sabe tudo o que a gente faz?"
+
+Se a maioria não souber, você não tem um problema de demanda. Você tem dinheiro parado dentro da própria carteira.
+`
+  },
+  {
     slug: "contratei-de-madrugada",
     capa: "assets/silvia-capa.jpg",
     titulo: "O dia em que eu contratei alguém ==às 2h da manhã==",

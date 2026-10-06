@@ -20,7 +20,7 @@
 <style>
 /* Relatório Unique: painel em cartões brancos sobre cinza-claro (mesmo visual do formulário); preto da marca só no topo e no fechamento; verde para o que está bom, âmbar para atenção, magenta para crítico, sempre com rótulo. */
 :root{
-  --bg:#f3f3f5;--card:#ffffff;--fg:#18181b;--resp:#4f4f57;--muted:#8e8e96;--line:#e6e6ea;--soft:#f7f7f9;
+  --bg:#efede8;--card:#ffffff;--t-papel:#efede8;--t-amarelo:#fbf0d2;--t-azul:#e2ecf8;--t-verde:#e0f2e7;--t-rosa:#f9e3e5;--t-lilas:#ebe7f6;--t-laranja:#fde9d6;--pontos:#1d1d1f;--fg:#18181b;--resp:#4f4f57;--muted:#8e8e96;--line:#e6e6ea;--soft:#f7f7f9;
   --marca:#000000;--marca-fg:#f5f5f5;--grifo:#8ef5c0;
   --dado:#12a65a;--dado-fill:rgba(18,166,90,.14);--grade:#e3e3e8;
   --alto:#12a65a;--alto-bg:#e8f8ef;--medio:#a86b00;--medio-bg:#fff4d6;--baixo:#c2185b;--baixo-bg:#fde8f0;
@@ -28,11 +28,11 @@
   --font:"Montserrat",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0c0c0e;--card:#141417;--fg:#f2f2f4;--resp:#b9b9c0;--muted:#7c7c84;--line:#26262b;--soft:#1a1a1e;--grifo:#0e7a45;
+  --bg:#111113;--t-papel:#111113;--t-amarelo:#221d10;--t-azul:#111b27;--t-verde:#10201a;--t-rosa:#24141a;--t-lilas:#1a1726;--t-laranja:#241a10;--pontos:#f2f2f4;--card:#141417;--fg:#f2f2f4;--resp:#b9b9c0;--muted:#7c7c84;--line:#26262b;--soft:#1a1a1e;--grifo:#0e7a45;
   --dado:#3ddc84;--dado-fill:rgba(61,220,132,.16);--grade:#2a2a30;
   --alto:#3ddc84;--alto-bg:#0f2a1c;--medio:#f2c14e;--medio-bg:#2e2410;--baixo:#ff6b9d;--baixo-bg:#33131f;--focus:#ff6b9d;--sombra:none;color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0c0c0e;--card:#141417;--fg:#f2f2f4;--resp:#b9b9c0;--muted:#7c7c84;--line:#26262b;--soft:#1a1a1e;--grifo:#0e7a45;
+  --bg:#111113;--t-papel:#111113;--t-amarelo:#221d10;--t-azul:#111b27;--t-verde:#10201a;--t-rosa:#24141a;--t-lilas:#1a1726;--t-laranja:#241a10;--pontos:#f2f2f4;--card:#141417;--fg:#f2f2f4;--resp:#b9b9c0;--muted:#7c7c84;--line:#26262b;--soft:#1a1a1e;--grifo:#0e7a45;
   --dado:#3ddc84;--dado-fill:rgba(61,220,132,.16);--grade:#2a2a30;
   --alto:#3ddc84;--alto-bg:#0f2a1c;--medio:#f2c14e;--medio-bg:#2e2410;--baixo:#ff6b9d;--baixo-bg:#33131f;--focus:#ff6b9d;--sombra:none;color-scheme:dark}
 
@@ -60,7 +60,8 @@ button{font:inherit;color:inherit}
 .navsec a{flex:none;text-decoration:none;font-size:.8rem;font-weight:500;color:var(--resp);padding:7px 14px;border-radius:999px;border:1px solid transparent}
 .navsec a:hover,.navsec a.on{background:var(--card);border-color:var(--line);color:var(--fg)}
 
-main{padding-block:28px 64px;display:grid;gap:28px}
+main{display:block}
+#app>.estado{margin:28px 16px}
 section{display:grid;gap:16px}
 .sec-head{display:grid;gap:6px;margin-top:12px}
 .sec-head h2{margin:0;font-size:clamp(1.4rem,3.6vw,1.85rem);font-weight:700;letter-spacing:-.025em;line-height:1.15;text-wrap:balance}
@@ -219,6 +220,102 @@ section{display:grid;gap:16px}
 .estado h1{margin:0;font-size:1.4rem}
 .estado p{margin:0;color:var(--muted);max-width:44ch}
 
+
+/* ===== faixas de cor por assunto ===== */
+.banda{position:relative;padding-block:44px;overflow:hidden;background:var(--t-papel)}
+.banda>.wrap{position:relative;z-index:1;display:grid;gap:16px}
+.t-amarelo{background:var(--t-amarelo)}.t-azul{background:var(--t-azul)}.t-verde{background:var(--t-verde)}
+.t-rosa{background:var(--t-rosa)}.t-lilas{background:var(--t-lilas)}.t-laranja{background:var(--t-laranja)}
+.t-escuro{background:#000;padding-block:56px 28px}
+.t-escuro .assina{color:#7c7c84}
+.b-resumo{padding-top:28px}
+.banda section{gap:16px}
+.canto{position:absolute;width:170px;height:120px;opacity:.13;pointer-events:none;
+  background-image:radial-gradient(circle,var(--pontos) 2.2px,transparent 2.6px);background-size:12px 12px;
+  -webkit-mask-image:linear-gradient(135deg,#000 0%,transparent 75%);mask-image:linear-gradient(135deg,#000 0%,transparent 75%)}
+.canto.esq{left:0;top:0}
+.canto.dir{right:0;bottom:0;transform:rotate(180deg)}
+
+/* cabeçalho de seção com ilustração */
+.sec-head.com-arte{grid-template-columns:minmax(0,1fr) minmax(0,300px);align-items:center;gap:24px;margin-top:0}
+.sec-txt{display:grid;gap:6px;align-content:center}
+.sec-head h2{font-size:clamp(1.6rem,4vw,2.3rem)}
+.arte{width:100%;max-width:300px;justify-self:end;color:var(--pontos)}
+.ilustra{width:100%;height:auto;display:block;overflow:visible}
+.ilustra .lay{transition:transform .5s cubic-bezier(.2,.8,.2,1);will-change:transform}
+.hero-txt{position:relative;overflow:hidden}
+.arte-hero{justify-self:end;width:230px;margin:-14px -12px -18px 0;pointer-events:none}
+.hero-txt>*:not(.arte){position:relative;z-index:1}
+.hero-txt h1{max-width:16ch}
+.cta.com-arte{position:relative;overflow:hidden;grid-template-columns:minmax(0,1fr)}
+.arte-cta{position:absolute;right:-10px;bottom:-24px;width:300px;max-width:none;opacity:.9;pointer-events:none}
+.cta>*:not(.arte){position:relative;z-index:1}
+
+/* ===== animações ===== */
+.vis .entra{opacity:0;transform:translateY(26px) scale(.985);transition:opacity .7s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.vis .entra.visto{opacity:1;transform:none}
+.arte .traca polyline{stroke-dasharray:1;stroke-dashoffset:1}
+.arte .traca polygon,.arte .tique{opacity:0}
+.arte.viva .traca polyline{animation:desenha 1.1s .2s cubic-bezier(.6,.1,.2,1) forwards}
+.arte.viva .traca polygon{animation:aparece .3s 1.2s forwards}
+.arte .tique{stroke-dasharray:1;stroke-dashoffset:1}
+.arte.viva .tique{animation:desenha .45s calc(.5s + var(--i)*.35s) ease forwards,aparece .01s calc(.5s + var(--i)*.35s) forwards}
+.arte .gira{transform-box:fill-box;transform-origin:center;animation:gira 14s linear infinite}
+.arte .gira-r>g,.arte .gira-r>path{transform-box:fill-box;transform-origin:center;animation:gira 9s linear infinite reverse}
+.arte .pulsa{transform-box:fill-box;transform-origin:center;animation:pulsa 4s ease-in-out infinite}
+.arte .sobe rect{transform-box:fill-box;transform-origin:bottom;transform:scaleY(0)}
+.arte.viva .sobe rect{animation:sobe .8s cubic-bezier(.2,.8,.2,1) forwards}
+.arte.viva .sobe rect:nth-child(2){animation-delay:.12s}.arte.viva .sobe rect:nth-child(3){animation-delay:.24s}.arte.viva .sobe rect:nth-child(4){animation-delay:.36s}
+.arte .cai{animation:cai 2.6s ease-in infinite}
+.arte .pinga{animation:pinga 2.6s ease-in infinite}
+.arte .lupa{transform-box:fill-box;transform-origin:80% 20%;animation:lupa 5s ease-in-out infinite}
+.arte .lapis{animation:lapis 3s ease-in-out infinite}
+.arte .bandeira path:last-child{transform-box:fill-box;transform-origin:left;animation:bandeira 1.6s ease-in-out infinite}
+.arte .foguete{animation:flutua 3s ease-in-out infinite}
+.arte .fogo{transform-box:fill-box;transform-origin:top;animation:fogo .25s ease-in-out infinite alternate}
+.arte .balanca{transform-box:fill-box;transform-origin:bottom;animation:balanca 2.4s ease-in-out infinite}
+@keyframes desenha{to{stroke-dashoffset:0}}
+@keyframes aparece{to{opacity:1}}
+@keyframes gira{to{transform:rotate(360deg)}}
+@keyframes pulsa{50%{transform:scale(1.06) rotate(4deg)}}
+@keyframes sobe{to{transform:scaleY(1)}}
+@keyframes cai{0%{transform:translateY(-10px);opacity:0}15%{opacity:1}70%{transform:translateY(30px);opacity:1}100%{transform:translateY(40px);opacity:0}}
+@keyframes pinga{0%,60%{transform:translateY(-6px);opacity:0}75%{opacity:1}100%{transform:translateY(10px);opacity:0}}
+@keyframes lupa{50%{transform:translate(14px,-8px) rotate(-6deg)}}
+@keyframes lapis{50%{transform:translate(4px,-6px)}}
+@keyframes bandeira{50%{transform:skewY(6deg) scaleX(.94)}}
+@keyframes flutua{50%{transform:translateY(-10px)}}
+@keyframes fogo{to{transform:scaleY(1.35)}}
+@keyframes balanca{25%{transform:rotate(-6deg)}75%{transform:rotate(6deg)}}
+
+/* mouse: cartões inclinam e ganham brilho onde o cursor está */
+.inclina{transform:perspective(900px) rotateX(var(--rx,0)) rotateY(var(--ry,0));transition:transform .25s ease,box-shadow .25s ease;position:relative}
+.vis .inclina.entra.visto{transform:perspective(900px) rotateX(var(--rx,0)) rotateY(var(--ry,0))}
+.inclina::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .25s;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.55),transparent 60%)}
+.inclina:hover{box-shadow:0 2px 4px rgba(20,20,30,.05),0 18px 40px rgba(20,20,30,.10)}
+.inclina:hover::after{opacity:1}
+.barra{transition:transform .2s}
+.barra:hover{transform:translateX(4px)}
+.tab,.filtro,.btn{transition:transform .15s,background .2s,color .2s}
+.tab:active,.filtro:active,.btn:active{transform:scale(.96)}
+.onda{position:absolute;border-radius:50%;background:currentColor;opacity:.22;transform:scale(0);animation:onda .6s ease-out forwards;pointer-events:none}
+@keyframes onda{to{transform:scale(1);opacity:0}}
+.confete{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:50}
+.leitura-bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#f5b335,#36a467,#3d7cc9,#e0565b);transform-origin:left;transform:scaleX(0)}
+.top{position:sticky}
+.acao.feita{animation:feita .5s ease}
+@keyframes feita{40%{transform:scale(1.02)}}
+.trilho i{transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+@media (max-width:760px){
+  .sec-head.com-arte{grid-template-columns:1fr}
+  .sec-head.com-arte .arte{order:-1;justify-self:start;max-width:230px;margin-bottom:-6px}
+  .arte-hero{width:190px;margin:-10px -8px -14px 0}
+  .arte-cta{width:200px;opacity:.35}
+  .banda{padding-block:32px}
+}
+@media (prefers-reduced-motion:reduce){.arte *{animation:none!important}.arte .sobe rect{transform:none}.arte .traca polyline{stroke-dashoffset:0}.arte .traca polygon,.arte .tique{opacity:1;stroke-dashoffset:0}.inclina{transform:none!important}}
+@media print{.arte,.canto,.leitura-bar{display:none}.vis .entra{opacity:1;transform:none}}
+
 @media (max-width:900px){
   .hero{grid-template-columns:1fr}
   .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -248,11 +345,12 @@ section{display:grid;gap:16px}
     <a href="#resumo">Resumo</a><a href="#pilares">Pilares</a><a href="#retrato">Retrato</a><a href="#pilar-detalhe">Por pilar</a><a href="#travando">Gargalos</a><a href="#olhar">Seu olhar</a><a href="#plano">Plano de ação</a>
   </div>
 </nav>
-<main class="wrap" id="app">
+<main id="app">
   <div class="card estado" id="carregando"><h1>Montando o seu relatório…</h1><p>Um instante.</p></div>
 </main>
 
 <script src="/diagnostico/motor.js"></script>
+<script src="/diagnostico/relatorio/visual.js"></script>
 <script>
 (function(){
   'use strict';
@@ -403,8 +501,9 @@ section{display:grid;gap:16px}
     $('#app').innerHTML=h; $('#navsec').hidden=false;
     radar(todos);
     painel(todos,0);
+    if(window.UniqueVisual) try{ window.UniqueVisual.montar(); }catch(e){ console.error(e); }
     (function(){ setTimeout(function(){
-      document.querySelectorAll('.trilho i[data-w]').forEach(function(i){ i.style.width=i.dataset.w+'%'; });
+      if(!window.UniqueVisual) document.querySelectorAll('.trilho i[data-w]').forEach(function(i){ i.style.width=i.dataset.w+'%'; });
       $('#ring-val').style.transition='stroke-dashoffset 1s cubic-bezier(.2,.8,.2,1)';
       $('#ring-val').setAttribute('stroke-dashoffset',(circ*(1-A.geral/100)).toFixed(1));
     },60); })();

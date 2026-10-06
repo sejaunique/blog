@@ -32,3 +32,10 @@ Em teste (aguardando aprovação):
 - `duotone` — editorial verde: foto em duotom, grade fina, serifa itálica (Lora) + Montserrat.
 
 Regras: no máximo 2 fotos por carrossel. Fontes ficam em tools/fonts (instale em ~/.fonts antes de gerar).
+
+## Diagnóstico de Maturidade Comercial
+
+- `diagnostico/index.html`: formulário por etapas (https://sejaunique.vercel.app/diagnostico/). As perguntas ficam no array `ETAPAS`, no topo do script.
+- `api/diagnostico.js`: guarda cada diagnóstico no mesmo Redis do blog (lista `diag:lista`).
+- `diagnostico/painel/`: painel interno com a lista de respostas e botão de copiar. Precisa da variável `DIAG_SENHA` na Vercel (é a senha do painel).
+- Se o envio falhar, o cliente manda as respostas preenchidas pelo WhatsApp, então nada se perde.

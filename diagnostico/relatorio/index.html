@@ -247,7 +247,12 @@ section{display:grid;gap:16px}
 .arte-hero{justify-self:end;width:230px;margin:-14px -12px -18px 0;pointer-events:none}
 .hero-txt>*:not(.arte){position:relative;z-index:1}
 .hero-txt h1{max-width:16ch}
-.cta.com-arte{position:relative;overflow:hidden;grid-template-columns:minmax(0,1fr)}
+.cta{grid-template-columns:minmax(0,1fr) minmax(0,320px);align-items:end;gap:24px;padding-bottom:0;overflow:hidden}
+.cta-txt{display:grid;gap:14px;padding-bottom:36px;align-self:center}
+.cta-foto{margin:0;position:relative;align-self:end}
+.cta-foto img{display:block;width:100%;height:auto;-webkit-mask-image:linear-gradient(#000 78%,transparent);mask-image:linear-gradient(#000 78%,transparent)}
+.cta-foto figcaption{position:absolute;left:0;right:0;bottom:18px;text-align:center;font-size:.78rem;color:#a1a1a8;display:grid;gap:2px}
+.cta-foto figcaption strong{color:#f5f5f5;font-size:.95rem}
 .arte-cta{position:absolute;right:-10px;bottom:-24px;width:300px;max-width:none;opacity:.9;pointer-events:none}
 .cta>*:not(.arte){position:relative;z-index:1}
 
@@ -291,9 +296,7 @@ section{display:grid;gap:16px}
 /* mouse: cartões inclinam e ganham brilho onde o cursor está */
 .inclina{transform:perspective(900px) rotateX(var(--rx,0)) rotateY(var(--ry,0));transition:transform .25s ease,box-shadow .25s ease;position:relative}
 .vis .inclina.entra.visto{transform:perspective(900px) rotateX(var(--rx,0)) rotateY(var(--ry,0))}
-.inclina::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .25s;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.55),transparent 60%)}
 .inclina:hover{box-shadow:0 2px 4px rgba(20,20,30,.05),0 18px 40px rgba(20,20,30,.10)}
-.inclina:hover::after{opacity:1}
 .barra{transition:transform .2s}
 .barra:hover{transform:translateX(4px)}
 .tab,.filtro,.btn{transition:transform .15s,background .2s,color .2s}
@@ -323,6 +326,7 @@ section{display:grid;gap:16px}
   .leitura{grid-template-columns:1fr}
 }
 @media (max-width:640px){
+  .cta{grid-template-columns:1fr}.cta-txt{padding-bottom:0}.cta-foto{max-width:300px;justify-self:center}
   .hero-txt{padding:24px 20px}
   .score{flex-direction:column;align-items:flex-start;gap:16px}
   .barras,.lista,.auto,.fala,.consultor{padding:20px 18px}
@@ -493,9 +497,10 @@ section{display:grid;gap:16px}
 
     /* fechamento */
     var txt='Olá, Carlos! Vi o relatório do diagnóstico da '+A.empresa+' e quero conversar sobre o plano de ação.';
-    h+='<section class="cta"><span class="eyebrow" style="color:#8e8e96">Próximo passo</span><h2>Quer colocar esse plano em prática com a Unique?</h2>'+
+    h+='<section class="cta"><div class="cta-txt"><span class="eyebrow" style="color:#8e8e96">Próximo passo</span><h2>Quer colocar esse plano em prática com a Unique?</h2>'+
       '<p>Em uma conversa de 30 minutos, a gente prioriza as ações com você, define responsáveis e mostra como acompanhar os resultados semana a semana.</p>'+
-      '<div class="acts"><a class="btn solid" href="https://wa.me/'+WHATS+'?text='+encodeURIComponent(txt)+'" target="_blank" rel="noopener">Conversar com o Carlos</a><a class="btn" href="/" target="_blank" rel="noopener">Conhecer a Unique</a></div></section>'+
+      '<div class="acts"><a class="btn solid" href="https://wa.me/'+WHATS+'?text='+encodeURIComponent(txt)+'" target="_blank" rel="noopener">Conversar com o Carlos</a><a class="btn" href="/" target="_blank" rel="noopener">Conhecer a Unique</a></div></div>'+
+      '<figure class="cta-foto"><img src="/assets/carlos-hero.jpg" alt="Carlos Ribeiro, fundador da Unique" width="880" height="1020" loading="lazy"><figcaption><strong>Carlos Ribeiro</strong>Fundador da Unique · criador do Método CRM</figcaption></figure></section>'+
       '<p class="assina">Relatório gerado pela Unique Inteligência Comercial a partir das respostas do diagnóstico. As notas refletem as respostas, e não uma auditoria da operação.</p>';
 
     $('#app').innerHTML=h; $('#navsec').hidden=false;

@@ -135,7 +135,6 @@
       if(head){ head.classList.add('com-arte'); var txt=document.createElement('div'); txt.className='sec-txt'; while(head.firstChild) txt.appendChild(head.firstChild); head.appendChild(txt); head.appendChild(art); }
       else if(id==='resumo'){ var h=sec.querySelector('.hero-txt'); if(h){ art.classList.add('arte-hero'); h.insertBefore(art,h.firstChild); } }
     });
-    if(cta){ var a3=document.createElement('div'); a3.className='arte arte-cta'; a3.setAttribute('aria-hidden','true'); a3.innerHTML=ILUSTRA.proximo(); cta.appendChild(a3); cta.classList.add('com-arte'); }
     // fitas de pontos nos cantos das faixas
     main.querySelectorAll('.banda:not(.t-papel):not(.t-escuro)').forEach(function(b,i){ var d=document.createElement('div'); d.className='canto '+(i%2?'dir':'esq'); d.setAttribute('aria-hidden','true'); b.insertBefore(d,b.firstChild); });
 
@@ -206,7 +205,7 @@
     document.querySelectorAll('.kpi, .lt, .acao, .fala, .radar-card').forEach(function(c){
       c.classList.add('inclina');
       c.addEventListener('mousemove',function(e){ var r=c.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
-        c.style.setProperty('--rx',(-y*5).toFixed(2)+'deg'); c.style.setProperty('--ry',(x*6).toFixed(2)+'deg'); c.style.setProperty('--mx',(x*100+50)+'%'); c.style.setProperty('--my',(y*100+50)+'%'); });
+        c.style.setProperty('--rx',(-y*5).toFixed(2)+'deg'); c.style.setProperty('--ry',(x*6).toFixed(2)+'deg'); });
       c.addEventListener('mouseleave',function(){ c.style.setProperty('--rx','0deg'); c.style.setProperty('--ry','0deg'); });
     });
   }

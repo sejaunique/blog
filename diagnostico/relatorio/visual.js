@@ -14,7 +14,7 @@
       var nz=Math.sqrt(1-d2), luz=Math.max(0,(-dx*.55-dy*.6+nz*.58)), rr=passo*.48*(1-luz*.92);
       if(rr>.35) s+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+rr.toFixed(2)+'"/>';
     } }
-    return '<g fill="'+COR.ink+'">'+s+'</g>';
+    return '<g fill="currentColor">'+s+'</g>';
   }
   // retalho de pontos que somem numa direção (como nos cantos da referência)
   function pontos(x,y,w,h,passo,dir){

@@ -221,6 +221,30 @@ section{display:grid;gap:16px}
 .estado p{margin:0;color:var(--muted);max-width:44ch}
 
 
+
+/* oferta Alda.CRM */
+.alda{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;background:#f6f5f1;color:#18181b;border-radius:24px;padding:34px 32px;position:relative;overflow:hidden;margin-bottom:20px}
+.alda::before{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;opacity:.12;background-image:radial-gradient(circle,#18181b 2.4px,transparent 2.8px);background-size:12px 12px;-webkit-mask-image:radial-gradient(circle,#000 30%,transparent 70%);mask-image:radial-gradient(circle,#000 30%,transparent 70%)}
+.alda-cab{display:grid;gap:12px;align-content:start;position:relative}
+.alda-selo{justify-self:start;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#0d7a43;background:#d9f5e5;padding:6px 12px;border-radius:999px}
+.alda-marca{font-size:2rem;font-weight:800;letter-spacing:-.04em;line-height:1}
+.alda-marca span{color:#12a65a}
+.alda h2{margin:0;font-size:clamp(1.25rem,3vw,1.6rem);font-weight:700;letter-spacing:-.02em;line-height:1.2;text-wrap:balance;max-width:24ch}
+.alda p{margin:0;color:#4f4f57;max-width:46ch}
+.alda-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.alda .btn.alda-btn{background:#12a65a;border-color:#12a65a;color:#fff}
+.alda .btn.alda-link{color:#18181b;border-color:#d4d3ce}
+.alda-lista{display:grid;gap:12px;align-content:start;position:relative}
+.alda-lista .eyebrow{color:#8e8e96}
+.alda-lista ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.alda-lista li{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid #e6e5e0;border-radius:16px;padding:14px 16px;transition:transform .2s,box-shadow .2s}
+.alda-lista li:hover{transform:translateX(4px);box-shadow:0 10px 24px rgba(20,20,30,.08)}
+.alda-lista li div{display:grid;gap:2px}
+.alda-lista strong{font-size:.95rem}
+.alda-lista li div span{font-size:.84rem;color:#5b5b63;line-height:1.45}
+.alda-ic{width:36px;height:36px;border-radius:10px;background:#e8f8ef;color:#0d8a4a;display:grid;place-items:center;flex:none}
+@media (max-width:760px){.alda{grid-template-columns:1fr;padding:26px 20px;gap:22px}}
+
 /* ===== faixas de cor por assunto ===== */
 .banda{position:relative;padding-block:44px;overflow:hidden;background:var(--t-papel)}
 .banda>.wrap{position:relative;z-index:1;display:grid;gap:16px}
@@ -359,6 +383,11 @@ section{display:grid;gap:16px}
 (function(){
   'use strict';
   var WHATS='5562996007574';
+  /* Oferta do Alda.CRM no rodapé. Edite estes textos para mudar a condição. */
+  var ALDA={ site:'https://aldacrm.com',
+    selo:'Condição para quem fez o diagnóstico',
+    oferta:'Uma demonstração do Alda.CRM montada com o seu funil de vendas, com a implantação acompanhada pela Unique.',
+    botao:'Quero conhecer o Alda.CRM' };
   var $=function(s,c){return (c||document).querySelector(s);};
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
   var params=new URLSearchParams(location.search);
@@ -494,6 +523,23 @@ section{display:grid;gap:16px}
           '<div class="rodape"><div class="tags"><span class="etq">Prazo: '+esc(a.prazo)+'</span><span class="etq">Medir: '+esc(a.medir)+'</span></div>'+
           '<label class="feito"><input type="checkbox" id="feito-'+x.k+'" data-k="'+x.k+'">Feito</label></div></article>';
       }).join('')+'</div></section>';
+
+    /* oferta Alda.CRM: mostra só o que resolve os gargalos desta empresa */
+    var E={}; A.estrutura.itens.forEach(function(i){E[i.id]=i.pts;});
+    function fraco(id){ return R[id]==='Não'||R[id]==='Em parte'; }
+    var resolve=[];
+    if(E.crm<2||E.passo<2) resolve.push(['funil','CRM com funil de vendas','Cada oportunidade com etapa, valor e próximo passo. O histórico do cliente sai da cabeça do vendedor.']);
+    if(E.tentativas<2||fraco('nu_acompanha')||fraco('re_orcamentos')||fraco('fi_posvenda')) resolve.push(['auto','Automações de follow-up','O retorno acontece no prazo certo, sem depender da memória de ninguém.']);
+    if(fraco('re_contato')||fraco('re_oferta')||fraco('nu_atracao')) resolve.push(['disparo','Disparo de mensagens no WhatsApp','Campanhas para reativar inativos e retomar orçamentos parados em poucos cliques.']);
+    if(E.aprovacao<2||/dono|pessoa/.test(R.depende||'')||E.rotina<2) resolve.push(['central','Central de atendimento','O time inteiro atendendo no mesmo número, com tudo registrado e visível para o gestor.']);
+    if(fraco('nu_acompanha')||fraco('nu_origem')||/31|51|Mais de 100/.test(R.contatos_semana||'')) resolve.push(['ia','Agentes de IA','Respondem e qualificam quem chega a qualquer hora, e passam para o vendedor só quem está pronto.']);
+    if(resolve.length<3) [['funil','CRM com funil de vendas','Cada oportunidade com etapa, valor e próximo passo.'],['auto','Automações de follow-up','O retorno acontece no prazo certo, sem depender da memória de ninguém.'],['central','Central de atendimento','O time inteiro atendendo no mesmo número, com tudo registrado.']].forEach(function(x){ if(resolve.length<3 && !resolve.some(function(r){return r[0]===x[0];})) resolve.push(x); });
+    var ICA={funil:'<path d="M4 5h16l-6 8v6l-4 2v-8z"/>',auto:'<path d="M4 12a8 8 0 0 1 14-5.3M20 4v4h-4M20 12a8 8 0 0 1-14 5.3M4 20v-4h4"/>',disparo:'<path d="M4 12l16-8-6 16-3-7z"/>',central:'<path d="M5 18v-6a7 7 0 0 1 14 0v6"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/>',ia:'<rect x="5" y="8" width="14" height="11" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01"/>'};
+    var txtAlda='Olá, Carlos! Vi o relatório do diagnóstico da '+A.empresa+' e quero conhecer o Alda.CRM.';
+    h+='<section class="alda" aria-labelledby="alda-t"><div class="alda-cab"><span class="alda-selo">'+esc(ALDA.selo)+'</span>'+
+      '<div class="alda-marca">Alda<span>.CRM</span></div><h2 id="alda-t">O CRM que a Unique implanta para tirar este plano do papel</h2>'+
+      '<p>'+esc(ALDA.oferta)+'</p><div class="alda-acts"><a class="btn alda-btn" href="https://wa.me/'+WHATS+'?text='+encodeURIComponent(txtAlda)+'" target="_blank" rel="noopener">'+esc(ALDA.botao)+'</a><a class="btn alda-link" href="'+ALDA.site+'" target="_blank" rel="noopener">Ver o site</a></div></div>'+
+      '<div class="alda-lista"><span class="eyebrow">No seu diagnóstico, ele ajuda em</span><ul>'+resolve.slice(0,4).map(function(x){ return '<li><span class="alda-ic"><svg class="icon" viewBox="0 0 24 24">'+ICA[x[0]]+'</svg></span><div><strong>'+esc(x[1])+'</strong><span>'+esc(x[2])+'</span></div></li>'; }).join('')+'</ul></div></section>';
 
     /* fechamento */
     var txt='Olá, Carlos! Vi o relatório do diagnóstico da '+A.empresa+' e quero conversar sobre o plano de ação.';

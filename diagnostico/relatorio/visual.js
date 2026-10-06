@@ -125,7 +125,8 @@
     // junta indicadores na faixa do resumo e a assinatura na faixa escura
     var bResumo=main.querySelector('.b-resumo'), kp=main.querySelector('.kpis');
     if(bResumo&&kp){ var old=kp.closest('.banda'); bResumo.querySelector('.wrap').appendChild(kp); old.remove(); }
-    var cta=main.querySelector('.cta'), ass=main.querySelector('.assina');
+    var cta=main.querySelector('.cta'), ass=main.querySelector('.assina'), alda=main.querySelector('.alda');
+    if(cta&&alda){ var o3=cta.closest('.banda'); alda.closest('.banda').querySelector('.wrap').appendChild(cta); o3.remove(); alda.closest('.banda').className='banda t-escuro'; }
     if(cta&&ass){ var o2=ass.closest('.banda'); cta.closest('.wrap').appendChild(ass); o2.remove(); }
     // ilustração em cada cabeçalho de seção
     Object.keys(TEMAS).forEach(function(id){

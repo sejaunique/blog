@@ -3,10 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Diagnóstico de Maturidade Comercial · Unique</title>
 <meta name="description" content="Descubra os gargalos ocultos que estão limitando o crescimento da sua empresa. Diagnóstico de Maturidade Comercial da Unique Inteligência Comercial.">
 <meta property="og:title" content="Diagnóstico de Maturidade Comercial · Unique">
-<meta property="og:description" content="Descubra os gargalos ocultos que estão limitando o crescimento da sua empresa. Leva de 8 a 12 minutos.">
+<meta property="og:description" content="Descubra os gargalos ocultos que estão limitando o crescimento da sua empresa. Leva de 10 a 15 minutos.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:url" content="https://sejaunique.vercel.app/diagnostico/">
@@ -21,213 +20,221 @@
 <link rel="icon" href="/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#000000">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap">
+<title>Diagnóstico de Maturidade Comercial · Unique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap">
 <style>
-/* Diagnóstico Unique: abertura preta da marca, etapas em blocos limpos, Montserrat com rótulos espaçados e verde só como grifo/progresso. */
-:root{
-  --bg:#ffffff;--fg:#0b0b0c;--muted:#626268;--line:#e4e4e7;--soft:#f4f4f5;
-  --ink:#000;--ink-fg:#f5f5f5;--ink-muted:#a1a1a8;--ink-line:#26262a;
-  --grifo:#00e676;--focus:#dc0a5a;--erro:#c2185b;
-  --font:"Montserrat",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
-  --r:20px;
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#000;--fg:#f5f5f5;--muted:#a1a1a8;--line:#232326;--soft:#111113;--grifo:#00ff80;--focus:#ff2e7e;--erro:#ff5c93;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#000;--fg:#f5f5f5;--muted:#a1a1a8;--line:#232326;--soft:#111113;--grifo:#00ff80;--focus:#ff2e7e;--erro:#ff5c93;color-scheme:dark}
-
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:16px;line-height:1.6;margin:0;-webkit-font-smoothing:antialiased;min-height:100vh}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-a);font-size:16px;line-height:1.6;margin:0;-webkit-font-smoothing:antialiased}
 a{color:inherit}
 button,input,textarea{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--focus);outline-offset:3px}
-.grifo{background:linear-gradient(transparent 60%,var(--grifo) 60%,var(--grifo) 74%,transparent 74%);padding-inline:.04em}
-.spaced{font-size:.68rem;font-weight:500;text-transform:uppercase;letter-spacing:.42em}
-.icon{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
-.wrap{max-width:720px;margin-inline:auto;padding-inline:16px}
 [hidden]{display:none!important}
+.grifo{background:linear-gradient(transparent 62%,var(--grifo) 62%,var(--grifo) 76%,transparent 76%);padding-inline:.04em}
+.icon{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.wrap{max-width:var(--largura,700px);margin-inline:auto;padding-inline:16px}
+.eyebrow{font-family:var(--f-a);font-size:.68rem;font-weight:500;text-transform:uppercase;letter-spacing:.32em;color:var(--muted)}
 
-/* topo */
-.top{position:sticky;top:0;z-index:5;background:var(--ink);color:var(--ink-fg);padding-top:env(safe-area-inset-top,0px)}
-.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px;max-width:1180px}
-.top .brand{display:flex}
-.top .brand svg{height:16px;width:auto}
-.top .tag{color:var(--ink-muted)}
-.bar{height:3px;background:var(--ink-line)}
-.bar i{display:block;height:100%;width:0;background:var(--grifo);transition:width .35s ease}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--top-bg);color:var(--top-fg);border-bottom:1px solid var(--top-line)}
+.top-in{max-width:1180px;margin:0 auto;padding-inline:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px}
+.brand{display:flex}.brand svg{height:15px;width:auto}
+.top .tag{font-size:.66rem;font-weight:500;text-transform:uppercase;letter-spacing:.32em;opacity:.6}
+.bar{height:2px;background:var(--line)}
+.bar i{display:block;height:100%;width:0;background:var(--progresso);transition:width .4s ease}
 
-/* botões */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-size:.85rem;font-weight:600;text-decoration:none;border-radius:999px;padding:15px 26px;border:1px solid currentColor;background:none;cursor:pointer;transition:opacity .2s,transform .15s}
-.btn:hover{opacity:.85}
-.btn:active{transform:translateY(1px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--f-a);font-size:.88rem;font-weight:600;text-decoration:none;border-radius:999px;padding:14px 26px;border:1px solid var(--line);background:none;cursor:pointer;transition:opacity .2s,transform .15s}
+.btn:hover{opacity:.85}.btn:active{transform:translateY(1px)}
 .btn.solid{background:var(--fg);color:var(--bg);border-color:var(--fg)}
-.btn.ghost{border-color:var(--line);color:var(--muted)}
+.btn.ghost{color:var(--muted)}
 .btn[disabled]{opacity:.5;cursor:wait}
 
-/* abertura */
-.intro{background:var(--ink);color:var(--ink-fg);padding:72px 0 88px}
-.intro .spaced{color:var(--ink-muted);display:block;margin-bottom:22px}
-.intro h1{font-size:clamp(2.1rem,7vw,3.6rem);line-height:1.04;font-weight:700;letter-spacing:-.035em;margin:0 0 22px;text-wrap:balance}
-.intro .lead{font-size:1.08rem;color:var(--ink-muted);margin:0 0 30px;max-width:52ch}
-.intro .lead b{color:var(--ink-fg);font-weight:600}
-.ganhos{list-style:none;margin:0 0 34px;padding:0;display:grid;gap:10px}
-.ganhos li{display:flex;gap:12px;align-items:flex-start;font-size:.95rem;color:var(--ink-fg)}
-.ganhos li svg{color:var(--grifo);margin-top:3px}
-.intro .meta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:36px}
-.intro .meta span{border:1px solid var(--ink-line);border-radius:999px;padding:8px 16px;font-size:.78rem;color:var(--ink-muted)}
-.intro .btn.solid{background:var(--ink-fg);color:var(--ink);border-color:var(--ink-fg);font-size:.92rem;padding:17px 30px}
-.intro .retomar{display:block;margin-top:16px;font-size:.82rem;color:var(--ink-muted)}
-.intro .retomar button{background:none;border:0;padding:0;color:var(--ink-fg);text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-weight:600}
+.intro{padding-block:64px 80px}
+.intro h1{margin:18px 0 20px;text-wrap:balance}
+.intro .lead{margin:0 0 28px;max-width:50ch}
+.ganhos{list-style:none;margin:0 0 32px;padding:0;display:grid;gap:10px}
+.ganhos li{display:flex;gap:12px;align-items:flex-start}
+.ganhos li svg{color:var(--check);margin-top:4px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.meta span{border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:.78rem;color:var(--muted)}
+.retomar{display:block;margin-top:16px;font-size:.84rem;color:var(--muted)}
+.retomar button{background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-weight:600;color:var(--fg)}
+.intro .nota{margin:28px 0 0;font-size:.86rem;color:var(--muted)}
 
-/* etapa */
-.etapa{padding:48px 0 120px}
-.etapa .head{margin-bottom:36px}
-.etapa .head .spaced{color:var(--muted);display:flex;justify-content:space-between;gap:12px;margin-bottom:14px}
-.etapa h2{font-size:clamp(1.6rem,4.6vw,2.3rem);line-height:1.12;font-weight:700;letter-spacing:-.025em;margin:0 0 12px;text-wrap:balance}
-.etapa .head p{margin:0;color:var(--muted);max-width:58ch}
-.q{border-top:1px solid var(--line);padding:28px 0}
-.q:last-child{border-bottom:1px solid var(--line)}
-.q .lbl{display:flex;gap:12px;margin:0 0 6px;font-size:1.05rem;font-weight:600;line-height:1.4}
-.q .lbl .n{font-size:.72rem;color:var(--muted);font-weight:500;letter-spacing:.12em;padding-top:4px;font-variant-numeric:tabular-nums;flex:none;min-width:22px}
-.q .lbl .opt{font-weight:400;color:var(--muted);font-size:.85rem}
-.q .ajuda{margin:0 0 16px 34px;color:var(--muted);font-size:.88rem}
-.q .campo{margin-left:34px}
-.q .erro{margin:10px 0 0 34px;color:var(--erro);font-size:.82rem;font-weight:500}
-.q.invalido .inp,.q.invalido .op{border-color:var(--erro)}
+.etapa{padding-block:44px 140px}
+.head{display:grid;gap:10px;margin-bottom:34px}
+.head h2{margin:0;text-wrap:balance}
+.head p{margin:0;color:var(--muted);max-width:56ch}
+.lista{display:grid;gap:var(--gap-q,0px)}
+.q-cab{display:flex;gap:14px}
+.q-txt{min-width:0;display:grid;gap:6px}
+.pergunta{margin:0;text-wrap:pretty}
+.pergunta label{cursor:pointer}
+.opc{font-family:var(--f-a);font-size:.72rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-left:6px}
+.ajuda{margin:0;color:var(--muted)}
+.campo{margin-top:18px}
+.erro{margin:10px 0 0;color:var(--erro);font-size:.82rem;font-weight:500}
+.dica{margin:10px 0 0;font-size:.78rem;color:var(--muted);font-style:italic}
 
-.inp{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:14px;padding:15px 16px;font-size:1rem;transition:border-color .2s}
+.inp{width:100%;border:1px solid var(--line);background:var(--campo);border-radius:var(--r-campo,12px);padding:14px 16px;font-family:var(--f-a);font-size:1rem;color:var(--fg);transition:border-color .2s}
+.inp::placeholder{color:var(--muted);opacity:.75}
 .inp:focus{outline:none;border-color:var(--fg)}
 textarea.inp{min-height:130px;resize:vertical;line-height:1.55}
+.q.invalido .inp,.q.invalido .op{border-color:var(--erro)}
 
-.ops{display:grid;gap:8px}
-.ops.duas{grid-template-columns:repeat(2,minmax(0,1fr))}
-.op{position:relative;display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;transition:border-color .15s,background .15s;font-size:.95rem;line-height:1.35}
-.op:hover{border-color:var(--muted)}
+/* alternativas: em duas colunas descem primeiro pela esquerda */
+.ops{display:grid;gap:var(--gap-op,8px)}
+.ops.duas{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(var(--linhas),auto);grid-auto-flow:column}
+.op{position:relative;display:flex;align-items:center;gap:12px;cursor:pointer;line-height:1.35;color:var(--resp);transition:border-color .15s,background .15s,color .15s}
 .op input{position:absolute;opacity:0;pointer-events:none}
-.op .mk{width:20px;height:20px;border:1.5px solid var(--muted);border-radius:50%;flex:none;display:grid;place-items:center;transition:all .15s}
-.op.chk .mk{border-radius:6px}
-.op .mk svg{width:12px;height:12px;stroke:var(--bg);stroke-width:3;fill:none;opacity:0}
-.op:has(input:checked){border-color:var(--fg);background:var(--soft)}
+.op .mk{width:18px;height:18px;border:1.5px solid var(--mk);border-radius:50%;flex:none;display:grid;place-items:center;transition:all .15s}
+.op.chk .mk{border-radius:5px}
+.op .mk svg{width:11px;height:11px;stroke:var(--bg);stroke-width:3.2;fill:none;opacity:0}
+.op .tx{flex:1;min-width:0}
+.op kbd{display:none}
+.op:has(input:checked){color:var(--fg)}
 .op:has(input:checked) .mk{background:var(--fg);border-color:var(--fg)}
 .op:has(input:checked) .mk svg{opacity:1}
 .op:has(input:focus-visible){outline:2px solid var(--focus);outline-offset:2px}
-.outro{margin-top:8px}
+.outro{margin-top:10px}
 
 .escala{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:6px}
 .escala label{position:relative;cursor:pointer}
 .escala input{position:absolute;opacity:0;pointer-events:none}
-.escala span{display:grid;place-items:center;height:48px;border:1px solid var(--line);border-radius:12px;font-weight:600;font-size:.95rem;font-variant-numeric:tabular-nums;transition:all .15s}
-.escala label:hover span{border-color:var(--muted)}
+.escala span{display:grid;place-items:center;height:46px;border:1px solid var(--line);border-radius:10px;font-weight:500;font-size:.92rem;color:var(--resp);font-variant-numeric:tabular-nums;transition:all .15s;background:var(--campo)}
+.escala label:hover span{border-color:var(--mk)}
 .escala input:checked+span{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .escala input:focus-visible+span{outline:2px solid var(--focus);outline-offset:2px}
-.escala-leg{display:flex;justify-content:space-between;gap:12px;margin-top:10px;font-size:.78rem;color:var(--muted)}
+.escala-leg{display:flex;justify-content:space-between;gap:12px;margin-top:10px;font-size:.78rem;color:var(--muted);font-style:italic}
 
-/* rodapé de navegação */
 .nav{position:fixed;left:0;right:0;bottom:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
-.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:76px}
+.nav-in{max-width:var(--largura,700px);margin:0 auto;padding-inline:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:74px}
 .nav .pos{font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
 .nav .acts{display:flex;gap:10px}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
-/* final */
-.fim{background:var(--ink);color:var(--ink-fg);min-height:calc(100vh - 67px);display:flex;align-items:center;padding:72px 0}
-.fim .spaced{color:var(--ink-muted);display:block;margin-bottom:22px}
-.fim h2{font-size:clamp(2rem,6.5vw,3.2rem);line-height:1.05;font-weight:700;letter-spacing:-.03em;margin:0 0 20px;text-wrap:balance}
-.fim p{color:var(--ink-muted);font-size:1.05rem;margin:0 0 16px;max-width:52ch}
-.fim p b{color:var(--ink-fg)}
-.fim .passos{list-style:none;padding:0;margin:28px 0 36px;display:grid;gap:0;border-top:1px solid var(--ink-line)}
-.fim .passos li{display:flex;gap:18px;padding:18px 0;border-bottom:1px solid var(--ink-line);font-size:.95rem}
-.fim .passos .n{color:var(--ink-muted);font-size:.72rem;letter-spacing:.2em;padding-top:3px;font-variant-numeric:tabular-nums}
-.fim .btn.solid{background:var(--ink-fg);color:var(--ink);border-color:var(--ink-fg)}
-.fim .aviso{font-size:.85rem;color:var(--grifo)}
+.fim{padding-block:72px}
+.fim h2{margin:18px 0 18px;text-wrap:balance}
+.fim p{color:var(--muted);margin:0 0 14px;max-width:52ch}
+.fim p b{color:var(--fg);font-weight:600}
+.passos{list-style:none;padding:0;margin:26px 0 34px;display:grid;border-top:1px solid var(--line)}
+.passos li{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);color:var(--resp)}
+.passos .n{color:var(--muted);font-size:.74rem;letter-spacing:.14em;padding-top:3px;font-variant-numeric:tabular-nums}
 
 @media (max-width:560px){
-  .ops.duas{grid-template-columns:1fr}
-  .q .ajuda,.q .campo,.q .erro{margin-left:0}
-  .escala{grid-template-columns:repeat(var(--m,var(--n)),minmax(0,1fr))}
+  .ops.duas{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row}
+  .escala{grid-template-columns:repeat(var(--m),minmax(0,1fr))}
   .nav .pos{display:none}
-  .nav .acts{width:100%}
-  .nav .acts .btn{flex:1}
+  .nav .acts{width:100%}.nav .acts .btn{flex:1}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+
+/* Opção C, cartões suaves: fundo cinza-claro, cada pergunta num cartão branco que respira; pergunta em negrito, resposta em cinza médio, ajuda em itálico claro. */
+:root{
+  --bg:#f3f3f5;--fg:#18181b;--resp:#5b5b63;--muted:#9b9ba3;--line:#e6e6ea;--soft:#f7f7f9;--campo:#ffffff;--card:#ffffff;--mk:#c8c8ce;
+  --grifo:#8ef5c0;--check:#12a65a;--progresso:#12b864;--erro:#c2185b;--focus:#c2185b;--sel:#effcf5;--sel-line:#12a65a;
+  --top-bg:#ffffff;--top-fg:#18181b;--top-line:#e6e6ea;
+  --f-q:"Montserrat",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;--f-a:var(--f-q);
+  --largura:720px;--gap-op:8px;--sim-bg:#12a65a;--sim-fg:#ffffff;--parte-bg:#ffe9a8;--parte-fg:#6b4a00;--nao-bg:#3f3f46;--nao-fg:#ffffff;--sombra:0 1px 2px rgba(20,20,30,.04),0 6px 20px rgba(20,20,30,.05);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c0c0e;--fg:#f2f2f4;--resp:#b4b4bc;--muted:#76767e;--line:#26262b;--soft:#18181b;--campo:#141417;--card:#141417;--mk:#4b4b52;--grifo:#0e7a45;--check:#3ddc84;--progresso:#3ddc84;--erro:#ff6b9d;--focus:#ff6b9d;--sel:#0f2a1c;--sel-line:#3ddc84;--top-bg:#141417;--top-fg:#f2f2f4;--top-line:#26262b;--sombra:none;--sim-bg:#3ddc84;--sim-fg:#06180e;--parte-bg:#5a4508;--parte-fg:#ffe08a;--nao-bg:#d4d4d8;--nao-fg:#141417;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0c0c0e;--fg:#f2f2f4;--resp:#b4b4bc;--muted:#76767e;--line:#26262b;--soft:#18181b;--campo:#141417;--card:#141417;--mk:#4b4b52;--grifo:#0e7a45;--check:#3ddc84;--progresso:#3ddc84;--erro:#ff6b9d;--focus:#ff6b9d;--sel:#0f2a1c;--sel-line:#3ddc84;--top-bg:#141417;--top-fg:#f2f2f4;--top-line:#26262b;--sombra:none;--sim-bg:#3ddc84;--sim-fg:#06180e;--parte-bg:#5a4508;--parte-fg:#ffe08a;--nao-bg:#d4d4d8;--nao-fg:#141417;color-scheme:dark}
+.intro .wrap,.fim .wrap{background:var(--card);border-radius:24px;padding:44px 32px;box-shadow:var(--sombra);border:1px solid var(--line)}
+.intro{padding-block:40px 64px}
+.intro h1{font-weight:700;font-size:clamp(2rem,6.4vw,3rem);line-height:1.08;letter-spacing:-.03em}
+.intro .lead{font-size:1.06rem;color:var(--resp)}
+.ganhos li{font-size:.95rem;color:var(--resp)}
+.head h2{font-weight:700;font-size:clamp(1.6rem,4.6vw,2.1rem);letter-spacing:-.025em;line-height:1.15}
+.head p{font-style:italic;font-size:.98rem}
+.lista{--gap-q:14px}
+.q{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 24px 26px;box-shadow:var(--sombra)}
+.q-cab .n{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--soft);font-size:.7rem;font-weight:600;color:var(--muted);flex:none;font-variant-numeric:tabular-nums}
+.pergunta{font-weight:600;font-size:1.06rem;line-height:1.4;padding-top:2px}
+.ajuda{font-style:italic;font-size:.88rem}
+.campo{margin-left:40px}.erro{margin-left:40px}
+.op{padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-size:.93rem;background:var(--campo)}
+.op:hover{border-color:var(--mk);color:var(--fg)}
+.op:has(input:checked){border-color:var(--sel-line);background:var(--sel);font-weight:500}
+.op:has(input:checked) .mk{background:var(--check);border-color:var(--check)}
+.escala input:checked+span{background:var(--check);border-color:var(--check);color:#fff}
+.inp{background:var(--soft);border-color:transparent}
+.inp:focus{background:var(--campo)}
+.fim{padding-block:40px 64px}
+.fim h2{font-weight:700;font-size:clamp(1.9rem,6vw,2.7rem);line-height:1.1;letter-spacing:-.03em}
+.pilar-nota{display:flex;gap:12px;align-items:flex-start;margin-top:8px;padding:14px 16px;border-radius:14px;background:var(--card);border:1px solid var(--line);font-size:.9rem;color:var(--resp);max-width:60ch}
+.pilar-nota svg{color:var(--check);margin-top:2px}
+.snp{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:var(--soft);border:1px solid var(--line)}
+.seg{position:relative;cursor:pointer}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg span{display:block;padding:8px 16px;border-radius:999px;font-size:.86rem;font-weight:500;color:var(--resp);white-space:nowrap;transition:background .15s,color .15s}
+.seg:hover span{color:var(--fg)}
+.seg-sim input:checked+span{background:var(--sim-bg);color:var(--sim-fg)}
+.seg-parte input:checked+span{background:var(--parte-bg);color:var(--parte-fg)}
+.seg-nao input:checked+span{background:var(--nao-bg);color:var(--nao-fg)}
+.seg input:focus-visible+span{outline:2px solid var(--focus);outline-offset:2px}
+.q-snp{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px 20px;padding-block:18px}
+.q-snp .campo{margin:0}
+.q-snp .erro{grid-column:1/-1}
+.q.invalido .snp{border-color:var(--erro)}
+@media (max-width:620px){.q-snp{grid-template-columns:1fr}.q-snp .campo{margin-left:40px}.snp{display:flex}.seg{flex:1;text-align:center}}
+@media (max-width:560px){.q-snp .campo{margin-left:0}}
+@media (max-width:560px){.campo,.erro{margin-left:0}.q{padding:20px 18px}.intro .wrap,.fim .wrap{padding:32px 20px;border-radius:20px}.intro .wrap{margin-inline:12px;width:auto}}
 </style>
 </head>
 <body>
-
 <header class="top">
-  <div class="wrap">
-    <a class="brand" href="/" aria-label="Unique, voltar ao site"><svg viewBox="0 0 2696 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Unique"><path fill="currentColor" fill-rule="evenodd" d="M2304 50L2300 56L2301 60L2309 66L2329 73L2338 83L2343 97L2343 395L2338 411L2326 422L2304 430L2301 440L2309 445L2629 444L2635 436L2647 391L2645 380L2637 383L2598 423L2585 430L2564 433L2525 434L2484 430L2458 417L2441 396L2434 363L2435 244L2440 241L2532 241L2554 246L2575 265L2596 301L2603 301L2605 173L2596 171L2568 215L2561 222L2545 229L2438 230L2434 226L2433 69L2441 60L2571 60L2591 63L2605 71L2624 91L2641 116L2647 119L2652 116L2641 52L2636 49ZM1801 52L1801 61L1820 72L1831 90L1833 334L1848 371L1871 399L1899 421L1932 437L1963 446L2007 450L2075 447L2118 438L2155 422L2183 399L2198 379L2206 361L2212 325L2215 85L2225 72L2245 60L2245 53L2242 50L2163 49L2158 53L2159 62L2181 76L2187 92L2189 307L2182 339L2160 366L2128 383L2093 390L2055 392L2004 391L1973 383L1949 368L1936 354L1927 338L1922 314L1922 53L1917 49L1805 49ZM1027 49L1024 53L1025 62L1048 77L1054 92L1055 381L1054 401L1049 414L1042 422L1025 431L1024 440L1029 445L1170 445L1175 440L1175 433L1151 415L1145 394L1145 99L1152 76L1175 61L1175 52L1172 49ZM548 50L545 55L548 63L578 74L592 86L591 405L578 423L562 432L562 441L565 444L642 445L648 440L647 431L624 415L619 400L615 123L620 118L904 435L917 445L927 443L930 438L936 92L944 75L967 61L967 52L964 49L884 49L880 54L883 64L903 75L909 85L911 98L912 288L906 292L682 50ZM51 52L50 60L73 77L79 90L81 333L89 358L98 374L119 399L149 422L183 438L211 446L255 450L323 447L366 438L403 422L431 399L446 379L454 361L460 328L463 85L473 72L493 60L493 53L490 50L411 49L406 55L407 61L413 67L430 77L435 92L437 310L430 339L422 352L408 366L376 383L340 390L303 392L252 391L221 383L197 368L184 354L175 338L170 313L170 53L165 49L56 49ZM1248 158L1232 201L1227 256L1233 298L1249 339L1271 370L1300 398L1350 430L1440 478L1512 510L1579 534L1669 557L1702 560L1796 559L1824 550L1866 524L1915 483L1907 481L1899 487L1870 495L1777 498L1676 496L1588 486L1485 463L1465 453L1459 445L1427 439L1388 416L1362 386L1344 352L1336 328L1328 287L1327 222L1336 172L1353 132L1380 96L1414 71L1432 63L1462 56L1505 56L1537 63L1560 73L1581 87L1605 110L1623 135L1639 172L1648 215L1647 288L1639 322L1615 371L1585 404L1560 422L1522 438L1494 442L1485 446L1498 449L1540 447L1609 430L1659 405L1703 367L1725 337L1742 297L1748 255L1742 196L1725 155L1703 124L1675 98L1634 73L1592 57L1552 48L1466 46L1407 50L1357 65L1310 90L1273 122Z"/></svg></a>
-    <span class="spaced tag">Diagnóstico</span>
-  </div>
+  <div class="top-in"><a class="brand" href="/" aria-label="Unique, voltar ao site"><svg viewBox="0 0 2696 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Unique"><path fill="currentColor" fill-rule="evenodd" d="M2304 50L2300 56L2301 60L2309 66L2329 73L2338 83L2343 97L2343 395L2338 411L2326 422L2304 430L2301 440L2309 445L2629 444L2635 436L2647 391L2645 380L2637 383L2598 423L2585 430L2564 433L2525 434L2484 430L2458 417L2441 396L2434 363L2435 244L2440 241L2532 241L2554 246L2575 265L2596 301L2603 301L2605 173L2596 171L2568 215L2561 222L2545 229L2438 230L2434 226L2433 69L2441 60L2571 60L2591 63L2605 71L2624 91L2641 116L2647 119L2652 116L2641 52L2636 49ZM1801 52L1801 61L1820 72L1831 90L1833 334L1848 371L1871 399L1899 421L1932 437L1963 446L2007 450L2075 447L2118 438L2155 422L2183 399L2198 379L2206 361L2212 325L2215 85L2225 72L2245 60L2245 53L2242 50L2163 49L2158 53L2159 62L2181 76L2187 92L2189 307L2182 339L2160 366L2128 383L2093 390L2055 392L2004 391L1973 383L1949 368L1936 354L1927 338L1922 314L1922 53L1917 49L1805 49ZM1027 49L1024 53L1025 62L1048 77L1054 92L1055 381L1054 401L1049 414L1042 422L1025 431L1024 440L1029 445L1170 445L1175 440L1175 433L1151 415L1145 394L1145 99L1152 76L1175 61L1175 52L1172 49ZM548 50L545 55L548 63L578 74L592 86L591 405L578 423L562 432L562 441L565 444L642 445L648 440L647 431L624 415L619 400L615 123L620 118L904 435L917 445L927 443L930 438L936 92L944 75L967 61L967 52L964 49L884 49L880 54L883 64L903 75L909 85L911 98L912 288L906 292L682 50ZM51 52L50 60L73 77L79 90L81 333L89 358L98 374L119 399L149 422L183 438L211 446L255 450L323 447L366 438L403 422L431 399L446 379L454 361L460 328L463 85L473 72L493 60L493 53L490 50L411 49L406 55L407 61L413 67L430 77L435 92L437 310L430 339L422 352L408 366L376 383L340 390L303 392L252 391L221 383L197 368L184 354L175 338L170 313L170 53L165 49L56 49ZM1248 158L1232 201L1227 256L1233 298L1249 339L1271 370L1300 398L1350 430L1440 478L1512 510L1579 534L1669 557L1702 560L1796 559L1824 550L1866 524L1915 483L1907 481L1899 487L1870 495L1777 498L1676 496L1588 486L1485 463L1465 453L1459 445L1427 439L1388 416L1362 386L1344 352L1336 328L1328 287L1327 222L1336 172L1353 132L1380 96L1414 71L1432 63L1462 56L1505 56L1537 63L1560 73L1581 87L1605 110L1623 135L1639 172L1648 215L1647 288L1639 322L1615 371L1585 404L1560 422L1522 438L1494 442L1485 446L1498 449L1540 447L1609 430L1659 405L1703 367L1725 337L1742 297L1748 255L1742 196L1725 155L1703 124L1675 98L1634 73L1592 57L1552 48L1466 46L1407 50L1357 65L1310 90L1273 122Z"/></svg></a><span class="tag">Diagnóstico comercial</span></div>
   <div class="bar" aria-hidden="true"><i id="barra"></i></div>
 </header>
+<main>
+  <section class="intro" id="tela-intro"><div class="wrap">
+    <span class="eyebrow">Unique Inteligência Comercial</span>
+    <h1>Diagnóstico de <span class="grifo">Maturidade Comercial</span></h1>
+    <p class="lead">Descubra os gargalos que estão segurando o crescimento da sua empresa. Você responde com calma, a gente faz a análise.</p>
+    <ul class="ganhos">
+      <li><svg class="icon" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>O nível de maturidade da sua área comercial</span></li>
+      <li><svg class="icon" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Os gargalos que podem estar travando o crescimento</span></li>
+      <li><svg class="icon" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Como estão seus 4 pilares: prospecção, recuperação, fidelização e nutrição</span></li>
+      <li><svg class="icon" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>O quanto dá para prever as suas vendas</span></li>
+      <li><svg class="icon" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>O quanto a operação depende de pessoas ou ferramentas</span></li>
+      <li><svg class="icon" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Onde dá para converter e produzir mais</span></li>
+    </ul>
+    <div class="meta"><span>10 a 15 minutos</span><span>4 pilares comerciais</span><span>Respostas confidenciais</span></div>
+    <button class="btn solid" type="button" id="comecar">Começar diagnóstico <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    <span class="retomar" id="retomar" hidden>Você já começou antes. <button type="button" id="continuar">Continuar de onde parei</button></span>
+    <p class="nota">Quanto mais sinceras as respostas, mais precisa a análise.</p>
+  </div></section>
 
-<main id="app">
-  <!-- abertura -->
-  <section class="intro" id="tela-intro">
-    <div class="wrap">
-      <span class="spaced">Unique Inteligência Comercial</span>
-      <h1>Diagnóstico de <span class="grifo">Maturidade Comercial</span></h1>
-      <p class="lead">Descubra os <b>gargalos ocultos</b> que estão limitando o crescimento da sua empresa. Vamos analisar processos, equipe, tecnologia, gestão e previsibilidade das suas vendas.</p>
-      <ul class="ganhos">
-        <li><svg class="icon" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>O nível de maturidade da sua área comercial</li>
-        <li><svg class="icon" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Os principais gargalos que podem estar travando o crescimento</li>
-        <li><svg class="icon" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>O grau de previsibilidade das suas vendas</li>
-        <li><svg class="icon" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>O quanto a operação depende de pessoas, processos ou ferramentas</li>
-        <li><svg class="icon" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Oportunidades de aumentar conversão e produtividade</li>
-      </ul>
-      <div class="meta"><span>⏱ 8 a 12 minutos</span><span id="meta-etapas">12 etapas</span><span>Respostas confidenciais</span></div>
-      <button class="btn solid" type="button" id="comecar">Começar diagnóstico <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-      <span class="retomar" id="retomar" hidden>Você já começou antes. <button type="button" id="continuar">Continuar de onde parei</button></span>
-      <p class="lead" style="margin:36px 0 0;font-size:.88rem">Quanto mais sinceras forem as respostas, mais precisa será a análise.</p>
-    </div>
-  </section>
-
-  <!-- etapas -->
   <form id="form" novalidate hidden>
     <section class="etapa"><div class="wrap" id="etapa"></div></section>
     <div class="hp" aria-hidden="true"><label>Site <input type="text" name="site" id="hp" tabindex="-1" autocomplete="off"></label></div>
-    <nav class="nav" aria-label="Navegação do formulário">
-      <div class="wrap">
-        <span class="pos" id="pos"></span>
-        <div class="acts">
-          <button class="btn ghost" type="button" id="voltar">Voltar</button>
-          <button class="btn solid" type="submit" id="avancar">Continuar</button>
-        </div>
-      </div>
-    </nav>
+    <nav class="nav" aria-label="Navegação do formulário"><div class="nav-in">
+      <span class="pos" id="pos"></span>
+      <div class="acts"><button class="btn ghost" type="button" id="voltar">Voltar</button><button class="btn solid" type="submit" id="avancar">Continuar</button></div>
+    </div></nav>
   </form>
 
-  <!-- final -->
-  <section class="fim" id="tela-fim" hidden>
-    <div class="wrap">
-      <span class="spaced" id="fim-rotulo">Diagnóstico enviado</span>
-      <h2>Obrigado, <span id="fim-nome">empresário</span>. <span class="grifo">Agora é com a gente.</span></h2>
-      <p id="fim-texto">Recebemos as respostas da <b id="fim-empresa">sua empresa</b>. A equipe da Unique vai cruzar tudo e montar a sua análise.</p>
-      <ol class="passos">
-        <li><span class="n">01</span><span>Analisamos suas respostas e calculamos o score de maturidade comercial.</span></li>
-        <li><span class="n">02</span><span>Mapeamos os gargalos do funil: prospecção, nutrição, recuperação e fidelização.</span></li>
-        <li><span class="n">03</span><span>Entramos em contato pelo WhatsApp para apresentar o resultado.</span></li>
-      </ol>
-      <p class="aviso" id="fim-aviso" hidden></p>
-      <a class="btn solid" id="fim-whats" href="#" target="_blank" rel="noopener">Avisar o Carlos no WhatsApp <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    </div>
-  </section>
+  <section class="fim" id="tela-fim" hidden><div class="wrap">
+    <span class="eyebrow" id="fim-rotulo">Diagnóstico enviado</span>
+    <h2>Obrigado<span id="fim-nome"></span>. <span class="grifo">Agora é com a gente.</span></h2>
+    <p id="fim-texto">Recebemos as respostas da <b id="fim-empresa">sua empresa</b>. A equipe da Unique vai cruzar tudo e montar a sua análise.</p>
+    <ol class="passos">
+      <li><span class="n">01</span><span>Analisamos as respostas e calculamos o score de maturidade comercial.</span></li>
+      <li><span class="n">02</span><span>Mapeamos os gargalos do funil: prospecção, nutrição, recuperação e fidelização.</span></li>
+      <li><span class="n">03</span><span>Chamamos você no WhatsApp para apresentar o resultado.</span></li>
+    </ol>
+    <a class="btn solid" id="fim-whats" href="#" target="_blank" rel="noopener"><span id="fim-whats-tx">Avisar o Carlos no WhatsApp</span> <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div></section>
 </main>
-
-<script>
-(function(){
+<script>window.DIAG_CFG={modo:"etapa",chave:"c",previa:false};</script>
+<script>(function(){
   'use strict';
+  var CFG = window.DIAG_CFG || {modo:'etapa'};
   var WHATS = '5562996007574';
-  var CHAVE = 'unique-diagnostico-v1';
-
-  /* ===== Perguntas =====
-     tipos: texto, email, tel, longo, unica, multipla, escala
-     se: mostra a pergunta/etapa só quando outra resposta bate */
+  var CHAVE = 'unique-diagnostico-' + (CFG.chave||'v2');
   var ETAPAS = [
-    { id:'identificacao', titulo:'Identificação',
+    { id:'identificacao', junto:1, titulo:'Identificação',
       desc:'Vamos começar com algumas informações básicas para identificar sua empresa e personalizar a análise.',
       q:[
         {id:'email', t:'email', p:'Seu melhor e-mail', ph:'nome@empresa.com.br'},
@@ -314,6 +321,48 @@ textarea.inp{min-height:130px;resize:vertical;line-height:1.55}
         {id:'tentativas', t:'unica', p:'Quantas tentativas vocês fazem antes de considerar um cliente perdido?', a:'Contatos, mensagens, ligações e retornos.', duas:1,
           o:['1','2 a 3','4 a 5','6 ou mais','Não tem regra, depende do vendedor']}
       ]},
+    { id:'p_prospeccao', pilar:'Prospecção', titulo:'Pilar 1 · Prospecção',
+      desc:'Ir atrás de clientes novos, que nunca compraram de você.',
+      nota:'Aqui não conta recuperar cliente antigo nem atender quem chega sozinho. Prospecção é o seu time sair para buscar quem ainda não te conhece.',
+      q:[
+        {id:'pr_quem', t:'unica', p:'Quem faz prospecção de clientes novos hoje?',
+          o:['Um vendedor ou SDR dedicado a isso','Os vendedores, junto com o atendimento','Só o dono, quando sobra tempo','Ninguém faz prospecção ativa']},
+        {id:'pr_rotina', t:'snp', p:'Alguém busca clientes novos toda semana, com ligação, visita ou mensagem?'},
+        {id:'pr_lista', t:'snp', p:'Existe uma lista das empresas ou perfis que vocês querem conquistar?'},
+        {id:'pr_canais', t:'snp', p:'A abordagem usa mais de um canal (ligação, WhatsApp, visita, LinkedIn)?'},
+        {id:'pr_meta', t:'snp', p:'Existe meta de novas abordagens por vendedor?'},
+        {id:'pr_roteiro', t:'snp', p:'Os vendedores usam um roteiro padrão na primeira abordagem?'}
+      ]},
+    { id:'p_recuperacao', pilar:'Recuperação', titulo:'Pilar 2 · Recuperação',
+      desc:'Trazer de volta quem já comprou de você e parou de comprar.',
+      nota:'Pense nos clientes inativos e nos orçamentos que ficaram parados. Eles já te conhecem, o trabalho é reativar.',
+      q:[
+        {id:'re_sabe', t:'snp', p:'Vocês sabem quais clientes pararam de comprar?'},
+        {id:'re_contato', t:'snp', p:'Existe um contato programado com os clientes inativos?'},
+        {id:'re_oferta', t:'snp', p:'Existe uma oferta ou condição específica para quem volta a comprar?'},
+        {id:'re_motivo', t:'snp', p:'Vocês procuram entender por que o cliente parou?'},
+        {id:'re_orcamentos', t:'snp', p:'Os orçamentos que não fecharam são retomados depois?'}
+      ]},
+    { id:'p_fidelizacao', pilar:'Fidelização', titulo:'Pilar 3 · Fidelização',
+      desc:'Fazer quem já compra de você comprar mais vezes, mais itens e com mais valor.',
+      nota:'É o cliente ativo. O que a empresa faz para ele não ir para o concorrente e aumentar o que compra?',
+      q:[
+        {id:'fi_posvenda', t:'snp', p:'Existe contato com o cliente depois da venda (pós-venda)?'},
+        {id:'fi_satisfacao', t:'snp', p:'Vocês medem a satisfação dos clientes?'},
+        {id:'fi_mix', t:'snp', p:'Oferecem outros produtos ou serviços para quem já compra?'},
+        {id:'fi_beneficio', t:'snp', p:'Existe algum benefício ou programa para quem compra sempre?'},
+        {id:'fi_recompra', t:'snp', p:'Vocês acompanham de quanto em quanto tempo o cliente volta a comprar?'}
+      ]},
+    { id:'p_nutricao', pilar:'Nutrição', titulo:'Pilar 4 · Nutrição',
+      desc:'Cuidar de todo mundo que chega sem esforço do time: indicação, Instagram, Google, anúncios.',
+      nota:'Tráfego pago entra aqui. É quem levantou a mão sozinho e precisa ser bem atendido e acompanhado até comprar.',
+      q:[
+        {id:'nu_origem', t:'snp', p:'Vocês sabem de onde veio cada contato que chega?'},
+        {id:'nu_atracao', t:'snp', p:'Investem de forma constante em conteúdo ou anúncios para atrair contatos?'},
+        {id:'nu_indicacao', t:'snp', p:'Existe uma forma organizada de pedir indicações aos clientes?'},
+        {id:'nu_conteudo', t:'snp', p:'Têm material ou conteúdo para quem ainda não está pronto para comprar?'},
+        {id:'nu_acompanha', t:'snp', p:'Mantêm contato com quem chegou e ainda não comprou?'}
+      ]},
     { id:'gestao', titulo:'Gestão comercial',
       desc:'Gestão é o que transforma esforço em resultado. Aqui avaliamos controle, acompanhamento e previsibilidade.',
       q:[
@@ -357,7 +406,6 @@ textarea.inp{min-height:130px;resize:vertical;line-height:1.55}
       ]}
   ];
 
-  /* ===== estado ===== */
   var R = {}, atual = 0;
   var $ = function(id){ return document.getElementById(id); };
   function salvar(){ try{ localStorage.setItem(CHAVE, JSON.stringify({r:R, e:atual})); }catch(e){} }
@@ -365,188 +413,196 @@ textarea.inp{min-height:130px;resize:vertical;line-height:1.55}
   try{ var s=JSON.parse(localStorage.getItem(CHAVE)||'null'); if(s && s.r && Object.keys(s.r).length){ R=s.r; atual=s.e||0; $('retomar').hidden=false; } }catch(e){}
 
   function bate(c){ if(!c) return true; var v=R[c.id]; return Array.isArray(v) ? v.indexOf(c.v)>-1 : v===c.v; }
-  function visiveis(){ return ETAPAS.filter(function(e){ return bate(e.se); }); }
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
-  var CHECK='<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  var CHECK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  var LETRAS='ABCDEFGHIJKLMN';
+  var umaPorVez = CFG.modo==='pergunta';
+
+  function telas(){
+    var t=[];
+    ETAPAS.forEach(function(e){
+      if(!bate(e.se)) return;
+      if(!umaPorVez || e.junto) t.push({e:e, q:e.q});
+      else e.q.forEach(function(q){ if(bate(q.se)) t.push({e:e, q:[q]}); });
+    });
+    return t;
+  }
+  function totalPerguntas(){ var n=0; ETAPAS.forEach(function(e){ if(bate(e.se)) e.q.forEach(function(q){ if(bate(q.se)) n++; }); }); return n; }
 
   function campo(q){
     var v=R[q.id], h='';
     if(q.t==='texto'||q.t==='email'||q.t==='tel'){
       var type=q.t==='texto'?'text':q.t;
-      h='<input class="inp" id="f-'+q.id+'" name="'+q.id+'" type="'+type+'"'+
-        (q.ph?' placeholder="'+esc(q.ph)+'"':'')+
-        (q.t==='email'?' autocomplete="email" inputmode="email"':'')+
-        (q.t==='tel'?' autocomplete="tel" inputmode="tel"':'')+
-        (q.mask==='cnpj'?' inputmode="numeric"':'')+
-        (q.auto?' autocomplete="'+q.auto+'"':'')+
-        ' value="'+esc(v||'')+'">';
+      h='<input class="inp" id="f-'+q.id+'" name="'+q.id+'" type="'+type+'"'+(q.ph?' placeholder="'+esc(q.ph)+'"':'')+
+        (q.t==='email'?' autocomplete="email" inputmode="email"':'')+(q.t==='tel'?' autocomplete="tel" inputmode="tel"':'')+
+        (q.mask==='cnpj'?' inputmode="numeric"':'')+(q.auto?' autocomplete="'+q.auto+'"':'')+' value="'+esc(v||'')+'">';
     } else if(q.t==='longo'){
       h='<textarea class="inp" id="f-'+q.id+'" name="'+q.id+'"'+(q.ph?' placeholder="'+esc(q.ph)+'"':'')+'>'+esc(v||'')+'</textarea>';
     } else if(q.t==='unica'||q.t==='multipla'){
       var multi=q.t==='multipla', tp=multi?'checkbox':'radio', sel=multi?(v||[]):[v];
-      h='<div class="ops'+(q.duas?' duas':'')+'" role="'+(multi?'group':'radiogroup')+'" aria-labelledby="l-'+q.id+'">';
-      q.o.forEach(function(o){
-        h+='<label class="op'+(multi?' chk':'')+'"><input type="'+tp+'" name="'+q.id+'" value="'+esc(o)+'"'+(sel.indexOf(o)>-1?' checked':'')+'><span class="mk">'+CHECK+'</span><span>'+esc(o)+'</span></label>';
+      var ops=q.o.slice(); if(q.outro) ops.push('Outro');
+      h='<div class="ops'+(q.duas?' duas':'')+'" style="--linhas:'+Math.ceil(ops.length/2)+'" role="'+(multi?'group':'radiogroup')+'" aria-labelledby="l-'+q.id+'">';
+      ops.forEach(function(o,i){
+        h+='<label class="op'+(multi?' chk':'')+'"><input type="'+tp+'" id="f-'+q.id+'-'+i+'" name="'+q.id+'" value="'+esc(o)+'"'+(sel.indexOf(o)>-1?' checked':'')+'>'+
+           '<span class="mk">'+CHECK+'</span><span class="tx">'+esc(o)+'</span><kbd>'+LETRAS[i]+'</kbd></label>';
       });
-      if(q.outro){
-        var ot=sel.indexOf('Outro')>-1;
-        h+='<label class="op'+(multi?' chk':'')+'"><input type="'+tp+'" name="'+q.id+'" value="Outro"'+(ot?' checked':'')+'><span class="mk">'+CHECK+'</span><span>Outro</span></label>';
-      }
       h+='</div>';
-      if(q.outro) h+='<input class="inp outro" id="o-'+q.id+'" placeholder="Qual?"'+((sel.indexOf('Outro')>-1)?'':' hidden')+' value="'+esc(R[q.id+'_outro']||'')+'">';
+      if(q.outro) h+='<input class="inp outro" id="o-'+q.id+'" placeholder="Qual?"'+(sel.indexOf('Outro')>-1?'':' hidden')+' value="'+esc(R[q.id+'_outro']||'')+'">';
+    } else if(q.t==='snp'){
+      h='<div class="snp" role="radiogroup" aria-labelledby="l-'+q.id+'">';
+      [['Sim','sim'],['Em parte','parte'],['Não','nao']].forEach(function(o,i){
+        h+='<label class="seg seg-'+o[1]+'"><input type="radio" id="f-'+q.id+'-'+i+'" name="'+q.id+'" value="'+o[0]+'"'+(v===o[0]?' checked':'')+'><span>'+o[0]+'</span></label>';
+      });
+      h+='</div>';
     } else if(q.t==='escala'){
       var n=q.max-q.min+1;
       h='<div class="escala" role="radiogroup" aria-labelledby="l-'+q.id+'" style="--n:'+n+';--m:'+(n>10?6:5)+'">';
-      for(var i=q.min;i<=q.max;i++) h+='<label><input type="radio" name="'+q.id+'" value="'+i+'"'+(String(v)===String(i)?' checked':'')+' aria-label="'+i+'"><span>'+i+'</span></label>';
-      h+='</div><div class="escala-leg"><span>'+q.min+' · '+esc(q.l[0])+'</span><span>'+esc(q.l[1])+' · '+q.max+'</span></div>';
+      for(var i=q.min;i<=q.max;i++) h+='<label><input type="radio" id="f-'+q.id+'-'+i+'" name="'+q.id+'" value="'+i+'"'+(String(v)===String(i)?' checked':'')+' aria-label="'+i+'"><span>'+i+'</span></label>';
+      h+='</div><div class="escala-leg"><span>'+esc(q.l[0])+'</span><span>'+esc(q.l[1])+'</span></div>';
     }
     return h;
   }
 
   function render(){
-    var vis=visiveis(); if(atual>=vis.length) atual=vis.length-1;
-    var e=vis[atual], n=0;
-    var h='<div class="head"><span class="spaced"><span>Etapa '+(atual+1)+' de '+vis.length+'</span></span><h2>'+esc(e.titulo)+'</h2><p>'+esc(e.desc)+'</p></div>';
-    e.q.forEach(function(q){
+    var T=telas(); if(atual>=T.length) atual=T.length-1;
+    var tela=T[atual], e=tela.e, n=0, h='';
+    var progresso = atual/T.length;
+    if(umaPorVez){
+      var feitas=0; for(var i=0;i<atual;i++) feitas+=T[i].q.length;
+      h+='<div class="head head-q"><span class="eyebrow">'+esc(e.titulo)+'</span><span class="conta">'+(feitas+1)+' de '+totalPerguntas()+'</span></div>';
+      if(e.junto) h+='<div class="intro-sec"><h2>'+esc(e.titulo)+'</h2><p>'+esc(e.desc)+'</p></div>';
+    } else {
+      h+='<div class="head"><span class="eyebrow">Etapa '+(atual+1)+' de '+T.length+(e.pilar?' · 4 pilares':'')+'</span><h2>'+esc(e.titulo)+'</h2><p>'+esc(e.desc)+'</p>'+
+         (e.nota?'<div class="pilar-nota"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5v.5"/></svg><span>'+esc(e.nota)+'</span></div>':'')+'</div>';
+    }
+    h+='<div class="lista">';
+    tela.q.forEach(function(q){
       var mostra=bate(q.se); if(mostra) n++;
-      h+='<div class="q" id="q-'+q.id+'"'+(mostra?'':' hidden')+'>'+
-        '<p class="lbl" id="l-'+q.id+'"><span class="n">'+String(n).padStart(2,'0')+'</span><span>'+(q.t==='texto'||q.t==='email'||q.t==='tel'||q.t==='longo'?'<label for="f-'+q.id+'">'+esc(q.p)+'</label>':esc(q.p))+(q.opc?' <span class="opt">(opcional)</span>':'')+'</span></p>'+
-        (q.a?'<p class="ajuda">'+esc(q.a)+'</p>':'')+
-        '<div class="campo">'+campo(q)+'</div><p class="erro" hidden></p></div>';
+      var rot=(q.t==='texto'||q.t==='email'||q.t==='tel'||q.t==='longo')?'<label for="f-'+q.id+'">'+esc(q.p)+'</label>':esc(q.p);
+      h+='<div class="q q-'+q.t+'" id="q-'+q.id+'"'+(mostra?'':' hidden')+'>'+
+         '<div class="q-cab"><span class="n">'+String(n).padStart(2,'0')+'</span><div class="q-txt">'+
+         '<h3 class="pergunta" id="l-'+q.id+'">'+rot+(q.opc?' <span class="opc">opcional</span>':'')+'</h3>'+
+         (q.a?'<p class="ajuda">'+esc(q.a)+'</p>':'')+'</div></div>'+
+         '<div class="campo">'+campo(q)+'</div><p class="erro" hidden></p></div>';
     });
+    h+='</div>';
     $('etapa').innerHTML=h;
-    $('pos').textContent=Math.round(atual/vis.length*100)+'% concluído';
-    $('barra').style.width=(atual/vis.length*100)+'%';
+    $('pos').textContent=Math.round(progresso*100)+'% concluído';
+    $('barra').style.width=(progresso*100)+'%';
     $('voltar').style.visibility=atual===0?'hidden':'visible';
-    var ultimo=atual===vis.length-1;
-    $('avancar').innerHTML=ultimo?'Enviar diagnóstico':'Continuar';
-    $('meta-etapas').textContent=vis.length+' etapas';
+    $('avancar').textContent = atual===T.length-1 ? 'Enviar diagnóstico' : (umaPorVez?'OK':'Continuar');
+    if(umaPorVez){ var f=$('etapa').querySelector('input.inp,textarea'); if(f) setTimeout(function(){ try{f.focus({preventScroll:true});}catch(x){} },50); }
   }
 
   function ler(q){
     var f=$('form');
-    if(q.t==='unica'||q.t==='escala'){ var c=f.querySelector('input[name="'+q.id+'"]:checked'); return c?c.value:''; }
-    if(q.t==='multipla'){ return [].map.call(f.querySelectorAll('input[name="'+q.id+'"]:checked'),function(c){return c.value;}); }
+    if(q.t==='unica'||q.t==='escala'||q.t==='snp'){ var c=f.querySelector('input[name="'+q.id+'"]:checked'); return c?c.value:''; }
+    if(q.t==='multipla') return [].map.call(f.querySelectorAll('input[name="'+q.id+'"]:checked'),function(c){return c.value;});
     var el=$('f-'+q.id); return el?el.value.trim():'';
   }
-
-  function guardarEtapa(){
-    var e=visiveis()[atual];
-    e.q.forEach(function(q){
-      R[q.id]=ler(q);
-      if(q.outro){ var o=$('o-'+q.id); if(o) R[q.id+'_outro']=o.value.trim(); }
-    });
+  function guardar(){
+    telas()[atual].q.forEach(function(q){ R[q.id]=ler(q); if(q.outro){ var o=$('o-'+q.id); if(o) R[q.id+'_outro']=o.value.trim(); } });
     salvar();
   }
-
   function validar(){
-    var e=visiveis()[atual], primeiro=null;
-    e.q.forEach(function(q){
-      var box=$('q-'+q.id); if(box.hidden) return;
-      var v=R[q.id], msg='';
-      var vazio=Array.isArray(v)?!v.length:!v;
-      if(!q.opc && vazio) msg=(q.t==='unica'||q.t==='multipla'||q.t==='escala')?'Escolha uma opção para continuar.':'Preencha este campo para continuar.';
+    var primeiro=null;
+    telas()[atual].q.forEach(function(q){
+      var box=$('q-'+q.id); if(!box||box.hidden) return;
+      var v=R[q.id], msg='', vazio=Array.isArray(v)?!v.length:!v;
+      if(!q.opc && vazio) msg=(q.t==='unica'||q.t==='multipla'||q.t==='escala'||q.t==='snp')?'Escolha uma opção para continuar.':'Preencha este campo para continuar.';
       else if(q.t==='email' && v && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) msg='Confira o e-mail: parece incompleto.';
       else if(q.t==='tel' && v && v.replace(/\D/g,'').length<10) msg='Informe o WhatsApp com DDD.';
       else if(q.mask==='cnpj' && v && v.replace(/\D/g,'').length!==14) msg='O CNPJ tem 14 números.';
       else if(q.outro && !vazio && (Array.isArray(v)?v.indexOf('Outro')>-1:v==='Outro') && !R[q.id+'_outro']) msg='Conte qual é a outra opção.';
-      var err=box.querySelector('.erro');
-      box.classList.toggle('invalido',!!msg); err.hidden=!msg; err.textContent=msg;
+      var err=box.querySelector('.erro'); box.classList.toggle('invalido',!!msg); err.hidden=!msg; err.textContent=msg;
       if(msg && !primeiro) primeiro=box;
     });
-    if(primeiro){ primeiro.scrollIntoView({behavior:'smooth',block:'center'}); var i=primeiro.querySelector('input,textarea'); if(i) setTimeout(function(){ try{i.focus({preventScroll:true});}catch(x){} },300); }
+    if(primeiro){ primeiro.scrollIntoView({behavior:'smooth',block:'center'}); }
     return !primeiro;
   }
-
   function ir(i){ atual=i; salvar(); render(); window.scrollTo({top:0,behavior:'smooth'}); }
 
-  /* máscaras e campos condicionais ao vivo */
   $('form').addEventListener('input',function(ev){
     var t=ev.target;
-    if(t.id==='f-whatsapp'){
-      var d=t.value.replace(/\D/g,'').slice(0,11);
-      t.value=d.length>6?'('+d.slice(0,2)+') '+d.slice(2,d.length-4)+'-'+d.slice(-4):d.length>2?'('+d.slice(0,2)+') '+d.slice(2):d;
-    }
-    if(t.id==='f-cnpj'){
-      var c=t.value.replace(/\D/g,'').slice(0,14), o=c;
+    if(t.id==='f-whatsapp'){ var d=t.value.replace(/\D/g,'').slice(0,11); t.value=d.length>6?'('+d.slice(0,2)+') '+d.slice(2,d.length-4)+'-'+d.slice(-4):d.length>2?'('+d.slice(0,2)+') '+d.slice(2):d; }
+    if(t.id==='f-cnpj'){ var c=t.value.replace(/\D/g,'').slice(0,14), o=c;
       if(c.length>12) o=c.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{0,2})/,'$1.$2.$3/$4-$5');
       else if(c.length>8) o=c.replace(/^(\d{2})(\d{3})(\d{3})(\d{0,4})/,'$1.$2.$3/$4');
       else if(c.length>5) o=c.replace(/^(\d{2})(\d{3})(\d{0,3})/,'$1.$2.$3');
       else if(c.length>2) o=c.replace(/^(\d{2})(\d{0,3})/,'$1.$2');
-      t.value=o;
-    }
+      t.value=o; }
   });
+  var timer=null;
   $('form').addEventListener('change',function(ev){
-    var t=ev.target, e=visiveis()[atual];
-    var q=e.q.filter(function(x){return x.id===t.name;})[0];
-    if(!q) return;
+    var t=ev.target, tela=telas()[atual];
+    var q=tela.q.filter(function(x){return x.id===t.name;})[0]; if(!q) return;
     R[q.id]=ler(q); salvar();
     var box=$('q-'+q.id); box.classList.remove('invalido'); box.querySelector('.erro').hidden=true;
-    if(q.outro){ var v=R[q.id], on=Array.isArray(v)?v.indexOf('Outro')>-1:v==='Outro'; var o=$('o-'+q.id); o.hidden=!on; if(on && t.value==='Outro') o.focus(); }
-    e.q.forEach(function(x){ if(x.se && x.se.id===q.id){ var b=$('q-'+x.id); b.hidden=!bate(x.se); } });
-    var cont=0; e.q.forEach(function(x){ var b=$('q-'+x.id); if(!b.hidden){ cont++; b.querySelector('.n').textContent=String(cont).padStart(2,'0'); } });
+    var ehOutro=false;
+    if(q.outro){ var v=R[q.id]; ehOutro=Array.isArray(v)?v.indexOf('Outro')>-1:v==='Outro'; var o=$('o-'+q.id); o.hidden=!ehOutro; if(ehOutro && t.value==='Outro') o.focus(); }
+    tela.q.forEach(function(x){ if(x.se && x.se.id===q.id) $('q-'+x.id).hidden=!bate(x.se); });
+    var cont=0; tela.q.forEach(function(x){ var b=$('q-'+x.id); if(!b.hidden){ cont++; b.querySelector('.n').textContent=String(cont).padStart(2,'0'); } });
+    // uma por vez: escolha única avança sozinha
+    if(umaPorVez && tela.q.length===1 && (q.t==='unica'||q.t==='escala'||q.t==='snp') && !ehOutro){
+      clearTimeout(timer); timer=setTimeout(function(){ $('form').requestSubmit ? $('form').requestSubmit() : $('avancar').click(); },380);
+    }
+  });
+  if(umaPorVez) document.addEventListener('keydown',function(ev){
+    if($('form').hidden || /INPUT|TEXTAREA/.test((ev.target||{}).tagName) && ev.target.type!=='radio' && ev.target.type!=='checkbox') return;
+    var k=ev.key.toUpperCase(), i=LETRAS.indexOf(k); if(i<0||k.length!==1) return;
+    var inps=$('etapa').querySelectorAll('.op input'); if(inps[i]){ inps[i].click(); ev.preventDefault(); }
   });
 
   $('form').addEventListener('submit',function(ev){
-    ev.preventDefault();
-    guardarEtapa();
-    if(!validar()) return;
-    var vis=visiveis();
-    if(atual<vis.length-1) return ir(atual+1);
+    ev.preventDefault(); guardar(); if(!validar()) return;
+    var T=telas(); if(atual<T.length-1) return ir(atual+1);
     enviar();
   });
-  $('voltar').onclick=function(){ guardarEtapa(); if(atual>0) ir(atual-1); };
-
-  function comecar(do0){ if(do0){ R={}; atual=0; limpar(); } $('tela-intro').hidden=true; $('form').hidden=false; render(); window.scrollTo(0,0); }
+  $('voltar').onclick=function(){ guardar(); if(atual>0) ir(atual-1); };
+  function comecar(zero){ if(zero){ R={}; atual=0; limpar(); } $('tela-intro').hidden=true; $('form').hidden=false; render(); window.scrollTo(0,0); }
   $('comecar').onclick=function(){ comecar(true); };
   $('continuar').onclick=function(){ comecar(false); };
 
-  /* monta as respostas na ordem, com o texto das perguntas */
-  function respostasLegiveis(){
+  function respostas(){
     var lista=[];
-    visiveis().forEach(function(e){
-      e.q.forEach(function(q){
-        if(!bate(q.se)) return;
-        var v=R[q.id]; if(Array.isArray(v)) v=v.slice();
-        var outro=R[q.id+'_outro'];
-        if(outro){ if(Array.isArray(v)) v=v.map(function(x){return x==='Outro'?'Outro: '+outro:x;}); else if(v==='Outro') v='Outro: '+outro; }
-        lista.push({secao:e.titulo, id:q.id, pergunta:q.p, resposta:Array.isArray(v)?v.join(', '):(v||'')});
-      });
+    ETAPAS.forEach(function(e){ if(!bate(e.se)) return; e.q.forEach(function(q){ if(!bate(q.se)) return;
+      var v=R[q.id], outro=R[q.id+'_outro'];
+      if(outro){ if(Array.isArray(v)) v=v.map(function(x){return x==='Outro'?'Outro: '+outro:x;}); else if(v==='Outro') v='Outro: '+outro; }
+      lista.push({secao:e.titulo,id:q.id,pergunta:q.p,resposta:Array.isArray(v)?v.join(', '):(v||'')});
+    }); });
+    // score dos 4 pilares (Sim = 20, Em parte = 10, Não = 0; até 100 por pilar)
+    var tot=0, np=0;
+    ETAPAS.forEach(function(e){ if(!e.pilar) return; var pts=0, n=0;
+      e.q.forEach(function(q){ if(q.t!=='snp') return; n++; pts+= R[q.id]==='Sim'?20:R[q.id]==='Em parte'?10:0; });
+      var nota=Math.round(pts*5/n); tot+=nota; np++;
+      lista.push({secao:'Score dos 4 pilares',id:'score_'+e.id.slice(2),pergunta:e.pilar,resposta:nota+'/100 · '+(nota>=70?'Alto':nota>=40?'Médio':'Baixo')});
     });
+    if(np){ var g=Math.round(tot/np); lista.push({secao:'Score dos 4 pilares',id:'score_geral',pergunta:'Score geral',resposta:g+'/100 · '+(g>=70?'Alto':g>=40?'Médio':'Baixo')}); }
     return lista;
   }
-
   function enviar(){
-    var btn=$('avancar'); btn.disabled=true; btn.textContent='Enviando…';
-    var payload={ respostas:respostasLegiveis(), site:$('hp').value, origem:location.href };
+    var b=$('avancar'); b.disabled=true; b.textContent='Enviando…';
+    if(CFG.previa) return setTimeout(function(){ finalizar(true); },500);
     var ok=false;
-    fetch('/api/diagnostico',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
-      .then(function(r){ ok=r.ok; return r.json().catch(function(){return {};}); })
-      .catch(function(){ return {}; })
-      .then(function(){ finalizar(ok); });
+    fetch('/api/diagnostico',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({respostas:respostas(),site:$('hp').value,origem:location.href})})
+      .then(function(r){ ok=r.ok; }).catch(function(){}).then(function(){ finalizar(ok); });
   }
-
   function finalizar(ok){
-    var nome=(R.nome||'').split(' ')[0]||'empresário', emp=R.empresa||'sua empresa';
-    $('fim-nome').textContent=nome; $('fim-empresa').textContent=emp;
+    var nome=(R.nome||'').split(' ')[0]||'', emp=R.empresa||'sua empresa';
+    $('fim-nome').textContent=nome?', '+nome:''; $('fim-empresa').textContent=emp;
     var txt;
-    if(ok){
-      txt='Olá, Carlos! Acabei de responder o Diagnóstico de Maturidade Comercial da '+emp+'. Fico no aguardo da análise.';
-    } else {
-      // se o envio falhar, o resumo completo segue pelo WhatsApp para nada se perder
-      var linhas=['*Diagnóstico de Maturidade Comercial*',''], sec='';
-      respostasLegiveis().forEach(function(x){ if(x.secao!==sec){ sec=x.secao; linhas.push('','*'+sec+'*'); } if(x.resposta) linhas.push('• '+x.pergunta+'\n  → '+x.resposta); });
-      txt=linhas.join('\n');
-      $('fim-aviso').hidden=false;
-      $('fim-aviso').textContent='Não conseguimos registrar pelo site agora. Toque no botão abaixo para enviar suas respostas pelo WhatsApp: elas já vão preenchidas.';
-      $('fim-whats').firstChild.textContent='Enviar respostas pelo WhatsApp ';
+    if(ok) txt='Olá, Carlos! Acabei de responder o Diagnóstico de Maturidade Comercial da '+emp+'. Fico no aguardo da análise.';
+    else {
+      var l=['*Diagnóstico de Maturidade Comercial*'], sec='';
+      respostas().forEach(function(x){ if(x.secao!==sec){ sec=x.secao; l.push('','*'+sec+'*'); } if(x.resposta) l.push('• '+x.pergunta+'\n  → '+x.resposta); });
+      txt=l.join('\n');
       $('fim-rotulo').textContent='Falta só um toque';
       $('fim-texto').textContent='Suas respostas estão salvas neste aparelho. Envie pelo WhatsApp para a equipe da Unique começar a análise.';
+      $('fim-whats-tx').textContent='Enviar respostas pelo WhatsApp';
     }
     $('fim-whats').href='https://wa.me/'+WHATS+'?text='+encodeURIComponent(txt);
     if(ok) limpar();
-    $('form').hidden=true; $('tela-fim').hidden=false; $('barra').style.width='100%';
-    window.scrollTo(0,0);
+    $('form').hidden=true; $('tela-fim').hidden=false; $('barra').style.width='100%'; window.scrollTo(0,0);
   }
 })();
 </script>

@@ -38,4 +38,6 @@ Regras: no máximo 2 fotos por carrossel. Fontes ficam em tools/fonts (instale e
 - `diagnostico/index.html`: formulário por etapas (https://sejaunique.vercel.app/diagnostico/). As perguntas ficam no array `ETAPAS`, no topo do script.
 - `api/diagnostico.js`: guarda cada diagnóstico no mesmo Redis do blog (lista `diag:lista`).
 - `diagnostico/painel/`: painel interno com a lista de respostas e botão de copiar. Precisa da variável `DIAG_SENHA` na Vercel (é a senha do painel).
+- Etapas 9 a 12 avaliam os 4 pilares comerciais (prospecção, recuperação, fidelização e nutrição) com Sim / Em parte / Não. O envio já inclui o score de cada pilar (Sim = 20, Em parte = 10, Não = 0; até 100) e o score geral, que aparecem no painel.
+- O visual (opção C, cartões) é gerado a partir de um modelo; para mudar perguntas, edite o array `ETAPAS` no próprio `index.html`.
 - Se o envio falhar, o cliente manda as respostas preenchidas pelo WhatsApp, então nada se perde.

@@ -403,11 +403,11 @@ section{display:grid;gap:16px}
     $('#app').innerHTML=h; $('#navsec').hidden=false;
     radar(todos);
     painel(todos,0);
-    requestAnimationFrame(function(){ setTimeout(function(){
+    (function(){ setTimeout(function(){
       document.querySelectorAll('.trilho i[data-w]').forEach(function(i){ i.style.width=i.dataset.w+'%'; });
       $('#ring-val').style.transition='stroke-dashoffset 1s cubic-bezier(.2,.8,.2,1)';
       $('#ring-val').setAttribute('stroke-dashoffset',(circ*(1-A.geral/100)).toFixed(1));
-    },60); });
+    },60); })();
 
     /* interações */
     document.querySelectorAll('[data-ir]').forEach(function(b){ b.onclick=function(){ abrir(todos,+b.dataset.ir); }; });
@@ -479,6 +479,8 @@ section{display:grid;gap:16px}
       if(k<1) requestAnimationFrame(passo); }
     if(matchMedia('(prefers-reduced-motion: reduce)').matches){ area.setAttribute('points',todos.map(function(p,i){return pt(i,p.nota).join(',');}).join(' ')); pts.forEach(function(c,i){ var q=pt(i,todos[i].nota); c.setAttribute('cx',q[0]); c.setAttribute('cy',q[1]); }); }
     else requestAnimationFrame(passo);
+    // garante o estado final mesmo se a aba abrir em segundo plano (sem animação)
+    setTimeout(function(){ area.setAttribute('points',todos.map(function(p,i){return pt(i,p.nota).join(',');}).join(' ')); pts.forEach(function(c,i){ var q=pt(i,todos[i].nota); c.setAttribute('cx',q[0]); c.setAttribute('cy',q[1]); }); },1100);
     var tip=$('#tip'), card=svg.parentNode;
     svg.querySelectorAll('.eixo').forEach(function(g){
       var i=+g.dataset.i, p=todos[i];

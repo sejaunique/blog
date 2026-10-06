@@ -2,12 +2,18 @@
 // Guarda cada diagnóstico no mesmo banco Redis (Upstash) do blog.
 // POST /api/diagnostico            -> salva um diagnóstico (público, com limite por IP)
 // GET  /api/diagnostico?a=lista    -> lista os diagnósticos (precisa do header x-senha = DIAG_SENHA)
+// GET  /api/diagnostico?a=relatorio&r=TOKEN -> um diagnóstico, para o relatório do cliente (o token é o segredo do link)
 // Variáveis: KV_REST_API_URL + KV_REST_API_TOKEN (ou UPSTASH_*) e DIAG_SENHA (senha do painel).
 
 const URL_DB = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
 const SENHA = process.env.DIAG_SENHA || '';
 const LISTA = 'diag:lista';
+const crypto = require('crypto');
+const TOKEN_OK = /^[a-f0-9]{24}$/;
+const novoToken = () => crypto.randomBytes(12).toString('hex');
+// o relatório não expõe contato nem CNPJ, só o necessário para a análise
+const PRIVADOS = ['email', 'whatsapp', 'cnpj', 'instagram'];
 
 async function redis(cmds) {
   const r = await fetch(URL_DB.replace(/\/$/, '') + '/pipeline', {
@@ -50,6 +56,15 @@ module.exports = async (req, res) => {
   const q = req.query || {};
 
   try {
+    if (req.method === 'GET' && q.a === 'relatorio') {
+      const r = String(q.r || '');
+      if (!TOKEN_OK.test(r)) return res.status(404).json({ ok: false });
+      const [s] = await redis([['GET', 'diag:r:' + r]]);
+      if (!s) return res.status(404).json({ ok: false });
+      const d = JSON.parse(s);
+      return res.json({ ok: true, diagnostico: { data: d.data, empresa: d.empresa, respostas: (d.respostas || []).filter(x => PRIVADOS.indexOf(x.id) < 0) } });
+    }
+
     if (req.method === 'GET') {
       if (!SENHA) return res.status(503).json({ ok: false, erro: 'Defina a variável DIAG_SENHA na Vercel para abrir o painel.' });
       if (!igual(String(req.headers['x-senha'] || ''), SENHA)) return res.status(401).json({ ok: false, erro: 'Senha incorreta.' });
@@ -63,6 +78,19 @@ module.exports = async (req, res) => {
 
     if (req.method !== 'POST') return res.status(405).json({ ok: false });
     const b = corpo(req);
+
+    // painel: cria o link do relatório para um diagnóstico antigo que ainda não tem
+    if (b.a === 'gerar_link') {
+      if (!SENHA || !igual(String(req.headers['x-senha'] || ''), SENHA)) return res.status(401).json({ ok: false });
+      const [lst] = await redis([['LRANGE', LISTA, 0, 499]]);
+      const i = (lst || []).findIndex(x => { try { return JSON.parse(x).id === b.id; } catch (e) { return false; } });
+      if (i < 0) return res.status(404).json({ ok: false });
+      const item = JSON.parse(lst[i]);
+      if (!item.token) item.token = novoToken();
+      await redis([['LSET', LISTA, i, JSON.stringify(item)], ['SET', 'diag:r:' + item.token, JSON.stringify(item)]]);
+      return res.json({ ok: true, token: item.token });
+    }
+
     if (b.site) return res.json({ ok: true }); // campo invisível: robô
 
     const respostas = (Array.isArray(b.respostas) ? b.respostas : []).slice(0, 80).map(x => ({
@@ -78,6 +106,7 @@ module.exports = async (req, res) => {
 
     const item = {
       id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+      token: novoToken(),
       data: new Date().toISOString(),
       empresa: pega('empresa'),
       nome: pega('nome'),
@@ -85,7 +114,7 @@ module.exports = async (req, res) => {
       email: pega('email'),
       respostas
     };
-    await redis([['LPUSH', LISTA, JSON.stringify(item)]]);
+    await redis([['LPUSH', LISTA, JSON.stringify(item)], ['SET', 'diag:r:' + item.token, JSON.stringify(item)]]);
     return res.json({ ok: true, id: item.id });
   } catch (e) {
     return res.status(500).json({ ok: false });

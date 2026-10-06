@@ -41,3 +41,9 @@ Regras: no máximo 2 fotos por carrossel. Fontes ficam em tools/fonts (instale e
 - Etapas 9 a 12 avaliam os 4 pilares comerciais (prospecção, recuperação, fidelização e nutrição) com Sim / Em parte / Não. O envio já inclui o score de cada pilar (Sim = 20, Em parte = 10, Não = 0; até 100) e o score geral, que aparecem no painel.
 - O visual (opção C, cartões) é gerado a partir de um modelo; para mudar perguntas, edite o array `ETAPAS` no próprio `index.html`.
 - Se o envio falhar, o cliente manda as respostas preenchidas pelo WhatsApp, então nada se perde.
+
+### Relatório e e-mail
+- `diagnostico/motor.js`: a lógica de consultor. Calcula as notas (4 pilares + estrutura), o estágio, o retrato (pico, afundamento, desequilíbrio), os gargalos e escolhe 2 ações por pilar + 2 de estrutura a partir das respostas mais fracas. Os textos das ações ficam aqui.
+- `diagnostico/relatorio/?r=TOKEN`: relatório interativo de cada empresa. Cada diagnóstico ganha um token secreto no envio; quem tem o link vê o relatório (sem e-mail, WhatsApp e CNPJ).
+- `diagnostico/relatorio/?demo`: o mesmo relatório com respostas de exemplo.
+- No painel: Ver relatório, Copiar link e E-mail pronto (HTML para colar na ferramenta de e-mail marketing, texto, assunto ou abrir no e-mail).

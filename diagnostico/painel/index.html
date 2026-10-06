@@ -48,6 +48,18 @@ a.btn{color:inherit;text-decoration:none}
 .par span:first-child{color:var(--muted)}
 .par span:last-child{font-weight:500;white-space:pre-wrap}
 .vazio{color:var(--muted);text-align:center;padding:48px 0}
+.score-b{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;font-weight:600;padding:3px 10px;border-radius:999px;margin-left:8px;vertical-align:2px}
+.score-b.alto{color:#0d8a4a;background:#e8f8ef}.score-b.medio{color:#8a5a00;background:#fff4d6}.score-b.baixo{color:#c2185b;background:#fde8f0}
+.rel{display:flex;flex-wrap:wrap;gap:8px;padding:14px;border-radius:14px;background:var(--soft);margin:12px 0 4px;align-items:center}
+.rel b{font-size:.82rem;margin-right:4px}
+.modal{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.55);display:grid;place-items:center;padding:16px}
+.caixa{background:var(--bg);color:var(--fg);border-radius:20px;width:min(760px,100%);max-height:92vh;display:grid;grid-template-rows:auto auto 1fr;overflow:hidden}
+.caixa .cab{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line)}
+.caixa .cab strong{font-size:1rem}
+.caixa .ops{display:flex;flex-wrap:wrap;gap:8px;padding:14px 20px;border-bottom:1px solid var(--line)}
+.caixa .assunto{width:100%;font-size:.84rem;color:var(--muted)}
+.caixa .assunto b{color:var(--fg)}
+.caixa iframe{width:100%;height:60vh;border:0;background:#f3f3f5}
 @media (max-width:600px){.par{grid-template-columns:1fr;gap:2px}.item summary{grid-template-columns:1fr}.item summary .d{grid-row:auto;grid-column:1}}
 </style>
 </head>
@@ -68,6 +80,18 @@ a.btn{color:inherit;text-decoration:none}
     <div id="lista"></div>
   </div>
 </main>
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-t">
+  <div class="caixa">
+    <div class="cab"><strong id="modal-t">E-mail do relatório</strong><button class="btn" type="button" id="fechar">Fechar</button></div>
+    <div class="ops"><p class="assunto">Assunto: <b id="assunto"></b></p>
+      <button class="btn solid" type="button" id="cp-html">Copiar e-mail (HTML)</button>
+      <button class="btn" type="button" id="cp-txt">Copiar versão em texto</button>
+      <button class="btn" type="button" id="cp-assunto">Copiar assunto</button>
+      <a class="btn" id="mailto" href="#">Abrir no meu e-mail</a></div>
+    <iframe id="previa" title="Prévia do e-mail"></iframe>
+  </div>
+</div>
+<script src="/diagnostico/motor.js"></script>
 <script>
 (function(){
   var $=function(id){return document.getElementById(id);};
@@ -89,18 +113,43 @@ a.btn{color:inherit;text-decoration:none}
     $('lista').innerHTML=lst.map(function(d,i){
       var sec='', corpo='';
       d.respostas.forEach(function(x){ if(x.secao!==sec){ sec=x.secao; corpo+='<div class="sec">'+esc(sec)+'</div>'; } corpo+='<div class="par"><span>'+esc(x.pergunta)+'</span><span>'+esc(x.resposta||'—')+'</span></div>'; });
-      var wa=String(d.whatsapp||'').replace(/\D/g,'');
-      return '<details class="item"><summary><strong>'+esc(d.empresa)+'</strong><small>'+esc(d.nome)+' · '+esc(d.whatsapp)+'</small><span class="d">'+data(d.data)+'</span></summary>'+
-        '<div class="det"><div class="acoes"><button class="btn solid" type="button" data-copiar="'+DADOS.indexOf(d)+'">Copiar respostas</button>'+
+      var wa=String(d.whatsapp||'').replace(/\D/g,''), k=DADOS.indexOf(d), A=analise(d);
+      var rel=d.token?'<div class="rel"><b>Relatório</b><a class="btn solid" href="'+link(d)+'" target="_blank" rel="noopener">Ver relatório</a><button class="btn" type="button" data-link="'+k+'">Copiar link</button><button class="btn" type="button" data-email="'+k+'">E-mail pronto</button></div>'
+        :'<div class="rel"><b>Relatório</b><button class="btn solid" type="button" data-gerar="'+k+'">Gerar link do relatório</button></div>';
+      return '<details class="item"><summary><strong>'+esc(d.empresa)+(A?'<span class="score-b '+A.nivelGeral.id+'">'+A.geral+'/100</span>':'')+'</strong><small>'+esc(d.nome)+' · '+esc(d.whatsapp)+'</small><span class="d">'+data(d.data)+'</span></summary>'+
+        '<div class="det">'+rel+'<div class="acoes"><button class="btn" type="button" data-copiar="'+k+'">Copiar respostas</button>'+
         (wa?'<a class="btn" href="https://wa.me/55'+wa.replace(/^55/,'')+'" target="_blank" rel="noopener">Abrir WhatsApp</a>':'')+
         (d.email?'<a class="btn" href="mailto:'+esc(d.email)+'">E-mail</a>':'')+'</div>'+corpo+'</div></details>';
     }).join('');
   }
 
+  function analise(d){ try{ return window.UniqueDiag.analisar(d.respostas); }catch(e){ return null; } }
+  function link(d){ return location.origin+'/diagnostico/relatorio/?r='+d.token; }
+  function copiar(t,b,rot){
+    (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){ b.textContent='Copiado ✓'; setTimeout(function(){ b.textContent=rot; },1800); },function(){ window.prompt('Copie:',t); });
+  }
+  var atual=null;
+  function abrirEmail(d){
+    var A=analise(d), url=link(d); atual={d:d,A:A,url:url,html:window.UniqueDiag.email(A,url),txt:window.UniqueDiag.emailTexto(A,url),assunto:'Seu Diagnóstico Comercial: '+A.empresa+' · '+A.geral+'/100'};
+    $('assunto').textContent=atual.assunto; $('previa').srcdoc=atual.html;
+    $('mailto').href='mailto:'+encodeURIComponent(d.email||'')+'?subject='+encodeURIComponent(atual.assunto)+'&body='+encodeURIComponent(atual.txt);
+    $('modal').hidden=false; $('fechar').focus();
+  }
+  $('fechar').onclick=function(){ $('modal').hidden=true; };
+  $('modal').addEventListener('click',function(e){ if(e.target===this) this.hidden=true; });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') $('modal').hidden=true; });
+  $('cp-html').onclick=function(){ copiar(atual.html,this,'Copiar e-mail (HTML)'); };
+  $('cp-txt').onclick=function(){ copiar(atual.txt,this,'Copiar versão em texto'); };
+  $('cp-assunto').onclick=function(){ copiar(atual.assunto,this,'Copiar assunto'); };
+
   $('lista').addEventListener('click',function(e){
-    var b=e.target.closest('[data-copiar]'); if(!b) return;
-    var t=texto(DADOS[+b.dataset.copiar]);
-    (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){ b.textContent='Copiado ✓'; setTimeout(function(){ b.textContent='Copiar respostas'; },1800); },function(){ window.prompt('Copie o texto:',t); });
+    var b=e.target.closest('[data-copiar],[data-link],[data-email],[data-gerar]'); if(!b) return;
+    if(b.dataset.copiar) return copiar(texto(DADOS[+b.dataset.copiar]),b,'Copiar respostas');
+    if(b.dataset.link) return copiar(link(DADOS[+b.dataset.link]),b,'Copiar link');
+    if(b.dataset.email) return abrirEmail(DADOS[+b.dataset.email]);
+    if(b.dataset.gerar){ var d=DADOS[+b.dataset.gerar]; b.textContent='Gerando…';
+      fetch('/api/diagnostico',{method:'POST',headers:{'Content-Type':'application/json','x-senha':senha},body:JSON.stringify({a:'gerar_link',id:d.id})})
+        .then(function(r){return r.json();}).then(function(j){ if(j.ok){ d.token=j.token; render(); } else b.textContent='Não deu certo, tente de novo'; }); }
   });
   $('busca').addEventListener('input',render);
 

@@ -60,4 +60,12 @@ Regras: no máximo 2 fotos por carrossel. Fontes ficam em tools/fonts (instale e
 
 ### Página nova para um cliente
 1. Crie `clientes/<slug>/<pagina>/index.html` usando `/assets/casco.css` e `/assets/casco.js` (cabeçalho e rodapé do site). Modelo: `clientes/textilclub/temperatura/`.
-2. Adicione a página em `api/_area/catalogo.js`. Ela aparece nas entregas do cliente.
+2. Adicione a página em `api/_area/catalogo.js` (o `id` é o nome da pasta). Ela aparece nas entregas do cliente.
+3. Rode `python3 tools/og_cliente.py`: gera a capa de compartilhamento em `assets/og/` e escreve as tags de prévia na página.
+
+### Curtidas, comentários, página pública e compartilhar
+- Toda página em `/clientes/<slug>/<pagina>/` ganha sozinha (via `casco.js` -> `assets/interacao.js`) o bloco "Conversa sobre esta entrega": curtir, comentar, compartilhar e a chave "Página pública".
+- No painel do cliente, cada entrega mostra ♥, 💬 e o selo "Pública", e abre o mesmo bloco.
+- Página pública: o cliente da empresa ou o Carlos ligam a chave; aí o link abre sem senha. Comentários continuam só para a empresa.
+- Página fechada compartilhada: o WhatsApp/Instagram/LinkedIn recebem só título, descrição e capa (o `middleware.js` reconhece os robôs de prévia); quem clica cai no login, que mostra a página que vai abrir, já preenche a empresa e volta para ela depois de entrar.
+- Comentários novos dos clientes aparecem no admin em "Comentários recentes".

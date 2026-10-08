@@ -72,6 +72,12 @@ select.mini{font:inherit;font-size:.74rem;border:1px solid var(--line);border-ra
       <div class="pend" id="pend"></div>
     </section>
 
+    <section class="bloco" id="s-avisos" hidden>
+      <span class="spaced">Conversas</span>
+      <h2>Comentários recentes dos clientes</h2>
+      <div class="lista" id="avisos"></div>
+    </section>
+
     <section class="bloco">
       <span class="spaced">Clientes</span>
       <h2>Empresa</h2>
@@ -176,6 +182,13 @@ select.mini{font:inherit;font-size:.74rem;border:1px solid var(--line);border-ra
           '<div class="bts"><button class="btn mini solid" data-u="ativo" data-s="'+esc(p.slug)+'" data-e="'+esc(p.email)+'">Aprovar</button>'+
           '<button class="btn mini perigo" data-u="recusado" data-s="'+esc(p.slug)+'" data-e="'+esc(p.email)+'">Recusar</button></div></div>';
       }).join(''):'<div class="vazio">Nenhum pedido esperando. Quando alguém solicitar acesso em /area, aparece aqui.</div>';
+      var AV=r.avisos||[], nomes={};
+      r.empresas.forEach(function(e){nomes[e.slug]=e.nome;});
+      $('s-avisos').hidden=!AV.length;
+      $('avisos').innerHTML=AV.slice(0,8).map(function(a){
+        return '<div class="li"><div><span class="tag">'+esc(nomes[a.slug]||a.slug)+' · '+esc(a.titulo)+' · '+new Date(a.data).toLocaleString('pt-BR',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'})+'</span>'+
+          '<h4>'+esc(a.nome)+'</h4><p>'+esc(a.texto)+'</p></div><div class="bts"><a class="btn mini" href="/area/painel/?e='+encodeURIComponent(a.slug)+'">Responder</a></div></div>';
+      }).join('');
       var sel=$('emp'), atual=manter||slug||(r.empresas[0]||{}).slug||'';
       sel.innerHTML=r.empresas.map(function(e){ var at=e.usuarios.filter(function(u){return u.status==='ativo';}).length; return '<option value="'+esc(e.slug)+'">'+esc(e.nome)+' ('+at+' com acesso)</option>'; }).join('');
       if(atual){ sel.value=atual; troca(atual); }

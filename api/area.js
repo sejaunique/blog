@@ -9,6 +9,10 @@
 //   GET  ?a=conteudo[&e=slug]                                   -> entregas e plano de ações da empresa (admin escolhe a empresa)
 //   POST {a:'acao-status', id, status}                          -> cliente atualiza o andamento de uma ação
 //   GET  ?a=arquivo&e=slug&id=ID                                -> baixa um arquivo enviado (só para quem é da empresa)
+//   GET  ?a=og&e=slug&p=pasta                                   -> título, descrição e capa de uma página (público: é só a prévia do link)
+//   GET  ?a=social&e=slug&id=ID                                 -> curtidas, comentários e se a página está pública
+//   POST {a:'curtir', slug, id} / {a:'comentar', slug, id, texto} / {a:'comentar-del', slug, id, cid}
+//   POST {a:'publico', slug, id, publico:true|false}            -> libera ou fecha uma página sem login (cliente da empresa ou admin)
 // Carlos (admin):
 //   POST {a:'admin-entrar', senha}  (senha = AREA_ADMIN_SENHA ou, se não existir, DIAG_SENHA)
 //   GET  ?a=admin-resumo
@@ -28,6 +32,9 @@
 //   area:sess:<token>          sessão {slug, email, nome} ou {admin:true}, expira em 30 dias
 //   area:itens:<slug>          hash id -> entrega
 //   area:acoes:<slug>          hash id -> ação
+//   area:curt:<slug>:<id>      conjunto de quem curtiu (e-mail ou "unique")
+//   area:com:<slug>:<id>       lista de comentários (mais novo primeiro)
+//   area:publico:<slug>        hash pasta -> "1" (páginas de /clientes/<slug>/<pasta>/ abertas sem login)
 
 const crypto = require('crypto');
 const CATALOGO = require('./_area/catalogo.js');
@@ -108,6 +115,31 @@ async function empresa(slug) {
   return null;
 }
 
+const SITE = 'https://sejaunique.vercel.app';
+const ID_OK = /^[a-z0-9-]{2,40}$/;
+// pasta da página em /clientes/<slug>/<pasta>/ (só essas podem ficar públicas)
+function pastaDe(slug, item) {
+  const m = String((item && item.url) || '').match(/^\/clientes\/([a-z0-9]+)\/([a-z0-9-]+)\/?/);
+  return m && m[1] === slug ? m[2] : '';
+}
+function capaDe(slug, item) {
+  if (item && item.capa) return /^https?:/.test(item.capa) ? item.capa : SITE + item.capa;
+  return SITE + '/assets/og-site.jpg';
+}
+async function itemPorId(slug, id) {
+  const cat = ((CATALOGO[slug] || {}).paginas || []).find(p => p.id === id);
+  if (cat) return Object.assign({ publicado: true, fixo: true }, cat);
+  const [v] = await redis([['HGET', 'area:itens:' + slug, id]]);
+  if (v) return json(v);
+  // também aceita a pasta da página (/clientes/<slug>/<pasta>/), que é o que a própria página conhece
+  const porPasta = ((CATALOGO[slug] || {}).paginas || []).find(p => pastaDe(slug, p) === id);
+  if (porPasta) return Object.assign({ publicado: true, fixo: true }, porPasta);
+  const [h] = await redis([['HGETALL', 'area:itens:' + slug]]);
+  const vals = Array.isArray(h) ? h.filter((x, i) => i % 2) : Object.values(h || {});
+  return vals.map(json).find(x => x && pastaDe(slug, x) === id) || null;
+}
+function membro(s, slug) { return !!s && (s.admin || s.slug === slug); }
+
 function usuarioPublico(u) { return { email: u.email, nome: u.nome, whatsapp: u.whatsapp, status: u.status, criado: u.criado }; }
 
 async function conteudo(slug) {
@@ -120,6 +152,21 @@ async function conteudo(slug) {
   };
   const doCatalogo = ((CATALOGO[slug] || {}).paginas || []).map(p => Object.assign({ publicado: true, fixo: true }, p, { criado: p.data }));
   const itens = doCatalogo.concat(lerHash(itensH)).sort((a, b) => String(b.criado || '').localeCompare(String(a.criado || '')));
+  if (itens.length) {
+    const cmds = [['HGETALL', 'area:publico:' + slug]];
+    itens.forEach(i => { cmds.push(['SCARD', 'area:curt:' + slug + ':' + i.id], ['LLEN', 'area:com:' + slug + ':' + i.id]); });
+    const r = await redis(cmds);
+    const pub = {};
+    const h = r[0];
+    if (Array.isArray(h)) for (let k = 0; k < h.length; k += 2) pub[h[k]] = h[k + 1];
+    else if (h) Object.assign(pub, h);
+    itens.forEach((i, k) => {
+      i.curtidas = r[1 + k * 2] || 0;
+      i.comentarios = r[2 + k * 2] || 0;
+      i.pasta = pastaDe(slug, i);
+      i.publico = !!(i.pasta && pub[i.pasta] === '1');
+    });
+  }
   const ordem = { fazendo: 0, a_fazer: 1, feito: 2 };
   const acoes = lerHash(acoesH).sort((a, b) => (ordem[a.status] - ordem[b.status]) || String(a.prazo || '9').localeCompare(String(b.prazo || '9')));
   return { itens, acoes };
@@ -179,6 +226,45 @@ module.exports = async (req, res) => {
         return res.json({ ok: true, logado: true, nome: s.nome, email: s.email, empresa: { slug: s.slug, nome: e ? e.nome : s.slug } });
       }
 
+      // prévia do link (WhatsApp, Instagram, LinkedIn): só título, descrição e capa, nunca o conteúdo
+      if (q.a === 'og') {
+        const slug = slugify(q.e), pasta = String(q.p || '').toLowerCase();
+        const e = await empresa(slug);
+        if (!e || !ID_OK.test(pasta)) return res.status(404).json({ ok: false });
+        const c = await conteudo(slug);
+        const it = c.itens.find(i => i.publicado && i.pasta === pasta);
+        if (!it) return res.status(404).json({ ok: false });
+        res.setHeader('Cache-Control', 'public, max-age=60');
+        return res.json({ ok: true, titulo: it.titulo, descricao: it.descricao || '', capa: capaDe(slug, it), empresa: e.nome, publico: it.publico, url: SITE + it.url });
+      }
+
+      if (q.a === 'social') {
+        const slug = slugify(q.e);
+        let id = String(q.id || '');
+        if (!ID_OK.test(id)) return res.status(400).json({ ok: false });
+        const it = await itemPorId(slug, id);
+        if (!it || (!it.publicado && !(s && s.admin))) return res.status(404).json({ ok: false });
+        const pasta = pastaDe(slug, it);
+        id = it.id;
+        const quem = s ? (s.admin ? 'unique' : s.email) : '';
+        const [pub, n, curti, lst] = await redis([
+          ['HGET', 'area:publico:' + slug, pasta || '-'],
+          ['SCARD', 'area:curt:' + slug + ':' + id],
+          ['SISMEMBER', 'area:curt:' + slug + ':' + id, quem || '-'],
+          ['LRANGE', 'area:com:' + slug + ':' + id, 0, 199]
+        ]);
+        const publico = pub === '1';
+        if (!membro(s, slug)) {
+          if (!publico) return res.status(401).json({ ok: false, erro: 'Entre na sua conta.' });
+          return res.json({ ok: true, logado: false, curtidas: n || 0, publico: true });
+        }
+        const comentarios = (lst || []).map(json).filter(Boolean).map(c => ({
+          cid: c.cid, nome: c.nome, texto: c.texto, data: c.data, unique: !!c.unique,
+          meu: s.admin || c.email === s.email
+        }));
+        return res.json({ ok: true, logado: true, admin: !!s.admin, curtidas: n || 0, curti: !!curti, comentarios, publico, pasta, titulo: it.titulo, url: it.url ? (it.url.charAt(0) === '/' ? SITE + it.url : it.url) : '' });
+      }
+
       if (!s) return res.status(401).json({ ok: false, erro: 'Entre na sua conta.' });
 
       if (q.a === 'conteudo') {
@@ -223,7 +309,9 @@ module.exports = async (req, res) => {
           const uv = json(u);
           if (uv) pendentes.push(Object.assign(usuarioPublico(uv), { slug, empresaNome: uv.empresaNome || slug }));
         }
-        return res.json({ ok: true, empresas, pendentes, blob: !!BLOB });
+        const [av] = await redis([['LRANGE', 'area:avisos', 0, 29]]);
+        const avisos = (av || []).map(json).filter(Boolean).filter(a => !a.unique);
+        return res.json({ ok: true, empresas, pendentes, avisos, blob: !!BLOB });
       }
       return res.status(400).json({ ok: false });
     }
@@ -319,6 +407,46 @@ module.exports = async (req, res) => {
       a.por = s.admin ? 'Unique' : s.nome;
       await redis([['HSET', 'area:acoes:' + slug, a.id, JSON.stringify(a)]]);
       return res.json({ ok: true, acao: a });
+    }
+
+    if (b.a === 'curtir' || b.a === 'comentar' || b.a === 'comentar-del' || b.a === 'publico') {
+      const slug = s.admin ? slugify(b.slug) : s.slug;
+      if (!membro(s, slugify(b.slug)) || !ID_OK.test(String(b.id || ''))) return res.status(403).json({ ok: false });
+      const it = await itemPorId(slug, String(b.id));
+      if (!it) return res.status(404).json({ ok: false });
+      const id = it.id;
+      const quem = s.admin ? 'unique' : s.email;
+      const kc = 'area:curt:' + slug + ':' + id, kl = 'area:com:' + slug + ':' + id;
+
+      if (b.a === 'curtir') {
+        const [tem] = await redis([['SISMEMBER', kc, quem]]);
+        const [, n] = await redis([[tem ? 'SREM' : 'SADD', kc, quem], ['SCARD', kc]]);
+        return res.json({ ok: true, curti: !tem, curtidas: n });
+      }
+      if (b.a === 'comentar') {
+        const texto = limpo(b.texto, 2000);
+        if (!texto) return res.status(400).json({ ok: false, erro: 'Escreva o comentário.' });
+        if (await limite('com:' + quem, 40, 3600)) return res.status(429).json({ ok: false, erro: 'Muitos comentários seguidos. Espere um pouco.' });
+        const c = { cid: novoId(), nome: s.admin ? 'Carlos · Unique' : s.nome, email: s.admin ? '' : s.email, unique: !!s.admin, texto, data: new Date().toISOString() };
+        await redis([['LPUSH', kl, JSON.stringify(c)], ['LTRIM', kl, 0, 499],
+          ['LPUSH', 'area:avisos', JSON.stringify({ slug, id, titulo: it.titulo, nome: c.nome, texto: texto.slice(0, 200), data: c.data, unique: c.unique })], ['LTRIM', 'area:avisos', 0, 99]]);
+        return res.json({ ok: true });
+      }
+      if (b.a === 'comentar-del') {
+        const [lst] = await redis([['LRANGE', kl, 0, 499]]);
+        const raw = (lst || []).find(x => { const c = json(x); return c && c.cid === b.cid; });
+        const c = json(raw);
+        if (!c) return res.status(404).json({ ok: false });
+        if (!s.admin && c.email !== s.email) return res.status(403).json({ ok: false });
+        await redis([['LREM', kl, 1, raw]]);
+        return res.json({ ok: true });
+      }
+      if (b.a === 'publico') {
+        const pasta = pastaDe(slug, it);
+        if (!pasta) return res.status(400).json({ ok: false, erro: 'Só páginas do site podem ficar públicas.' });
+        await redis([b.publico ? ['HSET', 'area:publico:' + slug, pasta, '1'] : ['HDEL', 'area:publico:' + slug, pasta]]);
+        return res.json({ ok: true, publico: !!b.publico });
+      }
     }
 
     // ---------- daqui para baixo só o Carlos ----------

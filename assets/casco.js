@@ -36,5 +36,9 @@
       '<a href="'+WA+'" target="_blank" rel="noopener">WhatsApp</a>'+
     '</nav><small>© 2018–'+new Date().getFullYear()+' Seja Unique</small></div>';
   function poeRodape(){ document.body.appendChild(foot); }
+  // páginas de cliente ganham curtidas, comentários, compartilhar e o botão de página pública
+  if(/^\/clientes\/[a-z0-9]+\/[a-z0-9-]+\/?/.test(location.pathname)){
+    var sc=document.createElement('script'); sc.src='/assets/interacao.js'; sc.defer=true; document.head.appendChild(sc);
+  }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',poeRodape); else poeRodape();
 })();

@@ -12,6 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
 <link rel="stylesheet" href="/assets/casco.css">
+<script src="/assets/interacao.js" defer></script>
 <style>
 [hidden]{display:none!important}
 .capa .linha{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between}
@@ -37,6 +38,10 @@
 .item .video{aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:var(--soft)}
 .item .video iframe{width:100%;height:100%;border:0}
 .item .texto{white-space:pre-wrap;font-size:.92rem;color:var(--fg);border-top:1px solid var(--line);padding-top:12px}
+.item .pe{display:flex;flex-wrap:wrap;gap:12px;align-items:center;border-top:1px solid var(--line);padding-top:12px;margin-top:4px;font-size:.76rem;color:var(--muted)}
+.item .pe button{font:inherit;font-size:.76rem;font-weight:600;color:var(--fg);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline}
+.item .selo{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;background:var(--grifo);color:#000;border-radius:999px;padding:3px 9px}
+.item .social{margin-top:4px;padding:16px;border-radius:16px}
 .vazio{border:1px dashed var(--line);border-radius:var(--r);padding:36px;color:var(--muted);text-align:center}
 .plano{border-top:1px solid var(--fg)}
 .acao{display:grid;grid-template-columns:1fr auto;gap:8px 20px;align-items:center;padding:20px 0;border-bottom:1px solid var(--line)}
@@ -151,14 +156,32 @@
     return '<li class="item"><div class="row"><span>'+esc(TIPOS[i.tipo]||'Entrega')+(i.publicado===false?' · oculto':'')+'</span><span>'+data(i.criado)+'</span></div>'+
       '<h3>'+esc(i.titulo)+'</h3>'+(i.descricao?'<p>'+esc(i.descricao)+'</p>':'')+corpo+
       (i.tipo==='conteudo'?'<div class="texto" id="tx-'+esc(i.id)+'" hidden>'+esc(i.texto)+'</div>':'')+
-      (botoes?'<div class="acoes">'+botoes+'</div>':'')+'</li>';
+      (botoes?'<div class="acoes">'+botoes+'</div>':'')+
+      '<div class="pe" data-pe="'+esc(i.id)+'">'+pe(i)+'</div><div data-box="'+esc(i.id)+'"></div></li>';
   }
 
+  function pe(i){
+    return '<span>♥ '+(i.curtidas||0)+'</span><span>💬 '+(i.comentarios||0)+'</span>'+(i.publico?'<span class="selo">Pública</span>':'')+
+      '<button type="button" data-soc="'+esc(i.id)+'">Curtir, comentar e compartilhar</button>';
+  }
   function desenha(){
     var lista=DADOS.itens.filter(function(i){return filtro==='todos'||i.tipo===filtro;});
     var g=document.getElementById('grade');
     g.innerHTML=lista.length?lista.map(cartao).join(''):'<li class="vazio">As entregas da consultoria aparecem aqui assim que forem liberadas.</li>';
-    g.onclick=function(ev){ var b=ev.target.closest('[data-abre]'); if(!b) return; var t=document.getElementById('tx-'+b.dataset.abre); t.hidden=!t.hidden; b.textContent=t.hidden?'Ler':'Fechar'; };
+    g.onclick=function(ev){
+      var sb=ev.target.closest('[data-soc]');
+      if(sb){
+        var id=sb.dataset.soc, box=g.querySelector('[data-box="'+id+'"]');
+        if(box.dataset.on){ box.innerHTML=''; box.className=''; delete box.dataset.on; return; }
+        box.dataset.on='1';
+        var it=DADOS.itens.filter(function(x){return x.id===id;})[0];
+        window.UniqueSocial.montar(box,{slug:DADOS.empresa.slug,id:id,aberto:true,titulo:it.titulo,onchange:function(d){
+          it.curtidas=d.curtidas; it.publico=d.publico; if(d.comentarios) it.comentarios=d.comentarios.length;
+          g.querySelector('[data-pe="'+id+'"]').innerHTML=pe(it);
+        }});
+        return;
+      }
+      var b=ev.target.closest('[data-abre]'); if(!b) return; var t=document.getElementById('tx-'+b.dataset.abre); t.hidden=!t.hidden; b.textContent=t.hidden?'Ler':'Fechar'; };
     document.getElementById('n-entregas').textContent=DADOS.itens.length;
   }
 

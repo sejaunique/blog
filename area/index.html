@@ -33,6 +33,11 @@
 .caixa .btn.solid{width:100%;margin-top:6px}
 .dica{font-size:.8rem;color:var(--muted);margin-top:18px}
 .dica a{font-weight:600}
+.abrir{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:center;border:1px solid var(--line);border-radius:18px;padding:10px;margin-bottom:24px;background:var(--soft)}
+.abrir img{width:120px;aspect-ratio:1200/630;object-fit:cover;border-radius:10px;background:var(--ink)}
+.abrir span{display:block;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.abrir b{display:block;font-size:.95rem;line-height:1.3;margin:2px 0}
+.abrir small{color:var(--muted);font-size:.78rem}
 .oculto{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 [hidden]{display:none!important}
 .foot{margin-top:0}
@@ -60,6 +65,7 @@
 
   <section class="form-lado">
     <div class="caixa">
+      <div class="abrir" id="abrir" hidden><img id="ab-img" alt=""><div><span id="ab-emp"></span><b id="ab-tit"></b><small>Entre com o login da empresa para abrir.</small></div></div>
       <div class="abas" role="tablist">
         <button type="button" role="tab" id="t-entrar" aria-selected="true">Entrar</button>
         <button type="button" role="tab" id="t-cadastro" aria-selected="false">Solicitar acesso</button>
@@ -96,6 +102,14 @@
   var volta=new URLSearchParams(location.search).get('volta')||'';
   if(!/^\/clientes\/[a-z0-9]+\//.test(volta)) volta='';
 
+  var mv=volta.match(/^\/clientes\/([a-z0-9]+)\/([a-z0-9-]+)/);
+  if(mv) fetch('/api/area?a=og&e='+mv[1]+'&p='+mv[2]).then(function(r){return r.json();}).then(function(o){
+    if(!o.ok) return;
+    document.getElementById('ab-img').src=o.capa; document.getElementById('ab-emp').textContent=o.empresa;
+    document.getElementById('ab-tit').textContent=o.titulo; document.getElementById('abrir').hidden=false;
+    var e=document.getElementById('e-empresa'); if(!e.value) e.value=o.empresa;
+    var c=document.getElementById('c-empresa'); if(!c.value) c.value=o.empresa;
+  }).catch(function(){});
   fetch('/api/area?a=eu',{credentials:'same-origin'}).then(function(r){return r.json();}).then(function(d){
     if(d&&d.logado) location.replace(d.admin?'/area/admin/':(volta||'/area/painel/'));
   }).catch(function(){});

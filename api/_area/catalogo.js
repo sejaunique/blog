@@ -5,6 +5,8 @@
 // Essas páginas aparecem na área do cliente e só abrem para quem está logado na empresa.
 //
 // tipos: pagina | relatorio | diagnostico | video | arquivo | link | conteudo
+// "acoes" (opcional) = ações que entram uma única vez no plano de ações da empresa (o cliente atualiza o status
+// e o Carlos pode editar ou apagar no admin; apagada, não volta).
 // "id" = nome da pasta. "capa" = thumbnail do link compartilhado: gere com  python3 tools/og_cliente.py
 // (ele também escreve as tags de prévia na página). "chamada"/"grifo" = texto da capa (opcional).
 
@@ -22,6 +24,32 @@ module.exports = {
         chamada: 'Temperatura e etapa do funil',
         grifo: 'etapa do funil',
         data: '2026-10-07'
+      }
+    ]
+  },
+  citera: {
+    nome: 'Citera',
+    paginas: [
+      {
+        id: 'meta-comissao',
+        tipo: 'pagina',
+        titulo: 'Meta, comissão e bonificação',
+        descricao: 'Tutorial com o fluxo do mês: meta da empresa e por vendedor, comissão paga conforme o faturamento, inadimplência, bonificação por faixas e contabilidade.',
+        url: '/clientes/citera/meta-comissao/',
+        capa: '/assets/og/citera-meta-comissao.jpg',
+        chamada: 'Meta, comissão e bonificação',
+        grifo: 'bonificação',
+        data: '2026-10-08'
+      }
+    ],
+    acoes: [
+      {
+        id: 'citerametacomissao',
+        titulo: 'Estruturar meta, comissão e bonificação do time de vendas',
+        detalhe: 'Siga o tutorial "Meta, comissão e bonificação" (/clientes/citera/meta-comissao/): 1) meta da empresa com método; 2) metas por vendedor (capacidade + carteira, soma = meta da empresa); 3) decidir meta de venda x faturamento; 4) comissão paga conforme o faturamento; 5) inadimplência: a empresa cobra e honra a comissão; 6) bonificação por faixas; 7) enviar tudo para a contabilidade.',
+        responsavel: 'Gestor comercial',
+        status: 'a_fazer',
+        criado: '2026-10-08T15:00:00.000Z'
       }
     ]
   },

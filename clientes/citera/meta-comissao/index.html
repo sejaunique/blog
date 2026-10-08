@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<script src="/assets/tema.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Citera · Meta, comissão e bonificação</title>
+<!-- og:inicio (gerado por tools/og_cliente.py) -->
+<meta name="description" content="Tutorial com o fluxo do mês: meta da empresa e por vendedor, comissão paga conforme o faturamento, inadimplência, bonificação por faixas e contabilidade.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Unique Consultoria">
+<meta property="og:title" content="Meta, comissão e bonificação · Citera">
+<meta property="og:description" content="Tutorial com o fluxo do mês: meta da empresa e por vendedor, comissão paga conforme o faturamento, inadimplência, bonificação por faixas e contabilidade.">
+<meta property="og:url" content="https://sejaunique.vercel.app/clientes/citera/meta-comissao/">
+<meta property="og:image" content="https://sejaunique.vercel.app/assets/og/citera-meta-comissao.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Meta, comissão e bonificação · Citera">
+<meta name="twitter:description" content="Tutorial com o fluxo do mês: meta da empresa e por vendedor, comissão paga conforme o faturamento, inadimplência, bonificação por faixas e contabilidade.">
+<meta name="twitter:image" content="https://sejaunique.vercel.app/assets/og/citera-meta-comissao.jpg">
+<!-- og:fim -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+/* Página de cliente no padrão Unique.
+   Cores pelo significado: marinho = método / base, verde = conquista / pago, magenta = alerta / atraso. */
+.doc{max-width:920px;margin-inline:auto;padding:8px 20px 0}
+h2{font-size:clamp(1.3rem,2.6vw,1.7rem);font-weight:600;letter-spacing:-.02em;line-height:1.2;margin:64px 0 18px;display:flex;align-items:center;gap:14px}
+h2 .n{font-size:.7rem;font-weight:500;letter-spacing:.3em;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 12px;flex-shrink:0;font-variant-numeric:tabular-nums}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:24px;margin:14px 0}
+.fase{display:flex;gap:16px;align-items:flex-start;border:1px solid var(--line);border-left:3px solid var(--marinho-txt);border-radius:0 var(--r) var(--r) 0;padding:18px 20px;background:var(--soft);margin-top:8px}
+.fase .ic{width:26px;height:26px;flex-shrink:0;color:var(--marinho-txt);margin-top:2px}
+.fase p{margin:0}
+.leve{font-weight:200;font-style:italic}
+.doc .muted{font-size:.88rem;color:var(--muted)}
+
+/* 4 conceitos */
+.conceitos{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.conc{border:1px solid var(--line);border-radius:var(--r);padding:18px;background:var(--bg)}
+.conc .ic{width:26px;height:26px;margin-bottom:12px}
+.conc b{display:block;font-size:1.05rem;font-weight:700;margin-bottom:4px}
+.conc p{margin:0;font-size:.9rem;color:var(--muted)}
+.conc.m{border-top:3px solid var(--marinho-txt)} .conc.m .ic{color:var(--marinho-txt)}
+.conc.v{border-top:3px solid var(--verde)} .conc.v .ic{color:var(--verde-txt)}
+.conc.k{border-top:3px solid var(--fg)}
+.conc.g{border-top:3px solid var(--magenta)} .conc.g .ic{color:var(--magenta-txt)}
+
+svg{width:100%;height:auto;display:block}
+svg text{font-family:var(--font)}
+
+/* passo a passo */
+.passo{display:grid;grid-template-columns:52px 1fr;gap:16px;border-bottom:1px solid var(--line);padding:22px 0}
+.passo:last-child{border-bottom:0}
+.passo .num{font-size:1.9rem;font-weight:800;letter-spacing:-.04em;line-height:1;color:var(--muted)}
+.passo h3{margin:0 0 4px;font-size:1.1rem;font-weight:700}
+.passo .quem{font-size:.68rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.passo ul{margin:10px 0 0;padding-left:18px}
+.passo li{margin:5px 0}
+.passo>div{min-width:0}
+.entrega{display:inline-flex;align-items:center;gap:8px;margin-top:12px;font-size:.85rem;font-weight:600;color:var(--verde-txt)}
+.entrega .ic{width:16px;height:16px}
+.nao{color:var(--magenta-txt);font-weight:600}
+
+/* metas lado a lado */
+.lado{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lado>div{border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.lado h3{margin:0 0 6px;font-size:1.1rem}
+.lado p{margin:6px 0;font-size:.92rem}
+.lado .r{font-size:.68rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.lado .a{border-top:3px solid var(--marinho-txt)}
+.lado .b{border-top:3px solid var(--verde)}
+
+/* comparação escalonada x bonificação */
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.vs>div{border-radius:14px;padding:16px 18px;border:1px solid var(--line);font-size:.92rem}
+.vs b{display:block;margin-bottom:4px}
+.vs .x{border-left:3px solid var(--magenta)} .vs .x b{color:var(--magenta-txt)}
+.vs .ok{border-left:3px solid var(--verde)} .vs .ok b{color:var(--verde-txt)}
+.vs ul{margin:8px 0 0;padding-left:18px} .vs li{margin:4px 0}
+
+/* simulador */
+.sim{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+.sim label{display:block;font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.sim input{width:100%;box-sizing:border-box;font:inherit;font-size:1rem;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg)}
+.total{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:14px}
+.total div{flex:1;min-width:150px;background:var(--soft);border-radius:14px;padding:14px 16px}
+.total small{display:block;font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.total strong{font-size:1.5rem;font-weight:800;letter-spacing:-.03em}
+.total .vd strong{color:var(--verde-txt)}
+
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th,td{border:1px solid var(--line);padding:11px 12px;text-align:left;vertical-align:top}
+th{background:var(--soft);font-weight:600}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
+.tablewrap{overflow-x:auto}
+
+.check{padding:0;margin:0}
+.check li{list-style:none;margin:10px 0;padding:12px 14px 12px 46px;position:relative;border:1px solid var(--line);border-radius:14px}
+.check li::before{content:"";position:absolute;left:14px;top:13px;width:18px;height:18px;border:2px solid var(--verde);border-radius:5px}
+.check small{display:block;color:var(--muted);font-size:.8rem;margin-top:2px}
+
+.warn{background:var(--ink);color:var(--ink-fg);border-radius:var(--r);padding:20px 22px;margin-top:28px}
+.warn b{color:var(--grifo)}
+@media (max-width:700px){
+  .lado,.vs,.sim{grid-template-columns:1fr}
+  .passo{grid-template-columns:38px 1fr;gap:12px}
+}
+</style>
+</head>
+<body class="leitura" data-casco="area">
+<script src="/assets/casco.js"></script>
+<main>
+<section class="capa"><div class="wrap">
+  <span class="spaced">Citera · Time comercial</span>
+  <h1>Meta, comissão e <span class="grifo">bonificação</span></h1>
+  <p>O passo a passo para montar a remuneração variável do time de vendas: da meta da empresa até o envio para a contabilidade.</p>
+</div></section>
+<div class="doc">
+
+<div class="fase">
+  <i class="ic" style="--i:var(--ic-alvo)"></i>
+  <p><b>Ação do plano: estruturar meta, comissão e bonificação.</b> Siga os 7 passos abaixo e marque a ação como concluída no seu painel quando a política estiver escrita e enviada à contabilidade. <span class="leve">Os percentuais desta página são exemplos.</span></p>
+</div>
+
+<h2><span class="n">1</span>Os 4 conceitos</h2>
+<div class="conceitos">
+  <div class="conc m"><i class="ic" style="--i:var(--ic-alvo)"></i><b>Meta</b><p>Quanto a empresa precisa vender no mês, dividida entre os vendedores.</p></div>
+  <div class="conc k"><i class="ic" style="--i:var(--ic-grafico)"></i><b>Comissão</b><p>Percentual sobre o que cada vendedor vendeu. Fica somado ao salário.</p></div>
+  <div class="conc v"><i class="ic" style="--i:var(--ic-check)"></i><b>Faturamento</b><p>O dinheiro que de fato entrou. A comissão é paga conforme ele entra.</p></div>
+  <div class="conc g"><i class="ic" style="--i:var(--ic-foguete)"></i><b>Bonificação</b><p>O prêmio para quem passa da meta, no lugar de aumentar a comissão.</p></div>
+</div>
+
+<h2><span class="n">2</span>O fluxo do mês</h2>
+<div class="card">
+<svg viewBox="0 0 700 745" role="img" aria-label="Fluxo de meta, comissão, faturamento, bonificação e contabilidade">
+  <defs>
+    <marker id="ar" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker>
+    <marker id="arv" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--verde)"/></marker>
+    <marker id="arm" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--magenta-txt)"/></marker>
+  </defs>
+
+  <rect x="210" y="10" width="280" height="44" rx="22" fill="var(--marinho)" stroke="var(--marinho-txt)" stroke-width="2"/>
+  <text x="350" y="38" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Meta da empresa (CNPJ)</text>
+  <line x1="350" y1="54" x2="350" y2="80" stroke="var(--muted)" stroke-width="2" marker-end="url(#ar)"/>
+
+  <rect x="170" y="84" width="360" height="58" rx="12" fill="var(--bg)" stroke="var(--marinho-txt)" stroke-width="2"/>
+  <text x="350" y="108" text-anchor="middle" fill="var(--fg)" font-size="15" font-weight="700">Metas por vendedor</text>
+  <text x="350" y="128" text-anchor="middle" fill="var(--muted)" font-size="12">capacidade + carteira · soma = meta da empresa</text>
+  <line x1="350" y1="142" x2="350" y2="168" stroke="var(--muted)" stroke-width="2" marker-end="url(#ar)"/>
+
+  <rect x="200" y="172" width="300" height="50" rx="12" fill="var(--fg)"/>
+  <text x="350" y="202" text-anchor="middle" fill="var(--bg)" font-size="15" font-weight="700">Venda fechada</text>
+  <line x1="350" y1="222" x2="350" y2="248" stroke="var(--muted)" stroke-width="2" marker-end="url(#ar)"/>
+
+  <rect x="170" y="252" width="360" height="58" rx="12" fill="var(--bg)" stroke="var(--marinho-txt)" stroke-width="2"/>
+  <text x="350" y="276" text-anchor="middle" fill="var(--fg)" font-size="15" font-weight="700">Comissão gerada</text>
+  <text x="350" y="296" text-anchor="middle" fill="var(--muted)" font-size="12">% sobre a venda · conta para a meta de venda</text>
+
+  <path d="M350,310 L350,340 L175,340 L175,368" fill="none" stroke="var(--verde)" stroke-width="2.5" marker-end="url(#arv)"/>
+  <path d="M350,340 L525,340 L525,368" fill="none" stroke="var(--magenta-txt)" stroke-width="2.5" marker-end="url(#arm)"/>
+  <text x="262" y="332" text-anchor="middle" fill="var(--verde-txt)" font-size="13" font-weight="700">CLIENTE PAGOU</text>
+  <text x="438" y="332" text-anchor="middle" fill="var(--magenta-txt)" font-size="13" font-weight="700">CLIENTE ATRASOU</text>
+
+  <rect x="40" y="372" width="270" height="60" rx="12" fill="var(--verde)"/>
+  <text x="175" y="397" text-anchor="middle" fill="#000" font-size="15" font-weight="700">Comissão liberada</text>
+  <text x="175" y="417" text-anchor="middle" fill="#000" font-size="12">no mês em que o dinheiro entra</text>
+
+  <rect x="390" y="372" width="270" height="60" rx="12" fill="var(--bg)" stroke="var(--magenta-txt)" stroke-width="2"/>
+  <text x="525" y="397" text-anchor="middle" fill="var(--fg)" font-size="15" font-weight="700">Cobrança é da empresa</text>
+  <text x="525" y="417" text-anchor="middle" fill="var(--muted)" font-size="12">não é problema do vendedor</text>
+
+  <line x1="390" y1="402" x2="316" y2="402" stroke="var(--verde)" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#arv)"/>
+  <text x="350" y="392" text-anchor="middle" fill="var(--verde-txt)" font-size="11" font-weight="700">honra</text>
+
+  <path d="M175,432 L175,460 L350,460 L350,486" fill="none" stroke="var(--muted)" stroke-width="2" marker-end="url(#ar)"/>
+  <path d="M525,432 L525,460 L350,460" fill="none" stroke="var(--muted)" stroke-width="2"/>
+
+  <rect x="170" y="490" width="360" height="58" rx="12" fill="var(--bg)" stroke="var(--fg)" stroke-width="2"/>
+  <text x="350" y="514" text-anchor="middle" fill="var(--fg)" font-size="15" font-weight="700">Fechamento do mês</text>
+  <text x="350" y="534" text-anchor="middle" fill="var(--muted)" font-size="12">salário + comissão do que foi faturado</text>
+  <line x1="350" y1="548" x2="350" y2="574" stroke="var(--verde)" stroke-width="2.5" marker-end="url(#arv)"/>
+  <text x="362" y="566" fill="var(--verde-txt)" font-size="11" font-weight="700">bateu a faixa?</text>
+
+  <rect x="170" y="578" width="360" height="58" rx="12" fill="var(--bg)" stroke="var(--verde)" stroke-width="2.5"/>
+  <text x="350" y="602" text-anchor="middle" fill="var(--fg)" font-size="15" font-weight="700">Bonificação</text>
+  <text x="350" y="622" text-anchor="middle" fill="var(--muted)" font-size="12">prêmio por faixa · a comissão continua fixa</text>
+  <line x1="350" y1="636" x2="350" y2="662" stroke="var(--muted)" stroke-width="2" marker-end="url(#ar)"/>
+
+  <rect x="210" y="666" width="280" height="44" rx="22" fill="var(--marinho)" stroke="var(--marinho-txt)" stroke-width="2"/>
+  <text x="350" y="694" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Contabilidade</text>
+  <text x="350" y="732" text-anchor="middle" fill="var(--muted)" font-size="12">metas, comissões e bônus do mês</text>
+</svg>
+</div>
+
+<h2><span class="n">3</span>Passo a passo</h2>
+<div class="card">
+  <div class="passo"><div class="num">01</div><div>
+    <span class="quem">Gestor</span><h3>Defina a meta da empresa</h3>
+    <ul>
+      <li>É a meta do CNPJ: quanto a empresa precisa vender no mês.</li>
+      <li>Calcule com método: histórico de vendas, sazonalidade, capacidade do time e objetivo de crescimento.</li>
+      <li><span class="nao">Evite</span> o "vendi tanto, então aumento a meta". Número jogado não vira meta.</li>
+    </ul>
+    <span class="entrega"><i class="ic" style="--i:var(--ic-check)"></i>Entrega: meta mensal da empresa registrada</span>
+  </div></div>
+
+  <div class="passo"><div class="num">02</div><div>
+    <span class="quem">Gestor</span><h3>Desdobre em metas individuais</h3>
+    <ul>
+      <li>A divisão <b>não é por igual</b>. Cada vendedor tem uma capacidade de venda e uma carteira diferentes.</li>
+      <li>Confira a conta: <b>a soma das metas individuais = meta da empresa</b>.</li>
+    </ul>
+    <span class="entrega"><i class="ic" style="--i:var(--ic-check)"></i>Entrega: tabela com a meta de cada vendedor</span>
+  </div></div>
+
+  <div class="passo"><div class="num">03</div><div>
+    <span class="quem">Gestor</span><h3>Escolha o tipo de meta</h3>
+    <ul>
+      <li><b>Meta de venda:</b> sempre existe.</li>
+      <li><b>Meta de faturamento:</b> use só se a empresa tiver alguém ou um setor de cobrança (detalhes no item 4).</li>
+    </ul>
+    <span class="entrega"><i class="ic" style="--i:var(--ic-check)"></i>Entrega: decisão registrada (só venda, ou venda + faturamento)</span>
+  </div></div>
+
+  <div class="passo"><div class="num">04</div><div>
+    <span class="quem">Gestor + financeiro</span><h3>Defina a regra da comissão</h3>
+    <ul>
+      <li>A comissão é um percentual sobre o que o vendedor vendeu. A remuneração do mês é <b>salário + comissão</b>.</li>
+      <li>A comissão é paga <b>conforme o faturamento</b>: se o cliente parcelou, o vendedor recebe a comissão de cada parcela no mês em que ela entra.</li>
+    </ul>
+    <span class="entrega"><i class="ic" style="--i:var(--ic-check)"></i>Entrega: percentual e regra de pagamento escritos</span>
+  </div></div>
+
+  <div class="passo"><div class="num">05</div><div>
+    <span class="quem">Financeiro / cobrança</span><h3>Defina a regra de inadimplência</h3>
+    <ul>
+      <li>Se o cliente pagou a entrada e está enrolando para pagar o resto, <b>isso não é problema do vendedor</b>.</li>
+      <li>A cobrança é da empresa, e a empresa <b>paga a comissão como se o cliente tivesse pago</b>.</li>
+    </ul>
+    <span class="entrega"><i class="ic" style="--i:var(--ic-check)"></i>Entrega: regra escrita na política de comissão</span>
+  </div></div>
+
+  <div class="passo"><div class="num">06</div><div>
+    <span class="quem">Gestor</span><h3>Crie a bonificação</h3>
+    <ul>
+      <li>Mantenha a comissão fixa e premie quem passa da meta com <b>bonificação por faixas</b> (ex.: meta, meta 2, supermeta).</li>
+      <li>Defina o valor de cada faixa e quando ele é pago.</li>
+    </ul>
+    <span class="entrega"><i class="ic" style="--i:var(--ic-check)"></i>Entrega: tabela de faixas e valores do bônus</span>
+  </div></div>
+
+  <div class="passo"><div class="num">07</div><div>
+    <span class="quem">Gestor + contabilidade</span><h3>Passe tudo para a contabilidade</h3>
+    <ul>
+      <li>Toda meta, comissão e bonificação precisa ir para a contabilidade, que faz os ajustes na folha e nos encargos.</li>
+      <li>Combine uma rotina: todo fechamento de mês, enviar os valores pagos a cada vendedor.</li>
+    </ul>
+    <span class="entrega"><i class="ic" style="--i:var(--ic-check)"></i>Entrega: política enviada e rotina mensal combinada</span>
+  </div></div>
+</div>
+
+<h2><span class="n">4</span>Meta de venda x meta de faturamento</h2>
+<div class="lado">
+  <div class="a">
+    <span class="r">Mede a venda</span>
+    <h3>Meta de venda</h3>
+    <p>O que foi <b>vendido no mês</b>, seja à vista ou parcelado.</p>
+    <p class="muted">Vale para toda empresa. É a meta do vendedor.</p>
+  </div>
+  <div class="b">
+    <span class="r">Mede o caixa</span>
+    <h3>Meta de faturamento</h3>
+    <p>O dinheiro que <b>entrou na empresa</b> no mês.</p>
+    <p class="muted">Faz sentido quando há um departamento de cobrança cuidando dos atrasos. Uns usam, outros não: fica a critério da empresa.</p>
+  </div>
+</div>
+
+<h2><span class="n">5</span>Simulador da comissão</h2>
+<div class="card">
+  <p>Veja quanto o vendedor recebe em cada mês quando a venda é parcelada.</p>
+  <div class="sim">
+    <div><label for="v">Valor da venda (R$)</label><input id="v" type="number" min="0" step="100" value="1000"></div>
+    <div><label for="p">Comissão (%)</label><input id="p" type="number" min="0" step="0.5" value="1"></div>
+    <div><label for="n">Parcelas</label><input id="n" type="number" min="1" max="24" step="1" value="2"></div>
+  </div>
+  <div class="total">
+    <div><small>Comissão total</small><strong id="tot">R$ 10,00</strong></div>
+    <div class="vd"><small>Por parcela recebida</small><strong id="par">R$ 5,00</strong></div>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Mês</th><th class="r">Cliente paga</th><th class="r">Vendedor recebe de comissão</th></tr></thead>
+    <tbody id="linhas"></tbody>
+  </table></div>
+  <p class="muted">Se alguma parcela atrasar, a comissão daquela parcela continua sendo paga ao vendedor. A cobrança é com a empresa.</p>
+</div>
+
+<h2><span class="n">6</span>Por que bonificação, e não comissão escalonada</h2>
+<div class="vs">
+  <div class="x"><b>Comissão escalonada</b>Bateu a meta 1, a comissão sobe. Bateu a meta 2, sobe de novo.
+    <ul><li>O percentual muda todo mês e confunde o cálculo.</li><li>Fica mais difícil de explicar ao time e à contabilidade.</li></ul>
+  </div>
+  <div class="ok"><b>Bonificação (o modelo que usamos)</b>A comissão fica fixa, e quem passa da meta recebe um bônus por faixa.
+    <ul><li>Regra simples e previsível para o vendedor.</li><li>O prêmio pelo esforço extra fica separado e visível.</li></ul>
+  </div>
+</div>
+
+<h2><span class="n">7</span>Checklist da ação</h2>
+<div class="card">
+<ul class="check">
+  <li><b>Meta da empresa calculada com método</b><small>Histórico, sazonalidade, capacidade e crescimento</small></li>
+  <li><b>Metas individuais definidas</b><small>Por capacidade e carteira; a soma fecha a meta da empresa</small></li>
+  <li><b>Tipo de meta decidido</b><small>Só venda, ou venda + faturamento</small></li>
+  <li><b>Regra de comissão escrita</b><small>Percentual e pagamento conforme o faturamento</small></li>
+  <li><b>Regra de inadimplência escrita</b><small>A empresa cobra e honra a comissão</small></li>
+  <li><b>Faixas de bonificação definidas</b><small>Valores e data de pagamento</small></li>
+  <li><b>Contabilidade informada</b><small>Política enviada e rotina mensal combinada</small></li>
+</ul>
+</div>
+
+<div class="warn">
+  <b>Regra de ouro:</b> o vendedor responde pela venda; a empresa responde pela cobrança. A comissão acompanha o dinheiro que entra, e o atraso do cliente nunca tira o que o vendedor já conquistou.
+</div>
+
+</div>
+</main>
+<script>
+(function(){
+  var brl = function(x){ return x.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); };
+  var v = document.getElementById('v'), p = document.getElementById('p'), n = document.getElementById('n');
+  function calc(){
+    var valor = Math.max(0, parseFloat(v.value) || 0);
+    var pct = Math.max(0, parseFloat(p.value) || 0);
+    var parc = Math.min(24, Math.max(1, parseInt(n.value, 10) || 1));
+    var com = valor * pct / 100;
+    document.getElementById('tot').textContent = brl(com);
+    document.getElementById('par').textContent = brl(com / parc);
+    var h = '';
+    for (var i = 1; i <= parc; i++) {
+      h += '<tr><td>' + (i === 1 ? 'Mês da venda' : 'Mês ' + i) + '</td><td class="r">' + brl(valor / parc) + '</td><td class="r">' + brl(com / parc) + '</td></tr>';
+    }
+    document.getElementById('linhas').innerHTML = h;
+  }
+  [v, p, n].forEach(function(el){ el.addEventListener('input', calc); });
+  calc();
+})();
+</script>
+</body>
+</html>

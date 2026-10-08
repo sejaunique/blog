@@ -142,7 +142,19 @@ function membro(s, slug) { return !!s && (s.admin || s.slug === slug); }
 
 function usuarioPublico(u) { return { email: u.email, nome: u.nome, whatsapp: u.whatsapp, status: u.status, criado: u.criado }; }
 
+// Ações do catálogo entram no plano da empresa uma única vez (area:acoes-cat:<slug> lembra quais já entraram),
+// então o status do cliente e as edições/exclusões do admin valem normalmente depois.
+async function semeiaAcoes(slug) {
+  const cat = (CATALOGO[slug] || {}).acoes || [];
+  if (!cat.length) return;
+  const novas = await redis(cat.map(a => ['SADD', 'area:acoes-cat:' + slug, a.id]));
+  const cmds = [];
+  cat.forEach((a, i) => { if (novas[i] === 1) cmds.push(['HSETNX', 'area:acoes:' + slug, a.id, JSON.stringify(limpaAcao(a))]); });
+  if (cmds.length) await redis(cmds);
+}
+
 async function conteudo(slug) {
+  await semeiaAcoes(slug);
   const [itensH, acoesH] = await redis([['HGETALL', 'area:itens:' + slug], ['HGETALL', 'area:acoes:' + slug]]);
   const lerHash = h => {
     const out = [];

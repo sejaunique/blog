@@ -37,7 +37,7 @@
   foot.className='foot';
   foot.innerHTML='<div class="wrap"><div class="grade">'+
     '<div class="marca">'+LOGO+'<p>Consultoria comercial que transforma vendas em processo: previsível, organizado e escalável.</p>'+
-      '<div class="tres" aria-hidden="true"><span class="I mag"></span><span class="I mar"></span><span class="I ver"></span></div></div>'+
+      '</div>'+
     '<div><h4>Navegação</h4><ul>'+
       '<li><a href="'+h('metodo')+'">Método</a></li><li><a href="'+h('servicos')+'">Serviços</a></li>'+
       '<li><a href="/cases/clinica-brasil/">Cases</a></li><li><a href="/blog/">Blog</a></li><li><a href="/diagnostico/">Diagnóstico</a></li></ul></div>'+

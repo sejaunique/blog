@@ -36,7 +36,9 @@ main{padding-block:64px 96px}
 .topo-c p{color:var(--muted);max-width:620px;margin:0}
 .casos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 .caso{display:flex;flex-direction:column;gap:6px;border:1px solid var(--line);border-radius:var(--r);padding:20px;text-decoration:none;color:inherit;background:var(--card);transition:border-color .2s,transform .2s}
-.caso:hover{border-color:var(--fg);transform:translateY(-2px)}
+.caso:hover{border-color:var(--verde);background:color-mix(in srgb,var(--verde) 9%,var(--card));transform:translateY(-2px)}
+.caso:hover .ir{color:var(--verde-txt)}
+.caso:hover .seg{color:var(--verde-txt)}
 .caso .lg{height:46px;display:flex;align-items:center;margin-bottom:8px}
 .caso .lg img{max-height:40px;max-width:150px;width:auto;filter:invert(1);opacity:.85}
 [data-theme="dark"] .caso .lg img{filter:none}

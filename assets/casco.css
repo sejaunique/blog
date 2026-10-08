@@ -200,3 +200,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 }
 @media (max-width:560px){.foot .grade{grid-template-columns:1fr}}
 @media print{.top,.foot,.tema-bt{display:none}.capa{background:none;color:#000}}
+/* cards de case: hover com a cor de resultado */
+a.caso{position:relative;overflow:hidden}
+a.caso:hover{border-color:var(--verde-txt);background:color-mix(in srgb,var(--verde) 9%,var(--card))}
+a.caso:hover .ir,a.caso:hover .seg{color:var(--verde-txt)}
+a.caso::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--verde);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+a.caso:hover::after{transform:scaleX(1)}

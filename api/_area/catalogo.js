@@ -38,6 +38,17 @@ module.exports = {
         chamada: 'Funil de atendimento',
         grifo: 'atendimento',
         data: '2026-10-08'
+      },
+      {
+        id: 'chatbot',
+        tipo: 'pagina',
+        titulo: 'Chatbot IA: roteiro e prompt',
+        descricao: 'Como a assistente virtual faz a triagem (comprar, alugar, licitação ou SAC), escolhe a unidade e passa o lead para a consultora. Com o prompt pronto para copiar.',
+        url: '/clientes/tendasaluban/chatbot/',
+        capa: '/assets/og/tendasaluban-chatbot.jpg',
+        chamada: 'Chatbot IA: roteiro e prompt',
+        grifo: 'roteiro e prompt',
+        data: '2026-10-08'
       }
     ]
   }

@@ -164,3 +164,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    import subprocess; subprocess.run([sys.executable, str(RAIZ / "tools/mais_cases.py")], check=True)

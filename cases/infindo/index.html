@@ -131,6 +131,11 @@ section{padding-block:88px}
 .foto{margin:26px 0 0;border-radius:var(--r);overflow:hidden}
 .foto img{width:100%;height:auto}
 .galeria{display:grid;gap:14px}
+.galeria-g{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.galeria-g figure{margin:0;border-radius:var(--r);overflow:hidden;aspect-ratio:2/3}
+.galeria-g .g-larga{grid-column:span 1}
+.galeria-g img{width:100%;height:100%;object-fit:cover}
+@media (max-width:700px){.galeria-g{grid-template-columns:1fr 1fr}}
 .galeria figure{margin:0;border-radius:var(--r);overflow:hidden}
 .galeria img{width:100%;height:auto}
 .video img{filter:grayscale(1)}.video:hover img{filter:none}
@@ -191,7 +196,8 @@ section{padding-block:88px}
     <div>
       <h2>Um olhar artístico <span class="leve">que não aparecia na vitrine.</span></h2>
       <p>Antes chamada <b>Paulo e Cida Fotografia</b>, a empresa era reconhecida pela venda de fotos em quantidade, numa abordagem focada no produto, sem comunicar o valor único do olhar artístico da família.</p>
-      <p><a href="https://www.infindo.com.br/" target="_blank" rel="noopener">infindo.com.br</a> · <a href="https://www.instagram.com/infindofotografia" target="_blank" rel="noopener">@infindofotografia</a></p>
+      <figure class="foto pb"><img src="/cases/infindo/fotos/familia.jpg" alt="Paulo Vinicius, Cida e Paulo César, da Infindo Fotografia" loading="lazy"><figcaption class="muted" style="font-size:.85rem;padding-top:10px">Da esquerda para a direita: Paulo Vinicius, Cida e Paulo César.</figcaption></figure>
+      <p style="margin-top:18px"><a href="https://www.infindo.com.br/" target="_blank" rel="noopener">infindo.com.br</a> · <a href="https://www.instagram.com/infindofotografia" target="_blank" rel="noopener">@infindofotografia</a></p>
     </div>
   </div>
 </section>
@@ -254,10 +260,29 @@ section{padding-block:88px}
         <blockquote class="dq"><i class="ic" style="--i:var(--ic-aspas)"></i><p>"Além de elevar nossa empresa, minha própria visão como profissional de fotografia foi transformada."</p><cite><b>Vinicius</b>Infindo Fotografia</cite></blockquote>
         <blockquote class="dq"><i class="ic" style="--i:var(--ic-aspas)"></i><p>"A transição de Paulo e Cida para Vinicius trouxe uma valorização renovada do legado da família."</p><cite><b>Visão do legado familiar</b>Infindo Fotografia</cite></blockquote>
       </div>
+      <button class="video" type="button" data-id="y8FJd4XxVPE" aria-label="Assistir ao depoimento da Infindo" style="margin-top:26px;border-radius:var(--r)">
+        <img src="https://img.youtube.com/vi/y8FJd4XxVPE/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy">
+        <span class="play" aria-hidden="true"><i class="ic" style="--i:var(--ic-play)"></i></span>
+        <span class="rot">Depoimento em vídeo</span>
+      </button>
       <blockquote class="grande">
         <div><p>"Se você embarcar na ideia e se transformar com o Carlos, eu garanto que <b>não vai se arrepender</b>. Será um ponto de mudança na sua vida."</p>
         <cite><b>Paulo Vinicius</b>Infindo Fotografia</cite></div>
       </blockquote>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="leitura-w" style="max-width:var(--wide)">
+    <span class="spaced muted" style="display:block;margin-bottom:16px">Bastidores do projeto</span>
+    <div class="galeria-g">
+      <figure class="pb g-larga"><img src="/cases/infindo/fotos/evento-4.jpg" alt="Equipe Infindo com Carlos Ribeiro no evento de lançamento" loading="lazy"></figure>
+      <figure class="pb"><img src="/cases/infindo/fotos/evento-5.jpg" alt="Carlos Ribeiro no painel da Infindo" loading="lazy"></figure>
+      <figure class="pb"><img src="/cases/infindo/fotos/evento-1.jpg" alt="Paulo César e Carlos Ribeiro" loading="lazy"></figure>
+      <figure class="pb"><img src="/cases/infindo/fotos/evento-2.jpg" alt="Cida e Carlos Ribeiro" loading="lazy"></figure>
+      <figure class="pb"><img src="/cases/infindo/fotos/evento-3.jpg" alt="Paulo Vinicius e Carlos Ribeiro" loading="lazy"></figure>
+      <figure class="pb"><img src="/cases/infindo/fotos/chamada.jpg" alt="Reunião online da Infindo com Carlos durante a pandemia" loading="lazy"></figure>
     </div>
   </div>
 </section>

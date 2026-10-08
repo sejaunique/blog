@@ -185,6 +185,13 @@ section{padding-block:112px;position:relative}
 .case .kpis b{display:block;font-size:1.5rem;font-weight:800;letter-spacing:-.03em;color:var(--verde)}
 .case .kpis span{font-size:.72rem;color:var(--ink-muted);line-height:1.3;display:block}
 .case .ir{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:.9rem}
+.case2{display:flex;align-items:center;gap:24px;margin-top:18px;border:1px solid var(--line);border-radius:var(--r);padding:22px 28px;text-decoration:none;transition:border-color .2s}
+.case2:hover{border-color:var(--fg)}
+.case2 img{height:44px;width:auto;filter:invert(1)}
+[data-theme="dark"] .case2 img{filter:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .case2 img{filter:none}}
+.case2 span{flex:1;color:var(--muted);font-size:.95rem}
+.case2 b{display:block;color:var(--fg);font-size:1.15rem}
 .depo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:18px}
 .q{border:1px solid var(--line);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;gap:16px;margin:0;background:var(--card)}
 .q .ic{width:30px;height:30px;color:var(--verde-txt)}
@@ -454,6 +461,7 @@ body[data-casco="inicio"] .foot{margin-top:0}
         <span class="ir">Ler o case completo <i class="ic" style="--i:var(--ic-seta)"></i></span>
       </div>
     </a>
+    <a class="case2" href="/cases/infindo/"><img src="/assets/clientes/infindo.png" alt="Infindo" loading="lazy"><span><b>Infindo Fotografia</b>De volume a valor: nova marca, sucessão familiar e recorde de faturamento.</span><i class="ic" style="--i:var(--ic-seta)"></i></a>
     <div class="depo">
       <blockquote class="q"><i class="ic" style="--i:var(--ic-aspas)"></i><p>"Foi muito positivo, prático. Conseguimos levar para a realidade da empresa. Sentimos o envolvimento dos colaboradores."</p><cite><b>Dr. Evandro Queiroz e Evandro Vitoy</b>Diretores da Clínica Brasil</cite></blockquote>
       <blockquote class="q"><i class="ic" style="--i:var(--ic-aspas)"></i><p>"Minha primeira impressão sobre o Carlos foi que ele era louco. Mas depois, vi o quanto ele agregou para nós."</p><cite><b>Rafael</b>Supervisor de Atendimento Online, Clínica Brasil</cite></blockquote>

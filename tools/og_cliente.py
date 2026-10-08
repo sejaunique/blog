@@ -53,6 +53,9 @@ EXTRAS = [
     {"arquivo": "case-clinica-brasil.jpg", "rotulo": "Case · Clínica Brasil", "pill": "Case de sucesso",
      "titulo": "Atendimento humanizado que converte", "grifo": "converte",
      "descricao": "Como a Unique centralizou o atendimento, treinou a equipe e estruturou a jornada do paciente."},
+    {"arquivo": "case-infindo.jpg", "rotulo": "Case · Infindo Fotografia", "pill": "Case de sucesso",
+     "titulo": "De volume a valor: uma nova marca", "grifo": "nova marca",
+     "descricao": "Nova marca, sucessão familiar planejada e recorde de faturamento na retomada pós-pandemia."},
 ]
 
 def chamada_html(p):

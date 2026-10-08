@@ -78,11 +78,12 @@ section{padding-block:112px;position:relative}
 .dor{border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;align-content:start;transition:background .25s}
 .dor figure{margin:0;height:190px;overflow:hidden;border-bottom:3px solid var(--magenta)}
 .dor figure img{width:100%;height:100%;object-fit:cover}
-.dor .dt{padding:24px 26px 30px;display:grid;gap:10px}
+.dor .dt{padding:24px 26px 30px;display:grid;grid-template-columns:auto 1fr;align-items:center;column-gap:12px;row-gap:10px}
+.dor .dt p{grid-column:1/-1}
 .dor .dt .ic{width:24px;height:24px}
 .dor:hover{background:var(--soft)}
 .dor .ic{width:28px;height:28px;color:var(--magenta-txt)}
-.dor h3{font-size:1.12rem;font-weight:700;margin:6px 0 0;letter-spacing:-.01em}
+.dor h3{font-size:1.12rem;font-weight:700;margin:0;letter-spacing:-.01em}
 .dor p{margin:0;color:var(--muted);font-size:.93rem;line-height:1.6}
 .dor-frase{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;margin-top:48px}
 .dor-frase .I{width:44px;height:120px}
@@ -192,22 +193,41 @@ section{padding-block:112px;position:relative}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .case2 img{filter:none}}
 .case2 span{flex:1;color:var(--muted);font-size:.95rem}
 .case2 b{display:block;color:var(--fg);font-size:1.15rem}
-.depo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:18px}
+.casos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:18px}
+.caso{display:flex;flex-direction:column;gap:6px;border:1px solid var(--line);border-radius:var(--r);padding:20px;text-decoration:none;color:inherit;background:var(--card);transition:border-color .2s,transform .2s}
+.caso:hover{border-color:var(--fg);transform:translateY(-2px)}
+.caso .lg{height:46px;display:flex;align-items:center;margin-bottom:8px}
+.caso .lg img{max-height:40px;max-width:150px;width:auto;filter:invert(1);opacity:.85}
+[data-theme="dark"] .caso .lg img{filter:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .caso .lg img{filter:none}}
+.caso .lg .nm{font-size:1.05rem;font-weight:900;letter-spacing:-.03em;text-transform:uppercase;line-height:1.05}
+.caso .seg{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.caso b{font-size:1.02rem;line-height:1.25}
+.caso .rs{font-size:.86rem;color:var(--muted);line-height:1.5;flex:1}
+.caso .ir{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.82rem;margin-top:8px}
+.caso .ir .ic{width:16px;height:16px}
+.carrossel{position:relative;margin-top:28px}
+.trilha{display:flex;align-items:flex-start;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding-bottom:4px}
+.trilha::-webkit-scrollbar{display:none}
+.trilha>*{flex:0 0 calc((100% - 36px)/3);scroll-snap-align:start}
+.trilha .q{align-self:stretch;padding:24px;gap:12px}
+.trilha .q p{font-size:.92rem}
+.trilha .yt .rot{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.72);color:#fff;font-size:.75rem;font-weight:700;padding:6px 10px;border-radius:999px;max-width:calc(100% - 24px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.carrossel .ctrl{display:flex;gap:10px;justify-content:flex-end;margin-top:14px}
+.carrossel .ctrl button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--fg);display:grid;place-items:center;cursor:pointer}
+.carrossel .ctrl button:hover{border-color:var(--fg)}
+.carrossel .ctrl .ic{width:20px;height:20px}
+.logos-2{margin-top:56px}
 .q{border:1px solid var(--line);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;gap:16px;margin:0;background:var(--card)}
 .q .ic{width:30px;height:30px;color:var(--verde-txt)}
 .q p{margin:0;font-size:1.02rem;line-height:1.55;font-weight:500;font-style:italic}
 .q cite{font-style:normal;font-size:.8rem;color:var(--muted);margin-top:auto}
 .q cite b{color:var(--fg);font-weight:700;display:block;font-size:.88rem}
-.yts{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
 .yt{position:relative;aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;background:#111;cursor:pointer;border:0;padding:0;width:100%;display:block;color:#000}
 .yt img{width:100%;height:100%;object-fit:cover}
 .yt .play{position:absolute;inset:0;margin:auto;width:58px;height:58px;border-radius:50%;background:#fff;display:grid;place-items:center}
 .yt .play .ic{width:22px;height:22px;margin-left:3px}
 .yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.clientes{margin-top:64px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
-.clientes div{border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;place-items:center;padding:26px 18px;min-height:110px}
-.clientes img{max-height:46px;max-width:100%;width:auto;opacity:.6;transition:opacity .2s}
-.clientes div:hover img{opacity:1}
 
 /* sobre: um I grande */
 .sobre{display:grid;grid-template-columns:.8fr 1.2fr;gap:80px;align-items:center}
@@ -272,8 +292,8 @@ body[data-casco="inicio"] .foot{margin-top:0}
   .passos{grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 0}
   .dores{grid-template-columns:1fr 1fr}
   .posts{grid-template-columns:1fr 1fr}
-  .clientes{grid-template-columns:repeat(4,minmax(0,1fr))}
-  .depo{grid-template-columns:1fr}
+  .casos{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .trilha>*{flex-basis:calc((100% - 18px)/2)}
   .case figure{min-height:260px}
   .final figure{min-height:300px}
   .final figure img{-webkit-mask-image:linear-gradient(transparent,#000 40%);mask-image:linear-gradient(transparent,#000 40%)}
@@ -282,10 +302,10 @@ body[data-casco="inicio"] .foot{margin-top:0}
 }
 @media (max-width:640px){
   section{padding-block:76px}
-  .servicos,.posts,.frentes,.passos,.dores,.yts{grid-template-columns:1fr}
+  .servicos,.posts,.frentes,.passos,.dores,.casos{grid-template-columns:1fr}
+  .trilha>*{flex-basis:86%}
   .entregas{padding:28px}
   .entregas ul{grid-template-columns:1fr}
-  .clientes{grid-template-columns:repeat(2,minmax(0,1fr))}
   .fluxo{grid-template-columns:1fr}
   .fluxo .seta{transform:rotate(90deg)}
   .case .info{padding:28px}
@@ -461,17 +481,29 @@ body[data-casco="inicio"] .foot{margin-top:0}
         <span class="ir">Ler o case completo <i class="ic" style="--i:var(--ic-seta)"></i></span>
       </div>
     </a>
-    <a class="case2" href="/cases/infindo/"><img src="/assets/clientes/infindo.png" alt="Infindo" loading="lazy"><span><b>Infindo Fotografia</b>De volume a valor: nova marca, sucessão familiar e recorde de faturamento.</span><i class="ic" style="--i:var(--ic-seta)"></i></a>
-    <div class="depo">
-      <blockquote class="q"><i class="ic" style="--i:var(--ic-aspas)"></i><p>"Foi muito positivo, prático. Conseguimos levar para a realidade da empresa. Sentimos o envolvimento dos colaboradores."</p><cite><b>Dr. Evandro Queiroz e Evandro Vitoy</b>Diretores da Clínica Brasil</cite></blockquote>
-      <blockquote class="q"><i class="ic" style="--i:var(--ic-aspas)"></i><p>"Minha primeira impressão sobre o Carlos foi que ele era louco. Mas depois, vi o quanto ele agregou para nós."</p><cite><b>Rafael</b>Supervisor de Atendimento Online, Clínica Brasil</cite></blockquote>
-      <blockquote class="q"><i class="ic" style="--i:var(--ic-aspas)"></i><p>"Cada centavo que investi, eu não me arrependo. O Carlos me deu a realidade e me mostrou o que precisava ser feito sem rodeios."</p><cite><b>Laboratório Alcântara</b>Cliente Unique</cite></blockquote>
+    <div class="casos">
+      <a class="caso" href="/cases/infindo/"><div class="lg"><img src="/assets/clientes/infindo.png" alt="Infindo Fotografia" loading="lazy"></div><span class="seg">Fotografia</span><b>Infindo Fotografia</b><span class="rs">De volume a valor: nova marca, sucessão familiar e recorde de faturamento.</span><span class="ir">Ler o case <i class="ic" style="--i:var(--ic-seta)"></i></span></a>
+      <a class="caso" href="/cases/aurora-songs/"><div class="lg"><strong class="nm">Aurora Songs</strong></div><span class="seg">Produção musical</span><b>Aurora Songs</b><span class="rs">Produtora musical que deu forma e voz à marca e passou a falar com clareza com o seu público.</span><span class="ir">Ler o case <i class="ic" style="--i:var(--ic-seta)"></i></span></a>
+      <a class="caso" href="/cases/boldz/"><div class="lg"><img src="/assets/clientes/boldz.png" alt="Boldz" loading="lazy"></div><span class="seg">Empresa criativa / marketing</span><b>Boldz</b><span class="rs">Empresa criativa que transformou clientes em divulgadores e ganhou alcance orgânico.</span><span class="ir">Ler o case <i class="ic" style="--i:var(--ic-seta)"></i></span></a>
+      <a class="caso" href="/cases/brukki/"><div class="lg"><strong class="nm">Brukki Atelier de Moda Personalizada</strong></div><span class="seg">Moda sob medida</span><b>Brukki Atelier de Moda Personalizada</b><span class="rs">Ateliê sob medida que passou a criar pensando no cliente e ganhou visão de negócio.</span><span class="ir">Ler o case <i class="ic" style="--i:var(--ic-seta)"></i></span></a>
+      <a class="caso" href="/cases/casa-lis/"><div class="lg"><img src="/assets/clientes/casa-lis.png" alt="Casa Lis Espaço e Buffet" loading="lazy"></div><span class="seg">Eventos e buffet</span><b>Casa Lis Espaço e Buffet</b><span class="rs">Buffet em Goiânia que, com atendimento de alta performance, subiu 40% o ticket médio.</span><span class="ir">Ler o case <i class="ic" style="--i:var(--ic-seta)"></i></span></a>
+      <a class="caso" href="/cases/cical/"><div class="lg"><img src="/assets/clientes/grupo-cical.png" alt="Grupo Sempre Livre - Cical Chevrolet" loading="lazy"></div><span class="seg">Concessionária automotiva</span><b>Grupo Sempre Livre - Cical Chevrolet</b><span class="rs">Palestra que tirou a equipe de vendas da concessionária do piloto automático.</span><span class="ir">Ler o case <i class="ic" style="--i:var(--ic-seta)"></i></span></a>
+      <a class="caso" href="/cases/clara-construtora/"><div class="lg"><img src="/assets/clientes/clara-construtora.png" alt="Clara Construtora" loading="lazy"></div><span class="seg">Construção civil</span><b>Clara Construtora</b><span class="rs">Construtora que trocou a formalidade por uma comunicação autêntica e ganhou visibilidade.</span><span class="ir">Ler o case <i class="ic" style="--i:var(--ic-seta)"></i></span></a>
+      <a class="caso" href="/cases/dra-laura-scher/"><div class="lg"><img src="/assets/clientes/dra-laura-scher.png" alt="Dra. Laura Scher" loading="lazy"></div><span class="seg">Dermatologia e estética</span><b>Dra. Laura Scher</b><span class="rs">Dermatologista que criou marca própria e reposicionou o consultório: 90% dos atendimentos em estética.</span><span class="ir">Ler o case <i class="ic" style="--i:var(--ic-seta)"></i></span></a>
+      <a class="caso" href="/cases/ido/"><div class="lg"><img src="/assets/clientes/ido-odontologia.png" alt="IDO - Instituto Dantas de Odontologia" loading="lazy"></div><span class="seg">Odontologia</span><b>IDO - Instituto Dantas de Odontologia</b><span class="rs">Clínica que reativou o que já tinha e passou a usar histórias de pacientes como prova de qualidade.</span><span class="ir">Ler o case <i class="ic" style="--i:var(--ic-seta)"></i></span></a>
+      <a class="caso" href="/cases/laboratorio-alcantara/"><div class="lg"><strong class="nm">Laboratório Alcântara</strong></div><span class="seg">Laboratório</span><b>Laboratório Alcântara</b><span class="rs">Dono de laboratório que quase largou a profissão e passou a dobrar o valor dos serviços.</span><span class="ir">Ler o case <i class="ic" style="--i:var(--ic-seta)"></i></span></a>
+      <a class="caso" href="/cases/marcel-bianchi/"><div class="lg"><strong class="nm">Marcel Bianchi</strong></div><span class="seg">Fotografia</span><b>Marcel Bianchi</b><span class="rs">Fotógrafo que trocou o foco na técnica por marca forte e experiência que gera indicação.</span><span class="ir">Ler o case <i class="ic" style="--i:var(--ic-seta)"></i></span></a>
+      <a class="caso" href="/cases/multiodonto/"><div class="lg"><strong class="nm">Multiodonto</strong></div><span class="seg">Odontologia</span><b>Multiodonto</b><span class="rs">Clínica odontológica que transformou o atendimento, elevou o ticket médio e fidelizou pacientes.</span><span class="ir">Ler o case <i class="ic" style="--i:var(--ic-seta)"></i></span></a>
+      <a class="caso" href="/cases/rogerio-penna/"><div class="lg"><img src="/assets/clientes/instituto-rogerio-penna.png" alt="Instituto Rogério Penna" loading="lazy"></div><span class="seg">Odontologia</span><b>Instituto Rogério Penna</b><span class="rs">Dentista que transformou cada atendimento numa experiência que gera compartilhamento e indicação.</span><span class="ir">Ler o case <i class="ic" style="--i:var(--ic-seta)"></i></span></a>
+      <a class="caso" href="/cases/super-bolla/"><div class="lg"><img src="/assets/clientes/super-bolla.png" alt="Super Bolla" loading="lazy"></div><span class="seg">Camisas de futebol</span><b>Super Bolla</b><span class="rs">Nos 25 anos da marca, redesign e mudança de mindset: a venda passou a ser sobre propósito.</span><span class="ir">Ler o case <i class="ic" style="--i:var(--ic-seta)"></i></span></a>
+      <a class="caso" href="/cases/urbs/"><div class="lg"><img src="/assets/clientes/urbs.png" alt="URBS Construtora" loading="lazy"></div><span class="seg">Construção civil</span><b>URBS Construtora</b><span class="rs">Construtora que trocou o foco na transação por uma cultura centrada no cliente.</span><span class="ir">Ler o case <i class="ic" style="--i:var(--ic-seta)"></i></span></a>
+      <a class="caso" href="/cases/ww-cerimonial/"><div class="lg"><strong class="nm">WW Cerimonial</strong></div><span class="seg">Organização de eventos</span><b>WW Cerimonial</b><span class="rs">Cerimonial que foi além da execução técnica: marca forte, atendimento humanizado e mais indicações.</span><span class="ir">Ler o case <i class="ic" style="--i:var(--ic-seta)"></i></span></a>
     </div>
-    <div class="yts">
-      <button class="yt pb" type="button" data-id="hPJOKWCvEQo" aria-label="Assistir a outro case em vídeo"><img src="https://img.youtube.com/vi/hPJOKWCvEQo/hqdefault.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true"><i class="ic" style="--i:var(--ic-play)"></i></span></button>
-      <button class="yt pb" type="button" data-id="OCxVrZ1iskE" aria-label="Assistir a mais um case em vídeo"><img src="https://img.youtube.com/vi/OCxVrZ1iskE/hqdefault.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true"><i class="ic" style="--i:var(--ic-play)"></i></span></button>
+    <div class="carrossel" id="carrossel" aria-roledescription="carrossel" aria-label="Depoimentos em vídeo e texto">
+      <div class="trilha" id="trilha"></div>
+      <div class="ctrl"><button type="button" class="ant" aria-label="Anterior"><i class="ic" style="--i:var(--ic-seta);transform:scaleX(-1)"></i></button><button type="button" class="prox" aria-label="Próximo"><i class="ic" style="--i:var(--ic-seta)"></i></button></div>
     </div>
-    <div class="clientes" id="clientes" aria-label="Empresas atendidas"></div>
+    <div class="logos logos-2" aria-label="Empresas atendidas"><div class="trilho" id="trilho2"></div></div>
   </div>
 </section>
 
@@ -551,13 +583,30 @@ body[data-casco="inicio"] .foot{margin-top:0}
   var LOGOS=[['instituto-rogerio-penna','Instituto Rogério Penna'],['tendas-aluban','Tendas Aluban'],['siqueira-gaipo','Siqueira Gaipo'],['super-bolla','Super Bolla'],['holanda-apoio-empresarial','Holanda Apoio Empresarial'],['dental-adelar','Dental Adelar'],['antonelle','Antonelle'],['boldz','Boldz'],['casa-lis','Casa Lis'],['casamarela','Casamarela'],['clara-construtora','Clara Construtora'],['grupo-cical','Grupo Cical'],['ido-odontologia','IDO Odontologia'],['infindo','Infindo'],['joola','Joola'],['lan-producoes','LAN Produções'],['dra-laura-scher','Dra. Laura Scher'],['minas-couros','Minas Couros'],['numer','Numer'],['priori-sa','Priori SA'],['raddar-digital','Raddar Digital'],['urbs','URBS']];
   var img=function(l){ return '<img src="/assets/clientes/'+l[0]+'.png" alt="'+l[1]+'" loading="lazy">'; };
   document.getElementById('trilho').innerHTML=LOGOS.concat(LOGOS).map(img).join('');
-  document.getElementById('clientes').innerHTML=LOGOS.map(function(l){ return '<div>'+img(l)+'</div>'; }).join('');
+  document.getElementById('trilho2').innerHTML=LOGOS.concat(LOGOS).map(img).join('');
 
-  document.querySelectorAll('.yt').forEach(function(b){
-    b.addEventListener('click',function(){
-      b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+b.dataset.id+'?autoplay=1" title="Vídeo" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
-    },{once:true});
-  });
+  var VIDEOS=[["0zsAhbKneP4", "Adonis"], ["y7Lz5y0iIGk", "Aluban"], ["1Q2mbG-iu9E", "Silka Uniformes"], ["g4VJ5-bjbaE", "Weslayne"], ["y8FJd4XxVPE", "Infindo"], ["s_N7N3tFw6o", "Rogério Penna · Leticia Guedes"], ["4IWPxpIVzGc", "Lisa Mirela · Casa Lis"], ["hPJOKWCvEQo", "Laboratório Alcântara"], ["X63DVgO3OoA", "Grupo Cical"], ["MEki-u2ityA", "Clara Construtora"], ["_Snv9AzZ6YM", "Vista Breja"], ["Bs82W0gYINA", "Marcel Bianchi"], ["OCxVrZ1iskE", "Dra. Laura Scher"], ["qIF9VsOulOY", "Rick · Boldz Design"], ["lPw3Fz6KPkE", "Wendra · WW Cerimonial"], ["lgKGwP3TdrU", "Clara Construtora"], ["-xczzMj-BYA", "Multiodonto"], ["p63oeS3Bc5U", "Thales Miranda"], ["tmsSCAmo5aU", "Marcel Bianchi"], ["j9hJAVETSvM", "URBS"], ["nXWffvdjXuw", "Super Bolla"], ["E_MY9X6Pb90", "Taty · Produtora de eventos musicais"], ["qfSie1d3Beo", "Talita · Dentista"], ["Kcpot2LlR9Y", "Rafael Moreira · Clínica Brasil"], ["UENVhDqqZ4s", "Brunna Moreno · Clínica Brasil"], ["Xj-hDQqf6jc", "Thiago · Dentista"], ["0sg6nhHdt6Q", "Shelly · Engenheiro de áudio"], ["ZJul8_10yVk", "Renata · Coral de casamentos"], ["soe5DONeqyA", "Marcela · Estilista"], ["VETUA-YI6a4", "Hugo · Cirurgião plástico"], ["FnuRAFgZl9Q", "Juliano · Produtor musical"], ["Yp9poSvs_4o", "César · Lançamentos digitais"], ["utIBteE3lkI", "Bruna · Estilista"], ["1xy6zZ9i8eI", "Bruno · Battle Division"], ["SyMLh1Iwla8", "Jomay"], ["cZj1o3uJErA", "Attivar Uniformes"], ["ELd5QDM54NM", "Clínica Brasil"], ["OKrEsbVDMJM", "Marcel"], ["-IcCW_Hr8xE", "Marcel Bianchi"], ["PhGXutKjhnc", "Marcel Bianchi"], ["g37Wz9HuTU0", "Seja Unique"], ["t6IMAgEQ8-s", "WW Cerimonial"], ["1RcFt0gubAM", "Estratégias que não custam nem 1 real"], ["FB___1KFVPQ", "Eu precisava de um norte"], ["6kIj91COkkc", "O segredo para ter êxito"], ["-5rDORsrAJY", "O passo a passo"], ["ZeDVplRpiCM", "Falar no Instagram traz feedback"]];
+  var DEPOS=[{"t": "Foi muito positivo, prático. Conseguimos levar para a realidade da empresa. Sentimos o envolvimento dos colaboradores.", "n": "Dr. Evandro Queiroz e Evandro Vitoy", "c": "Diretores da Clínica Brasil"}, {"t": "Além de elevar nossa empresa, minha própria visão como profissional de fotografia foi transformada.", "n": "Vinicius", "c": "Infindo Fotografia"}, {"t": "Minha primeira impressão sobre o Carlos foi que ele era louco. Mas depois, vi o quanto ele agregou para nós.", "n": "Rafael", "c": "Supervisor de Atendimento Online, Clínica Brasil"}, {"t": "O Carlos abriu meus olhos para o mundo atual, onde a comunicação é essencial para crescer. Ele me ajudou a entender que não basta ter um bom produto; é preciso saber quem é o seu cliente, o que ele espera e como traduzir isso para ele. Com a SEJA UNIQUE, conseguimos dar forma e voz à nossa marca, e o impacto foi imediato.", "n": "Renata", "c": "Proprietária, Aurora Songs"}, {"t": "A consultoria com o Carlos foi transformadora. Ele ajudou a Boldz a explorar seu potencial criativo, gerando uma rede de contatos e visibilidade que não tínhamos antes. Os clientes agora replicam nossa experiência, e isso tem sido incrível para o crescimento da nossa marca.", "n": "Rick", "c": "Representante, Boldz"}, {"t": "Antigamente, eu pensava apenas na técnica de produção. Hoje, vejo que cada peça é feita para uma pessoa especial. Desenvolver essa visão empreendedora foi e tem sido um divisor de águas. Cada encontro é um despertar, e apesar das dificuldades de sair da zona de conforto, os resultados positivos anestesiam a dor do processo.", "n": "Proprietária da Brukki Atelier", "c": "Proprietária, Brukki Atelier"}, {"t": "Hoje, consigo ver que cada peça que crio é para uma pessoa única. Desenvolver essa visão empreendedora foi um divisor de águas na minha vida profissional. Sair da zona de conforto é difícil, mas vale muito a pena.", "n": "Proprietária da Brukki Atelier", "c": "Proprietária, Brukki Atelier"}, {"t": "O trabalho da Unique foi um divisor de águas na minha empresa. Muitas coisas mudaram, o faturamento melhorou demais, e hoje vejo que a Casa Lis oferece uma experiência inigualável.", "n": "Lisa Mirella", "c": "Proprietária, Casa Lis Espaço e Buffet"}, {"t": "Foi uma palestra simplesmente fantástica. Eu saí com um mega conteúdo para o meu dia a dia. Eu me considero um bom vendedor, mas percebi que tenho muito a melhorar.", "n": "Vendedor da Cical Chevrolet", "c": "Equipe de vendas, Cical Chevrolet"}, {"t": "Existe uma Clara Construtora antes do Carlos e uma Clara Construtora depois do Carlos. Nossa visão mudou completamente. Hoje, mostramos quem realmente somos e conectamos com nossos clientes de forma autêntica.", "n": "Representante da Clara Construtora", "c": "Clara Construtora"}, {"t": "A consultoria com o Carlos foi um divisor de águas. Ele me ajudou a ver a importância de criar uma marca e de focar na estética, que é onde realmente quero estar. As orientações sobre gestão, encantamento e posicionamento de público foram essenciais para o crescimento do meu consultório. Cada reunião valeu muito!", "n": "Dra. Laura Scher", "c": "Dermatologista, Anápolis"}, {"t": "A consultoria da UNIQUE abriu meus olhos para as oportunidades que estavam à nossa disposição. Hoje, vejo a importância de usar cada história e feedback como base para reforçar nossa qualidade. A orientação de Carlos trouxe uma nova energia ao IDO, e agora estamos muito mais alinhados com o que o nosso público espera de nós.", "n": "Representante do IDO", "c": "IDO - Instituto Dantas de Odontologia"}, {"t": "Foi um divisor de águas na minha vida e no meu laboratório. Cada centavo que investi, eu não me arrependo. O Carlos me deu a realidade e me mostrou o que precisava ser feito sem rodeios. Ele é um cara muito foda e está pronto para palestras grandes.", "n": "Laboratório Alcântara", "c": "Cliente de mentoria"}, {"t": "A consultoria da UNIQUE me fez perceber que fotografia é mais do que técnica; é sobre pessoas. Aprendi a valorizar a experiência de cada cliente, criando uma conexão que vai além da foto. Hoje, cada registro é uma experiência, e o retorno dos meus clientes tem sido incrível.", "n": "Marcel Bianchi", "c": "Fotógrafo"}, {"t": "A consultoria da SEJA UNIQUE foi a mudança que precisávamos. Transformamos nosso atendimento e conquistamos a confiança dos pacientes de uma forma única.", "n": "Lilian MultiOdonto", "c": "Multiodonto"}, {"t": "Eu sou uma pessoa extremamente criativa, já vi muita coisa. Mas a Unique conseguiu despertar algo novo em mim, trazendo leveza e mostrando que as coisas podem ser diferentes e promissoras. Aqui é um espaço onde me sinto confiante e vejo um caminho transformador.", "n": "Rogério Pena", "c": "Dentista, Instituto Rogério Penna"}, {"t": "Marketing é pra quem tem coragem, pra quem quer fazer a diferença. Nós não vendemos mais camisas de futebol; estampamos o sentimento que define o futebol.", "n": "Tarcísio Gark", "c": "Sócio Proprietário, Superbola"}, {"t": "Com a mentoria do Carlos, esperamos trazer um atendimento qualificado, focado na necessidade do cliente e não em uma venda a qualquer custo. Queremos gerar valor para as famílias e pessoas que buscam nosso auxílio.", "n": "Georgiane", "c": "Diretora de Operações, URBS Construtora"}, {"t": "Com a consultoria da UNIQUE, entendemos que cada evento é uma experiência única. Aprendemos a ir além da execução técnica, cuidando de cada detalhe para garantir que nossos clientes se sintam especiais e acolhidos. A transformação na nossa marca e atendimento tem sido um divisor de águas.", "n": "Proprietário", "c": "WW Cerimonial"}];
+  (function(){
+    var t=document.getElementById('trilha'),h=[],i=0,j=0;
+    function e(x){return String(x).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+    while(i<VIDEOS.length||j<DEPOS.length){
+      if(i<VIDEOS.length){var v=VIDEOS[i++];h.push('<button class="yt pb" type="button" data-id="'+v[0]+'" aria-label="Assistir ao depoimento: '+e(v[1])+'"><img src="https://img.youtube.com/vi/'+v[0]+'/hqdefault.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true"><i class="ic" style="--i:var(--ic-play)"></i></span><span class="rot">'+e(v[1])+'</span></button>');}
+      if(j<DEPOS.length){var d=DEPOS[j++];h.push('<blockquote class="q"><i class="ic" style="--i:var(--ic-aspas)"></i><p>"'+e(d.t)+'"</p><cite><b>'+e(d.n)+'</b>'+e(d.c)+'</cite></blockquote>');}
+    }
+    t.innerHTML=h.join('');
+    var c=document.getElementById('carrossel'),para=false,tocou=false;
+    function passo(){return t.firstElementChild.getBoundingClientRect().width+18;}
+    function anda(n){var fim=t.scrollLeft+t.clientWidth>=t.scrollWidth-4;
+      if(n>0&&fim)t.scrollTo({left:0});else if(n<0&&t.scrollLeft<=4)t.scrollTo({left:t.scrollWidth});else t.scrollBy({left:n*passo()});}
+    c.querySelector('.prox').onclick=function(){anda(1);};
+    c.querySelector('.ant').onclick=function(){anda(-1);};
+    c.addEventListener('mouseenter',function(){para=true;});c.addEventListener('mouseleave',function(){para=false;});
+    t.addEventListener('focusin',function(){para=true;});
+    setInterval(function(){if(!para&&!tocou&&!document.hidden)anda(1);},4500);
+    t.addEventListener('click',function(ev){var b=ev.target.closest('.yt');if(!b||b.querySelector('iframe'))return;tocou=true;
+      b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+b.dataset.id+'?autoplay=1" title="Vídeo" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';});
+  })();
 
   var MARK='<svg viewBox="0 0 318 879" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M3 0L0 3L1 30L36 48L49 60L56 72L61 102L62 761L54 812L36 831L1 849L0 876L3 879L313 879L318 875L317 851L272 825L261 810L255 789L254 111L257 79L265 61L278 49L317 28L318 4L313 0Z"/></svg>';
   var MESES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];

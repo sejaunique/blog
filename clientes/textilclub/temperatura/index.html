@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Textil Club · Temperatura e Funil</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{
+  --bg:#f6f7fb;--card:#ffffff;--text:#1d2230;--muted:#5d6475;--line:#e3e6ee;
+  --hot:#e5484d;--hot-bg:#fdecec;--warm:#e8930c;--warm-bg:#fdf3e2;--cold:#2f7fd8;--cold-bg:#e8f1fc;
+  --accent:#4b3fd1;--accent-bg:#eeecfc;--ok:#1f9d55;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12141b;--card:#1b1e28;--text:#eceef4;--muted:#a3a9b8;--line:#2c3040;
+    --hot-bg:#3a1c1e;--warm-bg:#3a2c14;--cold-bg:#16273d;--accent-bg:#26224a;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12141b;--card:#1b1e28;--text:#eceef4;--muted:#a3a9b8;--line:#2c3040;
+  --hot-bg:#3a1c1e;--warm-bg:#3a2c14;--cold-bg:#16273d;--accent-bg:#26224a;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.55}
+.wrap{max-width:920px;margin:0 auto;padding:24px 16px 60px}
+header{text-align:center;padding:20px 0 8px}
+header h1{font-size:1.7rem;margin:0 0 6px}
+header p{color:var(--muted);margin:0}
+h2{font-size:1.3rem;margin:40px 0 12px;display:flex;align-items:center;gap:10px}
+h2 .n{background:var(--accent);color:#fff;border-radius:50%;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:12px 0}
+.intro{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.intro .card h3{margin:0 0 6px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.temp{border-radius:14px;padding:16px;border:2px solid}
+.temp h3{margin:0 0 4px;font-size:1.2rem}
+.temp .tag{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.temp ul{padding-left:18px;margin:8px 0}
+.temp .disp{margin-top:10px;padding:8px 10px;border-radius:8px;background:var(--card);font-size:.9rem}
+.hot{border-color:var(--hot);background:var(--hot-bg)} .hot h3,.hot .tag{color:var(--hot)}
+.warm{border-color:var(--warm);background:var(--warm-bg)} .warm h3,.warm .tag{color:var(--warm)}
+.cold{border-color:var(--cold);background:var(--cold-bg)} .cold h3,.cold .tag{color:var(--cold)}
+svg{width:100%;height:auto;display:block}
+svg text{font-family:inherit}
+.funnel{display:flex;flex-direction:column;align-items:center;gap:6px;margin:10px 0}
+.step{color:#fff;text-align:center;padding:10px 12px;border-radius:8px;font-weight:600}
+.step small{display:block;font-weight:400;opacity:.9;font-size:.82rem}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th,td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
+th{background:var(--accent-bg)}
+.tablewrap{overflow-x:auto}
+.ex{border-left:4px solid var(--accent);padding:10px 14px;background:var(--card);border-radius:0 10px 10px 0;margin:10px 0}
+.ex b{display:block;margin-bottom:2px}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.78rem;font-weight:700;color:#fff;margin-right:4px}
+.p-hot{background:var(--hot)}.p-warm{background:var(--warm)}.p-cold{background:var(--cold)}.p-st{background:var(--accent)}
+.check li{list-style:none;margin:6px 0;padding-left:28px;position:relative}
+.check li::before{content:"✓";position:absolute;left:0;top:0;color:#fff;background:var(--ok);border-radius:50%;width:20px;height:20px;font-size:.75rem;display:flex;align-items:center;justify-content:center}
+.warn{background:var(--warm-bg);border:1px solid var(--warm);border-radius:10px;padding:12px 14px}
+.muted{color:var(--muted);font-size:.9rem}
+@media (max-width:700px){
+  .intro,.grid3{grid-template-columns:1fr}
+  header h1{font-size:1.4rem}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>🌡️ Temperatura + 🎯 Etapa do Funil</h1>
+  <p>Guia para o consultor classificar cada contato corretamente no CRM</p>
+</header>
+
+<h2><span class="n">1</span>São duas perguntas diferentes</h2>
+<div class="intro">
+  <div class="card">
+    <h3>🌡️ Temperatura</h3>
+    <p><b>"Quanto esse contato conversa comigo?"</b><br>Mede o <b>histórico de interação</b>. Serve para decidir se o contato pode entrar em <b>disparo em massa</b>.</p>
+  </div>
+  <div class="card">
+    <h3>🎯 Etapa do funil</h3>
+    <p><b>"Quão perto ele está da Mentoria?"</b><br>Mede <b>em qual degrau da esteira</b> ele já chegou. Serve para saber <b>qual o próximo produto</b> oferecer.</p>
+  </div>
+</div>
+<p class="muted">⚠️ Uma coisa não substitui a outra. Um cliente pode ter feito a <b>Imersão</b> (avançado) e mesmo assim estar <b>Morno</b> (parou de responder). Preencha <b>os dois campos sempre</b>.</p>
+
+<h2><span class="n">2</span>As três temperaturas</h2>
+<div class="grid3">
+  <div class="temp hot">
+    <span class="tag">🔥 Histórico ativo</span>
+    <h3>QUENTE</h3>
+    <ul>
+      <li>Sempre responde</li>
+      <li>Interage com frequência</li>
+      <li>Conversa recente e contínua</li>
+    </ul>
+    <div class="disp">✅ <b>Pode receber disparo em massa.</b></div>
+  </div>
+  <div class="temp warm">
+    <span class="tag">🌤️ Esfriou</span>
+    <h3>MORNO</h3>
+    <ul>
+      <li>Já foi bem interessado</li>
+      <li>De repente parou e sumiu</li>
+      <li>Histórico existe, mas não está alto</li>
+    </ul>
+    <div class="disp">⚠️ <b>Com cuidado:</b> primeiro uma mensagem individual de reativação.</div>
+  </div>
+  <div class="temp cold">
+    <span class="tag">❄️ Sem histórico</span>
+    <h3>FRIO</h3>
+    <ul>
+      <li>Mandou só a 1ª mensagem e perdeu o interesse</li>
+      <li><b>ou</b> veio de base importada, foi ativado e nunca respondeu</li>
+    </ul>
+    <div class="disp">⛔ <b>Não entra em disparo em massa.</b></div>
+  </div>
+</div>
+
+<h2><span class="n">3</span>Fluxograma: qual temperatura marcar?</h2>
+<div class="card">
+<svg viewBox="0 0 640 560" role="img" aria-label="Fluxograma de classificação de temperatura">
+  <defs>
+    <marker id="ar" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker>
+  </defs>
+  <!-- start -->
+  <rect x="220" y="10" width="200" height="44" rx="22" fill="var(--accent)"/>
+  <text x="320" y="38" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Abra a conversa</text>
+  <line x1="320" y1="54" x2="320" y2="84" stroke="var(--muted)" stroke-width="2" marker-end="url(#ar)"/>
+  <!-- Q1 -->
+  <rect x="140" y="88" width="360" height="66" rx="10" fill="var(--card)" stroke="var(--accent)" stroke-width="2"/>
+  <text x="320" y="115" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">O contato responde e interage</text>
+  <text x="320" y="135" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">com frequência, até hoje?</text>
+  <!-- yes -> hot -->
+  <line x1="500" y1="121" x2="540" y2="121" stroke="var(--muted)" stroke-width="2"/>
+  <text x="520" y="112" text-anchor="middle" fill="var(--ok)" font-size="13" font-weight="700">SIM</text>
+  <rect x="540" y="96" width="94" height="50" rx="10" fill="var(--hot)"/>
+  <text x="587" y="127" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">🔥 QUENTE</text>
+  <!-- no -->
+  <line x1="320" y1="154" x2="320" y2="196" stroke="var(--muted)" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="335" y="180" fill="var(--hot)" font-size="13" font-weight="700">NÃO</text>
+  <!-- Q2 -->
+  <rect x="140" y="200" width="360" height="66" rx="10" fill="var(--card)" stroke="var(--accent)" stroke-width="2"/>
+  <text x="320" y="227" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">Já teve uma conversa boa, com interesse,</text>
+  <text x="320" y="247" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">e depois parou de responder?</text>
+  <line x1="500" y1="233" x2="540" y2="233" stroke="var(--muted)" stroke-width="2"/>
+  <text x="520" y="224" text-anchor="middle" fill="var(--ok)" font-size="13" font-weight="700">SIM</text>
+  <rect x="540" y="208" width="94" height="50" rx="10" fill="var(--warm)"/>
+  <text x="587" y="239" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">🌤️ MORNO</text>
+  <line x1="320" y1="266" x2="320" y2="308" stroke="var(--muted)" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="335" y="292" fill="var(--hot)" font-size="13" font-weight="700">NÃO</text>
+  <!-- Q3 -->
+  <rect x="140" y="312" width="360" height="86" rx="10" fill="var(--card)" stroke="var(--accent)" stroke-width="2"/>
+  <text x="320" y="340" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">Só mandou a 1ª mensagem e sumiu,</text>
+  <text x="320" y="360" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">ou veio de base importada e</text>
+  <text x="320" y="380" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">nunca deu sequência?</text>
+  <line x1="500" y1="355" x2="540" y2="355" stroke="var(--muted)" stroke-width="2"/>
+  <text x="520" y="346" text-anchor="middle" fill="var(--ok)" font-size="13" font-weight="700">SIM</text>
+  <rect x="540" y="330" width="94" height="50" rx="10" fill="var(--cold)"/>
+  <text x="587" y="361" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">❄️ FRIO</text>
+  <!-- disparo legend -->
+  <rect x="20" y="430" width="600" height="114" rx="12" fill="var(--accent-bg)"/>
+  <text x="40" y="458" fill="var(--text)" font-size="15" font-weight="700">Depois de classificar → posso fazer disparo em massa?</text>
+  <circle cx="48" cy="482" r="8" fill="var(--hot)"/><text x="64" y="487" fill="var(--text)" font-size="14">Quente → SIM, pode entrar na lista de disparo</text>
+  <circle cx="48" cy="506" r="8" fill="var(--warm)"/><text x="64" y="511" fill="var(--text)" font-size="14">Morno → só depois de reativar individualmente</text>
+  <circle cx="48" cy="530" r="8" fill="var(--cold)"/><text x="64" y="535" fill="var(--text)" font-size="14">Frio → NÃO entra no disparo em massa</text>
+</svg>
+<p class="muted">💡 Na dúvida entre duas temperaturas, marque a <b>mais fria</b>. É mais seguro para o número e evita bloqueios por envio a quem não interage.</p>
+</div>
+
+<h2><span class="n">4</span>Etapa do funil: a esteira até a Mentoria</h2>
+<div class="card">
+  <p>O objetivo final é sempre <b>fechar a Mentoria</b>. Cada produto da esteira serve para aquecer o cliente e levá-lo um degrau mais perto dela. A etapa do funil é <b>o degrau mais alto que o cliente já alcançou</b> (participou ou comprou).</p>
+  <div class="funnel">
+    <div class="step" style="background:#8f8ae6;width:100%">1. Isca gratuita<small>Primeiro contato com o conteúdo, sem pagar nada</small></div>
+    <div class="step" style="background:#7a74e0;width:92%">2. E-book<small>Primeiro passo de consumo/compra</small></div>
+    <div class="step" style="background:#6a62dc;width:84%">3. Mesa redonda<small>Reunião em grupo com pitch coletivo de vendas</small></div>
+    <div class="step" style="background:#5a50d8;width:76%">4. Imersão online<small>Evento online de aquecimento</small></div>
+    <div class="step" style="background:#4b3fd1;width:68%">5. Evento presencial (1 dia)<small>Contato presencial, relação mais forte</small></div>
+    <div class="step" style="background:#3d32b5;width:60%">6. Imersão (1 dia ou 2 dias)<small>Experiência mais profunda, último degrau antes da Mentoria</small></div>
+    <div class="step" style="background:#1f9d55;width:50%">🎯 MENTORIA ✅<small>Objetivo final: venda fechada</small></div>
+  </div>
+  <p class="muted">Se a ordem real da esteira for diferente, ajuste os números; a regra continua: quanto mais para baixo, mais perto da Mentoria. O cliente pode pular degraus (ex.: sair da isca direto para a imersão). Marque sempre o degrau mais avançado que ele já atingiu.</p>
+</div>
+
+<h2><span class="n">5</span>Comprou um degrau ≠ está quente</h2>
+<div class="card">
+  <p>Mesmo comprando um produto da esteira, o cliente <b>esquenta e esfria</b>. A <b>etapa</b> só sobe (ele já fez aquilo), mas a <b>temperatura</b> sobe e desce conforme ele conversa com você.</p>
+<svg viewBox="0 0 640 300" role="img" aria-label="Gráfico mostrando a temperatura subindo e descendo enquanto o cliente avança na esteira">
+  <!-- zones -->
+  <rect x="60" y="20" width="560" height="70" fill="var(--hot-bg)"/>
+  <rect x="60" y="90" width="560" height="70" fill="var(--warm-bg)"/>
+  <rect x="60" y="160" width="560" height="70" fill="var(--cold-bg)"/>
+  <text x="54" y="60" text-anchor="end" fill="var(--hot)" font-size="12" font-weight="700">🔥</text>
+  <text x="54" y="130" text-anchor="end" fill="var(--warm)" font-size="12" font-weight="700">🌤️</text>
+  <text x="54" y="200" text-anchor="end" fill="var(--cold)" font-size="12" font-weight="700">❄️</text>
+  <text x="66" y="36" fill="var(--hot)" font-size="12" font-weight="700">QUENTE</text>
+  <text x="66" y="106" fill="var(--warm)" font-size="12" font-weight="700">MORNO</text>
+  <text x="66" y="176" fill="var(--cold)" font-size="12" font-weight="700">FRIO</text>
+  <!-- curve -->
+  <path d="M80,200 C110,200 120,70 150,60 C180,50 190,190 220,190 C250,190 260,55 290,50 C320,45 330,130 360,130 C390,130 400,45 430,40 C460,35 470,150 500,150 C530,150 545,40 570,35 L600,32"
+        fill="none" stroke="var(--accent)" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- points -->
+  <g font-size="11" fill="var(--text)" text-anchor="middle">
+    <circle cx="150" cy="60" r="6" fill="var(--accent)"/>
+    <circle cx="290" cy="50" r="6" fill="var(--accent)"/>
+    <circle cx="430" cy="40" r="6" fill="var(--accent)"/>
+    <circle cx="570" cy="35" r="7" fill="var(--ok)"/>
+  </g>
+  <!-- x axis labels -->
+  <line x1="60" y1="230" x2="620" y2="230" stroke="var(--line)" stroke-width="2"/>
+  <g font-size="11.5" fill="var(--text)" text-anchor="middle" font-weight="600">
+    <text x="150" y="250">Baixou isca</text>
+    <text x="220" y="250" fill="var(--muted)">sumiu</text>
+    <text x="290" y="250">Mesa redonda</text>
+    <text x="360" y="250" fill="var(--muted)">esfriou</text>
+    <text x="430" y="250">Imersão</text>
+    <text x="500" y="250" fill="var(--muted)">esfriou</text>
+    <text x="575" y="250" fill="var(--ok)">Mentoria</text>
+  </g>
+  <text x="340" y="285" text-anchor="middle" fill="var(--muted)" font-size="12">A etapa só avança → mas a temperatura oscila o tempo todo</text>
+</svg>
+  <p><b>Na prática:</b></p>
+  <ul>
+    <li>Durante e logo após um produto (mesa redonda, imersão, evento), o cliente costuma ficar <b>quente</b>.</li>
+    <li>Passado o evento, se ele para de responder, <b>rebaixe para morno</b>, mesmo que já tenha comprado algo.</li>
+    <li>Ter comprado não significa estar quente. Quem comprou o e-book e nunca mais conversou é <b>frio</b>, na etapa E-book.</li>
+    <li>O momento mais valioso para oferecer o <b>próximo degrau</b> é quando ele está quente logo após um produto.</li>
+  </ul>
+</div>
+
+<h2><span class="n">6</span>Juntando os dois: o que fazer com cada contato</h2>
+<div class="card tablewrap">
+<table>
+  <tr><th>Etapa ↓ / Temperatura →</th><th style="color:var(--hot)">🔥 Quente</th><th style="color:var(--warm)">🌤️ Morno</th><th style="color:var(--cold)">❄️ Frio</th></tr>
+  <tr><td><b>Início da esteira</b><br><span class="muted">Isca gratuita / E-book</span></td><td>Disparo em massa + convite para a Mesa redonda</td><td>Mensagem individual retomando o conteúdo que ele baixou</td><td>Fora do disparo. Tentativa individual pontual ou arquivar</td></tr>
+  <tr><td><b>Meio da esteira</b><br><span class="muted">Mesa redonda / Imersão online / Evento presencial</span></td><td>Disparo + oferta do próximo degrau (Imersão)</td><td>Retomar algo que ele viveu no evento, de forma individual</td><td>Fora do disparo. Contato pessoal do consultor</td></tr>
+  <tr><td><b>Topo da esteira</b><br><span class="muted">Imersão 1 ou 2 dias</span></td><td>Atendimento 1 a 1, prioridade máxima para fechar a Mentoria</td><td>⚠️ Alerta: já investiu, mas esfriou. Ligação/áudio do consultor</td><td>Raro. Revisar se a classificação está certa</td></tr>
+</table>
+</div>
+
+<h2><span class="n">7</span>Exemplos práticos</h2>
+<div class="ex"><b>Maria baixou a isca, participou da mesa redonda ontem e está perguntando sobre a imersão.</b><span class="pill p-hot">QUENTE</span><span class="pill p-st">Mesa redonda</span></div>
+<div class="ex"><b>João fez a imersão de 2 dias, conversou muito na semana do evento e depois não respondeu mais.</b><span class="pill p-warm">MORNO</span><span class="pill p-st">Imersão 2 dias</span> <span class="muted">→ muito perto da Mentoria, mas esfriou. Não entra no disparo; reativar individualmente.</span></div>
+<div class="ex"><b>Carla comprou o e-book há 3 meses e nunca mais conversou.</b><span class="pill p-cold">FRIO</span><span class="pill p-st">E-book</span> <span class="muted">→ comprou, mas não tem histórico de conversa.</span></div>
+<div class="ex"><b>Ana mandou "oi, quanto custa a mentoria?" e depois nunca mais respondeu.</b><span class="pill p-cold">FRIO</span><span class="pill p-st">Isca gratuita / entrada</span> <span class="muted">→ perguntar da mentoria não muda a etapa; ela não viveu nenhum degrau.</span></div>
+<div class="ex"><b>Contato veio da planilha importada, recebeu a mensagem de ativação e não respondeu.</b><span class="pill p-cold">FRIO</span><span class="pill p-st">Entrada</span></div>
+<div class="ex"><b>Pedro foi ao evento presencial, sempre responde e comenta as novidades.</b><span class="pill p-hot">QUENTE</span><span class="pill p-st">Evento presencial</span> <span class="muted">→ momento ideal para oferecer a Imersão.</span></div>
+
+<h2><span class="n">8</span>Checklist do consultor</h2>
+<div class="card">
+<ul class="check">
+  <li>Li o histórico da conversa antes de classificar</li>
+  <li>Preenchi a <b>temperatura</b> (Quente, Morno ou Frio)</li>
+  <li>Preenchi a <b>etapa da esteira</b> separadamente (o degrau mais alto que ele já fez)</li>
+  <li>Não marquei Quente só porque ele comprou algo; olhei se ele está conversando</li>
+  <li>Depois de cada evento/produto, revisei a temperatura de quem participou</li>
+  <li>Na dúvida, marquei a temperatura mais fria</li>
+  <li>Atualizo a temperatura quando o cliente volta a responder ou para de responder</li>
+  <li>Só coloco <b>Quente</b> na lista de disparo em massa</li>
+</ul>
+</div>
+
+<div class="warn">
+  <b>Lembrete:</b> temperatura muda com o tempo. Um Morno que voltou a conversar vira Quente; um Quente que sumiu vira Morno. Revise antes de cada disparo.
+</div>
+
+</div>
+</body>
+</html>

@@ -79,7 +79,7 @@ def pagina(d):
     rot = ' · '.join(x for x in ['Case de sucesso', d.get('segmento', ''), d.get('cidade', '')] if x)
     h1 = f'<span class="a">{d["h1a"]}</span>' + (f'<span class="b">{d["h1b"]}</span>' if d.get('h1b') else '')
     abre = (f'<section class="abre" aria-labelledby="h1">\n  <div class="wrap">\n    <div class="txt">\n'
-            f'      <a class="volta" href="/#cases">{ic("seta", ";transform:scaleX(-1)")}Todos os cases</a>\n'
+            f'      <a class="volta" href="/cases/">{ic("seta", ";transform:scaleX(-1)")}Todos os cases</a>\n'
             f'      <span class="spaced">{a(rot)}</span>\n      <h1 id="h1">{h1}</h1>\n'
             f'      <p class="sub">{d["sub_html"]}</p>\n    </div>\n    '
             + (video(vids[0], 'Assista ao case', f'Assistir ao case da {nome} em vídeo') if vids else '') +

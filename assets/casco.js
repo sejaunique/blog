@@ -17,7 +17,7 @@
     '<nav class="menu" aria-label="Principal">'+
       '<a href="'+h('metodo')+'">Método</a>'+
       '<a href="'+h('servicos')+'">Serviços</a>'+
-      '<a href="/cases/clinica-brasil/"'+cur('cases')+'>Cases</a>'+
+      '<a href="/cases/"'+cur('cases')+'>Cases</a>'+
       '<a href="/blog/"'+cur('blog')+'>Blog</a>'+
       '<a href="/area/"'+cur('area')+'>Área do cliente</a>'+
       '<a class="btn" href="/diagnostico/">Faça seu diagnóstico</a>'+
@@ -40,7 +40,7 @@
       '</div>'+
     '<div><h4>Navegação</h4><ul>'+
       '<li><a href="'+h('metodo')+'">Método</a></li><li><a href="'+h('servicos')+'">Serviços</a></li>'+
-      '<li><a href="/cases/clinica-brasil/">Cases</a></li><li><a href="/blog/">Blog</a></li><li><a href="/diagnostico/">Diagnóstico</a></li></ul></div>'+
+      '<li><a href="/cases/">Cases</a></li><li><a href="/blog/">Blog</a></li><li><a href="/diagnostico/">Diagnóstico</a></li></ul></div>'+
     '<div><h4>Contato</h4><ul>'+
       '<li><a href="'+WA+'" target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>WhatsApp</a></li>'+
       '<li><a href="https://www.instagram.com/sejauniqueoficial" target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-instagram)"></i>Instagram</a></li>'+

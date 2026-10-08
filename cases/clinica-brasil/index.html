@@ -54,7 +54,7 @@ section{padding-block:88px}
 .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
 /* ficha */
-.ficha{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+.ficha{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}
 .ficha div{padding:28px 22px;border-right:1px solid var(--line);display:grid;gap:6px}
 .ficha div:last-child{border-right:0}
 .ficha .ic{width:24px;height:24px;color:var(--marinho-txt)}
@@ -64,7 +64,7 @@ section{padding-block:88px}
 .bloco-t{display:grid;grid-template-columns:200px 1fr;gap:40px;align-items:start}
 .bloco-t .lado{position:sticky;top:100px;display:grid;gap:14px}
 .bloco-t .lado .I{width:34px;height:94px}
-.bloco-t .lado .spaced{color:var(--muted)}
+.bloco-t .lado .spaced{color:var(--muted);font-size:.8rem;font-weight:700;letter-spacing:.3em;border-top:2px solid currentColor;padding-top:12px}
 .bloco-t h2{font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.05;font-weight:800;letter-spacing:-.035em;margin:0 0 20px}
 .bloco-t h2 .leve{font-weight:200;font-style:italic}
 .bloco-t p{margin:0 0 16px;color:var(--muted);font-size:1.06rem;max-width:62ch}
@@ -107,7 +107,7 @@ section{padding-block:88px}
 .dq p{margin:0;font-size:1.08rem;line-height:1.55;font-style:italic;font-weight:500}
 .dq cite{font-style:normal;font-size:.82rem;color:var(--muted)}
 .dq cite b{display:block;color:var(--fg);font-size:.92rem}
-.grande{margin:40px 0 0;background:var(--ink);color:var(--ink-fg);border-radius:var(--r);padding:clamp(28px,5vw,56px);display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:center}
+.grande{margin:40px 0 0;background:var(--ink);color:var(--ink-fg);border-radius:var(--r);padding:clamp(28px,5vw,56px)}
 .grande .tres-i{height:150px;width:110px}
 .grande p{margin:0 0 18px;font-size:clamp(1.3rem,2.6vw,1.9rem);line-height:1.3;font-weight:300;letter-spacing:-.02em}
 .grande p b{font-weight:800}
@@ -127,7 +127,13 @@ section{padding-block:88px}
 
 .cta{background:var(--ink);color:var(--ink-fg);border-radius:var(--r);padding:clamp(32px,6vw,64px);display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center}
 .cta h2{margin:0 0 12px;font-size:clamp(1.8rem,4vw,3rem);line-height:1;font-weight:800;letter-spacing:-.04em}
-.cta h2 .leve{font-weight:200;font-style:italic}
+.cta h2 .leve{display:block;font-weight:200;font-style:italic;font-size:.62em;margin-top:.12em}
+.foto{margin:26px 0 0;border-radius:var(--r);overflow:hidden}
+.foto img{width:100%;height:auto}
+.galeria{display:grid;gap:14px}
+.galeria figure{margin:0;border-radius:var(--r);overflow:hidden}
+.galeria img{width:100%;height:auto}
+.video img{filter:grayscale(1)}.video:hover img{filter:none}
 .cta p{margin:0;color:var(--ink-muted)}
 .cta .bts{display:grid;gap:10px;justify-items:start}
 .cta .bts .btn:not(.verde){color:var(--ink-fg)}
@@ -143,7 +149,6 @@ section{padding-block:88px}
   .bloco-t .lado .I{width:16px;height:44px}
   .depos,.impacto{grid-template-columns:1fr}
   .grande{grid-template-columns:1fr}
-  .grande .tres-i{height:80px;width:60px}
 }
 @media (max-width:600px){
   section{padding-block:64px}
@@ -178,14 +183,14 @@ section{padding-block:88px}
   <div><i class="ic" style="--i:var(--ic-calendar)"></i><b>27 anos</b><span>de história em atendimento médico</span></div>
   <div><i class="ic" style="--i:var(--ic-saude)"></i><b>+120</b><span>especialistas no corpo clínico</span></div>
   <div><i class="ic" style="--i:var(--ic-pin)"></i><b>Bueno</b><span>Setor Bueno, Goiânia (GO)</span></div>
-  <div><i class="ic" style="--i:var(--ic-lista)"></i><b>Completa</b><span>laboratório próprio, estacionamento e restaurante</span></div>
 </div>
 
 <section>
   <div class="leitura-w bloco-t">
-    <div class="lado"><span class="I" style="background:var(--fg)"></span><span class="spaced">A clínica</span></div>
+    <div class="lado"><span class="spaced">A clínica</span></div>
     <div>
       <h2>Referência em diagnóstico. <span class="leve">E agora em atendimento.</span></h2>
+      <figure class="foto pb"><img src="/cases/clinica-brasil/fotos/fachada.jpg" alt="Fachada da Clínica Brasil, no setor Bueno" width="1273" height="440" loading="lazy"></figure>
       <p>Com 27 anos de história, a <b>Clínica Brasil</b> é uma referência em atendimento médico de excelência e diagnósticos de alta precisão. Localizada no setor Bueno, em Goiânia, possui uma infraestrutura moderna, com mais de 120 especialistas, laboratório próprio, estacionamento e até restaurante, tudo para oferecer uma experiência completa aos pacientes.</p>
     </div>
   </div>
@@ -193,7 +198,7 @@ section{padding-block:88px}
 
 <section style="padding-top:0">
   <div class="leitura-w bloco-t">
-    <div class="lado"><span class="I mag"></span><span class="spaced c-mag">O desafio</span></div>
+    <div class="lado"><span class="spaced c-mag">O desafio</span></div>
     <div>
       <h2>Muito paciente, <span class="leve">pouca estrutura para atender.</span></h2>
       <p>A clínica enfrentava desafios que comprometiam a eficiência e a experiência do paciente:</p>
@@ -209,10 +214,11 @@ section{padding-block:88px}
 
 <section class="solucao">
   <div class="leitura-w bloco-t">
-    <div class="lado"><span class="I" style="background:#fff"></span><span class="spaced">A solução Unique</span></div>
+    <div class="lado"><span class="spaced">A solução Unique</span></div>
     <div>
       <h2>Cinco frentes, <span class="leve">uma jornada do paciente.</span></h2>
       <p>Para transformar o atendimento, a Unique implantou soluções personalizadas em processo, tecnologia e pessoas.</p>
+      <figure class="foto pb"><img src="/cases/clinica-brasil/fotos/mesa.jpg" alt="Carlos Ribeiro trabalhando com a gestão da Clínica Brasil" width="1600" height="901" loading="lazy"></figure>
       <ol class="passos">
         <li><span class="num">01</span><div><b>API de comunicação integrada</b><span>Centralizou o atendimento em um só canal, com agilidade e uniformidade.</span></div></li>
         <li><span class="num">02</span><div><b>Scripts personalizados</b><span>Diretrizes para cada etapa da jornada do paciente, com clareza e consistência.</span></div></li>
@@ -226,7 +232,7 @@ section{padding-block:88px}
 
 <section>
   <div class="leitura-w bloco-t">
-    <div class="lado"><span class="I ver"></span><span class="spaced c-ver">Resultados</span></div>
+    <div class="lado"><span class="spaced c-ver">Resultados</span></div>
     <div>
       <h2>O que mudou <span class="leve">já no curto prazo.</span></h2>
       <ul class="itens ver">
@@ -256,7 +262,7 @@ section{padding-block:88px}
 
 <section style="padding-top:0">
   <div class="leitura-w bloco-t">
-    <div class="lado"><span class="I" style="background:var(--fg)"></span><span class="spaced">Depoimentos</span></div>
+    <div class="lado"><span class="spaced">Depoimentos</span></div>
     <div>
       <h2>Quem viveu <span class="leve">conta melhor.</span></h2>
       <div class="depos">
@@ -264,10 +270,20 @@ section{padding-block:88px}
         <blockquote class="dq"><i class="ic" style="--i:var(--ic-aspas)"></i><p>"Minha primeira impressão sobre o Carlos foi que ele era louco. Mas depois, vi o quanto ele agregou para nós. Os resultados são satisfatórios demais: atendimento humanizado e um aumento nas conversões que ninguém esperava."</p><cite><b>Rafael</b>Supervisor de Atendimento Online</cite></blockquote>
       </div>
       <blockquote class="grande">
-        <div class="tres-i" aria-hidden="true"><span class="I mag"></span><span class="I" style="background:#fff"></span><span class="I ver"></span></div>
         <div><p>"Foi muito positivo, prático. Conseguimos levar para a <b>realidade da empresa</b>. Sentimos o envolvimento dos colaboradores e seguramente a sistemática vai dar um retorno muito bom para a clínica."</p>
         <cite><b>Dr. Evandro Queiroz e Evandro Vitoy</b>Diretores da Clínica Brasil</cite></div>
       </blockquote>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="leitura-w" style="max-width:var(--wide)">
+    <span class="spaced muted" style="display:block;margin-bottom:16px">Bastidores do projeto</span>
+    <div class="galeria">
+      <figure class="pb"><img src="/cases/clinica-brasil/fotos/galeria-1.jpg" alt="Carlos acompanhando a equipe da central de atendimento" width="1800" height="1013" loading="lazy"></figure>
+      <figure class="pb"><img src="/cases/clinica-brasil/fotos/galeria-2.jpg" alt="Carlos ao lado do time de atendimento da Clínica Brasil" width="1800" height="1013" loading="lazy"></figure>
+      <figure class="pb"><img src="/cases/clinica-brasil/fotos/galeria-3.jpg" alt="Treinamento com a equipe de uniforme da Clínica Brasil" width="1800" height="1013" loading="lazy"></figure>
     </div>
   </div>
 </section>

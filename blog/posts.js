@@ -14,13 +14,21 @@ window.BLOG = {
 
   sobre: {
     nome: "Carlos Ribeiro",
-    foto: "assets/carlos.jpg",
+    foto: "assets/carlos-familia.jpg",
     titulo: "Quem é Carlos Ribeiro?",
     texto: `Sou Carlos Ribeiro, casado com a Gabriela e pai do Theo e da Alda. Sou cristão e acredito profundamente em família, responsabilidade, trabalho, propósito e legado.
 
 Gosto de entender como as coisas funcionam e transformar ideias em algo concreto. Minha trajetória passou por áreas criativas, tecnologia, vendas, marketing e processos. Hoje, tudo isso se encontra no meu trabalho com empresas e empresários.
 
-Antes de qualquer profissão, eu me vejo como alguém que está **construindo**. O que faço profissionalmente é consequência daquilo em que acredito.`
+Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
+
+**O que faço profissionalmente é consequência daquilo em que acredito.**
+
+- Fundador da Unique Consultoria Comercial
+- Sócio Proprietário do Alda.CRM
+- Mentor comercial da Têxtil Club Academy
+- Criador do Método CRM: Comportamento Repetido Muda
+- Especialista em processos de vendas, CRM e automações comerciais`
   },
 
   chamada: "Gostou? Mande para alguém que precisa ler isso.",

@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <script src="/assets/tema.js"></script>
+<script src="/assets/whats.js" defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta property="og:title" content="Blog Seja Unique"><meta property="og:description" content="Opiniões curtas sobre técnicas e estratégias de vendas. Por Carlos Ribeiro, Unique."><meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
@@ -101,7 +102,9 @@ strong{font-weight:700}
 .card .txt{display:flex;flex-direction:column;gap:10px;min-width:0}
 .card h2{font-size:1.35rem;line-height:1.3;font-weight:500;letter-spacing:-.015em;margin:0;text-wrap:balance}
 .card p{margin:0;color:var(--muted);font-size:.92rem;line-height:1.6}
-.card a:hover h2 .t{background:linear-gradient(transparent 58%,var(--grifo) 58%,var(--grifo) 72%,transparent 72%)}
+.card .cover img{filter:grayscale(1);transition:filter .5s}
+.card a:hover .cover img,.card a:focus-visible .cover img{filter:none}
+.about img{filter:grayscale(1);transition:filter .5s}.about img:hover{filter:none}
 .grid .card:first-child{grid-column:1/-1}
 .grid .card:first-child a{display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:center}
 .grid .card:first-child .cover{aspect-ratio:16/10;border-radius:var(--r)}
@@ -115,6 +118,8 @@ strong{font-weight:700}
 .about h2{font-size:1.7rem;font-weight:500;line-height:1.2;letter-spacing:-.015em;margin:14px 0 12px}
 .about p{margin:0 0 14px;color:var(--muted);max-width:56ch}
 .about .btns{margin-top:22px}
+.bio-l{margin:0 0 6px;padding-left:1.1em;color:var(--muted);display:grid;gap:4px}
+.about p strong{color:var(--fg)}
 .btns{display:flex;flex-wrap:wrap;gap:10px}
 .btn{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;text-decoration:none;border-radius:999px;padding:11px 20px;border:1px solid var(--fg)}
 .btn.solid{background:var(--pill);color:var(--pill-fg);border-color:var(--pill)}
@@ -393,8 +398,8 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
 
   function sobre(){
     var s=C.sobre||{};
-    return '<section class="about" id="sobre">'+(s.foto?'<img src="'+esc(s.foto)+'" alt="'+esc(s.nome||'')+'" width="720" height="835">':'<div class="cover" style="aspect-ratio:3/4"><div class="ph">'+MARK+'</div></div>')+
-      '<div><span class="tag">Quem escreve</span><h2>'+inline(s.titulo||'')+'</h2>'+String(s.texto||'').split(/\n\s*\n/).map(function(t){return '<p>'+inline(t.trim())+'</p>';}).join('')+'<div class="btns">'+
+    return '<section class="about" id="sobre">'+(s.foto?'<img src="'+esc(s.foto)+'" alt="'+esc(s.nome||'')+'" width="725" height="900" style="object-fit:cover">':'<div class="cover" style="aspect-ratio:3/4"><div class="ph">'+MARK+'</div></div>')+
+      '<div><span class="tag">Quem escreve</span><h2>'+inline(s.titulo||'')+'</h2>'+String(s.texto||'').split(/\n\s*\n/).map(function(t){ t=t.trim(); if(/^- /.test(t)) return '<ul class="bio-l">'+t.split(/\n/).map(function(l){return '<li>'+inline(l.replace(/^-\s*/,''))+'</li>';}).join('')+'</ul>'; return '<p>'+inline(t)+'</p>';}).join('')+'<div class="btns">'+
       (L.whatsapp?'<a class="btn solid" href="'+L.whatsapp+'" target="_blank" rel="noopener">Falar no WhatsApp</a>':'')+
       (L.instagram?'<a class="btn" href="'+L.instagram+'" target="_blank" rel="noopener">Instagram</a>':'')+'</div></div></section>';
   }

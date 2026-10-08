@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <script src="/assets/tema.js"></script>
+<script src="/assets/whats.js" defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Unique · Links</title>
 <meta name="description" content="Carlos Ribeiro, Unique Consultoria Comercial. Diagnóstico comercial, site, blog, Instagram e Alda.CRM em um só lugar.">
@@ -57,7 +58,14 @@ a:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 /* links */
 .links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
 .lk{display:flex;align-items:center;gap:16px;min-height:64px;padding:14px 18px;border:1px solid var(--line);border-radius:20px;background:var(--soft);transition:transform .15s,border-color .2s}
-.lk:hover{border-color:var(--hover);transform:translateY(-1px)}
+.lk:hover,.lk:focus-visible,.lk:active{border-color:var(--fg);transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.12)}
+.lk .go{transition:transform .2s}.lk:hover .go,.lk:active .go{transform:translateX(4px)}
+.post{transition:border-color .2s,transform .2s}.post:hover,.post:active{border-color:var(--fg);transform:translateY(-2px)}
+.post .cv img{filter:grayscale(1);transition:filter .4s,transform .4s}.post:hover .cv img,.post:active .cv img{filter:none;transform:scale(1.05)}
+.social a{transition:background .2s,color .2s}.social a:hover,.social a:active{background:var(--fg);color:var(--bg)}
+.hero .l1{display:block;font-size:1.25rem;font-weight:800;color:var(--fg);letter-spacing:-.02em;line-height:1.2}
+.hero .l2{display:block;font-size:1rem;margin-top:6px}
+.hero .l3{display:block;font-size:.9rem;margin-top:4px;color:var(--fg);font-weight:700}
 .lk .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--chip);flex:none}
 .lk .tx{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
 .lk .tx strong{font-size:.98rem;font-weight:600}
@@ -101,7 +109,7 @@ a:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
     <div class="photo"><img src="/links/carlos.jpg?v=2" alt="Carlos Ribeiro"></div>
     <span class="spaced">Consultoria em Vendas</span>
     <h1>Carlos Ribeiro</h1>
-    <p>Vendas previsíveis não dependem de sorte. Dependem de <span class="grifo" style="color:var(--fg)">processo</span>. Criador do <b>Método CRM</b>: Comportamento Repetido Muda.</p>
+    <p><span class="l1">Vendas previsíveis não dependem de sorte.</span><span class="l2">Dependem de <span class="grifo" style="color:var(--fg)">processo</span>. Criador do <b>Método CRM</b></span><span class="l3">Comportamento Repetido Muda.</span></p>
   </header>
 
   <ul class="links">

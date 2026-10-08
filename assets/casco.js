@@ -50,11 +50,13 @@
     '<div><h4>Clientes</h4><ul>'+
       '<li><a href="/area/"><i class="ic" style="--i:var(--ic-login)"></i>Área do cliente</a></li>'+
       '<li><a href="/area/#cadastro"><i class="ic" style="--i:var(--ic-user)"></i>Solicitar acesso</a></li></ul></div>'+
-    '</div><div class="base"><span>© 2018–'+new Date().getFullYear()+' Seja Unique · Goiânia, GO</span><span>Let’s made f*ck <b>UN1QUE</b> companies for u</span></div></div>';
+    '</div><div class="base"><span>© 2018–'+new Date().getFullYear()+' Seja Unique · Goiânia, GO</span><span>Let’s made f*ck <b>UN1QUE</b> things for u</span></div></div>';
   function poeRodape(){ document.body.appendChild(foot); }
   // páginas de cliente ganham curtidas, comentários, compartilhar e o botão de página pública
   if(/^\/clientes\/[a-z0-9]+\/[a-z0-9-]+\/?/.test(location.pathname)){
     var sc=document.createElement('script'); sc.src='/assets/interacao.js'; sc.defer=true; document.head.appendChild(sc);
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',poeRodape); else poeRodape();
+  // botão flutuante de WhatsApp (fora da área do cliente)
+  if(ativo!=='area'){ var w=document.createElement('script'); w.src='/assets/whats.js'; w.defer=true; document.head.appendChild(w); }
 })();

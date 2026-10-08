@@ -16,15 +16,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
 <link rel="stylesheet" href="/assets/casco.css">
 <style>
-.acesso{display:grid;grid-template-columns:1.05fr .95fr;min-height:calc(100vh - 72px)}
-.lado{background:var(--ink);color:var(--ink-fg);padding:72px 56px;display:flex;flex-direction:column;justify-content:center;gap:28px}
-.lado .spaced{color:var(--ink-muted)}
+.acesso{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:80px;align-items:center;max-width:1120px;width:100%;margin:0 auto;padding:56px 20px;min-height:calc(100vh - 84px)}
+.lado{display:flex;flex-direction:column;justify-content:center;gap:26px}
+.lado .spaced{color:var(--muted)}
 .lado h1{font-size:clamp(2.1rem,4.4vw,3.5rem);line-height:1.04;font-weight:700;letter-spacing:-.035em;margin:0;max-width:14ch;text-wrap:balance}
-.lado p{color:var(--ink-muted);margin:0;max-width:44ch;font-size:1.02rem}
-.lado ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:0;border-top:1px solid var(--ink-line);max-width:460px}
-.lado li{display:flex;gap:16px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--ink-line);font-size:.92rem}
-.lado li span{font-size:.66rem;letter-spacing:.3em;color:var(--ink-muted);font-variant-numeric:tabular-nums}
-.form-lado{display:flex;align-items:center;justify-content:center;padding:56px 20px}
+.lado p{color:var(--muted);margin:0;max-width:44ch;font-size:1.02rem}
+.lado ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:0;border-top:1px solid var(--line);max-width:480px}
+.lado li{display:flex;gap:16px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.lado li span{font-size:.66rem;letter-spacing:.3em;color:var(--muted);font-variant-numeric:tabular-nums}
+.form-lado{display:flex;align-items:center;justify-content:center}
 .caixa{width:100%;max-width:420px}
 .abas{display:flex;gap:4px;border:1px solid var(--line);border-radius:999px;padding:4px;margin-bottom:28px}
 .abas button{flex:1;font:inherit;font-size:.8rem;font-weight:600;border:0;border-radius:999px;padding:10px;background:none;color:var(--muted);cursor:pointer}
@@ -43,9 +43,8 @@
 [hidden]{display:none!important}
 .foot{margin-top:0}
 @media (max-width:900px){
-  .acesso{grid-template-columns:1fr}
-  .lado{padding:48px 20px;order:2}
-  .form-lado{padding:40px 20px 56px}
+  .acesso{grid-template-columns:1fr;gap:48px;padding-top:32px}
+  .lado{order:2}
 }
 </style>
 </head>

@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Painel do cliente · Unique</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+[hidden]{display:none!important}
+.capa .linha{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between}
+.capa .btn{color:var(--ink-fg)}
+.resumo{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--ink-line);border:1px solid var(--ink-line);border-radius:var(--r);overflow:hidden;margin-top:40px}
+.resumo div{background:var(--ink);padding:20px 22px}
+.resumo b{display:block;font-size:2rem;font-weight:700;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums}
+.resumo span{font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-muted)}
+.bloco{padding-top:64px}
+.bloco-head{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between;margin-bottom:24px}
+.bloco-head .spaced{color:var(--muted);display:block;margin-bottom:8px}
+.bloco-head h2{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:600;letter-spacing:-.025em;line-height:1.1;margin:0}
+.filtros{display:flex;flex-wrap:wrap;gap:8px}
+.filtros button{font:inherit;font-size:.74rem;font-weight:600;border:1px solid var(--line);background:none;color:var(--fg);border-radius:999px;padding:7px 14px;cursor:pointer}
+.filtros button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;list-style:none;margin:0;padding:0}
+.item{border:1px solid var(--line);border-radius:var(--r);padding:24px;display:flex;flex-direction:column;gap:10px;min-height:210px;background:var(--bg);transition:border-color .2s}
+.item:hover{border-color:var(--fg)}
+.item .row{display:flex;justify-content:space-between;gap:10px;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.item h3{font-size:1.12rem;font-weight:600;letter-spacing:-.01em;line-height:1.3;margin:0}
+.item p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.55}
+.item .acoes{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap;padding-top:8px}
+.item .video{aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:var(--soft)}
+.item .video iframe{width:100%;height:100%;border:0}
+.item .texto{white-space:pre-wrap;font-size:.92rem;color:var(--fg);border-top:1px solid var(--line);padding-top:12px}
+.vazio{border:1px dashed var(--line);border-radius:var(--r);padding:36px;color:var(--muted);text-align:center}
+.plano{border-top:1px solid var(--fg)}
+.acao{display:grid;grid-template-columns:1fr auto;gap:8px 20px;align-items:center;padding:20px 0;border-bottom:1px solid var(--line)}
+.acao h3{font-size:1rem;font-weight:600;margin:0}
+.acao p{margin:4px 0 0;color:var(--muted);font-size:.88rem}
+.acao .meta{display:flex;flex-wrap:wrap;gap:14px;font-size:.74rem;color:var(--muted);margin-top:8px}
+.acao.feito h3{text-decoration:line-through;color:var(--muted)}
+.acao.atrasada .prazo{color:var(--erro);font-weight:600}
+.acao select{font:inherit;font-size:.78rem;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:var(--bg);color:var(--fg)}
+.acao select.st-fazendo{border-color:var(--alerta);color:var(--alerta)}
+.acao select.st-feito{border-color:var(--ok);color:var(--ok)}
+.barra{height:6px;background:var(--ink-line);border-radius:999px;overflow:hidden;margin-top:10px}
+.barra i{display:block;height:100%;background:var(--grifo);width:0;transition:width .4s}
+@media (max-width:760px){.resumo{grid-template-columns:repeat(2,1fr)}.acao{grid-template-columns:1fr}}
+</style>
+</head>
+<body data-casco="area">
+<script src="/assets/casco.js"></script>
+<main>
+  <section class="capa"><div class="wrap">
+    <div class="linha">
+      <div>
+        <span class="spaced" id="cap-emp">Área do cliente</span>
+        <h1 id="cap-ola">Carregando…</h1>
+        <p>Entregas, plano de ações e materiais da consultoria Unique para a sua empresa.</p>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn sm" id="b-admin" href="/area/admin/" hidden>Voltar ao admin</a>
+        <button class="btn sm" type="button" id="b-sair">Sair</button>
+      </div>
+    </div>
+    <div class="resumo">
+      <div><b id="n-entregas">–</b><span>Entregas</span></div>
+      <div><b id="n-acoes">–</b><span>Ações no plano</span></div>
+      <div><b id="n-feitas">–</b><span>Concluídas</span></div>
+      <div><b id="n-pct">–</b><span>Do plano feito</span><div class="barra"><i id="barra"></i></div></div>
+    </div>
+  </div></section>
+
+  <div class="wrap">
+    <div class="aviso erro" id="m-neg" hidden style="margin-top:24px">Essa página é de outra empresa. Aqui estão as entregas da sua.</div>
+
+    <section class="bloco" aria-labelledby="h-entregas">
+      <div class="bloco-head">
+        <div><span class="spaced">Entregas</span><h2 id="h-entregas">O que a Unique já entregou</h2></div>
+        <div class="filtros" id="filtros"></div>
+      </div>
+      <ul class="grade" id="grade"></ul>
+    </section>
+
+    <section class="bloco" aria-labelledby="h-plano">
+      <div class="bloco-head">
+        <div><span class="spaced">Plano de ações</span><h2 id="h-plano">O que precisa acontecer</h2></div>
+        <p class="muted" style="margin:0;max-width:40ch;font-size:.88rem">Atualize o status conforme o time avança. A Unique acompanha daqui.</p>
+      </div>
+      <div class="plano" id="plano"></div>
+    </section>
+  </div>
+</main>
+<script>
+(function(){
+  var TIPOS={pagina:'Guia',relatorio:'Relatório',diagnostico:'Diagnóstico',video:'Vídeo',arquivo:'Arquivo',link:'Link',conteudo:'Conteúdo'};
+  var FILTROS=[['todos','Tudo'],['relatorio','Relatórios'],['diagnostico','Diagnósticos'],['pagina','Guias'],['video','Vídeos'],['arquivo','Arquivos'],['link','Links'],['conteudo','Conteúdos']];
+  var STATUS={a_fazer:'A fazer',fazendo:'Em andamento',feito:'Feito'};
+  var MESES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  var q=new URLSearchParams(location.search), emp=q.get('e')||'', filtro='todos', DADOS=null;
+  if(q.get('negado')) document.getElementById('m-neg').hidden=false;
+
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  function data(s){ if(!s) return ''; var d=String(s).slice(0,10).split('-'); return d.length<3?'':(+d[2])+' '+MESES[+d[1]-1]+' '+d[0]; }
+  function yt(u){ var m=(u||'').match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([\w-]{11})/); return m?m[1]:null; }
+  function api(o){ return fetch('/api/area'+(o&&o.get?o.get:''),o&&o.body?{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify(o.body)}:{credentials:'same-origin'}).then(function(r){ if(r.status===401){ location.replace('/area/'); throw 0; } return r.json(); }); }
+
+  document.getElementById('b-sair').onclick=function(){ api({body:{a:'sair'}}).then(function(){ location.href='/area/'; }); };
+
+  api({get:'?a=eu'}).then(function(eu){
+    if(!eu.logado){ location.replace('/area/'); return; }
+    if(eu.admin){
+      if(!emp){ location.replace('/area/admin/'); return; }
+      document.getElementById('b-admin').hidden=false;
+    }
+    var nome=eu.admin?'Visão do cliente':('Olá, '+String(eu.nome||'').split(' ')[0]+'.');
+    document.getElementById('cap-ola').innerHTML=esc(nome);
+    return api({get:'?a=conteudo'+(eu.admin?'&e='+encodeURIComponent(emp):'')}).then(function(d){
+      if(!d.ok) throw 0;
+      DADOS=d;
+      document.getElementById('cap-emp').textContent='Área do cliente · '+d.empresa.nome;
+      document.title=d.empresa.nome+' · Unique';
+      montaFiltros(); desenha(); plano();
+    });
+  }).catch(function(e){ if(e!==0) document.getElementById('cap-ola').textContent='Não foi possível carregar. Atualize a página.'; });
+
+  function montaFiltros(){
+    var tem={}; DADOS.itens.forEach(function(i){tem[i.tipo]=1;});
+    var el=document.getElementById('filtros');
+    el.innerHTML=FILTROS.filter(function(f){return f[0]==='todos'||tem[f[0]];}).map(function(f){
+      return '<button type="button" data-f="'+f[0]+'" aria-pressed="'+(f[0]===filtro)+'">'+f[1]+'</button>';
+    }).join('');
+    if(el.children.length<3) el.innerHTML='';
+    el.onclick=function(ev){ var b=ev.target.closest('button'); if(!b) return; filtro=b.dataset.f; montaFiltros(); desenha(); };
+  }
+
+  function cartao(i){
+    var id=yt(i.url), corpo='', botoes='';
+    if(i.tipo==='video'&&id) corpo='<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/'+id+'" title="'+esc(i.titulo)+'" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe></div>';
+    if(i.tipo==='conteudo'&&i.texto) botoes+='<button class="btn sm" type="button" data-abre="'+esc(i.id)+'">Ler</button>';
+    if(i.baixar) botoes+='<a class="btn sm solid" href="'+esc(i.baixar)+'" target="_blank" rel="noopener">Baixar arquivo</a>';
+    if(i.url&&!(i.tipo==='video'&&id)){
+      var interno=i.url.charAt(0)==='/';
+      botoes+='<a class="btn sm solid" href="'+esc(i.url)+'"'+(interno?'':' target="_blank" rel="noopener"')+'>'+(i.tipo==='video'?'Assistir':interno?'Abrir':'Acessar')+'</a>';
+    }
+    return '<li class="item"><div class="row"><span>'+esc(TIPOS[i.tipo]||'Entrega')+(i.publicado===false?' · oculto':'')+'</span><span>'+data(i.criado)+'</span></div>'+
+      '<h3>'+esc(i.titulo)+'</h3>'+(i.descricao?'<p>'+esc(i.descricao)+'</p>':'')+corpo+
+      (i.tipo==='conteudo'?'<div class="texto" id="tx-'+esc(i.id)+'" hidden>'+esc(i.texto)+'</div>':'')+
+      (botoes?'<div class="acoes">'+botoes+'</div>':'')+'</li>';
+  }
+
+  function desenha(){
+    var lista=DADOS.itens.filter(function(i){return filtro==='todos'||i.tipo===filtro;});
+    var g=document.getElementById('grade');
+    g.innerHTML=lista.length?lista.map(cartao).join(''):'<li class="vazio">As entregas da consultoria aparecem aqui assim que forem liberadas.</li>';
+    g.onclick=function(ev){ var b=ev.target.closest('[data-abre]'); if(!b) return; var t=document.getElementById('tx-'+b.dataset.abre); t.hidden=!t.hidden; b.textContent=t.hidden?'Ler':'Fechar'; };
+    document.getElementById('n-entregas').textContent=DADOS.itens.length;
+  }
+
+  function plano(){
+    var A=DADOS.acoes, hoje=new Date().toISOString().slice(0,10), el=document.getElementById('plano');
+    var feitas=A.filter(function(a){return a.status==='feito';}).length;
+    document.getElementById('n-acoes').textContent=A.length;
+    document.getElementById('n-feitas').textContent=feitas;
+    var pct=A.length?Math.round(feitas*100/A.length):0;
+    document.getElementById('n-pct').textContent=A.length?pct+'%':'–';
+    document.getElementById('barra').style.width=pct+'%';
+    if(!A.length){ el.innerHTML='<div class="vazio" style="margin-top:16px">O plano de ações da sua empresa aparece aqui depois do diagnóstico.</div>'; return; }
+    el.innerHTML=A.map(function(a){
+      var atrasada=a.prazo&&a.prazo<hoje&&a.status!=='feito';
+      return '<div class="acao '+(a.status==='feito'?'feito ':'')+(atrasada?'atrasada':'')+'"><div><h3>'+esc(a.titulo)+'</h3>'+(a.detalhe?'<p>'+esc(a.detalhe)+'</p>':'')+
+        '<div class="meta">'+(a.responsavel?'<span>Responsável: '+esc(a.responsavel)+'</span>':'')+(a.prazo?'<span class="prazo">Prazo: '+data(a.prazo)+(atrasada?' (atrasada)':'')+'</span>':'')+'</div></div>'+
+        '<select data-id="'+esc(a.id)+'" class="st-'+a.status+'" aria-label="Status de '+esc(a.titulo)+'">'+
+        Object.keys(STATUS).map(function(k){return '<option value="'+k+'"'+(k===a.status?' selected':'')+'>'+STATUS[k]+'</option>';}).join('')+'</select></div>';
+    }).join('');
+    el.onchange=function(ev){
+      var s=ev.target; if(!s.dataset.id) return;
+      s.disabled=true;
+      api({body:{a:'acao-status',id:s.dataset.id,status:s.value,slug:DADOS.empresa.slug}}).then(function(r){
+        if(r.ok){ DADOS.acoes.forEach(function(a){ if(a.id===r.acao.id) a.status=r.acao.status; }); }
+        plano();
+      });
+    };
+  }
+})();
+</script>
+</body>
+</html>

@@ -5,72 +5,67 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Textil Club · Temperatura e Funil</title>
 <meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/casco.css">
 <style>
-:root{
-  --bg:#f6f7fb;--card:#ffffff;--text:#1d2230;--muted:#5d6475;--line:#e3e6ee;
-  --hot:#e5484d;--hot-bg:#fdecec;--warm:#e8930c;--warm-bg:#fdf3e2;--cold:#2f7fd8;--cold-bg:#e8f1fc;
-  --accent:#4b3fd1;--accent-bg:#eeecfc;--ok:#1f9d55;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#12141b;--card:#1b1e28;--text:#eceef4;--muted:#a3a9b8;--line:#2c3040;
-    --hot-bg:#3a1c1e;--warm-bg:#3a2c14;--cold-bg:#16273d;--accent-bg:#26224a;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#12141b;--card:#1b1e28;--text:#eceef4;--muted:#a3a9b8;--line:#2c3040;
-  --hot-bg:#3a1c1e;--warm-bg:#3a2c14;--cold-bg:#16273d;--accent-bg:#26224a;
-}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.55}
-.wrap{max-width:920px;margin:0 auto;padding:24px 16px 60px}
-header{text-align:center;padding:20px 0 8px}
-header h1{font-size:1.7rem;margin:0 0 6px}
-header p{color:var(--muted);margin:0}
-h2{font-size:1.3rem;margin:40px 0 12px;display:flex;align-items:center;gap:10px}
-h2 .n{background:var(--accent);color:#fff;border-radius:50%;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:12px 0}
-.intro{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.intro .card h3{margin:0 0 6px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.temp{border-radius:14px;padding:16px;border:2px solid}
-.temp h3{margin:0 0 4px;font-size:1.2rem}
-.temp .tag{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
-.temp ul{padding-left:18px;margin:8px 0}
-.temp .disp{margin-top:10px;padding:8px 10px;border-radius:8px;background:var(--card);font-size:.9rem}
+/* Página de cliente no padrão Unique: preto e branco, Montserrat, verde só como grifo.
+   Quente/morno/frio mantêm as cores de temperatura porque são o conteúdo. */
+:root{--hot:#d92d3a;--hot-bg:#fdecec;--warm:#c26a00;--warm-bg:#fdf3e2;--cold:#1f6fd1;--cold-bg:#e8f1fc}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--hot:#ff5c66;--hot-bg:#2a1214;--warm:#f0a020;--warm-bg:#2a1e0a;--cold:#5aa2ff;--cold-bg:#0e1b2c}}
+:root[data-theme="dark"]{--hot:#ff5c66;--hot-bg:#2a1214;--warm:#f0a020;--warm-bg:#2a1e0a;--cold:#5aa2ff;--cold-bg:#0e1b2c}
+.doc{max-width:920px;margin-inline:auto;padding:8px 20px 0}
+h2{font-size:clamp(1.3rem,2.6vw,1.7rem);font-weight:600;letter-spacing:-.02em;line-height:1.2;margin:64px 0 18px;display:flex;align-items:center;gap:14px}
+h2 .n{font-size:.7rem;font-weight:500;letter-spacing:.3em;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 12px;flex-shrink:0;font-variant-numeric:tabular-nums}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:24px;margin:14px 0}
+.intro{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.intro .card h3{margin:0 0 6px;font-size:1.05rem}
+.intro .card p{margin:0;color:var(--muted)}
+.intro .card p b{color:var(--fg)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.temp{border-radius:var(--r);padding:22px;border:1px solid}
+.temp h3{margin:2px 0 4px;font-size:1.3rem;font-weight:700;letter-spacing:-.01em}
+.temp .tag{font-size:.66rem;font-weight:600;text-transform:uppercase;letter-spacing:.3em}
+.temp ul{padding-left:18px;margin:10px 0;font-size:.93rem}
+.temp .disp{margin-top:12px;padding:10px 12px;border-radius:12px;background:var(--bg);font-size:.86rem}
 .hot{border-color:var(--hot);background:var(--hot-bg)} .hot h3,.hot .tag{color:var(--hot)}
 .warm{border-color:var(--warm);background:var(--warm-bg)} .warm h3,.warm .tag{color:var(--warm)}
 .cold{border-color:var(--cold);background:var(--cold-bg)} .cold h3,.cold .tag{color:var(--cold)}
 svg{width:100%;height:auto;display:block}
-svg text{font-family:inherit}
-.funnel{display:flex;flex-direction:column;align-items:center;gap:6px;margin:10px 0}
-.step{color:#fff;text-align:center;padding:10px 12px;border-radius:8px;font-weight:600}
-.step small{display:block;font-weight:400;opacity:.9;font-size:.82rem}
-table{width:100%;border-collapse:collapse;font-size:.9rem}
-th,td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
-th{background:var(--accent-bg)}
+svg text{font-family:var(--font)}
+.funnel{display:flex;flex-direction:column;align-items:center;gap:6px;margin:16px 0}
+.step{background:var(--ink);color:var(--ink-fg);border:1px solid var(--ink-line);text-align:center;padding:12px 14px;border-radius:14px;font-weight:600;font-size:.92rem}
+.step small{display:block;font-weight:400;color:var(--ink-muted);font-size:.8rem}
+.step.fim{background:var(--grifo);color:#000;border-color:var(--grifo)}
+.step.fim small{color:#000;opacity:.75}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{border:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}
+th{background:var(--soft);font-weight:600}
 .tablewrap{overflow-x:auto}
-.ex{border-left:4px solid var(--accent);padding:10px 14px;background:var(--card);border-radius:0 10px 10px 0;margin:10px 0}
-.ex b{display:block;margin-bottom:2px}
-.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.78rem;font-weight:700;color:#fff;margin-right:4px}
-.p-hot{background:var(--hot)}.p-warm{background:var(--warm)}.p-cold{background:var(--cold)}.p-st{background:var(--accent)}
-.check li{list-style:none;margin:6px 0;padding-left:28px;position:relative}
-.check li::before{content:"✓";position:absolute;left:0;top:0;color:#fff;background:var(--ok);border-radius:50%;width:20px;height:20px;font-size:.75rem;display:flex;align-items:center;justify-content:center}
-.warn{background:var(--warm-bg);border:1px solid var(--warm);border-radius:10px;padding:12px 14px}
-.muted{color:var(--muted);font-size:.9rem}
-@media (max-width:700px){
-  .intro,.grid3{grid-template-columns:1fr}
-  header h1{font-size:1.4rem}
-}
+.ex{border-left:3px solid var(--fg);padding:12px 16px;background:var(--soft);border-radius:0 14px 14px 0;margin:10px 0;font-size:.93rem}
+.ex b{display:block;margin-bottom:6px;font-weight:600}
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.68rem;font-weight:700;letter-spacing:.08em;color:#fff;margin-right:4px}
+.p-hot{background:var(--hot)}.p-warm{background:var(--warm)}.p-cold{background:var(--cold)}.p-st{background:var(--fg);color:var(--bg)}
+.check{padding:0;margin:0}
+.check li{list-style:none;margin:8px 0;padding-left:30px;position:relative}
+.check li::before{content:"✓";position:absolute;left:0;top:2px;color:#000;background:var(--grifo);border-radius:50%;width:20px;height:20px;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.warn{background:var(--ink);color:var(--ink-fg);border-radius:var(--r);padding:20px 22px;margin-top:28px}
+.warn b{color:var(--grifo)}
+.doc .muted{font-size:.88rem}
+@media (max-width:700px){.intro,.grid3{grid-template-columns:1fr}}
 </style>
 </head>
-<body>
-<div class="wrap">
-
-<header>
-  <h1>🌡️ Temperatura + 🎯 Etapa do Funil</h1>
-  <p>Guia para o consultor classificar cada contato corretamente no CRM</p>
-</header>
+<body data-casco="area">
+<script src="/assets/casco.js"></script>
+<main>
+<section class="capa"><div class="wrap">
+  <span class="spaced">Textil Club · Guia do consultor</span>
+  <h1>Temperatura e <span class="grifo">etapa do funil</span></h1>
+  <p>Como classificar cada contato no CRM: quanto ele conversa com você e em que degrau da esteira ele está até a Mentoria.</p>
+</div></section>
+<div class="doc">
 
 <h2><span class="n">1</span>São duas perguntas diferentes</h2>
 <div class="intro">
@@ -118,53 +113,53 @@ th{background:var(--accent-bg)}
   </div>
 </div>
 
-<h2><span class="n">3</span>Fluxograma: qual temperatura marcar?</h2>
+<h2><span class="n">3</span>Qual temperatura marcar?</h2>
 <div class="card">
 <svg viewBox="0 0 640 560" role="img" aria-label="Fluxograma de classificação de temperatura">
   <defs>
     <marker id="ar" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker>
   </defs>
   <!-- start -->
-  <rect x="220" y="10" width="200" height="44" rx="22" fill="var(--accent)"/>
-  <text x="320" y="38" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Abra a conversa</text>
+  <rect x="220" y="10" width="200" height="44" rx="22" fill="var(--fg)"/>
+  <text x="320" y="38" text-anchor="middle" fill="var(--bg)" font-size="15" font-weight="700">Abra a conversa</text>
   <line x1="320" y1="54" x2="320" y2="84" stroke="var(--muted)" stroke-width="2" marker-end="url(#ar)"/>
   <!-- Q1 -->
-  <rect x="140" y="88" width="360" height="66" rx="10" fill="var(--card)" stroke="var(--accent)" stroke-width="2"/>
-  <text x="320" y="115" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">O contato responde e interage</text>
-  <text x="320" y="135" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">com frequência, até hoje?</text>
+  <rect x="140" y="88" width="360" height="66" rx="10" fill="var(--bg)" stroke="var(--fg)" stroke-width="2"/>
+  <text x="320" y="115" text-anchor="middle" fill="var(--fg)" font-size="14" font-weight="700">O contato responde e interage</text>
+  <text x="320" y="135" text-anchor="middle" fill="var(--fg)" font-size="14" font-weight="700">com frequência, até hoje?</text>
   <!-- yes -> hot -->
   <line x1="500" y1="121" x2="540" y2="121" stroke="var(--muted)" stroke-width="2"/>
-  <text x="520" y="112" text-anchor="middle" fill="var(--ok)" font-size="13" font-weight="700">SIM</text>
+  <text x="520" y="112" text-anchor="middle" fill="var(--fg)" font-size="13" font-weight="700">SIM</text>
   <rect x="540" y="96" width="94" height="50" rx="10" fill="var(--hot)"/>
   <text x="587" y="127" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">🔥 QUENTE</text>
   <!-- no -->
   <line x1="320" y1="154" x2="320" y2="196" stroke="var(--muted)" stroke-width="2" marker-end="url(#ar)"/>
   <text x="335" y="180" fill="var(--hot)" font-size="13" font-weight="700">NÃO</text>
   <!-- Q2 -->
-  <rect x="140" y="200" width="360" height="66" rx="10" fill="var(--card)" stroke="var(--accent)" stroke-width="2"/>
-  <text x="320" y="227" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">Já teve uma conversa boa, com interesse,</text>
-  <text x="320" y="247" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">e depois parou de responder?</text>
+  <rect x="140" y="200" width="360" height="66" rx="10" fill="var(--bg)" stroke="var(--fg)" stroke-width="2"/>
+  <text x="320" y="227" text-anchor="middle" fill="var(--fg)" font-size="14" font-weight="700">Já teve uma conversa boa, com interesse,</text>
+  <text x="320" y="247" text-anchor="middle" fill="var(--fg)" font-size="14" font-weight="700">e depois parou de responder?</text>
   <line x1="500" y1="233" x2="540" y2="233" stroke="var(--muted)" stroke-width="2"/>
-  <text x="520" y="224" text-anchor="middle" fill="var(--ok)" font-size="13" font-weight="700">SIM</text>
+  <text x="520" y="224" text-anchor="middle" fill="var(--fg)" font-size="13" font-weight="700">SIM</text>
   <rect x="540" y="208" width="94" height="50" rx="10" fill="var(--warm)"/>
   <text x="587" y="239" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">🌤️ MORNO</text>
   <line x1="320" y1="266" x2="320" y2="308" stroke="var(--muted)" stroke-width="2" marker-end="url(#ar)"/>
   <text x="335" y="292" fill="var(--hot)" font-size="13" font-weight="700">NÃO</text>
   <!-- Q3 -->
-  <rect x="140" y="312" width="360" height="86" rx="10" fill="var(--card)" stroke="var(--accent)" stroke-width="2"/>
-  <text x="320" y="340" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">Só mandou a 1ª mensagem e sumiu,</text>
-  <text x="320" y="360" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">ou veio de base importada e</text>
-  <text x="320" y="380" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">nunca deu sequência?</text>
+  <rect x="140" y="312" width="360" height="86" rx="10" fill="var(--bg)" stroke="var(--fg)" stroke-width="2"/>
+  <text x="320" y="340" text-anchor="middle" fill="var(--fg)" font-size="14" font-weight="700">Só mandou a 1ª mensagem e sumiu,</text>
+  <text x="320" y="360" text-anchor="middle" fill="var(--fg)" font-size="14" font-weight="700">ou veio de base importada e</text>
+  <text x="320" y="380" text-anchor="middle" fill="var(--fg)" font-size="14" font-weight="700">nunca deu sequência?</text>
   <line x1="500" y1="355" x2="540" y2="355" stroke="var(--muted)" stroke-width="2"/>
-  <text x="520" y="346" text-anchor="middle" fill="var(--ok)" font-size="13" font-weight="700">SIM</text>
+  <text x="520" y="346" text-anchor="middle" fill="var(--fg)" font-size="13" font-weight="700">SIM</text>
   <rect x="540" y="330" width="94" height="50" rx="10" fill="var(--cold)"/>
   <text x="587" y="361" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">❄️ FRIO</text>
   <!-- disparo legend -->
-  <rect x="20" y="430" width="600" height="114" rx="12" fill="var(--accent-bg)"/>
-  <text x="40" y="458" fill="var(--text)" font-size="15" font-weight="700">Depois de classificar → posso fazer disparo em massa?</text>
-  <circle cx="48" cy="482" r="8" fill="var(--hot)"/><text x="64" y="487" fill="var(--text)" font-size="14">Quente → SIM, pode entrar na lista de disparo</text>
-  <circle cx="48" cy="506" r="8" fill="var(--warm)"/><text x="64" y="511" fill="var(--text)" font-size="14">Morno → só depois de reativar individualmente</text>
-  <circle cx="48" cy="530" r="8" fill="var(--cold)"/><text x="64" y="535" fill="var(--text)" font-size="14">Frio → NÃO entra no disparo em massa</text>
+  <rect x="20" y="430" width="600" height="114" rx="12" fill="var(--soft)"/>
+  <text x="40" y="458" fill="var(--fg)" font-size="15" font-weight="700">Depois de classificar → posso fazer disparo em massa?</text>
+  <circle cx="48" cy="482" r="8" fill="var(--hot)"/><text x="64" y="487" fill="var(--fg)" font-size="14">Quente → SIM, pode entrar na lista de disparo</text>
+  <circle cx="48" cy="506" r="8" fill="var(--warm)"/><text x="64" y="511" fill="var(--fg)" font-size="14">Morno → só depois de reativar individualmente</text>
+  <circle cx="48" cy="530" r="8" fill="var(--cold)"/><text x="64" y="535" fill="var(--fg)" font-size="14">Frio → NÃO entra no disparo em massa</text>
 </svg>
 <p class="muted">💡 Na dúvida entre duas temperaturas, marque a <b>mais fria</b>. É mais seguro para o número e evita bloqueios por envio a quem não interage.</p>
 </div>
@@ -173,13 +168,13 @@ th{background:var(--accent-bg)}
 <div class="card">
   <p>O objetivo final é sempre <b>fechar a Mentoria</b>. Cada produto da esteira serve para aquecer o cliente e levá-lo um degrau mais perto dela. A etapa do funil é <b>o degrau mais alto que o cliente já alcançou</b> (participou ou comprou).</p>
   <div class="funnel">
-    <div class="step" style="background:#8f8ae6;width:100%">1. Isca gratuita<small>Primeiro contato com o conteúdo, sem pagar nada</small></div>
-    <div class="step" style="background:#7a74e0;width:92%">2. E-book<small>Primeiro passo de consumo/compra</small></div>
-    <div class="step" style="background:#6a62dc;width:84%">3. Mesa redonda<small>Reunião em grupo com pitch coletivo de vendas</small></div>
-    <div class="step" style="background:#5a50d8;width:76%">4. Imersão online<small>Evento online de aquecimento</small></div>
-    <div class="step" style="background:#4b3fd1;width:68%">5. Evento presencial (1 dia)<small>Contato presencial, relação mais forte</small></div>
-    <div class="step" style="background:#3d32b5;width:60%">6. Imersão (1 dia ou 2 dias)<small>Experiência mais profunda, último degrau antes da Mentoria</small></div>
-    <div class="step" style="background:#1f9d55;width:50%">🎯 MENTORIA ✅<small>Objetivo final: venda fechada</small></div>
+    <div class="step" style="width:100%">1. Isca gratuita<small>Primeiro contato com o conteúdo, sem pagar nada</small></div>
+    <div class="step" style="width:92%">2. E-book<small>Primeiro passo de consumo/compra</small></div>
+    <div class="step" style="width:84%">3. Mesa redonda<small>Reunião em grupo com pitch coletivo de vendas</small></div>
+    <div class="step" style="width:76%">4. Imersão online<small>Evento online de aquecimento</small></div>
+    <div class="step" style="width:68%">5. Evento presencial (1 dia)<small>Contato presencial, relação mais forte</small></div>
+    <div class="step" style="width:60%">6. Imersão (1 dia ou 2 dias)<small>Experiência mais profunda, último degrau antes da Mentoria</small></div>
+    <div class="step fim" style="width:50%">🎯 MENTORIA ✅<small>Objetivo final: venda fechada</small></div>
   </div>
   <p class="muted">Se a ordem real da esteira for diferente, ajuste os números; a regra continua: quanto mais para baixo, mais perto da Mentoria. O cliente pode pular degraus (ex.: sair da isca direto para a imersão). Marque sempre o degrau mais avançado que ele já atingiu.</p>
 </div>
@@ -200,24 +195,24 @@ th{background:var(--accent-bg)}
   <text x="66" y="176" fill="var(--cold)" font-size="12" font-weight="700">FRIO</text>
   <!-- curve -->
   <path d="M80,200 C110,200 120,70 150,60 C180,50 190,190 220,190 C250,190 260,55 290,50 C320,45 330,130 360,130 C390,130 400,45 430,40 C460,35 470,150 500,150 C530,150 545,40 570,35 L600,32"
-        fill="none" stroke="var(--accent)" stroke-width="3.5" stroke-linecap="round"/>
+        fill="none" stroke="var(--fg)" stroke-width="3.5" stroke-linecap="round"/>
   <!-- points -->
-  <g font-size="11" fill="var(--text)" text-anchor="middle">
-    <circle cx="150" cy="60" r="6" fill="var(--accent)"/>
-    <circle cx="290" cy="50" r="6" fill="var(--accent)"/>
-    <circle cx="430" cy="40" r="6" fill="var(--accent)"/>
-    <circle cx="570" cy="35" r="7" fill="var(--ok)"/>
+  <g font-size="11" fill="var(--fg)" text-anchor="middle">
+    <circle cx="150" cy="60" r="6" fill="var(--fg)"/>
+    <circle cx="290" cy="50" r="6" fill="var(--fg)"/>
+    <circle cx="430" cy="40" r="6" fill="var(--fg)"/>
+    <circle cx="570" cy="35" r="7" fill="var(--grifo)" stroke="var(--fg)" stroke-width="2"/>
   </g>
   <!-- x axis labels -->
   <line x1="60" y1="230" x2="620" y2="230" stroke="var(--line)" stroke-width="2"/>
-  <g font-size="11.5" fill="var(--text)" text-anchor="middle" font-weight="600">
+  <g font-size="11.5" fill="var(--fg)" text-anchor="middle" font-weight="600">
     <text x="150" y="250">Baixou isca</text>
     <text x="220" y="250" fill="var(--muted)">sumiu</text>
     <text x="290" y="250">Mesa redonda</text>
     <text x="360" y="250" fill="var(--muted)">esfriou</text>
     <text x="430" y="250">Imersão</text>
     <text x="500" y="250" fill="var(--muted)">esfriou</text>
-    <text x="575" y="250" fill="var(--ok)">Mentoria</text>
+    <text x="575" y="250" fill="var(--fg)">Mentoria</text>
   </g>
   <text x="340" y="285" text-anchor="middle" fill="var(--muted)" font-size="12">A etapa só avança → mas a temperatura oscila o tempo todo</text>
 </svg>
@@ -267,5 +262,6 @@ th{background:var(--accent-bg)}
 </div>
 
 </div>
+</main>
 </body>
 </html>

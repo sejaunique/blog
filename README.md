@@ -47,3 +47,17 @@ Regras: no máximo 2 fotos por carrossel. Fontes ficam em tools/fonts (instale e
 - `diagnostico/relatorio/?r=TOKEN`: relatório interativo de cada empresa. Cada diagnóstico ganha um token secreto no envio; quem tem o link vê o relatório (sem e-mail, WhatsApp e CNPJ).
 - `diagnostico/relatorio/?demo`: o mesmo relatório com respostas de exemplo.
 - No painel: Ver relatório, Copiar link e E-mail pronto (HTML para colar na ferramenta de e-mail marketing, texto, assunto ou abrir no e-mail).
+
+## Área do cliente
+
+- `/area/`: login (empresa + e-mail + senha) e pedido de acesso. Quem pede fica pendente até o Carlos aprovar.
+- `/area/painel/`: o que o cliente vê: entregas (relatórios, diagnósticos, guias, vídeos, arquivos, links, conteúdos) e o plano de ações, em que o cliente atualiza o status.
+- `/area/admin/`: painel do Carlos. Senha: `AREA_ADMIN_SENHA` ou, se não existir, a mesma `DIAG_SENHA` do painel do diagnóstico. Aprova pedidos, cria empresas, publica entregas, monta o plano de ações, troca senhas e mostra "Ver como o cliente".
+- `api/area.js`: a API (mesmo Redis do blog). `api/_area/catalogo.js`: as páginas feitas aqui para cada cliente.
+- `middleware.js`: tudo em `/clientes/<empresa>/` só abre para quem está logado nessa empresa (ou para o admin).
+- O "slug" da empresa é o nome sem acento, espaço ou símbolo: "Textil Club" -> `textilclub`, e é o nome da pasta em `/clientes/`.
+- Upload de arquivos usa o Vercel Blob (`BLOB_READ_WRITE_TOKEN`). Sem ele, a entrega de arquivo aceita um link do Google Drive.
+
+### Página nova para um cliente
+1. Crie `clientes/<slug>/<pagina>/index.html` usando `/assets/casco.css` e `/assets/casco.js` (cabeçalho e rodapé do site). Modelo: `clientes/textilclub/temperatura/`.
+2. Adicione a página em `api/_area/catalogo.js`. Ela aparece nas entregas do cliente.

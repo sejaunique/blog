@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Admin da área do cliente · Unique</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+[hidden]{display:none!important}
+.capa .linha{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between}
+.capa .btn{color:var(--ink-fg)}
+.login{max-width:420px;margin:64px auto 0;padding-inline:20px}
+.login h2{font-size:1.5rem;margin:0 0 18px;letter-spacing:-.02em}
+.bloco{padding-top:48px}
+.bloco > .spaced{color:var(--muted);display:block;margin-bottom:8px}
+.bloco > h2{font-size:clamp(1.4rem,2.6vw,1.9rem);font-weight:600;letter-spacing:-.025em;margin:0 0 20px}
+.pend{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.pcard{border:1px solid var(--fg);border-radius:var(--r);padding:20px;display:grid;gap:6px;font-size:.88rem}
+.pcard b{font-size:1rem}
+.pcard .muted{font-size:.82rem}
+.pcard .bts{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.barra-emp{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+.barra-emp .campo{margin:0;min-width:240px}
+.abas{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:32px 0 24px;overflow-x:auto}
+.abas button{font:inherit;font-size:.82rem;font-weight:600;border:0;border-bottom:2px solid transparent;background:none;color:var(--muted);padding:12px 16px;cursor:pointer;white-space:nowrap}
+.abas button[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--fg)}
+.duas{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:32px;align-items:start}
+.form{border:1px solid var(--line);border-radius:var(--r);padding:22px;background:var(--soft);position:sticky;top:96px}
+.form h3{margin:0 0 16px;font-size:1.05rem}
+.form .linha2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chk{display:flex;gap:8px;align-items:center;font-size:.85rem;margin:4px 0 16px}
+.lista{display:grid;gap:10px}
+.li{border:1px solid var(--line);border-radius:18px;padding:16px 18px;display:grid;grid-template-columns:1fr auto;gap:6px 16px;align-items:start}
+.li h4{margin:0;font-size:.98rem;font-weight:600}
+.li p{margin:2px 0 0;color:var(--muted);font-size:.84rem;word-break:break-word}
+.li .tag{font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.li .bts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.li.oculto{opacity:.55}
+.btn.mini{padding:6px 12px;font-size:.7rem}
+.btn.perigo{color:var(--erro)}
+select.mini{font:inherit;font-size:.74rem;border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:var(--bg);color:var(--fg)}
+.vazio{border:1px dashed var(--line);border-radius:18px;padding:24px;color:var(--muted);text-align:center;font-size:.9rem}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:12px 20px;border-radius:999px;font-size:.85rem;font-weight:600;z-index:20}
+@media (max-width:900px){.duas{grid-template-columns:1fr}.form{position:static}.li{grid-template-columns:1fr}.li .bts{justify-content:flex-start}}
+</style>
+</head>
+<body data-casco="area">
+<script src="/assets/casco.js"></script>
+<main>
+  <section class="capa"><div class="wrap"><div class="linha">
+    <div><span class="spaced">Área do cliente · Admin</span><h1>Painel da Unique</h1><p>Libere acessos, publique entregas e acompanhe o plano de ações de cada cliente.</p></div>
+    <button class="btn sm" type="button" id="b-sair" hidden>Sair</button>
+  </div></div></section>
+
+  <form class="login" id="f-login" hidden>
+    <h2>Entrar como Unique</h2>
+    <div class="aviso" id="m-login" hidden></div>
+    <div class="campo"><label for="l-senha">Senha do admin</label><input id="l-senha" type="password" autocomplete="current-password" required></div>
+    <button class="btn solid" type="submit" style="width:100%">Entrar</button>
+  </form>
+
+  <div class="wrap" id="app" hidden>
+    <section class="bloco" id="s-pend">
+      <span class="spaced">Pedidos de acesso</span>
+      <h2>Aguardando aprovação <span id="n-pend" class="muted"></span></h2>
+      <div class="pend" id="pend"></div>
+    </section>
+
+    <section class="bloco">
+      <span class="spaced">Clientes</span>
+      <h2>Empresa</h2>
+      <div class="barra-emp">
+        <div class="campo"><label for="emp">Escolha a empresa</label><select id="emp"></select></div>
+        <a class="btn sm" id="ver-cliente" href="#">Ver como o cliente</a>
+        <form id="f-emp" style="display:flex;gap:8px;align-items:flex-end;margin-left:auto">
+          <div class="campo" style="min-width:200px"><label for="nova-emp">Nova empresa</label><input id="nova-emp" placeholder="Nome da empresa"></div>
+          <button class="btn sm solid" type="submit">Criar</button>
+        </form>
+      </div>
+
+      <div class="abas" role="tablist">
+        <button type="button" data-aba="entregas" aria-selected="true">Entregas</button>
+        <button type="button" data-aba="acoes" aria-selected="false">Plano de ações</button>
+        <button type="button" data-aba="pessoas" aria-selected="false">Pessoas</button>
+      </div>
+
+      <div data-painel="entregas" class="duas">
+        <form class="form" id="f-item">
+          <h3 id="fi-titulo">Nova entrega</h3>
+          <div class="aviso" id="m-item" hidden></div>
+          <input type="hidden" name="id">
+          <div class="campo"><label>Tipo</label><select name="tipo">
+            <option value="relatorio">Relatório</option><option value="diagnostico">Diagnóstico</option><option value="pagina">Guia / página</option>
+            <option value="video">Videoaula</option><option value="arquivo">Arquivo (PDF, planilha)</option><option value="link">Link (blog, curiosidade)</option><option value="conteudo">Conteúdo em texto</option>
+          </select></div>
+          <div class="campo"><label>Título</label><input name="titulo" required maxlength="140"></div>
+          <div class="campo"><label>Descrição curta</label><textarea name="descricao" maxlength="600" style="min-height:70px"></textarea></div>
+          <div class="campo" data-so="url"><label id="lb-url">Link</label><input name="url" placeholder="https://"></div>
+          <div class="campo" data-so="arquivo"><label>Arquivo</label><input type="file" name="arquivo"><small class="muted" id="arq-info"></small></div>
+          <div class="campo" data-so="texto"><label>Texto</label><textarea name="texto" style="min-height:160px"></textarea></div>
+          <label class="chk"><input type="checkbox" name="publicado" checked> Visível para o cliente</label>
+          <div style="display:flex;gap:8px"><button class="btn solid" type="submit" style="flex:1">Salvar entrega</button><button class="btn" type="button" id="fi-limpa">Limpar</button></div>
+        </form>
+        <div class="lista" id="l-itens"></div>
+      </div>
+
+      <div data-painel="acoes" class="duas" hidden>
+        <form class="form" id="f-acao">
+          <h3 id="fa-titulo">Nova ação</h3>
+          <div class="aviso" id="m-acao" hidden></div>
+          <input type="hidden" name="id"><input type="hidden" name="criado">
+          <div class="campo"><label>Ação</label><input name="titulo" required maxlength="200"></div>
+          <div class="campo"><label>Detalhe</label><textarea name="detalhe" style="min-height:70px"></textarea></div>
+          <div class="linha2">
+            <div class="campo"><label>Responsável</label><input name="responsavel"></div>
+            <div class="campo"><label>Prazo</label><input name="prazo" type="date"></div>
+          </div>
+          <div class="campo"><label>Status</label><select name="status"><option value="a_fazer">A fazer</option><option value="fazendo">Em andamento</option><option value="feito">Feito</option></select></div>
+          <div style="display:flex;gap:8px"><button class="btn solid" type="submit" style="flex:1">Salvar ação</button><button class="btn" type="button" id="fa-limpa">Limpar</button></div>
+        </form>
+        <div class="lista" id="l-acoes"></div>
+      </div>
+
+      <div data-painel="pessoas" hidden>
+        <div class="lista" id="l-pessoas"></div>
+      </div>
+    </section>
+  </div>
+</main>
+<script>
+(function(){
+  var TIPOS={pagina:'Guia',relatorio:'Relatório',diagnostico:'Diagnóstico',video:'Vídeo',arquivo:'Arquivo',link:'Link',conteudo:'Conteúdo'};
+  var STATUS={a_fazer:'A fazer',fazendo:'Em andamento',feito:'Feito'};
+  var USTATUS={pendente:'Pendente',ativo:'Ativo',bloqueado:'Bloqueado',recusado:'Recusado'};
+  var RESUMO=null, DADOS=null, slug='', ARQ=null, BLOB=false;
+  var $=function(id){return document.getElementById(id);};
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  function toast(t){ var d=document.createElement('div'); d.className='toast'; d.textContent=t; document.body.appendChild(d); setTimeout(function(){d.remove();},2200); }
+  function msg(el,t,tipo){ el.textContent=t||''; el.className='aviso '+(tipo||''); el.hidden=!t; }
+  function get(q){ return fetch('/api/area'+q,{credentials:'same-origin'}).then(function(r){return r.json();}); }
+  function post(o){ return fetch('/api/area',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify(o)}).then(function(r){return r.json();}); }
+  function wa(n){ var d=String(n||'').replace(/\D/g,''); if(!d) return ''; if(d.length<=11) d='55'+d; return d; }
+
+  get('?a=eu').then(function(eu){
+    if(eu.logado&&eu.admin) inicia();
+    else if(eu.logado){ location.replace('/area/painel/'); }
+    else $('f-login').hidden=false;
+  });
+
+  $('f-login').onsubmit=function(ev){
+    ev.preventDefault();
+    post({a:'admin-entrar',senha:$('l-senha').value}).then(function(r){
+      if(r.ok){ $('f-login').hidden=true; inicia(); } else msg($('m-login'),r.erro||'Não foi possível entrar.','erro');
+    });
+  };
+  $('b-sair').onclick=function(){ post({a:'sair'}).then(function(){ location.href='/area/'; }); };
+
+  function inicia(){ $('app').hidden=false; $('b-sair').hidden=false; resumo(); }
+
+  function resumo(manter){
+    return get('?a=admin-resumo').then(function(r){
+      if(!r.ok) return;
+      RESUMO=r; BLOB=r.blob;
+      var P=r.pendentes;
+      $('n-pend').textContent=P.length?'('+P.length+')':'';
+      $('pend').innerHTML=P.length?P.map(function(p){
+        return '<div class="pcard"><span class="spaced muted">'+esc(p.empresaNome)+'</span><b>'+esc(p.nome)+'</b>'+
+          '<span class="muted">'+esc(p.email)+(p.whatsapp?' · '+esc(p.whatsapp):'')+'</span>'+
+          '<span class="muted">Pedido em '+new Date(p.criado).toLocaleString('pt-BR')+'</span>'+
+          '<div class="bts"><button class="btn mini solid" data-u="ativo" data-s="'+esc(p.slug)+'" data-e="'+esc(p.email)+'">Aprovar</button>'+
+          '<button class="btn mini perigo" data-u="recusado" data-s="'+esc(p.slug)+'" data-e="'+esc(p.email)+'">Recusar</button></div></div>';
+      }).join(''):'<div class="vazio">Nenhum pedido esperando. Quando alguém solicitar acesso em /area, aparece aqui.</div>';
+      var sel=$('emp'), atual=manter||slug||(r.empresas[0]||{}).slug||'';
+      sel.innerHTML=r.empresas.map(function(e){ var at=e.usuarios.filter(function(u){return u.status==='ativo';}).length; return '<option value="'+esc(e.slug)+'">'+esc(e.nome)+' ('+at+' com acesso)</option>'; }).join('');
+      if(atual){ sel.value=atual; troca(atual); }
+    });
+  }
+
+  $('pend').onclick=function(ev){
+    var b=ev.target.closest('[data-u]'); if(!b) return;
+    b.disabled=true;
+    var p=RESUMO.pendentes.filter(function(x){return x.email===b.dataset.e&&x.slug===b.dataset.s;})[0];
+    post({a:'admin-usuario',slug:b.dataset.s,email:b.dataset.e,status:b.dataset.u}).then(function(r){
+      if(!r.ok){ toast('Não foi possível atualizar.'); b.disabled=false; return; }
+      toast(b.dataset.u==='ativo'?'Acesso liberado.':'Pedido recusado.');
+      if(b.dataset.u==='ativo'&&p&&wa(p.whatsapp)){
+        var t='Olá, '+p.nome.split(' ')[0]+'! Seu acesso à Área do Cliente Unique está liberado. Entre em '+location.origin+'/area/ com a empresa "'+p.empresaNome+'", o seu e-mail e a senha que você criou.';
+        window.open('https://wa.me/'+wa(p.whatsapp)+'?text='+encodeURIComponent(t),'_blank','noopener');
+      }
+      resumo(b.dataset.s);
+    });
+  };
+
+  $('f-emp').onsubmit=function(ev){
+    ev.preventDefault(); var n=$('nova-emp').value.trim(); if(!n) return;
+    post({a:'admin-empresa',nome:n}).then(function(r){ if(r.ok){ $('nova-emp').value=''; toast('Empresa criada.'); resumo(r.slug); } else toast(r.erro||'Erro.'); });
+  };
+  $('emp').onchange=function(){ troca(this.value); };
+
+  function troca(s){
+    slug=s; $('ver-cliente').href='/area/painel/?e='+encodeURIComponent(s);
+    limpaItem(); limpaAcao(); pessoas();
+    get('?a=conteudo&e='+encodeURIComponent(s)).then(function(d){ if(d.ok){ DADOS=d; itens(); acoes(); } });
+  }
+
+  document.querySelector('.abas').onclick=function(ev){
+    var b=ev.target.closest('[data-aba]'); if(!b) return;
+    document.querySelectorAll('.abas button').forEach(function(x){x.setAttribute('aria-selected',x===b);});
+    document.querySelectorAll('[data-painel]').forEach(function(p){p.hidden=p.dataset.painel!==b.dataset.aba;});
+  };
+
+  /* ---------- entregas ---------- */
+  var fi=$('f-item');
+  function camposTipo(){
+    var t=fi.tipo.value;
+    fi.querySelector('[data-so=url]').hidden=(t==='arquivo'&&BLOB)||t==='conteudo';
+    fi.querySelector('[data-so=arquivo]').hidden=t!=='arquivo'||!BLOB;
+    fi.querySelector('[data-so=texto]').hidden=t!=='conteudo';
+    $('lb-url').textContent=t==='video'?'Link do vídeo (YouTube ou outro)':t==='arquivo'?'Link do arquivo (Google Drive, Dropbox)':t==='pagina'?'Endereço da página (ex.: /clientes/'+slug+'/nome/)':'Link';
+  }
+  fi.tipo.onchange=camposTipo;
+  function limpaItem(){ fi.reset(); fi.id.value=''; ARQ=null; $('arq-info').textContent=''; $('fi-titulo').textContent='Nova entrega'; msg($('m-item')); camposTipo(); }
+  $('fi-limpa').onclick=limpaItem;
+
+  fi.arquivo.onchange=function(){
+    var f=fi.arquivo.files[0]; if(!f) return;
+    if(f.size>4.4*1024*1024){ msg($('m-item'),'Arquivo acima de 4 MB. Envie pelo Google Drive e cole o link.','erro'); fi.arquivo.value=''; return; }
+    $('arq-info').textContent='Enviando…';
+    fetch('/api/area?a=admin-upload&e='+encodeURIComponent(slug)+'&nome='+encodeURIComponent(f.name)+'&tipo='+encodeURIComponent(f.type||'application/octet-stream'),
+      {method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/octet-stream'},body:f})
+      .then(function(r){return r.json();}).then(function(r){
+        if(r.ok){ ARQ=r.arquivo; $('arq-info').textContent='Enviado: '+f.name; if(!fi.titulo.value) fi.titulo.value=f.name.replace(/\.[^.]+$/,''); }
+        else { $('arq-info').textContent=''; msg($('m-item'),r.erro||'Falha no envio.','erro'); }
+      });
+  };
+
+  fi.onsubmit=function(ev){
+    ev.preventDefault();
+    var item={id:fi.id.value,tipo:fi.tipo.value,titulo:fi.titulo.value,descricao:fi.descricao.value,url:fi.url.value.trim(),texto:fi.texto.value,publicado:fi.publicado.checked};
+    if(ARQ) item.arquivo=ARQ;
+    var velho=DADOS.itens.filter(function(i){return i.id===item.id;})[0];
+    if(velho){ item.criado=velho.criado; if(!ARQ&&velho.arquivo) item.arquivo=velho.arquivo; }
+    post({a:'admin-item',slug:slug,item:item}).then(function(r){
+      if(!r.ok){ msg($('m-item'),r.erro||'Não foi possível salvar.','erro'); return; }
+      toast('Entrega salva.'); limpaItem(); troca(slug);
+    });
+  };
+
+  function itens(){
+    var L=DADOS.itens;
+    $('l-itens').innerHTML=L.length?L.map(function(i){
+      var link=i.baixar||i.url||'';
+      return '<div class="li'+(i.publicado===false?' oculto':'')+'"><div><span class="tag">'+esc(TIPOS[i.tipo]||i.tipo)+(i.fixo?' · página do site':'')+(i.publicado===false?' · oculto':'')+'</span>'+
+        '<h4>'+esc(i.titulo)+'</h4>'+(i.descricao?'<p>'+esc(i.descricao)+'</p>':'')+(link?'<p><a href="'+esc(link)+'" target="_blank" rel="noopener">'+esc(link)+'</a></p>':'')+'</div>'+
+        (i.fixo?'':'<div class="bts"><button class="btn mini" data-ed="'+esc(i.id)+'">Editar</button><button class="btn mini" data-vis="'+esc(i.id)+'">'+(i.publicado===false?'Publicar':'Ocultar')+'</button><button class="btn mini perigo" data-del="'+esc(i.id)+'">Excluir</button></div>')+'</div>';
+    }).join(''):'<div class="vazio">Nenhuma entrega ainda para essa empresa.</div>';
+  }
+  $('l-itens').onclick=function(ev){
+    var b=ev.target.closest('button'); if(!b) return;
+    var id=b.dataset.ed||b.dataset.vis||b.dataset.del, i=DADOS.itens.filter(function(x){return x.id===id;})[0]; if(!i) return;
+    if(b.dataset.ed){
+      limpaItem(); fi.id.value=i.id; fi.tipo.value=i.tipo; fi.titulo.value=i.titulo; fi.descricao.value=i.descricao||''; fi.url.value=i.url||''; fi.texto.value=i.texto||''; fi.publicado.checked=i.publicado!==false;
+      if(i.arquivo) $('arq-info').textContent='Arquivo atual: '+i.arquivo.nome;
+      $('fi-titulo').textContent='Editar entrega'; camposTipo(); window.scrollTo({top:fi.getBoundingClientRect().top+scrollY-110,behavior:'smooth'});
+    } else if(b.dataset.vis){
+      var c=Object.assign({},i,{publicado:i.publicado===false}); delete c.baixar;
+      post({a:'admin-item',slug:slug,item:c}).then(function(){ troca(slug); });
+    } else if(b.dataset.del){
+      if(b.dataset.ok!=='1'){ b.dataset.ok='1'; b.textContent='Confirmar exclusão'; return; }
+      post({a:'admin-item-del',slug:slug,id:id}).then(function(){ toast('Entrega excluída.'); troca(slug); });
+    }
+  };
+
+  /* ---------- plano de ações ---------- */
+  var fa=$('f-acao');
+  function limpaAcao(){ fa.reset(); fa.id.value=''; fa.criado.value=''; $('fa-titulo').textContent='Nova ação'; msg($('m-acao')); }
+  $('fa-limpa').onclick=limpaAcao;
+  fa.onsubmit=function(ev){
+    ev.preventDefault();
+    var a={id:fa.id.value,criado:fa.criado.value,titulo:fa.titulo.value,detalhe:fa.detalhe.value,responsavel:fa.responsavel.value,prazo:fa.prazo.value,status:fa.status.value};
+    post({a:'admin-acao',slug:slug,acao:a}).then(function(r){
+      if(!r.ok){ msg($('m-acao'),r.erro||'Não foi possível salvar.','erro'); return; }
+      toast('Ação salva.'); limpaAcao(); troca(slug);
+    });
+  };
+  function acoes(){
+    var A=DADOS.acoes;
+    $('l-acoes').innerHTML=A.length?A.map(function(a){
+      return '<div class="li"><div><span class="tag">'+esc(STATUS[a.status])+(a.prazo?' · prazo '+a.prazo.split('-').reverse().join('/'):'')+(a.responsavel?' · '+esc(a.responsavel):'')+(a.por?' · atualizado por '+esc(a.por):'')+'</span>'+
+        '<h4>'+esc(a.titulo)+'</h4>'+(a.detalhe?'<p>'+esc(a.detalhe)+'</p>':'')+'</div>'+
+        '<div class="bts"><select class="mini" data-st="'+esc(a.id)+'">'+Object.keys(STATUS).map(function(k){return '<option value="'+k+'"'+(k===a.status?' selected':'')+'>'+STATUS[k]+'</option>';}).join('')+'</select>'+
+        '<button class="btn mini" data-ed="'+esc(a.id)+'">Editar</button><button class="btn mini perigo" data-del="'+esc(a.id)+'">Excluir</button></div></div>';
+    }).join(''):'<div class="vazio">Nenhuma ação no plano ainda.</div>';
+  }
+  $('l-acoes').onchange=function(ev){ var s=ev.target; if(!s.dataset.st) return; post({a:'acao-status',slug:slug,id:s.dataset.st,status:s.value}).then(function(){ toast('Status atualizado.'); troca(slug); }); };
+  $('l-acoes').onclick=function(ev){
+    var b=ev.target.closest('button'); if(!b) return;
+    var id=b.dataset.ed||b.dataset.del, a=DADOS.acoes.filter(function(x){return x.id===id;})[0]; if(!a) return;
+    if(b.dataset.ed){
+      limpaAcao(); ['id','criado','titulo','detalhe','responsavel','prazo','status'].forEach(function(k){ fa[k].value=a[k]||''; });
+      $('fa-titulo').textContent='Editar ação'; window.scrollTo({top:fa.getBoundingClientRect().top+scrollY-110,behavior:'smooth'});
+    } else {
+      if(b.dataset.ok!=='1'){ b.dataset.ok='1'; b.textContent='Confirmar exclusão'; return; }
+      post({a:'admin-acao-del',slug:slug,id:id}).then(function(){ toast('Ação excluída.'); troca(slug); });
+    }
+  };
+
+  /* ---------- pessoas ---------- */
+  function pessoas(){
+    var e=(RESUMO.empresas.filter(function(x){return x.slug===slug;})[0]||{usuarios:[]});
+    $('l-pessoas').innerHTML=e.usuarios.length?e.usuarios.map(function(u){
+      return '<div class="li"><div><span class="tag">'+esc(USTATUS[u.status]||u.status)+'</span><h4>'+esc(u.nome)+'</h4><p>'+esc(u.email)+(u.whatsapp?' · '+esc(u.whatsapp):'')+'</p></div>'+
+        '<div class="bts"><select class="mini" data-us="'+esc(u.email)+'">'+Object.keys(USTATUS).map(function(k){return '<option value="'+k+'"'+(k===u.status?' selected':'')+'>'+USTATUS[k]+'</option>';}).join('')+'</select>'+
+        '<form data-pw="'+esc(u.email)+'" style="display:flex;gap:6px"><input type="text" placeholder="Nova senha" minlength="8" autocomplete="off" style="font:inherit;font-size:.74rem;border:1px solid var(--line);border-radius:999px;padding:6px 12px;width:130px;background:var(--bg);color:var(--fg)"><button class="btn mini">Trocar senha</button></form></div></div>';
+    }).join(''):'<div class="vazio">Ninguém dessa empresa pediu acesso ainda. Envie o link '+esc(location.origin)+'/area/#cadastro para o time do cliente.</div>';
+  }
+  $('l-pessoas').onchange=function(ev){ var s=ev.target; if(!s.dataset.us) return; post({a:'admin-usuario',slug:slug,email:s.dataset.us,status:s.value}).then(function(r){ toast(r.ok?'Acesso atualizado.':'Erro.'); resumo(slug); }); };
+  $('l-pessoas').onsubmit=function(ev){
+    ev.preventDefault(); var f=ev.target, inp=f.querySelector('input');
+    post({a:'admin-senha',slug:slug,email:f.dataset.pw,senha:inp.value}).then(function(r){ toast(r.ok?'Senha trocada. Envie a nova senha para a pessoa.':(r.erro||'Erro.')); if(r.ok) inp.value=''; });
+  };
+})();
+</script>
+</body>
+</html>

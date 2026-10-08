@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Área do cliente · Unique</title>
+<meta name="description" content="Acesso dos clientes da Unique Consultoria: diagnósticos, relatórios, plano de ações e conteúdos da consultoria.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+.acesso{display:grid;grid-template-columns:1.05fr .95fr;min-height:calc(100vh - 72px)}
+.lado{background:var(--ink);color:var(--ink-fg);padding:72px 56px;display:flex;flex-direction:column;justify-content:center;gap:28px}
+.lado .spaced{color:var(--ink-muted)}
+.lado h1{font-size:clamp(2.1rem,4.4vw,3.5rem);line-height:1.04;font-weight:700;letter-spacing:-.035em;margin:0;max-width:14ch;text-wrap:balance}
+.lado p{color:var(--ink-muted);margin:0;max-width:44ch;font-size:1.02rem}
+.lado ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:0;border-top:1px solid var(--ink-line);max-width:460px}
+.lado li{display:flex;gap:16px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--ink-line);font-size:.92rem}
+.lado li span{font-size:.66rem;letter-spacing:.3em;color:var(--ink-muted);font-variant-numeric:tabular-nums}
+.form-lado{display:flex;align-items:center;justify-content:center;padding:56px 20px}
+.caixa{width:100%;max-width:420px}
+.abas{display:flex;gap:4px;border:1px solid var(--line);border-radius:999px;padding:4px;margin-bottom:28px}
+.abas button{flex:1;font:inherit;font-size:.8rem;font-weight:600;border:0;border-radius:999px;padding:10px;background:none;color:var(--muted);cursor:pointer}
+.abas button[aria-selected="true"]{background:var(--fg);color:var(--bg)}
+.caixa h2{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin:0 0 6px}
+.caixa .sub{color:var(--muted);margin:0 0 24px;font-size:.92rem}
+.caixa .btn.solid{width:100%;margin-top:6px}
+.dica{font-size:.8rem;color:var(--muted);margin-top:18px}
+.dica a{font-weight:600}
+.oculto{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+[hidden]{display:none!important}
+.foot{margin-top:0}
+@media (max-width:900px){
+  .acesso{grid-template-columns:1fr}
+  .lado{padding:48px 20px;order:2}
+  .form-lado{padding:40px 20px 56px}
+}
+</style>
+</head>
+<body data-casco="area">
+<script src="/assets/casco.js"></script>
+<main class="acesso">
+  <section class="lado">
+    <span class="spaced">Área do cliente</span>
+    <h1>Sua consultoria, <span class="grifo">num só lugar.</span></h1>
+    <p>Tudo o que a Unique entrega para a sua empresa fica aqui: organizado, atualizado e disponível para o seu time a qualquer hora.</p>
+    <ul>
+      <li><span>01</span>Diagnósticos e relatórios da sua operação</li>
+      <li><span>02</span>Plano de ações com responsável, prazo e status</li>
+      <li><span>03</span>Guias, vídeos e materiais feitos para o seu time</li>
+      <li><span>04</span>Arquivos, links e conteúdos da mentoria</li>
+    </ul>
+  </section>
+
+  <section class="form-lado">
+    <div class="caixa">
+      <div class="abas" role="tablist">
+        <button type="button" role="tab" id="t-entrar" aria-selected="true">Entrar</button>
+        <button type="button" role="tab" id="t-cadastro" aria-selected="false">Solicitar acesso</button>
+      </div>
+
+      <form id="f-entrar" novalidate>
+        <h2>Bem-vindo de volta</h2>
+        <p class="sub">Entre com a empresa, o seu e-mail e a sua senha.</p>
+        <div class="aviso" id="m-entrar" hidden></div>
+        <div class="campo"><label for="e-empresa">Empresa</label><input id="e-empresa" name="empresa" autocomplete="organization" required placeholder="Ex.: Textil Club"></div>
+        <div class="campo"><label for="e-email">E-mail</label><input id="e-email" name="email" type="email" autocomplete="username" required></div>
+        <div class="campo"><label for="e-senha">Senha</label><input id="e-senha" name="senha" type="password" autocomplete="current-password" required></div>
+        <button class="btn solid" type="submit">Entrar na área</button>
+        <p class="dica">Esqueceu a senha? <a href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Preciso%20redefinir%20minha%20senha%20da%20%C3%A1rea%20do%20cliente." target="_blank" rel="noopener">Fale com a Unique</a>.</p>
+      </form>
+
+      <form id="f-cadastro" novalidate hidden>
+        <h2>Solicite seu acesso</h2>
+        <p class="sub">Seu acesso é liberado pela Unique depois da conferência. Cada pessoa do time usa o próprio e-mail.</p>
+        <div class="aviso" id="m-cadastro" hidden></div>
+        <div class="campo"><label for="c-empresa">Empresa</label><input id="c-empresa" name="empresa" autocomplete="organization" required></div>
+        <div class="campo"><label for="c-nome">Seu nome</label><input id="c-nome" name="nome" autocomplete="name" required></div>
+        <div class="campo"><label for="c-email">E-mail</label><input id="c-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="campo"><label for="c-whats">WhatsApp</label><input id="c-whats" name="whatsapp" type="tel" autocomplete="tel" placeholder="(62) 99999-9999"></div>
+        <div class="campo"><label for="c-senha">Crie uma senha</label><input id="c-senha" name="senha" type="password" autocomplete="new-password" minlength="8" required placeholder="Mínimo de 8 caracteres"></div>
+        <div class="oculto" aria-hidden="true"><label>Site<input name="site" tabindex="-1" autocomplete="off"></label></div>
+        <button class="btn solid" type="submit">Solicitar acesso</button>
+      </form>
+    </div>
+  </section>
+</main>
+<script>
+(function(){
+  var volta=new URLSearchParams(location.search).get('volta')||'';
+  if(!/^\/clientes\/[a-z0-9]+\//.test(volta)) volta='';
+
+  fetch('/api/area?a=eu',{credentials:'same-origin'}).then(function(r){return r.json();}).then(function(d){
+    if(d&&d.logado) location.replace(d.admin?'/area/admin/':(volta||'/area/painel/'));
+  }).catch(function(){});
+
+  var tE=document.getElementById('t-entrar'), tC=document.getElementById('t-cadastro');
+  var fE=document.getElementById('f-entrar'), fC=document.getElementById('f-cadastro');
+  function aba(c){ tE.setAttribute('aria-selected',!c); tC.setAttribute('aria-selected',c); fE.hidden=c; fC.hidden=!c; }
+  tE.onclick=function(){aba(false);}; tC.onclick=function(){aba(true);};
+  if(location.hash==='#cadastro') aba(true);
+
+  function msg(el,txt,tipo){ el.textContent=txt; el.className='aviso '+(tipo||''); el.hidden=!txt; }
+  function dados(f){ var o={}; new FormData(f).forEach(function(v,k){o[k]=v;}); return o; }
+  function envia(f,extra,m,ok){
+    f.addEventListener('submit',function(ev){
+      ev.preventDefault();
+      var b=f.querySelector('button[type=submit]'); b.disabled=true; msg(m,'');
+      var o=dados(f); o.a=extra;
+      fetch('/api/area',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify(o)})
+        .then(function(r){return r.json().then(function(j){return {s:r.status,j:j};});})
+        .then(function(x){ b.disabled=false; if(x.j.ok) ok(f); else msg(m,x.j.erro||'Não foi possível concluir. Tente de novo.','erro'); })
+        .catch(function(){ b.disabled=false; msg(m,'Sem conexão. Tente de novo.','erro'); });
+    });
+  }
+  envia(fE,'entrar',document.getElementById('m-entrar'),function(){ location.href=volta||'/area/painel/'; });
+  envia(fC,'cadastro',document.getElementById('m-cadastro'),function(f){
+    var emp=f.empresa.value, mail=f.email.value;
+    f.reset(); aba(false);
+    document.getElementById('e-empresa').value=emp; document.getElementById('e-email').value=mail;
+    msg(document.getElementById('m-entrar'),'Pedido recebido. Assim que a Unique liberar, você entra aqui com o mesmo e-mail e a senha que criou.','ok');
+  });
+})();
+</script>
+</body>
+</html>

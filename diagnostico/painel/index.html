@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
+<script src="/assets/tema.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Painel de Diagnósticos · Unique</title>
@@ -62,9 +63,13 @@ a.btn{color:inherit;text-decoration:none}
 .caixa iframe{width:100%;height:60vh;border:0;background:#f3f3f5}
 @media (max-width:600px){.par{grid-template-columns:1fr;gap:2px}.item summary{grid-template-columns:1fr}.item summary .d{grid-row:auto;grid-column:1}}
 </style>
+<style>/* leitura e foco: no modo escuro o fundo é #111113 (padrão Unique) */
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111113;--soft:#18181b;--line:#2a2a2e}}
+:root[data-theme="dark"]{--bg:#111113;--soft:#18181b;--line:#2a2a2e}
+</style>
 </head>
 <body>
-<header class="top"><div class="wrap"><span class="spaced">Unique · uso interno</span><h1>Diagnósticos recebidos</h1></div></header>
+<header class="top"><div class="wrap" style="display:flex;justify-content:space-between;align-items:center;gap:16px"><div><span class="spaced">Unique · uso interno</span><h1>Diagnósticos recebidos</h1></div><span data-tema-alvo></span></div></header>
 <main class="wrap">
   <form class="login" id="login">
     <label for="senha">Senha do painel</label>

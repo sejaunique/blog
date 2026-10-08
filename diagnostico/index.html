@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
+<script src="/assets/tema.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Descubra os gargalos ocultos que estão limitando o crescimento da sua empresa. Diagnóstico de Maturidade Comercial da Unique Inteligência Comercial.">
 <meta property="og:title" content="Diagnóstico de Maturidade Comercial · Unique">
@@ -31,7 +32,7 @@ a{color:inherit}
 button,input,textarea{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 [hidden]{display:none!important}
-.grifo{background:linear-gradient(transparent 62%,var(--grifo) 62%,var(--grifo) 76%,transparent 76%);padding-inline:.04em}
+.grifo{background:none;color:inherit;padding:0;text-decoration:underline;text-decoration-color:var(--grifo);text-decoration-thickness:max(2px,.06em);text-underline-offset:.16em;text-decoration-skip-ink:none}
 .icon{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .wrap{max-width:var(--largura,700px);margin-inline:auto;padding-inline:16px}
 .eyebrow{font-family:var(--f-a);font-size:.68rem;font-weight:500;text-transform:uppercase;letter-spacing:.32em;color:var(--muted)}
@@ -180,6 +181,10 @@ textarea.inp{min-height:130px;resize:vertical;line-height:1.55}
 @media (max-width:620px){.q-snp{grid-template-columns:1fr}.q-snp .campo{margin-left:40px}.snp{display:flex}.seg{flex:1;text-align:center}}
 @media (max-width:560px){.q-snp .campo{margin-left:0}}
 @media (max-width:560px){.campo,.erro{margin-left:0}.q{padding:20px 18px}.intro .wrap,.fim .wrap{padding:32px 20px;border-radius:20px}.intro .wrap{margin-inline:12px;width:auto}}
+</style>
+<style>/* leitura e foco: no modo escuro o fundo é #111113 (padrão Unique) */
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111113;--soft:#18181b;--line:#2a2a2e}}
+:root[data-theme="dark"]{--bg:#111113;--soft:#18181b;--line:#2a2a2e}
 </style>
 </head>
 <body>

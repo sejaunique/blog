@@ -69,3 +69,16 @@ Regras: no máximo 2 fotos por carrossel. Fontes ficam em tools/fonts (instale e
 - Página pública: o cliente da empresa ou o Carlos ligam a chave; aí o link abre sem senha. Comentários continuam só para a empresa.
 - Página fechada compartilhada: o WhatsApp/Instagram/LinkedIn recebem só título, descrição e capa (o `middleware.js` reconhece os robôs de prévia); quem clica cai no login, que mostra a página que vai abrir, já preenche a empresa e volta para ela depois de entrar.
 - Comentários novos dos clientes aparecem no admin em "Comentários recentes".
+
+## Identidade visual (padrão de todas as páginas)
+
+- `assets/tema.js` (no `<head>` de **toda** página): botão claro/escuro no cabeçalho, escolha salva e válida no site inteiro.
+- `assets/casco.css` + `assets/casco.js`: tokens, tipografia, ícones, cabeçalho e rodapé padrão. Páginas novas usam os dois.
+- Cores pelo significado: **magenta** = negação/dor/alerta, **marinho** = construção/método/base, **verde** = afirmação/conquista/ação.
+- Tipografia: Montserrat do 100 ao 900, normal e itálico (`.leve` = 200 itálico em contraste com 800). "UN1QUE" é recurso da marca.
+- Grifo (`.grifo`): linha fina abaixo da palavra, nunca faixa grossa sobre o texto.
+- Ícones: Tabler (traço fino), por máscara: `<i class="ic" style="--i:var(--ic-whatsapp)"></i>` (lista em `casco.css`).
+- O "I" da marca: `.I` (recorte), `.I.mag/.mar/.ver` (cores), `.tres-i` (os três lado a lado). Foto dentro do I: `<div class="I"><img …></div>`.
+- Páginas de leitura e foco: `<body class="leitura">`, fundo `#111113` no escuro.
+- Imagens de apoio: fotos do Carlos em `assets/fotos/`, logos de clientes em `assets/clientes/` (brancos; no claro viram pretos via CSS) e Unsplash por link (`images.unsplash.com/photo-…?w=…&fit=crop&q=…&auto=format`).
+- Cases: `cases/<nome>/index.html` (modelo: `cases/clinica-brasil/`). Capa de compartilhamento: `EXTRAS` em `tools/og_cliente.py`.

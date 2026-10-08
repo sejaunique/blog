@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
+<script src="/assets/tema.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Unique · Links</title>
 <meta name="description" content="Carlos Ribeiro, Unique Consultoria Comercial. Diagnóstico comercial, site, blog, Instagram e Alda.CRM em um só lugar.">
@@ -27,10 +28,12 @@
 <style>
 /* Linktree da Unique: preto da marca, Montserrat, o "I" como janela da foto e verde só como grifo. */
 :root{
-  --bg:#000;--fg:#f5f5f5;--muted:#a1a1a8;--line:#26262a;--soft:#111113;
-  --grifo:#00ff80;--focus:#ff2e7e;
+  --bg:#ffffff;--fg:#0b0b0c;--muted:#5e5e66;--line:#e4e4e7;--soft:#f4f4f5;--chip:#e9e9ec;--hover:#0b0b0c;
+  --grifo:#00e676;--focus:#e0055e;
   --font:"Montserrat",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
 }
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--fg:#f5f5f5;--muted:#a1a1a8;--line:#26262a;--soft:#111113;--chip:#1c1c1f;--hover:#44444a;--grifo:#00ff80;--focus:#ff2e7e;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#000;--fg:#f5f5f5;--muted:#a1a1a8;--line:#26262a;--soft:#111113;--chip:#1c1c1f;--hover:#44444a;--grifo:#00ff80;--focus:#ff2e7e;color-scheme:dark}
 *{box-sizing:border-box}
 html,body{background:var(--bg)}
 body{color:var(--fg);font-family:var(--font);margin:0;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
@@ -38,7 +41,7 @@ a{color:inherit;text-decoration:none}
 a:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .page{max-width:520px;margin:0 auto;padding:calc(36px + env(safe-area-inset-top,0px)) 16px calc(40px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:28px}
 .spaced{font-size:.66rem;font-weight:500;text-transform:uppercase;letter-spacing:.42em;color:var(--muted)}
-.grifo{background:linear-gradient(transparent 60%,var(--grifo) 60%,var(--grifo) 74%,transparent 74%);padding-inline:.04em}
+.grifo{background:none;color:inherit;padding:0;text-decoration:underline;text-decoration-color:var(--grifo);text-decoration-thickness:max(2px,.06em);text-underline-offset:.16em;text-decoration-skip-ink:none}
 .icon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
 
 /* topo */
@@ -54,24 +57,24 @@ a:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 /* links */
 .links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
 .lk{display:flex;align-items:center;gap:16px;min-height:64px;padding:14px 18px;border:1px solid var(--line);border-radius:20px;background:var(--soft);transition:transform .15s,border-color .2s}
-.lk:hover{border-color:#44444a;transform:translateY(-1px)}
-.lk .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#1c1c1f;flex:none}
+.lk:hover{border-color:var(--hover);transform:translateY(-1px)}
+.lk .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--chip);flex:none}
 .lk .tx{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
 .lk .tx strong{font-size:.98rem;font-weight:600}
 .lk .tx small{font-size:.8rem;color:var(--muted)}
 .lk .go{color:var(--muted)}
-.lk.main{background:var(--fg);color:#000;border-color:var(--fg)}
-.lk.main .ic{background:#000;color:var(--fg)}
-.lk.main .tx small,.lk.main .go{color:#4a4a50}
+.lk.main{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.lk.main .ic{background:var(--bg);color:var(--fg)}
+.lk.main .tx small,.lk.main .go{color:var(--bg);opacity:.65}
 
 /* blog */
 .blog{display:flex;flex-direction:column;gap:12px}
 .blog .head{display:flex;justify-content:space-between;align-items:baseline}
 .blog .head a{font-size:.8rem;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 .post{display:grid;grid-template-columns:96px minmax(0,1fr);gap:14px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:20px}
-.post .cv{width:96px;height:72px;border-radius:12px;overflow:hidden;background:#1c1c1f;display:grid;place-items:center}
+.post .cv{width:96px;height:72px;border-radius:12px;overflow:hidden;background:var(--chip);display:grid;place-items:center}
 .post .cv img{width:100%;height:100%;object-fit:cover}
-.post .cv svg{height:34px;color:#3a3a40}
+.post .cv svg{height:34px;color:var(--muted)}
 .post .tag{font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:var(--muted)}
 .post h3{margin:2px 0 0;font-size:.92rem;font-weight:600;line-height:1.35}
 

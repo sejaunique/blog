@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
+<script src="/assets/tema.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Painel do cliente · Unique</title>
 <meta name="robots" content="noindex">
@@ -10,7 +11,7 @@
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
 <link rel="stylesheet" href="/assets/casco.css">
 <script src="/assets/interacao.js" defer></script>
 <style>
@@ -29,8 +30,12 @@
 .filtros button{font:inherit;font-size:.74rem;font-weight:600;border:1px solid var(--line);background:none;color:var(--fg);border-radius:999px;padding:7px 14px;cursor:pointer}
 .filtros button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;list-style:none;margin:0;padding:0}
-.item{border:1px solid var(--line);border-radius:var(--r);padding:24px;display:flex;flex-direction:column;gap:10px;min-height:210px;background:var(--bg);transition:border-color .2s}
+.item{border:1px solid var(--line);border-radius:var(--r);padding:0 24px 24px;overflow:hidden;display:flex;flex-direction:column;gap:10px;min-height:210px;background:var(--bg);transition:border-color .2s}
 .item:hover{border-color:var(--fg)}
+.item .foto{margin:0 -24px 6px;height:150px;overflow:hidden;background:var(--soft)}
+.item .foto img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.item .foto img.pb{filter:grayscale(1)}
+.item:hover .foto img{transform:scale(1.04)}
 .item .row{display:flex;justify-content:space-between;gap:10px;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
 .item h3{font-size:1.12rem;font-weight:600;letter-spacing:-.01em;line-height:1.3;margin:0}
 .item p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.55}
@@ -58,7 +63,7 @@
 @media (max-width:760px){.resumo{grid-template-columns:repeat(2,1fr)}.acao{grid-template-columns:1fr}}
 </style>
 </head>
-<body data-casco="area">
+<body class="leitura" data-casco="area">
 <script src="/assets/casco.js"></script>
 <main>
   <section class="capa"><div class="wrap">
@@ -144,6 +149,16 @@
     el.onclick=function(ev){ var b=ev.target.closest('button'); if(!b) return; filtro=b.dataset.f; montaFiltros(); desenha(); };
   }
 
+  // imagens de apoio (Unsplash, uso livre) por tipo de entrega; páginas do site usam a própria capa
+  var U='https://images.unsplash.com/', Q='?w=700&h=300&fit=crop&q=60&auto=format';
+  var APOIO={relatorio:'photo-1522252234503-e356532cafd5',diagnostico:'photo-1586165368502-1bad197a6461',pagina:'photo-1573868396123-ef72a7f7b94f',
+    video:'photo-1484807352052-23338990c6c6',arquivo:'photo-1588511986632-592db3d6c81f',link:'photo-1560760253-9de375ab5129',conteudo:'photo-1586527155314-1d25428324ff'};
+  function fotoDe(i){
+    var id=yt(i.url);
+    if(i.tipo==='video'&&id) return '';
+    var src=i.capa||(U+(APOIO[i.tipo]||APOIO.link)+Q);
+    return '<div class="foto"><img src="'+esc(src)+'" alt="" loading="lazy"'+(i.capa?'':' class="pb"')+'></div>';
+  }
   function cartao(i){
     var id=yt(i.url), corpo='', botoes='';
     if(i.tipo==='video'&&id) corpo='<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/'+id+'" title="'+esc(i.titulo)+'" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe></div>';
@@ -153,7 +168,7 @@
       var interno=i.url.charAt(0)==='/';
       botoes+='<a class="btn sm solid" href="'+esc(i.url)+'"'+(interno?'':' target="_blank" rel="noopener"')+'>'+(i.tipo==='video'?'Assistir':interno?'Abrir':'Acessar')+'</a>';
     }
-    return '<li class="item"><div class="row"><span>'+esc(TIPOS[i.tipo]||'Entrega')+(i.publicado===false?' · oculto':'')+'</span><span>'+data(i.criado)+'</span></div>'+
+    return '<li class="item">'+fotoDe(i)+'<div class="row"'+(fotoDe(i)?'':' style="padding-top:24px"')+'><span>'+esc(TIPOS[i.tipo]||'Entrega')+(i.publicado===false?' · oculto':'')+'</span><span>'+data(i.criado)+'</span></div>'+
       '<h3>'+esc(i.titulo)+'</h3>'+(i.descricao?'<p>'+esc(i.descricao)+'</p>':'')+corpo+
       (i.tipo==='conteudo'?'<div class="texto" id="tx-'+esc(i.id)+'" hidden>'+esc(i.texto)+'</div>':'')+
       (botoes?'<div class="acoes">'+botoes+'</div>':'')+

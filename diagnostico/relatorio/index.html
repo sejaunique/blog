@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
+<script src="/assets/tema.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Relatório Comercial · Unique</title>
@@ -45,7 +46,7 @@ button{font:inherit;color:inherit}
 [hidden]{display:none!important}
 .wrap{max-width:1080px;margin:0 auto;padding-inline:16px}
 .eyebrow{font-size:.68rem;font-weight:500;text-transform:uppercase;letter-spacing:.3em;color:var(--muted)}
-.grifo{background:linear-gradient(transparent 62%,var(--grifo) 62%,var(--grifo) 76%,transparent 76%);padding-inline:.04em}
+.grifo{background:none;color:inherit;padding:0;text-decoration:underline;text-decoration-color:var(--grifo);text-decoration-thickness:max(2px,.06em);text-underline-offset:.16em;text-decoration-skip-ink:none}
 .card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--sombra)}
 .icon{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .num{font-variant-numeric:tabular-nums}
@@ -370,6 +371,10 @@ section{display:grid;gap:16px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 @media print{.top,.navsec,.filtros,.cta .acts{display:none}.card{box-shadow:none}body{background:#fff}}
+</style>
+<style>/* leitura e foco: no modo escuro o fundo é #111113 (padrão Unique) */
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111113;--soft:#18181b;--line:#2a2a2e}}
+:root[data-theme="dark"]{--bg:#111113;--soft:#18181b;--line:#2a2a2e}
 </style>
 </head>
 <body>

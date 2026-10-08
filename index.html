@@ -21,322 +21,338 @@
 <link rel="icon" href="/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#000000">
+<script src="/assets/tema.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<link rel="stylesheet" href="/assets/casco.css">
 <style>
-/* Layout: blocos alternando preto e branco da marca Unique; tipografia Montserrat com rótulos espaçados; o "I" da marca como janela de foto; verde só como grifo. */
-:root{
-  --bg:#ffffff;
-  --fg:#0b0b0c;
-  --muted:#626268;
-  --line:#e4e4e7;
-  --soft:#f4f4f5;
-  --ink:#000000;
-  --ink-fg:#f5f5f5;
-  --ink-muted:#a1a1a8;
-  --ink-line:#26262a;
-  --grifo:#00e676;
-  --focus:#dc0a5a;
-  --font:"Montserrat",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
-  --wide:1180px;
-  --r:24px;
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#000;--fg:#f5f5f5;--muted:#a1a1a8;--line:#232326;--soft:#111113;--ink:#000000;--ink-fg:#f5f5f5;--ink-muted:#a1a1a8;--ink-line:#26262a;--grifo:#00ff80;--focus:#ff2e7e;color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#000;--fg:#f5f5f5;--muted:#a1a1a8;--line:#232326;--soft:#111113;--ink:#000000;--ink-fg:#f5f5f5;--ink-muted:#a1a1a8;--ink-line:#26262a;--grifo:#00ff80;--focus:#ff2e7e;color-scheme:dark}
-
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:84px}
-body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:16px;line-height:1.7;margin:0;-webkit-font-smoothing:antialiased}
-a{color:inherit}
-img{max-width:100%;display:block}
-.wrap{max-width:var(--wide);margin-inline:auto;padding-inline:20px}
-a:focus-visible,button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
-.grifo{background:linear-gradient(transparent 60%,var(--grifo) 60%,var(--grifo) 74%,transparent 74%);padding-inline:.04em}
-.spaced{font-size:.7rem;font-weight:500;text-transform:uppercase;letter-spacing:.42em}
-.icon{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-section{padding-block:104px}
-.sec-head{display:grid;gap:14px;max-width:760px;margin-bottom:56px}
-.sec-head .spaced{color:var(--muted)}
-.sec-head h2{font-size:clamp(1.9rem,4.2vw,3rem);line-height:1.1;font-weight:600;letter-spacing:-.025em;margin:0;text-wrap:balance}
-.sec-head p{margin:0;color:var(--muted);max-width:60ch;font-size:1.05rem}
-.btn{display:inline-flex;align-items:center;gap:10px;font:inherit;font-size:.82rem;font-weight:600;text-decoration:none;border-radius:999px;padding:14px 24px;border:1px solid currentColor;cursor:pointer;transition:opacity .2s}
-.btn:hover{opacity:.85}
-.btn.solid{background:var(--fg);color:var(--bg);border-color:var(--fg)}
-.dark .btn.solid{background:var(--ink-fg);color:var(--ink);border-color:var(--ink-fg)}
-
-/* cabeçalho */
-.top{position:fixed;left:0;right:0;top:0;z-index:10;padding-top:env(safe-area-inset-top,0px);color:var(--ink-fg);transition:background .25s,color .25s,border-color .25s;border-bottom:1px solid transparent}
-.top.solid{background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);color:var(--fg);border-bottom-color:var(--line)}
-.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:72px}
-.brand{display:flex;align-items:center;text-decoration:none}
-.brand svg{height:17px;width:auto}
-.menu{display:flex;align-items:center;gap:28px;font-size:.8rem;font-weight:500}
-.menu a{text-decoration:none;opacity:.8}
-.menu a:hover{opacity:1}
-.menu .btn{opacity:1;padding:10px 18px;font-size:.78rem}
-.top .btn{background:currentColor}
-.top .btn span{color:var(--ink)}
-.top.solid .btn span{color:var(--bg)}
-.burger{display:none;background:none;border:0;color:inherit;padding:8px;cursor:pointer}
-.burger svg{width:22px;height:22px}
+/* Página inicial: editorial preto e branco (fotos P&B grandes, tipografia em contraste de pesos, grade fina),
+   com as três cores da marca usadas pelo significado: magenta = dor/negação, marinho = método/estrutura, verde = afirmação/ação. */
+section{padding-block:112px;position:relative}
+.dark{background:var(--ink);color:var(--ink-fg)}
+.dark .muted,.dark .sec-head p,.dark .sec-head .spaced{color:var(--ink-muted)}
+.marinho{background:var(--marinho);color:#fff}
+.marinho .sec-head p,.marinho .sec-head .spaced{color:rgba(255,255,255,.72)}
+.grade-fina{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:calc(100%/12) 100%,calc(100%/12) 100%}
 
 /* abertura */
-.dark{background:var(--ink);color:var(--ink-fg)}
-.dark .muted{color:var(--ink-muted)}
-.hero{padding-block:140px 0;overflow:hidden}
-.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:end}
-.hero .txt{padding-bottom:96px}
-.hero .spaced{color:var(--ink-muted);display:block;margin-bottom:26px}
-.hero h1{font-size:clamp(2.4rem,5.8vw,4.6rem);line-height:1.02;font-weight:700;letter-spacing:-.035em;margin:0 0 26px;text-wrap:balance}
-.hero p{font-size:1.1rem;color:var(--ink-muted);max-width:46ch;margin:0 0 36px}
+.hero{padding:0;min-height:calc(100vh - 70px);display:grid;grid-template-columns:1.05fr .95fr;background:var(--bg)}
+.hero .txt{padding:clamp(48px,8vw,110px) clamp(20px,5vw,72px) 56px max(20px,calc((100vw - var(--wide))/2 + 20px));display:flex;flex-direction:column;justify-content:center;gap:28px;position:relative}
+.hero .rotulo{display:flex;align-items:center;gap:14px;color:var(--muted)}
+.hero .rotulo .tres{display:flex;gap:4px;height:22px}.hero .rotulo .tres .I{width:8px;height:22px}
+.hero h1{font-size:clamp(2.6rem,6.4vw,5.6rem);line-height:.95;letter-spacing:-.045em;margin:0;font-weight:800}
+.hero h1 span{display:block}
+.hero h1 .leve{font-weight:200;font-style:italic;letter-spacing:-.035em}
+.hero p{font-size:1.08rem;color:var(--muted);max-width:44ch;margin:0}
 .hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
-.hero .ctas .btn:not(.solid){color:var(--ink-fg)}
-.hero figure{margin:0;align-self:end}
-.hero figure img{width:100%;max-width:520px;margin-left:auto;height:auto}
-.proof{border-top:1px solid var(--ink-line);padding-block:26px;overflow:hidden}
-.marquee{display:flex;gap:48px;white-space:nowrap;width:max-content;animation:roll 60s linear infinite}
-.marquee span{font-size:.7rem;font-weight:500;text-transform:uppercase;letter-spacing:.3em;color:var(--ink-muted)}
-@keyframes roll{to{transform:translateX(-50%)}}
+.hero .foto{position:relative;overflow:hidden;background:#7a0f1a;margin:0}
+.hero .foto img{width:100%;height:100%;object-fit:cover;object-position:30% 70%}
+.hero .foto .vert{position:absolute;right:22px;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;color:#fff;font-size:.66rem;letter-spacing:.42em;text-transform:uppercase;opacity:.85}
+.hero .foto .sinal{position:absolute;left:24px;top:24px;color:#fff;background:rgba(0,0,0,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25);border-radius:16px;padding:14px 18px;max-width:280px;font-size:.82rem;line-height:1.45}
+.hero .foto .sinal b{display:block;font-size:1.6rem;font-weight:800;letter-spacing:-.03em;line-height:1.1}
+.hero .scroll{position:absolute;left:max(20px,calc((100vw - var(--wide))/2 + 20px));bottom:22px;font-size:.66rem;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px}
 
-/* manifesto */
-.manifesto{padding-block:120px}
-.manifesto p{font-size:clamp(1.6rem,3.6vw,2.7rem);line-height:1.25;font-weight:500;letter-spacing:-.02em;margin:0;max-width:22ch;text-wrap:balance}
-.manifesto p b{font-weight:700}
-.manifesto .sig{margin-top:28px;color:var(--muted);font-size:.9rem}
+/* faixa de logos */
+.logos{padding-block:30px;border-block:1px solid var(--line);overflow:hidden;background:var(--bg)}
+.logos .trilho{display:flex;gap:64px;width:max-content;align-items:center;animation:rola 70s linear infinite}
+.logos:hover .trilho{animation-play-state:paused}
+.logos img{height:40px;width:auto;opacity:.6;transition:opacity .2s}
+.logos img:hover{opacity:1}
+[data-theme="light"] .logos img,[data-theme="light"] .clientes img{filter:invert(1)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .logos img,:root:not([data-theme="dark"]) .clientes img{filter:invert(1)}}
+@keyframes rola{to{transform:translateX(-50%)}}
 
-/* problema */
-.pain{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.pain div{background:var(--bg);padding:32px 28px}
-.pain h3{font-size:1.05rem;font-weight:600;margin:0 0 8px}
-.pain p{margin:0;color:var(--muted);font-size:.93rem;line-height:1.6}
-.pain .quote{grid-column:1/-1;background:var(--soft);padding:36px 28px;font-size:1.25rem;font-weight:500;line-height:1.45}
+/* manifesto em cascata de pesos */
+.manifesto{padding-block:120px;text-align:center;overflow:hidden}
+.cascata{display:grid;gap:2px;font-size:clamp(1rem,2.6vw,1.6rem);text-transform:uppercase;letter-spacing:.01em;line-height:1.25;margin-bottom:56px}
+.cascata span:nth-child(odd){font-style:italic}
+.manifesto p.frase{font-size:clamp(1.6rem,3.8vw,2.9rem);line-height:1.18;font-weight:300;letter-spacing:-.025em;margin:0 auto;max-width:24ch;text-wrap:balance}
+.manifesto p.frase b{font-weight:800}
+.manifesto .sig{margin-top:26px;color:var(--muted);font-size:.86rem;display:inline-flex;align-items:center;gap:12px}
+.manifesto .sig img{width:40px;height:40px;border-radius:50%;object-fit:cover}
 
-/* método */
-.frentes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.frente{border:1px solid var(--ink-line);border-radius:var(--r);padding:30px 26px;display:flex;flex-direction:column;gap:10px;min-height:250px}
-.frente .n{font-size:.7rem;letter-spacing:.3em;color:var(--ink-muted);font-variant-numeric:tabular-nums}
-.frente h3{font-size:1.35rem;font-weight:600;margin:auto 0 0;letter-spacing:-.01em}
-.frente p{margin:0;color:var(--ink-muted);font-size:.9rem;line-height:1.55}
-.pilares{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px;align-items:center}
-.pilares span{border:1px solid var(--ink-line);border-radius:999px;padding:8px 18px;font-size:.8rem}
-.pilares small{color:var(--ink-muted);font-size:.8rem;margin-right:6px}
+/* problema (magenta = negação) */
+.dores{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.dor{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:30px 28px 34px;display:grid;gap:10px;align-content:start;transition:background .25s}
+.dor:hover{background:var(--soft)}
+.dor .ic{width:28px;height:28px;color:var(--magenta-txt)}
+.dor h3{font-size:1.12rem;font-weight:700;margin:6px 0 0;letter-spacing:-.01em}
+.dor p{margin:0;color:var(--muted);font-size:.93rem;line-height:1.6}
+.dor-frase{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;margin-top:48px}
+.dor-frase .I{width:44px;height:120px}
+.dor-frase p{margin:0;font-size:clamp(1.3rem,2.6vw,1.9rem);line-height:1.3;font-weight:300;font-style:italic;letter-spacing:-.02em;max-width:36ch}
+.dor-frase p b{font-weight:800;font-style:normal}
 
-/* crm */
-.crm{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
-.crm .big{font-size:clamp(3.2rem,9vw,7rem);line-height:.9;font-weight:800;letter-spacing:-.04em;margin:0}
-.crm .big span{display:block}
-.crm .big em{font-style:normal;font-weight:300;font-size:.28em;letter-spacing:.35em;display:block;margin-top:18px;color:var(--muted);text-transform:uppercase}
-.crm p{margin:0 0 16px;color:var(--muted);font-size:1.05rem}
+/* método (marinho = construção) */
+.frentes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.18);border-radius:var(--r);overflow:hidden}
+.frente{background:var(--marinho);padding:30px 26px 32px;display:flex;flex-direction:column;gap:12px;min-height:280px}
+.frente .num{color:rgba(255,255,255,.55)}
+.frente .ic{width:30px;height:30px;color:var(--verde);margin-top:auto}
+.frente h3{font-size:1.4rem;font-weight:800;margin:0;letter-spacing:-.02em}
+.frente p{margin:0;color:rgba(255,255,255,.75);font-size:.9rem;line-height:1.55}
+.pilares{display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:center;margin-top:72px}
+.pilares .tres-i{height:200px;width:120px}
+.pilares ul{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1px solid rgba(255,255,255,.2)}
+.pilares li{display:grid;grid-template-columns:24px 160px 1fr;gap:18px;align-items:baseline;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.2)}
+.pilares li i{width:12px;height:12px;border-radius:50%;align-self:center}
+.pilares li b{font-size:1.25rem;font-weight:800;letter-spacing:-.01em}
+.pilares li span{color:rgba(255,255,255,.75);font-size:.92rem}
+
+/* método CRM */
+.crm{display:grid;grid-template-columns:.9fr 1.1fr;gap:72px;align-items:center}
+.crm figure{margin:0;position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/5}
+.crm figure img{width:100%;height:100%;object-fit:cover}
+.crm figure figcaption{position:absolute;inset:auto 0 0 0;padding:26px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.75));font-size:.8rem;letter-spacing:.3em;text-transform:uppercase}
+.crm .sigla{display:flex;gap:18px;align-items:flex-end;margin:6px 0 30px;flex-wrap:wrap}
+.crm .sigla span{font-size:clamp(3rem,8vw,6.4rem);line-height:.82;font-weight:900;letter-spacing:-.05em}
+.crm .sigla span:nth-child(2){font-weight:100}
+.crm .sigla span:nth-child(3){font-weight:500;font-style:italic}
+.crm .sigla em{font-style:normal;font-size:.66rem;letter-spacing:.42em;text-transform:uppercase;color:var(--muted);padding-bottom:10px;flex-basis:100%}
+.crm h2{font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.1;font-weight:300;letter-spacing:-.03em;margin:0 0 18px}
+.crm h2 b{font-weight:800}
+.crm p{margin:0 0 14px;color:var(--muted);font-size:1.03rem}
 .crm p strong{color:var(--fg)}
 
-/* jornada */
-.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--fg)}
-.steps li{padding:26px 24px 0 0;display:flex;flex-direction:column;gap:10px}
-.steps .n{font-size:.7rem;letter-spacing:.3em;color:var(--muted);font-variant-numeric:tabular-nums}
-.steps h3{font-size:1.15rem;font-weight:600;margin:0}
-.steps p{margin:0;color:var(--muted);font-size:.92rem;line-height:1.6}
-.entregas{margin-top:64px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:48px;background:var(--soft);border-radius:var(--r);padding:44px}
-.entregas h3{font-size:1.5rem;font-weight:600;margin:0 0 10px;letter-spacing:-.015em}
+/* como funciona */
+.passos{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:2px solid var(--fg)}
+.passos li{padding:26px 26px 0 0;display:grid;gap:10px;align-content:start}
+.passos .num{font-size:3.2rem}
+.passos h3{font-size:1.15rem;font-weight:800;margin:0;display:flex;align-items:center;gap:10px}
+.passos h3 .ic{color:var(--marinho-txt)}
+.passos p{margin:0;color:var(--muted);font-size:.92rem;line-height:1.6}
+.entregas{margin-top:72px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:48px;background:var(--soft);border-radius:var(--r);padding:48px;position:relative;overflow:hidden}
+.entregas h3{font-size:1.7rem;font-weight:800;margin:0 0 10px;letter-spacing:-.025em}
+.entregas h3 .leve{font-weight:200;font-style:italic}
 .entregas p{margin:0;color:var(--muted)}
-.entregas ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 28px}
-.entregas li{display:flex;gap:12px;font-size:.95rem;line-height:1.5}
-.entregas li::before{content:"";flex:none;width:12px;height:2px;background:var(--fg);margin-top:.7em}
-.nao{margin-top:18px;font-size:.85rem;color:var(--muted)}
+.entregas ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:14px 28px}
+.entregas li{display:flex;gap:12px;font-size:.95rem;line-height:1.45;align-items:flex-start}
+.entregas li .ic{color:var(--verde-txt);margin-top:1px}
+.nao{margin-top:18px!important;font-size:.84rem;display:flex;gap:10px;align-items:flex-start}
+.nao .ic{color:var(--magenta-txt);flex:none}
 
-/* serviços */
-.servicos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.servico{border:1px solid var(--line);border-radius:var(--r);padding:34px 32px;display:flex;flex-direction:column;gap:12px}
-.servico .spaced{color:var(--muted)}
-.servico h3{font-size:1.5rem;font-weight:600;margin:0;letter-spacing:-.015em}
+/* serviços com imagens de apoio */
+.servicos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.servico{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:grid;grid-template-rows:200px auto;background:var(--card);transition:border-color .2s,transform .3s}
+.servico:hover{border-color:var(--fg);transform:translateY(-3px)}
+.servico figure{margin:0;overflow:hidden;position:relative}
+.servico figure img{width:100%;height:100%;object-fit:cover;filter:grayscale(1);transition:transform .6s}
+.servico:hover figure img{transform:scale(1.04)}
+.servico figure .tag{position:absolute;left:18px;top:18px;background:var(--bg);color:var(--fg);border-radius:999px;padding:6px 12px;font-size:.62rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase}
+.servico .corpo{padding:28px 30px 32px;display:grid;gap:10px}
+.servico h3{font-size:1.45rem;font-weight:800;margin:0;letter-spacing:-.02em;display:flex;align-items:center;gap:12px}
+.servico h3 .ic{width:26px;height:26px}
 .servico p{margin:0;color:var(--muted);font-size:.95rem}
-.servico ul{margin:6px 0 0;padding-left:1.1em;font-size:.92rem;color:var(--muted);display:grid;gap:4px}
 .servico.destaque{background:var(--ink);color:var(--ink-fg);border-color:var(--ink)}
-.servico.destaque p,.servico.destaque ul,.servico.destaque .spaced{color:var(--ink-muted)}
-
-/* segmentos */
-.segmentos{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px}
-.segmentos span{background:var(--soft);border-radius:999px;padding:10px 20px;font-size:.88rem;font-weight:500}
+.servico.destaque p{color:var(--ink-muted)}
+.servico.destaque h3 .ic{color:var(--verde)}
+.servico.destaque .btn{justify-self:start;margin-top:6px}
+.segmentos{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px;align-items:center}
+.segmentos small{color:var(--muted);font-size:.8rem;margin-right:6px}
+.segmentos span{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-size:.86rem;font-weight:500}
 
 /* cases */
-.cases{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:start}
-.yt{position:relative;aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;background:#111;cursor:pointer;border:0;padding:0;width:100%;display:block;color:#fff}
-.yt img{width:100%;height:100%;object-fit:cover;opacity:.85;transition:opacity .2s}
-.yt:hover img{opacity:1}
-.yt .play{position:absolute;inset:0;margin:auto;width:72px;height:72px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;font-size:1.1rem}
+.case{display:grid;grid-template-columns:1.15fr .85fr;border-radius:var(--r);overflow:hidden;background:var(--ink);color:var(--ink-fg);text-decoration:none;min-height:420px}
+.case figure{margin:0;position:relative}
+.case figure img{width:100%;height:100%;object-fit:cover;opacity:.8;transition:opacity .3s,transform .6s}
+.case:hover figure img{opacity:1;transform:scale(1.03)}
+.case .play{position:absolute;inset:0;margin:auto;width:76px;height:76px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center}
+.case .play .ic{width:28px;height:28px;margin-left:4px}
+.case .info{padding:44px;display:flex;flex-direction:column;gap:16px}
+.case .info .spaced{color:var(--ink-muted)}
+.case .info h3{font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:800;letter-spacing:-.035em;line-height:1;margin:0}
+.case .info h3 .leve{font-weight:200;font-style:italic}
+.case .info p{margin:0;color:var(--ink-muted)}
+.case .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ink-line);border:1px solid var(--ink-line);border-radius:14px;overflow:hidden;margin-top:auto}
+.case .kpis div{background:var(--ink);padding:14px}
+.case .kpis b{display:block;font-size:1.5rem;font-weight:800;letter-spacing:-.03em;color:var(--verde)}
+.case .kpis span{font-size:.72rem;color:var(--ink-muted);line-height:1.3;display:block}
+.case .ir{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:.9rem}
+.depo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:18px}
+.q{border:1px solid var(--line);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;gap:16px;margin:0;background:var(--card)}
+.q .ic{width:30px;height:30px;color:var(--verde-txt)}
+.q p{margin:0;font-size:1.02rem;line-height:1.55;font-weight:500;font-style:italic}
+.q cite{font-style:normal;font-size:.8rem;color:var(--muted);margin-top:auto}
+.q cite b{color:var(--fg);font-weight:700;display:block;font-size:.88rem}
+.yts{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.yt{position:relative;aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;background:#111;cursor:pointer;border:0;padding:0;width:100%;display:block;color:#000}
+.yt img{width:100%;height:100%;object-fit:cover;opacity:.85;transition:opacity .2s;filter:grayscale(.6)}
+.yt:hover img{opacity:1;filter:none}
+.yt .play{position:absolute;inset:0;margin:auto;width:58px;height:58px;border-radius:50%;background:#fff;display:grid;place-items:center}
+.yt .play .ic{width:22px;height:22px;margin-left:3px}
 .yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.yt-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
-.yt-row .yt .play{width:52px;height:52px;font-size:.9rem}
-.quotes{display:grid;gap:16px}
-.q{border-left:2px solid var(--fg);padding:4px 0 4px 22px}
-.q p{margin:0 0 10px;font-size:1.08rem;line-height:1.55;font-weight:500}
-.q cite{font-style:normal;font-size:.8rem;color:var(--muted)}
-.q cite b{color:var(--fg);font-weight:600}
-.clientes{margin-top:64px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
-.clientes span{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 18px;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.14em;text-align:center;color:var(--muted)}
+.clientes{margin-top:64px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.clientes div{border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;place-items:center;padding:26px 18px;min-height:110px}
+.clientes img{max-height:46px;max-width:100%;width:auto;opacity:.6;transition:opacity .2s}
+.clientes div:hover img{opacity:1}
 
-/* sobre */
-.sobre{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:start}
-.sobre .istrip{position:sticky;top:110px}
-.istrip{display:flex;gap:10px;justify-content:center}
-.istrip img{width:calc(20% - 8px);height:auto;border-radius:4px}
-.sobre h2{font-size:clamp(2rem,4.2vw,3rem);line-height:1.08;font-weight:600;letter-spacing:-.025em;margin:14px 0 22px}
-.sobre ul{list-style:none;margin:0 0 28px;padding:0;display:grid;gap:12px}
-.sobre li{display:flex;gap:14px;line-height:1.5}
-.sobre li::before{content:"";flex:none;width:12px;height:2px;background:var(--ink-fg);margin-top:.7em}
-.sobre .bio p{color:var(--ink-muted);margin:0 0 14px;max-width:56ch}
-.sobre .bio p.lead{color:var(--ink-fg);font-size:1.12rem;font-weight:500}
+/* sobre: um I grande */
+.sobre{display:grid;grid-template-columns:.8fr 1.2fr;gap:80px;align-items:center}
+.sobre .I{width:min(100%,380px);margin-inline:auto;background:#222}
+.sobre h2{font-size:clamp(2.2rem,4.8vw,3.6rem);line-height:1;font-weight:800;letter-spacing:-.04em;margin:14px 0 26px}
+.sobre h2 .leve{font-weight:200;font-style:italic}
+.sobre .bio p{color:var(--ink-muted);margin:0 0 14px;max-width:58ch}
+.sobre .bio p.lead{color:var(--ink-fg);font-size:1.15rem;font-weight:600}
 .sobre .bio{margin-bottom:28px}
-.sobre ul{font-size:.9rem}
+.sobre ul{list-style:none;margin:0 0 30px;padding:0;display:grid;gap:12px;font-size:.92rem}
+.sobre li{display:flex;gap:12px;align-items:flex-start;line-height:1.5}
+.sobre li .ic{color:var(--verde);margin-top:1px}
+.sobre .btn.solid{background:var(--ink-fg);color:var(--ink);border-color:var(--ink-fg)}
 
 /* blog */
 .posts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
 .posts a{display:flex;flex-direction:column;gap:14px;text-decoration:none}
-.posts .cover{aspect-ratio:4/3;border-radius:20px;overflow:hidden;background:var(--ink);display:grid;place-items:center;color:var(--ink-fg)}
-.posts .cover img{width:100%;height:100%;object-fit:cover}
+.posts .cover{aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:var(--ink);display:grid;place-items:center;color:var(--ink-fg)}
+.posts .cover img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.posts a:hover .cover img{transform:scale(1.04)}
 .posts .cover svg{height:40%;width:auto}
 .posts .row{font-size:.75rem;color:var(--muted);display:flex;gap:10px;align-items:center}
 .posts .tag{border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.14em}
-.posts h3{font-size:1.2rem;font-weight:500;line-height:1.3;margin:0;letter-spacing:-.01em}
-.posts a:hover h3 .t{background:linear-gradient(transparent 60%,var(--grifo) 60%,var(--grifo) 74%,transparent 74%)}
+.posts h3{font-size:1.22rem;font-weight:700;line-height:1.3;margin:0;letter-spacing:-.015em}
+.posts a:hover h3 .t{text-decoration:underline;text-decoration-color:var(--grifo);text-decoration-thickness:2px;text-underline-offset:5px}
 .blog-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:48px}
 .blog-head .sec-head{margin:0}
 
 /* chamada final */
-.final{text-align:center;padding-block:130px}
-.final h2{font-size:clamp(2.2rem,5.4vw,4.2rem);line-height:1.05;font-weight:700;letter-spacing:-.035em;margin:18px auto 22px;max-width:16ch;text-wrap:balance}
-.final p{color:var(--ink-muted);max-width:50ch;margin:0 auto 36px;font-size:1.05rem}
+.final{padding:0;display:grid;grid-template-columns:1fr 1fr;background:var(--ink);color:var(--ink-fg);overflow:hidden}
+.final .txt{padding:110px max(20px,5vw) 110px max(20px,calc((100vw - var(--wide))/2 + 20px));display:grid;gap:22px;align-content:center}
 .final .spaced{color:var(--ink-muted)}
-.final .ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
-.final .ctas .btn:not(.solid){color:var(--ink-fg)}
+.final h2{font-size:clamp(2.2rem,5vw,4rem);line-height:1;font-weight:800;letter-spacing:-.04em;margin:0;text-wrap:balance}
+.final h2 .leve{font-weight:200;font-style:italic}
+.final p{color:var(--ink-muted);max-width:48ch;margin:0;font-size:1.05rem}
+.final .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.final .ctas .btn:not(.verde){color:var(--ink-fg)}
+.final figure{margin:0;position:relative;min-height:420px}
+.final figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1);-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%);mask-image:linear-gradient(90deg,transparent,#000 35%)}
+.final .foot{margin-top:0}
 
-/* rodapé */
-.foot{border-top:1px solid var(--ink-line)}
-.foot .wrap{display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;padding-block:36px}
-.foot .mk{display:flex;align-items:center;gap:12px;font-size:.75rem;line-height:1.3;color:var(--ink-muted)}
-.foot .mk svg{height:30px;width:auto;color:var(--ink-fg)}
-.foot nav{display:flex;flex-wrap:wrap;gap:24px;font-size:.8rem}
-.foot nav a{text-decoration:none;color:var(--ink-muted)}
-.foot nav a:hover{color:var(--ink-fg)}
-.foot small{color:var(--ink-muted);font-size:.72rem}
-
-@media (max-width:980px){
-  .hero .wrap,.crm,.cases,.sobre,.entregas{grid-template-columns:1fr}
-  .sobre .istrip{position:static}
-  .hero .txt{padding-bottom:24px}
-  .hero figure img{margin:0 auto;max-width:380px}
+@media (max-width:1000px){
+  .hero{grid-template-columns:1fr;min-height:0}
+  .hero .txt{padding:56px 20px 40px}
+  .hero .foto{height:72vh;min-height:420px}
+  .hero .scroll{display:none}
+  .crm,.sobre,.entregas,.case,.final{grid-template-columns:1fr}
   .frentes{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .steps{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 0}
-  .pain{grid-template-columns:1fr 1fr}
+  .passos{grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 0}
+  .dores{grid-template-columns:1fr 1fr}
   .posts{grid-template-columns:1fr 1fr}
-  .clientes{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .clientes{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .depo{grid-template-columns:1fr}
+  .case figure{min-height:260px}
+  .final figure{min-height:300px}
+  .final figure img{-webkit-mask-image:linear-gradient(transparent,#000 40%);mask-image:linear-gradient(transparent,#000 40%)}
+  .final .txt{padding:80px 20px 20px}
+  .sobre .I{width:min(70%,300px)}
 }
-@media (max-width:720px){
-  section{padding-block:72px}
-  .menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:flex-start;gap:4px;padding:16px 20px 24px;background:var(--bg);color:var(--fg);border-bottom:1px solid var(--line)}
-  .menu a{padding:10px 0;font-size:1rem}
-  .menu.open{display:flex}
-  .burger{display:block}
-  .hero{padding-top:112px}
-  .servicos,.posts,.frentes,.steps,.pain,.yt-row{grid-template-columns:1fr}
+@media (max-width:640px){
+  section{padding-block:76px}
+  .servicos,.posts,.frentes,.passos,.dores,.yts{grid-template-columns:1fr}
   .entregas{padding:28px}
   .entregas ul{grid-template-columns:1fr}
-  .clientes{grid-template-columns:1fr 1fr}
-  .istrip{gap:6px}
+  .clientes{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pilares{grid-template-columns:1fr;gap:32px}
+  .pilares .tres-i{height:140px;width:120px}
+  .pilares li{grid-template-columns:20px 1fr;gap:6px 14px}
+  .pilares li span{grid-column:2}
+  .case .info{padding:28px}
+  .dor-frase{grid-template-columns:1fr}
+  .dor-frase .I{display:none}
 }
-@media (prefers-reduced-motion:reduce){.marquee{animation:none}html{scroll-behavior:auto}}
 </style>
 </head>
-<body>
-
-<header class="top" id="top">
-  <div class="wrap">
-    <a class="brand" href="#inicio" aria-label="Unique, início"><svg viewBox="0 0 2696 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Unique"><path fill="currentColor" fill-rule="evenodd" d="M2304 50L2300 56L2301 60L2309 66L2329 73L2338 83L2343 97L2343 395L2338 411L2326 422L2304 430L2301 440L2309 445L2629 444L2635 436L2647 391L2645 380L2637 383L2598 423L2585 430L2564 433L2525 434L2484 430L2458 417L2441 396L2434 363L2435 244L2440 241L2532 241L2554 246L2575 265L2596 301L2603 301L2605 173L2596 171L2568 215L2561 222L2545 229L2438 230L2434 226L2433 69L2441 60L2571 60L2591 63L2605 71L2624 91L2641 116L2647 119L2652 116L2641 52L2636 49ZM1801 52L1801 61L1820 72L1831 90L1833 334L1848 371L1871 399L1899 421L1932 437L1963 446L2007 450L2075 447L2118 438L2155 422L2183 399L2198 379L2206 361L2212 325L2215 85L2225 72L2245 60L2245 53L2242 50L2163 49L2158 53L2159 62L2181 76L2187 92L2189 307L2182 339L2160 366L2128 383L2093 390L2055 392L2004 391L1973 383L1949 368L1936 354L1927 338L1922 314L1922 53L1917 49L1805 49ZM1027 49L1024 53L1025 62L1048 77L1054 92L1055 381L1054 401L1049 414L1042 422L1025 431L1024 440L1029 445L1170 445L1175 440L1175 433L1151 415L1145 394L1145 99L1152 76L1175 61L1175 52L1172 49ZM548 50L545 55L548 63L578 74L592 86L591 405L578 423L562 432L562 441L565 444L642 445L648 440L647 431L624 415L619 400L615 123L620 118L904 435L917 445L927 443L930 438L936 92L944 75L967 61L967 52L964 49L884 49L880 54L883 64L903 75L909 85L911 98L912 288L906 292L682 50ZM51 52L50 60L73 77L79 90L81 333L89 358L98 374L119 399L149 422L183 438L211 446L255 450L323 447L366 438L403 422L431 399L446 379L454 361L460 328L463 85L473 72L493 60L493 53L490 50L411 49L406 55L407 61L413 67L430 77L435 92L437 310L430 339L422 352L408 366L376 383L340 390L303 392L252 391L221 383L197 368L184 354L175 338L170 313L170 53L165 49L56 49ZM1248 158L1232 201L1227 256L1233 298L1249 339L1271 370L1300 398L1350 430L1440 478L1512 510L1579 534L1669 557L1702 560L1796 559L1824 550L1866 524L1915 483L1907 481L1899 487L1870 495L1777 498L1676 496L1588 486L1485 463L1465 453L1459 445L1427 439L1388 416L1362 386L1344 352L1336 328L1328 287L1327 222L1336 172L1353 132L1380 96L1414 71L1432 63L1462 56L1505 56L1537 63L1560 73L1581 87L1605 110L1623 135L1639 172L1648 215L1647 288L1639 322L1615 371L1585 404L1560 422L1522 438L1494 442L1485 446L1498 449L1540 447L1609 430L1659 405L1703 367L1725 337L1742 297L1748 255L1742 196L1725 155L1703 124L1675 98L1634 73L1592 57L1552 48L1466 46L1407 50L1357 65L1310 90L1273 122Z"/></svg></a>
-    <button class="burger" type="button" id="burger" aria-label="Abrir menu" aria-expanded="false"><svg viewBox="0 0 24 24" class="icon" style="width:22px;height:22px"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-    <nav class="menu" id="menu" aria-label="Principal">
-      <a href="#metodo">Método</a>
-      <a href="#servicos">Serviços</a>
-      <a href="#cases">Cases</a>
-      <a href="#sobre">Sobre</a>
-      <a href="/blog/">Blog</a>
-      <a class="btn" href="/diagnostico/"><span>Faça seu diagnóstico</span></a>
-    </nav>
-  </div>
-</header>
-
+<body data-casco="inicio">
+<script src="/assets/casco.js"></script>
 <main id="inicio">
 
-<section class="dark hero">
-  <div class="wrap">
-    <div class="txt">
-      <span class="spaced">Unique · Consultoria Comercial</span>
-      <h1>Vendas previsíveis não dependem de sorte. Dependem de <span class="grifo">processo</span>.</h1>
-      <p>Estruturamos processos, tecnologia e pessoas para transformar o comercial da sua empresa em uma operação previsível, organizada e escalável.</p>
-      <div class="ctas">
-        <a class="btn solid" href="/diagnostico/">Faça seu diagnóstico comercial</a>
-        <a class="btn" href="#metodo">Conhecer o método</a>
-      </div>
+<section class="hero" aria-labelledby="h-hero">
+  <div class="txt">
+    <span class="rotulo spaced"><span class="tres" aria-hidden="true"><i class="I mag"></i><i class="I mar"></i><i class="I ver"></i></span>Unique · Consultoria comercial</span>
+    <h1 id="h-hero"><span>Vendas previsíveis</span><span class="leve">não dependem de sorte.</span><span>Dependem de <span class="grifo" style="display:inline">processo.</span></span></h1>
+    <p>Estruturamos processos, tecnologia e pessoas para transformar o comercial da sua empresa em uma operação previsível, organizada e escalável.</p>
+    <div class="ctas">
+      <a class="btn solid" href="/diagnostico/">Faça seu diagnóstico comercial <i class="ic" style="--i:var(--ic-seta)"></i></a>
+      <a class="btn" href="#metodo">Conhecer o método</a>
     </div>
-    <figure><img src="/assets/carlos-hero.jpg" alt="Carlos Ribeiro, fundador da Unique" width="880" height="1020"></figure>
+    <span class="scroll"><i class="ic" style="--i:var(--ic-seta);transform:rotate(90deg)"></i>Role para conhecer</span>
   </div>
-  <div class="proof" aria-label="Empresas atendidas">
-    <div class="marquee" aria-hidden="true"><span>Clínica Brasil</span><span>Multiodonto</span><span>Tendas Aluban</span><span>Global Química</span><span>Grupo Siqueira Gaipo</span><span>Casa Lis</span><span>IDO Odontologia</span><span>URBS</span><span>SuperBolla</span><span>Instituto Rogério Penna</span><span>Laboratório Alcântara</span><span>Holanda Empresarial</span><span>Clínica Brasil</span><span>Multiodonto</span><span>Tendas Aluban</span><span>Global Química</span><span>Grupo Siqueira Gaipo</span><span>Casa Lis</span><span>IDO Odontologia</span><span>URBS</span><span>SuperBolla</span><span>Instituto Rogério Penna</span><span>Laboratório Alcântara</span><span>Holanda Empresarial</span></div>
-  </div>
+  <figure class="foto">
+    <img src="/assets/fotos/parede-correndo.jpg" alt="Carlos Ribeiro correndo diante de uma enorme parede vermelha" width="1333" height="2000" fetchpriority="high">
+    <span class="vert" aria-hidden="true">Let’s made f*ck un1que companies for u</span>
+    <div class="sinal"><b>Desde 2018</b>estruturando o comercial de clínicas, indústrias, confecções, serviços e varejo.</div>
+  </figure>
 </section>
+
+<div class="logos" aria-label="Empresas que já passaram pela Unique">
+  <div class="trilho" id="trilho"></div>
+</div>
 
 <section class="manifesto">
   <div class="wrap">
-    <p>A Unique não oferece consultoria nem mentoria. Oferece <b>execução estratégica</b> com <span class="grifo">inteligência comercial</span>.</p>
-    <div class="sig">Carlos Ribeiro, fundador da Unique</div>
+    <div class="cascata" aria-hidden="true">
+      <span class="w1">Let’s made f*ck un1que companies for u</span>
+      <span class="w3">Let’s made f*ck un1que companies for u</span>
+      <span class="w5">Let’s made f*ck un1que companies for u</span>
+      <span class="w7">Let’s made f*ck un1que companies for u</span>
+      <span class="w9">Let’s made f*ck un1que companies for u</span>
+    </div>
+    <p class="frase">A Unique não oferece consultoria nem mentoria. Oferece <b>execução estratégica</b> com <b class="grifo">inteligência comercial</b>.</p>
+    <div class="sig"><img src="/assets/fotos/avatar-carlos.jpg" alt="" width="40" height="40">Carlos Ribeiro, fundador da Unique</div>
   </div>
 </section>
 
 <section id="problema" style="padding-top:0">
   <div class="wrap">
     <div class="sec-head">
-      <span class="spaced">O diagnóstico que mais se repete</span>
-      <h2>O problema quase nunca é falta de cliente. É estrutura.</h2>
+      <span class="spaced c-mag">O diagnóstico que mais se repete</span>
+      <h2>O problema quase nunca é falta de cliente. <span class="leve">É estrutura.</span></h2>
       <p>Existe venda. Existe demanda. Mas ainda não existe um sistema comercial preparado para sustentar o crescimento.</p>
     </div>
-    <div class="pain">
-      <div><h3>Depende do dono</h3><p>As vendas grandes ainda passam pela mão de uma ou duas pessoas-chave.</p></div>
-      <div><h3>Funil na memória</h3><p>Sem CRM de verdade, ninguém sabe o que vai fechar no mês que vem.</p></div>
-      <div><h3>Follow-up sem padrão</h3><p>Cada vendedor faz de um jeito, e o lead que não comprou some do radar.</p></div>
-      <div><h3>WhatsApp sem estratégia</h3><p>O canal que mais vende é usado só como operação, sem régua nem automação.</p></div>
-      <div><h3>Regras que se dobram</h3><p>A política comercial existe, mas é quebrada conforme a situação.</p></div>
-      <div><h3>Sem indicador</h3><p>Conversão, perdas e objeções não são medidas. Decisão vira achismo.</p></div>
-      <div class="quote">"A empresa não sofre por falta de mercado. Sofre porque o comercial ainda depende demais das pessoas e pouco do processo."</div>
+    <div class="dores">
+      <div class="dor"><i class="ic" style="--i:var(--ic-user)"></i><h3>Depende do dono</h3><p>As vendas grandes ainda passam pela mão de uma ou duas pessoas-chave.</p></div>
+      <div class="dor"><i class="ic" style="--i:var(--ic-funil)"></i><h3>Funil na memória</h3><p>Sem CRM de verdade, ninguém sabe o que vai fechar no mês que vem.</p></div>
+      <div class="dor"><i class="ic" style="--i:var(--ic-recupera)"></i><h3>Follow-up sem padrão</h3><p>Cada vendedor faz de um jeito, e o lead que não comprou some do radar.</p></div>
+      <div class="dor"><i class="ic" style="--i:var(--ic-whatsapp)"></i><h3>WhatsApp sem estratégia</h3><p>O canal que mais vende é usado só como operação, sem régua nem automação.</p></div>
+      <div class="dor"><i class="ic" style="--i:var(--ic-alerta)"></i><h3>Regras que se dobram</h3><p>A política comercial existe, mas é quebrada conforme a situação.</p></div>
+      <div class="dor"><i class="ic" style="--i:var(--ic-pizza)"></i><h3>Sem indicador</h3><p>Conversão, perdas e objeções não são medidas. Decisão vira achismo.</p></div>
     </div>
+    <div class="dor-frase"><span class="I mag" aria-hidden="true"></span><p>"A empresa não sofre por falta de mercado. Sofre porque o comercial ainda depende <b>demais das pessoas</b> e pouco do processo."</p></div>
   </div>
 </section>
 
-<section class="dark" id="metodo">
+<section class="marinho" id="metodo">
   <div class="wrap">
     <div class="sec-head">
-      <span class="spaced muted">Growth Sales</span>
-      <h2>Um modelo que olha para as quatro frentes do comercial.</h2>
-      <p class="muted">Do diagnóstico à execução, o Growth Sales une visão estratégica com implementação prática e mensurável.</p>
+      <span class="spaced">Growth Sales</span>
+      <h2>Um modelo que olha para <span class="leve">as quatro frentes</span> do comercial.</h2>
+      <p>Do diagnóstico à execução, o Growth Sales une visão estratégica com implementação prática e mensurável.</p>
     </div>
     <div class="frentes">
-      <div class="frente"><span class="n">01</span><h3>Prospecção</h3><p>Como a empresa encontra e aborda o cliente certo.</p></div>
-      <div class="frente"><span class="n">02</span><h3>Vendas</h3><p>Atendimento, nutrição e fechamento com roteiro e ritmo.</p></div>
-      <div class="frente"><span class="n">03</span><h3>Fidelização</h3><p>Frequência de compra, pós-venda e indicação.</p></div>
-      <div class="frente"><span class="n">04</span><h3>Recuperação</h3><p>Clientes inativos e oportunidades que ficaram pelo caminho.</p></div>
+      <div class="frente"><span class="num">01</span><i class="ic" style="--i:var(--ic-alvo)"></i><h3>Prospecção</h3><p>Como a empresa encontra e aborda o cliente certo.</p></div>
+      <div class="frente"><span class="num">02</span><i class="ic" style="--i:var(--ic-chat)"></i><h3>Vendas</h3><p>Atendimento, nutrição e fechamento com roteiro e ritmo.</p></div>
+      <div class="frente"><span class="num">03</span><i class="ic" style="--i:var(--ic-coracao)"></i><h3>Fidelização</h3><p>Frequência de compra, pós-venda e indicação.</p></div>
+      <div class="frente"><span class="num">04</span><i class="ic" style="--i:var(--ic-recupera)"></i><h3>Recuperação</h3><p>Clientes inativos e oportunidades que ficaram pelo caminho.</p></div>
     </div>
-    <div class="pilares"><small>Sempre em três pilares:</small><span>Processos</span><span>Tecnologia</span><span>Pessoas</span></div>
+    <div class="pilares">
+      <div class="tres-i" aria-hidden="true"><span class="I mag"></span><span class="I" style="background:#fff"></span><span class="I ver"></span></div>
+      <ul>
+        <li><i style="background:var(--magenta)"></i><b>Processos</b><span>Funil, etapas, scripts e régua de follow-up desenhados para a sua realidade.</span></li>
+        <li><i style="background:#fff"></i><b>Tecnologia</b><span>CRM, WhatsApp integrado e automações que tiram o time do improviso.</span></li>
+        <li><i style="background:var(--verde)"></i><b>Pessoas</b><span>Treinamento, rotina e metas para o comportamento certo virar cultura.</span></li>
+      </ul>
+    </div>
   </div>
 </section>
 
 <section>
   <div class="wrap crm">
-    <p class="big"><span>C.</span><span>R.</span><span>M.</span><em>Método autoral</em></p>
+    <figure>
+      <img src="/assets/fotos/xadrez.jpg" alt="Carlos movendo uma peça de xadrez" width="896" height="1152" loading="lazy">
+      <figcaption>Estratégia antes de esforço</figcaption>
+    </figure>
     <div>
-      <div class="sec-head" style="margin-bottom:24px">
-        <span class="spaced">Método CRM</span>
-        <h2>Comportamento <span class="grifo">Repetido</span> Muda.</h2>
-      </div>
+      <div class="sigla" aria-label="C.R.M."><span>C.</span><span>R.</span><span>M.</span><em>Método autoral · Carlos Ribeiro</em></div>
+      <h2>Comportamento <b class="grifo">Repetido</b> <b>Muda.</b></h2>
       <p>CRM não é só um sistema. É o comportamento certo, repetido todos os dias, até virar cultura.</p>
       <p>É por isso que a Unique não entrega só a ferramenta. Entrega <strong>rotina comercial, scripts, régua de follow-up e leitura de dados</strong>, para o time sair do modo "apagar incêndio" e o resultado deixar de depender de sorte.</p>
     </div>
@@ -347,29 +363,29 @@ section{padding-block:104px}
   <div class="wrap">
     <div class="sec-head">
       <span class="spaced">Como funciona</span>
-      <h2>Um projeto de até 3 meses, com começo, meio e fim.</h2>
+      <h2>Um projeto de até 3 meses, <span class="leve">com começo, meio e fim.</span></h2>
     </div>
-    <ol class="steps">
-      <li><span class="n">01</span><h3>Diagnóstico</h3><p>Análise da estrutura comercial atual, score de maturidade e mapa de gargalos.</p></li>
-      <li><span class="n">02</span><h3>Planejamento</h3><p>Mapeamento das ações comerciais e organização do processo de vendas.</p></li>
-      <li><span class="n">03</span><h3>Estruturação</h3><p>Funil no CRM, scripts, materiais de apoio e rotinas do time.</p></li>
-      <li><span class="n">04</span><h3>Acompanhamento</h3><p>Encontros estratégicos, testes A/B e ajustes até o processo rodar.</p></li>
+    <ol class="passos">
+      <li><span class="num">01</span><h3><i class="ic" style="--i:var(--ic-pizza)"></i>Diagnóstico</h3><p>Análise da estrutura comercial atual, score de maturidade e mapa de gargalos.</p></li>
+      <li><span class="num">02</span><h3><i class="ic" style="--i:var(--ic-rota)"></i>Planejamento</h3><p>Mapeamento das ações comerciais e organização do processo de vendas.</p></li>
+      <li><span class="num">03</span><h3><i class="ic" style="--i:var(--ic-config)"></i>Estruturação</h3><p>Funil no CRM, scripts, materiais de apoio e rotinas do time.</p></li>
+      <li><span class="num">04</span><h3><i class="ic" style="--i:var(--ic-sobe)"></i>Acompanhamento</h3><p>Encontros estratégicos, testes A/B e ajustes até o processo rodar.</p></li>
     </ol>
     <div class="entregas">
       <div>
-        <h3>O que você recebe</h3>
-        <p>Toda a documentação fica organizada na plataforma do projeto, com acesso contínuo para a sua equipe.</p>
-        <p class="nao">O projeto não inclui gestão de tráfego pago, compra de mídia nem a operação diária do time de vendas.</p>
+        <h3>O que você <span class="leve">recebe</span></h3>
+        <p>Toda a documentação fica organizada na <a href="/area/">área do cliente</a>, com acesso contínuo para a sua equipe.</p>
+        <p class="nao"><i class="ic" style="--i:var(--ic-x)"></i>O projeto não inclui gestão de tráfego pago, compra de mídia nem a operação diária do time de vendas.</p>
       </div>
       <ul>
-        <li>Diagnóstico comercial estruturado</li>
-        <li>Mapeamento de ações estratégicas</li>
-        <li>Estruturação do funil comercial no CRM</li>
-        <li>Scripts por etapa e por nicho</li>
-        <li>Rotinas comerciais e régua de follow-up</li>
-        <li>Estratégia de cross-sell e recompra</li>
-        <li>Bonificação vinculada a metas</li>
-        <li>Encontros presenciais e acompanhamento online</li>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Diagnóstico comercial estruturado</li>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Mapeamento de ações estratégicas</li>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Estruturação do funil comercial no CRM</li>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Scripts por etapa e por nicho</li>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Rotinas comerciais e régua de follow-up</li>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Estratégia de cross-sell e recompra</li>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Bonificação vinculada a metas</li>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Encontros presenciais e acompanhamento online</li>
       </ul>
     </div>
   </div>
@@ -379,32 +395,38 @@ section{padding-block:104px}
   <div class="wrap">
     <div class="sec-head">
       <span class="spaced">Serviços</span>
-      <h2>Por onde a sua empresa pode começar.</h2>
+      <h2>Por onde a sua empresa <span class="leve">pode começar.</span></h2>
     </div>
     <div class="servicos">
-      <div class="servico destaque">
-        <span class="spaced">Porta de entrada</span>
-        <h3>Diagnóstico comercial</h3>
+      <article class="servico destaque">
+        <figure><img src="https://images.unsplash.com/photo-1522252234503-e356532cafd5?w=1000&h=500&fit=crop&q=70&auto=format" alt="" loading="lazy"><span class="tag">Porta de entrada</span></figure>
+        <div class="corpo"><h3><i class="ic" style="--i:var(--ic-pizza)"></i>Diagnóstico comercial</h3>
         <p>Um raio-x do seu comercial com score de maturidade, falhas tecnológicas, retrato do funil atual e um relatório de gargalos com as ações prioritárias.</p>
-      </div>
-      <div class="servico">
-        <span class="spaced">Projeto</span>
-        <h3>Estruturação comercial</h3>
-        <p>O Growth Sales aplicado na sua empresa: processo, funil, scripts, rotinas e indicadores para vender com previsibilidade.</p>
-      </div>
-      <div class="servico">
-        <span class="spaced">Tecnologia</span>
-        <h3>Implantação de CRM e automações</h3>
-        <p>Escolha e implantação do software certo para o seu momento, com WhatsApp integrado, funis e automações comerciais.</p>
-      </div>
-      <div class="servico">
-        <span class="spaced">Pessoas</span>
-        <h3>Treinamentos e palestras</h3>
-        <p>Capacitação do time em abordagem, objeções, fechamento e atendimento humanizado, dentro da realidade da sua empresa.</p>
-      </div>
+        <a class="btn verde sm" href="/diagnostico/">Começar agora <i class="ic" style="--i:var(--ic-seta)"></i></a></div>
+      </article>
+      <article class="servico">
+        <figure><img src="https://images.unsplash.com/photo-1651255658868-edb1a7ede3e8?w=1000&h=500&fit=crop&q=70&auto=format" alt="" loading="lazy"><span class="tag">Projeto</span></figure>
+        <div class="corpo"><h3><i class="ic" style="--i:var(--ic-rota)"></i>Estruturação comercial</h3>
+        <p>O Growth Sales aplicado na sua empresa: processo, funil, scripts, rotinas e indicadores para vender com previsibilidade.</p></div>
+      </article>
+      <article class="servico">
+        <figure><img src="https://images.unsplash.com/photo-1588511986632-592db3d6c81f?w=1000&h=500&fit=crop&q=70&auto=format" alt="" loading="lazy"><span class="tag">Tecnologia</span></figure>
+        <div class="corpo"><h3><i class="ic" style="--i:var(--ic-plug)"></i>Implantação de CRM e automações</h3>
+        <p>Escolha e implantação do software certo para o seu momento, com WhatsApp integrado, funis e automações comerciais.</p></div>
+      </article>
+      <article class="servico">
+        <figure><img src="/assets/fotos/palco.jpg" alt="" loading="lazy" style="object-position:70% 30%"><span class="tag">Pessoas</span></figure>
+        <div class="corpo"><h3><i class="ic" style="--i:var(--ic-palestra)"></i>Treinamentos e palestras</h3>
+        <p>Capacitação do time em abordagem, objeções, fechamento e atendimento humanizado, dentro da realidade da sua empresa.</p></div>
+      </article>
     </div>
     <div class="segmentos" aria-label="Segmentos atendidos">
-      <span>Clínicas e odontologia</span><span>Indústria e distribuição</span><span>Têxtil e confecção</span><span>Serviços e eventos</span><span>Varejo</span>
+      <small>Segmentos:</small>
+      <span><i class="ic" style="--i:var(--ic-saude)"></i>Clínicas e odontologia</span>
+      <span><i class="ic" style="--i:var(--ic-industria)"></i>Indústria e distribuição</span>
+      <span><i class="ic" style="--i:var(--ic-camisa)"></i>Têxtil e confecção</span>
+      <span><i class="ic" style="--i:var(--ic-calendar)"></i>Serviços e eventos</span>
+      <span><i class="ic" style="--i:var(--ic-loja)"></i>Varejo</span>
     </div>
   </div>
 </section>
@@ -412,39 +434,38 @@ section{padding-block:104px}
 <section id="cases" style="padding-top:0">
   <div class="wrap">
     <div class="sec-head">
-      <span class="spaced">Cases</span>
-      <h2>O que falam de nós.</h2>
+      <span class="spaced c-ver">Cases</span>
+      <h2>O que falam de nós. <span class="leve">E o que mudou.</span></h2>
     </div>
-    <div class="cases">
-      <div>
-        <button class="yt" type="button" data-id="ELd5QDM54NM" aria-label="Assistir ao depoimento em vídeo"><img src="https://img.youtube.com/vi/ELd5QDM54NM/hqdefault.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true">▶</span></button>
-        <div class="yt-row">
-          <button class="yt" type="button" data-id="hPJOKWCvEQo" aria-label="Assistir a outro case em vídeo"><img src="https://img.youtube.com/vi/hPJOKWCvEQo/hqdefault.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true">▶</span></button>
-          <button class="yt" type="button" data-id="OCxVrZ1iskE" aria-label="Assistir a mais um case em vídeo"><img src="https://img.youtube.com/vi/OCxVrZ1iskE/hqdefault.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true">▶</span></button>
-        </div>
+    <a class="case" href="/cases/clinica-brasil/">
+      <figure><img src="https://img.youtube.com/vi/ELd5QDM54NM/maxresdefault.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true"><i class="ic" style="--i:var(--ic-play)"></i></span></figure>
+      <div class="info">
+        <span class="spaced">Case completo · Saúde</span>
+        <h3>Clínica Brasil: <span class="leve">atendimento humanizado que converte.</span></h3>
+        <p>27 anos de história, mais de 120 especialistas e um atendimento espalhado em vários WhatsApps. Veja como a Unique centralizou, treinou e estruturou a jornada do paciente.</p>
+        <div class="kpis"><div><b>1</b><span>canal central no lugar de vários números</span></div><div><b>5</b><span>frentes de solução implantadas</span></div><div><b>↑</b><span>conversão, ticket médio e retenção</span></div></div>
+        <span class="ir">Ler o case completo <i class="ic" style="--i:var(--ic-seta)"></i></span>
       </div>
-      <div class="quotes">
-        <blockquote class="q"><p>"Foi muito positivo, prático. Conseguimos levar para a realidade da empresa. Sentimos o envolvimento dos colaboradores e seguramente a sistemática vai dar um retorno muito bom para a clínica."</p><cite><b>Dr. Evandro Queiroz e Evandro Vitoy</b> · Diretores da Clínica Brasil</cite></blockquote>
-        <blockquote class="q"><p>"Minha primeira impressão sobre o Carlos foi que ele era louco. Mas depois, vi o quanto ele agregou para nós. Atendimento humanizado e um aumento nas conversões que ninguém esperava."</p><cite><b>Rafael</b> · Supervisor de Atendimento Online, Clínica Brasil</cite></blockquote>
-        <blockquote class="q"><p>"Cada centavo que investi, eu não me arrependo. O Carlos me deu a realidade e me mostrou o que precisava ser feito sem rodeios."</p><cite><b>Laboratório Alcântara</b></cite></blockquote>
-      </div>
+    </a>
+    <div class="depo">
+      <blockquote class="q"><i class="ic" style="--i:var(--ic-aspas)"></i><p>"Foi muito positivo, prático. Conseguimos levar para a realidade da empresa. Sentimos o envolvimento dos colaboradores."</p><cite><b>Dr. Evandro Queiroz e Evandro Vitoy</b>Diretores da Clínica Brasil</cite></blockquote>
+      <blockquote class="q"><i class="ic" style="--i:var(--ic-aspas)"></i><p>"Minha primeira impressão sobre o Carlos foi que ele era louco. Mas depois, vi o quanto ele agregou para nós."</p><cite><b>Rafael</b>Supervisor de Atendimento Online, Clínica Brasil</cite></blockquote>
+      <blockquote class="q"><i class="ic" style="--i:var(--ic-aspas)"></i><p>"Cada centavo que investi, eu não me arrependo. O Carlos me deu a realidade e me mostrou o que precisava ser feito sem rodeios."</p><cite><b>Laboratório Alcântara</b>Cliente Unique</cite></blockquote>
     </div>
-    <div class="clientes" aria-label="Algumas empresas atendidas"><span>Clínica Brasil</span><span>Multiodonto</span><span>Tendas Aluban</span><span>Global Química</span><span>Grupo Siqueira Gaipo</span><span>Casa Lis</span><span>IDO Odontologia</span><span>URBS</span><span>SuperBolla</span><span>Instituto Rogério Penna</span><span>Laboratório Alcântara</span><span>Holanda Empresarial</span></div>
+    <div class="yts">
+      <button class="yt" type="button" data-id="hPJOKWCvEQo" aria-label="Assistir a outro case em vídeo"><img src="https://img.youtube.com/vi/hPJOKWCvEQo/hqdefault.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true"><i class="ic" style="--i:var(--ic-play)"></i></span></button>
+      <button class="yt" type="button" data-id="OCxVrZ1iskE" aria-label="Assistir a mais um case em vídeo"><img src="https://img.youtube.com/vi/OCxVrZ1iskE/hqdefault.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true"><i class="ic" style="--i:var(--ic-play)"></i></span></button>
+    </div>
+    <div class="clientes" id="clientes" aria-label="Empresas atendidas"></div>
   </div>
 </section>
 
 <section class="dark" id="sobre">
   <div class="wrap sobre">
-    <div class="istrip">
-      <img src="/assets/i-palco.jpg" alt="Carlos em palestra" loading="lazy" width="576" height="1536">
-      <img src="/assets/i-treinamento.jpg" alt="Carlos conduzindo um treinamento" loading="lazy" width="576" height="1536">
-      <img src="/assets/i-reuniao.jpg" alt="Reunião na Unique" loading="lazy" width="576" height="1536">
-      <img src="/assets/i-estudio.jpg" alt="Carlos em gravação no estúdio" loading="lazy" width="576" height="1536">
-      <img src="/assets/i-reflexao.jpg" alt="Carlos em momento de reflexão" loading="lazy" width="576" height="1536">
-    </div>
+    <div class="I" role="img" aria-label="Carlos Ribeiro sentado no chão do estúdio, recortado no I da Unique"><img src="/assets/i-reflexao.jpg" alt="" width="576" height="1536" loading="lazy"></div>
     <div>
       <span class="spaced muted">Quem está por trás</span>
-      <h2>Quem é Carlos Ribeiro?</h2>
+      <h2>Quem é <span class="leve">Carlos Ribeiro?</span></h2>
       <div class="bio">
         <p class="lead">Sou Carlos Ribeiro, casado com a Gabriela e pai do Theo e da Alda.</p>
         <p>Sou cristão e acredito profundamente em família, responsabilidade, trabalho, propósito e legado.</p>
@@ -454,12 +475,12 @@ section{padding-block:104px}
         <p class="lead">O que faço profissionalmente é consequência daquilo em que acredito.</p>
       </div>
       <ul>
-        <li>Fundador da Unique Consultoria Comercial</li>
-        <li>Criador do Método CRM: Comportamento Repetido Muda</li>
-        <li>Mentor comercial da Têxtil Club Academy</li>
-        <li>Especialista em processos de vendas, CRM e automações comerciais</li>
+        <li><i class="ic" style="--i:var(--ic-foguete)"></i>Fundador da Unique Consultoria Comercial</li>
+        <li><i class="ic" style="--i:var(--ic-repetir)"></i>Criador do Método CRM: Comportamento Repetido Muda</li>
+        <li><i class="ic" style="--i:var(--ic-escola)"></i>Mentor comercial da Têxtil Club Academy</li>
+        <li><i class="ic" style="--i:var(--ic-ferramentas)"></i>Especialista em processos de vendas, CRM e automações comerciais</li>
       </ul>
-      <a class="btn solid" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Vim%20pelo%20site%20da%20Unique%20e%20quero%20um%20diagn%C3%B3stico%20comercial%20para%20a%20minha%20empresa." target="_blank" rel="noopener">Conversar com o Carlos</a>
+      <a class="btn solid" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Vim%20pelo%20site%20da%20Unique%20e%20quero%20um%20diagn%C3%B3stico%20comercial%20para%20a%20minha%20empresa." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Conversar com o Carlos</a>
     </div>
   </div>
 </section>
@@ -469,41 +490,26 @@ section{padding-block:104px}
     <div class="blog-head">
       <div class="sec-head">
         <span class="spaced">Blog Seja Unique</span>
-        <h2>Opiniões curtas sobre vender.</h2>
+        <h2>Opiniões curtas <span class="leve">sobre vender.</span></h2>
       </div>
-      <a class="btn" href="/blog/">Ver todos os posts</a>
+      <a class="btn" href="/blog/">Ver todos os posts <i class="ic" style="--i:var(--ic-seta)"></i></a>
     </div>
     <ul class="posts" id="posts"><li style="color:var(--muted)">Carregando os posts do blog…</li></ul>
   </div>
 </section>
 
-<section class="dark final" id="contato">
-  <div class="wrap">
+<section class="final" id="contato">
+  <div class="txt">
     <span class="spaced">Próximo passo</span>
-    <h2>Qual é o score comercial da sua empresa?</h2>
+    <h2>Qual é o score comercial <span class="leve">da sua empresa?</span></h2>
     <p>Comece pelo diagnóstico. Em 10 a 15 minutos você responde sobre os 4 pilares do seu comercial e recebe um relatório com o score, os gargalos e um plano de ação.</p>
-    <div class="ctas"><a class="btn solid" href="/diagnostico/">Faça seu diagnóstico comercial</a>
-    <a class="btn" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Vim%20pelo%20site%20da%20Unique%20e%20quero%20um%20diagn%C3%B3stico%20comercial%20para%20a%20minha%20empresa." target="_blank" rel="noopener">Falar no WhatsApp</a></div>
+    <div class="ctas"><a class="btn verde" href="/diagnostico/">Faça seu diagnóstico comercial <i class="ic" style="--i:var(--ic-seta)"></i></a>
+    <a class="btn" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Vim%20pelo%20site%20da%20Unique%20e%20quero%20um%20diagn%C3%B3stico%20comercial%20para%20a%20minha%20empresa." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Falar no WhatsApp</a></div>
   </div>
-  <footer class="foot">
-    <div class="wrap">
-      <div class="mk"><svg viewBox="0 0 318 879" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M3 0L0 3L1 30L36 48L49 60L56 72L61 102L62 761L54 812L36 831L1 849L0 876L3 879L313 879L318 875L317 851L272 825L261 810L255 789L254 111L257 79L265 61L278 49L317 28L318 4L313 0Z"/></svg><span>Consultoria<br>em Vendas</span></div>
-      <nav aria-label="Rodapé">
-        <a href="#metodo">Método</a>
-        <a href="#servicos">Serviços</a>
-        <a href="#cases">Cases</a>
-        <a href="/blog/">Blog</a>
-        <a href="/diagnostico/">Diagnóstico</a>
-        <a href="https://www.instagram.com/sejauniqueoficial" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Vim%20pelo%20site%20da%20Unique%20e%20quero%20um%20diagn%C3%B3stico%20comercial%20para%20a%20minha%20empresa." target="_blank" rel="noopener">WhatsApp</a>
-      </nav>
-      <small>© 2018–2026 Seja Unique</small>
-    </div>
-  </footer>
+  <figure><img src="/assets/fotos/palco.jpg" alt="Carlos Ribeiro em palestra, com microfone" width="1280" height="853" loading="lazy"></figure>
 </section>
 
 </main>
-
 <script src="/blog/posts.js"></script>
 <script>
 (function(){
@@ -511,13 +517,10 @@ section{padding-block:104px}
   var h=location.hash.replace('#','');
   if(h && window.POSTS && window.POSTS.some(function(p){return p.slug===h;})){ location.replace('/blog/#'+h); return; }
 
-  var top=document.getElementById('top');
-  function onScroll(){ top.classList.toggle('solid', window.scrollY>40); }
-  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
-
-  var burger=document.getElementById('burger'), menu=document.getElementById('menu');
-  burger.onclick=function(){ var o=menu.classList.toggle('open'); burger.setAttribute('aria-expanded',o); top.classList.add('solid'); };
-  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ menu.classList.remove('open'); burger.setAttribute('aria-expanded','false'); }); });
+  var LOGOS=[['instituto-rogerio-penna','Instituto Rogério Penna'],['tendas-aluban','Tendas Aluban'],['siqueira-gaipo','Siqueira Gaipo'],['super-bolla','Super Bolla'],['holanda-apoio-empresarial','Holanda Apoio Empresarial'],['dental-adelar','Dental Adelar'],['antonelle','Antonelle'],['boldz','Boldz'],['casa-lis','Casa Lis'],['casamarela','Casamarela'],['clara-construtora','Clara Construtora'],['grupo-cical','Grupo Cical'],['ido-odontologia','IDO Odontologia'],['infindo','Infindo'],['joola','Joola'],['lan-producoes','LAN Produções'],['dra-laura-scher','Dra. Laura Scher'],['minas-couros','Minas Couros'],['numer','Numer'],['priori-sa','Priori SA'],['raddar-digital','Raddar Digital'],['urbs','URBS']];
+  var img=function(l){ return '<img src="/assets/clientes/'+l[0]+'.png" alt="'+l[1]+'" loading="lazy">'; };
+  document.getElementById('trilho').innerHTML=LOGOS.concat(LOGOS).map(img).join('');
+  document.getElementById('clientes').innerHTML=LOGOS.map(function(l){ return '<div>'+img(l)+'</div>'; }).join('');
 
   document.querySelectorAll('.yt').forEach(function(b){
     b.addEventListener('click',function(){
@@ -534,9 +537,9 @@ section{padding-block:104px}
   var ul=document.getElementById('posts');
   if(!P.length){ ul.innerHTML='<li style="color:var(--muted)">Os primeiros posts chegam em breve.</li>'; return; }
   ul.innerHTML=P.map(function(p){
-    var id=yt(p.video), img=p.capa?(/^https?:/.test(p.capa)?p.capa:'/blog/'+p.capa):(id?'https://img.youtube.com/vi/'+id+'/hqdefault.jpg':'');
+    var id=yt(p.video), im=p.capa?(/^https?:/.test(p.capa)?p.capa:'/blog/'+p.capa):(id?'https://img.youtube.com/vi/'+id+'/hqdefault.jpg':'');
     var d=p.data.split('-');
-    return '<li><a href="/blog/#'+p.slug+'"><div class="cover">'+(img?'<img src="'+esc(img)+'" alt="" loading="lazy">':MARK)+'</div>'+
+    return '<li><a href="/blog/#'+p.slug+'"><div class="cover">'+(im?'<img src="'+esc(im)+'" alt="" loading="lazy">':MARK)+'</div>'+
       '<div class="row"><span class="tag">'+esc(p.categoria||'')+'</span><span>'+(+d[2])+' '+MESES[+d[1]-1]+' '+d[0]+'</span></div>'+
       '<h3><span class="t">'+inline(p.titulo)+'</span></h3></a></li>';
   }).join('');

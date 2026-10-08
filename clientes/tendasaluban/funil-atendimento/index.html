@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<script src="/assets/tema.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tendas Aluban · Funil de Atendimento</title>
+<!-- og:inicio (gerado por tools/og_cliente.py) -->
+<meta name="description" content="Como cada lead anda pelas 7 etapas do funil: chatbot, régua de follow-up (5 min, 1 h, 2 h), SDR, vendedor e a regra de 48 h.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Unique Consultoria">
+<meta property="og:title" content="Funil de atendimento: regras de movimentação · Tendas Aluban">
+<meta property="og:description" content="Como cada lead anda pelas 7 etapas do funil: chatbot, régua de follow-up (5 min, 1 h, 2 h), SDR, vendedor e a regra de 48 h.">
+<meta property="og:url" content="https://sejaunique.vercel.app/clientes/tendasaluban/funil-atendimento/">
+<meta property="og:image" content="https://sejaunique.vercel.app/assets/og/tendasaluban-funil-atendimento.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Funil de atendimento: regras de movimentação · Tendas Aluban">
+<meta name="twitter:description" content="Como cada lead anda pelas 7 etapas do funil: chatbot, régua de follow-up (5 min, 1 h, 2 h), SDR, vendedor e a regra de 48 h.">
+<meta name="twitter:image" content="https://sejaunique.vercel.app/assets/og/tendasaluban-funil-atendimento.jpg">
+<!-- og:fim -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+/* Página de cliente no padrão Unique.
+   Cores pelo significado: verde = respondeu / avança, magenta = não respondeu / perdido, marinho = automação / método. */
+.doc{max-width:920px;margin-inline:auto;padding:8px 20px 0}
+h2{font-size:clamp(1.3rem,2.6vw,1.7rem);font-weight:600;letter-spacing:-.02em;line-height:1.2;margin:64px 0 18px;display:flex;align-items:center;gap:14px}
+h2 .n{font-size:.7rem;font-weight:500;letter-spacing:.3em;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 12px;flex-shrink:0;font-variant-numeric:tabular-nums}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:24px;margin:14px 0}
+.fase{display:flex;gap:16px;align-items:flex-start;border:1px solid var(--line);border-left:3px solid var(--marinho-txt);border-radius:0 var(--r) var(--r) 0;padding:18px 20px;background:var(--soft);margin-top:8px}
+.fase .ic{width:26px;height:26px;flex-shrink:0;color:var(--marinho-txt);margin-top:2px}
+.fase p{margin:0}
+.leve{font-weight:200;font-style:italic}
+
+/* etapas */
+.etapas{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;counter-reset:et;padding:0;margin:0}
+.etapas li{list-style:none;border:1px solid var(--line);border-radius:var(--r);padding:16px 16px 14px;position:relative;background:var(--bg)}
+.etapas li::before{counter-increment:et;content:counter(et,decimal-leading-zero);display:block;font-size:2rem;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:10px;color:var(--line)}
+.etapas b{display:block;font-size:1rem;font-weight:700;line-height:1.25}
+.etapas small{display:block;color:var(--muted);font-size:.8rem;margin-top:4px}
+.etapas .auto{border-top:3px solid var(--marinho-txt)}
+.etapas .hum{border-top:3px solid var(--fg)}
+.etapas .win{border-top:3px solid var(--verde)}
+.etapas .lose{border-top:3px solid var(--magenta)}
+.legenda{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px;font-size:.82rem;color:var(--muted)}
+.legenda span{display:inline-flex;align-items:center;gap:8px}
+.legenda i{display:inline-block;width:18px;height:3px;border-radius:2px}
+
+/* fluxo */
+svg{width:100%;height:auto;display:block}
+svg text{font-family:var(--font)}
+
+/* régua de follow-up */
+.regua{display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative;margin:18px 0 6px}
+.regua::before{content:"";position:absolute;left:8%;right:8%;top:27px;height:2px;background:var(--line)}
+.fu{text-align:center;position:relative;padding:0 8px}
+.fu .bola{width:56px;height:56px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;background:var(--bg);border:2px solid var(--marinho-txt);position:relative}
+.fu .bola .ic{width:24px;height:24px;color:var(--marinho-txt)}
+.fu.audio .bola{background:var(--marinho);border-color:var(--marinho-txt)}
+.fu.audio .bola .ic{color:#fff}
+.fu .t{font-size:1.6rem;font-weight:800;letter-spacing:-.03em;line-height:1}
+.fu .t small{font-size:.9rem;font-weight:500}
+.fu .q{font-size:.7rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.fu .f{font-size:.88rem;margin-top:4px}
+.saidas{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.saida{border-radius:14px;padding:14px 16px;font-size:.92rem;border:1px solid var(--line)}
+.saida b{display:block;margin-bottom:2px}
+.saida.sim{border-left:3px solid var(--verde)} .saida.sim b{color:var(--verde-txt)}
+.saida.nao{border-left:3px solid var(--magenta)} .saida.nao b{color:var(--magenta-txt)}
+
+/* regras por etapa */
+.regra{display:grid;grid-template-columns:52px 1fr;gap:16px;border-bottom:1px solid var(--line);padding:20px 0}
+.regra:last-child{border-bottom:0}
+.regra .num{font-size:1.9rem;font-weight:800;letter-spacing:-.04em;line-height:1;color:var(--muted)}
+.regra h3{margin:0 0 4px;font-size:1.1rem;font-weight:700}
+.regra .quem{font-size:.68rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.regra ul{margin:10px 0 0;padding-left:18px}
+.regra li{margin:5px 0}
+.vai{font-weight:600}
+.regra>div{min-width:0}
+.vai.sim{color:var(--verde-txt)} .vai.nao{color:var(--magenta-txt)}
+
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th,td{border:1px solid var(--line);padding:11px 12px;text-align:left;vertical-align:top}
+th{background:var(--soft);font-weight:600}
+.tablewrap{overflow-x:auto}
+.tag{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.tag.auto{background:var(--marinho);color:#fff;border:1px solid var(--marinho-txt)}
+.tag.hum{background:var(--fg);color:var(--bg)}
+
+.pend{padding:0;margin:0}
+.pend li{list-style:none;margin:10px 0;padding:12px 14px 12px 46px;position:relative;border:1px solid var(--line);border-radius:14px}
+.pend li::before{content:"";position:absolute;left:14px;top:13px;width:18px;height:18px;border:2px solid var(--magenta);border-radius:5px}
+.pend small{display:block;color:var(--muted);font-size:.8rem;margin-top:2px}
+
+.warn{background:var(--ink);color:var(--ink-fg);border-radius:var(--r);padding:20px 22px;margin-top:28px}
+.warn b{color:var(--grifo)}
+.doc .muted{font-size:.88rem}
+@media (max-width:700px){
+  .saidas{grid-template-columns:1fr}
+  .regua{grid-template-columns:1fr;gap:22px}
+  .regua::before{display:none}
+  .regra{grid-template-columns:38px 1fr;gap:12px}
+}
+</style>
+</head>
+<body class="leitura" data-casco="area">
+<script src="/assets/casco.js"></script>
+<main>
+<section class="capa"><div class="wrap">
+  <span class="spaced">Tendas Aluban · Plataforma de atendimento</span>
+  <h1>Funil de atendimento: <span class="grifo">regras de movimentação</span></h1>
+  <p>Como cada lead anda pelas etapas do funil, quem é responsável por movê-lo e o que acontece quando ele responde ou não responde.</p>
+</div></section>
+<div class="doc">
+
+<div class="fase">
+  <i class="ic" style="--i:var(--ic-robo)"></i>
+  <p><b>Fase atual: sem IA, apenas chatbot.</b> As etapas "IA Bot" e "IA Follow-up" já têm esse nome porque vão receber IA depois. Por enquanto, quem opera é o chatbot e as automações de disparo.</p>
+</div>
+
+<h2><span class="n">1</span>As 7 etapas do funil</h2>
+<ol class="etapas">
+  <li class="auto"><b>Novo Atendimento</b><small>Todo contato que chega entra aqui</small></li>
+  <li class="auto"><b>IA Bot</b><small>Hoje operado pelo chatbot</small></li>
+  <li class="auto"><b>IA Follow-up</b><small>3 disparos: 5 min · 1 h · 2 h</small></li>
+  <li class="hum"><b>SDR Humano</b><small>Confirma interesse ou faz abordagem manual</small></li>
+  <li class="win"><b>Transferência para o Vendedor</b><small>Lead qualificado, com resposta ativa</small></li>
+  <li class="lose"><b>Finalizado</b><small>Aguarda 48 h por uma resposta</small></li>
+  <li class="lose"><b>Perdido</b><small>Sem resposta após todo o ciclo</small></li>
+</ol>
+<div class="legenda">
+  <span><i style="background:var(--marinho-txt)"></i>Automático</span>
+  <span><i style="background:var(--fg)"></i>Humano (SDR)</span>
+  <span><i style="background:var(--verde)"></i>Avança para venda</span>
+  <span><i style="background:var(--magenta)"></i>Sem resposta</span>
+</div>
+
+<h2><span class="n">2</span>O fluxo completo</h2>
+<div class="card">
+<svg viewBox="0 0 700 600" role="img" aria-label="Fluxograma do funil de atendimento da Tendas Aluban">
+  <defs>
+    <marker id="ar" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker>
+    <marker id="arv" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--verde)"/></marker>
+    <marker id="arm" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--magenta-txt)"/></marker>
+  </defs>
+
+  <!-- trilho automático -->
+  <rect x="230" y="10" width="220" height="44" rx="22" fill="var(--marinho)" stroke="var(--marinho-txt)" stroke-width="2"/>
+  <text x="340" y="38" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Novo Atendimento</text>
+  <line x1="340" y1="54" x2="340" y2="80" stroke="var(--muted)" stroke-width="2" marker-end="url(#ar)"/>
+
+  <rect x="230" y="84" width="220" height="50" rx="12" fill="var(--bg)" stroke="var(--marinho-txt)" stroke-width="2"/>
+  <text x="340" y="106" text-anchor="middle" fill="var(--fg)" font-size="15" font-weight="700">IA Bot</text>
+  <text x="340" y="124" text-anchor="middle" fill="var(--muted)" font-size="12">chatbot qualifica</text>
+  <line x1="340" y1="134" x2="340" y2="160" stroke="var(--muted)" stroke-width="2" marker-end="url(#ar)"/>
+
+  <rect x="200" y="164" width="280" height="58" rx="12" fill="var(--bg)" stroke="var(--marinho-txt)" stroke-width="2"/>
+  <text x="340" y="188" text-anchor="middle" fill="var(--fg)" font-size="15" font-weight="700">IA Follow-up</text>
+  <text x="340" y="208" text-anchor="middle" fill="var(--muted)" font-size="12">5 min · 1 h · 2 h (áudio)</text>
+
+  <!-- ramificação -->
+  <path d="M340,222 L340,252 L170,252 L170,270" fill="none" stroke="var(--verde)" stroke-width="2.5" marker-end="url(#arv)"/>
+  <path d="M340,252 L510,252 L510,270" fill="none" stroke="var(--magenta-txt)" stroke-width="2.5" marker-end="url(#arm)"/>
+  <text x="255" y="244" text-anchor="middle" fill="var(--verde-txt)" font-size="13" font-weight="700">RESPONDEU</text>
+  <text x="425" y="244" text-anchor="middle" fill="var(--magenta-txt)" font-size="13" font-weight="700">NÃO RESPONDEU</text>
+
+  <!-- SDR esquerda -->
+  <rect x="40" y="274" width="260" height="58" rx="12" fill="var(--fg)"/>
+  <text x="170" y="298" text-anchor="middle" fill="var(--bg)" font-size="15" font-weight="700">SDR Humano</text>
+  <text x="170" y="318" text-anchor="middle" fill="var(--bg)" font-size="12" opacity=".75">confirma o interesse</text>
+
+  <!-- SDR direita -->
+  <rect x="380" y="274" width="260" height="58" rx="12" fill="var(--fg)"/>
+  <text x="510" y="298" text-anchor="middle" fill="var(--bg)" font-size="15" font-weight="700">SDR Humano</text>
+  <text x="510" y="318" text-anchor="middle" fill="var(--bg)" font-size="12" opacity=".75">ligação / abordagem manual</text>
+
+  <!-- esquerda -> vendedor -->
+  <line x1="170" y1="332" x2="170" y2="396" stroke="var(--verde)" stroke-width="2.5" marker-end="url(#arv)"/>
+
+  <!-- direita respondeu -> vendedor -->
+  <path d="M440,332 L440,360 L230,360 L230,396" fill="none" stroke="var(--verde)" stroke-width="2.5" marker-end="url(#arv)"/>
+  <text x="335" y="352" text-anchor="middle" fill="var(--verde-txt)" font-size="12" font-weight="700">respondeu</text>
+
+  <!-- vendedor -->
+  <rect x="40" y="400" width="260" height="58" rx="12" fill="var(--verde)"/>
+  <text x="170" y="425" text-anchor="middle" fill="#000" font-size="15" font-weight="700">Transferência</text>
+  <text x="170" y="444" text-anchor="middle" fill="#000" font-size="15" font-weight="700">para o Vendedor</text>
+
+  <!-- direita não respondeu -> finalizado -->
+  <line x1="570" y1="332" x2="570" y2="396" stroke="var(--magenta-txt)" stroke-width="2.5" marker-end="url(#arm)"/>
+  <text x="560" y="372" text-anchor="end" fill="var(--magenta-txt)" font-size="12" font-weight="700">não respondeu</text>
+
+  <rect x="380" y="400" width="260" height="58" rx="12" fill="var(--bg)" stroke="var(--magenta-txt)" stroke-width="2"/>
+  <text x="510" y="424" text-anchor="middle" fill="var(--fg)" font-size="15" font-weight="700">Finalizado</text>
+  <text x="510" y="444" text-anchor="middle" fill="var(--muted)" font-size="12">aguarda 48 horas</text>
+
+  <!-- respondeu em 48h -> volta ao SDR -->
+  <path d="M640,429 L668,429 L668,303 L646,303" fill="none" stroke="var(--verde)" stroke-width="2.5" marker-end="url(#arv)" stroke-dasharray="6 5"/>
+  <text x="684" y="366" fill="var(--verde-txt)" font-size="11" font-weight="700" transform="rotate(90 684 366)" text-anchor="middle">respondeu em até 48 h</text>
+
+  <!-- sem resposta -> perdido -->
+  <line x1="510" y1="458" x2="510" y2="506" stroke="var(--magenta-txt)" stroke-width="2.5" marker-end="url(#arm)"/>
+  <text x="500" y="486" text-anchor="end" fill="var(--magenta-txt)" font-size="12" font-weight="700">sem resposta em 48 h</text>
+  <rect x="380" y="510" width="260" height="50" rx="25" fill="var(--magenta)"/>
+  <text x="510" y="540" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Perdido</text>
+  <text x="510" y="582" text-anchor="middle" fill="var(--muted)" font-size="12">pode entrar em campanhas de reativação</text>
+
+  <text x="170" y="490" text-anchor="middle" fill="var(--muted)" font-size="12">o vendedor assume a negociação</text>
+</svg>
+<p class="muted">Atalho: se o lead responder durante o chatbot e já estiver pronto para conversar, ele pula o follow-up e vai direto para o <b>SDR Humano</b>.</p>
+</div>
+
+<h2><span class="n">3</span>A régua de follow-up</h2>
+<div class="card">
+  <p>Assim que o lead termina o fluxo do chatbot sem avançar, a automação faz <b>3 tentativas</b>, contadas a partir da saída do bot:</p>
+  <div class="regua">
+    <div class="fu"><div class="bola"><i class="ic" style="--i:var(--ic-chat)"></i></div><div class="t">5 <small>min</small></div><div class="q">Follow-up 1</div><div class="f">Mensagem de texto</div></div>
+    <div class="fu"><div class="bola"><i class="ic" style="--i:var(--ic-chat)"></i></div><div class="t">1 <small>hora</small></div><div class="q">Follow-up 2</div><div class="f">Mensagem de texto</div></div>
+    <div class="fu audio"><div class="bola"><i class="ic" style="--i:var(--ic-headset)"></i></div><div class="t">2 <small>horas</small></div><div class="q">Follow-up 3</div><div class="f">Áudio gravado</div></div>
+  </div>
+  <div class="saidas">
+    <div class="saida sim"><b>Respondeu a qualquer um</b>Vai para o SDR Humano, que confirma o interesse.</div>
+    <div class="saida nao"><b>Não respondeu a nenhum dos 3</b>Também vai para o SDR Humano, que faz a ligação ou abordagem manual.</div>
+  </div>
+</div>
+
+<h2><span class="n">4</span>Regras de cada etapa</h2>
+<div class="card">
+  <div class="regra"><div class="num">01</div><div>
+    <span class="quem">Chatbot · automático</span><h3>Novo Atendimento</h3>
+    <ul><li>Todo contato que chega entra aqui.</li><li>O chatbot assume o atendimento automaticamente.</li></ul>
+  </div></div>
+  <div class="regra"><div class="num">02</div><div>
+    <span class="quem">Chatbot · automático</span><h3>IA Bot</h3>
+    <ul>
+      <li>O chatbot roda o fluxo de atendimento inicial.</li>
+      <li>Terminou o fluxo do bot → <span class="vai">IA Follow-up</span></li>
+      <li>Respondeu durante o bot e já está pronto → <span class="vai sim">SDR Humano</span></li>
+    </ul>
+  </div></div>
+  <div class="regra"><div class="num">03</div><div>
+    <span class="quem">Automação · 3 disparos</span><h3>IA Follow-up</h3>
+    <ul>
+      <li>Disparos em 5 min (texto), 1 h (texto) e 2 h (áudio).</li>
+      <li>Respondeu a qualquer follow-up → <span class="vai sim">SDR Humano</span></li>
+      <li>Não respondeu a nenhum → <span class="vai nao">SDR Humano (abordagem manual)</span></li>
+    </ul>
+  </div></div>
+  <div class="regra"><div class="num">04</div><div>
+    <span class="quem">SDR</span><h3>SDR Humano</h3>
+    <ul>
+      <li><b>Lead que respondeu:</b> confirma o interesse → <span class="vai sim">Transferência para o Vendedor</span></li>
+      <li><b>Lead que não respondeu:</b> faz ligação ou abordagem manual.
+        <ul>
+          <li>Respondeu → <span class="vai sim">Transferência para o Vendedor</span></li>
+          <li>Não respondeu → <span class="vai nao">Finalizado</span></li>
+        </ul>
+      </li>
+    </ul>
+  </div></div>
+  <div class="regra"><div class="num">05</div><div>
+    <span class="quem">Vendedor</span><h3>Transferência para o Vendedor</h3>
+    <ul><li>Lead qualificado e com resposta ativa.</li><li>O vendedor assume a negociação a partir daqui.</li></ul>
+  </div></div>
+  <div class="regra"><div class="num">06</div><div>
+    <span class="quem">Automação · regra de 48 h</span><h3>Finalizado</h3>
+    <ul>
+      <li>Lead que não respondeu nem à abordagem manual do SDR.</li>
+      <li>Fica aguardando por <b>48 horas</b>.</li>
+      <li>Respondeu dentro das 48 h → <span class="vai sim">volta para o SDR Humano</span></li>
+      <li>Sem resposta em 48 h → <span class="vai nao">Perdido</span></li>
+    </ul>
+  </div></div>
+  <div class="regra"><div class="num">07</div><div>
+    <span class="quem">Fim do ciclo</span><h3>Perdido</h3>
+    <ul><li>Lead sem resposta após todo o ciclo.</li><li>Pode entrar em campanhas futuras de reativação.</li></ul>
+  </div></div>
+</div>
+
+<h2><span class="n">5</span>Quem é responsável</h2>
+<div class="card tablewrap">
+<table>
+  <tr><th>Etapa</th><th>Quem executa</th><th>Tipo</th></tr>
+  <tr><td>Novo Atendimento / IA Bot</td><td>Chatbot</td><td><span class="tag auto">Automático</span></td></tr>
+  <tr><td>IA Follow-up</td><td>Automação (3 disparos)</td><td><span class="tag auto">Automático</span></td></tr>
+  <tr><td>SDR Humano</td><td>SDR</td><td><span class="tag hum">Humano</span></td></tr>
+  <tr><td>Transferência para o Vendedor</td><td>Vendedor</td><td><span class="tag hum">Humano</span></td></tr>
+  <tr><td>Finalizado → Perdido</td><td>Automação (regra de 48 h)</td><td><span class="tag auto">Automático</span></td></tr>
+</table>
+</div>
+
+<h2><span class="n">6</span>O que falta configurar</h2>
+<div class="card">
+<ul class="pend">
+  <li><b>Gravar o áudio do Follow-up 3</b><small>Disparado 2 h depois da saída do bot</small></li>
+  <li><b>Escrever os textos dos Follow-ups 1 e 2</b><small>5 min e 1 h depois da saída do bot</small></li>
+  <li><b>Definir o script de ligação / abordagem manual do SDR</b><small>Para os leads que não responderam a nenhum follow-up</small></li>
+  <li><b>Configurar a regra automática de 48 h</b><small>Finalizado → Perdido quando não houver resposta</small></li>
+</ul>
+</div>
+
+<div class="warn">
+  <b>Regra de ouro:</b> nenhum lead para em uma etapa sem dono. Se respondeu, alguém humano assume; se não respondeu, a próxima tentativa já está programada. Só vira Perdido quem passou por todo o ciclo.
+</div>
+
+</div>
+</main>
+</body>
+</html>

@@ -24,5 +24,21 @@ module.exports = {
         data: '2026-10-07'
       }
     ]
+  },
+  tendasaluban: {
+    nome: 'Tendas Aluban',
+    paginas: [
+      {
+        id: 'funil-atendimento',
+        tipo: 'pagina',
+        titulo: 'Funil de atendimento: regras de movimentação',
+        descricao: 'Como cada lead anda pelas 7 etapas do funil: chatbot, régua de follow-up (5 min, 1 h, 2 h), SDR, vendedor e a regra de 48 h.',
+        url: '/clientes/tendasaluban/funil-atendimento/',
+        capa: '/assets/og/tendasaluban-funil-atendimento.jpg',
+        chamada: 'Funil de atendimento',
+        grifo: 'atendimento',
+        data: '2026-10-08'
+      }
+    ]
   }
 };

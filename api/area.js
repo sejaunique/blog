@@ -28,6 +28,7 @@
 //   GET  ?a=admin-diagnosticos     -> diagnósticos recebidos (resumo)
 //   GET  ?a=admin-propostas  ·  POST {a:'admin-proposta', proposta, contato|slug} / {a:'admin-proposta-del', id}
 //   POST {a:'admin-pessoa', slug, nome, email, whatsapp}   -> vincula uma pessoa (sem senha até gerar o link)
+//   GET  ?a=admin-push-chave / ?a=admin-notif  ·  POST {a:'admin-push', sub} / {a:'admin-push-sair', endpoint} / {a:'admin-push-teste'}
 //   POST {a:'admin-lido', k} / {a:'admin-lido-todos'}       -> notificações lidas
 // Proposta (pública pelo token): GET ?a=proposta&p=TOKEN
 // Convite (público): GET ?a=convite&t=TOKEN  ·  POST {a:'convite-senha', t, senha}
@@ -55,6 +56,7 @@
 
 const crypto = require('crypto');
 const CATALOGO = require('./_area/catalogo.js');
+const { notifica, chaves } = require('./_area/push.js');
 
 const URL_DB = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -331,12 +333,19 @@ module.exports = async (req, res) => {
         const p = json(pv);
         if (!p) return res.status(404).json({ ok: false });
         if (!(s && s.admin) && p.status === 'rascunho') return res.status(404).json({ ok: false });
-        if (!(s && s.admin) && p.status === 'enviada' && !p.vista) { p.vista = new Date().toISOString(); await redis([['HSET', 'area:propostas', p.id, JSON.stringify(p)]]); }
+        if (!(s && s.admin) && p.status === 'enviada' && !p.vista) { p.vista = new Date().toISOString(); await redis([['HSET', 'area:propostas', p.id, JSON.stringify(p)]]); await notifica(redis, { titulo: 'Proposta aberta', texto: p.empresa + ' abriu a proposta “' + p.titulo + '”.', url: '/area/admin/#propostas' }); }
         const pub = Object.assign({}, p); delete pub.notas;
         return res.json({ ok: true, proposta: pub });
       }
 
       if (!s) return res.status(401).json({ ok: false, erro: 'Entre na sua conta.' });
+
+      if (q.a === 'admin-push-chave' || q.a === 'admin-notif') {
+        if (!s.admin) return res.status(403).json({ ok: false });
+        if (q.a === 'admin-push-chave') { const k = await chaves(redis); return res.json({ ok: true, publica: k.publica }); }
+        const [l] = await redis([['LRANGE', 'area:notif', 0, 19]]);
+        return res.json({ ok: true, notif: (l || []).map(json).filter(Boolean) });
+      }
 
       if (q.a === 'admin-acoes' || q.a === 'admin-diagnosticos' || q.a === 'admin-propostas') {
         if (!s.admin) return res.status(403).json({ ok: false });
@@ -458,6 +467,7 @@ module.exports = async (req, res) => {
         ex.sal = crypto.randomBytes(16).toString('hex'); ex.hash = hashSenha(senha, ex.sal); ex.status = 'pendente';
         if (whatsapp) ex.whatsapp = whatsapp;
         await redis([['SET', 'area:user:' + slug + ':' + email, JSON.stringify(ex)], ['SADD', 'area:pendentes', slug + '|' + email]]);
+        await notifica(redis, { titulo: 'Pedido de acesso', texto: nome + ' · ' + empresaNome, url: '/area/admin/#notificacoes' });
         return res.json({ ok: true });
       }
       if (existe) return res.status(409).json({ ok: false, erro: 'Já existe um pedido com esse e-mail nessa empresa. Se esqueceu a senha, fale com a Unique.' });
@@ -468,6 +478,7 @@ module.exports = async (req, res) => {
         ['SADD', 'area:users:' + slug, email],
         ['SADD', 'area:pendentes', slug + '|' + email]
       ]);
+      await notifica(redis, { titulo: 'Pedido de acesso', texto: nome + ' · ' + empresaNome, url: '/area/admin/#notificacoes' });
       return res.json({ ok: true });
     }
 
@@ -502,6 +513,7 @@ module.exports = async (req, res) => {
       u.sal = crypto.randomBytes(16).toString('hex'); u.hash = hashSenha(senha, u.sal); u.status = 'ativo'; u.liberado = u.ultimo = new Date().toISOString();
       await redis([['SET', 'area:user:' + cv.slug + ':' + cv.email, JSON.stringify(u)], ['DEL', 'area:convite:' + t], ['SREM', 'area:pendentes', cv.slug + '|' + cv.email]]);
       await abreSessao(res, { slug: cv.slug, email: cv.email, nome: u.nome });
+      await notifica(redis, { titulo: 'Cliente entrou na área', texto: u.nome + ' (' + (u.empresaNome || cv.slug) + ') criou a senha e acessou.', url: '/area/admin/#empresas/' + cv.slug });
       return res.json({ ok: true });
     }
 
@@ -533,6 +545,7 @@ module.exports = async (req, res) => {
         const st = Object.assign(json(ov) || {}, { status: b.status, atualizado: new Date().toISOString(), por: s.admin ? 'Unique' : s.nome });
         if (s.admin && b.prazo !== undefined) st.prazo = /^\d{4}-\d{2}-\d{2}$/.test(b.prazo) ? b.prazo : '';
         await redis([['HSET', 'area:mst:' + slug, m.id, JSON.stringify(st)]]);
+        if (!s.admin && b.status === 'feito') await notifica(redis, { titulo: 'Ação concluída', texto: s.nome + ' marcou como feita: ' + m.titulo, url: '/area/admin/#empresas/' + slug });
         return res.json({ ok: true, acao: Object.assign({}, m, st, { compartilhada: true }) });
       }
       if (!a) return res.status(404).json({ ok: false });
@@ -541,6 +554,7 @@ module.exports = async (req, res) => {
       a.atualizado = new Date().toISOString();
       a.por = s.admin ? 'Unique' : s.nome;
       await redis([['HSET', 'area:acoes:' + slug, a.id, JSON.stringify(a)]]);
+      if (!s.admin && b.status === 'feito') await notifica(redis, { titulo: 'Ação concluída', texto: s.nome + ' marcou como feita: ' + a.titulo, url: '/area/admin/#empresas/' + slug });
       return res.json({ ok: true, acao: a });
     }
 
@@ -565,6 +579,7 @@ module.exports = async (req, res) => {
         const c = { cid: novoId(), nome: s.admin ? 'Carlos · Unique' : s.nome, email: s.admin ? '' : s.email, unique: !!s.admin, texto, data: new Date().toISOString() };
         await redis([['LPUSH', kl, JSON.stringify(c)], ['LTRIM', kl, 0, 499],
           ['LPUSH', 'area:avisos', JSON.stringify({ slug, id, titulo: it.titulo, nome: c.nome, texto: texto.slice(0, 200), data: c.data, unique: c.unique })], ['LTRIM', 'area:avisos', 0, 99]]);
+        if (!s.admin) await notifica(redis, { titulo: 'Comentário de ' + c.nome, texto: it.titulo + ': ' + texto.slice(0, 120), url: '/area/admin/#notificacoes' });
         return res.json({ ok: true });
       }
       if (b.a === 'comentar-del') {
@@ -621,6 +636,14 @@ module.exports = async (req, res) => {
       u.sal = crypto.randomBytes(16).toString('hex');
       u.hash = hashSenha(senha, u.sal);
       await redis([['SET', 'area:user:' + slug + ':' + email, JSON.stringify(u)]]);
+      return res.json({ ok: true });
+    }
+
+    if (b.a === 'admin-push' || b.a === 'admin-push-sair' || b.a === 'admin-push-teste') {
+      if (b.a === 'admin-push-teste') { await notifica(redis, { titulo: 'Notificações ligadas', texto: 'Tudo certo: você vai receber os avisos da Unique aqui.', url: '/area/admin/' }); return res.json({ ok: true }); }
+      const ep = String(b.a === 'admin-push' ? ((b.sub || {}).endpoint || '') : (b.endpoint || ''));
+      if (!/^https:\/\/[^\s]{10,800}$/.test(ep)) return res.status(400).json({ ok: false });
+      await redis([b.a === 'admin-push' ? ['HSET', 'area:push', ep, JSON.stringify({ criado: new Date().toISOString(), ua: limpo(req.headers['user-agent'], 160) })] : ['HDEL', 'area:push', ep]]);
       return res.json({ ok: true });
     }
 

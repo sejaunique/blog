@@ -8,6 +8,12 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#000000">
+<link rel="manifest" href="/area/admin/app.webmanifest">
+<link rel="apple-touch-icon" href="/area/admin/icone-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Unique">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
@@ -97,6 +103,10 @@ body{background:var(--ws-bg) fixed;color:var(--fg);font-family:var(--font);margi
 .mini{font:inherit;font-size:.74rem;border:1px solid var(--ws-line);border-radius:999px;padding:7px 10px;background:var(--ws-card2);color:var(--fg)}
 .vazio{border:1px dashed var(--ws-line);border-radius:20px;padding:22px;color:var(--muted);text-align:center;font-size:.86rem}
 .muted{color:var(--muted)}
+.app-c{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;justify-content:space-between;margin-bottom:18px;background:var(--marinho);color:#fff;border-color:transparent}
+.app-c p{margin:4px 0 0;font-size:.82rem;opacity:.85;max-width:620px}
+.app-c .pill{background:#fff;color:#000;border-color:#fff}
+.app-c .pill.ghost{background:transparent;color:#fff}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:12px 20px;border-radius:999px;font-size:.85rem;font-weight:600;z-index:80}
 /* cards coloridos (movimento) */
 .mov{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
@@ -290,6 +300,37 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     window.open(u,'_blank','noopener');
   }
 
+  /* ---------- app (instalar e notificações) ---------- */
+  var SWR=null, INST=null;
+  var ehIOS=/iphone|ipad|ipod/i.test(navigator.userAgent), instalado=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+  if('serviceWorker' in navigator) navigator.serviceWorker.register('/area/admin/sw.js',{scope:'/area/admin/'}).then(function(r){SWR=r;}).catch(function(){});
+  window.addEventListener('beforeinstallprompt',function(e){ e.preventDefault(); INST=e; if(VISTA==='notificacoes'||VISTA==='painel') desenha(); });
+  function b64(s){ s=s.replace(/-/g,'+').replace(/_/g,'/'); while(s.length%4) s+='='; var b=atob(s), u=new Uint8Array(b.length); for(var i=0;i<b.length;i++) u[i]=b.charCodeAt(i); return u; }
+  function pushLigado(){ return !!(SWR&&window.Notification&&Notification.permission==='granted'&&localStorage&&(function(){try{return localStorage.getItem('ws-push')==='1';}catch(e){return false;}})()); }
+  function ligaPush(){
+    if(!('serviceWorker' in navigator)||!('PushManager' in window)){ toast(ehIOS&&!instalado?'No iPhone: instale o app primeiro (Compartilhar → Adicionar à Tela de Início) e ative por ele.':'Este navegador não recebe notificações.'); return; }
+    Notification.requestPermission().then(function(p){
+      if(p!=='granted'){ toast('Notificações bloqueadas. Libere nas configurações do navegador.'); return; }
+      return navigator.serviceWorker.ready.then(function(reg){ SWR=reg; return get('?a=admin-push-chave').then(function(k){
+        return reg.pushManager.getSubscription().then(function(sub){ return sub||reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64(k.publica)}); });
+      }); }).then(function(sub){ return post({a:'admin-push',sub:sub.toJSON()}); }).then(function(r){
+        if(r&&r.ok){ try{localStorage.setItem('ws-push','1');}catch(e){} toast('Notificações ligadas neste aparelho.'); post({a:'admin-push-teste'}); desenha(); } else toast('Não foi possível ligar.');
+      });
+    }).catch(function(){ toast('Não foi possível ligar as notificações.'); });
+  }
+  function desligaPush(){ if(!SWR) return; SWR.pushManager.getSubscription().then(function(sub){ if(!sub) return; return post({a:'admin-push-sair',endpoint:sub.endpoint}).then(function(){ return sub.unsubscribe(); }); }).then(function(){ try{localStorage.removeItem('ws-push');}catch(e){} toast('Notificações desligadas neste aparelho.'); desenha(); }); }
+  function cartaoApp(){
+    if(pushLigado()) return '';
+    var txt=ehIOS&&!instalado?'No iPhone: toque em Compartilhar → <b>Adicionar à Tela de Início</b>, abra o app pelo ícone e ative as notificações por ele.':
+      !instalado?'Instale o Unique Workspace no celular ou no computador e ligue os avisos: novo diagnóstico, pedido de acesso, comentário, proposta aberta e ação concluída.':'Ligue os avisos para saber na hora quando chega um diagnóstico, um comentário ou quando o cliente abre a proposta.';
+    return '<section class="card app-c"><div><b>Leve o workspace no bolso</b><p>'+txt+'</p></div><div style="display:flex;gap:8px;flex-wrap:wrap">'+(INST?'<button class="pill" data-app="instalar">'+ic('download')+'Instalar app</button>':'')+((!ehIOS||instalado)?'<button class="pill'+(INST?' ghost':'')+'" data-app="push">'+ic('bell')+'Ligar notificações</button>':'')+'</div></section>';
+  }
+  document.addEventListener('click',function(ev){ var b=ev.target.closest('[data-app]'); if(!b) return;
+    if(b.dataset.app==='instalar'&&INST){ INST.prompt(); INST.userChoice.then(function(){ INST=null; desenha(); }); }
+    if(b.dataset.app==='push') ligaPush();
+    if(b.dataset.app==='desliga') desligaPush();
+    if(b.dataset.app==='teste') post({a:'admin-push-teste'}).then(function(){ toast('Aviso de teste enviado.'); }); });
+
   /* ---------- entrada ---------- */
   get('?a=eu').then(function(eu){
     if(eu.logado&&eu.admin) inicia();
@@ -388,7 +429,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     var mov=ev.slice(0,6).map(function(e,i){ return '<a class="mc '+e.c+'" data-go="'+esc(e.go.join('|'))+'"><small>'+dt(e.d)+'</small><span>'+esc(e.t)+'<br><strong>'+esc(e.s)+'</strong></span><b>'+esc(e.v)+'</b></a>'; }).join('')||'<div class="vazio" style="grid-column:1/-1">Nada aconteceu ainda. Diagnósticos, propostas e comentários aparecem aqui.</div>';
     var tot=Math.max(1,E.length);
     var funil=['lead','qualificado','cliente','finalizado'].map(function(k,i){ return '<div style="--w:'+(100-i*12)+'%"><span>'+ETAPA[k][0]+'</span><b>'+cont[k]+'</b></div>'; }).join('');
-    $('vista').innerHTML=
+    $('vista').innerHTML=cartaoApp()+
       '<div class="grade g-2">'+
         '<section class="card"><div class="card-h"><h2>Movimento recente</h2><button class="cbtn" data-go="notificacoes">'+ic('abrir')+'</button></div><div class="mov">'+mov+'</div></section>'+
         '<section class="card"><div class="card-h"><h2>Funil</h2><button class="cbtn" data-go="crm">'+ic('abrir')+'</button></div>'+
@@ -484,7 +525,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     var conv=[]; (R.empresas||[]).forEach(function(e){ e.usuarios.forEach(function(u){ if(u.status==='convite') conv.push(Object.assign({slug:e.slug,empresa:e.nome},u)); }); });
     conv.sort(function(a,b){return String(b.criado).localeCompare(String(a.criado));});
     cabecalho('Notificações','o que pede você',[['users',P.length,'aguardando aprovação'],['chat',nl.length,'comentários não lidos'],['chave',conv.length,'sem acesso ainda']]);
-    $('vista').innerHTML='<div class="grade g-3">'+
+    $('vista').innerHTML=cartaoApp()+'<div class="grade g-3">'+
       '<section class="card"><div class="card-h"><h2>Aguardando aprovação</h2></div><div class="lst">'+(P.length?P.map(function(p){
         return '<div class="li"><div><span class="tag">'+esc(p.empresaNome)+' · '+dt(p.criado,1)+'</span><h4>'+esc(p.nome)+'</h4><p>'+esc(p.email)+(p.whatsapp?' · '+esc(p.whatsapp):'')+'</p></div>'+
           '<div class="bts"><button class="pill verde" data-u="ativo" data-s="'+esc(p.slug)+'" data-e="'+esc(p.email)+'">Aprovar</button><button class="pill perigo" data-u="recusado" data-s="'+esc(p.slug)+'" data-e="'+esc(p.email)+'">Recusar</button></div></div>'; }).join(''):'<div class="vazio">Ninguém esperando.</div>')+'</div></section>'+
@@ -495,6 +536,11 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
       '<section class="card"><div class="card-h"><h2>Leads sem acesso</h2></div><p class="muted" style="font-size:.78rem;margin:-6px 0 12px">Vieram do diagnóstico, de uma proposta ou você vinculou. Não receberam nada ainda.</p><div class="lst">'+(conv.length?conv.slice(0,30).map(function(u){
         return '<div class="li"><div><span class="tag">'+esc(u.empresa)+' · '+dt(u.criado)+'</span><h4>'+esc(u.nome)+'</h4><p>'+esc(u.email)+'</p></div><div class="bts"><button class="pill verde" data-conv="'+esc(u.email)+'" data-s="'+esc(u.slug)+'" data-wa="'+esc(u.whatsapp||'')+'" data-nome="'+esc(u.nome)+'">Liberar acesso</button></div></div>'; }).join(''):'<div class="vazio">Todos já têm acesso.</div>')+'</div></section>'+
     '</div>';
+    var hist=document.createElement('section'); hist.className='card'; hist.style.marginTop='18px';
+    hist.innerHTML='<div class="card-h"><h2>Últimos avisos</h2>'+(pushLigado()?'<button class="pill" data-app="teste">'+ic('bell')+'Testar aviso</button><button class="pill" data-app="desliga">Desligar neste aparelho</button>':'')+'</div><div class="lst" id="hist"><div class="vazio">Carregando…</div></div>';
+    $('vista').appendChild(hist);
+    get('?a=admin-notif').then(function(r){ var N=(r&&r.notif)||[]; var h=$('hist'); if(!h) return;
+      h.innerHTML=N.length?N.map(function(n){ return '<div class="li"><div><span class="tag">'+dt(n.data,1)+'</span><h4>'+esc(n.titulo)+'</h4><p>'+esc(n.texto)+'</p></div><div class="bts"><a class="pill" href="'+esc(n.url)+'">Abrir</a></div></div>'; }).join(''):'<div class="vazio">Os avisos aparecem aqui e no celular.</div>'; });
     var V=$('vista');
     V.onclick=function(ev){
       var b=ev.target.closest('button'); if(!b) return;

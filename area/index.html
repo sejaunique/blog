@@ -82,6 +82,16 @@
         <p class="dica">Esqueceu a senha? <a href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Preciso%20redefinir%20minha%20senha%20da%20%C3%A1rea%20do%20cliente." target="_blank" rel="noopener">Fale com a Unique</a>.</p>
       </form>
 
+      <form id="f-convite" novalidate hidden>
+        <h2>Crie sua senha</h2>
+        <p class="sub" id="cv-sub">Defina uma senha para acessar a área do cliente.</p>
+        <div class="aviso" id="m-convite" hidden></div>
+        <div class="campo"><label for="cv-empresa">Empresa</label><input id="cv-empresa" readonly></div>
+        <div class="campo"><label for="cv-email">E-mail</label><input id="cv-email" type="email" autocomplete="username" readonly></div>
+        <div class="campo"><label for="cv-senha">Crie uma senha</label><input id="cv-senha" name="senha" type="password" autocomplete="new-password" minlength="8" required placeholder="Mínimo de 8 caracteres"></div>
+        <button class="btn solid" type="submit">Salvar e entrar</button>
+        <p class="dica">Nos próximos acessos, entre com a empresa, o e-mail e essa senha.</p>
+      </form>
       <form id="f-cadastro" novalidate hidden>
         <h2>Solicite seu acesso</h2>
         <p class="sub">Seu acesso é liberado pela Unique depois da conferência. Cada pessoa do time usa o próprio e-mail.</p>
@@ -114,6 +124,22 @@
     if(d&&d.logado) location.replace(d.admin?'/area/admin/':(volta||'/area/painel/'));
   }).catch(function(){});
 
+
+  var conv=new URLSearchParams(location.search).get('convite')||'';
+  if(/^[a-f0-9]{40}$/.test(conv)){
+    var fV=document.getElementById('f-convite'), mV=document.getElementById('m-convite');
+    document.querySelector('.abas').hidden=true; document.getElementById('f-entrar').hidden=true; fV.hidden=false;
+    fetch('/api/area?a=convite&t='+conv).then(function(r){return r.json();}).then(function(o){
+      if(!o.ok){ mV.textContent=o.erro||'Link expirado ou já usado. Peça um novo para a Unique.'; mV.className='aviso erro'; mV.hidden=false; fV.querySelector('button').disabled=true; return; }
+      document.getElementById('cv-empresa').value=o.empresa; document.getElementById('cv-email').value=o.email;
+      document.getElementById('cv-sub').textContent='Olá, '+String(o.nome||'').split(' ')[0]+'! Defina uma senha para ver o que a Unique preparou para a '+o.empresa+'.';
+    });
+    fV.onsubmit=function(ev){
+      ev.preventDefault(); var b=fV.querySelector('button'); b.disabled=true;
+      fetch('/api/area',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({a:'convite-senha',t:conv,senha:document.getElementById('cv-senha').value})})
+        .then(function(r){return r.json();}).then(function(o){ if(o.ok) location.href='/area/painel/'; else { b.disabled=false; mV.textContent=o.erro||'Não foi possível salvar.'; mV.className='aviso erro'; mV.hidden=false; } });
+    };
+  }
   var tE=document.getElementById('t-entrar'), tC=document.getElementById('t-cadastro');
   var fE=document.getElementById('f-entrar'), fC=document.getElementById('f-cadastro');
   function aba(c){ tE.setAttribute('aria-selected',!c); tC.setAttribute('aria-selected',c); fE.hidden=c; fC.hidden=!c; }

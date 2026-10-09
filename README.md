@@ -50,6 +50,12 @@ Regras: no máximo 2 fotos por carrossel. Fontes ficam em tools/fonts (instale e
 
 ## Área do cliente
 
+### Funil (Kanban), leads do diagnóstico e ações compartilhadas
+- Quem responde o diagnóstico (`/diagnostico/`) entra sozinho no admin como **lead**: empresa, pessoa (sem senha, status "convite") e o relatório publicado como entrega. Ninguém recebe nada.
+- No `/area/admin/`, o Kanban tem as colunas Lead, Lead qualificado, Cliente e Finalizado, com etiquetas (Textil Club, Textil Club Elite, Textil Club Advisor, Consultoria, Mentoria, Projeto, Aula CRM, Palestra, Treinamento). Arraste os cards ou use o seletor.
+- "Liberar acesso" gera um link de uso único (30 dias) em que a pessoa cria a senha e já entra. O link é copiado e pode abrir o WhatsApp com a mensagem pronta.
+- Ações compartilhadas (biblioteca): uma ação vai para todos os clientes ou para os marcados; cada cliente tem o próprio andamento. No plano de um cliente, "Vai para" transforma a ação em compartilhada.
+
 - `/area/`: login (empresa + e-mail + senha) e pedido de acesso. Quem pede fica pendente até o Carlos aprovar.
 - `/area/painel/`: o que o cliente vê: entregas (relatórios, diagnósticos, guias, vídeos, arquivos, links, conteúdos) e o plano de ações, em que o cliente atualiza o status.
 - `/area/admin/`: painel do Carlos. Senha: `AREA_ADMIN_SENHA` ou, se não existir, a mesma `DIAG_SENHA` do painel do diagnóstico. Aprova pedidos, cria empresas, publica entregas, monta o plano de ações, troca senhas e mostra "Ver como o cliente".

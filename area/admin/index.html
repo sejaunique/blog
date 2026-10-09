@@ -48,6 +48,29 @@
 select.mini{font:inherit;font-size:.74rem;border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:var(--bg);color:var(--fg)}
 .vazio{border:1px dashed var(--line);border-radius:18px;padding:24px;color:var(--muted);text-align:center;font-size:.9rem}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:12px 20px;border-radius:999px;font-size:.85rem;font-weight:600;z-index:20}
+/* kanban */
+.kb-filtro{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chip{font:inherit;font-size:.72rem;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:none;color:var(--muted);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.kb{display:grid;grid-template-columns:repeat(4,minmax(240px,1fr));gap:14px;overflow-x:auto;padding-bottom:8px}
+.col{background:var(--soft);border:1px solid var(--line);border-radius:var(--r);padding:12px;min-height:220px;display:flex;flex-direction:column;gap:10px}
+.col.sobre{border-color:var(--verde);background:color-mix(in srgb,var(--verde) 7%,var(--soft))}
+.col h3{margin:4px 6px 4px;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+.col h3 i{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:8px}
+.col h3 span{color:var(--muted);font-weight:600}
+.kc{background:var(--card,var(--bg));border:1px solid var(--line);border-radius:16px;padding:14px;display:grid;gap:8px;cursor:grab;font-size:.84rem}
+.kc:hover{border-color:var(--fg)}
+.kc.arrasta{opacity:.4}
+.kc b{font-size:.98rem;line-height:1.2}
+.kc .muted{font-size:.78rem;line-height:1.4}
+.kc .tg{display:flex;flex-wrap:wrap;gap:5px}
+.kc .tg span{font-size:.64rem;font-weight:700;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--magenta-txt) 16%,transparent);color:var(--magenta-txt)}
+.kc .ori{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--verde-txt)}
+.kc .bts{display:flex;flex-wrap:wrap;gap:6px}
+.kc details summary{font-size:.74rem;font-weight:600;cursor:pointer;color:var(--muted)}
+.kc details label{display:flex;gap:6px;align-items:center;font-size:.78rem;margin-top:6px}
+.dest{border:1px solid var(--line);border-radius:14px;padding:10px 12px;max-height:200px;overflow:auto;display:grid;gap:6px;font-size:.82rem;margin-bottom:14px}
+.dest label{display:flex;gap:8px;align-items:center}
 @media (max-width:900px){.duas{grid-template-columns:1fr}.form{position:static}.li{grid-template-columns:1fr}.li .bts{justify-content:flex-start}}
 </style>
 </head>
@@ -67,6 +90,14 @@ select.mini{font:inherit;font-size:.74rem;border:1px solid var(--line);border-ra
   </form>
 
   <div class="wrap" id="app" hidden>
+    <section class="bloco">
+      <span class="spaced">Funil</span>
+      <h2>Leads e clientes</h2>
+      <p class="muted" style="margin:-8px 0 18px;font-size:.88rem">Quem responde o diagnóstico entra sozinho como lead, já com o relatório na área dele. Ninguém recebe nada até você gerar o link de acesso. Arraste os cards entre as colunas.</p>
+      <div class="kb-filtro" id="kb-filtro"></div>
+      <div class="kb" id="kb"></div>
+    </section>
+
     <section class="bloco" id="s-pend">
       <span class="spaced">Pedidos de acesso</span>
       <h2>Aguardando aprovação <span id="n-pend" class="muted"></span></h2>
@@ -129,6 +160,8 @@ select.mini{font:inherit;font-size:.74rem;border:1px solid var(--line);border-ra
             <div class="campo"><label>Prazo</label><input name="prazo" type="date"></div>
           </div>
           <div class="campo"><label>Status</label><select name="status"><option value="a_fazer">A fazer</option><option value="fazendo">Em andamento</option><option value="feito">Feito</option></select></div>
+          <div class="campo"><label>Vai para</label><select name="destino"><option value="so">Só este cliente</option><option value="todos">Todos os clientes</option><option value="escolher">Este e outros que eu marcar</option></select></div>
+          <div class="dest" id="fa-dest" hidden></div>
           <div style="display:flex;gap:8px"><button class="btn solid" type="submit" style="flex:1">Salvar ação</button><button class="btn" type="button" id="fa-limpa">Limpar</button></div>
         </form>
         <div class="lista" id="l-acoes"></div>
@@ -138,13 +171,39 @@ select.mini{font:inherit;font-size:.74rem;border:1px solid var(--line);border-ra
         <div class="lista" id="l-pessoas"></div>
       </div>
     </section>
+
+    <section class="bloco">
+      <span class="spaced">Biblioteca</span>
+      <h2>Ações compartilhadas</h2>
+      <p class="muted" style="margin:-8px 0 18px;font-size:.88rem">Uma ação criada aqui aparece no plano de ações de todos os clientes ou só dos que você marcar. Cada cliente atualiza o próprio andamento.</p>
+      <div class="duas">
+        <form class="form" id="f-mod">
+          <h3 id="fm-titulo">Nova ação compartilhada</h3>
+          <div class="aviso" id="m-mod" hidden></div>
+          <input type="hidden" name="id"><input type="hidden" name="criado">
+          <div class="campo"><label>Ação</label><input name="titulo" required maxlength="200"></div>
+          <div class="campo"><label>Detalhe</label><textarea name="detalhe" style="min-height:70px"></textarea></div>
+          <div class="linha2">
+            <div class="campo"><label>Responsável</label><input name="responsavel"></div>
+            <div class="campo"><label>Prazo</label><input name="prazo" type="date"></div>
+          </div>
+          <div class="campo"><label>Vai para</label><select name="destino"><option value="todos">Todos os clientes</option><option value="escolher">Clientes que eu marcar</option></select></div>
+          <div class="dest" id="fm-dest" hidden></div>
+          <div style="display:flex;gap:8px"><button class="btn solid" type="submit" style="flex:1">Salvar ação</button><button class="btn" type="button" id="fm-limpa">Limpar</button></div>
+        </form>
+        <div class="lista" id="l-mod"></div>
+      </div>
+    </section>
+
   </div>
 </main>
 <script>
 (function(){
   var TIPOS={pagina:'Guia',relatorio:'Relatório',diagnostico:'Diagnóstico',video:'Vídeo',arquivo:'Arquivo',link:'Link',conteudo:'Conteúdo'};
   var STATUS={a_fazer:'A fazer',fazendo:'Em andamento',feito:'Feito'};
-  var USTATUS={pendente:'Pendente',ativo:'Ativo',bloqueado:'Bloqueado',recusado:'Recusado'};
+  var USTATUS={convite:'Sem acesso ainda (veio do diagnóstico)',pendente:'Pendente',ativo:'Ativo',bloqueado:'Bloqueado',recusado:'Recusado'};
+  var ETAPA={lead:['Lead','var(--muted)'],qualificado:['Lead qualificado','#f0a020'],cliente:['Cliente','var(--verde-txt)'],finalizado:['Finalizado','var(--marinho-txt)']};
+  var FILTRO='';
   var RESUMO=null, DADOS=null, slug='', ARQ=null, BLOB=false;
   var $=function(id){return document.getElementById(id);};
   function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
@@ -173,7 +232,7 @@ select.mini{font:inherit;font-size:.74rem;border:1px solid var(--line);border-ra
   function resumo(manter){
     return get('?a=admin-resumo').then(function(r){
       if(!r.ok) return;
-      RESUMO=r; BLOB=r.blob;
+      RESUMO=r; BLOB=r.blob; kanban(); biblioteca();
       var P=r.pendentes;
       $('n-pend').textContent=P.length?'('+P.length+')':'';
       $('pend').innerHTML=P.length?P.map(function(p){
@@ -293,11 +352,22 @@ select.mini{font:inherit;font-size:.74rem;border:1px solid var(--line);border-ra
 
   /* ---------- plano de ações ---------- */
   var fa=$('f-acao');
-  function limpaAcao(){ fa.reset(); fa.id.value=''; fa.criado.value=''; $('fa-titulo').textContent='Nova ação'; msg($('m-acao')); }
+  function limpaAcao(){ fa.reset(); fa.id.value=''; fa.criado.value=''; $('fa-dest').hidden=true; $('fa-titulo').textContent='Nova ação'; msg($('m-acao')); }
   $('fa-limpa').onclick=limpaAcao;
+  fa.destino.onchange=function(){ destinos($('fa-dest'),fa.destino.value==='escolher',[slug]); };
   fa.onsubmit=function(ev){
     ev.preventDefault();
     var a={id:fa.id.value,criado:fa.criado.value,titulo:fa.titulo.value,detalhe:fa.detalhe.value,responsavel:fa.responsavel.value,prazo:fa.prazo.value,status:fa.status.value};
+    if(fa.destino.value!=='so'){
+      var d=fa.destino.value==='todos'?'todos':marcados($('fa-dest')); if(d!=='todos'&&d.indexOf(slug)<0) d.push(slug);
+      var m={titulo:a.titulo,detalhe:a.detalhe,responsavel:a.responsavel,prazo:a.prazo,destino:d};
+      post({a:'admin-modelo',modelo:m,origem:a.id?{slug:slug,id:a.id}:null}).then(function(r){
+        if(!r.ok){ msg($('m-acao'),r.erro||'Não foi possível salvar.','erro'); return; }
+        if(!a.id&&a.status!=='a_fazer') post({a:'acao-status',slug:slug,id:r.modelo.id,status:a.status});
+        toast('Ação compartilhada salva.'); limpaAcao(); resumo(slug);
+      });
+      return;
+    }
     post({a:'admin-acao',slug:slug,acao:a}).then(function(r){
       if(!r.ok){ msg($('m-acao'),r.erro||'Não foi possível salvar.','erro'); return; }
       toast('Ação salva.'); limpaAcao(); troca(slug);
@@ -306,6 +376,10 @@ select.mini{font:inherit;font-size:.74rem;border:1px solid var(--line);border-ra
   function acoes(){
     var A=DADOS.acoes;
     $('l-acoes').innerHTML=A.length?A.map(function(a){
+      if(a.compartilhada) return '<div class="li"><div><span class="tag">'+esc(STATUS[a.status])+' · compartilhada ('+(a.destino==='todos'?'todos os clientes':a.destino.length+' clientes')+')'+(a.prazo?' · prazo '+a.prazo.split('-').reverse().join('/'):'')+'</span>'+
+        '<h4>'+esc(a.titulo)+'</h4>'+(a.detalhe?'<p>'+esc(a.detalhe)+'</p>':'')+'</div>'+
+        '<div class="bts"><select class="mini" data-st="'+esc(a.id)+'">'+Object.keys(STATUS).map(function(k){return '<option value="'+k+'"'+(k===a.status?' selected':'')+'>'+STATUS[k]+'</option>';}).join('')+'</select>'+
+        '<button class="btn mini" data-mod="'+esc(a.id)+'">Editar na biblioteca</button></div></div>';
       return '<div class="li"><div><span class="tag">'+esc(STATUS[a.status])+(a.prazo?' · prazo '+a.prazo.split('-').reverse().join('/'):'')+(a.responsavel?' · '+esc(a.responsavel):'')+(a.por?' · atualizado por '+esc(a.por):'')+'</span>'+
         '<h4>'+esc(a.titulo)+'</h4>'+(a.detalhe?'<p>'+esc(a.detalhe)+'</p>':'')+'</div>'+
         '<div class="bts"><select class="mini" data-st="'+esc(a.id)+'">'+Object.keys(STATUS).map(function(k){return '<option value="'+k+'"'+(k===a.status?' selected':'')+'>'+STATUS[k]+'</option>';}).join('')+'</select>'+
@@ -315,6 +389,7 @@ select.mini{font:inherit;font-size:.74rem;border:1px solid var(--line);border-ra
   $('l-acoes').onchange=function(ev){ var s=ev.target; if(!s.dataset.st) return; post({a:'acao-status',slug:slug,id:s.dataset.st,status:s.value}).then(function(){ toast('Status atualizado.'); troca(slug); }); };
   $('l-acoes').onclick=function(ev){
     var b=ev.target.closest('button'); if(!b) return;
+    if(b.dataset.mod){ editaModelo(b.dataset.mod); return; }
     var id=b.dataset.ed||b.dataset.del, a=DADOS.acoes.filter(function(x){return x.id===id;})[0]; if(!a) return;
     if(b.dataset.ed){
       limpaAcao(); ['id','criado','titulo','detalhe','responsavel','prazo','status'].forEach(function(k){ fa[k].value=a[k]||''; });
@@ -325,15 +400,116 @@ select.mini{font:inherit;font-size:.74rem;border:1px solid var(--line);border-ra
     }
   };
 
+
+  /* ---------- convite ---------- */
+  function convite(sl,email,nome,whats){
+    post({a:'admin-convite',slug:sl,email:email}).then(function(r){
+      if(!r.ok){ toast(r.erro||'Erro.'); return; }
+      var emp=(RESUMO.empresas.filter(function(e){return e.slug===sl;})[0]||{}).nome||sl;
+      var t='Olá, '+String(nome||'').split(' ')[0]+'! Preparei o resultado do diagnóstico da '+emp+' na Área do Cliente Unique. Crie sua senha neste link para acessar: '+r.url;
+      try{ navigator.clipboard.writeText(r.url); }catch(e){}
+      if(wa(whats)&&confirm('Link copiado. Abrir o WhatsApp com a mensagem pronta?')) window.open('https://wa.me/'+wa(whats)+'?text='+encodeURIComponent(t),'_blank','noopener');
+      else prompt('Link de acesso (vale 30 dias, uso único):',r.url);
+    });
+  }
+
+  /* ---------- kanban ---------- */
+  function kanban(){
+    var T=RESUMO.tags||[];
+    $('kb-filtro').innerHTML='<button class="chip" type="button" data-f="" aria-pressed="'+(!FILTRO)+'">Todas</button>'+T.map(function(t){return '<button class="chip" type="button" data-f="'+esc(t)+'" aria-pressed="'+(FILTRO===t)+'">'+esc(t)+'</button>';}).join('');
+    var E=RESUMO.empresas.filter(function(e){return !FILTRO||(e.tags||[]).indexOf(FILTRO)>=0;});
+    $('kb').innerHTML=(RESUMO.etapas||Object.keys(ETAPA)).map(function(k){
+      var L=E.filter(function(e){return e.etapa===k;});
+      return '<div class="col" data-col="'+k+'"><h3><span style="color:var(--fg)"><i style="background:'+ETAPA[k][1]+'"></i>'+ETAPA[k][0]+'</span><span>'+L.length+'</span></h3>'+L.map(card).join('')+'</div>';
+    }).join('');
+  }
+  function card(e){
+    var u=e.usuarios[0]||{}, conv=e.usuarios.filter(function(x){return x.status==='convite';})[0];
+    var dg=e.diagnostico;
+    return '<div class="kc" draggable="true" data-s="'+esc(e.slug)+'">'+
+      (e.origem==='diagnostico'||dg?'<span class="ori">Diagnóstico'+(dg?' · '+new Date(dg.data).toLocaleDateString('pt-BR'):'')+'</span>':'')+
+      '<b>'+esc(e.nome)+'</b>'+(u.nome?'<span class="muted">'+esc(u.nome)+(u.whatsapp?' · '+esc(u.whatsapp):'')+'<br>'+esc(u.email||'')+'</span>':'')+
+      ((e.tags||[]).length?'<div class="tg">'+e.tags.map(function(t){return '<span>'+esc(t)+'</span>';}).join('')+'</div>':'')+
+      '<details><summary>Etiquetas</summary>'+(RESUMO.tags||[]).map(function(t){return '<label><input type="checkbox" data-tag="'+esc(t)+'"'+((e.tags||[]).indexOf(t)>=0?' checked':'')+'> '+esc(t)+'</label>';}).join('')+'</details>'+
+      '<div class="bts"><select class="mini" data-et>'+Object.keys(ETAPA).map(function(k){return '<option value="'+k+'"'+(k===e.etapa?' selected':'')+'>'+ETAPA[k][0]+'</option>';}).join('')+'</select>'+
+      (dg?'<a class="btn mini" target="_blank" rel="noopener" href="/diagnostico/relatorio/?r='+esc(dg.token)+'">Diagnóstico</a>':'')+
+      (conv?'<button class="btn mini solid" type="button" data-conv="'+esc(conv.email)+'" data-wa="'+esc(conv.whatsapp||'')+'" data-nome="'+esc(conv.nome)+'">Liberar acesso</button>':'')+
+      '<button class="btn mini" type="button" data-abrir>Abrir</button></div></div>';
+  }
+  function crm(sl,o){
+    o.a='admin-crm'; o.slug=sl;
+    return post(o).then(function(r){ if(!r.ok){ toast('Não foi possível salvar.'); return; } var e=RESUMO.empresas.filter(function(x){return x.slug===sl;})[0]; e.etapa=r.etapa; e.tags=r.tags; kanban(); });
+  }
+  $('kb-filtro').onclick=function(ev){ var b=ev.target.closest('[data-f]'); if(!b) return; FILTRO=b.dataset.f; kanban(); };
+  $('kb').onchange=function(ev){
+    var c=ev.target.closest('.kc'); if(!c) return;
+    if(ev.target.hasAttribute('data-et')) crm(c.dataset.s,{etapa:ev.target.value}).then(function(){toast('Etapa atualizada.');});
+    if(ev.target.dataset.tag){ var tags=[].map.call(c.querySelectorAll('[data-tag]:checked'),function(i){return i.dataset.tag;}); crm(c.dataset.s,{tags:tags}); }
+  };
+  $('kb').onclick=function(ev){
+    var c=ev.target.closest('.kc'); if(!c) return;
+    var b=ev.target.closest('[data-conv]'); if(b){ convite(c.dataset.s,b.dataset.conv,b.dataset.nome,b.dataset.wa); return; }
+    if(ev.target.closest('[data-abrir]')){ $('emp').value=c.dataset.s; troca(c.dataset.s); $('emp').scrollIntoView({behavior:'smooth',block:'center'}); }
+  };
+  var ARR=null;
+  $('kb').addEventListener('dragstart',function(ev){ var c=ev.target.closest('.kc'); if(!c) return; ARR=c.dataset.s; c.classList.add('arrasta'); ev.dataTransfer.effectAllowed='move'; try{ev.dataTransfer.setData('text/plain',ARR);}catch(e){} });
+  $('kb').addEventListener('dragend',function(ev){ var c=ev.target.closest('.kc'); if(c) c.classList.remove('arrasta'); document.querySelectorAll('.col.sobre').forEach(function(x){x.classList.remove('sobre');}); });
+  $('kb').addEventListener('dragover',function(ev){ var col=ev.target.closest('.col'); if(!col||!ARR) return; ev.preventDefault(); document.querySelectorAll('.col.sobre').forEach(function(x){if(x!==col)x.classList.remove('sobre');}); col.classList.add('sobre'); });
+  $('kb').addEventListener('drop',function(ev){ var col=ev.target.closest('.col'); if(!col||!ARR) return; ev.preventDefault(); var sl=ARR; ARR=null;
+    var e=RESUMO.empresas.filter(function(x){return x.slug===sl;})[0]; if(!e||e.etapa===col.dataset.col){ kanban(); return; }
+    e.etapa=col.dataset.col; kanban(); crm(sl,{etapa:col.dataset.col}).then(function(){toast('Movido para '+ETAPA[col.dataset.col][0]+'.');}); });
+
+  /* ---------- biblioteca de ações ---------- */
+  var fm=$('f-mod');
+  function destinos(box,mostra,marcar){
+    box.hidden=!mostra; if(!mostra) return;
+    box.innerHTML=RESUMO.empresas.map(function(e){ return '<label><input type="checkbox" value="'+esc(e.slug)+'"'+((marcar||[]).indexOf(e.slug)>=0?' checked':'')+'> '+esc(e.nome)+'</label>'; }).join('');
+  }
+  function marcados(box){ return [].map.call(box.querySelectorAll('input:checked'),function(i){return i.value;}); }
+  fm.destino.onchange=function(){ destinos($('fm-dest'),fm.destino.value==='escolher',marcados($('fm-dest'))); };
+  function limpaMod(){ fm.reset(); fm.id.value=''; fm.criado.value=''; $('fm-dest').hidden=true; $('fm-titulo').textContent='Nova ação compartilhada'; msg($('m-mod')); }
+  $('fm-limpa').onclick=limpaMod;
+  fm.onsubmit=function(ev){
+    ev.preventDefault();
+    var m={id:fm.id.value,criado:fm.criado.value,titulo:fm.titulo.value,detalhe:fm.detalhe.value,responsavel:fm.responsavel.value,prazo:fm.prazo.value,destino:fm.destino.value==='todos'?'todos':marcados($('fm-dest'))};
+    post({a:'admin-modelo',modelo:m}).then(function(r){
+      if(!r.ok){ msg($('m-mod'),r.erro||'Não foi possível salvar.','erro'); return; }
+      toast('Ação compartilhada salva.'); limpaMod(); resumo(slug);
+    });
+  };
+  function nomes(d){ if(d==='todos') return 'Todos os clientes'; var n={}; RESUMO.empresas.forEach(function(e){n[e.slug]=e.nome;}); return d.map(function(s){return n[s]||s;}).join(', '); }
+  function biblioteca(){
+    var M=RESUMO.modelos||[];
+    $('l-mod').innerHTML=M.length?M.map(function(m){
+      return '<div class="li"><div><span class="tag">'+esc(nomes(m.destino))+(m.prazo?' · prazo '+m.prazo.split('-').reverse().join('/'):'')+'</span><h4>'+esc(m.titulo)+'</h4>'+(m.detalhe?'<p>'+esc(m.detalhe)+'</p>':'')+'</div>'+
+        '<div class="bts"><button class="btn mini" data-med="'+esc(m.id)+'">Editar / mudar clientes</button><button class="btn mini perigo" data-mdel="'+esc(m.id)+'">Excluir</button></div></div>';
+    }).join(''):'<div class="vazio">Nenhuma ação compartilhada ainda. Crie aqui ou, no plano de um cliente, escolha "Todos os clientes" em "Vai para".</div>';
+  }
+  function editaModelo(id){
+    var m=(RESUMO.modelos||[]).filter(function(x){return x.id===id;})[0]; if(!m) return;
+    limpaMod(); ['id','criado','titulo','detalhe','responsavel','prazo'].forEach(function(k){ fm[k].value=m[k]||''; });
+    fm.destino.value=m.destino==='todos'?'todos':'escolher'; destinos($('fm-dest'),m.destino!=='todos',m.destino==='todos'?[]:m.destino);
+    $('fm-titulo').textContent='Editar ação compartilhada'; window.scrollTo({top:fm.getBoundingClientRect().top+scrollY-110,behavior:'smooth'});
+  }
+  $('l-mod').onclick=function(ev){
+    var b=ev.target.closest('button'); if(!b) return;
+    if(b.dataset.med){ editaModelo(b.dataset.med); return; }
+    if(b.dataset.mdel){
+      if(b.dataset.ok!=='1'){ b.dataset.ok='1'; b.textContent='Confirmar: sai de todos os clientes'; return; }
+      post({a:'admin-modelo-del',id:b.dataset.mdel}).then(function(){ toast('Ação excluída.'); resumo(slug); });
+    }
+  };
+
   /* ---------- pessoas ---------- */
   function pessoas(){
     var e=(RESUMO.empresas.filter(function(x){return x.slug===slug;})[0]||{usuarios:[]});
     $('l-pessoas').innerHTML=e.usuarios.length?e.usuarios.map(function(u){
       return '<div class="li"><div><span class="tag">'+esc(USTATUS[u.status]||u.status)+'</span><h4>'+esc(u.nome)+'</h4><p>'+esc(u.email)+(u.whatsapp?' · '+esc(u.whatsapp):'')+'</p></div>'+
-        '<div class="bts"><select class="mini" data-us="'+esc(u.email)+'">'+Object.keys(USTATUS).map(function(k){return '<option value="'+k+'"'+(k===u.status?' selected':'')+'>'+USTATUS[k]+'</option>';}).join('')+'</select>'+
+        '<div class="bts"><button class="btn mini solid" type="button" data-conv="'+esc(u.email)+'" data-wa="'+esc(u.whatsapp||'')+'" data-nome="'+esc(u.nome)+'">'+(u.status==='convite'?'Gerar link de acesso':'Novo link de senha')+'</button><select class="mini" data-us="'+esc(u.email)+'">'+Object.keys(USTATUS).map(function(k){return '<option value="'+k+'"'+(k===u.status?' selected':'')+'>'+USTATUS[k]+'</option>';}).join('')+'</select>'+
         '<form data-pw="'+esc(u.email)+'" style="display:flex;gap:6px"><input type="text" placeholder="Nova senha" minlength="8" autocomplete="off" style="font:inherit;font-size:.74rem;border:1px solid var(--line);border-radius:999px;padding:6px 12px;width:130px;background:var(--bg);color:var(--fg)"><button class="btn mini">Trocar senha</button></form></div></div>';
     }).join(''):'<div class="vazio">Ninguém dessa empresa pediu acesso ainda. Envie o link '+esc(location.origin)+'/area/#cadastro para o time do cliente.</div>';
   }
+  $('l-pessoas').onclick=function(ev){ var b=ev.target.closest('[data-conv]'); if(b) convite(slug,b.dataset.conv,b.dataset.nome,b.dataset.wa); };
   $('l-pessoas').onchange=function(ev){ var s=ev.target; if(!s.dataset.us) return; post({a:'admin-usuario',slug:slug,email:s.dataset.us,status:s.value}).then(function(r){ toast(r.ok?'Acesso atualizado.':'Erro.'); resumo(slug); }); };
   $('l-pessoas').onsubmit=function(ev){
     ev.preventDefault(); var f=ev.target, inp=f.querySelector('input');

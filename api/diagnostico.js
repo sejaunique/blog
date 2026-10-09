@@ -10,6 +10,7 @@ const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TO
 const SENHA = process.env.DIAG_SENHA || '';
 const LISTA = 'diag:lista';
 const crypto = require('crypto');
+const { criaLead } = require('./_area/lead.js');
 const TOKEN_OK = /^[a-f0-9]{24}$/;
 const novoToken = () => crypto.randomBytes(12).toString('hex');
 // o relatório não expõe contato nem CNPJ, só o necessário para a análise
@@ -115,6 +116,8 @@ module.exports = async (req, res) => {
       respostas
     };
     await redis([['LPUSH', LISTA, JSON.stringify(item)], ['SET', 'diag:r:' + item.token, JSON.stringify(item)]]);
+    // já entra como lead na Área do Cliente (sem avisar ninguém)
+    try { await criaLead(redis, item); } catch (e) { /* o diagnóstico já foi salvo */ }
     return res.json({ ok: true, id: item.id });
   } catch (e) {
     return res.status(500).json({ ok: false });

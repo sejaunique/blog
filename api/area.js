@@ -24,6 +24,12 @@
 //   POST {a:'admin-crm', slug, etapa?, tags?}       -> Kanban: etapa (lead | qualificado | cliente | finalizado) e etiquetas
 //   POST {a:'admin-convite', slug, email}           -> gera o link para a pessoa criar a senha (o Carlos envia quando quiser)
 //   POST {a:'admin-modelo', modelo, origem?} / {a:'admin-modelo-del', id}  -> ação compartilhada (todos ou clientes escolhidos)
+//   GET  ?a=admin-acoes            -> tabela única: ações da biblioteca (com andamento por cliente) + ações de cada empresa
+//   GET  ?a=admin-diagnosticos     -> diagnósticos recebidos (resumo)
+//   GET  ?a=admin-propostas  ·  POST {a:'admin-proposta', proposta, contato|slug} / {a:'admin-proposta-del', id}
+//   POST {a:'admin-pessoa', slug, nome, email, whatsapp}   -> vincula uma pessoa (sem senha até gerar o link)
+//   POST {a:'admin-lido', k} / {a:'admin-lido-todos'}       -> notificações lidas
+// Proposta (pública pelo token): GET ?a=proposta&p=TOKEN
 // Convite (público): GET ?a=convite&t=TOKEN  ·  POST {a:'convite-senha', t, senha}
 //   POST ?a=admin-upload&e=slug&nome=arquivo.pdf&tipo=application/pdf  (corpo = o arquivo, enviado como application/octet-stream)  -> precisa do Vercel Blob (BLOB_READ_WRITE_TOKEN)
 //
@@ -41,6 +47,9 @@
 //   area:modelos               hash id -> ação compartilhada {.., destino:'todos'|[slugs]}
 //   area:mst:<slug>            hash id da ação compartilhada -> andamento nessa empresa
 //   area:convite:<token>       {slug, email}, expira em 30 dias
+//   area:propostas             hash id -> proposta {.., token, slug, status}
+//   area:prop:<token>          id da proposta (link público)
+//   area:lidos                 conjunto de notificações já lidas
 //   area:diag                  hash slug -> último diagnóstico {id, data, token}
 //   area:publico:<slug>        hash pasta -> "1" (páginas de /clientes/<slug>/<pasta>/ abertas sem login)
 
@@ -150,7 +159,7 @@ async function itemPorId(slug, id) {
 }
 function membro(s, slug) { return !!s && (s.admin || s.slug === slug); }
 
-function usuarioPublico(u) { return { email: u.email, nome: u.nome, whatsapp: u.whatsapp, status: u.status, criado: u.criado }; }
+function usuarioPublico(u) { return { email: u.email, nome: u.nome, whatsapp: u.whatsapp, status: u.status, criado: u.criado, ultimo: u.ultimo || '', origem: u.origem || '' }; }
 
 // Ações do catálogo entram no plano da empresa uma única vez (area:acoes-cat:<slug> lembra quais já entraram),
 // então o status do cliente e as edições/exclusões do admin valem normalmente depois.
@@ -199,7 +208,7 @@ async function conteudo(slug) {
   const [modH, mstH] = await redis([['HGETALL', 'area:modelos'], ['HGETALL', 'area:mst:' + slug]]);
   const mst = {};
   lerPares(mstH).forEach(([k, v]) => { mst[k] = json(v) || {}; });
-  const comp = lerHash(modH).filter(m => valePara(m, slug)).map(m => Object.assign({}, m, { compartilhada: true, status: (mst[m.id] || {}).status || 'a_fazer', por: (mst[m.id] || {}).por, atualizado: (mst[m.id] || {}).atualizado }));
+  const comp = lerHash(modH).filter(m => valePara(m, slug)).map(m => Object.assign({}, m, { compartilhada: true, status: (mst[m.id] || {}).status || 'a_fazer', prazo: (mst[m.id] || {}).prazo || m.prazo || '', por: (mst[m.id] || {}).por, atualizado: (mst[m.id] || {}).atualizado }));
   const ordem = { fazendo: 0, a_fazer: 1, feito: 2 };
   const acoes = lerHash(acoesH).concat(comp).sort((a, b) => (ordem[a.status] - ordem[b.status]) || String(a.prazo || '9').localeCompare(String(b.prazo || '9')));
   return { itens, acoes };
@@ -228,6 +237,10 @@ function limpaAcao(a) {
     detalhe: limpo(a.detalhe, 1500),
     responsavel: limpo(a.responsavel, 80),
     prazo: /^\d{4}-\d{2}-\d{2}$/.test(a.prazo || '') ? a.prazo : '',
+    inicio: /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2})?$/.test(a.inicio || '') ? a.inicio : '',
+    dono: a.dono === 'cliente' ? 'cliente' : 'unique',
+    tipo: ['acao', 'post', 'video', 'reuniao', 'material'].indexOf(a.tipo) >= 0 ? a.tipo : 'acao',
+    link: (/^https:\/\//i.test(a.link || '') || /^\/[^/]/.test(a.link || '')) ? limpo(a.link, 600) : '',
     status: STATUS_ACAO.indexOf(a.status) >= 0 ? a.status : 'a_fazer',
     criado: limpo(a.criado, 30) || new Date().toISOString()
   };
@@ -310,7 +323,44 @@ module.exports = async (req, res) => {
         return res.json({ ok: true, empresa: e.nome, nome: u.nome, email: u.email });
       }
 
+      if (q.a === 'proposta') {
+        const t = String(q.p || '');
+        if (!/^[a-f0-9]{24}$/.test(t)) return res.status(404).json({ ok: false });
+        const [id] = await redis([['GET', 'area:prop:' + t]]);
+        const [pv] = id ? await redis([['HGET', 'area:propostas', id]]) : [null];
+        const p = json(pv);
+        if (!p) return res.status(404).json({ ok: false });
+        if (!(s && s.admin) && p.status === 'rascunho') return res.status(404).json({ ok: false });
+        if (!(s && s.admin) && p.status === 'enviada' && !p.vista) { p.vista = new Date().toISOString(); await redis([['HSET', 'area:propostas', p.id, JSON.stringify(p)]]); }
+        const pub = Object.assign({}, p); delete pub.notas;
+        return res.json({ ok: true, proposta: pub });
+      }
+
       if (!s) return res.status(401).json({ ok: false, erro: 'Entre na sua conta.' });
+
+      if (q.a === 'admin-acoes' || q.a === 'admin-diagnosticos' || q.a === 'admin-propostas') {
+        if (!s.admin) return res.status(403).json({ ok: false });
+        if (q.a === 'admin-propostas') {
+          const [h] = await redis([['HGETALL', 'area:propostas']]);
+          return res.json({ ok: true, propostas: lerPares(h).map(([, v]) => json(v)).filter(Boolean).sort((a, b) => String(b.criado).localeCompare(String(a.criado))) });
+        }
+        if (q.a === 'admin-diagnosticos') {
+          const [lst] = await redis([['LRANGE', 'diag:lista', 0, 299]]);
+          const diagnosticos = (lst || []).map(json).filter(Boolean).map(d => ({ id: d.id, data: d.data, empresa: d.empresa, nome: d.nome, email: d.email, whatsapp: d.whatsapp, token: d.token, slug: slugify(d.empresa), respostas: (d.respostas || []).length }));
+          return res.json({ ok: true, diagnosticos });
+        }
+        const [slugsDb, mH] = await redis([['SMEMBERS', 'area:emps'], ['HGETALL', 'area:modelos']]);
+        const slugs = Array.from(new Set((slugsDb || []).concat(Object.keys(CATALOGO)))).sort();
+        const por = slugs.length ? await redis(slugs.flatMap(sl => [['HGETALL', 'area:acoes:' + sl], ['HGETALL', 'area:mst:' + sl]])) : [];
+        const modelos = lerPares(mH).map(([, v]) => json(v)).filter(Boolean);
+        const andamento = {};
+        const proprias = [];
+        slugs.forEach((sl, i) => {
+          lerPares(por[i * 2]).forEach(([, v]) => { const a = json(v); if (a) proprias.push(Object.assign(a, { slug: sl })); });
+          lerPares(por[i * 2 + 1]).forEach(([id, v]) => { (andamento[id] = andamento[id] || {})[sl] = json(v) || {}; });
+        });
+        return res.json({ ok: true, modelos, andamento, proprias });
+      }
 
       if (q.a === 'conteudo') {
         const slug = s.admin ? slugify(q.e) : s.slug;
@@ -360,7 +410,8 @@ module.exports = async (req, res) => {
           if (uv) pendentes.push(Object.assign(usuarioPublico(uv), { slug, empresaNome: uv.empresaNome || slug }));
         }
         const [av] = await redis([['LRANGE', 'area:avisos', 0, 29]]);
-        const avisos = (av || []).map(json).filter(Boolean).filter(a => !a.unique);
+        const [lidos] = await redis([['SMEMBERS', 'area:lidos']]);
+        const avisos = (av || []).map(json).filter(Boolean).filter(a => !a.unique).map(a => Object.assign(a, { k: (a.slug + '|' + a.id + '|' + a.data).slice(0, 120) })).map(a => Object.assign(a, { lido: (lidos || []).indexOf(a.k) >= 0 }));
         return res.json({ ok: true, empresas, pendentes, avisos, modelos, etapas: ETAPAS, tags: TAGS, blob: !!BLOB });
       }
       return res.status(400).json({ ok: false });
@@ -431,6 +482,8 @@ module.exports = async (req, res) => {
       if (!igual(hashSenha(senha, u.sal), u.hash)) return res.status(401).json(errado);
       if (u.status === 'pendente') return res.status(403).json({ ok: false, erro: 'Seu acesso ainda está em análise. Você recebe a liberação da Unique em breve.' });
       if (u.status !== 'ativo') return res.status(403).json({ ok: false, erro: 'Acesso não liberado. Fale com a Unique.' });
+      u.ultimo = new Date().toISOString();
+      await redis([['SET', 'area:user:' + slug + ':' + email, JSON.stringify(u)]]);
       await abreSessao(res, { slug, email, nome: u.nome });
       return res.json({ ok: true });
     }
@@ -446,7 +499,7 @@ module.exports = async (req, res) => {
       const [uv] = await redis([['GET', 'area:user:' + cv.slug + ':' + cv.email]]);
       const u = json(uv);
       if (!u) return res.status(404).json({ ok: false });
-      u.sal = crypto.randomBytes(16).toString('hex'); u.hash = hashSenha(senha, u.sal); u.status = 'ativo'; u.liberado = new Date().toISOString();
+      u.sal = crypto.randomBytes(16).toString('hex'); u.hash = hashSenha(senha, u.sal); u.status = 'ativo'; u.liberado = u.ultimo = new Date().toISOString();
       await redis([['SET', 'area:user:' + cv.slug + ':' + cv.email, JSON.stringify(u)], ['DEL', 'area:convite:' + t], ['SREM', 'area:pendentes', cv.slug + '|' + cv.email]]);
       await abreSessao(res, { slug: cv.slug, email: cv.email, nome: u.nome });
       return res.json({ ok: true });
@@ -476,11 +529,14 @@ module.exports = async (req, res) => {
       const [v, mv] = await redis([['HGET', 'area:acoes:' + slug, String(b.id || '')], ['HGET', 'area:modelos', String(b.id || '')]]);
       const a = json(v), m = json(mv);
       if (!a && valePara(m, slug)) {
-        const st = { status: b.status, atualizado: new Date().toISOString(), por: s.admin ? 'Unique' : s.nome };
+        const [ov] = await redis([['HGET', 'area:mst:' + slug, m.id]]);
+        const st = Object.assign(json(ov) || {}, { status: b.status, atualizado: new Date().toISOString(), por: s.admin ? 'Unique' : s.nome });
+        if (s.admin && b.prazo !== undefined) st.prazo = /^\d{4}-\d{2}-\d{2}$/.test(b.prazo) ? b.prazo : '';
         await redis([['HSET', 'area:mst:' + slug, m.id, JSON.stringify(st)]]);
         return res.json({ ok: true, acao: Object.assign({}, m, st, { compartilhada: true }) });
       }
       if (!a) return res.status(404).json({ ok: false });
+      if (s.admin && b.prazo !== undefined) a.prazo = /^\d{4}-\d{2}-\d{2}$/.test(b.prazo) ? b.prazo : '';
       a.status = b.status;
       a.atualizado = new Date().toISOString();
       a.por = s.admin ? 'Unique' : s.nome;
@@ -568,12 +624,85 @@ module.exports = async (req, res) => {
       return res.json({ ok: true });
     }
 
+    if (b.a === 'admin-lido' || b.a === 'admin-lido-todos') {
+      if (b.a === 'admin-lido') await redis([[b.lido === false ? 'SREM' : 'SADD', 'area:lidos', limpo(b.k, 120)]]);
+      else {
+        const [av] = await redis([['LRANGE', 'area:avisos', 0, 99]]);
+        const ks = (av || []).map(json).filter(Boolean).map(a => (a.slug + '|' + a.id + '|' + a.data).slice(0, 120));
+        if (ks.length) await redis(ks.map(k => ['SADD', 'area:lidos', k]));
+      }
+      return res.json({ ok: true });
+    }
+
+    if (b.a === 'admin-proposta') {
+      const P = b.proposta || {};
+      const agora = new Date().toISOString();
+      let sl = slugify(b.slug);
+      let novo = false;
+      if (!sl) {
+        const c = b.contato || {};
+        const nomeEmp = limpo(c.empresa, 80), email = limpo(c.email, 120).toLowerCase();
+        sl = slugify(nomeEmp);
+        if (sl.length < 2) return res.status(400).json({ ok: false, erro: 'Informe a empresa (ou escolha uma já cadastrada).' });
+        const [ev] = await redis([['GET', 'area:emp:' + sl]]);
+        const cmds = [['SADD', 'area:emps', sl]];
+        if (!json(ev) && !CATALOGO[sl]) { novo = true; cmds.push(['SET', 'area:emp:' + sl, JSON.stringify({ slug: sl, nome: nomeEmp, criado: agora, etapa: 'qualificado', tags: [], origem: 'proposta' })]); }
+        if (emailOk(email)) {
+          cmds.push(['SET', 'area:user:' + sl + ':' + email, JSON.stringify({ email, nome: limpo(c.nome, 80) || email, whatsapp: limpo(c.whatsapp, 30), slug: sl, empresaNome: nomeEmp, status: 'convite', criado: agora, origem: 'proposta' }), 'NX']);
+          cmds.push(['SADD', 'area:users:' + sl, email]);
+        }
+        await redis(cmds);
+      }
+      const [ev2] = await redis([['GET', 'area:emp:' + sl]]);
+      const e = json(ev2) || { slug: sl, nome: (CATALOGO[sl] || {}).nome || sl, criado: agora };
+      // quem recebe proposta é, no mínimo, lead qualificado
+      if (!e.etapa || e.etapa === 'lead') { e.etapa = 'qualificado'; await redis([['SET', 'area:emp:' + sl, JSON.stringify(e)], ['SADD', 'area:emps', sl]]); }
+      const itens = (Array.isArray(P.itens) ? P.itens : []).slice(0, 30).map(i => ({ descricao: limpo(i && i.descricao, 300), valor: Math.max(0, Math.round((+String((i && i.valor) || 0).replace(',', '.') || 0) * 100) / 100) })).filter(i => i.descricao);
+      const lista = v => (Array.isArray(v) ? v : String(v || '').split('\n')).map(x => limpo(x, 400)).filter(Boolean).slice(0, 30);
+      const [pv] = P.id ? await redis([['HGET', 'area:propostas', String(P.id)]]) : [null];
+      const velha = json(pv) || {};
+      const prop = {
+        id: velha.id || novoId(),
+        token: velha.token || crypto.randomBytes(12).toString('hex'),
+        criado: velha.criado || agora,
+        atualizado: agora,
+        slug: sl,
+        empresa: e.nome,
+        contato: limpo(P.contato, 80) || velha.contato || limpo((b.contato || {}).nome, 80),
+        titulo: limpo(P.titulo, 140) || 'Proposta comercial',
+        servico: TAGS.indexOf(P.servico) >= 0 ? P.servico : '',
+        contexto: limpo(P.contexto, 3000),
+        objetivos: lista(P.objetivos),
+        escopo: lista(P.escopo),
+        etapas: lista(P.etapas),
+        itens,
+        total: Math.round(itens.reduce((t, i) => t + i.valor, 0) * 100) / 100,
+        pagamento: limpo(P.pagamento, 1000),
+        validade: /^\d{4}-\d{2}-\d{2}$/.test(P.validade || '') ? P.validade : '',
+        observacoes: limpo(P.observacoes, 2000),
+        notas: limpo(P.notas, 2000),
+        status: ['rascunho', 'enviada', 'aceita', 'recusada'].indexOf(P.status) >= 0 ? P.status : (velha.status || 'rascunho'),
+        vista: velha.vista || ''
+      };
+      const cmds = [['HSET', 'area:propostas', prop.id, JSON.stringify(prop)], ['SET', 'area:prop:' + prop.token, prop.id]];
+      // fica também na área do cliente, como entrega
+      cmds.push(['HSET', 'area:itens:' + sl, 'pr' + prop.id, JSON.stringify({ id: 'pr' + prop.id, tipo: 'pagina', titulo: prop.titulo, descricao: 'Proposta comercial da Unique para a ' + e.nome + '.', url: '/proposta/?p=' + prop.token, publicado: prop.status !== 'rascunho', criado: prop.criado })]);
+      if (prop.status === 'aceita' && e.etapa !== 'cliente' && e.etapa !== 'finalizado') { e.etapa = 'cliente'; cmds.push(['SET', 'area:emp:' + sl, JSON.stringify(e)]); }
+      await redis(cmds);
+      return res.json({ ok: true, proposta: prop, novo, url: SITE + '/proposta/?p=' + prop.token });
+    }
+    if (b.a === 'admin-proposta-del') {
+      const [pv] = await redis([['HGET', 'area:propostas', String(b.id || '')]]);
+      const p = json(pv);
+      if (p) await redis([['HDEL', 'area:propostas', p.id], ['DEL', 'area:prop:' + p.token], ['HDEL', 'area:itens:' + p.slug, 'pr' + p.id]]);
+      return res.json({ ok: true });
+    }
+
     if (b.a === 'admin-modelo') {
       const m = limpaAcao(b.modelo || {});
       if (!m.titulo) return res.status(400).json({ ok: false, erro: 'Dê um título para a ação.' });
       const d = (b.modelo || {}).destino;
       m.destino = d === 'todos' ? 'todos' : (Array.isArray(d) ? Array.from(new Set(d.map(slugify).filter(x => x.length >= 2))).slice(0, 300) : []);
-      if (m.destino !== 'todos' && !m.destino.length) return res.status(400).json({ ok: false, erro: 'Escolha para quais clientes vai essa ação.' });
       delete m.status;
       const cmds = [['HSET', 'area:modelos', m.id, JSON.stringify(m)]];
       // virou compartilhada a partir de uma ação de um cliente: leva o andamento e apaga a original
@@ -605,6 +734,15 @@ module.exports = async (req, res) => {
       e.atualizado = new Date().toISOString();
       await redis([['SET', 'area:emp:' + slug, JSON.stringify(e)], ['SADD', 'area:emps', slug]]);
       return res.json({ ok: true, etapa: e.etapa, tags: e.tags || [] });
+    }
+
+    if (b.a === 'admin-pessoa') {
+      const email = limpo(b.email, 120).toLowerCase(), nome = limpo(b.nome, 80);
+      if (!nome || !emailOk(email)) return res.status(400).json({ ok: false, erro: 'Informe nome e um e-mail válido.' });
+      const e = await empresa(slug);
+      const [ok] = await redis([['SET', 'area:user:' + slug + ':' + email, JSON.stringify({ email, nome, whatsapp: limpo(b.whatsapp, 30), slug, empresaNome: e.nome, status: 'convite', criado: new Date().toISOString(), origem: 'admin' }), 'NX'], ['SADD', 'area:users:' + slug, email]]);
+      if (!ok) return res.status(409).json({ ok: false, erro: 'Essa pessoa já está vinculada à empresa.' });
+      return res.json({ ok: true });
     }
 
     if (b.a === 'admin-convite') {

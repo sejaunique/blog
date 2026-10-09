@@ -212,7 +212,8 @@
     el.innerHTML=A.map(function(a){
       var atrasada=a.prazo&&a.prazo<hoje&&a.status!=='feito';
       return '<div class="acao '+(a.status==='feito'?'feito ':'')+(atrasada?'atrasada':'')+'"><div><h3>'+esc(a.titulo)+'</h3>'+(a.detalhe?'<p>'+esc(a.detalhe)+'</p>':'')+
-        '<div class="meta">'+(a.responsavel?'<span>Responsável: '+esc(a.responsavel)+'</span>':'')+(a.prazo?'<span class="prazo">Prazo: '+data(a.prazo)+(atrasada?' (atrasada)':'')+'</span>':'')+'</div></div>'+
+        (a.link?'<p><a href="'+esc(a.link)+'" target="_blank" rel="noopener">'+({post:'Ler o post',video:'Assistir à videoaula',reuniao:'Abrir a reunião'}[a.tipo]||'Abrir o link')+' →</a></p>':'')+
+        '<div class="meta">'+(a.dono?'<span>'+(a.dono==='cliente'?'Quem faz: sua empresa':'Quem faz: Unique')+'</span>':'')+(a.inicio?'<span>Início: '+data(String(a.inicio).slice(0,10))+'</span>':'')+(a.responsavel?'<span>Responsável: '+esc(a.responsavel)+'</span>':'')+(a.prazo?'<span class="prazo">Prazo: '+data(a.prazo)+(atrasada?' (atrasada)':'')+'</span>':'')+'</div></div>'+
         '<select data-id="'+esc(a.id)+'" class="st-'+a.status+'" aria-label="Status de '+esc(a.titulo)+'">'+
         Object.keys(STATUS).map(function(k){return '<option value="'+k+'"'+(k===a.status?' selected':'')+'>'+STATUS[k]+'</option>';}).join('')+'</select></div>';
     }).join('');

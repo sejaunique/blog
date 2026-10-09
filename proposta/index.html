@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<script src="/assets/tema.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Proposta comercial · Unique Consultoria</title>
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Proposta comercial · Unique Consultoria">
+<meta property="og:description" content="Proposta preparada pela Unique Consultoria Comercial.">
+<meta property="og:image" content="https://sejaunique.vercel.app/assets/og-site.jpg">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+[hidden]{display:none!important}
+.doc{max-width:880px;margin:0 auto;padding:56px 20px 96px}
+.capa-p{border-radius:32px;background:var(--marinho);color:#fff;padding:44px 40px;display:grid;gap:18px;position:relative;overflow:hidden}
+.capa-p .rot{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;opacity:.75}
+.capa-p h1{font-size:clamp(2rem,5vw,3.4rem);line-height:.98;letter-spacing:-.045em;margin:0;font-weight:800}
+.capa-p h1 .leve{display:block;font-weight:200;font-style:italic;font-size:.62em;margin-top:8px}
+.capa-p .meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-size:.84rem;opacity:.9}
+.capa-p .meta b{display:block;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;opacity:.7;font-weight:600}
+.capa-p .I{position:absolute;right:36px;top:36px;width:22px;height:64px;background:var(--verde)}
+.sec{display:grid;grid-template-columns:170px 1fr;gap:28px;padding:40px 0;border-bottom:1px solid var(--line)}
+.sec .lado{font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);padding-top:6px}
+.sec h2{font-size:clamp(1.3rem,2.4vw,1.7rem);letter-spacing:-.03em;margin:0 0 14px;font-weight:700}
+.sec h2 .leve{font-weight:200;font-style:italic}
+.sec p{margin:0 0 12px;line-height:1.7;white-space:pre-line}
+.sec ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.sec ul li{display:grid;grid-template-columns:22px 1fr;gap:10px;line-height:1.55}
+.sec ul li .ic{color:var(--verde-txt);margin-top:2px}
+.sec ol{margin:0;padding:0;list-style:none;display:grid;gap:0;border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.sec ol li{display:grid;grid-template-columns:56px 1fr;gap:14px;padding:16px 18px;border-bottom:1px solid var(--line);align-items:center}
+.sec ol li:last-child{border-bottom:0}
+.sec ol li span{font-size:1.6rem;font-weight:200;color:var(--muted)}
+.inv{border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.inv div{display:flex;justify-content:space-between;gap:20px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.inv div:last-child{border-bottom:0;background:var(--fg);color:var(--bg);font-weight:800;font-size:1.15rem}
+.cta-p{margin-top:40px;border-radius:28px;background:var(--soft);padding:32px;display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}
+.cta-p h2{margin:0;font-size:1.5rem;letter-spacing:-.03em}
+.cta-p h2 .leve{font-weight:200;font-style:italic}
+.cta-p .bts{display:flex;gap:10px;flex-wrap:wrap}
+.estado{padding:120px 20px;text-align:center;color:var(--muted)}
+.assin{display:flex;gap:16px;align-items:center;margin-top:28px;font-size:.88rem}
+.assin img{width:56px;height:56px;border-radius:50%;object-fit:cover}
+@media (max-width:700px){.sec{grid-template-columns:1fr;gap:10px}.capa-p{padding:32px 24px}}
+@media print{
+  header,footer,.cta-p .bts,#b-print,.whats-flutua,[class*="whats"]{display:none!important}
+  body{background:#fff;color:#000}
+  .doc{padding:0}
+  .capa-p{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .inv div:last-child{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sec{break-inside:avoid}
+}
+</style>
+</head>
+<body class="leitura" data-casco="area">
+<script src="/assets/casco.js"></script>
+<main class="doc">
+  <div class="estado" id="estado">Carregando a proposta…</div>
+  <article id="prop" hidden></article>
+</main>
+<script>
+(function(){
+  var t=new URLSearchParams(location.search).get('p')||'';
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  function brl(v){ return (+v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}); }
+  function dt(s){ return s?new Date(s.length===10?s+'T12:00':s).toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'}):''; }
+  function sec(lado,h2,corpo){ return corpo?'<section class="sec"><div class="lado">'+lado+'</div><div><h2>'+h2+'</h2>'+corpo+'</div></section>':''; }
+  var V='<i class="ic" style="--i:var(--ic-check)"></i>';
+  fetch('/api/area?a=proposta&p='+encodeURIComponent(t),{credentials:'same-origin'}).then(function(r){return r.json();}).then(function(r){
+    if(!r.ok){ document.getElementById('estado').textContent='Proposta não encontrada. Confira o link com a Unique.'; return; }
+    var p=r.proposta;
+    document.title=p.titulo+' · '+p.empresa+' · Unique';
+    var msg=encodeURIComponent('Olá, Carlos! Li a proposta da Unique para a '+p.empresa+' e quero seguir.');
+    var html='<header class="capa-p"><span class="I" aria-hidden="true"></span><span class="rot">'+esc(p.titulo)+(p.servico?' · '+esc(p.servico):'')+'</span>'+
+      '<h1>'+esc(p.empresa)+'<span class="leve">Uma proposta feita para a sua empresa.</span></h1>'+
+      '<div class="meta">'+(p.contato?'<span><b>Para</b>'+esc(p.contato)+'</span>':'')+'<span><b>Data</b>'+dt(p.atualizado||p.criado)+'</span>'+(p.validade?'<span><b>Válida até</b>'+dt(p.validade)+'</span>':'')+'<span><b>De</b>Carlos Ribeiro · Unique</span></div></header>';
+    html+=sec('Contexto','O que eu vi <span class="leve">na sua empresa.</span>',p.contexto?'<p>'+esc(p.contexto)+'</p>':'');
+    html+=sec('Objetivos','Onde a gente <span class="leve">quer chegar.</span>',(p.objetivos||[]).length?'<ul>'+p.objetivos.map(function(x){return '<li>'+V+'<span>'+esc(x)+'</span></li>';}).join('')+'</ul>':'');
+    html+=sec('Escopo','O que está <span class="leve">incluso.</span>',(p.escopo||[]).length?'<ul>'+p.escopo.map(function(x){return '<li>'+V+'<span>'+esc(x)+'</span></li>';}).join('')+'</ul>':'');
+    html+=sec('Etapas','Como vamos <span class="leve">fazer.</span>',(p.etapas||[]).length?'<ol>'+p.etapas.map(function(x,i){return '<li><span>'+String(i+1).padStart(2,'0')+'</span><div>'+esc(x)+'</div></li>';}).join('')+'</ol>':'');
+    html+=sec('Investimento','O investimento <span class="leve">do projeto.</span>',(p.itens||[]).length?'<div class="inv">'+p.itens.map(function(i){return '<div><span>'+esc(i.descricao)+'</span><span>'+(i.valor?brl(i.valor):'incluso')+'</span></div>';}).join('')+'<div><span>Total</span><span>'+brl(p.total)+'</span></div></div>'+(p.pagamento?'<p style="margin-top:16px"><b>Forma de pagamento</b><br>'+esc(p.pagamento)+'</p>':''):'');
+    html+=sec('Observações','Bom <span class="leve">saber.</span>',p.observacoes?'<p>'+esc(p.observacoes)+'</p>':'');
+    html+='<div class="cta-p"><div><h2>Vamos <span class="leve">começar?</span></h2><p class="muted" style="margin:6px 0 0">Responda pelo WhatsApp e eu organizo os próximos passos.</p></div>'+
+      '<div class="bts"><a class="btn verde" href="https://wa.me/5562996007574?text='+msg+'" target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Quero seguir</a><button class="btn" type="button" id="b-print"><i class="ic" style="--i:var(--ic-download)"></i>Salvar em PDF</button></div></div>'+
+      '<div class="assin"><img src="/assets/carlos-hero.jpg" alt=""><div><b>Carlos Ribeiro</b><br><span class="muted">Fundador da Unique Consultoria Comercial</span></div></div>';
+    var a=document.getElementById('prop'); a.innerHTML=html; a.hidden=false; document.getElementById('estado').hidden=true;
+    document.getElementById('b-print').onclick=function(){ window.print(); };
+  }).catch(function(){ document.getElementById('estado').textContent='Sem conexão. Tente de novo.'; });
+})();
+</script>
+</body>
+</html>

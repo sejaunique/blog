@@ -48,6 +48,11 @@ Regras: no máximo 2 fotos por carrossel. Fontes ficam em tools/fonts (instale e
 - `diagnostico/relatorio/?demo`: o mesmo relatório com respostas de exemplo.
 - No painel: Ver relatório, Copiar link e E-mail pronto (HTML para colar na ferramenta de e-mail marketing, texto, assunto ou abrir no e-mail).
 
+## Workspace Unique (`/area/admin/`)
+Menu lateral com: Painel (controle e gestão), CRM (Kanban), Notificações (aprovações, comentários com lido/responder, leads sem acesso), Empresas (pessoas, acesso, entregas, plano de ações), Ações (tabela única), Propostas, Diagnósticos, Postagens, Videoaulas, Reuniões, Site e Alda.CRM.
+- **Ações:** toda ação nasce sem cliente; na própria linha você marca um, vários ou todos. Cada cliente tem o próprio andamento e a própria data de entrega. Posts do blog aparecem como linhas prontas para compartilhar. O botão de agenda abre o Google Agenda com o evento preenchido.
+- **Propostas:** feitas para empresas cadastradas ou novas; empresa nova entra como lead qualificado (pessoa sem acesso). Link público `/proposta/?p=TOKEN` (rascunho não abre). Proposta aceita move a empresa para Cliente. A proposta também aparece na área do cliente.
+
 ## Área do cliente
 
 ### Funil (Kanban), leads do diagnóstico e ações compartilhadas

@@ -224,6 +224,18 @@ section{display:grid;gap:16px}
 
 
 
+.chip.pend{color:var(--muted);background:var(--soft)}
+.aviso-pend{display:flex;gap:16px;align-items:center;padding:18px 22px;border-color:var(--medio);background:var(--medio-bg)}
+.aviso-pend .ap-ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--card);color:var(--medio);flex:none}
+.aviso-pend .ap-tx{display:grid;gap:2px;flex:1;min-width:0}
+.aviso-pend .ap-tx strong{font-size:1rem}
+.aviso-pend .ap-tx span{font-size:.88rem;color:var(--resp)}
+.aviso-pend .ap-btn{background:var(--fg);color:var(--card);border-color:var(--fg);flex:none}
+.pend-box{display:grid;gap:8px;justify-items:start;padding:18px;border:1px dashed var(--line);border-radius:14px;background:var(--soft)}
+.pend-box span{font-size:.88rem;color:var(--resp)}
+.acao-pend{border-style:dashed;background:var(--soft);box-shadow:none}
+.acao-pend .btn{justify-self:start}
+@media (max-width:640px){.aviso-pend{flex-wrap:wrap}.aviso-pend .ap-btn{width:100%;justify-content:center}}
 /* oferta Alda.CRM: identidade da marca Alda (amarelo do pato, laranja do bico, grafite, Poppins) */
 .alda{--a-amarelo:#fdd015;--a-laranja:#f49f1c;--a-grafite:#2e2e2e;--a-texto:#4a4a4a;
   font-family:"Poppins",var(--font);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;background:#ffffff;color:var(--a-grafite);border-radius:24px;padding:38px 36px 84px 40px;position:relative;overflow:hidden;margin-bottom:20px;isolation:isolate}
@@ -391,6 +403,7 @@ section{display:grid;gap:16px}
   <div class="card estado" id="carregando"><h1>Montando o seu relatório…</h1><p>Um instante.</p></div>
 </main>
 
+<script src="/diagnostico/perguntas.js"></script>
 <script src="/diagnostico/motor.js"></script>
 <script src="/diagnostico/relatorio/visual.js"></script>
 <script>
@@ -423,7 +436,7 @@ section{display:grid;gap:16px}
     pergunta_ouro:'Ter um time vendendo sem depender de mim, com previsão de faturamento e clientes voltando a comprar todo mês.'};
 
   function iniciar(item){
-    var A=window.UniqueDiag.analisar(item.respostas);
+    var A=window.UniqueDiag.analisar(item.respostas); A.lista=item.respostas;
     A.data=item.data; A.id=token||'demo';
     document.title='Relatório Comercial · '+A.empresa;
     render(A);
@@ -449,6 +462,8 @@ section{display:grid;gap:16px}
     balanca:'<svg class="icon" viewBox="0 0 24 24"><path d="M12 4v16M5 8h14M5 8l-3 6h6zM19 8l-3 6h6z"/></svg>',
     ponto:'<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg>'
   };
+  function N(v){ return v==null?'—':v; }
+  var COMPLETAR = token?('/diagnostico/?completar='+token):'';
   function chip(n){ return '<span class="chip '+n.id+'">'+n.nome+'</span>'; }
   function respChip(i,est){
     if(est){ var m=i.pts===2?['ok','Ok']:i.pts===1?['parte','Parcial']:['falta','Falta']; return '<span class="resp '+m[0]+'">'+m[1]+'</span>'; }
@@ -460,13 +475,22 @@ section{display:grid;gap:16px}
   function render(A){
     var R=A.R, todos=A.pilares.concat([A.estrutura]);
     var h='';
+    var PEND = (window.DIAG && window.DIAG.pendentes) ? window.DIAG.pendentes(A.lista||[]) : [];
+    if(PEND.length){
+      var falta=PEND.filter(function(x){return x.motivo==='falta';}).length, conf=PEND.length-falta;
+      h+='<section class="aviso-pend card" id="completar-aviso"><div class="ap-ic" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M12 8v5M12 16.5v.5"/><circle cx="12" cy="12" r="9"/></svg></div>'+
+        '<div class="ap-tx"><strong>'+(A.provisorio?'Este retrato ainda é provisório':'Falta pouco para fechar o seu diagnóstico')+'</strong>'+
+        '<span>'+(falta?falta+(falta===1?' pergunta ainda não foi respondida':' perguntas ainda não foram respondidas'):'')+(falta&&conf?' e ':'')+(conf?conf+(conf===1?' resposta precisa ser confirmada':' respostas precisam ser confirmadas'):'')+
+        (A.pilaresPend?'. Sem elas, '+(A.pilaresPend===4?'os 4 pilares ficam':A.pilaresPend===1?'um dos 4 pilares fica':A.pilaresPend+' dos 4 pilares ficam')+' sem nota e sem plano de ação.':'.')+' Leva cerca de 3 minutos.</span></div>'+
+        (COMPLETAR?'<a class="btn ap-btn" href="'+COMPLETAR+'">Completar agora</a>':'')+'</section>';
+    }
     /* abertura */
     var circ=2*Math.PI*56;
     h+='<section id="resumo" class="hero">'+
       '<div class="card hero-txt">'+
         '<span class="eyebrow">Diagnóstico de Maturidade Comercial</span>'+
         '<h1>Retrato comercial da <span class="grifo">'+esc(A.empresa)+'</span></h1>'+
-        '<div class="score"><div class="ring" role="img" aria-label="Score geral '+A.geral+' de 100"><svg viewBox="0 0 132 132"><circle cx="66" cy="66" r="56" fill="none" stroke="var(--soft)" stroke-width="12"/><circle id="ring-val" cx="66" cy="66" r="56" fill="none" stroke="var(--'+A.nivelGeral.id+')" stroke-width="12" stroke-linecap="round" stroke-dasharray="'+circ.toFixed(1)+'" stroke-dashoffset="'+circ.toFixed(1)+'"/></svg><div class="v"><div><b class="num">'+A.geral+'</b><small>de 100</small></div></div></div>'+
+        '<div class="score"><div class="ring" role="img" aria-label="Score geral '+A.geral+' de 100"><svg viewBox="0 0 132 132"><circle cx="66" cy="66" r="56" fill="none" stroke="var(--soft)" stroke-width="12"/><circle id="ring-val" cx="66" cy="66" r="56" fill="none" stroke="var(--'+A.nivelGeral.id+')" stroke-width="12" stroke-linecap="round" stroke-dasharray="'+circ.toFixed(1)+'" stroke-dashoffset="'+circ.toFixed(1)+'"/></svg><div class="v"><div><b class="num">'+A.geral+'</b><small>'+(A.provisorio?'provisório':'de 100')+'</small></div></div></div>'+
         '<div class="estagio"><span class="eyebrow">Estágio atual</span><strong>'+esc(A.estagio.nome)+'</strong><p>'+esc(A.estagio.frase)+'</p></div></div>'+
         '<div class="meta-emp">'+[R.segmento,R.tempo&&('Atua há '+R.tempo.toLowerCase().replace(/^de /,'')),R.colaboradores&&(R.colaboradores+' colaboradores'),A.data&&data(A.data)].filter(Boolean).map(function(x){return '<span>'+esc(x)+'</span>';}).join('')+'</div>'+
       '</div>'+
@@ -486,22 +510,28 @@ section{display:grid;gap:16px}
     /* barras */
     h+='<section id="pilares"><div class="sec-head"><span class="eyebrow">Placar</span><h2>Como está cada frente do seu comercial</h2><p>Toque em uma barra para ver o detalhe e as ações daquele pilar.</p></div>'+
       '<div class="card barras">'+todos.map(function(p,i){
-        return '<button class="barra" type="button" data-ir="'+i+'"><span class="n">'+esc(p.nome)+'<small>'+esc(p.curto)+'</small></span><span class="trilho"><i class="'+p.nivel.id+'" style="width:0" data-w="'+Math.max(2,p.nota)+'"></i></span><span class="val"><span class="num">'+p.nota+'</span>'+chip(p.nivel)+'</span></button>';
+        return '<button class="barra" type="button" data-ir="'+i+'"><span class="n">'+esc(p.nome)+'<small>'+esc(p.curto)+'</small></span><span class="trilho"><i class="'+p.nivel.id+'" style="width:0" data-w="'+(p.nota==null?0:Math.max(2,p.nota))+'"></i></span><span class="val"><span class="num">'+N(p.nota)+'</span>'+chip(p.nivel)+'</span></button>';
       }).join('')+'</div></section>';
 
     /* retrato */
     h+='<section id="retrato"><div class="sec-head"><span class="eyebrow">Leitura do consultor</span><h2>O retrato em três pontos</h2></div>'+
       '<div class="leitura">'+
+        (A.pilaresPend>=3 ? (
+        lt(ICON.topo,'O que já dá para ver','Estrutura comercial · '+A.estrutura.nota,A.estagio.frase)+
+        lt(ICON.balanca,'Ainda falta',(A.pilaresPend===4?'Os 4 pilares':A.pilaresPend+' pilares')+' sem resposta',A.pilares.filter(function(p){return p.pendente;}).map(function(p){return p.nome;}).join(', ')+'. Com eles respondidos, o retrato mostra o pico, o afundamento e o desequilíbrio do funil.')+
+        '<div class="card lt"><span class="eyebrow">'+ICON.ponto+'Próximo passo</span><h3>Complete em 3 minutos</h3><p>São perguntas rápidas de Sim, Em parte ou Não. O relatório se atualiza na hora.</p>'+(COMPLETAR?'<a class="btn" style="justify-self:start" href="'+COMPLETAR+'">Completar diagnóstico</a>':'')+'</div>'
+        ) : (
         lt(ICON.topo,'Pico no radar',A.pico.nome+' · '+A.pico.nota,'É onde a empresa está melhor hoje. Vale proteger e usar como alavanca para os outros pilares.')+
         lt(ICON.baixo,'Afundamento',A.fundo.nome+' · '+A.fundo.nota,A.fundo.def+' É aqui que está o maior vazamento de vendas hoje.')+
-        lt(ICON.balanca,'Desequilíbrio do funil',A.gap+' pontos de diferença',A.desequilibrio)+
+        lt(ICON.balanca,'Desequilíbrio do funil',A.gap+' pontos de diferença',A.desequilibrio)
+        ))+
       '</div>'+
       (A.leitura.length?'<div class="card consultor"><span class="eyebrow">O que isso significa na prática</span><ul>'+A.leitura.map(function(t){return '<li>'+ICON.ponto+'<span>'+esc(t)+'</span></li>';}).join('')+'</ul></div>':'')+
     '</section>';
 
     /* por pilar */
     h+='<section id="pilar-detalhe"><div class="sec-head"><span class="eyebrow">Por pilar</span><h2>O detalhe de cada frente</h2><p>Toque nos pontos marcados como falta ou parcial para ver o que isso causa nas vendas.</p></div>'+
-      '<div class="tabs" role="tablist">'+todos.map(function(p,i){ return '<button class="tab" role="tab" id="tab-'+i+'" aria-controls="painel" aria-selected="'+(i===0)+'" data-tab="'+i+'">'+esc(p.nome)+' <b class="num">'+p.nota+'</b></button>'; }).join('')+'</div>'+
+      '<div class="tabs" role="tablist">'+todos.map(function(p,i){ return '<button class="tab" role="tab" id="tab-'+i+'" aria-controls="painel" aria-selected="'+(i===0)+'" data-tab="'+i+'">'+esc(p.nome)+' <b class="num">'+N(p.nota)+'</b></button>'; }).join('')+'</div>'+
       '<div class="card painel" id="painel" role="tabpanel"></div></section>';
 
     /* gargalos */
@@ -527,7 +557,7 @@ section{display:grid;gap:16px}
 
     /* plano */
     var acoes=[]; todos.forEach(function(p,pi){ p.acoes.forEach(function(a,ai){ acoes.push({a:a,p:p,k:p.id+'-'+ai}); }); });
-    h+='<section id="plano"><div class="sec-head"><span class="eyebrow">Plano de ação</span><h2>10 ações para os próximos 30 dias</h2><p>Duas ações para cada pilar e duas para a estrutura comercial, escolhidas a partir das suas respostas. Marque o que for concluindo.</p></div>'+
+    h+='<section id="plano"><div class="sec-head"><span class="eyebrow">Plano de ação</span><h2>'+acoes.length+' ações para os próximos 30 dias</h2><p>'+(A.pilaresPend?'Duas ações para cada frente já respondida, escolhidas a partir das suas respostas. As ações dos pilares sem resposta aparecem quando você completar o diagnóstico.':'Duas ações para cada pilar e duas para a estrutura comercial, escolhidas a partir das suas respostas.')+' Marque o que for concluindo.</p></div>'+
       '<div class="plano-top"><div class="filtros" role="group" aria-label="Filtrar ações"><button class="filtro" type="button" aria-pressed="true" data-f="">Todas</button>'+todos.map(function(p){return '<button class="filtro" type="button" aria-pressed="false" data-f="'+p.id+'">'+esc(p.nome)+'</button>';}).join('')+'</div>'+
       '<div class="progresso"><span class="trilho"><i id="prog-bar" style="width:0"></i></span><span id="prog-txt" class="num"></span></div></div>'+
       '<div class="acoes" id="acoes">'+acoes.map(function(x){
@@ -536,6 +566,8 @@ section{display:grid;gap:16px}
           '<p class="porque">'+esc(a.motivo||'')+'</p><ol>'+a.passos.map(function(s){return '<li>'+esc(s)+'</li>';}).join('')+'</ol>'+
           '<div class="rodape"><div class="tags"><span class="etq">Prazo: '+esc(a.prazo)+'</span><span class="etq">Medir: '+esc(a.medir)+'</span></div>'+
           '<label class="feito"><input type="checkbox" id="feito-'+x.k+'" data-k="'+x.k+'">Feito</label></div></article>';
+      }).join('')+todos.filter(function(p){return p.pendente;}).map(function(p){
+        return '<article class="card acao acao-pend" data-area="'+p.id+'"><span class="area">'+esc(p.nome)+'</span><h3>2 ações aguardando suas respostas</h3><p class="porque">Este pilar ainda não foi respondido. Assim que você responder as 5 perguntas dele, as ações aparecem aqui.</p>'+(COMPLETAR?'<a class="btn" href="'+COMPLETAR+'">Completar diagnóstico</a>':'')+'</article>';
       }).join('')+'</div></section>';
 
     /* oferta Alda.CRM: mostra só o que resolve os gargalos desta empresa */
@@ -593,12 +625,13 @@ section{display:grid;gap:16px}
     var p=todos[i], est=p.id==='estrutura';
     document.querySelectorAll('.tab').forEach(function(t,k){ t.setAttribute('aria-selected',String(k===i)); t.tabIndex=k===i?0:-1; });
     $('#painel').setAttribute('aria-labelledby','tab-'+i);
-    var h='<div class="p-cab"><div><h3>'+esc(p.nome)+'</h3><p>'+esc(p.def)+'</p>'+(p.id==='prospeccao'&&p.quem?'<p style="font-style:normal;margin-top:8px;color:var(--resp)">Quem prospecta hoje: <strong>'+esc(p.quem)+'</strong></p>':'')+'</div><div class="p-nota"><b class="num">'+p.nota+'</b><small>/100</small><div>'+chip(p.nivel)+'</div></div></div>'+
+    var h='<div class="p-cab"><div><h3>'+esc(p.nome)+'</h3><p>'+esc(p.def)+'</p>'+(p.id==='prospeccao'&&p.quem?'<p style="font-style:normal;margin-top:8px;color:var(--resp)">Quem prospecta hoje: <strong>'+esc(p.quem)+'</strong></p>':'')+'</div><div class="p-nota"><b class="num">'+N(p.nota)+'</b>'+(p.nota==null?'':'<small>/100</small>')+'<div>'+chip(p.nivel)+'</div></div></div>'+
       '<ul class="itens">'+p.itens.map(function(it,k){
-        var fraco=est?it.pts<2:it.pts<20;
+        var fraco=!it.pend && (est?it.pts<2:it.pts<20);
         return '<li class="item"><button type="button" aria-expanded="false"'+(fraco?' data-cons="'+k+'"':' disabled')+'><span>'+esc(it.t)+(est?'<small style="display:block;color:var(--muted);font-size:.76rem">'+esc(it.resp)+'</small>':'')+'</span>'+respChip(it,est)+(fraco?ICON.seta:'<span></span>')+'</button>'+(fraco?'<p class="cons" hidden>'+esc(it.c)+'</p>':'')+'</li>';
       }).join('')+'</ul>'+
-      '<div class="duas-acoes"><h4>Ações para este pilar</h4><div class="grade">'+p.acoes.map(function(a){ return '<div class="acao-mini"><strong>'+esc(a.titulo)+'</strong><span>Prazo: '+esc(a.prazo)+' · Medir: '+esc(a.medir)+'</span><a href="#plano" data-filtro="'+p.id+'">Ver passo a passo</a></div>'; }).join('')+'</div></div>';
+      (p.pendente?'<div class="pend-box"><strong>Este pilar ainda não foi respondido.</strong><span>Responda as 5 perguntas de '+esc(p.nome)+' para ver a nota e as 2 ações deste pilar.</span>'+(COMPLETAR?'<a class="btn" href="'+COMPLETAR+'">Responder agora</a>':'')+'</div>':'')+
+      (p.pendente?'':'<div class="duas-acoes"><h4>Ações para este pilar</h4><div class="grade">'+p.acoes.map(function(a){ return '<div class="acao-mini"><strong>'+esc(a.titulo)+'</strong><span>Prazo: '+esc(a.prazo)+' · Medir: '+esc(a.medir)+'</span><a href="#plano" data-filtro="'+p.id+'">Ver passo a passo</a></div>'; }).join('')+'</div></div>');
     $('#painel').innerHTML=h;
     $('#painel').querySelectorAll('[data-cons]').forEach(function(b){ b.onclick=function(){ var li=b.parentNode, c=li.querySelector('.cons'), ab=c.hidden; c.hidden=!ab; li.classList.toggle('aberto',ab); b.setAttribute('aria-expanded',String(ab)); }; });
     $('#painel').querySelectorAll('[data-filtro]').forEach(function(a){ a.onclick=function(){ filtrar(a.dataset.filtro); }; });
@@ -627,29 +660,29 @@ section{display:grid;gap:16px}
     todos.forEach(function(p,i){
       var e=pt(i,128), anc=Math.abs(e[0]-cx)<10?'middle':(e[0]>cx?'start':'end');
       var dy=e[1]<cy-60?-6:e[1]>cy+40?16:4;
-      h+='<g class="eixo" data-i="'+i+'" tabindex="0" role="button" aria-label="'+esc(p.nome)+': '+p.nota+' de 100">'+
+      h+='<g class="eixo" data-i="'+i+'" tabindex="0" role="button" aria-label="'+esc(p.nome)+': '+(p.nota==null?'a responder':p.nota+' de 100')+'">'+
         '<text x="'+e[0]+'" y="'+(e[1]+dy)+'" text-anchor="'+anc+'" font-size="13" font-weight="600" fill="var(--fg)">'+esc(p.id==='estrutura'?'Estrutura':p.nome)+'</text>'+
-        '<text x="'+e[0]+'" y="'+(e[1]+dy+16)+'" text-anchor="'+anc+'" font-size="12" fill="var(--muted)">'+p.nota+'/100</text>'+
+        '<text x="'+e[0]+'" y="'+(e[1]+dy+16)+'" text-anchor="'+anc+'" font-size="12" fill="var(--muted)">'+(p.nota==null?'a responder':p.nota+'/100')+'</text>'+
         '<circle class="rd-pt" cx="'+pt(i,0)[0]+'" cy="'+pt(i,0)[1]+'" r="5" fill="var(--dado)" stroke="var(--card)" stroke-width="2"/>'+
-        '<circle class="rd-hit" cx="'+pt(i,Math.max(p.nota,8))[0]+'" cy="'+pt(i,Math.max(p.nota,8))[1]+'" r="16" fill="transparent"/></g>';
+        '<circle class="rd-hit" cx="'+pt(i,Math.max(p.nota||0,8))[0]+'" cy="'+pt(i,Math.max(p.nota||0,8))[1]+'" r="16" fill="transparent"/></g>';
     });
     svg.innerHTML=h;
     RD={svg:svg,todos:todos,pt:pt};
     // anima de 0 até a nota
     var t0=null, area=$('#rd-area'), pts=svg.querySelectorAll('.rd-pt');
     function passo(ts){ if(!t0) t0=ts; var k=Math.min(1,(ts-t0)/900), e=1-Math.pow(1-k,3);
-      area.setAttribute('points',todos.map(function(p,i){return pt(i,p.nota*e).join(',');}).join(' '));
-      pts.forEach(function(c,i){ var q=pt(i,todos[i].nota*e); c.setAttribute('cx',q[0]); c.setAttribute('cy',q[1]); });
+      area.setAttribute('points',todos.map(function(p,i){return pt(i,(p.nota||0)*e).join(',');}).join(' '));
+      pts.forEach(function(c,i){ var q=pt(i,(todos[i].nota||0)*e); c.setAttribute('cx',q[0]); c.setAttribute('cy',q[1]); });
       if(k<1) requestAnimationFrame(passo); }
-    if(matchMedia('(prefers-reduced-motion: reduce)').matches){ area.setAttribute('points',todos.map(function(p,i){return pt(i,p.nota).join(',');}).join(' ')); pts.forEach(function(c,i){ var q=pt(i,todos[i].nota); c.setAttribute('cx',q[0]); c.setAttribute('cy',q[1]); }); }
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){ area.setAttribute('points',todos.map(function(p,i){return pt(i,p.nota||0).join(',');}).join(' ')); pts.forEach(function(c,i){ var q=pt(i,todos[i].nota||0); c.setAttribute('cx',q[0]); c.setAttribute('cy',q[1]); }); }
     else requestAnimationFrame(passo);
     // garante o estado final mesmo se a aba abrir em segundo plano (sem animação)
-    setTimeout(function(){ area.setAttribute('points',todos.map(function(p,i){return pt(i,p.nota).join(',');}).join(' ')); pts.forEach(function(c,i){ var q=pt(i,todos[i].nota); c.setAttribute('cx',q[0]); c.setAttribute('cy',q[1]); }); },1100);
+    setTimeout(function(){ area.setAttribute('points',todos.map(function(p,i){return pt(i,p.nota||0).join(',');}).join(' ')); pts.forEach(function(c,i){ var q=pt(i,todos[i].nota||0); c.setAttribute('cx',q[0]); c.setAttribute('cy',q[1]); }); },1100);
     var tip=$('#tip'), card=svg.parentNode;
     svg.querySelectorAll('.eixo').forEach(function(g){
       var i=+g.dataset.i, p=todos[i];
-      function mostra(){ var q=pt(i,p.nota), b=svg.getBoundingClientRect(), cb=card.getBoundingClientRect(), s=b.width/500;
-        tip.innerHTML='<strong>'+esc(p.nome)+'</strong> · '+p.nota+'/100 · '+p.nivel.nome; tip.style.left=(b.left-cb.left+(q[0]+30)*s)+'px'; tip.style.top=(b.top-cb.top+q[1]*s)+'px'; tip.classList.add('on'); }
+      function mostra(){ var q=pt(i,p.nota||0), b=svg.getBoundingClientRect(), cb=card.getBoundingClientRect(), s=b.width/500;
+        tip.innerHTML='<strong>'+esc(p.nome)+'</strong> · '+(p.nota==null?'a responder':p.nota+'/100 · '+p.nivel.nome); tip.style.left=(b.left-cb.left+(q[0]+30)*s)+'px'; tip.style.top=(b.top-cb.top+q[1]*s)+'px'; tip.classList.add('on'); }
       g.addEventListener('mouseenter',mostra); g.addEventListener('focus',mostra);
       g.addEventListener('mouseleave',function(){tip.classList.remove('on');}); g.addEventListener('blur',function(){tip.classList.remove('on');});
       g.addEventListener('click',function(){ abrir(todos,i); });

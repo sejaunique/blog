@@ -3,6 +3,9 @@
 // POST /api/diagnostico            -> salva um diagnóstico (público, com limite por IP)
 // GET  /api/diagnostico?a=lista    -> lista os diagnósticos (precisa do header x-senha = DIAG_SENHA)
 // GET  /api/diagnostico?a=relatorio&r=TOKEN -> um diagnóstico, para o relatório do cliente (o token é o segredo do link)
+// POST {a:'completar', r:TOKEN, respostas} -> o cliente responde o que faltava (link do relatório)
+// POST {a:'salvar', id, respostas}          -> painel: edita as respostas (x-senha)
+// POST {a:'importar', itens:[{data, respostas}]} -> painel: importa respostas do formulário antigo (x-senha)
 // Variáveis: KV_REST_API_URL + KV_REST_API_TOKEN (ou UPSTASH_*) e DIAG_SENHA (senha do painel).
 
 const URL_DB = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
@@ -31,6 +34,49 @@ async function limite(ip, max) {
   const k = 'rl:diag:' + ip;
   const [n] = await redis([['INCR', k], ['EXPIRE', k, 3600]]);
   return n > max;
+}
+
+function saneia(lista) {
+  return (Array.isArray(lista) ? lista : []).slice(0, 90).map(x => {
+    const o = {
+      secao: limpo(x && x.secao, 60),
+      id: limpo(x && x.id, 40).replace(/[^a-z0-9_]/gi, ''),
+      pergunta: limpo(x && x.pergunta, 300),
+      resposta: limpo(x && x.resposta, 3000)
+    };
+    if (x && x.obs === 'estimado') o.obs = 'estimado';
+    return o;
+  }).filter(x => x.id);
+}
+
+// data de quando a pessoa respondeu (só para respostas importadas; nunca no futuro nem antes de 2025)
+function dataValida(v) {
+  const d = new Date(String(v || ''));
+  if (isNaN(d) || d > new Date() || d < new Date('2025-01-01')) return null;
+  return d.toISOString();
+}
+
+function novoItem(respostas, data) {
+  const pega = id => (respostas.find(x => x.id === id) || {}).resposta || '';
+  return {
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+    token: novoToken(),
+    data: data || new Date().toISOString(),
+    empresa: pega('empresa'),
+    nome: pega('nome'),
+    whatsapp: pega('whatsapp'),
+    email: pega('email'),
+    respostas
+  };
+}
+
+// grava a versão nova de um diagnóstico na lista e no link do relatório
+async function grava(item) {
+  const [lst] = await redis([['LRANGE', LISTA, 0, 499]]);
+  const i = (lst || []).findIndex(x => { try { return JSON.parse(x).id === item.id; } catch (e) { return false; } });
+  const cmds = [['SET', 'diag:r:' + item.token, JSON.stringify(item)]];
+  if (i > -1) cmds.push(['LSET', LISTA, i, JSON.stringify(item)]);
+  await redis(cmds);
 }
 
 function corpo(req) {
@@ -92,29 +138,64 @@ module.exports = async (req, res) => {
       return res.json({ ok: true, token: item.token });
     }
 
+    if (b.a === 'completar') {
+      const r = String(b.r || '');
+      if (!TOKEN_OK.test(r)) return res.status(404).json({ ok: false });
+      if (await limite(ip, 30)) return res.status(429).json({ ok: false, erro: 'Muitos envios seguidos. Tente de novo mais tarde.' });
+      const [s0] = await redis([['GET', 'diag:r:' + r]]);
+      if (!s0) return res.status(404).json({ ok: false });
+      const item = JSON.parse(s0);
+      const novas = saneia(b.respostas).filter(x => PRIVADOS.concat(['empresa', 'nome']).indexOf(x.id) < 0 && x.resposta);
+      if (!novas.length) return res.status(400).json({ ok: false, erro: 'Nenhuma resposta recebida.' });
+      novas.forEach(x => { delete x.obs; const i = item.respostas.findIndex(y => y.id === x.id); if (i > -1) item.respostas[i] = x; else item.respostas.push(x); });
+      item.completado = new Date().toISOString();
+      await grava(item);
+      return res.json({ ok: true });
+    }
+
+    if (b.a === 'salvar' || b.a === 'importar') {
+      if (!SENHA || !igual(String(req.headers['x-senha'] || ''), SENHA)) return res.status(401).json({ ok: false, erro: 'Senha incorreta.' });
+      if (b.a === 'salvar') {
+        const [lst] = await redis([['LRANGE', LISTA, 0, 499]]);
+        const i = (lst || []).findIndex(x => { try { return JSON.parse(x).id === b.id; } catch (e) { return false; } });
+        if (i < 0) return res.status(404).json({ ok: false });
+        const item = JSON.parse(lst[i]);
+        item.respostas = saneia(b.respostas);
+        const pega = id => (item.respostas.find(x => x.id === id) || {}).resposta || '';
+        ['empresa', 'nome', 'whatsapp', 'email'].forEach(k => { if (pega(k)) item[k] = pega(k); });
+        if (!item.token) item.token = novoToken();
+        item.editado = new Date().toISOString();
+        await redis([['LSET', LISTA, i, JSON.stringify(item)], ['SET', 'diag:r:' + item.token, JSON.stringify(item)]]);
+        return res.json({ ok: true, token: item.token });
+      }
+      // importar: não duplica (mesma empresa + mesma data)
+      const [lst] = await redis([['LRANGE', LISTA, 0, 499]]);
+      const chave = d => String(d.empresa || '').trim().toLowerCase() + '|' + String(d.data || '');
+      const existe = {}; (lst || []).forEach(x => { try { const d = JSON.parse(x); existe[chave(d)] = 1; if (d.dataOriginal) existe[chave({ empresa: d.empresa, data: d.dataOriginal })] = 1; } catch (e) {} });
+      let novos = 0, repetidos = 0;
+      for (const it of (Array.isArray(b.itens) ? b.itens : []).slice(0, 100)) {
+        const item = novoItem(saneia(it.respostas), dataValida(it.data));
+        if (!item.empresa) continue;
+        if (existe[chave(item)]) { repetidos++; continue; }
+        item.origem = 'formulario-antigo';
+        existe[chave(item)] = 1;
+        await redis([['LPUSH', LISTA, JSON.stringify(item)], ['SET', 'diag:r:' + item.token, JSON.stringify(item)]]);
+        try { await criaLead(redis, item); } catch (e) {}
+        novos++;
+      }
+      return res.json({ ok: true, novos, repetidos });
+    }
+
     if (b.site) return res.json({ ok: true }); // campo invisível: robô
 
-    const respostas = (Array.isArray(b.respostas) ? b.respostas : []).slice(0, 80).map(x => ({
-      secao: limpo(x && x.secao, 60),
-      id: limpo(x && x.id, 40).replace(/[^a-z0-9_]/gi, ''),
-      pergunta: limpo(x && x.pergunta, 300),
-      resposta: limpo(x && x.resposta, 3000)
-    })).filter(x => x.id);
+    const respostas = saneia(b.respostas);
 
     const pega = id => (respostas.find(x => x.id === id) || {}).resposta || '';
     if (!pega('empresa') || !pega('whatsapp')) return res.status(400).json({ ok: false, erro: 'Respostas incompletas.' });
     if (await limite(ip, 10)) return res.status(429).json({ ok: false, erro: 'Muitos envios seguidos. Tente de novo mais tarde.' });
 
-    const item = {
-      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
-      token: novoToken(),
-      data: new Date().toISOString(),
-      empresa: pega('empresa'),
-      nome: pega('nome'),
-      whatsapp: pega('whatsapp'),
-      email: pega('email'),
-      respostas
-    };
+    const item = novoItem(respostas, dataValida(b.data_original));
+    if (item.data !== undefined && b.data_original && dataValida(b.data_original)) item.origem = 'formulario-antigo';
     await redis([['LPUSH', LISTA, JSON.stringify(item)], ['SET', 'diag:r:' + item.token, JSON.stringify(item)]]);
     // já entra como lead na Área do Cliente (sem avisar ninguém)
     try { await criaLead(redis, item); } catch (e) { /* o diagnóstico já foi salvo */ }

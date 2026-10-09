@@ -136,38 +136,47 @@
     return { nome:'Comercial reativo', frase:'As vendas acontecem mais pela procura e pelo esforço individual do que por um processo. Há muito espaço para crescer organizando o básico.' };
   }
   function pts(v){ return v==='Sim'?20:v==='Em parte'?10:0; }
+  function vazio(v){ return v==null || String(v).trim()===''; }
+  var PEND={ id:'pend', nome:'A responder' };
 
   function analisar(lista){
-    var R={}; (lista||[]).forEach(function(x){ if(x && x.id) R[x.id]=x.resposta; });
+    var R={}, EST={}; (lista||[]).forEach(function(x){ if(x && x.id){ R[x.id]=x.resposta; if(x.obs==='estimado') EST[x.id]=1; } });
 
     var pilares=PILARES.map(function(p){
-      var itens=p.itens.map(function(id){ return { id:id, t:ITENS[id].t, c:ITENS[id].c, resp:R[id]||'—', pts:pts(R[id]) }; });
-      var nota=itens.reduce(function(s,i){return s+i.pts;},0);
+      var itens=p.itens.map(function(id){ var pend=vazio(R[id]); return { id:id, t:ITENS[id].t, c:ITENS[id].c, resp:pend?'A responder':R[id], pts:pend?null:pts(R[id]), pend:pend }; });
+      var resp=itens.filter(function(i){return !i.pend;});
+      if(!resp.length) return Object.assign({}, p, { nota:null, pendente:true, nivel:PEND, itens:itens, acoes:[], quem:R.pr_quem });
+      var nota=Math.round(resp.reduce(function(s,i){return s+i.pts;},0)/(resp.length*20)*100);
       // ações: itens mais fracos primeiro (Não antes de Em parte), seguindo a ordem de impacto do pilar
       var cand=[];
       if(p.id==='prospeccao' && /^Só o dono|^Ninguém/.test(R.pr_quem||'')) cand.push('pr_quem');
-      ORDEM_PRIORIDADE_PILAR[p.id].filter(function(id){return pts(R[id])===0;}).forEach(function(id){cand.push(id);});
-      ORDEM_PRIORIDADE_PILAR[p.id].filter(function(id){return pts(R[id])===10;}).forEach(function(id){cand.push(id);});
+      ORDEM_PRIORIDADE_PILAR[p.id].filter(function(id){return !vazio(R[id]) && pts(R[id])===0;}).forEach(function(id){cand.push(id);});
+      ORDEM_PRIORIDADE_PILAR[p.id].filter(function(id){return !vazio(R[id]) && pts(R[id])===10;}).forEach(function(id){cand.push(id);});
       var acoes=cand.slice(0,2).map(function(id){ var a=Object.assign({},ACOES[id]); a.origem=id; a.motivo=motivo(id,R); return a; });
       PROXIMO_NIVEL[p.id].forEach(function(a){ if(acoes.length<2) acoes.push(Object.assign({motivo:'Este pilar já está bem resolvido. Esta ação leva ao próximo nível.'},a)); });
-      return Object.assign({}, p, { nota:nota, nivel:nivel(nota), itens:itens, acoes:acoes, quem:R.pr_quem });
+      return Object.assign({}, p, { nota:nota, nivel:nivel(nota), itens:itens, acoes:acoes, quem:R.pr_quem, parcial:resp.length<itens.length });
     });
 
-    var est=ESTRUTURA.map(function(e){ var v=e.id==='crm'?R.usa_crm:R[e.id]; var n=e.nota(v||'',R); return { id:e.id, t:e.t, c:e.c, resp:e.id==='crm'?(R.usa_crm==='Sim'?((R.qual_crm||'Sim')+' · nota '+(R.nota_crm||'—')+'/10'):(R.usa_crm||'—')):(v||'—'), pts:n }; });
-    var notaEst=Math.round(est.reduce(function(s,i){return s+i.pts;},0)/(est.length*2)*100);
-    var candEst=est.filter(function(i){return i.pts===0;}).concat(est.filter(function(i){return i.pts===1;}));
+    var est=ESTRUTURA.map(function(e){ var v=e.id==='crm'?R.usa_crm:R[e.id]; if(vazio(v)) return { id:e.id, t:e.t, c:e.c, resp:'A responder', pts:null, pend:true };
+      var n=e.nota(v,R); return { id:e.id, t:e.t, c:e.c, resp:e.id==='crm'?(R.usa_crm==='Sim'?((R.qual_crm||'Sim')+' · nota '+(R.nota_crm||'—')+'/10'):R.usa_crm):v, pts:n }; });
+    var estResp=est.filter(function(i){return !i.pend;});
+    var notaEst=estResp.length?Math.round(estResp.reduce(function(s,i){return s+i.pts;},0)/(estResp.length*2)*100):0;
+    var candEst=estResp.filter(function(i){return i.pts===0;}).concat(estResp.filter(function(i){return i.pts===1;}));
     var acoesEst=candEst.slice(0,2).map(function(i){ var a=Object.assign({},ACOES[i.id]); a.origem=i.id; a.motivo='Hoje: '+i.resp+'.'; return a; });
     PROXIMO_NIVEL.estrutura.forEach(function(a){ if(acoesEst.length<2) acoesEst.push(Object.assign({motivo:'A estrutura já está sólida. Esta ação leva ao próximo nível.'},a)); });
     var estrutura={ id:'estrutura', nome:'Estrutura comercial', curto:'Processo, gestão e ferramentas', def:'O que sustenta o comercial: processo, regras, ferramentas, rotina e previsão.', nota:notaEst, nivel:nivel(notaEst), itens:est, acoes:acoesEst };
 
-    var geral=Math.round(pilares.reduce(function(s,p){return s+p.nota;},0)/pilares.length);
-    var ord=pilares.slice().sort(function(a,b){return b.nota-a.nota;});
+    var feitos=pilares.filter(function(p){return !p.pendente;});
+    var pilaresPend=pilares.length-feitos.length;
+    var geral=feitos.length?Math.round(feitos.reduce(function(s,p){return s+p.nota;},0)/feitos.length):notaEst;
+    var base=feitos.length>=2?feitos:feitos.concat([estrutura]);
+    var ord=base.slice().sort(function(a,b){return b.nota-a.nota;});
     var pico=ord[0], fundo=ord[ord.length-1];
     var gap=pico.nota-fundo.nota;
 
     // gargalos: itens com Não nos pilares + itens zerados na estrutura, priorizando o pilar mais fraco
     var gargalos=[];
-    pilares.slice().sort(function(a,b){return a.nota-b.nota;}).forEach(function(p){ p.itens.forEach(function(i){ if(i.pts===0) gargalos.push({ area:p.nome, t:i.t, c:i.c }); }); });
+    feitos.slice().sort(function(a,b){return a.nota-b.nota;}).forEach(function(p){ p.itens.forEach(function(i){ if(i.pts===0) gargalos.push({ area:p.nome, t:i.t, c:i.c }); }); });
     est.forEach(function(i){ if(i.pts===0) gargalos.push({ area:'Estrutura', t:i.t, c:i.c }); });
     var fortes=[];
     pilares.forEach(function(p){ p.itens.forEach(function(i){ if(i.pts===20) fortes.push({ area:p.nome, t:i.t }); }); });
@@ -176,7 +185,8 @@
     var deseq;
     if(gap>=40) deseq='Os pilares estão desequilibrados: '+pico.nome+' ('+pico.nota+') está muito à frente de '+fundo.nome+' ('+fundo.nota+'). O esforço de um lado está vazando pelo outro.';
     else if(gap>=20) deseq='Existe um desnível entre '+pico.nome+' ('+pico.nota+') e '+fundo.nome+' ('+fundo.nota+'). Vale nivelar antes de investir para crescer.';
-    else deseq='Os quatro pilares estão em níveis parecidos. O ganho vem de subir todos juntos com um processo único.';
+    else deseq=(pilaresPend?'As frentes avaliadas até agora estão em níveis parecidos.':'Os quatro pilares estão em níveis parecidos.')+' O ganho vem de subir todos juntos com um processo único.';
+    if(pilaresPend) deseq+=' '+(pilaresPend===1?'Um pilar ainda está':pilaresPend+' pilares ainda estão')+' sem resposta, então este retrato é provisório.';
 
     var leitura=[];
     if(fundo.id==='prospeccao') leitura.push('A empresa depende de quem chega sozinho. Sem busca ativa, o crescimento fica limitado ao tamanho da procura.');
@@ -187,7 +197,8 @@
     if(/^Sempre|maioria/.test(R.aprovacao||'') || /dono/.test(R.depende||'')) leitura.push('Há forte dependência do dono ou de uma pessoa para vender e fechar. Isso limita o crescimento ao tempo dessa pessoa.');
 
     return {
-      R:R, empresa:R.empresa||'Sua empresa', nome:R.nome||'', geral:geral, nivelGeral:nivel(geral), estagio:estagio(geral),
+      R:R, estimados:EST, pilaresPend:pilaresPend, provisorio:pilaresPend>0,
+      empresa:R.empresa||'Sua empresa', nome:R.nome||'', geral:geral, nivelGeral:nivel(geral), estagio:estagio(geral),
       pilares:pilares, estrutura:estrutura, pico:pico, fundo:fundo, gap:gap, desequilibrio:deseq, leitura:leitura,
       gargalos:gargalos, fortes:fortes,
       autoavaliacao:[ {t:'Disciplina do time', v:+R.disciplina||0}, {t:'Organização dos processos', v:+R.organizacao||0}, {t:'Previsibilidade das vendas', v:+R.previsibilidade||0} ],
@@ -205,6 +216,7 @@
     function e(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
     var cor={alto:'#12a65a',medio:'#c98a00',baixo:'#c2185b'};
     var barras=A.pilares.concat([A.estrutura]).map(function(p){
+      if(p.nota==null) return '<tr><td style="padding:8px 0;font:500 14px Arial,sans-serif;color:#18181b;width:150px">'+e(p.nome)+'</td><td style="padding:8px 0;font:italic 400 13px Arial,sans-serif;color:#8e8e96">Aguardando suas respostas</td><td style="padding:8px 0 8px 12px;font:600 13px Arial,sans-serif;color:#8e8e96;text-align:right;white-space:nowrap">a responder</td></tr>';
       var w=Math.max(4,p.nota);
       return '<tr><td style="padding:8px 0;font:500 14px Arial,sans-serif;color:#18181b;width:150px">'+e(p.nome)+'</td>'+
         '<td style="padding:8px 0"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="background:#ececf0;border-radius:6px;height:10px"><table role="presentation" width="'+w+'%" cellpadding="0" cellspacing="0"><tr><td style="background:'+cor[p.nivel.id]+';height:10px;border-radius:6px;font-size:0;line-height:0">&nbsp;</td></tr></table></td></tr></table></td>'+
@@ -239,7 +251,7 @@
     var nome=(A.nome||'').split(' ')[0];
     var l=[(nome?nome+', ':'')+'o retrato comercial da '+A.empresa+' está pronto.','',
       'Score geral: '+A.geral+'/100 · '+A.estagio.nome];
-    A.pilares.concat([A.estrutura]).forEach(function(p){ l.push('• '+p.nome+': '+p.nota+'/100 ('+p.nivel.nome+')'); });
+    A.pilares.concat([A.estrutura]).forEach(function(p){ l.push('• '+p.nome+': '+(p.nota==null?'a responder':p.nota+'/100 ('+p.nivel.nome+')')); });
     l.push('','Veja o relatório completo e o plano de ação:',link,'','Carlos Ribeiro · Unique Consultoria Comercial');
     return l.join('\n');
   }

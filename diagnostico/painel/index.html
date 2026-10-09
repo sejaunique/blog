@@ -61,6 +61,32 @@ a.btn{color:inherit;text-decoration:none}
 .caixa .assunto{width:100%;font-size:.84rem;color:var(--muted)}
 .caixa .assunto b{color:var(--fg)}
 .caixa iframe{width:100%;height:60vh;border:0;background:#f3f3f5}
+.pend-b{display:inline-flex;font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:999px;margin-left:6px;vertical-align:2px;color:#8a5a00;background:#fff4d6}
+.caixa-ed{width:min(900px,100%);grid-template-rows:auto auto 1fr}
+.ed-sub{display:block;color:var(--muted);font-size:.8rem;font-weight:400}
+.so-pend{display:flex;gap:8px;align-items:center;font-size:.85rem;margin-right:auto}
+.ed-cont{font-size:.8rem;color:var(--muted)}
+.ed-corpo{overflow:auto;padding:12px 20px 28px;max-height:68vh}
+.ed-sec{margin:22px 0 6px;font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.24em;color:var(--muted)}
+.ed-q{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:8px 18px;padding:12px 0;border-bottom:1px solid var(--line);align-items:start}
+.ed-q.falta{background:linear-gradient(90deg,#fff4d6,transparent 70%)}
+.ed-q label.ed-p{font-size:.88rem;line-height:1.4}
+.ed-q .ed-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.ed-tag{font-size:.68rem;font-weight:600;padding:2px 8px;border-radius:999px}
+.ed-tag.falta{color:#8a5a00;background:#fff4d6}.ed-tag.est{color:#1f5fa8;background:#e2ecf8}
+.ed-q select,.ed-q input[type=text],.ed-q textarea{width:100%;font:inherit;font-size:.88rem;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--fg)}
+.ed-q textarea{min-height:70px;resize:vertical}
+.ed-multi{display:flex;flex-wrap:wrap;gap:6px}
+.ed-multi label{display:inline-flex;gap:6px;align-items:center;font-size:.82rem;border:1px solid var(--line);border-radius:999px;padding:5px 10px;cursor:pointer}
+.ed-conf{font-size:.78rem;display:inline-flex;gap:6px;align-items:center;margin-top:6px;color:var(--muted)}
+.ed-extra{font-size:.85rem;color:var(--muted)}
+.im-ajuda{font-size:.88rem;color:var(--muted);margin:0 0 10px}
+.im-acts{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin:10px 0 16px}
+.im-tab{width:100%;border-collapse:collapse;font-size:.85rem}
+.im-tab th,.im-tab td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+.im-tab td.num{font-variant-numeric:tabular-nums;color:var(--muted)}
+.im-ok{color:#0d8a4a;font-weight:600}
+@media (max-width:640px){.ed-q{grid-template-columns:1fr}}
 @media (max-width:600px){.par{grid-template-columns:1fr;gap:2px}.item summary{grid-template-columns:1fr}.item summary .d{grid-row:auto;grid-column:1}}
 </style>
 <style>/* leitura e foco: no modo escuro o fundo é #111113 (padrão Unique) */
@@ -81,6 +107,7 @@ a.btn{color:inherit;text-decoration:none}
     <div class="barra">
       <input class="inp" id="busca" type="search" placeholder="Buscar empresa ou nome">
       <span class="cont" id="cont"></span>
+      <button class="btn" type="button" id="abrir-importar">Importar do formulário antigo</button>
     </div>
     <div id="lista"></div>
   </div>
@@ -96,6 +123,26 @@ a.btn{color:inherit;text-decoration:none}
     <iframe id="previa" title="Prévia do e-mail"></iframe>
   </div>
 </div>
+<div class="modal" id="m-editor" hidden role="dialog" aria-modal="true" aria-labelledby="ed-t">
+  <div class="caixa caixa-ed">
+    <div class="cab"><div><strong id="ed-t">Editar respostas</strong><small id="ed-sub" class="ed-sub"></small></div><button class="btn" type="button" data-fechar>Fechar</button></div>
+    <div class="ops"><label class="so-pend"><input type="checkbox" id="ed-so-pend"> Mostrar só o que falta ou está estimado</label><span class="ed-cont" id="ed-cont"></span><button class="btn solid" type="button" id="ed-salvar">Salvar respostas</button></div>
+    <div class="ed-corpo" id="ed-corpo"></div>
+  </div>
+</div>
+<div class="modal" id="m-importar" hidden role="dialog" aria-modal="true" aria-labelledby="im-t">
+  <div class="caixa caixa-ed">
+    <div class="cab"><strong id="im-t">Importar do formulário antigo</strong><button class="btn" type="button" data-fechar>Fechar</button></div>
+    <div class="ed-corpo">
+      <p class="im-ajuda">Abra a planilha de respostas do Google Forms, selecione tudo (Ctrl+A), copie (Ctrl+C) e cole aqui. Também aceita o arquivo baixado em CSV.</p>
+      <textarea class="inp" id="im-texto" rows="6" placeholder="Cole aqui as linhas da planilha, com o cabeçalho"></textarea>
+      <div class="im-acts"><input type="file" id="im-arquivo" accept=".csv,.tsv,text/csv"><button class="btn solid" type="button" id="im-ler">Ler respostas</button></div>
+      <div id="im-previa"></div>
+    </div>
+  </div>
+</div>
+<script src="/diagnostico/perguntas.js"></script>
+<script src="/diagnostico/importar.js"></script>
 <script src="/diagnostico/motor.js"></script>
 <script>
 (function(){
@@ -118,10 +165,11 @@ a.btn{color:inherit;text-decoration:none}
     $('lista').innerHTML=lst.map(function(d,i){
       var sec='', corpo='';
       d.respostas.forEach(function(x){ if(x.secao!==sec){ sec=x.secao; corpo+='<div class="sec">'+esc(sec)+'</div>'; } corpo+='<div class="par"><span>'+esc(x.pergunta)+'</span><span>'+esc(x.resposta||'—')+'</span></div>'; });
-      var wa=String(d.whatsapp||'').replace(/\D/g,''), k=DADOS.indexOf(d), A=analise(d);
-      var rel=d.token?'<div class="rel"><b>Relatório</b><a class="btn solid" href="'+link(d)+'" target="_blank" rel="noopener">Ver relatório</a><button class="btn" type="button" data-link="'+k+'">Copiar link</button><button class="btn" type="button" data-email="'+k+'">E-mail pronto</button></div>'
+      var wa=String(d.whatsapp||'').replace(/\D/g,''), k=DADOS.indexOf(d), A=analise(d), np=window.DIAG?window.DIAG.pendentes(d.respostas).length:0;
+      var rel=d.token?'<div class="rel"><b>Relatório</b><a class="btn solid" href="'+link(d)+'" target="_blank" rel="noopener">Ver relatório</a><button class="btn" type="button" data-link="'+k+'">Copiar link</button><button class="btn" type="button" data-email="'+k+'">E-mail pronto</button></div>'+
+        '<div class="rel"><b>Respostas</b><button class="btn" type="button" data-editar="'+k+'">Editar respostas</button>'+(np?'<button class="btn" type="button" data-completar="'+k+'">Copiar link para completar</button>'+(wa?'<a class="btn" href="https://wa.me/55'+wa.replace(/^55/,'')+'?text='+encodeURIComponent(msgCompletar(d))+'" target="_blank" rel="noopener">Pedir no WhatsApp</a>':''):'')+'</div>'
         :'<div class="rel"><b>Relatório</b><button class="btn solid" type="button" data-gerar="'+k+'">Gerar link do relatório</button></div>';
-      return '<details class="item"><summary><strong>'+esc(d.empresa)+(A?'<span class="score-b '+A.nivelGeral.id+'">'+A.geral+'/100</span>':'')+'</strong><small>'+esc(d.nome)+' · '+esc(d.whatsapp)+'</small><span class="d">'+data(d.data)+'</span></summary>'+
+      return '<details class="item"><summary><strong>'+esc(d.empresa)+(A?'<span class="score-b '+A.nivelGeral.id+'">'+A.geral+'/100'+(A.provisorio?' provisório':'')+'</span>':'')+(np?'<span class="pend-b">'+np+' a completar</span>':'')+(d.origem==='formulario-antigo'?'<span class="pend-b" style="color:#1f5fa8;background:#e2ecf8">formulário antigo</span>':'')+'</strong><small>'+esc(d.nome)+' · '+esc(d.whatsapp)+'</small><span class="d">'+data(d.data)+'</span></summary>'+
         '<div class="det">'+rel+'<div class="acoes"><button class="btn" type="button" data-copiar="'+k+'">Copiar respostas</button>'+
         (wa?'<a class="btn" href="https://wa.me/55'+wa.replace(/^55/,'')+'" target="_blank" rel="noopener">Abrir WhatsApp</a>':'')+
         (d.email?'<a class="btn" href="mailto:'+esc(d.email)+'">E-mail</a>':'')+'</div>'+corpo+'</div></details>';
@@ -130,6 +178,8 @@ a.btn{color:inherit;text-decoration:none}
 
   function analise(d){ try{ return window.UniqueDiag.analisar(d.respostas); }catch(e){ return null; } }
   function link(d){ return location.origin+'/diagnostico/relatorio/?r='+d.token; }
+  function linkCompletar(d){ return location.origin+'/diagnostico/?completar='+d.token; }
+  function msgCompletar(d){ var n=(d.nome||'').split(' ')[0]; return 'Olá'+(n?', '+n:'')+'! Aqui é o Carlos, da Unique. Atualizei o Diagnóstico de Maturidade Comercial da '+d.empresa+' e faltam algumas respostas rápidas (a maioria é Sim, Em parte ou Não). Leva uns 3 minutos: '+(d.token?linkCompletar(d):''); }
   function copiar(t,b,rot){
     (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){ b.textContent='Copiado ✓'; setTimeout(function(){ b.textContent=rot; },1800); },function(){ window.prompt('Copie:',t); });
   }
@@ -142,13 +192,15 @@ a.btn{color:inherit;text-decoration:none}
   }
   $('fechar').onclick=function(){ $('modal').hidden=true; };
   $('modal').addEventListener('click',function(e){ if(e.target===this) this.hidden=true; });
-  document.addEventListener('keydown',function(e){ if(e.key==='Escape') $('modal').hidden=true; });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') document.querySelectorAll('.modal').forEach(function(m){ m.hidden=true; }); });
   $('cp-html').onclick=function(){ copiar(atual.html,this,'Copiar e-mail (HTML)'); };
   $('cp-txt').onclick=function(){ copiar(atual.txt,this,'Copiar versão em texto'); };
   $('cp-assunto').onclick=function(){ copiar(atual.assunto,this,'Copiar assunto'); };
 
   $('lista').addEventListener('click',function(e){
-    var b=e.target.closest('[data-copiar],[data-link],[data-email],[data-gerar]'); if(!b) return;
+    var b=e.target.closest('[data-copiar],[data-link],[data-email],[data-gerar],[data-editar],[data-completar]'); if(!b) return;
+    if(b.dataset.editar) return abrirEditor(DADOS[+b.dataset.editar]);
+    if(b.dataset.completar) return copiar(linkCompletar(DADOS[+b.dataset.completar]),b,'Copiar link para completar');
     if(b.dataset.copiar) return copiar(texto(DADOS[+b.dataset.copiar]),b,'Copiar respostas');
     if(b.dataset.link) return copiar(link(DADOS[+b.dataset.link]),b,'Copiar link');
     if(b.dataset.email) return abrirEmail(DADOS[+b.dataset.email]);
@@ -157,6 +209,109 @@ a.btn{color:inherit;text-decoration:none}
         .then(function(r){return r.json();}).then(function(j){ if(j.ok){ d.token=j.token; render(); } else b.textContent='Não deu certo, tente de novo'; }); }
   });
   $('busca').addEventListener('input',render);
+
+  /* ---------- editor de respostas ---------- */
+  var ED=null;
+  document.querySelectorAll('[data-fechar]').forEach(function(b){ b.onclick=function(){ b.closest('.modal').hidden=true; }; });
+  function abrirEditor(d){
+    var D=window.DIAG, R={}, EST={};
+    d.respostas.forEach(function(x){ R[x.id]=x.resposta; if(x.obs==='estimado') EST[x.id]=1; });
+    ED={ d:d, R:R, EST:EST };
+    $('ed-t').textContent='Editar respostas · '+d.empresa;
+    $('ed-sub').textContent=(d.origem==='formulario-antigo'?'Importado do formulário antigo. ':'')+'As mudanças atualizam o relatório e o link do cliente.';
+    $('ed-so-pend').checked=D.pendentes(d.respostas).length>0;
+    desenhaEditor(); $('m-editor').hidden=false;
+  }
+  function campoEd(q,v){
+    var id='ed-'+q.id, h='';
+    if(q.t==='multipla'){
+      var sel=String(v||'').split(', ').filter(Boolean), outros=sel.filter(function(x){return q.o.indexOf(x)<0;});
+      h='<div class="ed-multi" data-q="'+q.id+'" data-t="multi">'+q.o.map(function(o){ return '<label><input type="checkbox" value="'+esc(o)+'"'+(sel.indexOf(o)>-1?' checked':'')+'>'+esc(o)+'</label>'; }).join('')+'</div>'+
+        (q.outro?'<input type="text" data-q="'+q.id+'" data-t="outro" placeholder="Outros (separe por vírgula)" value="'+esc(outros.join(', ').replace(/^Outro:\s*/,''))+'">':'');
+    } else if(q.t==='unica'||q.t==='snp'||q.t==='escala'){
+      var ops=q.t==='snp'?['Sim','Em parte','Não']:q.t==='escala'?Array.from({length:q.max-q.min+1},function(_,i){return String(q.min+i);}):q.o.slice();
+      var fora=v && ops.indexOf(String(v))<0;
+      h='<select id="'+id+'" data-q="'+q.id+'"><option value="">— a responder —</option>'+ops.map(function(o){ return '<option'+(String(v)===o?' selected':'')+'>'+esc(o)+'</option>'; }).join('')+(fora?'<option selected>'+esc(v)+'</option>':'')+'</select>';
+    } else if(q.t==='longo'){
+      h='<textarea id="'+id+'" data-q="'+q.id+'">'+esc(v||'')+'</textarea>';
+    } else h='<input type="text" id="'+id+'" data-q="'+q.id+'" value="'+esc(v||'')+'">';
+    return h;
+  }
+  function desenhaEditor(){
+    var D=window.DIAG, R=ED.R, so=$('ed-so-pend').checked, pend={};
+    D.pendentes(Object.keys(R).map(function(k){ return {id:k,resposta:R[k],obs:ED.EST[k]?'estimado':''}; })).forEach(function(x){ pend[x.id]=x.motivo; });
+    var h='', n=0;
+    D.ETAPAS.forEach(function(e){
+      var qs=e.q.filter(function(q){ return (!so || pend[q.id]) && D.bate(e.se,R) && D.bate(q.se,R); });
+      if(!qs.length) return;
+      h+='<div class="ed-sec">'+esc(e.titulo)+'</div>';
+      qs.forEach(function(q){ n++;
+        var falta=pend[q.id]==='falta', est=!!ED.EST[q.id];
+        h+='<div class="ed-q'+(falta?' falta':'')+'"><div><label class="ed-p" for="ed-'+q.id+'">'+esc(q.p)+'</label><div class="ed-tags">'+(falta?'<span class="ed-tag falta">a responder</span>':'')+(est?'<span class="ed-tag est">estimado do formulário antigo</span>':'')+'</div></div>'+
+          '<div>'+campoEd(q,R[q.id])+(est?'<label class="ed-conf"><input type="checkbox" data-conf="'+q.id+'"> Confirmado com o cliente</label>':'')+'</div></div>';
+      });
+    });
+    var extras=ED.d.respostas.filter(function(x){ return !D.POR_ID[x.id] && !/^score_/.test(x.id); });
+    if(extras.length && !so){ h+='<div class="ed-sec">Formulário anterior (só leitura)</div>'+extras.map(function(x){ return '<div class="ed-q"><span class="ed-p">'+esc(x.pergunta)+'</span><span class="ed-extra">'+esc(x.resposta)+'</span></div>'; }).join(''); }
+    $('ed-corpo').innerHTML=h||'<p class="vazio">Nada pendente. Desmarque o filtro para ver todas as respostas.</p>';
+    var total=Object.keys(pend).length; $('ed-cont').textContent=total?total+' a completar ou confirmar':'Tudo respondido';
+  }
+  function lerCampo(qid){
+    var q=window.DIAG.POR_ID[qid], c=$('ed-corpo');
+    if(q.t==='multipla'){
+      var box=c.querySelector('[data-q="'+qid+'"][data-t="multi"]'); if(!box) return undefined;
+      var v=[].filter.call(box.querySelectorAll('input'),function(i){return i.checked;}).map(function(i){return i.value;});
+      var o=c.querySelector('[data-q="'+qid+'"][data-t="outro"]'); if(o && o.value.trim()) v=v.concat(o.value.split(',').map(function(x){return x.trim();}).filter(Boolean));
+      return v.join(', ');
+    }
+    var el=c.querySelector('#ed-'+qid); return el?el.value.trim():undefined;
+  }
+  $('ed-corpo').addEventListener('change',function(e){
+    var q=e.target.closest('[data-q]')||e.target, qid=q.dataset&&q.dataset.q;
+    if(e.target.dataset.conf){ if(e.target.checked) delete ED.EST[e.target.dataset.conf]; else ED.EST[e.target.dataset.conf]=1; return; }
+    if(!qid) return; var v=lerCampo(qid); if(v===undefined) return;
+    ED.R[qid]=v; delete ED.EST[qid];
+    var ant=window.DIAG.POR_ID[qid]; if(ant && (ant.id==='usa_crm'||ant.id==='conhece_taxa')) desenhaEditor();
+  });
+  $('ed-so-pend').onchange=desenhaEditor;
+  $('ed-salvar').onclick=function(){
+    var D=window.DIAG, R=ED.R, b=this, lista=[];
+    D.TODAS.forEach(function(q){ var v=R[q.id]; if(v==null||String(v).trim()==='') return; var x={secao:q.secao,id:q.id,pergunta:q.p,resposta:String(v)}; if(ED.EST[q.id]) x.obs='estimado'; lista.push(x); });
+    ED.d.respostas.forEach(function(x){ if(!D.POR_ID[x.id] && !/^score_/.test(x.id)) lista.push(x); });
+    b.disabled=true; b.textContent='Salvando…';
+    fetch('/api/diagnostico',{method:'POST',headers:{'Content-Type':'application/json','x-senha':senha},body:JSON.stringify({a:'salvar',id:ED.d.id,respostas:lista})})
+      .then(function(r){return r.json();}).then(function(j){
+        b.disabled=false;
+        if(!j.ok){ b.textContent='Não salvou, tente de novo'; return; }
+        ED.d.respostas=lista; ED.d.token=j.token||ED.d.token; b.textContent='Salvo ✓'; setTimeout(function(){ b.textContent='Salvar respostas'; },1600);
+        render(); desenhaEditor();
+      }).catch(function(){ b.disabled=false; b.textContent='Sem conexão, tente de novo'; });
+  };
+
+  /* ---------- importar do formulário antigo ---------- */
+  var LIDOS=[];
+  $('abrir-importar').onclick=function(){ $('m-importar').hidden=false; $('im-texto').focus(); };
+  $('im-arquivo').onchange=function(){ var f=this.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ $('im-texto').value=r.result; }; r.readAsText(f,'utf-8'); };
+  function chave(d){ return String(d.empresa||'').trim().toLowerCase()+'|'+(d.data?new Date(d.data).toISOString():''); }
+  $('im-ler').onclick=function(){
+    LIDOS=window.DIAG_IMPORTAR.planilha($('im-texto').value);
+    if(!LIDOS.length){ $('im-previa').innerHTML='<p class="vazio">Não encontrei respostas. Confira se copiou também a linha do cabeçalho.</p>'; return; }
+    var ja={}; DADOS.forEach(function(d){ ja[chave(d)]=1; });
+    $('im-previa').innerHTML='<table class="im-tab"><thead><tr><th></th><th>Empresa</th><th>Respondido em</th><th>A completar</th></tr></thead><tbody>'+
+      LIDOS.map(function(x,i){ var existe=ja[chave(x)]; return '<tr><td><input type="checkbox" data-i="'+i+'"'+(existe?' disabled':' checked')+' aria-label="Importar '+esc(x.empresa)+'"></td><td>'+esc(x.empresa)+(existe?' <span class="im-ok">já no painel</span>':'')+'</td><td class="num">'+(x.data?new Date(x.data).toLocaleDateString('pt-BR'):'—')+'</td><td class="num">'+x.pendentes.length+'</td></tr>'; }).join('')+
+      '</tbody></table><div class="im-acts"><span class="ed-cont">'+LIDOS.length+' respostas lidas</span><button class="btn solid" type="button" id="im-ir">Importar selecionados</button></div>';
+    $('im-ir').onclick=function(){
+      var sel=[].filter.call(document.querySelectorAll('#im-previa input[data-i]'),function(c){return c.checked;}).map(function(c){ var x=LIDOS[+c.dataset.i]; return {data:x.data,respostas:x.respostas}; });
+      if(!sel.length) return;
+      var b=this; b.disabled=true; b.textContent='Importando…';
+      fetch('/api/diagnostico',{method:'POST',headers:{'Content-Type':'application/json','x-senha':senha},body:JSON.stringify({a:'importar',itens:sel})})
+        .then(function(r){return r.json();}).then(function(j){
+          if(!j.ok){ b.disabled=false; b.textContent='Não importou, tente de novo'; return; }
+          b.textContent=j.novos+' importados'+(j.repetidos?' · '+j.repetidos+' já existiam':'');
+          return fetch('/api/diagnostico?a=lista',{headers:{'x-senha':senha}}).then(function(r){return r.json();}).then(function(x){ DADOS=x.diagnosticos||DADOS; render(); });
+        });
+    };
+  };
 
   $('login').addEventListener('submit',function(e){
     e.preventDefault(); senha=$('senha').value; $('erro').hidden=true;

@@ -88,3 +88,10 @@ Regras: no máximo 2 fotos por carrossel. Fontes ficam em tools/fonts (instale e
 - Páginas de leitura e foco: `<body class="leitura">`, fundo `#111113` no escuro.
 - Imagens de apoio: fotos do Carlos em `assets/fotos/`, logos de clientes em `assets/clientes/` (brancos; no claro viram pretos via CSS) e Unsplash por link (`images.unsplash.com/photo-…?w=…&fit=crop&q=…&auto=format`).
 - Cases: `cases/<nome>/index.html` (modelo: `cases/clinica-brasil/`). Capa de compartilhamento: `EXTRAS` em `tools/og_cliente.py`.
+
+### Pendências, edição e formulário antigo
+- `diagnostico/perguntas.js`: lista única de perguntas (formulário, painel e relatório usam a mesma).
+- `diagnostico/importar.js`: converte as respostas do Google Forms antigo para o diagnóstico novo. O que é aproximado fica marcado como "estimado"; o que não existia (os 4 pilares, dor, tipo de venda…) fica "a completar".
+- Painel: "Importar do formulário antigo" (colar a planilha), "Editar respostas" e "Copiar link para completar" / "Pedir no WhatsApp".
+- `/diagnostico/?completar=TOKEN`: o cliente responde só o que falta e confirma o que veio estimado. O relatório se atualiza na hora.
+- O relatório mostra os pilares sem resposta como "a responder" e a nota geral como provisória até completar.

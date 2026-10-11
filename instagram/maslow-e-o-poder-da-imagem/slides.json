@@ -1,0 +1,147 @@
+{
+ "legenda": "A mesma médica. O mesmo diploma. Outro valor.\n\nA Dra. Laura Scher é dermatologista em Anápolis. Atendia doenças de pele em clínicas populares e não era valorizada como queria. O problema não era técnico. Era o degrau em que ela vendia.\n\nNa pirâmide de Maslow, quanto mais alto o degrau, menos o cliente compara preço.\n\nTratar doença é segurança: o paciente quer resolver e pagar o mínimo.\nEstética é estima: a paciente compra como vai se sentir depois.\n\nO que mudou:\n1. Posicionamento: foco na estética, sem misturar públicos\n2. Imagem: logo, papelaria, Instagram e consultório falando a mesma língua\n3. Experiência: atendimento que encanta desde a recepção\n\nResultado: 90% dos atendimentos em estética.\n\nA imagem chega antes da consulta. E o preço começa a ser decidido ali.\n\nEm que degrau a sua empresa vende hoje? 👇\n\n📌 O texto completo está no blog. Link na bio.\n\n#vendas #posicionamento #marcapessoal #piramidedemaslow #dermatologia #estetica #consultoriadevendas #sejaunique",
+ "slides": [
+  {
+   "tipo": "capa",
+   "selo": "Case de cliente",
+   "nome": "Dra. Laura Scher",
+   "local": "Dermatologista · Anápolis",
+   "img": "cases/dra-laura-scher/fotos/laura-7984.jpg",
+   "pos": "center 22%",
+   "destaque": "90%",
+   "destaque_tx": "dos atendimentos\nagora em estética",
+   "titulo": "Mesmo diploma.\n//++Outro valor.++//",
+   "texto": "Ela não precisou de outra especialização. Precisou mudar de ==degrau==.",
+   "tam": 100
+  },
+  {
+   "tipo": "lista",
+   "selo": "O ponto de partida",
+   "titulo": "Competente.\n//--E mal paga.--//",
+   "itens": [
+    {
+     "icone": "stethoscope",
+     "cor": "marinho",
+     "titulo": "Dermatologista",
+     "texto": "Formação e técnica de sobra"
+    },
+    {
+     "icone": "building-hospital",
+     "cor": "claro",
+     "titulo": "Clínicas populares",
+     "texto": "Atendendo doenças de pele"
+    },
+    {
+     "icone": "cash-off",
+     "cor": "magenta",
+     "titulo": "Pouco valorizada",
+     "texto": "Não era paga como queria"
+    }
+   ],
+   "nota": "O problema ==não era técnico.==\nEra o degrau em que ela vendia."
+  },
+  {
+   "tipo": "piramide",
+   "selo": "A teoria",
+   "titulo": "A pirâmide de Maslow\n//e o seu preço//",
+   "tam": 80,
+   "niveis": [
+    {
+     "nome": "Autorrealização"
+    },
+    {
+     "nome": "Estima",
+     "cor": "verde",
+     "chip": "Desejo"
+    },
+    {
+     "nome": "Sociais"
+    },
+    {
+     "nome": "Segurança",
+     "cor": "magenta",
+     "chip": "Necessidade"
+    },
+    {
+     "nome": "Fisiológicas"
+    }
+   ],
+   "legenda_cima": "↑ Menos comparação de preço",
+   "legenda_baixo": "Mais comparação ↓"
+  },
+  {
+   "tipo": "frase",
+   "icone": "stairs-up",
+   "texto": "Quanto mais alto o degrau,\n//++menos o cliente\ncompara preço.++//",
+   "assina": "Carlos Ribeiro",
+   "mascote": true,
+   "tam": 90
+  },
+  {
+   "tipo": "versus",
+   "titulo": "Onde ela estava.\n//Para onde ela foi.//",
+   "antes": {
+    "selo": "Antes · Segurança",
+    "titulo": "Tratar doença\né --necessidade.--",
+    "texto": "O paciente quer resolver e pagar o mínimo. A médica vira mais uma, escolhida pelo horário e pelo preço."
+   },
+   "depois": {
+    "selo": "Depois · Estima",
+    "titulo": "Estética\né ++desejo.++",
+    "texto": "A paciente não compra procedimento. Compra como vai se sentir depois.",
+    "img": "blog/assets/laura-7917.jpg",
+    "pos": "center 18%"
+   }
+  },
+  {
+   "tipo": "passos",
+   "selo": "A virada",
+   "titulo": "O que mudou\n//em 3 movimentos//",
+   "itens": [
+    {
+     "icone": "target",
+     "cor": "marinho",
+     "titulo": "Posicionamento",
+     "texto": "Foco na estética, sem misturar com o atendimento popular."
+    },
+    {
+     "icone": "palette",
+     "cor": "verde",
+     "titulo": "Imagem",
+     "texto": "Logo, papelaria, Instagram e consultório falando a mesma língua."
+    },
+    {
+     "icone": "mood-heart",
+     "cor": "marinho",
+     "titulo": "Experiência",
+     "texto": "Atendimento que encanta desde a recepção."
+    }
+   ]
+  },
+  {
+   "tipo": "frase",
+   "escuro": true,
+   "icone": "eye",
+   "texto": "A imagem chega\nantes da consulta.\n//++E o preço começa\na ser decidido ali.++//",
+   "assina": "Carlos Ribeiro",
+   "mascote": true,
+   "tam": 88
+  },
+  {
+   "tipo": "numero",
+   "selo": "Resultado",
+   "pct": 90,
+   "rotulo": "em estética",
+   "titulo": "Hoje ela é ==referência==\n//em estética em Anápolis.//",
+   "texto": "Foi o que aconteceu com os atendimentos dela depois do reposicionamento."
+  },
+  {
+   "tipo": "cta",
+   "selo": "Sua vez",
+   "titulo": "Em que degrau\na sua empresa\n//vende hoje?//",
+   "texto": "Me conta nos comentários. E leia o case completo no blog.",
+   "botao": "Leia o case completo",
+   "url": "sejaunique.vercel.app/blog · link na bio"
+  }
+ ]
+}

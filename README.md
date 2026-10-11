@@ -18,20 +18,18 @@ O link para compartilhar um post é `https://sejaunique.vercel.app/blog/<slug>/`
 
 ## Instagram (carrossel ou post único)
 
-Cada post do blog pode virar carrossel em `instagram/<slug>/`:
+Recomeço em 11/10: todos os layouts antigos (impacto, duotone, temas de `tools/estilos.py`) foram descartados como referência. Não usar Canva nem gerador de imagem: tudo é desenhado em código.
 
-1. Escreva `instagram/<slug>/roteiro.json` (tipos de slide: capa, texto, lista, frase, foto, cta; veja o topo de `tools/instagram.py`).
-2. `python3 tools/instagram.py <slug>` gera as imagens 1080x1350 e a `legenda.txt`.
-3. `python3 tools/instagram_pagina.py` atualiza a página https://sejaunique.vercel.app/instagram/ (com .zip e botão de postar).
+Gerador atual: `tools/carrossel.py`, na pegada do bloco do Alda.CRM no relatório do diagnóstico, com as cores da Unique.
+- Fundo claro com brilhos suaves (magenta, verde, marinho), cards brancos com sombra, selos em pílula, botão "Arraste" com volume, o "I" da marca como mascote.
+- Montserrat do black ao fino itálico. Cores com significado: verde = afirmação, magenta = negação, marinho = estrutura.
+- Ícones Tabler de traço fino guardados em `tools/icones/` (funciona sem internet).
 
-### Layouts de carrossel (rodízio)
-Aprovados pelo Carlos (usar em rodízio, nunca dois iguais seguidos):
-- `impacto` — foto P&B + tipografia condensada (Anton) + verde. Modelo aprovado: carrossel da indicação.
+1. Escreva `instagram/<slug>/slides.json` (tipos: capa, lista, piramide, frase, versus, passos, numero, cta; marcações no texto: `==grifo==`, `++verde++`, `--magenta--`, `//itálico fino//`, `**negrito**`).
+2. `python3 tools/carrossel.py <slug>` gera as imagens 1080x1350 e a `legenda.txt`.
+3. `python3 tools/instagram_pagina.py` atualiza a página https://sejaunique.vercel.app/instagram/.
 
-Em teste (aguardando aprovação):
-- `duotone` — editorial verde: foto em duotom, grade fina, serifa itálica (Lora) + Montserrat. Amostra: carrossel do case Laura Scher (maslow-e-o-poder-da-imagem).
-
-Regras: no máximo 2 fotos por carrossel. Fontes ficam em tools/fonts (instale em ~/.fonts antes de gerar).
+Amostra aguardando aprovação do Carlos: carrossel da Dra. Laura Scher (maslow-e-o-poder-da-imagem). Máximo de 2 fotos por carrossel.
 
 ## Diagnóstico de Maturidade Comercial
 

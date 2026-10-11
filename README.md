@@ -29,7 +29,7 @@ Gerador atual: `tools/carrossel.py`, na pegada do bloco do Alda.CRM no relatóri
 2. `python3 tools/carrossel.py <slug>` gera as imagens 1080x1350 e a `legenda.txt`.
 3. `python3 tools/instagram_pagina.py` atualiza a página https://sejaunique.vercel.app/instagram/.
 
-Amostra aguardando aprovação do Carlos: carrossel da Dra. Laura Scher (maslow-e-o-poder-da-imagem). Máximo de 2 fotos por carrossel.
+Modelo APROVADO pelo Carlos em 11/10: carrossel da Dra. Laura Scher (maslow-e-o-poder-da-imagem). Todos os próximos carrosséis seguem este gerador. Máximo de 2 fotos por carrossel.
 
 ## Diagnóstico de Maturidade Comercial
 

@@ -59,6 +59,85 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 
 window.POSTS = [
   {
+    slug: "maslow-e-o-poder-da-imagem",
+    capa: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=1600&fit=crop&q=80&auto=format",
+    titulo: "A mesma médica. O mesmo diploma. ==Outro valor==.",
+    data: "2026-10-11",
+    categoria: "Estratégia",
+    resumo: "A Dra. Laura Scher não precisou de outra especialização para ser mais valorizada. Precisou entender em que degrau da pirâmide de Maslow ela vendia.",
+    texto: `
+A Dra. Laura Scher é dermatologista em Anápolis. Quando chegou na Unique, ela atendia em clínicas populares, tratando doenças de pele.
+
+Competente, formada, especializada em estética. E mesmo assim ==não era valorizada financeiramente como queria==.
+
+O problema não era técnico. Era de **onde ela estava vendendo**.
+
+## A pirâmide que explica o preço
+
+Abraham Maslow organizou as necessidades humanas em uma pirâmide de cinco degraus:
+
+- **Fisiológicas:** comer, beber, dormir
+- **Segurança:** saúde, proteção, estabilidade
+- **Sociais:** pertencer, ser aceito, ter vínculos
+- **Estima:** ser reconhecido, admirado, se sentir bem consigo
+- **Autorrealização:** ser quem você quer ser
+
+Agora a parte que interessa para quem vende: ==quanto mais alto o degrau, menos o cliente compara preço==.
+
+Na base, o cliente compra porque **precisa**. Quer resolver e quer pagar o mínimo. No topo, ele compra porque **quer**. Quer ser bem atendido, quer se sentir especial, e paga por isso.
+
+> Quem vende necessidade disputa preço. Quem vende desejo é escolhido.
+
+## Onde a Laura estava
+
+Tratar doença dermatológica é o degrau da **segurança**. O paciente chega com um problema, quer resolver, muitas vezes pelo convênio ou pela clínica mais barata.
+
+Nesse degrau, a médica vira mais uma. O paciente não escolhe a Laura. Escolhe o horário que tem e o preço que cabe.
+
+E o público vinha misturado: quem queria tratar uma doença e quem queria cuidar da aparência, no mesmo lugar, com a mesma comunicação. Quem buscava estética não enxergava ali uma especialista em estética.
+
+## Para onde ela foi
+
+Estética é outro degrau. É **estima** e, muitas vezes, **autorrealização**. A paciente não quer só tratar a pele. Ela quer se olhar no espelho e gostar do que vê.
+
+Esse cliente não compra procedimento. Compra ==como ele vai se sentir depois==.
+
+Por isso a virada da Laura não foi de técnica. Foi de posicionamento:
+
+- **Escolher o degrau:** foco na estética, sem misturar com o atendimento popular
+- **Construir a imagem:** logo, papelaria, Instagram e consultório falando a mesma língua
+- **Entregar experiência:** um atendimento que encanta, porque quem compra estima quer se sentir único desde a recepção
+
+## O poder da imagem
+
+Aqui está o ponto que muita gente não entende: ==a sua imagem diz em que degrau você vende==.
+
+Uma paciente que procura estética não vai pagar caro para uma profissional que parece uma clínica popular. Não importa o diploma. Se a marca não transmite o topo da pirâmide, o cliente coloca você na base.
+
+> A imagem chega antes da consulta. E o preço começa a ser decidido ali.
+
+Logo, papelaria e Instagram não são vaidade. São o sinal de que você atende o desejo do cliente, e não só a necessidade dele.
+
+## O resultado
+
+Depois do reposicionamento, ==90% dos atendimentos da Laura passaram a ser de estética==. Ela virou referência na área em Anápolis.
+
+Nas palavras dela: "Ele me ajudou a ver a importância de criar uma marca e de focar na estética, que é onde realmente quero estar."
+
+Repare no final da frase: **onde realmente quero estar**. É a autorrealização dela também. Ela subiu na pirâmide junto com os pacientes.
+
+[video: O case da Dra. Laura Scher](https://youtu.be/OCxVrZ1iskE)
+
+O case completo está aqui: [Dra. Laura Scher, de clínica popular para 90% em estética](/cases/dra-laura-scher/).
+
+## A pergunta para você
+
+Em que degrau a sua empresa vende hoje?
+
+Se o seu cliente só te procura quando precisa e sempre pede desconto, talvez o problema não seja o preço. Talvez seja ==o degrau em que a sua imagem te colocou==.
+`
+  },
+  {
     slug: "o-poder-da-indicacao",
     capa: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1600&fit=crop&q=80&auto=format",
     titulo: "Sua empresa vive de indicação. E não investe ==um real nela==.",

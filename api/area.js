@@ -343,8 +343,8 @@ module.exports = async (req, res) => {
       if (q.a === 'admin-push-chave' || q.a === 'admin-notif') {
         if (!s.admin) return res.status(403).json({ ok: false });
         if (q.a === 'admin-push-chave') { const k = await chaves(redis); return res.json({ ok: true, publica: k.publica }); }
-        const [l] = await redis([['LRANGE', 'area:notif', 0, 19]]);
-        return res.json({ ok: true, notif: (l || []).map(json).filter(Boolean) });
+        const [l, lid] = await redis([['LRANGE', 'area:notif', 0, 39], ['SMEMBERS', 'area:notif-lidos']]);
+        return res.json({ ok: true, notif: (l || []).map(json).filter(Boolean).map(n => Object.assign(n, { lido: (lid || []).indexOf(n.id) >= 0 })) });
       }
 
       if (q.a === 'admin-acoes' || q.a === 'admin-diagnosticos' || q.a === 'admin-propostas') {
@@ -644,6 +644,15 @@ module.exports = async (req, res) => {
       const ep = String(b.a === 'admin-push' ? ((b.sub || {}).endpoint || '') : (b.endpoint || ''));
       if (!/^https:\/\/[^\s]{10,800}$/.test(ep)) return res.status(400).json({ ok: false });
       await redis([b.a === 'admin-push' ? ['HSET', 'area:push', ep, JSON.stringify({ criado: new Date().toISOString(), ua: limpo(req.headers['user-agent'], 160) })] : ['HDEL', 'area:push', ep]]);
+      return res.json({ ok: true });
+    }
+
+    if (b.a === 'admin-notif-lido') {
+      if (b.todos) {
+        const [l] = await redis([['LRANGE', 'area:notif', 0, 199]]);
+        const ids = (l || []).map(json).filter(Boolean).map(n => n.id);
+        if (ids.length) await redis(ids.map(id => ['SADD', 'area:notif-lidos', id]));
+      } else await redis([['SADD', 'area:notif-lidos', limpo(b.id, 40)]]);
       return res.json({ ok: true });
     }
 

@@ -3,7 +3,7 @@
   "short_name": "Unique",
   "description": "CRM, clientes, ações, propostas e avisos da Unique Consultoria.",
   "lang": "pt-BR",
-  "start_url": "/area/admin/",
+  "start_url": "/area/admin/app/",
   "scope": "/area/admin/",
   "display": "standalone",
   "orientation": "any",
@@ -15,8 +15,8 @@
     { "src": "/area/admin/icone-mask.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
   "shortcuts": [
-    { "name": "Notificações", "url": "/area/admin/#notificacoes" },
-    { "name": "CRM", "url": "/area/admin/#crm" },
-    { "name": "Nova proposta", "url": "/area/admin/#propostas" }
+    { "name": "Notificações", "url": "/area/admin/app/#avisos" },
+    { "name": "CRM", "url": "/area/admin/app/#crm" },
+    { "name": "Nova proposta", "url": "/area/admin/app/#propostas" }
   ]
 }

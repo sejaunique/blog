@@ -57,6 +57,7 @@
 const crypto = require('crypto');
 const CATALOGO = require('./_area/catalogo.js');
 const { notifica, chaves } = require('./_area/push.js');
+const GOOGLE = require('./_area/google.js');
 
 const URL_DB = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -749,9 +750,13 @@ module.exports = async (req, res) => {
         }
       }
       await redis(cmds);
-      return res.json({ ok: true, modelo: m });
+      const gg = b.google || {};
+      const gEmails = (Array.isArray(gg.emails) ? gg.emails : []).map(e => String(e).trim().toLowerCase()).filter(emailOk).slice(0, 30);
+      const ev = await GOOGLE.sincroniza(redis, m, { emails: gEmails, convidar: !!gg.convidar && gEmails.length > 0, meet: !!gg.meet }); // leva para o Google Agenda (se estiver conectado)
+      return res.json({ ok: true, modelo: m, google: ev ? { link: ev.htmlLink, meet: ev.hangoutLink || '' } : null });
     }
     if (b.a === 'admin-modelo-del') {
+      await GOOGLE.sincroniza(redis, { id: String(b.id || '') }, 'apagar');
       await redis([['HDEL', 'area:modelos', String(b.id || '')]]);
       return res.json({ ok: true });
     }

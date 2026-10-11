@@ -299,7 +299,15 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
   function iniciais(n){ return String(n||'?').split(/\s+/).filter(Boolean).slice(0,2).map(function(p){return p[0];}).join('').toUpperCase(); }
 
   /* Google Agenda: abre o evento já preenchido */
+  var GS={}, GEV=[];
+  function gpost(o){ return fetch('/api/agenda',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify(o)}).then(function(r){return r.json();}); }
+  function gget(q){ return fetch('/api/agenda'+q,{credentials:'same-origin',cache:'no-store'}).then(function(r){return r.json();}).catch(function(){return {};}); }
   function agenda(o){
+    if(GS.conectado&&o.id){ gpost({a:'sync',id:o.id}).then(function(r){ toast(r.ok?'Está no seu Google Agenda.':'Defina uma data para enviar à agenda.'); if(r.link) window.open(r.link,'_blank','noopener'); }); return; }
+    if(GS.conectado&&o.inicio){ gpost({a:'evento',titulo:o.titulo,detalhe:o.detalhe,inicio:o.inicio,emails:o.emails||[],convidar:false}).then(function(r){ toast(r.ok?'Criado no seu Google Agenda.':(r.erro||'Erro.')); if(r.link) window.open(r.link,'_blank','noopener'); }); return; }
+    agendaLink(o);
+  }
+  function agendaLink(o){
     var ini=o.inicio||o.prazo||hoje(), datas;
     if(ini.length>10){ var a=new Date(ini), b=new Date(a.getTime()+(o.min||60)*60000), f=function(d){return d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');}; datas=f(a)+'/'+f(b); }
     else { var d=ini.replace(/-/g,''), n=new Date(ini+'T12:00'); n.setDate(n.getDate()+1); datas=d+'/'+n.toISOString().slice(0,10).replace(/-/g,''); }
@@ -354,6 +362,8 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
   $('b-sair').onclick=function(){ post({a:'sair'}).then(function(){ location.href='/area/'; }); };
   $('b-sino').onclick=function(){ vai('notificacoes'); };
 
+  if(/[?&]google=ok/.test(location.search)) setTimeout(function(){ toast('Google Agenda conectado.'); },800);
+  if(/[?&]google=erro/.test(location.search)) setTimeout(function(){ toast('Não foi possível conectar o Google Agenda. Tente de novo.'); },800);
   function inicia(){
     $('ws').hidden=false; $('side').hidden=false;
     $('side').innerHTML=MENU.map(function(m){ return m==='-'?'<hr>':'<button type="button" data-v="'+m[0]+'" data-nome="'+m[1]+'" aria-label="'+m[1]+'">'+ic(m[2])+(m[0]==='notificacoes'?'<span class="dot" id="side-dot" hidden></span>':'')+'</button>'; }).join('');
@@ -366,6 +376,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     return Promise.all([get('?a=admin-resumo'),get('?a=admin-acoes'),get('?a=admin-propostas'),get('?a=admin-diagnosticos')]).then(function(x){
       R=x[0]; AC=x[1]; PROPS=(x[2].propostas||[]); DIAGS=(x[3].diagnosticos||[]); BLOB=R.blob;
       var n=notifCount(); $('sino-dot').hidden=!n; var sd=$('side-dot'); if(sd) sd.hidden=!n;
+      return gget('?a=status').then(function(st){ GS=st||{}; if(!GS.conectado){ GEV=[]; return; } return gget('?a=eventos').then(function(e){ GEV=(e&&e.eventos)||[]; }); });
     });
   }
   var VIVAS={painel:1,crm:1,notificacoes:1,diagnosticos:1};
@@ -460,12 +471,13 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
   function calendario(P){
     var y=CALM.getFullYear(), m=CALM.getMonth(), prim=new Date(y,m,1), ini=new Date(y,m,1-prim.getDay()), h=hoje(), mapa={};
     P.forEach(function(p){ (mapa[p.prazo]=mapa[p.prazo]||[]).push(p); if(p.tipo==='reuniao'&&p.inicio) (mapa[p.inicio.slice(0,10)]=mapa[p.inicio.slice(0,10)]||[]).push(p); });
+    GEV.forEach(function(e){ if(e.unique) return; var k=String(e.inicio).slice(0,10); (mapa[k]=mapa[k]||[]).push({titulo:e.titulo,slug:'',tipo:'reuniao',status:'a_fazer',prazo:k,google:1}); });
     var out='<div class="cal-h"><b>'+prim.toLocaleDateString('pt-BR',{month:'long',year:'numeric'})+'</b></div><div class="cal">'+['D','S','T','Q','Q','S','S'].map(function(d){return '<span class="dw">'+d+'</span>';}).join('');
     for(var i=0;i<42;i++){
       var d=new Date(ini); d.setDate(ini.getDate()+i); var k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
       var L=mapa[k]||[], cls='d'+(d.getMonth()!==m?' fora':'')+(k===h?' hoje':'');
       if(L.length){ cls+=' tem'; if(L.some(function(x){return x.status!=='feito'&&k<h;})) cls+=' atr'; else if(L.some(function(x){return x.tipo==='reuniao';})) cls+=' reu'; }
-      out+='<div class="'+cls+'"'+(L.length?' data-dia="'+k+'" title="'+esc(L.map(function(x){return x.titulo+' · '+nomeEmp(x.slug);}).join('\n'))+'"':'')+'>'+d.getDate()+(L.length?'<i>'+L.length+'</i>':'')+'</div>';
+      out+='<div class="'+cls+'"'+(L.length?' data-dia="'+k+'" title="'+esc(L.map(function(x){return x.titulo+(x.slug?' · '+nomeEmp(x.slug):x.google?' · Google Agenda':'');}).join('\n'))+'"':'')+'>'+d.getDate()+(L.length?'<i>'+L.length+'</i>':'')+'</div>';
     }
     $('cal').innerHTML=out+'</div>';
   }
@@ -684,7 +696,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     C.onclick=function(ev){ var b=ev.target.closest('button'); if(!b) return; var tr=b.closest('tr'), l=tr&&achar(tr.dataset.k);
       if(b.dataset.cli){ escolhe(b,l); }
       if(b.dataset.and!==undefined){ ABERTO[tr.dataset.k]=!ABERTO[tr.dataset.k]; tabela(); }
-      if(b.dataset.ag!==undefined){ agenda({titulo:l.titulo,detalhe:l.detalhe,inicio:l.inicio,prazo:l.prazo,slug:l.clientes.length===1?l.clientes[0]:''}); }
+      if(b.dataset.ag!==undefined){ agenda({id:l.fonte==='biblioteca'?l.id:'',titulo:l.titulo,detalhe:l.detalhe,inicio:l.inicio,prazo:l.prazo,slug:l.clientes.length===1?l.clientes[0]:''}); }
       if(b.dataset.del!==undefined){ if(b.dataset.ok!=='1'){ b.dataset.ok='1'; b.style.background='var(--erro)'; b.style.color='#fff'; toast('Clique de novo para excluir.'); return; }
         (l.fonte==='propria'?post({a:'admin-acao-del',slug:l.slug,id:l.id}):post({a:'admin-modelo-del',id:l.id})).then(function(){ toast('Ação excluída.'); recarregaAcoes(); }); }
       if(b.dataset.criar!==undefined){ var f=tr.querySelectorAll('[name]'), o={}; [].forEach.call(f,function(i){o[i.name]=i.value;}); if(!o.titulo){toast('Escreva a ação.');return;} o.destino=FILTRO_CLI?[FILTRO_CLI]:[];
@@ -821,7 +833,44 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
 
   /* ---------- VIDEOAULAS e REUNIÕES ---------- */
   function vVideos(){ listaTipo('video','Videoaulas','para os clientes','aula','Nova videoaula','Link do vídeo (YouTube)'); }
-  function vReunioes(){ listaTipo('reuniao','Reuniões','e compromissos','reuniao','Nova reunião','Pauta ou link da chamada'); }
+  function cartaoGoogle(){
+    if(GS.conectado) return '<section class="card" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between"><div><b>Google Agenda conectado</b><div class="muted" style="font-size:.8rem">'+esc(GS.email||'')+' · ações e reuniões com data vão e voltam sozinhas</div></div><div style="display:flex;gap:8px"><a class="pill" href="https://calendar.google.com" target="_blank">'+ic('abrir')+'Abrir agenda</a><button class="pill perigo" data-gdes>Desconectar</button></div></section>';
+    if(GS.configurado) return '<section class="card app-c"><div><b>Conecte o seu Google Agenda</b><p>'+(GS.erro?esc(GS.erro)+' ':'')+'Falta só autorizar: entre com a conta Google da sua agenda e aceite o acesso. Se aparecer "o Google não verificou este app", toque em Avançado → Acessar.</p></div><a class="pill" href="/api/agenda?a=conectar&volta=%2Farea%2Fadmin%2F%23reunioes">'+ic('reuniao')+'Conectar Google Agenda</a></section>';
+    return '<section class="card"><div class="card-h"><h2>Ligar o Google Agenda (uma vez só)</h2></div><ol style="margin:0 0 14px;padding-left:18px;font-size:.84rem;line-height:1.7">'+
+      '<li>Abra <a href="https://console.cloud.google.com/projectcreate" target="_blank">console.cloud.google.com</a> com a sua conta Google e crie um projeto "Unique Workspace".</li>'+
+      '<li>Em <a href="https://console.cloud.google.com/apis/library/calendar-json.googleapis.com" target="_blank">Google Calendar API</a>, clique em <b>Ativar</b>.</li>'+
+      '<li>Em <a href="https://console.cloud.google.com/auth/branding" target="_blank">Tela de consentimento / Branding</a>: nome "Unique Workspace", seu e-mail, público <b>Externo</b>. Em <b>Público</b>, clique em <b>Publicar app</b> (em produção) para o acesso não expirar.</li>'+
+      '<li>Em <a href="https://console.cloud.google.com/auth/clients" target="_blank">Clientes</a> → Criar cliente → <b>Aplicativo da Web</b>. Em "URIs de redirecionamento autorizados" cole:<br><code style="user-select:all;background:var(--ws-chip);padding:3px 8px;border-radius:8px">'+esc(GS.volta||'https://sejaunique.vercel.app/api/agenda?a=volta')+'</code></li>'+
+      '<li>Copie o <b>ID do cliente</b> e a <b>Chave secreta</b> e cole aqui embaixo.</li></ol>'+
+      '<form class="form" id="f-gcfg"><div class="campo"><label>ID do cliente</label><input name="id" placeholder="....apps.googleusercontent.com" autocomplete="off" required></div><div class="campo"><label>Chave secreta do cliente</label><input name="segredo" type="password" autocomplete="off" required></div><button class="pill solid">Salvar e conectar</button></form></section>';
+  }
+  function ligaGoogle(){
+    var f=$('f-gcfg'); if(f) f.onsubmit=function(ev){ ev.preventDefault(); gpost({a:'config',id:f.id.value,segredo:f.segredo.value}).then(function(r){ if(!r.ok){toast(r.erro||'Erro.');return;} location.href='/api/agenda?a=conectar&volta=%2Farea%2Fadmin%2F%23reunioes'; }); };
+    var d=document.querySelector('[data-gdes]'); if(d) d.onclick=function(){ if(!confirm('Desconectar o Google Agenda?')) return; gpost({a:'desconectar'}).then(function(){ toast('Desconectado.'); carrega().then(desenha); }); };
+  }
+  function vReunioes(){
+    var L=linhas().filter(function(l){return l.tipo==='reuniao';}), agora=new Date().toISOString();
+    var prox=GEV.filter(function(e){return String(e.fim||e.inicio)>=agora.slice(0,10);});
+    cabecalho('Reuniões','e agenda',[['reuniao',prox.length,'na agenda (60 dias)'],['users',L.length,'reuniões com clientes'],['check',GS.conectado?'ligado':'desligado','Google Agenda']]);
+    $('vista').innerHTML=cartaoGoogle()+'<div class="grade" style="grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);margin-top:18px"><section class="card"><div class="card-h"><h2>Nova reunião</h2></div><form class="form" id="f-reu">'+
+      '<div class="campo"><label>Título</label><input name="titulo" required placeholder="Reunião de alinhamento"></div>'+
+      '<div class="l2"><div class="campo"><label>Data e hora</label><input name="inicio" type="datetime-local" required></div><div class="campo"><label>Duração</label><select name="dur"><option value="30">30 min</option><option value="60" selected>1 hora</option><option value="90">1h30</option><option value="120">2 horas</option></select></div></div>'+
+      '<div class="campo"><label>Cliente</label><select name="cli"><option value="">Nenhum</option>'+(R.empresas||[]).map(function(e){return '<option value="'+esc(e.slug)+'">'+esc(e.nome)+'</option>';}).join('')+'</select></div>'+
+      '<div class="campo"><label>Pauta</label><textarea name="detalhe" style="min-height:70px"></textarea></div>'+
+      '<label style="font-size:.82rem;display:flex;gap:8px"><input type="checkbox" name="meet" checked> Criar link do Google Meet</label>'+
+      '<label style="font-size:.82rem;display:flex;gap:8px"><input type="checkbox" name="convidar"> Enviar convite para as pessoas do cliente</label>'+
+      '<button class="pill solid">'+ic('mais')+(GS.conectado?'Criar no Google Agenda':'Criar e abrir no Google Agenda')+'</button></form></section>'+
+      '<section class="card"><div class="card-h"><h2>Próximos compromissos</h2>'+(GS.conectado?'<span class="muted">do seu Google Agenda</span>':'')+'</div><div class="lst">'+(GS.conectado?(prox.length?prox.map(function(e){
+        return '<div class="li"><div><span class="tag">'+(e.diaInteiro?dt(e.inicio):dt(e.inicio,1))+(e.unique?' · do workspace':'')+'</span><h4>'+esc(e.titulo)+'</h4>'+(e.convidados.length?'<p>'+esc(e.convidados.join(', '))+'</p>':'')+'</div><div class="bts">'+(e.meet?'<a class="pill verde" target="_blank" href="'+esc(e.meet)+'">Meet</a>':'')+'<a class="pill" target="_blank" href="'+esc(e.link)+'">'+ic('abrir')+'</a></div></div>'; }).join(''):'<div class="vazio">Nada na agenda nos próximos 60 dias.</div>'):'<div class="vazio">Conecte o Google Agenda para ver seus compromissos aqui.</div>')+'</div></section></div>';
+    if(window.innerWidth<1100) $('vista').querySelector('.grade').style.gridTemplateColumns='1fr';
+    ligaGoogle();
+    $('f-reu').onsubmit=function(ev){ ev.preventDefault(); var f=this, d=f.cli.value, e=d?emp(d):null, em=e?e.usuarios.map(function(u){return u.email;}):[];
+      var m={titulo:f.titulo.value,detalhe:f.detalhe.value,inicio:f.inicio.value,tipo:'reuniao',dono:'unique',destino:d?[d]:[]};
+      post({a:'admin-modelo',modelo:m,google:{emails:f.convidar.checked?em:[],convidar:f.convidar.checked,meet:f.meet.checked}}).then(function(r){ if(!r.ok){toast(r.erro||'Erro.');return;}
+        if(r.google){ toast('Reunião criada no Google Agenda'+(f.convidar.checked&&em.length?' e convites enviados.':'.')); if(r.google.meet) try{navigator.clipboard.writeText(r.google.meet);}catch(x){} }
+        else { toast('Reunião criada.'); agendaLink({titulo:m.titulo,detalhe:m.detalhe,inicio:m.inicio,slug:d,emails:em}); }
+        carrega().then(desenha); }); };
+  }
   function listaTipo(tp,t1,t2,i,novo,ph){
     var L=linhas().filter(function(l){return l.tipo===tp;}).sort(function(a,b){return String(b.inicio||'').localeCompare(String(a.inicio||''));});
     cabecalho(t1,t2,[[i,L.length,tp==='video'?'videoaulas':'reuniões'],['users',L.filter(function(l){return l.clientes.length;}).length,'com clientes']]);

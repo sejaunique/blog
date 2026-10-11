@@ -59,6 +59,70 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 
 window.POSTS = [
   {
+    slug: "o-poder-da-indicacao",
+    capa: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1600&fit=crop&q=80&auto=format",
+    titulo: "Sua empresa vive de indicação. E não investe ==um real nela==.",
+    data: "2026-10-11",
+    categoria: "Estratégia",
+    resumo: "A maioria das empresas no Brasil sobrevive de indicação. Quase nenhuma trata indicação como canal de venda: sem programa, sem prêmio, sem número.",
+    texto: `
+Pergunte para qualquer empresário de onde vêm os melhores clientes dele. A resposta quase sempre é a mesma: ==indicação==.
+
+Agora pergunte quanto ele investe nisso. Silêncio.
+
+Esse é um dos maiores desperdícios que eu vejo no comércio brasileiro hoje. A empresa **sobrevive** de indicação e trata a indicação como sorte.
+
+## Indicação não é sorte. É canal.
+
+Tráfego pago tem orçamento, tem relatório, tem alguém olhando todo dia. A indicação, que muitas vezes traz mais cliente e cliente melhor, não tem nada disso.
+
+Não tem programa. Não tem prêmio. Não tem ninguém responsável. Quando chega, ótimo. Quando não chega, ninguém percebe.
+
+> O canal que mais vende na sua empresa é o único que ninguém gerencia.
+
+É isso que o mercado chama de **referral**, ou marketing de indicação: transformar o cliente satisfeito em divulgador, com regra, recompensa e acompanhamento.
+
+## As perguntas que você não sabe responder
+
+Faça o teste. Você sabe dizer:
+
+- **Quem** mais indica a sua empresa?
+- **Qual produto ou serviço** mais entra por indicação?
+- Quantas vendas do mês passado ==vieram de alguém que te indicou==?
+- O que essas pessoas ganharam por isso?
+
+Se a resposta for "não sei", você está deixando o seu melhor vendedor trabalhar de graça e sem treinamento.
+
+## Os três tipos de indicação
+
+Nem toda indicação nasce do mesmo lugar. E cada uma pede um jeito diferente de trabalhar.
+
+**1. Indicação emocional.** Vem de quem gosta de você: cliente fiel, amigo, família. A pessoa indica porque confia em você. Aqui o prêmio importa menos que o reconhecimento. Uma ligação, um presente pensado, um "você faz parte disso".
+
+**2. Indicação profissional.** Vem de quem indica pela sua competência: o contador que manda clientes, o arquiteto que indica o fornecedor, o parceiro que atende o mesmo público. Aqui cabe um ==programa de parceria ou de afiliados==, com comissão clara e regra combinada.
+
+**3. Indicação demográfica.** Vem do lugar e do perfil: o mesmo bairro, o mesmo condomínio, o mesmo segmento, a mesma associação. Quando um cliente de um nicho fecha com você, os vizinhos dele são o próximo alvo. Aqui você não espera: ==você vai atrás==, usando o cliente atual como referência.
+
+## O que um programa de indicação precisa ter
+
+Não precisa ser complicado. Precisa existir.
+
+- **Regra clara:** quem pode indicar, o que conta como indicação, quando o prêmio é pago
+- **Prêmio que faz sentido:** desconto, brinde, crédito, comissão ou experiência, de acordo com o tipo de indicação
+- **Divulgação:** o cliente precisa saber que o programa existe, senão ele não indica
+- **Registro no CRM:** toda venda marcada com a origem e o nome de quem indicou
+- **Reconhecimento:** mostre quem mais indica, agradeça em público, faça o cliente se sentir parte
+
+Eu já contei aqui como transformo uma indicação em prêmio com uma ligação: [“Ele disse que você faria um preço camarada”](#indicacao-preco-camarada). Esse é o primeiro passo. O programa é o que faz isso acontecer todo mês, e não só quando você lembra.
+
+## Comece esta semana
+
+Puxe as vendas dos últimos 3 meses e marque quais vieram por indicação e quem indicou. Só isso.
+
+Você vai descobrir quem são os seus vendedores sem crachá. E vai perceber que ==está na hora de pagar o salário deles==.
+`
+  },
+  {
     slug: "seu-cliente-nao-conhece-seu-mix",
     capa: "assets/capa-colete.jpg",
     titulo: "Ele comprou a polo com você. E o colete, com o ==concorrente==.",

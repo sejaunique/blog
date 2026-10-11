@@ -1,0 +1,102 @@
+{
+  "formato": "carrossel",
+  "estilo": "duotone",
+  "legenda": "A mesma médica. O mesmo diploma. Outro valor.\n\nA Dra. Laura Scher é dermatologista em Anápolis. Atendia doenças de pele em clínicas populares e não era valorizada como queria. O problema não era técnico. Era o degrau em que ela vendia.\n\nNa pirâmide de Maslow, quanto mais alto o degrau, menos o cliente compara preço.\n\nTratar doença é segurança: o paciente quer resolver e pagar o mínimo.\nEstética é estima: a paciente compra como vai se sentir depois.\n\nO que mudou:\n1. Posicionamento: foco na estética, sem misturar públicos\n2. Imagem: logo, papelaria, Instagram e consultório falando a mesma língua\n3. Experiência: atendimento que encanta desde a recepção\n\nResultado: 90% dos atendimentos em estética.\n\nA imagem chega antes da consulta. E o preço começa a ser decidido ali.\n\nEm que degrau a sua empresa vende hoje? 👇\n\n📌 O texto completo está no blog. Link na bio.\n\n#vendas #posicionamento #marcapessoal #piramidedemaslow #dermatologia #estetica #consultoriadevendas #sejaunique",
+  "slides": [
+    {
+      "tipo": "capa",
+      "tag": "Case de cliente",
+      "pre": "Case Dra. Laura Scher",
+      "titulo": "Mesmo diploma. ==Outro valor.==",
+      "texto": "Ela não precisou de outra especialização. Precisou mudar de degrau.",
+      "tam": 124
+    },
+    {
+      "tipo": "texto",
+      "tag": "O ponto de partida",
+      "titulo": "Competente. E ==mal paga.==",
+      "texto": "Dermatologista em Anápolis, atendendo doenças de pele em clínicas populares. Não era valorizada como queria. E o problema não era técnico."
+    },
+    {
+      "tipo": "lista",
+      "tag": "A teoria",
+      "titulo": "A pirâmide de Maslow",
+      "itens": [
+        [
+          "Autorrealização",
+          "Ser quem você quer ser"
+        ],
+        [
+          "Estima",
+          "Reconhecimento, autoestima"
+        ],
+        [
+          "Sociais"
+        ],
+        [
+          "Segurança"
+        ],
+        [
+          "Fisiológicas"
+        ]
+      ]
+    },
+    {
+      "tipo": "frase",
+      "tag": "A regra",
+      "texto": "Quanto mais alto o degrau, ==menos o cliente compara preço.=="
+    },
+    {
+      "tipo": "texto",
+      "tag": "Onde ela estava",
+      "titulo": "Degrau da ==segurança.==",
+      "texto": "Tratar doença é necessidade. O paciente quer resolver e pagar o mínimo. A médica vira mais uma, escolhida pelo horário e pelo preço."
+    },
+    {
+      "tipo": "texto",
+      "tag": "Para onde ela foi",
+      "titulo": "Degrau da ==estima.==",
+      "texto": "Estética é desejo. A paciente não compra procedimento. Compra como ela vai se sentir depois."
+    },
+    {
+      "tipo": "lista",
+      "tag": "A virada",
+      "titulo": "O que mudou",
+      "itens": [
+        [
+          "Posicionamento",
+          "Foco na estética, sem misturar com o atendimento popular"
+        ],
+        [
+          "Imagem",
+          "Logo, papelaria, Instagram e consultório falando a mesma língua"
+        ],
+        [
+          "Experiência",
+          "Atendimento que encanta desde a recepção"
+        ]
+      ]
+    },
+    {
+      "tipo": "frase",
+      "tag": "O poder da imagem",
+      "texto": "A imagem chega antes da consulta. E o ==preço== começa a ser decidido ali."
+    },
+    {
+      "tipo": "texto",
+      "tag": "Resultado",
+      "titulo": "==90%== em estética.",
+      "texto": "Dos atendimentos, depois do reposicionamento. Hoje ela é referência em estética em Anápolis.",
+      "tam": 140
+    },
+    {
+      "tipo": "cta",
+      "tag": "Sua vez",
+      "img": "blog/assets/carlos-explicando.jpg",
+      "pos": "center 25%",
+      "pre": "Em que degrau a sua empresa vende?",
+      "titulo": "Leia o ==case== completo",
+      "url": "sejaunique.vercel.app/blog"
+    }
+  ]
+}

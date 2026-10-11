@@ -29,7 +29,7 @@ Aprovados pelo Carlos (usar em rodízio, nunca dois iguais seguidos):
 - `impacto` — foto P&B + tipografia condensada (Anton) + verde. Modelo aprovado: carrossel da indicação.
 
 Em teste (aguardando aprovação):
-- `duotone` — editorial verde: foto em duotom, grade fina, serifa itálica (Lora) + Montserrat.
+- `duotone` — editorial verde: foto em duotom, grade fina, serifa itálica (Lora) + Montserrat. Amostra: carrossel do case Laura Scher (maslow-e-o-poder-da-imagem).
 
 Regras: no máximo 2 fotos por carrossel. Fontes ficam em tools/fonts (instale em ~/.fonts antes de gerar).
 

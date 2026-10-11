@@ -284,6 +284,13 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
   function get(q){ return fetch('/api/area'+q,{credentials:'same-origin'}).then(function(r){return r.json();}); }
   function post(o){ return fetch('/api/area',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify(o)}).then(function(r){return r.json();}); }
   function wa(n){ var d=String(n||'').replace(/\D/g,''); if(!d) return ''; if(d.length<=11) d='55'+d; return d; }
+  // WhatsApp Business: no Android abre direto o app Business (com.whatsapp.w4b); se não tiver, cai no wa.me
+  var ANDROID=/android/i.test(navigator.userAgent);
+  function zap(n,t){ var d=wa(n), q=t?'&text='+encodeURIComponent(t):'';
+    if(ANDROID) return 'intent://send/?phone='+d+q+'#Intent;scheme=whatsapp;package=com.whatsapp.w4b;S.browser_fallback_url='+encodeURIComponent('https://wa.me/'+d+(t?'?text='+encodeURIComponent(t):''))+';end';
+    return 'https://wa.me/'+d+(t?'?text='+encodeURIComponent(t):''); }
+  document.addEventListener('click',function(ev){ var l=ev.target.closest&&ev.target.closest('a[href^="intent:"]'); if(l){ ev.preventDefault(); location.href=l.href; } },true);
+  function abreZap(n,t){ var u=zap(n,t); if(u.indexOf('intent:')===0) location.href=u; else window.open(u,'_blank','noopener'); }
   function dt(s,h){ if(!s) return ''; var d=new Date(s.length===10?s+'T12:00':s); return d.toLocaleDateString('pt-BR',h?{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}:{day:'2-digit',month:'short'}); }
   function brl(v){ return (+v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}); }
   function hoje(){ var d=new Date(); d.setMinutes(d.getMinutes()-d.getTimezoneOffset()); return d.toISOString().slice(0,10); }
@@ -515,7 +522,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
       if(!r.ok){ toast(r.erro||'Erro.'); return; }
       var t='Olá, '+String(nome||'').split(' ')[0]+'! Preparei o material da '+nomeEmp(sl)+' na Área do Cliente Unique. Crie sua senha neste link para acessar: '+r.url;
       try{ navigator.clipboard.writeText(r.url); }catch(e){}
-      if(wa(whats)&&confirm('Link copiado. Abrir o WhatsApp com a mensagem pronta?')) window.open('https://wa.me/'+wa(whats)+'?text='+encodeURIComponent(t),'_blank','noopener');
+      if(wa(whats)&&confirm('Link copiado. Abrir o WhatsApp com a mensagem pronta?')) abreZap(whats,t);
       else prompt('Link de acesso (vale 30 dias, uso único):',r.url);
     });
   }
@@ -548,7 +555,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
       if(b.dataset.u){ b.disabled=true; var p=P.filter(function(x){return x.email===b.dataset.e&&x.slug===b.dataset.s;})[0];
         post({a:'admin-usuario',slug:b.dataset.s,email:b.dataset.e,status:b.dataset.u}).then(function(r){ if(!r.ok){toast('Erro.');return;}
           toast(b.dataset.u==='ativo'?'Acesso liberado.':'Pedido recusado.');
-          if(b.dataset.u==='ativo'&&p&&wa(p.whatsapp)) window.open('https://wa.me/'+wa(p.whatsapp)+'?text='+encodeURIComponent('Olá, '+p.nome.split(' ')[0]+'! Seu acesso à Área do Cliente Unique está liberado. Entre em '+location.origin+'/area/ com a empresa "'+p.empresaNome+'", o seu e-mail e a senha que você criou.'),'_blank','noopener');
+          if(b.dataset.u==='ativo'&&p&&wa(p.whatsapp)) abreZap(p.whatsapp,'Olá, '+p.nome.split(' ')[0]+'! Seu acesso à Área do Cliente Unique está liberado. Entre em '+location.origin+'/area/ com a empresa "'+p.empresaNome+'", o seu e-mail e a senha que você criou.');
           recarrega(); }); }
       if(b.dataset.todos!==undefined) post({a:'admin-lido-todos'}).then(recarrega);
       if(b.dataset.lido) post({a:'admin-lido',k:b.dataset.lido,lido:b.dataset.v==='1'}).then(recarrega);
@@ -588,7 +595,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     $('e-lado').innerHTML=
       '<section class="card"><div class="perfil"><div class="ini">'+esc(iniciais(e.nome))+'</div><h3>'+esc(e.nome)+'</h3><span class="muted" style="font-size:.8rem">'+(u.nome?esc(u.nome):'Sem pessoa vinculada')+'</span>'+
         '<select class="mini" id="e-etapa">'+Object.keys(ETAPA).map(function(k){return '<option value="'+k+'"'+(k===e.etapa?' selected':'')+'>'+ETAPA[k][0]+'</option>';}).join('')+'</select>'+
-        '<div class="bts">'+(u.whatsapp?'<a class="cbtn" title="WhatsApp" target="_blank" rel="noopener" href="https://wa.me/'+wa(u.whatsapp)+'">'+ic('whatsapp')+'</a>':'')+(u.email?'<a class="cbtn" title="E-mail" href="mailto:'+esc(u.email)+'">'+ic('mail')+'</a>':'')+
+        '<div class="bts">'+(u.whatsapp?'<a class="cbtn" title="WhatsApp" target="_blank" rel="noopener" href=\"'+esc(zap(u.whatsapp))+'\">'+ic('whatsapp')+'</a>':'')+(u.email?'<a class="cbtn" title="E-mail" href="mailto:'+esc(u.email)+'">'+ic('mail')+'</a>':'')+
         '<button class="cbtn" title="Agendar reunião" id="e-agenda">'+ic('reuniao')+'</button><button class="cbtn" title="Nova proposta" id="e-prop">'+ic('proposta')+'</button><a class="cbtn" title="Ver como o cliente" target="_blank" href="/area/painel/?e='+esc(e.slug)+'">'+ic('abrir')+'</a></div></div></section>'+
       '<section class="card"><div class="card-h"><h2>Informações</h2></div><div class="dados">'+
         '<div>'+ic('calendar')+'<span><small>No funil desde</small><b>'+(e.criado?new Date(e.criado).toLocaleDateString('pt-BR'):'–')+'</b></span></div>'+
@@ -776,7 +783,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
         carrega().then(function(){ vPropostas();
           if(enviar){ var e=emp(r.proposta.slug)||{usuarios:[]}, u=e.usuarios[0]||{}; try{navigator.clipboard.writeText(r.url);}catch(x){}
             var t='Olá, '+String(r.proposta.contato||u.nome||'').split(' ')[0]+'! Segue a proposta da Unique para a '+r.proposta.empresa+': '+r.url;
-            if(wa(u.whatsapp)) window.open('https://wa.me/'+wa(u.whatsapp)+'?text='+encodeURIComponent(t),'_blank','noopener'); else prompt('Link da proposta (copiado):',r.url); } });
+            if(wa(u.whatsapp)) abreZap(u.whatsapp,t); else prompt('Link da proposta (copiado):',r.url); } });
       });
     }
     F.onsubmit=function(ev){ ev.preventDefault(); envia(false); };

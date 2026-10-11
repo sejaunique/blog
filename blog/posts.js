@@ -60,7 +60,7 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 window.POSTS = [
   {
     slug: "maslow-e-o-poder-da-imagem",
-    capa: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=1600&fit=crop&q=80&auto=format",
+    capa: "assets/laura-capa.jpg",
     titulo: "A mesma médica. O mesmo diploma. ==Outro valor==.",
     data: "2026-10-11",
     categoria: "Estratégia",
@@ -102,6 +102,8 @@ Estética é outro degrau. É **estima** e, muitas vezes, **autorrealização**.
 
 Esse cliente não compra procedimento. Compra ==como ele vai se sentir depois==.
 
+![A Dra. Laura Scher: a imagem que comunica o degrau da estima.](assets/laura-7917.jpg)
+
 Por isso a virada da Laura não foi de técnica. Foi de posicionamento:
 
 - **Escolher o degrau:** foco na estética, sem misturar com o atendimento popular
@@ -121,6 +123,8 @@ Logo, papelaria e Instagram não são vaidade. São o sinal de que você atende 
 ## O resultado
 
 Depois do reposicionamento, ==90% dos atendimentos da Laura passaram a ser de estética==. Ela virou referência na área em Anápolis.
+
+![Dra. Laura Scher, dermatologista em Anápolis.](assets/laura-7853.jpg)
 
 Nas palavras dela: "Ele me ajudou a ver a importância de criar uma marca e de focar na estética, que é onde realmente quero estar."
 

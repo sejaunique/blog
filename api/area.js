@@ -167,7 +167,7 @@ async function itemPorId(slug, id) {
 }
 function membro(s, slug) { return !!s && (s.admin || s.slug === slug); }
 
-function usuarioPublico(u) { return { email: u.email, nome: u.nome, whatsapp: u.whatsapp, status: u.status, criado: u.criado, ultimo: u.ultimo || '', origem: u.origem || '', crm: u.crm || {}, editado: u.editado || '', foto: u.foto || '' }; }
+function usuarioPublico(u) { return { email: u.email, nome: u.nome, whatsapp: u.whatsapp, status: u.status, criado: u.criado, ultimo: u.ultimo || '', origem: u.origem || '', crm: u.crm || {}, editado: u.editado || '', foto: u.foto || '', fotoOrigem: u.fotoOrigem || '' }; }
 
 // Ações do catálogo entram no plano da empresa uma única vez (area:acoes-cat:<slug> lembra quais já entraram),
 // então o status do cliente e as edições/exclusões do admin valem normalmente depois.
@@ -435,7 +435,7 @@ module.exports = async (req, res) => {
           const [e, emails, negH] = await redis([['GET', 'area:emp:' + slug], ['SMEMBERS', 'area:users:' + slug], ['HGETALL', 'area:neg:' + slug]]);
           const users = emails && emails.length ? await redis(emails.map(m => ['GET', 'area:user:' + slug + ':' + m])) : [];
           const ev = json(e) || { slug, nome: (CATALOGO[slug] || {}).nome || slug };
-          empresas.push({ slug, nome: ev.nome, num: ev.num || 0, foto: ev.foto || '', dados: ev.dados || {}, editado: ev.editado || '', negocios: lerPares(negH).map(([, v]) => json(v)).filter(Boolean).sort((a, b) => String(b.criado).localeCompare(String(a.criado))), etapa: ETAPAS.indexOf(ev.etapa) >= 0 ? ev.etapa : (ev.origem === 'diagnostico' ? 'lead' : 'cliente'), tags: ev.tags || [], origem: ev.origem || '', criado: ev.criado || '', usuarios: users.map(json).filter(Boolean).map(usuarioPublico) });
+          empresas.push({ slug, nome: ev.nome, num: ev.num || 0, foto: ev.foto || '', fotoOrigem: ev.fotoOrigem || '', dados: ev.dados || {}, editado: ev.editado || '', negocios: lerPares(negH).map(([, v]) => json(v)).filter(Boolean).sort((a, b) => String(b.criado).localeCompare(String(a.criado))), etapa: ETAPAS.indexOf(ev.etapa) >= 0 ? ev.etapa : (ev.origem === 'diagnostico' ? 'lead' : 'cliente'), tags: ev.tags || [], origem: ev.origem || '', criado: ev.criado || '', usuarios: users.map(json).filter(Boolean).map(usuarioPublico) });
         }
         const [dH, mH] = await redis([['HGETALL', 'area:diag'], ['HGETALL', 'area:modelos']]);
         const dg = {};
@@ -838,10 +838,11 @@ module.exports = async (req, res) => {
       const reg = json(v) || (email ? null : { slug, nome: (CATALOGO[slug] || {}).nome || slug, criado: new Date().toISOString() });
       if (!reg) return res.status(404).json({ ok: false, erro: 'Contato não encontrado.' });
       const kFoto = 'area:foto:' + (email ? 'p:' + slug + ':' + email : 'emp:' + slug);
-      if (b.remover) { delete reg.foto; await redis([['DEL', kFoto], ['SET', kReg, JSON.stringify(reg)]]); return res.json({ ok: true, foto: '' }); }
+      if (b.remover) { delete reg.foto; delete reg.fotoOrigem; await redis([['DEL', kFoto], ['SET', kReg, JSON.stringify(reg)]]); return res.json({ ok: true, foto: '' }); }
       const d = String(b.dados || '');
       if (!/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(d) || d.length > 400000) return res.status(400).json({ ok: false, erro: 'Imagem inválida ou grande demais.' });
       reg.foto = Date.now().toString(36);
+      reg.fotoOrigem = /^@[a-z0-9._]{1,30}$/.test(b.origem || '') ? b.origem : 'upload';
       await redis([['SET', kFoto, d], ['SET', kReg, JSON.stringify(reg)]].concat(email ? [] : [['SADD', 'area:emps', slug]]));
       return res.json({ ok: true, foto: reg.foto });
     }

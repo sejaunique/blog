@@ -752,7 +752,8 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
       $('f-dados').onsubmit=function(ev){ ev.preventDefault(); var fm=this; if(CF.confere(fm)) return; var o=leForm(fm,C);
         post({a:'admin-dados',slug:e.slug,nome:fm.elements.nome.value,dados:o}).then(function(r){ if(!r.ok){toast(r.erro||'Erro.');return;} e.dados=r.dados; e.nome=r.nome; e.num=r.num; e.editado=new Date().toISOString(); toast('Dados salvos.'); lista(); detalhe(); }); };
     })();
-    CF.ligaFoto($('e-foto'),{slug:e.slug,insta:function(){ return dadosDe(e).instagram; },depois:function(v){ e.foto=v; detalhe(); }});
+    CF.ligaFoto($('e-foto'),{slug:e.slug,insta:function(){ var f=$('f-dados'); return (f&&f.elements.instagram.value)||dadosDe(e).instagram; },estado:function(){ return {foto:e.foto,origem:e.fotoOrigem}; },campo:$('f-dados')&&$('f-dados').elements.instagram,
+      depois:function(v,o){ e.foto=v; e.fotoOrigem=o; $('e-foto').innerHTML=CF.avatar(e.nome,e.slug,'',v,'ini')+CF.fotoBotoes(!!v); }});
     $('e-etapa').onchange=function(){ crm(e.slug,{etapa:this.value}).then(function(){toast('Etapa atualizada.'); lista();}); };
     $('e-tags').onchange=function(){ crm(e.slug,{tags:[].map.call(this.querySelectorAll(':checked'),function(i){return i.value;})}).then(detalhe); };
     $('e-agenda').onclick=function(){ agenda({titulo:'Reunião Unique · '+e.nome,inicio:'',slug:e.slug,emails:e.usuarios.map(function(x){return x.email;})}); };
@@ -797,7 +798,9 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
       if(ev.target.closest('[data-pfx]')) ev.target.closest('form').hidden=true; };
     [].forEach.call($('e-pessoas').querySelectorAll('[data-pf]'),function(f){ CF.liga(f); });
     [].forEach.call($('e-pessoas').querySelectorAll('[data-pfoto]'),function(box){ var u=e.usuarios.filter(function(x){return x.email===box.dataset.pfoto;})[0];
-      CF.ligaFoto(box,{slug:e.slug,email:u.email,insta:function(){ var f=box.closest('form'); return (f&&f.elements.instagram&&f.elements.instagram.value)||(u.crm||{}).instagram; },depois:function(v){ u.foto=v; ABRE_PESSOA=u.email; pessoas(e); var pf=$('e-pessoas').querySelector('[data-pf="'+u.email+'"]'); if(pf) pf.hidden=false; ABRE_PESSOA=''; }}); });
+      var fm=box.closest('form');
+      CF.ligaFoto(box,{slug:e.slug,email:u.email,insta:function(){ return (fm.elements.instagram&&fm.elements.instagram.value)||(u.crm||{}).instagram; },estado:function(){ return {foto:u.foto,origem:u.fotoOrigem}; },campo:fm.elements.instagram,
+        depois:function(v,o){ u.foto=v; u.fotoOrigem=o; box.innerHTML=CF.avatar(u.nome,e.slug,u.email,v,'mini-av grande')+CF.fotoBotoes(!!v); var li=box.closest('.li'), av=li&&li.querySelector('h4 .mini-av'); if(av){ var t=document.createElement('div'); t.innerHTML=CF.avatar(u.nome,e.slug,u.email,v,'mini-av'); av.replaceWith(t.firstChild); } }}); });
     $('e-pessoas').onsubmit=function(ev){ ev.preventDefault(); var f=ev.target; if(!f.dataset.pf||CF.confere(f)) return;
       post({a:'admin-pessoa-dados',slug:e.slug,email:f.dataset.pf,nome:f.elements.nome.value,whatsapp:f.elements.whatsapp.value,dados:leForm(f,CD('pessoa'))}).then(function(r){ if(!r.ok){toast(r.erro||'Erro.');return;}
         e.usuarios=e.usuarios.map(function(x){return x.email===r.pessoa.email?r.pessoa:x;}); toast('Contato salvo.'); pessoas(e); }); };

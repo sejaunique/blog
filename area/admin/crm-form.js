@@ -109,24 +109,76 @@
         var cx=cv.getContext('2d'); cx.fillStyle='#fff'; cx.fillRect(0,0,320,320); cx.drawImage(img,(img.naturalWidth-l)/2,(img.naturalHeight-l)/2,l,l,0,0,320,320); ok(cv.toDataURL('image/jpeg',0.85)); };
       img.onerror=function(){ erro(); };
       if(typeof fonte==='string') img.src=fonte; else { var fr=new FileReader(); fr.onload=function(){ img.src=fr.result; }; fr.onerror=erro; fr.readAsDataURL(fonte); } }); }
+    /* editor de enquadramento: arrastar para posicionar, zoom pela barra, roda do mouse ou pinça */
+    function estiloEditor(){ if(document.getElementById('crop-css')) return; var st=document.createElement('style'); st.id='crop-css';
+      st.textContent='.crop-veu{position:fixed;inset:0;z-index:90;background:rgba(5,8,25,.72);display:grid;place-items:center;padding:16px}'+
+        '.crop-box{background:var(--bg,#fff);color:var(--fg,#000);border-radius:24px;padding:18px;width:min(340px,100%);display:grid;gap:14px;box-shadow:0 20px 60px rgba(0,0,0,.35)}'+
+        '.crop-box h3{margin:0;font-size:1.05rem}.crop-box p{margin:-8px 0 0;font-size:.78rem;opacity:.7}'+
+        '.crop-palco{position:relative;width:280px;height:280px;margin:0 auto;overflow:hidden;border-radius:18px;background:#111;touch-action:none;cursor:grab;user-select:none}'+
+        '.crop-palco img{position:absolute;left:0;top:0;transform-origin:0 0;max-width:none;pointer-events:none;-webkit-user-drag:none}'+
+        '.crop-palco i{position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 400px rgba(0,0,0,.55);border:2px solid rgba(255,255,255,.9);pointer-events:none}'+
+        '.crop-zoom{display:flex;align-items:center;gap:10px;font-size:.8rem}.crop-zoom input{flex:1;accent-color:#00c46a}'+
+        '.crop-bts{display:flex;gap:8px;justify-content:flex-end}.crop-bts button{font:inherit;font-weight:700;font-size:.86rem;border-radius:999px;padding:11px 18px;cursor:pointer;border:1px solid rgba(128,128,128,.35);background:transparent;color:inherit}'+
+        '.crop-bts .ok{background:var(--fg,#000);color:var(--bg,#fff);border-color:transparent}';
+      document.head.appendChild(st); }
+    function editor(fonte){ estiloEditor(); return new Promise(function(fim){
+      var L=280, veu=document.createElement('div'); veu.className='crop-veu';
+      veu.innerHTML='<div class="crop-box" role="dialog" aria-label="Ajustar foto"><h3>Ajustar foto</h3><p>Arraste para posicionar e use o zoom para enquadrar na bolinha.</p><div class="crop-palco"><img alt=""><i></i></div>'+
+        '<label class="crop-zoom"><span>−</span><input type="range" min="1" max="4" step="0.01" value="1" aria-label="Zoom"><span>+</span></label><div class="crop-bts"><button type="button" data-x>Cancelar</button><button type="button" class="ok" data-ok>Salvar foto</button></div></div>';
+      document.body.appendChild(veu);
+      var palco=veu.querySelector('.crop-palco'), img=veu.querySelector('img'), rg=veu.querySelector('input'), w=0,h=0,base=1,z=1,x=0,y=0, pts={}, pinca=null;
+      function S(){ return base*z; }
+      function prende(){ var s=S(); x=Math.min(0,Math.max(L-w*s,x)); y=Math.min(0,Math.max(L-h*s,y)); }
+      function desenha(){ prende(); img.style.transform='translate('+x+'px,'+y+'px) scale('+S()+')'; }
+      function zoom(nz,cx,cy){ nz=Math.max(1,Math.min(4,nz)); if(cx==null){cx=L/2;cy=L/2;} var s0=S(); z=nz; var s1=S(); x=cx-(cx-x)*s1/s0; y=cy-(cy-y)*s1/s0; rg.value=z; desenha(); }
+      img.onload=function(){ w=img.naturalWidth; h=img.naturalHeight; base=L/Math.min(w,h); z=1; x=(L-w*base)/2; y=(L-h*base)/2; desenha(); };
+      img.onerror=function(){ op.toast('Não consegui abrir essa imagem.'); sai(null); };
+      if(typeof fonte==='string') img.src=fonte; else { var fr=new FileReader(); fr.onload=function(){ img.src=fr.result; }; fr.readAsDataURL(fonte); }
+      rg.oninput=function(){ zoom(+rg.value); };
+      palco.addEventListener('wheel',function(ev){ ev.preventDefault(); var r=palco.getBoundingClientRect(); zoom(z*(ev.deltaY<0?1.08:1/1.08),ev.clientX-r.left,ev.clientY-r.top); },{passive:false});
+      palco.addEventListener('pointerdown',function(ev){ palco.setPointerCapture(ev.pointerId); pts[ev.pointerId]={x:ev.clientX,y:ev.clientY}; palco.style.cursor='grabbing'; });
+      palco.addEventListener('pointermove',function(ev){ var p=pts[ev.pointerId]; if(!p) return; var ids=Object.keys(pts);
+        if(ids.length>=2){ var a=pts[ids[0]], b=pts[ids[1]]; p.x=ev.clientX; p.y=ev.clientY; var d=Math.hypot(a.x-b.x,a.y-b.y), r=palco.getBoundingClientRect();
+          if(pinca){ zoom(pinca.z*d/pinca.d,(a.x+b.x)/2-r.left,(a.y+b.y)/2-r.top); } else pinca={d:d,z:z}; return; }
+        x+=ev.clientX-p.x; y+=ev.clientY-p.y; p.x=ev.clientX; p.y=ev.clientY; desenha(); });
+      function solta(ev){ delete pts[ev.pointerId]; if(Object.keys(pts).length<2) pinca=null; palco.style.cursor='grab'; }
+      palco.addEventListener('pointerup',solta); palco.addEventListener('pointercancel',solta);
+      function sai(v){ document.removeEventListener('keydown',tecla); veu.remove(); fim(v); }
+      function tecla(ev){ if(ev.key==='Escape') sai(null); }
+      document.addEventListener('keydown',tecla);
+      veu.querySelector('[data-x]').onclick=function(){ sai(null); };
+      veu.onclick=function(ev){ if(ev.target===veu) sai(null); };
+      veu.querySelector('[data-ok]').onclick=function(){ if(!w){ sai(null); return; } var cv=document.createElement('canvas'), k=320/L; cv.width=cv.height=320; var cx=cv.getContext('2d'); cx.fillStyle='#fff'; cx.fillRect(0,0,320,320);
+        cx.drawImage(img,x*k,y*k,w*S()*k,h*S()*k); try{ sai(cv.toDataURL('image/jpeg',0.86)); }catch(e){ op.toast('Não foi possível usar essa imagem.'); sai(null); } };
+    }); }
     function fotoBotoes(tem){ var c=app?'bt peq':'pill';
-      return '<div class="foto-acoes"><button type="button" class="'+c+'" data-foto-insta>'+'Puxar do Instagram</button><label class="'+c+'" style="cursor:pointer">Enviar foto<input type="file" accept="image/*" data-foto-arq hidden></label>'+(tem?'<button type="button" class="'+c+'" data-foto-del>Remover</button>':'')+'</div>'; }
-    // liga os botões de foto dentro de "raiz". cfg: {slug, email?, insta(): '@perfil' já cadastrado, depois(v)}
+      return '<div class="foto-acoes"><button type="button" class="'+c+'" data-foto-insta>Puxar do Instagram</button><label class="'+c+'" style="cursor:pointer">Enviar foto<input type="file" accept="image/*" data-foto-arq hidden></label>'+(tem?'<button type="button" class="'+c+'" data-foto-ajusta>Ajustar</button><button type="button" class="'+c+'" data-foto-del>Remover</button>':'')+'</div>'; }
+    var TENTOU={};
+    function limpaInsta(v){ return String(v||'').trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i,'').replace(/[/?#].*$/,'').replace(/^@+/,'').toLowerCase(); }
+    // liga os botões de foto dentro de "raiz". cfg: {slug, email?, insta(): @ atual, estado(): {foto, origem}, campo: input do Instagram (opcional), depois(v)}
     function ligaFoto(raiz,cfg){
-      function salva(d){ return op.post({a:'admin-foto',slug:cfg.slug,email:cfg.email||'',dados:d}).then(function(r){ if(!r.ok){ op.toast(r.erro||'Não foi possível salvar a foto.'); return; } op.toast('Foto atualizada.'); cfg.depois(r.foto); }); }
+      var chave=cfg.slug+'|'+(cfg.email||'');
+      function salva(d,origem,quieto){ return op.post({a:'admin-foto',slug:cfg.slug,email:cfg.email||'',dados:d,origem:origem||'upload'}).then(function(r){ if(!r.ok){ if(!quieto) op.toast(r.erro||'Não foi possível salvar a foto.'); return; } op.toast(quieto?'Foto do Instagram puxada.':'Foto atualizada.'); cfg.depois(r.foto,origem||'upload'); }); }
+      function doInsta(h,quieto,btn){ h=limpaInsta(h); if(!/^[a-z0-9._]{1,30}$/.test(h)){ if(!quieto) op.toast('Informe um @ do Instagram válido.'); return; }
+        TENTOU[chave+'@'+h]=1; var t=btn&&btn.textContent; if(btn){ btn.disabled=true; btn.textContent='Buscando…'; }
+        op.get('?a=admin-foto-insta&u='+encodeURIComponent(h)).then(function(r){ if(btn){ btn.disabled=false; btn.textContent=t; }
+          if(!r||!r.ok){ if(!quieto) op.toast((r&&r.erro)||'Não consegui puxar a foto.'); return; }
+          return reduz(r.dados).then(function(d){ return salva(d,'@'+h,quieto); },function(){ if(!quieto) op.toast('A imagem do Instagram veio com problema. Use "Enviar foto".'); }); }).catch(function(){ if(btn){ btn.disabled=false; btn.textContent=t; } }); }
+      // automático: quando o @ muda (e a foto atual não foi enviada à mão) ou ao abrir uma ficha com @ e sem foto
+      function podeAuto(h){ var e=cfg.estado?cfg.estado():{}; h='@'+limpaInsta(h); if(h==='@') return false; if(!e.foto) return true; return /^@/.test(e.origem||'')&&e.origem!==h; }
+      if(cfg.campo) cfg.campo.addEventListener('change',function(){ var v=cfg.campo.value; if(valido('insta',v)&&podeAuto(v)) doInsta(v,true); });
+      var ini=cfg.insta&&cfg.insta(); if(ini&&valido('insta',ini)&&!(cfg.estado&&cfg.estado().foto)&&!TENTOU[chave+'@'+limpaInsta(ini)]) doInsta(ini,true);
       raiz.addEventListener('click',function(ev){
-        var b=ev.target.closest('[data-foto-insta],[data-foto-del]'); if(!b||!raiz.contains(b)) return; ev.preventDefault();
-        if(b.hasAttribute('data-foto-del')){ op.post({a:'admin-foto',slug:cfg.slug,email:cfg.email||'',remover:true}).then(function(r){ if(r.ok){ op.toast('Foto removida.'); cfg.depois(''); } }); return; }
+        var b=ev.target.closest('[data-foto-insta],[data-foto-del],[data-foto-ajusta]'); if(!b||!raiz.contains(b)) return; ev.preventDefault();
+        if(b.hasAttribute('data-foto-del')){ op.post({a:'admin-foto',slug:cfg.slug,email:cfg.email||'',remover:true}).then(function(r){ if(r.ok){ op.toast('Foto removida.'); cfg.depois('',''); } }); return; }
+        if(b.hasAttribute('data-foto-ajusta')){ var e=cfg.estado?cfg.estado():{}; if(!e.foto) return; editor(fotoUrl(cfg.slug,cfg.email,e.foto)).then(function(d){ if(d) salva(d,e.origem||'upload'); }); return; }
         var h=(cfg.insta&&cfg.insta())||''; if(!h){ h=prompt('Qual o @ do Instagram?'); if(!h) return; }
-        b.disabled=true; var t=b.textContent; b.textContent='Buscando…';
-        op.get('?a=admin-foto-insta&u='+encodeURIComponent(h)).then(function(r){ b.disabled=false; b.textContent=t;
-          if(!r||!r.ok){ op.toast((r&&r.erro)||'Não consegui puxar a foto.'); return; }
-          return reduz(r.dados).then(salva,function(){ op.toast('A imagem do Instagram veio com problema. Use "Enviar foto".'); }); }).catch(function(){ b.disabled=false; b.textContent=t; op.toast('Sem conexão.'); });
+        doInsta(h,false,b);
       });
       raiz.addEventListener('change',function(ev){ var i=ev.target; if(!i.hasAttribute||!i.hasAttribute('data-foto-arq')||!i.files[0]) return;
-        if(!/^image\//.test(i.files[0].type)){ op.toast('Escolha uma imagem.'); return; }
-        reduz(i.files[0]).then(salva,function(){ op.toast('Não consegui ler essa imagem.'); }); i.value=''; });
+        var arq=i.files[0]; i.value=''; if(!/^image\//.test(arq.type)){ op.toast('Escolha uma imagem.'); return; }
+        editor(arq).then(function(d){ if(d) salva(d,'upload'); }); });
     }
-    return { vazio:vazio, fotoUrl:fotoUrl, avatar:avatar, fotoBotoes:fotoBotoes, ligaFoto:ligaFoto, reduz:reduz, valTxt:valTxt, campoForm:campoForm, formCampos:formCampos, leForm:leForm, liga:liga, confere:confere, normSel:normSel };
+    return { vazio:vazio, fotoUrl:fotoUrl, avatar:avatar, fotoBotoes:fotoBotoes, ligaFoto:ligaFoto, reduz:reduz, editor:editor, valTxt:valTxt, campoForm:campoForm, formCampos:formCampos, leForm:leForm, liga:liga, confere:confere, normSel:normSel };
   };
 })();

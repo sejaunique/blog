@@ -143,10 +143,38 @@ async function fotoInstagram(valor) {
     clearTimeout(t);
     if (r.ok) { const j = await r.json(); const u = j && j.data && j.data.user; if (u) url = u.profile_pic_url_hd || u.profile_pic_url || ''; }
   } catch (e) { /* segue para a reserva */ }
+  // reserva 1: a página pública do perfil traz a foto na etiqueta og:image (a mesma que aparece ao compartilhar o link)
+  if (!url) {
+    try {
+      const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 7000);
+      const r = await fetch('https://www.instagram.com/' + h + '/', { signal: ctl.signal, headers: { 'User-Agent': 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)', 'Accept-Language': 'pt-BR' } });
+      clearTimeout(t);
+      if (r.ok) { const html = await r.text(); const m = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i) || html.match(/content=["']([^"']+)["'][^>]+property=["']og:image["']/i); if (m) url = m[1].replace(/&amp;/g, '&'); }
+    } catch (e) { /* segue */ }
+  }
   let dados = url ? await imagem(url) : null;
+  // reserva 2: unavatar.io
   if (!dados) dados = await imagem('https://unavatar.io/instagram/' + h + '?fallback=false');
   if (!dados) return { ok: false, erro: 'O Instagram não liberou a foto de @' + h + ' agora. Use "Enviar foto".' };
   return { ok: true, dados, perfil: '@' + h };
 }
 
-module.exports = { cnpj, cep, cidades, segmentoCnae, fotoInstagram };
+// Foto automática a partir do @: salva se ainda não houver foto, ou se a atual veio de outro @ do Instagram.
+// Nunca troca uma foto que você enviou à mão.
+async function fotoAuto(redis, slug, email, insta) {
+  try {
+    const h = String(insta || '').trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/[/?#].*$/, '').replace(/^@+/, '').toLowerCase();
+    if (!/^[a-z0-9._]{1,30}$/.test(h)) return null;
+    const kReg = email ? 'area:user:' + slug + ':' + email : 'area:emp:' + slug;
+    const [v] = await redis([['GET', kReg]]); const reg = json(v); if (!reg) return null;
+    if (reg.foto && reg.fotoOrigem !== undefined && reg.fotoOrigem === '@' + h) return null;
+    if (reg.foto && !(reg.fotoOrigem || '').startsWith('@')) return null;
+    const f = await fotoInstagram(h);
+    if (!f.ok || f.dados.length > 400000) return null;
+    reg.foto = Date.now().toString(36); reg.fotoOrigem = '@' + h;
+    await redis([['SET', 'area:foto:' + (email ? 'p:' + slug + ':' + email : 'emp:' + slug), f.dados], ['SET', kReg, JSON.stringify(reg)]]);
+    return reg.foto;
+  } catch (e) { return null; }
+}
+
+module.exports = { cnpj, cep, cidades, segmentoCnae, fotoInstagram, fotoAuto };

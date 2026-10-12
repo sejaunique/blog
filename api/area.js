@@ -379,6 +379,18 @@ module.exports = async (req, res) => {
         return res.json({ ok: true, modelos, andamento, proprias });
       }
 
+      // arquivos da empresa no Google Drive (admin com ?e=slug; o cliente vê os da própria empresa)
+      if (q.a === 'arquivos') {
+        const slug = s.admin ? slugify(q.e) : s.slug;
+        if (!(await empresa(slug))) return res.status(404).json({ ok: false });
+        const DR = require('./_area/drive.js');
+        const p = await DR.pronto(redis);
+        if (!p.ok) return res.json({ ok: true, drive: false, falta: p.falta });
+        const pasta = await DR.pastaEmpresa(redis, slug);
+        if (!pasta) return res.json({ ok: true, drive: false, falta: 'erro' });
+        const arquivos = await DR.lista(redis, pasta.id);
+        return res.json({ ok: true, drive: true, pasta: { link: pasta.link }, arquivos: arquivos || [] });
+      }
       if (q.a === 'conteudo') {
         const slug = s.admin ? slugify(q.e) : s.slug;
         const e = await empresa(slug);
@@ -473,6 +485,25 @@ module.exports = async (req, res) => {
     }
 
     if (req.method !== 'POST') return res.status(405).json({ ok: false });
+
+    // ---------- envio de arquivo para a pasta do Drive da empresa (corpo bruto, até ~4 MB) ----------
+    if (q.a === 'arquivo-enviar') {
+      const s = await sessao(req);
+      if (!s) return res.status(401).json({ ok: false, erro: 'Entre na sua conta.' });
+      const slug = s.admin ? slugify(q.e) : s.slug;
+      const DR = require('./_area/drive.js');
+      const p = await DR.pronto(redis);
+      if (!p.ok) return res.status(503).json({ ok: false, erro: 'A pasta de arquivos ainda não está ligada.' });
+      const dados = await lerCorpoBruto(req);
+      if (!dados.length) return res.status(400).json({ ok: false, erro: 'Arquivo vazio.' });
+      const pasta = await DR.pastaEmpresa(redis, slug);
+      if (!pasta) return res.status(502).json({ ok: false, erro: 'Não consegui abrir a pasta da empresa.' });
+      const nome = limpo(q.nome, 160) || 'arquivo';
+      const f = await DR.envia(redis, pasta.id, nome, limpo(q.tipo, 100).replace(/[^\w.+\/-]/g, ''), dados);
+      if (!f) return res.status(502).json({ ok: false, erro: 'Falha ao enviar para o Drive.' });
+      if (!s.admin) await notifica(redis, { titulo: 'Arquivo recebido', texto: s.nome + ' enviou ' + nome, url: '/area/admin/#empresas/' + slug });
+      return res.json({ ok: true, arquivo: { id: f.id, nome: f.name, link: f.webViewLink } });
+    }
 
     // ---------- upload (corpo bruto) ----------
     if (q.a === 'admin-upload') {

@@ -7,7 +7,7 @@
 
 const SITE = 'https://sejaunique.vercel.app';
 const VOLTA = SITE + '/api/agenda?a=volta';
-const ESCOPO = 'https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/userinfo.email openid';
+const ESCOPO = 'https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/userinfo.email openid';
 const API = 'https://www.googleapis.com/calendar/v3/calendars/primary/events';
 const json = s => { try { return s ? JSON.parse(s) : null; } catch (e) { return null; } };
 
@@ -63,7 +63,7 @@ async function trocaCodigo(redis, code) {
   if (!j.refresh_token) return { ok: false, erro: j.error_description || j.error || 'O Google não devolveu o acesso permanente.' };
   let email = '';
   try { const u = await (await fetch('https://openidconnect.googleapis.com/v1/userinfo', { headers: { Authorization: 'Bearer ' + j.access_token } })).json(); email = u.email || ''; } catch (e) { /* segue */ }
-  await redis([['SET', 'area:google:conta', JSON.stringify({ refresh: j.refresh_token, email, conectado: new Date().toISOString() })], ['SET', 'area:google:token', j.access_token, 'EX', Math.max(60, (j.expires_in || 3600) - 120)]]);
+  await redis([['SET', 'area:google:conta', JSON.stringify({ refresh: j.refresh_token, email, escopos: j.scope || '', conectado: new Date().toISOString() })], ['SET', 'area:google:token', j.access_token, 'EX', Math.max(60, (j.expires_in || 3600) - 120)]]);
   return { ok: true, email };
 }
 
@@ -151,4 +151,4 @@ async function criaEvento(redis, d) {
   return r;
 }
 
-module.exports = { app, conta, urlConectar, trocaCodigo, sincroniza, eventos, criaEvento, g, API, VOLTA };
+module.exports = { app, conta, token, urlConectar, trocaCodigo, sincroniza, eventos, criaEvento, g, API, VOLTA };

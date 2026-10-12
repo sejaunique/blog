@@ -40,7 +40,7 @@ module.exports = async (req, res) => {
 
     if (req.method === 'GET' && q.a === 'status') {
       const a = await G.app(redis), c = await G.conta(redis);
-      return res.json({ ok: true, configurado: !!a, origem: a ? a.origem : '', conectado: !!(c && c.refresh && !c.erro), email: c ? c.email : '', erro: c && c.erro ? c.erro : '', volta: G.VOLTA });
+      return res.json({ ok: true, configurado: !!a, origem: a ? a.origem : '', conectado: !!(c && c.refresh && !c.erro), email: c ? c.email : '', drive: !!(c && /auth\/drive(\s|$)/.test(c.escopos || '')), erro: c && c.erro ? c.erro : '', volta: G.VOLTA });
     }
     if (req.method === 'GET' && q.a === 'conectar') {
       const a = await G.app(redis);

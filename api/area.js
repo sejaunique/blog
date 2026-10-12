@@ -390,7 +390,10 @@ module.exports = async (req, res) => {
           i.baixar = '/api/area?a=arquivo&e=' + slug + '&id=' + i.id;
           if (!s.admin) delete i.arquivo; // o cliente baixa pela API, que confere a empresa
         });
-        return res.json({ ok: true, empresa: { slug, nome: e.nome }, itens: c.itens, acoes: c.acoes, admin: !!s.admin });
+        // lista de leitura (posts do blog delegados a cada pessoa): o cliente vê só a dele
+        const [lH] = await redis([['HGETALL', 'area:leit:' + slug]]);
+        const leituras = lerPares(lH).map(([, v]) => json(v)).filter(Boolean).filter(l => s.admin || l.pessoa === s.email).sort((a, b) => String(a.criado).localeCompare(String(b.criado)));
+        return res.json({ ok: true, empresa: { slug, nome: e.nome }, itens: c.itens, acoes: c.acoes, leituras, admin: !!s.admin, eu: s.admin ? '' : s.email });
       }
 
       if (q.a === 'arquivo') {
@@ -603,6 +606,18 @@ module.exports = async (req, res) => {
       await redis([['HSET', 'area:acoes:' + slug, a.id, JSON.stringify(a)]]);
       if (!s.admin && b.status === 'feito') await notifica(redis, { titulo: 'Ação concluída', texto: s.nome + ' marcou como feita: ' + a.titulo, url: '/area/admin/#empresas/' + slug });
       return res.json({ ok: true, acao: a });
+    }
+
+    // marcar leitura como lida (a própria pessoa ou o admin)
+    if (b.a === 'leitura-lido') {
+      const slug = s.admin ? slugify(b.slug) : s.slug;
+      const [v] = await redis([['HGET', 'area:leit:' + slug, String(b.id || '')]]);
+      const l = json(v);
+      if (!l || (!s.admin && l.pessoa !== s.email)) return res.status(404).json({ ok: false });
+      l.lido = b.lido ? new Date().toISOString() : '';
+      await redis([['HSET', 'area:leit:' + slug, l.id, JSON.stringify(l)]]);
+      if (!s.admin && l.lido) await notifica(redis, { titulo: 'Leitura concluída', texto: s.nome + ' leu: ' + l.titulo, url: '/area/admin/#contatos/' + encodeURIComponent(slug + '|' + s.email) });
+      return res.json({ ok: true, leitura: l });
     }
 
     if (b.a === 'curtir' || b.a === 'comentar' || b.a === 'comentar-del' || b.a === 'publico') {
@@ -847,6 +862,27 @@ module.exports = async (req, res) => {
     }
 
     // conexão oficial com a Meta (o Carlos cola as credenciais; nada disso volta para a tela)
+    // lista de leitura: posts do blog delegados a uma pessoa
+    if (b.a === 'admin-leitura') {
+      const email = limpo(b.email, 120).toLowerCase();
+      const posts = (Array.isArray(b.posts) ? b.posts : []).slice(0, 40);
+      if (!emailOk(email) || !posts.length) return res.status(400).json({ ok: false, erro: 'Escolha ao menos um post.' });
+      const [lH] = await redis([['HGETALL', 'area:leit:' + slug]]);
+      const ja = {}; lerPares(lH).forEach(([, v]) => { const l = json(v); if (l) ja[l.pessoa + '|' + l.post] = 1; });
+      const cmds = [], novos = [];
+      posts.forEach(p => {
+        const post = String(p.slug || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 120);
+        if (!post || ja[email + '|' + post]) return;
+        const l = { id: novoId(), post, titulo: limpo(String(p.titulo || '').replace(/==/g, ''), 200), url: '/blog/#' + post, pessoa: email, criado: new Date().toISOString(), lido: '' };
+        cmds.push(['HSET', 'area:leit:' + slug, l.id, JSON.stringify(l)]); novos.push(l); ja[email + '|' + post] = 1;
+      });
+      if (cmds.length) await redis(cmds);
+      return res.json({ ok: true, novos });
+    }
+    if (b.a === 'admin-leitura-del') {
+      await redis([['HDEL', 'area:leit:' + slug, String(b.id || '')]]);
+      return res.json({ ok: true });
+    }
     if (b.a === 'admin-nota') {
       const texto = limpo(b.texto, 2000);
       if (!texto) return res.status(400).json({ ok: false, erro: 'Escreva a anotação.' });

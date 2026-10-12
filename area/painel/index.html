@@ -64,6 +64,13 @@
 .acao select{font:inherit;font-size:.78rem;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:var(--bg);color:var(--fg)}
 .acao select.st-fazendo{border-color:var(--alerta);color:var(--alerta)}
 .acao select.st-feito{border-color:var(--ok);color:var(--ok)}
+.leit{display:grid;gap:10px;margin-top:18px}
+.leit-n{margin:0 0 4px;font-size:.8rem;color:var(--muted)}
+.leit-i{display:grid;grid-template-columns:22px 1fr;gap:14px;align-items:start;border:1px solid var(--line);border-radius:18px;padding:16px 18px;cursor:pointer}
+.leit-i input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--verde-txt)}
+.leit-i a{font-weight:600;color:var(--fg);text-decoration:none;line-height:1.4}.leit-i a:hover{text-decoration:underline}
+.leit-i small{display:block;font-size:.74rem;color:var(--muted);margin-top:4px}
+.leit-i.ok{opacity:.6}.leit-i.ok a{text-decoration:line-through}
 .acao select.st-cancelado{border-color:var(--erro);color:var(--erro)}
 .acao.cancelado{opacity:.55}.acao.cancelado h3{text-decoration:line-through}
 .barra{height:6px;background:var(--ink-line);border-radius:999px;overflow:hidden;margin-top:10px}
@@ -112,6 +119,14 @@
       </div>
       <div class="plano" id="plano"></div>
     </section>
+
+    <section class="bloco" aria-labelledby="h-leit" id="sec-leit" hidden>
+      <div class="bloco-head">
+        <div><span class="spaced">Lista de leitura</span><h2 id="h-leit">Adquirir <span style="font-weight:200;font-style:italic">consciência</span></h2></div>
+        <p class="muted" style="margin:0;max-width:40ch;font-size:.88rem">Leituras que a Unique separou para você. Não são tarefas: é para entender o momento certo de cada passo. Marque quando ler.</p>
+      </div>
+      <div class="leit" id="leit"></div>
+    </section>
   </div>
 </main>
 <script>
@@ -146,7 +161,7 @@
       DADOS=d;
       document.getElementById('cap-emp').textContent='Área do cliente · '+d.empresa.nome;
       document.title=d.empresa.nome+' · Unique';
-      montaFiltros(); desenha(); plano();
+      montaFiltros(); desenha(); plano(); leitura();
     });
   }).catch(function(e){ if(e!==0) document.getElementById('cap-ola').textContent='Não foi possível carregar. Atualize a página.'; });
 
@@ -211,6 +226,15 @@
     document.getElementById('n-entregas').textContent=DADOS.itens.length;
   }
 
+  function leitura(){
+    var L=DADOS.leituras||[], sec=document.getElementById('sec-leit'), el=document.getElementById('leit');
+    sec.hidden=!L.length; if(!L.length) return;
+    var n=L.filter(function(l){return l.lido;}).length;
+    el.innerHTML='<p class="leit-n">'+n+' de '+L.length+' lidas</p>'+L.map(function(l){
+      return '<label class="leit-i'+(l.lido?' ok':'')+'"><input type="checkbox" data-l="'+esc(l.id)+'"'+(l.lido?' checked':'')+'><span><a href="'+esc(l.url)+'" target="_blank" rel="noopener">'+esc(l.titulo)+' ↗</a><small>'+(l.lido?'Lido':'Para ler')+'</small></span></label>'; }).join('');
+    el.onchange=function(ev){ var c=ev.target; if(!c.dataset.l) return; c.disabled=true;
+      api({body:{a:'leitura-lido',slug:DADOS.empresa.slug,id:c.dataset.l,lido:c.checked}}).then(function(r){ c.disabled=false; if(!r.ok) return; var l=L.filter(function(x){return x.id===c.dataset.l;})[0]; if(l) l.lido=r.leitura.lido; leitura(); }); };
+  }
   function plano(){
     var TODAS=DADOS.acoes, A=TODAS.filter(function(a){return a.status!=='arquivado';}), ARQ=TODAS.filter(function(a){return a.status==='arquivado';}), hoje=new Date().toISOString().slice(0,10), el=document.getElementById('plano');
     var feitas=A.filter(function(a){return a.status==='feito';}).length, VAL=A.filter(function(a){return a.status!=='cancelado';});

@@ -120,4 +120,33 @@ async function cidades(redis, uf) {
   return { ok: true, cidades: L };
 }
 
-module.exports = { cnpj, cep, cidades, segmentoCnae };
+// Foto de perfil do Instagram: tenta a API pública do Instagram e, se bloquear, o unavatar.io.
+// Devolve a imagem como data URL (o navegador recorta e reduz antes de salvar).
+async function imagem(url, ms) {
+  const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), ms || 8000);
+  try {
+    const r = await fetch(url, { signal: ctl.signal, headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36' } });
+    const tipo = r.headers.get('content-type') || '';
+    if (!r.ok || !/^image\//.test(tipo)) return null;
+    const b = Buffer.from(await r.arrayBuffer());
+    if (b.length < 500 || b.length > 3 * 1024 * 1024) return null;
+    return 'data:' + tipo.split(';')[0] + ';base64,' + b.toString('base64');
+  } catch (e) { return null; } finally { clearTimeout(t); }
+}
+async function fotoInstagram(valor) {
+  const h = String(valor || '').trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/[/?#].*$/, '').replace(/^@+/, '').toLowerCase();
+  if (!/^[a-z0-9._]{1,30}$/.test(h)) return { ok: false, erro: 'Informe um @ do Instagram válido.' };
+  let url = '';
+  try {
+    const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 7000);
+    const r = await fetch('https://i.instagram.com/api/v1/users/web_profile_info/?username=' + h, { signal: ctl.signal, headers: { 'x-ig-app-id': '936619743392459', 'User-Agent': 'Instagram 219.0.0.12.117 Android', Accept: 'application/json' } });
+    clearTimeout(t);
+    if (r.ok) { const j = await r.json(); const u = j && j.data && j.data.user; if (u) url = u.profile_pic_url_hd || u.profile_pic_url || ''; }
+  } catch (e) { /* segue para a reserva */ }
+  let dados = url ? await imagem(url) : null;
+  if (!dados) dados = await imagem('https://unavatar.io/instagram/' + h + '?fallback=false');
+  if (!dados) return { ok: false, erro: 'O Instagram não liberou a foto de @' + h + ' agora. Use "Enviar foto".' };
+  return { ok: true, dados, perfil: '@' + h };
+}
+
+module.exports = { cnpj, cep, cidades, segmentoCnae, fotoInstagram };

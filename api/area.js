@@ -167,7 +167,7 @@ async function itemPorId(slug, id) {
 }
 function membro(s, slug) { return !!s && (s.admin || s.slug === slug); }
 
-function usuarioPublico(u) { return { email: u.email, nome: u.nome, whatsapp: u.whatsapp, status: u.status, criado: u.criado, ultimo: u.ultimo || '', origem: u.origem || '', crm: u.crm || {}, editado: u.editado || '' }; }
+function usuarioPublico(u) { return { email: u.email, nome: u.nome, whatsapp: u.whatsapp, status: u.status, criado: u.criado, ultimo: u.ultimo || '', origem: u.origem || '', crm: u.crm || {}, editado: u.editado || '', foto: u.foto || '' }; }
 
 // Ações do catálogo entram no plano da empresa uma única vez (area:acoes-cat:<slug> lembra quais já entraram),
 // então o status do cliente e as edições/exclusões do admin valem normalmente depois.
@@ -403,6 +403,23 @@ module.exports = async (req, res) => {
       }
 
       // preenchimento automático: CNPJ (Receita), CEP e cidades do IBGE
+      if (q.a === 'admin-foto-insta') {
+        if (!s.admin) return res.status(403).json({ ok: false });
+        return res.json(await CONSULTA.fotoInstagram(q.u));
+      }
+      // foto da empresa (k=emp:<slug>) ou do contato (k=p:<slug>:<email>): admin ou alguém da própria empresa
+      if (q.a === 'foto') {
+        const k = String(q.k || ''), m = k.match(/^(emp|p):([a-z0-9]{1,40})(?::(.{3,120}))?$/);
+        if (!m || !membro(s, m[2])) return res.status(404).end();
+        const [v] = await redis([['GET', 'area:foto:' + k]]);
+        if (!v) return res.status(404).end();
+        const mm = String(v).match(/^data:(image\/[a-z+]+);base64,(.+)$/);
+        if (!mm) return res.status(404).end();
+        res.setHeader('Content-Type', mm[1]);
+        res.setHeader('Cache-Control', 'private, max-age=31536000, immutable');
+        res.status(200);
+        return res.end(Buffer.from(mm[2], 'base64'));
+      }
       if (q.a === 'admin-cnpj' || q.a === 'admin-cep' || q.a === 'admin-cidades') {
         if (!s.admin) return res.status(403).json({ ok: false });
         const r = q.a === 'admin-cnpj' ? await CONSULTA.cnpj(redis, q.v) : q.a === 'admin-cep' ? await CONSULTA.cep(redis, q.v) : await CONSULTA.cidades(redis, q.v);
@@ -418,7 +435,7 @@ module.exports = async (req, res) => {
           const [e, emails, negH] = await redis([['GET', 'area:emp:' + slug], ['SMEMBERS', 'area:users:' + slug], ['HGETALL', 'area:neg:' + slug]]);
           const users = emails && emails.length ? await redis(emails.map(m => ['GET', 'area:user:' + slug + ':' + m])) : [];
           const ev = json(e) || { slug, nome: (CATALOGO[slug] || {}).nome || slug };
-          empresas.push({ slug, nome: ev.nome, num: ev.num || 0, dados: ev.dados || {}, editado: ev.editado || '', negocios: lerPares(negH).map(([, v]) => json(v)).filter(Boolean).sort((a, b) => String(b.criado).localeCompare(String(a.criado))), etapa: ETAPAS.indexOf(ev.etapa) >= 0 ? ev.etapa : (ev.origem === 'diagnostico' ? 'lead' : 'cliente'), tags: ev.tags || [], origem: ev.origem || '', criado: ev.criado || '', usuarios: users.map(json).filter(Boolean).map(usuarioPublico) });
+          empresas.push({ slug, nome: ev.nome, num: ev.num || 0, foto: ev.foto || '', dados: ev.dados || {}, editado: ev.editado || '', negocios: lerPares(negH).map(([, v]) => json(v)).filter(Boolean).sort((a, b) => String(b.criado).localeCompare(String(a.criado))), etapa: ETAPAS.indexOf(ev.etapa) >= 0 ? ev.etapa : (ev.origem === 'diagnostico' ? 'lead' : 'cliente'), tags: ev.tags || [], origem: ev.origem || '', criado: ev.criado || '', usuarios: users.map(json).filter(Boolean).map(usuarioPublico) });
         }
         const [dH, mH] = await redis([['HGETALL', 'area:diag'], ['HGETALL', 'area:modelos']]);
         const dg = {};
@@ -811,6 +828,22 @@ module.exports = async (req, res) => {
       if (nome) e.nome = nome;
       await redis([['SET', 'area:emp:' + slug, JSON.stringify(e)], ['SADD', 'area:emps', slug]]);
       return res.json({ ok: true, dados: d, nome: e.nome, num: e.num });
+    }
+
+    // foto da empresa ou do contato (já recortada e reduzida no navegador)
+    if (b.a === 'admin-foto') {
+      const email = b.email ? limpo(b.email, 120).toLowerCase() : '';
+      const kReg = email ? 'area:user:' + slug + ':' + email : 'area:emp:' + slug;
+      const [v] = await redis([['GET', kReg]]);
+      const reg = json(v) || (email ? null : { slug, nome: (CATALOGO[slug] || {}).nome || slug, criado: new Date().toISOString() });
+      if (!reg) return res.status(404).json({ ok: false, erro: 'Contato não encontrado.' });
+      const kFoto = 'area:foto:' + (email ? 'p:' + slug + ':' + email : 'emp:' + slug);
+      if (b.remover) { delete reg.foto; await redis([['DEL', kFoto], ['SET', kReg, JSON.stringify(reg)]]); return res.json({ ok: true, foto: '' }); }
+      const d = String(b.dados || '');
+      if (!/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(d) || d.length > 400000) return res.status(400).json({ ok: false, erro: 'Imagem inválida ou grande demais.' });
+      reg.foto = Date.now().toString(36);
+      await redis([['SET', kFoto, d], ['SET', kReg, JSON.stringify(reg)]].concat(email ? [] : [['SADD', 'area:emps', slug]]));
+      return res.json({ ok: true, foto: reg.foto });
     }
 
     // dados de CRM de uma pessoa (modelo PESSOA)

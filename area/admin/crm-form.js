@@ -99,6 +99,34 @@
       [].forEach.call(fm.querySelectorAll('[data-mask]'),function(el){ if(el.value&&!valido(el.dataset.mask,el.value)){ dica(fm,el.name,ERRO[el.dataset.mask],'erro'); if(!erro){ erro=(el.closest('label,.campo').querySelector('label')||el.closest('label')).firstChild.textContent+': '+ERRO[el.dataset.mask]; el.focus(); } } });
       var em=fm.querySelector('input[type=email]'); if(!erro&&em&&em.value&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em.value)){ erro='E-mail inválido.'; em.focus(); }
       if(erro&&op.toast) op.toast(erro); return erro; }
-    return { vazio:vazio, valTxt:valTxt, campoForm:campoForm, formCampos:formCampos, leForm:leForm, liga:liga, confere:confere, normSel:normSel };
+    /* ---- fotos de empresa e contato ---- */
+    function fotoUrl(slug,email,v){ return v?'/api/area?a=foto&k='+encodeURIComponent(email?'p:'+slug+':'+email:'emp:'+slug)+'&v='+v:''; }
+    function avatar(nome,slug,email,v,cls){ var u=fotoUrl(slug,email,v), ini=String(nome||'?').split(/\s+/).filter(Boolean).slice(0,2).map(function(x){return x[0];}).join('').toUpperCase();
+      return '<span class="'+(cls||'')+' tem-foto"'+(u?'':' data-sem')+'>'+(u?'<img src="'+u+'" alt="" loading="lazy">':esc(ini))+'</span>'; }
+    // recorta no centro em quadrado e reduz para 320px (JPEG), para guardar leve
+    function reduz(fonte){ return new Promise(function(ok,erro){
+      var img=new Image(); img.onload=function(){ var l=Math.min(img.naturalWidth,img.naturalHeight); if(!l){ erro(); return; } var cv=document.createElement('canvas'); cv.width=cv.height=320;
+        var cx=cv.getContext('2d'); cx.fillStyle='#fff'; cx.fillRect(0,0,320,320); cx.drawImage(img,(img.naturalWidth-l)/2,(img.naturalHeight-l)/2,l,l,0,0,320,320); ok(cv.toDataURL('image/jpeg',0.85)); };
+      img.onerror=function(){ erro(); };
+      if(typeof fonte==='string') img.src=fonte; else { var fr=new FileReader(); fr.onload=function(){ img.src=fr.result; }; fr.onerror=erro; fr.readAsDataURL(fonte); } }); }
+    function fotoBotoes(tem){ var c=app?'bt peq':'pill';
+      return '<div class="foto-acoes"><button type="button" class="'+c+'" data-foto-insta>'+'Puxar do Instagram</button><label class="'+c+'" style="cursor:pointer">Enviar foto<input type="file" accept="image/*" data-foto-arq hidden></label>'+(tem?'<button type="button" class="'+c+'" data-foto-del>Remover</button>':'')+'</div>'; }
+    // liga os botões de foto dentro de "raiz". cfg: {slug, email?, insta(): '@perfil' já cadastrado, depois(v)}
+    function ligaFoto(raiz,cfg){
+      function salva(d){ return op.post({a:'admin-foto',slug:cfg.slug,email:cfg.email||'',dados:d}).then(function(r){ if(!r.ok){ op.toast(r.erro||'Não foi possível salvar a foto.'); return; } op.toast('Foto atualizada.'); cfg.depois(r.foto); }); }
+      raiz.addEventListener('click',function(ev){
+        var b=ev.target.closest('[data-foto-insta],[data-foto-del]'); if(!b||!raiz.contains(b)) return; ev.preventDefault();
+        if(b.hasAttribute('data-foto-del')){ op.post({a:'admin-foto',slug:cfg.slug,email:cfg.email||'',remover:true}).then(function(r){ if(r.ok){ op.toast('Foto removida.'); cfg.depois(''); } }); return; }
+        var h=(cfg.insta&&cfg.insta())||''; if(!h){ h=prompt('Qual o @ do Instagram?'); if(!h) return; }
+        b.disabled=true; var t=b.textContent; b.textContent='Buscando…';
+        op.get('?a=admin-foto-insta&u='+encodeURIComponent(h)).then(function(r){ b.disabled=false; b.textContent=t;
+          if(!r||!r.ok){ op.toast((r&&r.erro)||'Não consegui puxar a foto.'); return; }
+          return reduz(r.dados).then(salva,function(){ op.toast('A imagem do Instagram veio com problema. Use "Enviar foto".'); }); }).catch(function(){ b.disabled=false; b.textContent=t; op.toast('Sem conexão.'); });
+      });
+      raiz.addEventListener('change',function(ev){ var i=ev.target; if(!i.hasAttribute||!i.hasAttribute('data-foto-arq')||!i.files[0]) return;
+        if(!/^image\//.test(i.files[0].type)){ op.toast('Escolha uma imagem.'); return; }
+        reduz(i.files[0]).then(salva,function(){ op.toast('Não consegui ler essa imagem.'); }); i.value=''; });
+    }
+    return { vazio:vazio, fotoUrl:fotoUrl, avatar:avatar, fotoBotoes:fotoBotoes, ligaFoto:ligaFoto, reduz:reduz, valTxt:valTxt, campoForm:campoForm, formCampos:formCampos, leForm:leForm, liga:liga, confere:confere, normSel:normSel };
   };
 })();

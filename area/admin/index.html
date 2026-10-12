@@ -174,6 +174,12 @@ body{background:var(--ws-bg) fixed;color:var(--fg);font-family:var(--font);margi
 .busca{display:flex;align-items:center;gap:8px;border:1px solid var(--ws-line);border-radius:999px;padding:9px 14px;background:var(--ws-card2);margin-bottom:12px}
 .busca input{border:0;background:none;font:inherit;font-size:.85rem;color:inherit;outline:none;flex:1;min-width:0}
 .perfil{text-align:center;display:grid;justify-items:center;gap:8px;padding-top:6px}
+.tem-foto{overflow:hidden}
+.tem-foto img{width:100%;height:100%;object-fit:cover;display:block}
+.mini-av{width:34px;height:34px;border-radius:50%;background:var(--marinho);color:#fff;display:inline-grid;place-items:center;font-size:.7rem;font-weight:800;flex:none;letter-spacing:0}
+.mini-av.grande{width:64px;height:64px;font-size:1.1rem}
+.foto-acoes{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.foto-acoes .pill{font-size:.72rem;padding:6px 11px}
 .perfil .ini{width:92px;height:92px;border-radius:50%;background:var(--marinho);color:#fff;display:grid;place-items:center;font-size:2rem;font-weight:800;letter-spacing:-.04em}
 .perfil h3{margin:0;font-size:1.25rem;letter-spacing:-.02em}
 .perfil .bts{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:6px}
@@ -646,7 +652,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
       '<p class="muted" id="l-n" style="font-size:.74rem;margin:10px 2px 0"></p><div class="tbl-w"><table class="tbl"><thead><tr><th>Empresa</th><th>Segmento</th><th>Cidade / UF</th><th>Porte</th><th>Tipo de cliente</th><th>Grupo</th><th>Funil</th><th>Contatos</th><th>Negócios abertos</th></tr></thead><tbody id="l-corpo"></tbody></table></div></section>';
     function corpo(){ var L=filtra(); $('l-n').textContent=L.length+' de '+linhas.length+' empresas';
       $('l-corpo').innerHTML=L.length?L.map(function(l){ var e=l.e, d=l.d;
-        return '<tr data-e="'+esc(e.slug)+'" style="cursor:pointer"><td><div class="tit">'+esc(e.nome)+'</div><div class="det">'+esc(d.razao||'')+(d.cnpj?' · '+esc(d.cnpj):'')+'</div></td><td>'+esc(d.segmento||'–')+'</td><td>'+esc([d.cidade,d.uf].filter(Boolean).join(' / ')||'–')+'</td><td>'+esc(d.porte||'–')+'</td><td>'+esc(d.tipoCliente||'–')+'</td><td>'+esc(d.grupo||'–')+'</td>'+
+        return '<tr data-e="'+esc(e.slug)+'" style="cursor:pointer"><td><div style="display:flex;gap:10px;align-items:center">'+CF.avatar(e.nome,e.slug,'',e.foto,'mini-av')+'<div><div class="tit">'+esc(e.nome)+'</div><div class="det">'+esc(d.razao||'')+(d.cnpj?' · '+esc(d.cnpj):'')+'</div></div></div></td><td>'+esc(d.segmento||'–')+'</td><td>'+esc([d.cidade,d.uf].filter(Boolean).join(' / ')||'–')+'</td><td>'+esc(d.porte||'–')+'</td><td>'+esc(d.tipoCliente||'–')+'</td><td>'+esc(d.grupo||'–')+'</td>'+
           '<td><span style="color:'+ETAPA[e.etapa][1]+';font-weight:600;white-space:nowrap">● '+ETAPA[e.etapa][0]+'</span></td><td>'+e.usuarios.length+'</td><td style="white-space:nowrap">'+(l.nab?l.nab+' · <b>'+brl(l.aberto)+'</b>':'–')+'</td></tr>'; }).join(''):'<tr><td colspan="9" class="muted" style="text-align:center">Nenhuma empresa com esses filtros.</td></tr>'; }
     corpo();
     $('l-q').oninput=function(){ f.q=this.value; corpo(); };
@@ -674,7 +680,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
       '<p class="muted" id="l-n" style="font-size:.74rem;margin:10px 2px 0"></p><div class="tbl-w"><table class="tbl"><thead><tr><th>Nome</th><th>Empresa</th><th>Cargo</th><th>Influência</th><th>Tipo de contato</th><th>Telefone</th><th>E-mail</th><th>Cidade / UF</th><th>Acesso à área</th></tr></thead><tbody id="l-corpo"></tbody></table></div></section>';
     function corpo(){ var L=filtra(); $('l-n').textContent=L.length+' de '+L0.length+' contatos';
       $('l-corpo').innerHTML=L.length?L.map(function(x){ var u=x.u, c=x.c;
-        return '<tr data-e="'+esc(x.e.slug)+'" data-p="'+esc(u.email)+'" style="cursor:pointer"><td><div class="tit">'+esc(u.nome)+'</div></td><td>'+esc(x.e.nome)+'</td><td>'+esc(c.cargo||'–')+'</td><td>'+esc(c.influencia||'–')+'</td><td>'+esc(c.tipoContato||'–')+'</td>'+
+        return '<tr data-e="'+esc(x.e.slug)+'" data-p="'+esc(u.email)+'" style="cursor:pointer"><td><div style="display:flex;gap:10px;align-items:center">'+CF.avatar(u.nome,x.e.slug,u.email,u.foto,'mini-av')+'<div class="tit">'+esc(u.nome)+'</div></div></td><td>'+esc(x.e.nome)+'</td><td>'+esc(c.cargo||'–')+'</td><td>'+esc(c.influencia||'–')+'</td><td>'+esc(c.tipoContato||'–')+'</td>'+
           '<td style="white-space:nowrap">'+(u.whatsapp?'<a href="'+esc(zap(u.whatsapp))+'" target="_blank" rel="noopener" data-x>'+esc(u.whatsapp)+'</a>':'–')+'</td><td>'+(u.email?'<a href="mailto:'+esc(u.email)+'" data-x>'+esc(u.email)+'</a>':'–')+'</td><td>'+esc([c.cidade,c.uf].filter(Boolean).join(' / ')||'–')+'</td><td>'+esc(USTATUS[u.status]||u.status)+'</td></tr>'; }).join(''):'<tr><td colspan="9" class="muted" style="text-align:center">Nenhum contato com esses filtros.</td></tr>'; }
     corpo();
     $('l-q').oninput=function(){ f.q=this.value; corpo(); };
@@ -710,7 +716,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
       return '<button type="button" data-e="'+esc(e.slug)+'" aria-current="'+(e.slug===EMP)+'"><span>'+esc(e.nome)+'</span><small>'+ETAPA[e.etapa][0]+'</small></button>'; }).join('');
   }
   function CD(n){ return (R.campos||{})[n]||[]; }
-  var CF=CRMF({estilo:'desk',get:function(q){return get(q);},toast:function(t){toast(t);}});
+  var CF=CRMF({estilo:'desk',get:function(q){return get(q);},post:function(o){return post(o);},toast:function(t){toast(t);}});
   var vazio=CF.vazio, valTxt=CF.valTxt, campoForm=CF.campoForm, leForm=CF.leForm, formCampos=CF.formCampos;
   function dadosDe(e){
     var dg=(DIAGS||[]).filter(function(d){return d.slug===e.slug;})[0]||{}, u=e.usuarios[0]||{}, base=Object.assign({}, dg.dados||{});
@@ -724,7 +730,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     var e=emp(EMP); if(!e){ $('e-meio').innerHTML='<div class="vazio">Escolha uma empresa.</div>'; return; }
     var u=e.usuarios[0]||{}, dg=e.diagnostico, pr=PROPS.filter(function(p){return p.slug===e.slug;});
     $('e-lado').innerHTML=
-      '<section class="card"><div class="perfil"><div class="ini">'+esc(iniciais(e.nome))+'</div><h3>'+esc(e.nome)+'</h3><span class="muted" style="font-size:.8rem">'+(u.nome?esc(u.nome):'Sem pessoa vinculada')+'</span>'+
+      '<section class="card"><div class="perfil"><div id="e-foto" style="display:grid;gap:8px;justify-items:center">'+CF.avatar(e.nome,e.slug,'',e.foto,'ini')+CF.fotoBotoes(!!e.foto)+'</div><h3>'+esc(e.nome)+'</h3><span class="muted" style="font-size:.8rem">'+(u.nome?esc(u.nome):'Sem pessoa vinculada')+'</span>'+
         '<select class="mini" id="e-etapa">'+Object.keys(ETAPA).map(function(k){return '<option value="'+k+'"'+(k===e.etapa?' selected':'')+'>'+ETAPA[k][0]+'</option>';}).join('')+'</select>'+
         '<div class="bts">'+(u.whatsapp?'<a class="cbtn" title="WhatsApp" target="_blank" rel="noopener" href=\"'+esc(zap(u.whatsapp))+'\">'+ic('whatsapp')+'</a>':'')+(u.email?'<a class="cbtn" title="E-mail" href="mailto:'+esc(u.email)+'">'+ic('mail')+'</a>':'')+
         '<button class="cbtn" title="Agendar reunião" id="e-agenda">'+ic('reuniao')+'</button><button class="cbtn" title="Nova proposta" id="e-prop">'+ic('proposta')+'</button><a class="cbtn" title="Ver como o cliente" target="_blank" href="/area/painel/?e='+esc(e.slug)+'">'+ic('abrir')+'</a></div></div></section>'+
@@ -746,6 +752,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
       $('f-dados').onsubmit=function(ev){ ev.preventDefault(); var fm=this; if(CF.confere(fm)) return; var o=leForm(fm,C);
         post({a:'admin-dados',slug:e.slug,nome:fm.elements.nome.value,dados:o}).then(function(r){ if(!r.ok){toast(r.erro||'Erro.');return;} e.dados=r.dados; e.nome=r.nome; e.num=r.num; e.editado=new Date().toISOString(); toast('Dados salvos.'); lista(); detalhe(); }); };
     })();
+    CF.ligaFoto($('e-foto'),{slug:e.slug,insta:function(){ return dadosDe(e).instagram; },depois:function(v){ e.foto=v; detalhe(); }});
     $('e-etapa').onchange=function(){ crm(e.slug,{etapa:this.value}).then(function(){toast('Etapa atualizada.'); lista();}); };
     $('e-tags').onchange=function(){ crm(e.slug,{tags:[].map.call(this.querySelectorAll(':checked'),function(i){return i.value;})}).then(detalhe); };
     $('e-agenda').onclick=function(){ agenda({titulo:'Reunião Unique · '+e.nome,inicio:'',slug:e.slug,emails:e.usuarios.map(function(x){return x.email;})}); };
@@ -780,15 +787,17 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
   function pessoas(e){
     $('e-pessoas').innerHTML=e.usuarios.length?e.usuarios.map(function(u){
       var cr=u.crm||{}, P=CD('pessoa'), F=P.filter(function(c){return !vazio(cr[c.k]);});
-      return '<div class="li" style="flex-wrap:wrap"><div style="flex:1;min-width:200px"><span class="tag">'+esc(USTATUS[u.status]||u.status)+(u.ultimo?' · último acesso '+dt(u.ultimo,1):'')+'</span><h4>'+esc(u.nome)+'</h4><p>'+esc(u.email)+(u.whatsapp?' · '+esc(u.whatsapp):'')+'</p>'+
+      return '<div class="li" style="flex-wrap:wrap"><div style="flex:1;min-width:200px"><span class="tag">'+esc(USTATUS[u.status]||u.status)+(u.ultimo?' · último acesso '+dt(u.ultimo,1):'')+'</span><h4 style="display:flex;align-items:center;gap:10px">'+CF.avatar(u.nome,e.slug,u.email,u.foto,'mini-av')+esc(u.nome)+'</h4><p>'+esc(u.email)+(u.whatsapp?' · '+esc(u.whatsapp):'')+'</p>'+
         (F.length?'<div class="ficha">'+F.map(function(c){return '<span><small>'+esc(c.r)+'</small>'+esc(valTxt(c,cr[c.k]))+'</span>';}).join('')+'</div>':'')+
-        '<form class="form" data-pf="'+esc(u.email)+'" hidden style="margin-top:12px"><div class="l2"><div class="campo"><label>Nome</label><input name="nome" value="'+esc(u.nome)+'" required></div><div class="campo"><label>Telefone / WhatsApp</label><input name="whatsapp" inputmode="tel" value="'+esc(u.whatsapp||'')+'"></div>'+formCampos(P,cr)+'</div><div style="display:flex;gap:8px"><button class="pill solid">Salvar contato</button><button class="pill" type="button" data-pfx>Cancelar</button></div>'+(u.editado?'<p class="muted" style="font-size:.7rem;margin:0">Última edição '+dt(u.editado,1)+'</p>':'')+'</form></div>'+
+        '<form class="form" data-pf="'+esc(u.email)+'" hidden style="margin-top:12px"><div data-pfoto="'+esc(u.email)+'" style="display:flex;align-items:center;gap:12px">'+CF.avatar(u.nome,e.slug,u.email,u.foto,'mini-av grande')+CF.fotoBotoes(!!u.foto)+'</div><div class="l2"><div class="campo"><label>Nome</label><input name="nome" value="'+esc(u.nome)+'" required></div><div class="campo"><label>Telefone / WhatsApp</label><input name="whatsapp" inputmode="tel" data-mask="tel" placeholder="(00) 00000-0000" value="'+esc(u.whatsapp||'')+'"></div>'+formCampos(P,cr)+'</div><div style="display:flex;gap:8px"><button class="pill solid">Salvar contato</button><button class="pill" type="button" data-pfx>Cancelar</button></div>'+(u.editado?'<p class="muted" style="font-size:.7rem;margin:0">Última edição '+dt(u.editado,1)+'</p>':'')+'</form></div>'+
         '<div class="bts"><button class="pill" data-pe="'+esc(u.email)+'">'+ic('editar')+'Ficha</button><button class="pill '+(u.status==='convite'?'verde':'')+'" data-conv="'+esc(u.email)+'" data-wa="'+esc(u.whatsapp||'')+'" data-nome="'+esc(u.nome)+'">'+ic('chave')+(u.status==='convite'?'Liberar acesso':'Link de senha')+'</button>'+
         '<select class="mini" data-us="'+esc(u.email)+'">'+Object.keys(USTATUS).map(function(k){return '<option value="'+k+'"'+(k===u.status?' selected':'')+'>'+USTATUS[k]+'</option>';}).join('')+'</select></div></div>'; }).join(''):'<div class="vazio">Nenhuma pessoa ainda.</div>';
     $('e-pessoas').onclick=function(ev){ var b=ev.target.closest('[data-conv]'); if(b) convite(e.slug,b.dataset.conv,b.dataset.nome,b.dataset.wa);
       var pe=ev.target.closest('[data-pe]'); if(pe){ var f=pe.closest('.li').querySelector('form'); f.hidden=!f.hidden; }
       if(ev.target.closest('[data-pfx]')) ev.target.closest('form').hidden=true; };
     [].forEach.call($('e-pessoas').querySelectorAll('[data-pf]'),function(f){ CF.liga(f); });
+    [].forEach.call($('e-pessoas').querySelectorAll('[data-pfoto]'),function(box){ var u=e.usuarios.filter(function(x){return x.email===box.dataset.pfoto;})[0];
+      CF.ligaFoto(box,{slug:e.slug,email:u.email,insta:function(){ var f=box.closest('form'); return (f&&f.elements.instagram&&f.elements.instagram.value)||(u.crm||{}).instagram; },depois:function(v){ u.foto=v; ABRE_PESSOA=u.email; pessoas(e); var pf=$('e-pessoas').querySelector('[data-pf="'+u.email+'"]'); if(pf) pf.hidden=false; ABRE_PESSOA=''; }}); });
     $('e-pessoas').onsubmit=function(ev){ ev.preventDefault(); var f=ev.target; if(!f.dataset.pf||CF.confere(f)) return;
       post({a:'admin-pessoa-dados',slug:e.slug,email:f.dataset.pf,nome:f.elements.nome.value,whatsapp:f.elements.whatsapp.value,dados:leForm(f,CD('pessoa'))}).then(function(r){ if(!r.ok){toast(r.erro||'Erro.');return;}
         e.usuarios=e.usuarios.map(function(x){return x.email===r.pessoa.email?r.pessoa:x;}); toast('Contato salvo.'); pessoas(e); }); };

@@ -28,6 +28,9 @@
 //   GET  ?a=admin-diagnosticos     -> diagnósticos recebidos (resumo)
 //   GET  ?a=admin-propostas  ·  POST {a:'admin-proposta', proposta, contato|slug} / {a:'admin-proposta-del', id}
 //   POST {a:'admin-pessoa', slug, nome, email, whatsapp}   -> vincula uma pessoa (sem senha até gerar o link)
+//   POST {a:'admin-pessoa-dados', slug, email, nome, whatsapp, dados} -> campos de CRM da pessoa (modelo PESSOA)
+//   POST {a:'admin-negocio', slug, id?, dados} / {a:'admin-negocio-del', slug, id} -> negócios da empresa (modelo NEGÓCIO, com histórico)
+//   (campos da empresa, pessoa e negócio: api/_area/campos.js)
 //   GET  ?a=admin-push-chave / ?a=admin-notif  ·  POST {a:'admin-push', sub} / {a:'admin-push-sair', endpoint} / {a:'admin-push-teste'}
 //   POST {a:'admin-lido', k} / {a:'admin-lido-todos'}       -> notificações lidas
 // Proposta (pública pelo token): GET ?a=proposta&p=TOKEN
@@ -58,6 +61,7 @@ const crypto = require('crypto');
 const CATALOGO = require('./_area/catalogo.js');
 const { notifica, chaves } = require('./_area/push.js');
 const GOOGLE = require('./_area/google.js');
+const CAMPOS = require('./_area/campos.js');
 
 const URL_DB = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -162,7 +166,7 @@ async function itemPorId(slug, id) {
 }
 function membro(s, slug) { return !!s && (s.admin || s.slug === slug); }
 
-function usuarioPublico(u) { return { email: u.email, nome: u.nome, whatsapp: u.whatsapp, status: u.status, criado: u.criado, ultimo: u.ultimo || '', origem: u.origem || '' }; }
+function usuarioPublico(u) { return { email: u.email, nome: u.nome, whatsapp: u.whatsapp, status: u.status, criado: u.criado, ultimo: u.ultimo || '', origem: u.origem || '', crm: u.crm || {}, editado: u.editado || '' }; }
 
 // Ações do catálogo entram no plano da empresa uma única vez (area:acoes-cat:<slug> lembra quais já entraram),
 // então o status do cliente e as edições/exclusões do admin valem normalmente depois.
@@ -403,10 +407,10 @@ module.exports = async (req, res) => {
         const slugs = Array.from(new Set((slugsDb || []).concat(Object.keys(CATALOGO)))).sort();
         const empresas = [];
         for (const slug of slugs) {
-          const [e, emails] = await redis([['GET', 'area:emp:' + slug], ['SMEMBERS', 'area:users:' + slug]]);
+          const [e, emails, negH] = await redis([['GET', 'area:emp:' + slug], ['SMEMBERS', 'area:users:' + slug], ['HGETALL', 'area:neg:' + slug]]);
           const users = emails && emails.length ? await redis(emails.map(m => ['GET', 'area:user:' + slug + ':' + m])) : [];
           const ev = json(e) || { slug, nome: (CATALOGO[slug] || {}).nome || slug };
-          empresas.push({ slug, nome: ev.nome, dados: ev.dados || {}, etapa: ETAPAS.indexOf(ev.etapa) >= 0 ? ev.etapa : (ev.origem === 'diagnostico' ? 'lead' : 'cliente'), tags: ev.tags || [], origem: ev.origem || '', criado: ev.criado || '', usuarios: users.map(json).filter(Boolean).map(usuarioPublico) });
+          empresas.push({ slug, nome: ev.nome, num: ev.num || 0, dados: ev.dados || {}, editado: ev.editado || '', negocios: lerPares(negH).map(([, v]) => json(v)).filter(Boolean).sort((a, b) => String(b.criado).localeCompare(String(a.criado))), etapa: ETAPAS.indexOf(ev.etapa) >= 0 ? ev.etapa : (ev.origem === 'diagnostico' ? 'lead' : 'cliente'), tags: ev.tags || [], origem: ev.origem || '', criado: ev.criado || '', usuarios: users.map(json).filter(Boolean).map(usuarioPublico) });
         }
         const [dH, mH] = await redis([['HGETALL', 'area:diag'], ['HGETALL', 'area:modelos']]);
         const dg = {};
@@ -423,7 +427,7 @@ module.exports = async (req, res) => {
         const [av] = await redis([['LRANGE', 'area:avisos', 0, 29]]);
         const [lidos] = await redis([['SMEMBERS', 'area:lidos']]);
         const avisos = (av || []).map(json).filter(Boolean).filter(a => !a.unique).map(a => Object.assign(a, { k: (a.slug + '|' + a.id + '|' + a.data).slice(0, 120) })).map(a => Object.assign(a, { lido: (lidos || []).indexOf(a.k) >= 0 }));
-        return res.json({ ok: true, empresas, pendentes, avisos, modelos, etapas: ETAPAS, tags: TAGS, blob: !!BLOB });
+        return res.json({ ok: true, empresas, pendentes, avisos, modelos, etapas: ETAPAS, tags: TAGS, blob: !!BLOB, campos: CAMPOS.defs, etapasNeg: CAMPOS.ETAPAS_NEG });
       }
       return res.status(400).json({ ok: false });
     }
@@ -782,22 +786,65 @@ module.exports = async (req, res) => {
       const email = limpo(b.email, 120).toLowerCase(), nome = limpo(b.nome, 80);
       if (!nome || !emailOk(email)) return res.status(400).json({ ok: false, erro: 'Informe nome e um e-mail válido.' });
       const e = await empresa(slug);
-      const [ok] = await redis([['SET', 'area:user:' + slug + ':' + email, JSON.stringify({ email, nome, whatsapp: limpo(b.whatsapp, 30), slug, empresaNome: e.nome, status: 'convite', criado: new Date().toISOString(), origem: 'admin' }), 'NX'], ['SADD', 'area:users:' + slug, email]]);
+      const [ok] = await redis([['SET', 'area:user:' + slug + ':' + email, JSON.stringify({ email, nome, whatsapp: limpo(b.whatsapp, 30), slug, empresaNome: e.nome, status: 'convite', criado: new Date().toISOString(), origem: 'admin', crm: CAMPOS.limpa(CAMPOS.pessoa, b.dados) }), 'NX'], ['SADD', 'area:users:' + slug, email]]);
       if (!ok) return res.status(409).json({ ok: false, erro: 'Essa pessoa já está vinculada à empresa.' });
       return res.json({ ok: true });
     }
 
     if (b.a === 'admin-dados') {
-      const CAMPOS = ['razao', 'cnpj', 'segmento', 'cidade', 'endereco', 'site', 'instagram', 'telefone', 'email', 'responsavel', 'tempo', 'faturamento', 'colaboradores', 'obs'];
       const [ev] = await redis([['GET', 'area:emp:' + slug]]);
       const e = json(ev) || { slug, nome: (CATALOGO[slug] || {}).nome || slug, criado: new Date().toISOString() };
-      const d = {};
-      CAMPOS.forEach(k => { const v = limpo((b.dados || {})[k], k === 'obs' || k === 'endereco' ? 1000 : 160); if (v) d[k] = v; });
+      const d = CAMPOS.limpa(CAMPOS.empresa, b.dados);
       e.dados = d;
+      e.editado = new Date().toISOString();
+      if (!e.num) { const [n] = await redis([['INCR', 'area:seq:emp']]); e.num = n; }
       const nome = limpo(b.nome, 80);
       if (nome) e.nome = nome;
       await redis([['SET', 'area:emp:' + slug, JSON.stringify(e)], ['SADD', 'area:emps', slug]]);
-      return res.json({ ok: true, dados: d, nome: e.nome });
+      return res.json({ ok: true, dados: d, nome: e.nome, num: e.num });
+    }
+
+    // dados de CRM de uma pessoa (modelo PESSOA)
+    if (b.a === 'admin-pessoa-dados') {
+      const email = limpo(b.email, 120).toLowerCase();
+      const k = 'area:user:' + slug + ':' + email;
+      const [v] = await redis([['GET', k]]);
+      const u = json(v);
+      if (!u) return res.status(404).json({ ok: false, erro: 'Pessoa não encontrada.' });
+      const nome = limpo(b.nome, 80), wa = b.whatsapp !== undefined ? limpo(b.whatsapp, 30) : u.whatsapp;
+      if (nome) u.nome = nome;
+      u.whatsapp = wa;
+      u.crm = CAMPOS.limpa(CAMPOS.pessoa, b.dados);
+      if (!u.num) { const [n] = await redis([['INCR', 'area:seq:pessoa']]); u.num = n; }
+      u.editado = new Date().toISOString();
+      await redis([['SET', k, JSON.stringify(u)]]);
+      return res.json({ ok: true, pessoa: usuarioPublico(u) });
+    }
+
+    // negócios da empresa (modelo NEGÓCIO): area:neg:<slug> hash id -> negócio
+    if (b.a === 'admin-negocio') {
+      const d = CAMPOS.limpa(CAMPOS.negocio, b.dados);
+      if (!d.nome) return res.status(400).json({ ok: false, erro: 'Dê um nome ao negócio.' });
+      if (!d.etapa) d.etapa = 'Lead';
+      const id = /^[a-z0-9]{4,20}$/.test(b.id || '') ? b.id : '';
+      const [v] = id ? await redis([['HGET', 'area:neg:' + slug, id]]) : [null];
+      const velho = json(v);
+      const agora = new Date().toISOString();
+      const n = velho ? Object.assign({}, velho) : { id: Date.now().toString(36) + crypto.randomBytes(2).toString('hex'), slug, criado: agora, historico: [] };
+      if (!velho) { const [num] = await redis([['INCR', 'area:seq:neg']]); n.num = num; n.historico.push({ data: agora, texto: 'Negócio criado na etapa ' + d.etapa + '.' }); }
+      else {
+        const nomes = {}; CAMPOS.negocio.forEach(c => { nomes[c.k] = c.r; });
+        const fmt = x => Array.isArray(x) ? x.join(', ') : (x === undefined || x === '' ? '—' : String(x));
+        const mud = CAMPOS.negocio.filter(c => fmt((velho.dados || {})[c.k]) !== fmt(d[c.k]) && c.t !== 'longo').map(c => c.k === 'etapa' ? 'Etapa: ' + fmt((velho.dados || {}).etapa) + ' → ' + d.etapa : nomes[c.k] + ': ' + fmt(d[c.k]));
+        if (mud.length) n.historico = [{ data: agora, texto: mud.join(' · ').slice(0, 600) }].concat(n.historico || []).slice(0, 60);
+      }
+      n.dados = d; n.atualizado = agora;
+      await redis([['HSET', 'area:neg:' + slug, n.id, JSON.stringify(n)], ['SADD', 'area:emps', slug]]);
+      return res.json({ ok: true, negocio: n });
+    }
+    if (b.a === 'admin-negocio-del') {
+      await redis([['HDEL', 'area:neg:' + slug, String(b.id || '')]]);
+      return res.json({ ok: true });
     }
 
     if (b.a === 'admin-convite') {

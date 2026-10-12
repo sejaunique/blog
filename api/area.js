@@ -211,7 +211,7 @@ async function conteudo(slug) {
   const [modH, mstH] = await redis([['HGETALL', 'area:modelos'], ['HGETALL', 'area:mst:' + slug]]);
   const mst = {};
   lerPares(mstH).forEach(([k, v]) => { mst[k] = json(v) || {}; });
-  const comp = lerHash(modH).filter(m => valePara(m, slug)).map(m => Object.assign({}, m, { compartilhada: true, status: (mst[m.id] || {}).status || 'a_fazer', prazo: (mst[m.id] || {}).prazo || m.prazo || '', por: (mst[m.id] || {}).por, atualizado: (mst[m.id] || {}).atualizado }));
+  const comp = lerHash(modH).filter(m => valePara(m, slug)).map(m => Object.assign({}, m, { compartilhada: true, status: (mst[m.id] || {}).status || 'a_fazer', prazo: (mst[m.id] || {}).prazo || m.prazo || '', dono: (mst[m.id] || {}).dono || m.dono || 'unique', tipo: (mst[m.id] || {}).tipo || m.tipo || 'acao', por: (mst[m.id] || {}).por, atualizado: (mst[m.id] || {}).atualizado }));
   const ordem = { fazendo: 0, a_fazer: 1, feito: 2, arquivado: 3 };
   const acoes = lerHash(acoesH).concat(comp).sort((a, b) => (ordem[a.status] - ordem[b.status]) || String(a.prazo || '9').localeCompare(String(b.prazo || '9')));
   return { itens, acoes };
@@ -538,12 +538,15 @@ module.exports = async (req, res) => {
 
     if (b.a === 'acao-status') {
       const slug = s.admin ? slugify(b.slug) : s.slug;
-      if (STATUS_ACAO.indexOf(b.status) < 0) return res.status(400).json({ ok: false });
+      if (b.status !== undefined && STATUS_ACAO.indexOf(b.status) < 0) return res.status(400).json({ ok: false });
+      const TIPOS_ACAO = ['acao', 'post', 'video', 'reuniao', 'material'];
+      const extra = o => { if (b.dono === 'unique' || b.dono === 'cliente') o.dono = b.dono; if (TIPOS_ACAO.indexOf(b.tipo) >= 0) o.tipo = b.tipo; return o; };
       const [v, mv] = await redis([['HGET', 'area:acoes:' + slug, String(b.id || '')], ['HGET', 'area:modelos', String(b.id || '')]]);
       const a = json(v), m = json(mv);
       if (!a && valePara(m, slug)) {
         const [ov] = await redis([['HGET', 'area:mst:' + slug, m.id]]);
-        const st = Object.assign(json(ov) || {}, { status: b.status, atualizado: new Date().toISOString(), por: s.admin ? 'Unique' : s.nome });
+        const st = extra(Object.assign(json(ov) || {}, { atualizado: new Date().toISOString(), por: s.admin ? 'Unique' : s.nome }));
+        if (b.status) st.status = b.status; else if (!st.status) st.status = 'a_fazer';
         if (s.admin && b.prazo !== undefined) st.prazo = /^\d{4}-\d{2}-\d{2}$/.test(b.prazo) ? b.prazo : '';
         await redis([['HSET', 'area:mst:' + slug, m.id, JSON.stringify(st)]]);
         if (!s.admin && b.status === 'feito') await notifica(redis, { titulo: 'Ação concluída', texto: s.nome + ' marcou como feita: ' + m.titulo, url: '/area/admin/#empresas/' + slug });
@@ -551,7 +554,8 @@ module.exports = async (req, res) => {
       }
       if (!a) return res.status(404).json({ ok: false });
       if (s.admin && b.prazo !== undefined) a.prazo = /^\d{4}-\d{2}-\d{2}$/.test(b.prazo) ? b.prazo : '';
-      a.status = b.status;
+      if (b.status) a.status = b.status;
+      extra(a);
       a.atualizado = new Date().toISOString();
       a.por = s.admin ? 'Unique' : s.nome;
       await redis([['HSET', 'area:acoes:' + slug, a.id, JSON.stringify(a)]]);

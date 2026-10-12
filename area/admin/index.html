@@ -209,8 +209,8 @@ table.tbl{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:.82
 .tipo{font-size:.62rem;font-weight:700;padding:3px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.08em}
 .t-acao{background:var(--ws-chip)}.t-post{background:var(--marinho);color:#fff}.t-video{background:var(--magenta);color:#fff}.t-reuniao{background:var(--verde);color:#000}.t-material{background:#0b0b0c;color:#fff}
 tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
-.and{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
-.and div{display:grid;grid-template-columns:1fr auto auto;gap:6px;align-items:center;background:var(--ws-card2);border:1px solid var(--ws-line);border-radius:14px;padding:8px 10px;font-size:.78rem}
+.and{display:grid;grid-template-columns:repeat(auto-fill,minmax(560px,1fr));gap:8px}
+.and div{display:grid;grid-template-columns:1fr auto auto auto auto;gap:6px;align-items:center;background:var(--ws-card2);border:1px solid var(--ws-line);border-radius:14px;padding:8px 10px;font-size:.78rem}
 .pop{position:fixed;z-index:60;background:var(--bg);color:var(--fg);border:1px solid var(--ws-line);border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.25);padding:14px;width:280px;max-height:60vh;overflow:auto}
 .pop label{display:flex;gap:8px;align-items:center;font-size:.82rem;padding:5px 2px}
 .pop .bts{display:flex;gap:8px;margin-top:10px;position:sticky;bottom:-14px;background:var(--bg);padding:8px 0}
@@ -668,9 +668,9 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     var A=CONT.acoes||[], h=hoje();
     $('e-acoes').innerHTML=A.length?A.map(function(a){ var at=a.prazo&&a.prazo<h&&!fechado(a.status);
       return '<div class="li"><div><span class="tag" style="'+(at?'color:var(--erro)':'')+'">'+(TIPO[a.tipo]||'Ação')+' · '+(a.dono==='cliente'?'cliente faz':'Unique faz')+(a.prazo?' · entrega '+dt(a.prazo):'')+(a.compartilhada?' · compartilhada':'')+'</span><h4>'+esc(a.titulo)+'</h4>'+(a.detalhe?'<p>'+esc(a.detalhe)+'</p>':'')+(a.link?'<p><a href="'+esc(a.link)+'" target="_blank" rel="noopener">'+esc(a.link)+'</a></p>':'')+'</div>'+
-        '<div class="bts"><input type="date" class="mini" data-pz="'+esc(a.id)+'" value="'+esc(a.prazo||'')+'" title="Data de entrega deste cliente"><select class="mini" data-st="'+esc(a.id)+'">'+Object.keys(ST).map(function(k){return '<option value="'+k+'"'+(k===a.status?' selected':'')+'>'+ST[k]+'</option>';}).join('')+'</select></div></div>'; }).join(''):'<div class="vazio">Nenhuma ação para essa empresa. Marque a empresa em uma linha da tabela de ações.</div>';
-    $('e-acoes').onchange=function(ev){ var t=ev.target, id=t.dataset.st||t.dataset.pz; if(!id) return; var a=A.filter(function(x){return x.id===id;})[0];
-      post({a:'acao-status',slug:e.slug,id:id,status:t.dataset.st?t.value:a.status,prazo:t.dataset.pz?t.value:undefined}).then(function(r){ toast(r.ok?'Atualizado.':'Erro.'); if(r.ok) carrega(); }); };
+        '<div class="bts">'+'<select class="mini" data-tp="'+esc(a.id)+'">'+Object.keys(TIPO).map(function(x){return '<option value="'+x+'"'+(x===(a.tipo||'acao')?' selected':'')+'>'+TIPO[x]+'</option>';}).join('')+'</select>'+'<select class="mini" data-dn="'+esc(a.id)+'"><option value="unique">Unique faz</option><option value="cliente"'+((a.dono)==='cliente'?' selected':'')+'>Cliente faz</option></select>'+'<input type="date" class="mini" data-pz="'+esc(a.id)+'" value="'+esc(a.prazo||'')+'" title="Data de entrega deste cliente"><select class="mini" data-st="'+esc(a.id)+'">'+Object.keys(ST).map(function(k){return '<option value="'+k+'"'+(k===a.status?' selected':'')+'>'+ST[k]+'</option>';}).join('')+'</select></div></div>'; }).join(''):'<div class="vazio">Nenhuma ação para essa empresa. Marque a empresa em uma linha da tabela de ações.</div>';
+    $('e-acoes').onchange=function(ev){ var t=ev.target, id=t.dataset.st||t.dataset.pz||t.dataset.tp||t.dataset.dn; if(!id) return; var a=A.filter(function(x){return x.id===id;})[0];
+      post({a:'acao-status',slug:e.slug,id:id,status:t.dataset.st?t.value:a.status,prazo:t.dataset.pz?t.value:undefined,tipo:t.dataset.tp?t.value:undefined,dono:t.dataset.dn?t.value:undefined}).then(function(r){ toast(r.ok?'Atualizado.':'Erro.'); if(r.ok) carrega(); }); };
   }
 
   /* ---------- AÇÕES (tabela única) ---------- */
@@ -690,6 +690,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     tabela();
     var C=$('a-corpo');
     C.onchange=function(ev){ var t=ev.target, tr=t.closest('tr'); if(!tr||tr.hasAttribute('data-novo')) return;
+      if((t.dataset.tp||t.dataset.dn)&&t.dataset.sl){ var o={a:'acao-status',slug:t.dataset.sl,id:t.dataset.tp||t.dataset.dn}; o[t.dataset.tp?'tipo':'dono']=t.value; post(o).then(function(r){ toast(r.ok?'Atualizado para '+nomeEmp(t.dataset.sl)+'.':'Erro.'); recarregaAcoes(); }); return; }
       if(t.dataset.st){ post({a:'acao-status',slug:t.dataset.sl,id:t.dataset.st,status:t.value}).then(function(r){ toast(r.ok?'Andamento atualizado.':'Erro.'); recarregaAcoes(); }); return; }
       if(t.dataset.pz){ var a=achar(t.dataset.pz); var st=((a.and||{})[t.dataset.sl]||{}).status||'a_fazer'; post({a:'acao-status',slug:t.dataset.sl,id:t.dataset.pz,status:st,prazo:t.value}).then(function(r){ toast(r.ok?'Entrega do cliente atualizada.':'Erro.'); recarregaAcoes(); }); return; }
       var l=achar(tr.dataset.k); if(!l||!t.name) return; var o={}; o[t.name]=t.value; salva(l,o);
@@ -733,7 +734,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
         '<td>'+(n?'<button class="pill" data-and style="padding:6px 10px">'+feitos+'/'+n+' feitas</button><div class="barra"><i style="width:'+Math.round(feitos/n*100)+'%"></i></div>':'<span class="muted" style="font-size:.74rem">ainda não compartilhada</span>')+'</td>'+
         '<td style="white-space:nowrap"><button class="cbtn" data-ag title="Agendar no Google Agenda">'+ic('reuniao')+'</button>'+(l.fonte!=='post'?' <button class="cbtn" data-del title="Excluir">'+ic('lixo')+'</button>':'')+'</td></tr>';
       if(ABERTO[k]&&n) row+='<tr class="det-cli"><td colspan="8"><div class="and">'+l.clientes.map(function(s){ var a=l.and[s]||{}, pz=a.prazo||l.prazo||'', at=pz&&pz<h&&!fechado(a.status);
-        return '<div><span><b>'+esc(nomeEmp(s))+'</b>'+(at?' <span style="color:var(--erro);font-size:.7rem">atrasada</span>':'')+'</span><input type="date" class="mini" data-pz="'+esc(l.id)+'" data-sl="'+esc(s)+'" value="'+esc(pz)+'"><select class="mini" data-st="'+esc(l.id)+'" data-sl="'+esc(s)+'">'+Object.keys(ST).map(function(x){return '<option value="'+x+'"'+(x===(a.status||'a_fazer')?' selected':'')+'>'+ST[x]+'</option>';}).join('')+'</select></div>'; }).join('')+'</div></td></tr>';
+        return '<div><span><b>'+esc(nomeEmp(s))+'</b>'+(at?' <span style="color:var(--erro);font-size:.7rem">atrasada</span>':'')+'</span>'+'<select class="mini" data-tp="'+esc(l.id)+'" data-sl="'+esc(s)+'">'+Object.keys(TIPO).map(function(x){return '<option value="'+x+'"'+(x===(a.tipo||l.tipo||'acao')?' selected':'')+'>'+TIPO[x]+'</option>';}).join('')+'</select>'+'<select class="mini" data-dn="'+esc(l.id)+'" data-sl="'+esc(s)+'"><option value="unique">Unique faz</option><option value="cliente"'+((a.dono||l.dono)==='cliente'?' selected':'')+'>Cliente faz</option></select>'+'<input type="date" class="mini" data-pz="'+esc(l.id)+'" data-sl="'+esc(s)+'" value="'+esc(pz)+'"><select class="mini" data-st="'+esc(l.id)+'" data-sl="'+esc(s)+'">'+Object.keys(ST).map(function(x){return '<option value="'+x+'"'+(x===(a.status||'a_fazer')?' selected':'')+'>'+ST[x]+'</option>';}).join('')+'</select></div>'; }).join('')+'</div></td></tr>';
       return row;
     }).join(''):'<tr><td colspan="8"><div class="vazio">Nenhuma ação com esse filtro.</div></td></tr>');
   }

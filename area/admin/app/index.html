@@ -227,8 +227,8 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
   if(matchMedia('(min-width: 900px)').matches && !/[?&]app=1/.test(location.search)){ location.replace('/area/admin/'+location.hash); return; }
 
   var ETAPA={lead:['Lead','var(--a-sub)'],qualificado:['Lead qualificado','#f0a020'],cliente:['Cliente','var(--verde-txt)'],finalizado:['Finalizado','var(--marinho-txt)']};
-  var ST={a_fazer:'A fazer',fazendo:'Em andamento',feito:'Feito',arquivado:'Arquivado'};
-  function fechado(st){ return st==='feito'||st==='arquivado'; }
+  var ST={a_fazer:'A fazer',fazendo:'Em andamento',feito:'Feito',cancelado:'Cancelado',arquivado:'Arquivado'};
+  function fechado(st){ return st==='feito'||st==='arquivado'||st==='cancelado'; }
   var USTATUS={convite:'Sem acesso ainda',pendente:'Pediu acesso',ativo:'Com acesso',bloqueado:'Bloqueado',recusado:'Recusado'};
   var TIPO={acao:'Ação',post:'Post',video:'Videoaula',reuniao:'Reunião',material:'Material'};
   var PST={rascunho:'Rascunho',enviada:'Enviada',aceita:'Aceita',recusada:'Recusada'};

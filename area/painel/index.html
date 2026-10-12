@@ -64,6 +64,8 @@
 .acao select{font:inherit;font-size:.78rem;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:var(--bg);color:var(--fg)}
 .acao select.st-fazendo{border-color:var(--alerta);color:var(--alerta)}
 .acao select.st-feito{border-color:var(--ok);color:var(--ok)}
+.acao select.st-cancelado{border-color:var(--erro);color:var(--erro)}
+.acao.cancelado{opacity:.55}.acao.cancelado h3{text-decoration:line-through}
 .barra{height:6px;background:var(--ink-line);border-radius:999px;overflow:hidden;margin-top:10px}
 .barra i{display:block;height:100%;background:var(--grifo);width:0;transition:width .4s}
 @media (max-width:760px){.resumo{grid-template-columns:repeat(2,1fr)}.acao{grid-template-columns:1fr}}
@@ -116,7 +118,7 @@
 (function(){
   var TIPOS={pagina:'Guia',relatorio:'Relatório',diagnostico:'Diagnóstico',video:'Vídeo',arquivo:'Arquivo',link:'Link',conteudo:'Conteúdo'};
   var FILTROS=[['todos','Tudo'],['relatorio','Relatórios'],['diagnostico','Diagnósticos'],['pagina','Guias'],['video','Vídeos'],['arquivo','Arquivos'],['link','Links'],['conteudo','Conteúdos']];
-  var STATUS={a_fazer:'A fazer',fazendo:'Em andamento',feito:'Feito',arquivado:'Arquivado'};
+  var STATUS={a_fazer:'A fazer',fazendo:'Em andamento',feito:'Feito',cancelado:'Cancelado',arquivado:'Arquivado'};
   var TIPO={acao:'Ação',post:'Post',video:'Videoaula',reuniao:'Reunião',material:'Material'};
   var DONO={cliente:'Nós fazemos',unique:'Unique faz'};
   function sel(id,campo,mapa,val,cls){ return '<select data-id="'+esc(id)+'" data-campo="'+campo+'" class="'+(cls||'')+'" aria-label="'+campo+'">'+Object.keys(mapa).map(function(k){return '<option value="'+k+'"'+(k===val?' selected':'')+'>'+mapa[k]+'</option>';}).join('')+'</select>'; }
@@ -211,16 +213,16 @@
 
   function plano(){
     var TODAS=DADOS.acoes, A=TODAS.filter(function(a){return a.status!=='arquivado';}), ARQ=TODAS.filter(function(a){return a.status==='arquivado';}), hoje=new Date().toISOString().slice(0,10), el=document.getElementById('plano');
-    var feitas=A.filter(function(a){return a.status==='feito';}).length;
-    document.getElementById('n-acoes').textContent=A.length;
+    var feitas=A.filter(function(a){return a.status==='feito';}).length, VAL=A.filter(function(a){return a.status!=='cancelado';});
+    document.getElementById('n-acoes').textContent=VAL.length;
     document.getElementById('n-feitas').textContent=feitas;
-    var pct=A.length?Math.round(feitas*100/A.length):0;
-    document.getElementById('n-pct').textContent=A.length?pct+'%':'–';
+    var pct=VAL.length?Math.round(feitas*100/VAL.length):0;
+    document.getElementById('n-pct').textContent=VAL.length?pct+'%':'–';
     document.getElementById('barra').style.width=pct+'%';
     if(!TODAS.length){ el.innerHTML='<div class="vazio" style="margin-top:16px">O plano de ações da sua empresa aparece aqui depois do diagnóstico.</div>'; return; }
     el.innerHTML=A.map(function(a){
-      var atrasada=a.prazo&&a.prazo<hoje&&a.status!=='feito';
-      return '<div class="acao '+(a.status==='feito'?'feito ':'')+(atrasada?'atrasada':'')+'"><div><h3>'+esc(a.titulo)+'</h3>'+(a.detalhe?'<p>'+esc(a.detalhe)+'</p>':'')+
+      var atrasada=a.prazo&&a.prazo<hoje&&a.status!=='feito'&&a.status!=='cancelado';
+      return '<div class="acao '+(a.status==='feito'?'feito ':'')+(a.status==='cancelado'?'cancelado ':'')+(atrasada?'atrasada':'')+'"><div><h3>'+esc(a.titulo)+'</h3>'+(a.detalhe?'<p>'+esc(a.detalhe)+'</p>':'')+
         (a.link?'<p><a href="'+esc(a.link)+'" target="_blank" rel="noopener">'+({post:'Ler o post',video:'Assistir à videoaula',reuniao:'Abrir a reunião'}[a.tipo]||'Abrir o link')+' →</a></p>':'')+
         '<div class="meta">'+(a.inicio?'<span>Início: '+data(String(a.inicio).slice(0,10))+'</span>':'')+(a.responsavel?'<span>Responsável: '+esc(a.responsavel)+'</span>':'')+(a.prazo?'<span class="prazo">Prazo: '+data(a.prazo)+(atrasada?' (atrasada)':'')+'</span>':'')+'</div></div>'+
         '<div class="sels">'+sel(a.id,'status',STATUS,a.status,'st-'+a.status)+sel(a.id,'tipo',TIPO,a.tipo||'acao','mini')+sel(a.id,'dono',DONO,a.dono||'unique','mini')+'</div></div>';

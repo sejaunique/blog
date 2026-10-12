@@ -370,6 +370,24 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
 .gl-a{display:flex;gap:6px;align-items:center}.gl-ir{margin-left:auto;font-size:.74rem;font-weight:600}
 .ct-bola.p{width:34px;height:34px}.ct-bola.p .ic{width:15px;height:15px}
 @media (max-width:1250px){.ct{grid-template-columns:280px minmax(0,1fr)}.ct2{grid-template-columns:1fr}.ct-dir{grid-column:1/-1;grid-template-columns:1fr 1fr;position:static}}
+.ct-cartao.mini{padding:14px 16px;gap:6px}
+.ct-neg-l{display:flex;justify-content:space-between;align-items:baseline;gap:8px}.ct-neg-l strong{font-size:1.4rem;margin:0}.ct-neg-l span{font-size:.72rem;opacity:.8}
+.ct-del-h{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:2px 4px}.ct-del-h b{font-size:.95rem}
+.ct-del-h .pill{font-size:.74rem;padding:7px 12px}
+.ct-delform{background:var(--ws-card);border:1px solid var(--ws-line);border-radius:20px;padding:14px}
+.ct-bloco{border-radius:22px;padding:14px;display:grid;gap:8px}
+.ct-bloco-h{display:flex;justify-content:space-between;align-items:center}.ct-bloco-h b{font-size:.9rem}
+.ct-bloco-h span{font-size:.72rem;font-weight:800;min-width:24px;height:24px;border-radius:999px;display:grid;place-items:center;background:rgba(0,0,0,.12)}
+.ct-bloco.cz{background:#e9e9ee;color:#18181b}.ct-bloco.am{background:#ffd23f;color:#1d1600}.ct-bloco.vd{background:var(--verde);color:#062b14}.ct-bloco.vm{background:#ef4444;color:#fff}
+.ct-bloco.vm .ct-bloco-h span{background:rgba(255,255,255,.22)}
+.ct-item{background:rgba(255,255,255,.55);border-radius:14px;padding:9px 10px;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+.ct-bloco.vm .ct-item{background:rgba(255,255,255,.16)}
+.ct-item p{margin:0;font-size:.8rem;font-weight:600;line-height:1.3}
+.ct-item small{font-size:.66rem;opacity:.75}.ct-item small.atr{color:#b00020;font-weight:700;opacity:1}
+.ct-st{font:inherit;font-size:.66rem;border:1px solid rgba(0,0,0,.18);background:rgba(255,255,255,.7);color:#111;border-radius:999px;padding:4px 6px;max-width:96px}
+.ct-b-vazio{margin:0;font-size:.72rem;opacity:.6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ct-bloco.cz{background:#2a2a31;color:#eee}:root:not([data-theme="light"]) .ct-bloco.cz .ct-item{background:rgba(255,255,255,.06)}}
+:root[data-theme="dark"] .ct-bloco.cz{background:#2a2a31;color:#eee}:root[data-theme="dark"] .ct-bloco.cz .ct-item{background:rgba(255,255,255,.06)}
 </style>
 </head>
 <body data-casco="area">
@@ -407,8 +425,8 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     '-',['site','Site','site'],['alda','Alda.CRM','alda']
   ];
   var ETAPA={lead:['Lead','var(--muted)'],qualificado:['Lead qualificado','#f0a020'],cliente:['Cliente','var(--verde-txt)'],finalizado:['Finalizado','var(--marinho-txt)']};
-  var ST={a_fazer:'A fazer',fazendo:'Em andamento',feito:'Feito',arquivado:'Arquivado'};
-  function fechado(st){ return st==='feito'||st==='arquivado'; }
+  var ST={a_fazer:'A fazer',fazendo:'Em andamento',feito:'Feito',cancelado:'Cancelado',arquivado:'Arquivado'};
+  function fechado(st){ return st==='feito'||st==='arquivado'||st==='cancelado'; }
   var USTATUS={convite:'Sem acesso ainda',pendente:'Pediu acesso',ativo:'Com acesso',bloqueado:'Bloqueado',recusado:'Recusado'};
   var TIPO={acao:'Ação',post:'Post',video:'Videoaula',reuniao:'Reunião',material:'Material'};
   var PST={rascunho:'Rascunho',enviada:'Enviada',aceita:'Aceita',recusada:'Recusada'};
@@ -886,17 +904,31 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
         b.innerHTML=A.length?A.map(function(a){ var at=a.prazo&&a.prazo<h&&!fechado(a.status); return '<div class="ct-neg"><div><b>'+esc(a.titulo)+'</b><p>'+esc((TIPO[a.tipo]||'Ação')+' · '+(a.dono==='cliente'?'cliente faz':'Unique faz'))+(a.prazo?' · <span style="'+(at?'color:var(--erro);font-weight:700':'')+'">entrega '+dt(a.prazo)+'</span>':'')+'</p></div><em class="ct-tag '+(fechado(a.status)?'v':'n')+'">'+esc(ST[a.status])+'</em></div>'; }).join(''):'<p class="ct-vazio">Nenhuma ação para essa empresa.</p>'; }
     }
     function direita(){
-      var N=(e.negocios||[]).filter(function(n){return FECHADAS.indexOf(n.dados.etapa)<0;}), n=N[0], A=((CONTS[e.slug]||{}).acoes||[]).filter(function(a){return !fechado(a.status);}).sort(function(a,b){ return String(a.prazo||'9').localeCompare(String(b.prazo||'9')); }), a=A[0];
-      var h='<div class="ct-cartao neg">'+(n?'<div class="ct-c-h"><b>'+esc(n.dados.nome)+'</b><button class="ct-seta-b" data-emp3>↗</button></div><div class="ct-etapas"><span class="on">'+esc(n.dados.etapa)+'</span>'+(['Negociação','Vendido'].filter(function(z){return z!==n.dados.etapa;}).slice(0,1).map(function(z){return '<span>'+z+'</span>';}).join(''))+'</div>'+
-          '<small>Valor do negócio</small><strong>'+(n.dados.valor?brl(n.dados.valor):'—')+'</strong><ul>'+[n.dados.probabilidade!=null?n.dados.probabilidade+'% de chance':'',n.dados.proximaAtividade?'Próxima atividade '+dt(n.dados.proximaAtividade):'',n.dados.fechamentoEsperado?'Fecha em '+dt(n.dados.fechamentoEsperado):'',n.dados.origem?'Origem: '+n.dados.origem:''].filter(Boolean).map(function(t){return '<li>'+ic('check')+esc(t)+'</li>';}).join('')+'</ul>'+(N.length>1?'<small>+'+(N.length-1)+' negócio(s) em aberto</small>':''):
-          '<div class="ct-c-h"><b>Nenhum negócio aberto</b></div><small>Crie um negócio para acompanhar valor, etapa e chance de fechar.</small><button class="ct-btn" data-emp3>Criar negócio</button>')+'</div>'+
-        '<div class="ct-cartao tar"><div class="ct-c-h"><b>Próxima ação</b>'+(A.length>1?'<small>+'+(A.length-1)+'</small>':'')+'</div>'+(a?'<p class="ct-t">'+esc(a.titulo)+'</p><div class="ct-linhas"><span>'+ic('users')+(a.dono==='cliente'?'Cliente faz':'Unique faz')+'</span>'+(a.prazo?'<span>'+ic('calendar')+'Entrega '+dt(a.prazo)+'</span>':'')+'<span>'+ic('check')+esc(ST[a.status])+'</span></div><div class="ct-btns"><button class="ct-btn esc" data-feito="'+esc(a.id)+'">Marcar como feito</button><button class="ct-btn cla" data-ag2>'+ic('reuniao')+'</button></div>':
-          '<p class="ct-t">Nada pendente com '+esc(e.nome)+'.</p><div class="ct-btns"><button class="ct-btn esc" data-ag2>Agendar reunião</button></div>')+'</div>';
+      var N=(e.negocios||[]).filter(function(n){return FECHADAS.indexOf(n.dados.etapa)<0;}), n=N[0];
+      var TODAS=((CONTS[e.slug]||{}).acoes)||null, MIN=(TODAS||[]).filter(function(a){return a.pessoa===u.email;}), LIVRES=(TODAS||[]).filter(function(a){return !a.pessoa&&!fechado(a.status);});
+      var BL=[['a_fazer','A fazer','cz'],['fazendo','Em andamento','am'],['feito','Concluído','vd'],['cancelado','Cancelado','vm']];
+      var h=(n?'<div class="ct-cartao neg mini"><div class="ct-c-h"><b>'+esc(n.dados.nome)+'</b><button class="ct-seta-b" data-emp3>↗</button></div><div class="ct-neg-l"><strong>'+(n.dados.valor?brl(n.dados.valor):'—')+'</strong><span>'+esc(n.dados.etapa)+(n.dados.probabilidade!=null?' · '+n.dados.probabilidade+'%':'')+'</span></div></div>':'')+
+        '<div class="ct-del-h"><b>Ações de '+esc(u.nome.split(' ')[0])+'</b><button class="pill solid" data-delegar>+ Delegar ação</button></div><div id="ct-delf"></div>'+
+        (TODAS===null?'<p class="ct-vazio">Carregando…</p>':BL.map(function(bl){ var L=MIN.filter(function(a){return (a.status==='arquivado'?'feito':a.status)===bl[0];});
+          return '<div class="ct-bloco '+bl[2]+'"><div class="ct-bloco-h"><b>'+bl[1]+'</b><span>'+L.length+'</span></div>'+(L.length?L.map(function(a){ var at=a.prazo&&a.prazo<hoje()&&!fechado(a.status);
+            return '<div class="ct-item"><div><p>'+esc(a.titulo)+'</p><small'+(at?' class="atr"':'')+'>'+(TIPO[a.tipo]||'Ação')+(a.prazo?' · '+(at?'atrasada · ':'')+dt(a.prazo):'')+'</small></div><select class="ct-st" data-st="'+esc(a.id)+'" aria-label="Mudar status">'+BL.map(function(o){return '<option value="'+o[0]+'"'+(o[0]===a.status?' selected':'')+'>'+o[1]+'</option>';}).join('')+'</select></div>'; }).join(''):'<p class="ct-b-vazio">Nada aqui.</p>')+'</div>'; }).join(''));
       $('ct-dir').innerHTML=h;
-      $('ct-dir').onclick=function(ev){ var b=ev.target.closest('button'); if(!b) return;
+      var dir=$('ct-dir');
+      dir.onclick=function(ev){ var b=ev.target.closest('button'); if(!b) return;
         if(b.hasAttribute('data-emp3')) vai('empresas',e.slug);
-        if(b.hasAttribute('data-ag2')) agenda({titulo:'Reunião Unique · '+e.nome,inicio:'',slug:e.slug,emails:[u.email]});
-        if(b.dataset.feito){ b.disabled=true; post({a:'acao-status',slug:e.slug,id:b.dataset.feito,status:'feito'}).then(function(r){ if(!r.ok){toast('Erro.');return;} toast('Ação concluída.'); delete CONTS[e.slug]; detalheC(); }); } };
+        if(b.hasAttribute('data-delegar')){ var f=$('ct-delf'); if(f.innerHTML){ f.innerHTML=''; return; }
+          f.innerHTML='<form class="form ct-delform">'+(LIVRES.length?'<div class="campo"><label>Ação que já existe para '+esc(e.nome)+'</label><select name="exist"><option value="">— Criar uma nova —</option>'+LIVRES.map(function(a){return '<option value="'+esc(a.id)+'">'+esc(a.titulo)+'</option>';}).join('')+'</select></div>':'')+
+            '<div class="campo" data-nova><label>Nova ação</label><input name="titulo" placeholder="O que '+esc(u.nome.split(' ')[0])+' precisa fazer?"></div><div class="l2" data-nova><div class="campo"><label>Entrega</label><input type="date" name="prazo"></div><div class="campo"><label>Tipo</label><select name="tipo">'+Object.keys(TIPO).map(function(k){return '<option value="'+k+'">'+TIPO[k]+'</option>';}).join('')+'</select></div></div>'+
+            '<div style="display:flex;gap:8px"><button class="pill solid">Delegar</button><button type="button" class="pill" data-x>Cancelar</button></div></form>';
+          var fm=f.querySelector('form'), ex=fm.elements.exist;
+          if(ex) ex.onchange=function(){ fm.querySelectorAll('[data-nova]').forEach(function(z){ z.hidden=!!ex.value; }); };
+          fm.querySelector('[data-x]').onclick=function(){ f.innerHTML=''; };
+          fm.onsubmit=function(evv){ evv.preventDefault();
+            var pr=ex&&ex.value?post({a:'acao-status',slug:e.slug,id:ex.value,pessoa:u.email,dono:'cliente'}):(fm.elements.titulo.value.trim()?post({a:'admin-acao',slug:e.slug,acao:{titulo:fm.elements.titulo.value,prazo:fm.elements.prazo.value,tipo:fm.elements.tipo.value,dono:'cliente',pessoa:u.email,status:'a_fazer'}}):null);
+            if(!pr){ toast('Escreva a ação ou escolha uma existente.'); return; }
+            pr.then(function(r){ if(!r.ok){ toast(r.erro||'Erro.'); return; } toast('Ação delegada a '+u.nome.split(' ')[0]+'.'); delete CONTS[e.slug]; get('?a=conteudo&e='+encodeURIComponent(e.slug)).then(function(c){ CONTS[e.slug]=c||{}; direita(); corpo(); }); }); }; } };
+      dir.onchange=function(ev){ var sl=ev.target; if(!sl.dataset.st) return; sl.disabled=true;
+        post({a:'acao-status',slug:e.slug,id:sl.dataset.st,status:sl.value}).then(function(r){ if(!r.ok){ toast('Erro.'); return; } toast('Ação: '+ST[sl.value]+'.'); var a=(CONTS[e.slug].acoes||[]).filter(function(x){return x.id===sl.dataset.st;})[0]; if(a) a.status=sl.value; direita(); corpo(); }); };
     }
   }
 
@@ -1055,9 +1087,9 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     var A=CONT.acoes||[], h=hoje();
     $('e-acoes').innerHTML=A.length?A.map(function(a){ var at=a.prazo&&a.prazo<h&&!fechado(a.status);
       return '<div class="li"><div><span class="tag" style="'+(at?'color:var(--erro)':'')+'">'+(TIPO[a.tipo]||'Ação')+' · '+(a.dono==='cliente'?'cliente faz':'Unique faz')+(a.prazo?' · entrega '+dt(a.prazo):'')+(a.compartilhada?' · compartilhada':'')+'</span><h4>'+esc(a.titulo)+'</h4>'+(a.detalhe?'<p>'+esc(a.detalhe)+'</p>':'')+(a.link?'<p><a href="'+esc(a.link)+'" target="_blank" rel="noopener">'+esc(a.link)+'</a></p>':'')+'</div>'+
-        '<div class="bts">'+'<select class="mini" data-tp="'+esc(a.id)+'">'+Object.keys(TIPO).map(function(x){return '<option value="'+x+'"'+(x===(a.tipo||'acao')?' selected':'')+'>'+TIPO[x]+'</option>';}).join('')+'</select>'+'<select class="mini" data-dn="'+esc(a.id)+'"><option value="unique">Unique faz</option><option value="cliente"'+((a.dono)==='cliente'?' selected':'')+'>Cliente faz</option></select>'+'<input type="date" class="mini" data-pz="'+esc(a.id)+'" value="'+esc(a.prazo||'')+'" title="Data de entrega deste cliente"><select class="mini" data-st="'+esc(a.id)+'">'+Object.keys(ST).map(function(k){return '<option value="'+k+'"'+(k===a.status?' selected':'')+'>'+ST[k]+'</option>';}).join('')+'</select></div></div>'; }).join(''):'<div class="vazio">Nenhuma ação para essa empresa. Marque a empresa em uma linha da tabela de ações.</div>';
-    $('e-acoes').onchange=function(ev){ var t=ev.target, id=t.dataset.st||t.dataset.pz||t.dataset.tp||t.dataset.dn; if(!id) return; var a=A.filter(function(x){return x.id===id;})[0];
-      post({a:'acao-status',slug:e.slug,id:id,status:t.dataset.st?t.value:a.status,prazo:t.dataset.pz?t.value:undefined,tipo:t.dataset.tp?t.value:undefined,dono:t.dataset.dn?t.value:undefined}).then(function(r){ toast(r.ok?'Atualizado.':'Erro.'); if(r.ok) carrega(); }); };
+        '<div class="bts">'+'<select class="mini" data-tp="'+esc(a.id)+'">'+Object.keys(TIPO).map(function(x){return '<option value="'+x+'"'+(x===(a.tipo||'acao')?' selected':'')+'>'+TIPO[x]+'</option>';}).join('')+'</select>'+'<select class="mini" data-dn="'+esc(a.id)+'"><option value="unique">Unique faz</option><option value="cliente"'+((a.dono)==='cliente'?' selected':'')+'>Cliente faz</option></select>'+(e.usuarios.length?'<select class="mini" data-pp="'+esc(a.id)+'" title="Delegada a"><option value="">Sem pessoa</option>'+e.usuarios.map(function(u){return '<option value="'+esc(u.email)+'"'+(u.email===a.pessoa?' selected':'')+'>'+esc(u.nome)+'</option>';}).join('')+'</select>':'')+'<input type="date" class="mini" data-pz="'+esc(a.id)+'" value="'+esc(a.prazo||'')+'" title="Data de entrega deste cliente"><select class="mini" data-st="'+esc(a.id)+'">'+Object.keys(ST).map(function(k){return '<option value="'+k+'"'+(k===a.status?' selected':'')+'>'+ST[k]+'</option>';}).join('')+'</select></div></div>'; }).join(''):'<div class="vazio">Nenhuma ação para essa empresa. Marque a empresa em uma linha da tabela de ações.</div>';
+    $('e-acoes').onchange=function(ev){ var t=ev.target, id=t.dataset.st||t.dataset.pz||t.dataset.tp||t.dataset.dn||t.dataset.pp; if(!id) return; var a=A.filter(function(x){return x.id===id;})[0];
+      post({a:'acao-status',slug:e.slug,id:id,status:t.dataset.st?t.value:a.status,prazo:t.dataset.pz?t.value:undefined,tipo:t.dataset.tp?t.value:undefined,dono:t.dataset.dn?t.value:undefined,pessoa:t.dataset.pp!==undefined?t.value:undefined}).then(function(r){ toast(r.ok?'Atualizado.':'Erro.'); if(r.ok) carrega(); }); };
   }
 
   /* ---------- AÇÕES (tabela única) ---------- */

@@ -71,7 +71,7 @@ const BLOB = process.env.BLOB_READ_WRITE_TOKEN || '';
 const COOKIE = 'ua_sess';
 const DIAS = 30;
 const TIPOS = ['pagina', 'relatorio', 'diagnostico', 'video', 'arquivo', 'link', 'conteudo'];
-const STATUS_ACAO = ['a_fazer', 'fazendo', 'feito', 'arquivado'];
+const STATUS_ACAO = ['a_fazer', 'fazendo', 'feito', 'cancelado', 'arquivado'];
 const STATUS_USER = ['ativo', 'recusado', 'bloqueado', 'pendente', 'convite'];
 const ETAPAS = ['lead', 'qualificado', 'cliente', 'finalizado'];
 const TAGS = ['Textil Club', 'Textil Club Elite', 'Textil Club Advisor', 'Consultoria', 'Mentoria', 'Projeto', 'Aula CRM', 'Palestra', 'Treinamento'];
@@ -216,8 +216,8 @@ async function conteudo(slug) {
   const [modH, mstH] = await redis([['HGETALL', 'area:modelos'], ['HGETALL', 'area:mst:' + slug]]);
   const mst = {};
   lerPares(mstH).forEach(([k, v]) => { mst[k] = json(v) || {}; });
-  const comp = lerHash(modH).filter(m => valePara(m, slug)).map(m => Object.assign({}, m, { compartilhada: true, status: (mst[m.id] || {}).status || 'a_fazer', prazo: (mst[m.id] || {}).prazo || m.prazo || '', dono: (mst[m.id] || {}).dono || m.dono || 'unique', tipo: (mst[m.id] || {}).tipo || m.tipo || 'acao', por: (mst[m.id] || {}).por, atualizado: (mst[m.id] || {}).atualizado }));
-  const ordem = { fazendo: 0, a_fazer: 1, feito: 2, arquivado: 3 };
+  const comp = lerHash(modH).filter(m => valePara(m, slug)).map(m => Object.assign({}, m, { compartilhada: true, status: (mst[m.id] || {}).status || 'a_fazer', prazo: (mst[m.id] || {}).prazo || m.prazo || '', dono: (mst[m.id] || {}).dono || m.dono || 'unique', tipo: (mst[m.id] || {}).tipo || m.tipo || 'acao', pessoa: (mst[m.id] || {}).pessoa !== undefined ? mst[m.id].pessoa : (m.pessoa || ''), por: (mst[m.id] || {}).por, atualizado: (mst[m.id] || {}).atualizado }));
+  const ordem = { fazendo: 0, a_fazer: 1, feito: 2, cancelado: 3, arquivado: 4 };
   const acoes = lerHash(acoesH).concat(comp).sort((a, b) => (ordem[a.status] - ordem[b.status]) || String(a.prazo || '9').localeCompare(String(b.prazo || '9')));
   return { itens, acoes };
 }
@@ -247,6 +247,7 @@ function limpaAcao(a) {
     prazo: /^\d{4}-\d{2}-\d{2}$/.test(a.prazo || '') ? a.prazo : '',
     inicio: /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2})?$/.test(a.inicio || '') ? a.inicio : '',
     dono: a.dono === 'cliente' ? 'cliente' : 'unique',
+    pessoa: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(a.pessoa || '') ? String(a.pessoa).toLowerCase().slice(0, 120) : '',
     tipo: ['acao', 'post', 'video', 'reuniao', 'material'].indexOf(a.tipo) >= 0 ? a.tipo : 'acao',
     link: (/^https:\/\//i.test(a.link || '') || /^\/[^/]/.test(a.link || '')) ? limpo(a.link, 600) : '',
     status: STATUS_ACAO.indexOf(a.status) >= 0 ? a.status : 'a_fazer',
@@ -581,7 +582,7 @@ module.exports = async (req, res) => {
       const slug = s.admin ? slugify(b.slug) : s.slug;
       if (b.status !== undefined && STATUS_ACAO.indexOf(b.status) < 0) return res.status(400).json({ ok: false });
       const TIPOS_ACAO = ['acao', 'post', 'video', 'reuniao', 'material'];
-      const extra = o => { if (b.dono === 'unique' || b.dono === 'cliente') o.dono = b.dono; if (TIPOS_ACAO.indexOf(b.tipo) >= 0) o.tipo = b.tipo; return o; };
+      const extra = o => { if (b.dono === 'unique' || b.dono === 'cliente') o.dono = b.dono; if (TIPOS_ACAO.indexOf(b.tipo) >= 0) o.tipo = b.tipo; if (b.pessoa !== undefined) o.pessoa = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(b.pessoa || '') ? String(b.pessoa).toLowerCase().slice(0, 120) : ''; return o; };
       const [v, mv] = await redis([['HGET', 'area:acoes:' + slug, String(b.id || '')], ['HGET', 'area:modelos', String(b.id || '')]]);
       const a = json(v), m = json(mv);
       if (!a && valePara(m, slug)) {

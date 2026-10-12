@@ -66,7 +66,7 @@ const BLOB = process.env.BLOB_READ_WRITE_TOKEN || '';
 const COOKIE = 'ua_sess';
 const DIAS = 30;
 const TIPOS = ['pagina', 'relatorio', 'diagnostico', 'video', 'arquivo', 'link', 'conteudo'];
-const STATUS_ACAO = ['a_fazer', 'fazendo', 'feito'];
+const STATUS_ACAO = ['a_fazer', 'fazendo', 'feito', 'arquivado'];
 const STATUS_USER = ['ativo', 'recusado', 'bloqueado', 'pendente', 'convite'];
 const ETAPAS = ['lead', 'qualificado', 'cliente', 'finalizado'];
 const TAGS = ['Textil Club', 'Textil Club Elite', 'Textil Club Advisor', 'Consultoria', 'Mentoria', 'Projeto', 'Aula CRM', 'Palestra', 'Treinamento'];
@@ -212,7 +212,7 @@ async function conteudo(slug) {
   const mst = {};
   lerPares(mstH).forEach(([k, v]) => { mst[k] = json(v) || {}; });
   const comp = lerHash(modH).filter(m => valePara(m, slug)).map(m => Object.assign({}, m, { compartilhada: true, status: (mst[m.id] || {}).status || 'a_fazer', prazo: (mst[m.id] || {}).prazo || m.prazo || '', por: (mst[m.id] || {}).por, atualizado: (mst[m.id] || {}).atualizado }));
-  const ordem = { fazendo: 0, a_fazer: 1, feito: 2 };
+  const ordem = { fazendo: 0, a_fazer: 1, feito: 2, arquivado: 3 };
   const acoes = lerHash(acoesH).concat(comp).sort((a, b) => (ordem[a.status] - ordem[b.status]) || String(a.prazo || '9').localeCompare(String(b.prazo || '9')));
   return { itens, acoes };
 }

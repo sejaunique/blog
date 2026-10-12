@@ -272,7 +272,8 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     '-',['site','Site','site'],['alda','Alda.CRM','alda']
   ];
   var ETAPA={lead:['Lead','var(--muted)'],qualificado:['Lead qualificado','#f0a020'],cliente:['Cliente','var(--verde-txt)'],finalizado:['Finalizado','var(--marinho-txt)']};
-  var ST={a_fazer:'A fazer',fazendo:'Em andamento',feito:'Feito'};
+  var ST={a_fazer:'A fazer',fazendo:'Em andamento',feito:'Feito',arquivado:'Arquivado'};
+  function fechado(st){ return st==='feito'||st==='arquivado'; }
   var USTATUS={convite:'Sem acesso ainda',pendente:'Pediu acesso',ativo:'Com acesso',bloqueado:'Bloqueado',recusado:'Recusado'};
   var TIPO={acao:'Ação',post:'Post',video:'Videoaula',reuniao:'Reunião',material:'Material'};
   var PST={rascunho:'Rascunho',enviada:'Enviada',aceita:'Aceita',recusada:'Recusada'};
@@ -430,7 +431,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     E.forEach(function(e){ cont[e.etapa]=(cont[e.etapa]||0)+1; });
     var abertas=PROPS.filter(function(p){return p.status==='enviada';}), pipe=abertas.reduce(function(t,p){return t+(+p.total||0);},0);
     var ganhas=PROPS.filter(function(p){return p.status==='aceita';}).reduce(function(t,p){return t+(+p.total||0);},0);
-    var P=pendencias(), h=hoje(), atras=P.filter(function(p){return p.status!=='feito'&&p.prazo<h;});
+    var P=pendencias(), h=hoje(), atras=P.filter(function(p){return !fechado(p.status)&&p.prazo<h;});
     var semana=new Date(Date.now()-7*864e5).toISOString();
     var novosD=DIAGS.filter(function(d){return d.data>semana;}).length;
     cabecalho('Controle','e gestão',[
@@ -459,7 +460,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
         '<section class="card"><div class="card-h"><h2>Atrasadas e próximas</h2><button class="cbtn" data-go="acoes">'+ic('abrir')+'</button></div><div class="lst" id="prox"></div></section>'+
       '</div>';
     calendario(P);
-    var prox=P.filter(function(p){return p.status!=='feito';}).sort(function(a,b){return a.prazo.localeCompare(b.prazo);}).slice(0,8);
+    var prox=P.filter(function(p){return !fechado(p.status);}).sort(function(a,b){return a.prazo.localeCompare(b.prazo);}).slice(0,8);
     $('prox').innerHTML=prox.length?prox.map(function(p){ var at=p.prazo<h; return '<div class="li"><div><span class="tag" style="'+(at?'color:var(--erro)':'')+'">'+(at?'Atrasada · ':'')+dt(p.prazo)+' · '+esc(nomeEmp(p.slug))+'</span><h4>'+esc(p.titulo)+'</h4></div><div class="bts"><span class="selo '+(p.status==='fazendo'?'s-mar':'s-neu')+'">'+ST[p.status]+'</span></div></div>'; }).join(''):'<div class="vazio">Nenhuma entrega com data. Defina datas na tabela de ações.</div>';
     $('vista').onclick=function(ev){
       var g=ev.target.closest('[data-go]'); if(g){ var p=g.dataset.go.split('|'); if(p[0]==='propostas'){ EDIT=p[1]; } vai(p[0],p[0]==='empresas'?p[1]:undefined); return; }
@@ -476,7 +477,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     for(var i=0;i<42;i++){
       var d=new Date(ini); d.setDate(ini.getDate()+i); var k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
       var L=mapa[k]||[], cls='d'+(d.getMonth()!==m?' fora':'')+(k===h?' hoje':'');
-      if(L.length){ cls+=' tem'; if(L.some(function(x){return x.status!=='feito'&&k<h;})) cls+=' atr'; else if(L.some(function(x){return x.tipo==='reuniao';})) cls+=' reu'; }
+      if(L.length){ cls+=' tem'; if(L.some(function(x){return !fechado(x.status)&&k<h;})) cls+=' atr'; else if(L.some(function(x){return x.tipo==='reuniao';})) cls+=' reu'; }
       out+='<div class="'+cls+'"'+(L.length?' data-dia="'+k+'" title="'+esc(L.map(function(x){return x.titulo+(x.slug?' · '+nomeEmp(x.slug):x.google?' · Google Agenda':'');}).join('\n'))+'"':'')+'>'+d.getDate()+(L.length?'<i>'+L.length+'</i>':'')+'</div>';
     }
     $('cal').innerHTML=out+'</div>';
@@ -665,8 +666,8 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
   }
   function acoesEmp(e){
     var A=CONT.acoes||[], h=hoje();
-    $('e-acoes').innerHTML=A.length?A.map(function(a){ var at=a.prazo&&a.prazo<h&&a.status!=='feito';
-      return '<div class="li"><div><span class="tag" style="'+(at?'color:var(--erro)':'')+'">'+(TIPO[a.tipo]||'Ação')+' · '+(a.dono==='cliente'?'cliente faz':'Unique faz')+(a.prazo?' · entrega '+dt(a.prazo):'')+(a.compartilhada?' · compartilhada':'')+'</span><h4>'+esc(a.titulo)+'</h4></div>'+
+    $('e-acoes').innerHTML=A.length?A.map(function(a){ var at=a.prazo&&a.prazo<h&&!fechado(a.status);
+      return '<div class="li"><div><span class="tag" style="'+(at?'color:var(--erro)':'')+'">'+(TIPO[a.tipo]||'Ação')+' · '+(a.dono==='cliente'?'cliente faz':'Unique faz')+(a.prazo?' · entrega '+dt(a.prazo):'')+(a.compartilhada?' · compartilhada':'')+'</span><h4>'+esc(a.titulo)+'</h4>'+(a.detalhe?'<p>'+esc(a.detalhe)+'</p>':'')+(a.link?'<p><a href="'+esc(a.link)+'" target="_blank" rel="noopener">'+esc(a.link)+'</a></p>':'')+'</div>'+
         '<div class="bts"><input type="date" class="mini" data-pz="'+esc(a.id)+'" value="'+esc(a.prazo||'')+'" title="Data de entrega deste cliente"><select class="mini" data-st="'+esc(a.id)+'">'+Object.keys(ST).map(function(k){return '<option value="'+k+'"'+(k===a.status?' selected':'')+'>'+ST[k]+'</option>';}).join('')+'</select></div></div>'; }).join(''):'<div class="vazio">Nenhuma ação para essa empresa. Marque a empresa em uma linha da tabela de ações.</div>';
     $('e-acoes').onchange=function(ev){ var t=ev.target, id=t.dataset.st||t.dataset.pz; if(!id) return; var a=A.filter(function(x){return x.id===id;})[0];
       post({a:'acao-status',slug:e.slug,id:id,status:t.dataset.st?t.value:a.status,prazo:t.dataset.pz?t.value:undefined}).then(function(r){ toast(r.ok?'Atualizado.':'Erro.'); if(r.ok) carrega(); }); };
@@ -676,7 +677,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
   var FILTRO_CLI='', FT='';
   function vAcoes(){
     var L=linhas(), P=pendencias(), h=hoje();
-    cabecalho('Ações','todas em um lugar',[['tabela',L.length,'ações e conteúdos'],['users',L.filter(function(l){return l.clientes.length;}).length,'compartilhadas'],['alerta',P.filter(function(p){return p.status!=='feito'&&p.prazo<h;}).length,'entregas atrasadas'],['check',P.filter(function(p){return p.status==='feito';}).length,'entregas feitas']]);
+    cabecalho('Ações','todas em um lugar',[['tabela',L.length,'ações e conteúdos'],['users',L.filter(function(l){return l.clientes.length;}).length,'compartilhadas'],['alerta',P.filter(function(p){return !fechado(p.status)&&p.prazo<h;}).length,'entregas atrasadas'],['check',P.filter(function(p){return p.status==='feito';}).length,'entregas feitas']]);
     $('vista').innerHTML='<section class="card"><div class="card-h" style="flex-wrap:wrap"><div class="busca" style="margin:0;flex:1;min-width:200px">'+ic('busca')+'<input id="a-busca" placeholder="Buscar ação"></div>'+
       '<select class="mini" id="a-tipo"><option value="">Todos os tipos</option>'+Object.keys(TIPO).map(function(k){return '<option value="'+k+'"'+(FT===k?' selected':'')+'>'+TIPO[k]+'</option>';}).join('')+'</select>'+
       '<select class="mini" id="a-cli"><option value="">Todos os clientes</option>'+(R.empresas||[]).map(function(e){return '<option value="'+esc(e.slug)+'"'+(FILTRO_CLI===e.slug?' selected':'')+'>'+esc(e.nome)+'</option>';}).join('')+'</select>'+
@@ -721,7 +722,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     var nova=NOVA?'<tr data-novo><td><input type="text" name="titulo" placeholder="Nome da ação"><input type="text" name="detalhe" placeholder="Detalhe (opcional)"></td><td><select name="tipo">'+Object.keys(TIPO).map(function(k){return '<option value="'+k+'">'+TIPO[k]+'</option>';}).join('')+'</select></td>'+
       '<td><select name="dono"><option value="unique">Unique</option><option value="cliente">Cliente</option></select></td><td><input type="date" name="inicio"></td><td><input type="date" name="prazo"></td><td><input type="text" name="link" placeholder="Link (opcional)"></td><td colspan="2"><button class="pill solid" data-criar>Criar</button> <button class="pill" data-cancela>Cancelar</button></td></tr>':'';
     $('a-corpo').innerHTML=nova+(L.length?L.map(function(l){
-      var k=chave(l), n=l.clientes.length, feitos=l.clientes.filter(function(s){return ((l.and[s]||{}).status)==='feito';}).length;
+      var k=chave(l), n=l.clientes.length, feitos=l.clientes.filter(function(s){return fechado((l.and[s]||{}).status);}).length;
       var cl=l.todos?'<span class="todos">Todos ('+n+')</span>':l.clientes.slice(0,3).map(function(s){return '<span>'+esc(nomeEmp(s))+'</span>';}).join('')+(n>3?'<span>+'+(n-3)+'</span>':'');
       var row='<tr data-k="'+esc(k)+'"><td><input type="text" name="titulo" class="tit" value="'+esc(l.titulo)+'"'+(l.fonte==='post'?' readonly':'')+'><input type="text" name="detalhe" class="det" value="'+esc(l.detalhe||'')+'" placeholder="Detalhe"'+(l.fonte==='post'?' readonly':'')+'>'+(l.link?'<a class="det" style="padding:0 8px" href="'+esc(l.link)+'" target="_blank">'+esc(l.link)+'</a>':'')+'</td>'+
         '<td><select name="tipo">'+Object.keys(TIPO).map(function(x){return '<option value="'+x+'"'+(x===l.tipo?' selected':'')+'>'+TIPO[x]+'</option>';}).join('')+'</select></td>'+
@@ -731,7 +732,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
         '<td><div class="cli">'+cl+'<button data-cli>'+(n?'editar':'+ clientes')+'</button></div></td>'+
         '<td>'+(n?'<button class="pill" data-and style="padding:6px 10px">'+feitos+'/'+n+' feitas</button><div class="barra"><i style="width:'+Math.round(feitos/n*100)+'%"></i></div>':'<span class="muted" style="font-size:.74rem">ainda não compartilhada</span>')+'</td>'+
         '<td style="white-space:nowrap"><button class="cbtn" data-ag title="Agendar no Google Agenda">'+ic('reuniao')+'</button>'+(l.fonte!=='post'?' <button class="cbtn" data-del title="Excluir">'+ic('lixo')+'</button>':'')+'</td></tr>';
-      if(ABERTO[k]&&n) row+='<tr class="det-cli"><td colspan="8"><div class="and">'+l.clientes.map(function(s){ var a=l.and[s]||{}, pz=a.prazo||l.prazo||'', at=pz&&pz<h&&a.status!=='feito';
+      if(ABERTO[k]&&n) row+='<tr class="det-cli"><td colspan="8"><div class="and">'+l.clientes.map(function(s){ var a=l.and[s]||{}, pz=a.prazo||l.prazo||'', at=pz&&pz<h&&!fechado(a.status);
         return '<div><span><b>'+esc(nomeEmp(s))+'</b>'+(at?' <span style="color:var(--erro);font-size:.7rem">atrasada</span>':'')+'</span><input type="date" class="mini" data-pz="'+esc(l.id)+'" data-sl="'+esc(s)+'" value="'+esc(pz)+'"><select class="mini" data-st="'+esc(l.id)+'" data-sl="'+esc(s)+'">'+Object.keys(ST).map(function(x){return '<option value="'+x+'"'+(x===(a.status||'a_fazer')?' selected':'')+'>'+ST[x]+'</option>';}).join('')+'</select></div>'; }).join('')+'</div></td></tr>';
       return row;
     }).join(''):'<tr><td colspan="8"><div class="vazio">Nenhuma ação com esse filtro.</div></td></tr>');

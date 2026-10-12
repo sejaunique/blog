@@ -53,6 +53,9 @@
 .acao h3{font-size:1rem;font-weight:600;margin:0}
 .acao p{margin:4px 0 0;color:var(--muted);font-size:.88rem}
 .acao .meta{display:flex;flex-wrap:wrap;gap:14px;font-size:.74rem;color:var(--muted);margin-top:8px}
+.arq{margin-top:22px;border-top:1px solid var(--line);padding-top:12px}
+.arq summary{cursor:pointer;font-weight:600;font-size:.9rem;color:var(--muted);padding:8px 0}
+.arq .acao{grid-template-columns:1fr}
 .acao.feito h3{text-decoration:line-through;color:var(--muted)}
 .acao.atrasada .prazo{color:var(--erro);font-weight:600}
 .acao select{font:inherit;font-size:.78rem;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:var(--bg);color:var(--fg)}
@@ -201,14 +204,14 @@
   }
 
   function plano(){
-    var A=DADOS.acoes, hoje=new Date().toISOString().slice(0,10), el=document.getElementById('plano');
+    var TODAS=DADOS.acoes, A=TODAS.filter(function(a){return a.status!=='arquivado';}), ARQ=TODAS.filter(function(a){return a.status==='arquivado';}), hoje=new Date().toISOString().slice(0,10), el=document.getElementById('plano');
     var feitas=A.filter(function(a){return a.status==='feito';}).length;
     document.getElementById('n-acoes').textContent=A.length;
     document.getElementById('n-feitas').textContent=feitas;
     var pct=A.length?Math.round(feitas*100/A.length):0;
     document.getElementById('n-pct').textContent=A.length?pct+'%':'–';
     document.getElementById('barra').style.width=pct+'%';
-    if(!A.length){ el.innerHTML='<div class="vazio" style="margin-top:16px">O plano de ações da sua empresa aparece aqui depois do diagnóstico.</div>'; return; }
+    if(!TODAS.length){ el.innerHTML='<div class="vazio" style="margin-top:16px">O plano de ações da sua empresa aparece aqui depois do diagnóstico.</div>'; return; }
     el.innerHTML=A.map(function(a){
       var atrasada=a.prazo&&a.prazo<hoje&&a.status!=='feito';
       return '<div class="acao '+(a.status==='feito'?'feito ':'')+(atrasada?'atrasada':'')+'"><div><h3>'+esc(a.titulo)+'</h3>'+(a.detalhe?'<p>'+esc(a.detalhe)+'</p>':'')+
@@ -216,7 +219,10 @@
         '<div class="meta">'+(a.dono?'<span>'+(a.dono==='cliente'?'Quem faz: sua empresa':'Quem faz: Unique')+'</span>':'')+(a.inicio?'<span>Início: '+data(String(a.inicio).slice(0,10))+'</span>':'')+(a.responsavel?'<span>Responsável: '+esc(a.responsavel)+'</span>':'')+(a.prazo?'<span class="prazo">Prazo: '+data(a.prazo)+(atrasada?' (atrasada)':'')+'</span>':'')+'</div></div>'+
         '<select data-id="'+esc(a.id)+'" class="st-'+a.status+'" aria-label="Status de '+esc(a.titulo)+'">'+
         Object.keys(STATUS).map(function(k){return '<option value="'+k+'"'+(k===a.status?' selected':'')+'>'+STATUS[k]+'</option>';}).join('')+'</select></div>';
-    }).join('');
+    }).join('')+(ARQ.length?'<details class="arq"><summary>Materiais e avisos ('+ARQ.length+')</summary>'+ARQ.map(function(a){
+      return '<div class="acao"><div><h3>'+esc(a.titulo)+'</h3>'+(a.detalhe?'<p>'+esc(a.detalhe)+'</p>':'')+
+        (a.link?'<p><a href="'+esc(a.link)+'" target="_blank" rel="noopener">'+({post:'Ler o post',video:'Assistir à videoaula',reuniao:'Abrir a reunião'}[a.tipo]||'Abrir o link')+' →</a></p>':'')+'</div></div>';
+    }).join('')+'</details>':'');
     el.onchange=function(ev){
       var s=ev.target; if(!s.dataset.id) return;
       s.disabled=true;

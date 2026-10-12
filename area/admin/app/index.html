@@ -578,7 +578,7 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
       '<div class="sec"><h2>Para quem</h2></div>'+
       '<label class="chk"><input type="checkbox" name="todos"'+(l.todos?' checked':'')+'><b>Todos os clientes</b></label>'+
       (R.empresas||[]).map(function(e){ var a=l.and[e.slug]||{}, tem=l.clientes.indexOf(e.slug)>=0;
-        return '<label class="chk"><input type="checkbox" name="cli" value="'+esc(e.slug)+'"'+(tem?' checked':'')+'><span style="flex:1">'+esc(e.nome)+'</span>'+(tem&&!novo?'<span class="chip '+(a.status==='feito'?'ver':'')+'">'+ST[a.status||'a_fazer']+'</span>':'')+'</label>'; }).join('')+
+        return '<label class="chk"><input type="checkbox" name="cli" value="'+esc(e.slug)+'"'+(tem?' checked':'')+'><span style="flex:1">'+esc(e.nome)+'</span>'+(tem&&!novo&&l.id?'<select class="inl" data-stc="'+esc(e.slug)+'">'+Object.keys(ST).map(function(k){return '<option value="'+k+'"'+(k===(a.status||'a_fazer')?' selected':'')+'>'+ST[k]+'</option>';}).join('')+'</select>':'')+'</label>'; }).join('')+
       '<button class="bt pri cheio" style="margin-top:6px">Salvar</button>'+
       '<div class="acoes-i" style="justify-content:center"><button type="button" class="bt peq" data-ag>'+ic('reuniao')+'Google Agenda</button>'+(!novo&&!post_?'<button type="button" class="bt peq per" data-del>'+ic('lixo')+'Excluir</button>':'')+'</div></form>',function(f){
       var fm=f.querySelector('form');
@@ -587,6 +587,8 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
         var mud={titulo:fm.titulo.value,detalhe:fm.detalhe.value,tipo:fm.tipo.value,dono:fm.dono.value,inicio:fm.inicio.value,prazo:fm.prazo.value,link:fm.link.value,destino:fm.todos.checked?'todos':cli};
         var p=novo?post({a:'admin-modelo',modelo:mud}):salvaAcao(l,mud);
         p.then(function(r){ if(!r.ok){toast(r.erro||'Erro.');return;} fechaFolha(); toast('Ação salva.'); get('?a=admin-acoes').then(function(x){AC=x; desenha();}); }); };
+      f.onchange=function(ev){ var t=ev.target; if(!t.dataset.stc) return; ev.stopPropagation();
+        post({a:'acao-status',slug:t.dataset.stc,id:l.id,status:t.value}).then(function(r){ toast(r.ok?nomeEmp(t.dataset.stc)+': '+ST[t.value]+'.':'Erro.'); if(r.ok) get('?a=admin-acoes').then(function(x){AC=x;}); }); };
       f.onclick=function(ev){ var b=ev.target.closest('button[type=button]'); if(!b) return;
         if(b.hasAttribute('data-ag')) agenda({id:(!novo&&l.fonte==='biblioteca')?l.id:'',titulo:fm.titulo.value||'Compromisso Unique',detalhe:fm.detalhe.value,inicio:fm.inicio.value,prazo:fm.prazo.value});
         if(b.hasAttribute('data-del')){ if(b.dataset.ok!=='1'){ b.dataset.ok='1'; b.textContent='Toque de novo para excluir'; return; }

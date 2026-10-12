@@ -271,22 +271,6 @@ module.exports = async (req, res) => {
   try {
     // ---------- leituras ----------
     if (req.method === 'GET') {
-      // diagnóstico temporário: só mostra o status de cada fonte para um perfil público fixo (nenhum dado é devolvido)
-      if (q.a === 'teste-insta') {
-        const fontes = { api: 'https://i.instagram.com/api/v1/users/web_profile_info/?username=natgeo', pagina: 'https://www.instagram.com/natgeo/', unavatar: 'https://unavatar.io/instagram/natgeo?fallback=false' };
-        const out = {};
-        for (const [k, u] of Object.entries(fontes)) {
-          try {
-            const r = await fetch(u, { headers: k === 'api' ? { 'x-ig-app-id': '936619743392459', 'User-Agent': 'Instagram 219.0.0.12.117 Android' } : k === 'pagina' ? { 'User-Agent': 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)' } : {}, redirect: 'manual' });
-            const t = (r.headers.get('content-type') || '').split(';')[0];
-            let extra = '';
-            if (k === 'pagina' && r.ok) { const h = await r.text(); extra = /og:image/.test(h) ? 'tem og:image' : 'sem og:image'; }
-            if (k === 'api' && r.ok) { const j = await r.json().catch(() => ({})); extra = j && j.data && j.data.user ? 'tem foto' : 'sem usuario'; }
-            out[k] = r.status + ' ' + t + (extra ? ' · ' + extra : '') + (r.headers.get('location') ? ' → ' + r.headers.get('location').slice(0, 60) : '');
-          } catch (e) { out[k] = 'erro ' + e.message; }
-        }
-        return res.json(out);
-      }
       const s = await sessao(req);
 
       if (q.a === 'eu') {

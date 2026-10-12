@@ -5,7 +5,7 @@
 // mask: cnpj | cpf | cep | tel | insta | site (formata e valida; CNPJ/CPF com dígito verificador)
 
 const UF = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
-const SEGMENTOS = ['Alimentação e Bebidas', 'Agronegócio', 'Automotivo', 'Comércio', 'Construção Civil', 'Distribuição e Atacado', 'E-commerce', 'Educação', 'Energia', 'Esporte e Lazer', 'Estética e Beleza', 'Eventos', 'Financeiro', 'Franquias', 'Hotelaria', 'Imobiliário', 'Indústria', 'Jurídico', 'Limpeza e Facilities', 'Marketing e Publicidade', 'Mineração', 'Moda e Confecção', 'Papelaria e Gráfica', 'Prestação de Serviços', 'Recursos Humanos', 'Saúde', 'Segurança', 'Setor Público', 'Tecnologia', 'Telecomunicações', 'Terceiro Setor (ONGs e Associações)', 'Transporte e Logística', 'Turismo', 'Varejo'];
+const SEGMENTOS = ['Alimentação e Bebidas', 'Agronegócio', 'Automotivo', 'Comércio', 'Construção Civil', 'Educação', 'Energia', 'Esporte e Lazer', 'Estética e Beleza', 'Eventos', 'Financeiro', 'Franquias', 'Hotelaria', 'Imobiliário', 'Indústria', 'Jurídico', 'Limpeza e Facilities', 'Marketing e Publicidade', 'Mineração', 'Moda e Confecção', 'Papelaria e Gráfica', 'Recursos Humanos', 'Saúde', 'Segurança', 'Setor Público', 'Tecnologia', 'Telecomunicações', 'Terceiro Setor (ONGs e Associações)', 'Transporte e Logística', 'Turismo', 'Varejo'];
 const CAMPANHAS = ['Dia das Mães', 'Dia dos Pais', 'Dia das Crianças', 'Black Friday', 'Cyber Monday', 'Natal', 'Ano Novo', 'Campanha Mês Janeiro', 'Carnaval', 'Páscoa', 'Dia do Consumidor', 'Semana do Cliente'];
 const RESP = ['Carlos Ribeiro'];
 
@@ -13,7 +13,7 @@ const TEMPO = ['Menos de 1 ano', 'De 1 a 3 anos', 'De 3 a 5 anos', 'De 5 a 10 an
 const FATURAMENTO = ['Até R$ 50 mil', 'R$ 50 mil a R$ 100 mil', 'R$ 100 mil a R$ 300 mil', 'R$ 300 mil a R$ 1 milhão', 'R$ 1 milhão a R$ 5 milhões', 'Acima de R$ 5 milhões', 'Prefiro não informar'];
 const COLAB = ['1 a 5', '6 a 15', '16 a 50', '51 a 100', 'Mais de 100'];
 // respostas do diagnóstico que viram um segmento da lista
-const SEG_ALIAS = { 'Distribuidora / Atacado': 'Distribuição e Atacado', 'Varejo / Loja física': 'Varejo', 'Prestação de serviços': 'Prestação de Serviços', 'Saúde e estética': 'Estética e Beleza', 'Construção e engenharia': 'Construção Civil', 'Alimentação': 'Alimentação e Bebidas', 'E-commerce': 'E-commerce' };
+const SEG_ALIAS = { 'Distribuidora / Atacado': 'Comércio', 'Varejo / Loja física': 'Varejo', 'E-commerce': 'Varejo', 'Saúde e estética': 'Estética e Beleza', 'Construção e engenharia': 'Construção Civil', 'Alimentação': 'Alimentação e Bebidas' };
 
 const empresa = [
   { k: 'cnpj', r: 'CNPJ', t: 'txt', g: 'Identificação', mask: 'cnpj', dica: 'Digite o CNPJ e o resto se preenche com os dados da Receita.' },

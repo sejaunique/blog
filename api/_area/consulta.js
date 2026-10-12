@@ -26,7 +26,7 @@ function segmentoCnae(cod) {
   if (d <= 39) return 'Limpeza e Facilities';
   if (d <= 43 || d === 71) return 'Construção Civil';
   if (d === 45) return 'Automotivo';
-  if (d === 46) return 'Distribuição e Atacado';
+  if (d === 46) return 'Comércio';
   if (d === 47) return /^47(81|82)/.test(c) ? 'Moda e Confecção' : 'Varejo';
   if (d <= 53) return 'Transporte e Logística';
   if (d === 55) return 'Hotelaria';
@@ -46,7 +46,7 @@ function segmentoCnae(cod) {
   if (d === 90 || d === 91) return 'Eventos';
   if (d === 93) return 'Esporte e Lazer';
   if (d === 94) return 'Terceiro Setor (ONGs e Associações)';
-  return 'Prestação de Serviços';
+  return ''; // sem segmento equivalente: fica para você escolher
 }
 function tempoDe(abertura) {
   if (!abertura) return '';

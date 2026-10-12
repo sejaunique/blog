@@ -281,7 +281,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
 <script>
 (function(){
   var MENU=[
-    ['painel','Painel','home'],['crm','CRM','kanban'],['notificacoes','Notificações','bell'],['empresas','Empresas','predio'],
+    ['painel','Painel','home'],['crm','CRM','kanban'],['notificacoes','Notificações','bell'],['empresas','Empresas','predio'],['contatos','Contatos','users'],
     ['acoes','Ações','tabela'],['propostas','Propostas','proposta'],['diagnosticos','Diagnósticos','diag'],
     '-',['postagens','Postagens e blog','post'],['videoaulas','Videoaulas','aula'],['reunioes','Reuniões','reuniao'],
     '-',['site','Site','site'],['alda','Alda.CRM','alda']
@@ -383,8 +383,8 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
   function inicia(){
     $('ws').hidden=false; $('side').hidden=false;
     $('side').innerHTML=MENU.map(function(m){ return m==='-'?'<hr>':'<button type="button" data-v="'+m[0]+'" data-nome="'+m[1]+'" aria-label="'+m[1]+'">'+ic(m[2])+(m[0]==='notificacoes'?'<span class="dot" id="side-dot" hidden></span>':'')+'</button>'; }).join('');
-    $('side').onclick=function(ev){ var b=ev.target.closest('[data-v]'); if(b) vai(b.dataset.v); };
-    window.addEventListener('hashchange',function(){ var h=location.hash.slice(1).split('/'); if(h[0]&&h[0]!==VISTA||h[1]!==EMP){ VISTA=h[0]||'painel'; EMP=h[1]||EMP; desenha(); atualiza(); } });
+    $('side').onclick=function(ev){ var b=ev.target.closest('[data-v]'); if(b) vai(b.dataset.v,b.dataset.v==='empresas'?'':undefined); };
+    window.addEventListener('hashchange',function(){ var h=location.hash.slice(1).split('/'); if(h[0]&&h[0]!==VISTA||h[1]!==EMP){ VISTA=h[0]||'painel'; EMP=h[1]||''; desenha(); atualiza(); } });
     var h=location.hash.slice(1).split('/'); VISTA=h[0]||'painel'; EMP=h[1]||'';
     carrega().then(desenha);
   }
@@ -408,7 +408,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     document.querySelectorAll('#side [data-v]').forEach(function(b){ b.setAttribute('aria-current',b.dataset.v===VISTA); });
   }
   function desenha(){
-    var f={painel:vPainel,crm:vCrm,notificacoes:vNotif,empresas:vEmpresas,acoes:vAcoes,propostas:vPropostas,diagnosticos:vDiag,postagens:vPosts,videoaulas:vVideos,reunioes:vReunioes,site:vSite,alda:vAlda}[VISTA]||vPainel;
+    var f={painel:vPainel,crm:vCrm,notificacoes:vNotif,empresas:vEmpresas,contatos:vContatos,acoes:vAcoes,propostas:vPropostas,diagnosticos:vDiag,postagens:vPosts,videoaulas:vVideos,reunioes:vReunioes,site:vSite,alda:vAlda}[VISTA]||vPainel;
     f();
   }
 
@@ -616,18 +616,89 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
         Promise.all(a.map(function(x){return post({a:'admin-lido',k:x.k});})).then(function(){ toast('Resposta enviada.'); recarrega(); }); }); };
   }
 
+  /* ---------- LISTAS: EMPRESAS E CONTATOS ---------- */
+  var ABRE_PESSOA='', LF={emp:{},con:{}};
+  var FECHADAS=['Perdido','Vendido','Sucesso','Lixo','SAC'];
+  function opcoes(L,v,todos){ return '<option value="">'+todos+'</option>'+L.map(function(x){return '<option'+(x===v?' selected':'')+'>'+esc(x)+'</option>';}).join(''); }
+  function semAcento(t){ return String(t||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase(); }
+  function baixaCsv(nome,cab,linhas){
+    var q=function(v){ v=v==null?'':String(v); return /[;"\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; };
+    var txt='﻿'+[cab].concat(linhas).map(function(l){return l.map(q).join(';');}).join('\r\n');
+    var a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([txt],{type:'text/csv;charset=utf-8'})); a.download=nome+'-'+hoje()+'.csv'; document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); },500);
+  }
+  function celCsv(c,v){ if(v==null||v==='') return ''; if(c.t==='data') return valTxt(c,v); if(c.t==='moeda') return (+v).toFixed(2).replace('.',','); return Array.isArray(v)?v.join(', '):v; }
+  function filtrosHtml(defs,f){ return defs.map(function(x){ return '<select class="mini" data-fl="'+x[0]+'">'+opcoes(x[2],f[x[0]]||'',x[1])+'</select>'; }).join(''); }
+  function topoLista(ph,f,extra){ return '<section class="card"><div class="card-h" style="flex-wrap:wrap;gap:8px"><div class="busca" style="margin:0;flex:1;min-width:220px">'+ic('busca')+'<input id="l-q" placeholder="'+ph+'" value="'+esc(f.q||'')+'"></div><button class="pill" id="l-csv">'+ic('download')+'Exportar planilha</button>'+(extra||'')+'</div>'; }
+
+  function vEmpresasLista(){
+    var E=R.empresas||[], C=CD('empresa'), f=LF.emp, porC={}; C.forEach(function(c){porC[c.k]=c;});
+    var linhas=E.map(function(e){ var ab=(e.negocios||[]).filter(function(n){return FECHADAS.indexOf(n.dados.etapa)<0;});
+      return {e:e,d:dadosDe(e),aberto:ab.reduce(function(t,n){return t+(+n.dados.valor||0);},0),nab:ab.length}; });
+    var ufs=[]; linhas.forEach(function(l){ if(l.d.uf&&ufs.indexOf(l.d.uf)<0) ufs.push(l.d.uf); }); ufs.sort();
+    var FIL=[['segmento','Todos os segmentos',porC.segmento.op],['uf','Todos os estados',ufs],['tipoCliente','Todos os tipos de cliente',porC.tipoCliente.op],['grupo','Todos os grupos',porC.grupo.op],['porte','Todos os portes',porC.porte.op],['etapa','Todo o funil',Object.keys(ETAPA).map(function(k){return ETAPA[k][0];})],['tag','Todas as etiquetas',R.tags||[]]];
+    function filtra(){ var q=semAcento(f.q); return linhas.filter(function(l){ var d=l.d, e=l.e;
+      if(q&&semAcento([e.nome,d.razao,d.cnpj,d.cidade,e.usuarios.map(function(u){return u.nome;}).join(' ')].join(' ')).indexOf(q)<0) return false;
+      if(f.etapa&&ETAPA[e.etapa][0]!==f.etapa) return false; if(f.tag&&(e.tags||[]).indexOf(f.tag)<0) return false;
+      return ['segmento','uf','tipoCliente','grupo','porte'].every(function(k){ return !f[k]||d[k]===f[k]; }); }).sort(function(a,b){ return a.e.nome.localeCompare(b.e.nome,'pt-BR'); }); }
+    cabecalho('Empresas','todas em lista',[['predio',E.length,'empresas'],['check',E.filter(function(e){return e.etapa==='cliente';}).length,'clientes'],['users',E.reduce(function(t,e){return t+e.usuarios.length;},0),'contatos'],['alvo',brl(linhas.reduce(function(t,l){return t+l.aberto;},0)),'em negócios abertos']]);
+    $('vista').innerHTML=topoLista('Buscar por nome, razão social, CNPJ, cidade ou contato',f,'<button class="pill solid" id="l-nova">'+ic('mais')+'Nova empresa</button>')+
+      '<div style="display:flex;flex-wrap:wrap;gap:6px" id="l-fil">'+filtrosHtml(FIL,f)+'<button class="pill" id="l-limpa">Limpar filtros</button></div>'+
+      '<p class="muted" id="l-n" style="font-size:.74rem;margin:10px 2px 0"></p><div class="tbl-w"><table class="tbl"><thead><tr><th>Empresa</th><th>Segmento</th><th>Cidade / UF</th><th>Porte</th><th>Tipo de cliente</th><th>Grupo</th><th>Funil</th><th>Contatos</th><th>Negócios abertos</th></tr></thead><tbody id="l-corpo"></tbody></table></div></section>';
+    function corpo(){ var L=filtra(); $('l-n').textContent=L.length+' de '+linhas.length+' empresas';
+      $('l-corpo').innerHTML=L.length?L.map(function(l){ var e=l.e, d=l.d;
+        return '<tr data-e="'+esc(e.slug)+'" style="cursor:pointer"><td><div class="tit">'+esc(e.nome)+'</div><div class="det">'+esc(d.razao||'')+(d.cnpj?' · '+esc(d.cnpj):'')+'</div></td><td>'+esc(d.segmento||'–')+'</td><td>'+esc([d.cidade,d.uf].filter(Boolean).join(' / ')||'–')+'</td><td>'+esc(d.porte||'–')+'</td><td>'+esc(d.tipoCliente||'–')+'</td><td>'+esc(d.grupo||'–')+'</td>'+
+          '<td><span style="color:'+ETAPA[e.etapa][1]+';font-weight:600;white-space:nowrap">● '+ETAPA[e.etapa][0]+'</span></td><td>'+e.usuarios.length+'</td><td style="white-space:nowrap">'+(l.nab?l.nab+' · <b>'+brl(l.aberto)+'</b>':'–')+'</td></tr>'; }).join(''):'<tr><td colspan="9" class="muted" style="text-align:center">Nenhuma empresa com esses filtros.</td></tr>'; }
+    corpo();
+    $('l-q').oninput=function(){ f.q=this.value; corpo(); };
+    $('l-fil').onchange=function(ev){ var t=ev.target; if(t.dataset.fl){ f[t.dataset.fl]=t.value; corpo(); } };
+    $('l-limpa').onclick=function(){ LF.emp={}; vEmpresasLista(); };
+    $('l-corpo').onclick=function(ev){ var tr=ev.target.closest('[data-e]'); if(tr) vai('empresas',tr.dataset.e); };
+    $('l-nova').onclick=function(){ var n=prompt('Nome da nova empresa:'); if(!n) return; post({a:'admin-empresa',nome:n}).then(function(r){ if(r.ok){ toast('Empresa criada.'); carrega().then(function(){ vai('empresas',r.slug); }); } else toast(r.erro||'Erro.'); }); };
+    $('l-csv').onclick=function(){
+      baixaCsv('empresas',['ID','Empresa','Funil','Etiquetas'].concat(C.map(function(c){return c.r;})).concat(['Contatos','Negócios abertos','Valor em aberto','Criada em']),
+        filtra().map(function(l){ var e=l.e, d=l.d; return [e.num||'',e.nome,ETAPA[e.etapa][0],(e.tags||[]).join(', ')].concat(C.map(function(c){ return celCsv(c,d[c.k]); })).concat([e.usuarios.map(function(u){return u.nome;}).join(', '),l.nab,l.aberto.toFixed(2).replace('.',','),e.criado?new Date(e.criado).toLocaleDateString('pt-BR'):'']); })); };
+  }
+
+  function vContatos(){
+    var P=CD('pessoa'), f=LF.con, porC={}; P.forEach(function(c){porC[c.k]=c;});
+    var L0=[]; (R.empresas||[]).forEach(function(e){ e.usuarios.forEach(function(u){ L0.push({u:u,e:e,c:u.crm||{}}); }); });
+    var ufs=[]; L0.forEach(function(x){ if(x.c.uf&&ufs.indexOf(x.c.uf)<0) ufs.push(x.c.uf); }); ufs.sort();
+    var FIL=[['tipoContato','Todos os tipos de contato',porC.tipoContato.op],['cargo','Todos os cargos',porC.cargo.op],['influencia','Todo grau de influência',porC.influencia.op],['uf','Todos os estados',ufs],['acesso','Todo acesso à área',Object.keys(USTATUS).map(function(k){return USTATUS[k];})],['avaliouGoogle','Avaliou no Google?',porC.avaliouGoogle.op],['pedimosIndicacao','Pedimos indicação?',porC.pedimosIndicacao.op]];
+    function filtra(){ var q=semAcento(f.q); return L0.filter(function(x){ var u=x.u, c=x.c;
+      if(q&&semAcento([u.nome,u.email,u.whatsapp,x.e.nome,c.cidade].join(' ')).indexOf(q)<0) return false;
+      if(f.acesso&&USTATUS[u.status]!==f.acesso) return false;
+      return ['tipoContato','cargo','influencia','uf','avaliouGoogle','pedimosIndicacao'].every(function(k){ return !f[k]||c[k]===f[k]; }); }).sort(function(a,b){ return a.u.nome.localeCompare(b.u.nome,'pt-BR'); }); }
+    cabecalho('Contatos','todas as pessoas',[['users',L0.length,'contatos'],['alvo',L0.filter(function(x){return x.c.influencia==='Decisor';}).length,'decisores'],['check',L0.filter(function(x){return x.u.status==='ativo';}).length,'com acesso à área'],['chat',L0.filter(function(x){return x.c.pedimosIndicacao!=='Sim';}).length,'falta pedir indicação']]);
+    $('vista').innerHTML=topoLista('Buscar por nome, e-mail, telefone, empresa ou cidade',f)+
+      '<div style="display:flex;flex-wrap:wrap;gap:6px" id="l-fil">'+filtrosHtml(FIL,f)+'<button class="pill" id="l-limpa">Limpar filtros</button></div>'+
+      '<p class="muted" id="l-n" style="font-size:.74rem;margin:10px 2px 0"></p><div class="tbl-w"><table class="tbl"><thead><tr><th>Nome</th><th>Empresa</th><th>Cargo</th><th>Influência</th><th>Tipo de contato</th><th>Telefone</th><th>E-mail</th><th>Cidade / UF</th><th>Acesso à área</th></tr></thead><tbody id="l-corpo"></tbody></table></div></section>';
+    function corpo(){ var L=filtra(); $('l-n').textContent=L.length+' de '+L0.length+' contatos';
+      $('l-corpo').innerHTML=L.length?L.map(function(x){ var u=x.u, c=x.c;
+        return '<tr data-e="'+esc(x.e.slug)+'" data-p="'+esc(u.email)+'" style="cursor:pointer"><td><div class="tit">'+esc(u.nome)+'</div></td><td>'+esc(x.e.nome)+'</td><td>'+esc(c.cargo||'–')+'</td><td>'+esc(c.influencia||'–')+'</td><td>'+esc(c.tipoContato||'–')+'</td>'+
+          '<td style="white-space:nowrap">'+(u.whatsapp?'<a href="'+esc(zap(u.whatsapp))+'" target="_blank" rel="noopener" data-x>'+esc(u.whatsapp)+'</a>':'–')+'</td><td>'+(u.email?'<a href="mailto:'+esc(u.email)+'" data-x>'+esc(u.email)+'</a>':'–')+'</td><td>'+esc([c.cidade,c.uf].filter(Boolean).join(' / ')||'–')+'</td><td>'+esc(USTATUS[u.status]||u.status)+'</td></tr>'; }).join(''):'<tr><td colspan="9" class="muted" style="text-align:center">Nenhum contato com esses filtros.</td></tr>'; }
+    corpo();
+    $('l-q').oninput=function(){ f.q=this.value; corpo(); };
+    $('l-fil').onchange=function(ev){ var t=ev.target; if(t.dataset.fl){ f[t.dataset.fl]=t.value; corpo(); } };
+    $('l-limpa').onclick=function(){ LF.con={}; vContatos(); };
+    $('l-corpo').onclick=function(ev){ if(ev.target.closest('[data-x]')) return; var tr=ev.target.closest('[data-p]'); if(tr){ ABRE_PESSOA=tr.dataset.p; vai('empresas',tr.dataset.e); } };
+    $('l-csv').onclick=function(){
+      baixaCsv('contatos',['Nome','E-mail','Telefone','Empresa','Acesso à área'].concat(P.map(function(c){return c.r;})).concat(['Última edição']),
+        filtra().map(function(x){ var u=x.u, c=x.c; return [u.nome,u.email,u.whatsapp||'',x.e.nome,USTATUS[u.status]||u.status].concat(P.map(function(k){ return celCsv(k,c[k.k]); })).concat([u.editado?new Date(u.editado).toLocaleDateString('pt-BR'):'']); })); };
+  }
+
   /* ---------- EMPRESAS ---------- */
   var CONT=null;
   function vEmpresas(){
     var E=R.empresas||[];
-    if(!EMP&&E.length) EMP=E[0].slug;
+    if(!EMP){ vEmpresasLista(); return; }
     cabecalho('Empresas','e pessoas',[['predio',E.length,'empresas'],['users',E.reduce(function(t,e){return t+e.usuarios.length;},0),'pessoas vinculadas'],['check',E.reduce(function(t,e){return t+e.usuarios.filter(function(u){return u.status==='ativo';}).length;},0),'com acesso']]);
-    $('vista').innerHTML='<div class="grade" style="grid-template-columns:280px minmax(0,1fr) minmax(0,360px)">'+
+    $('vista').innerHTML='<div style="margin:-4px 0 14px"><button class="pill" type="button" id="e-volta">← Todas as empresas</button></div><div class="grade" style="grid-template-columns:280px minmax(0,1fr) minmax(0,360px)">'+
       '<section class="card"><div class="busca">'+ic('busca')+'<input id="e-busca" placeholder="Buscar empresa"></div><div class="emp-lista" id="e-lista"></div>'+
         '<form id="f-nova" class="form" style="margin-top:14px"><div class="campo"><label>Nova empresa</label><input name="nome" placeholder="Nome da empresa" required></div><button class="pill solid">'+ic('mais')+'Criar</button></form></section>'+
       '<div class="grade" id="e-meio" style="align-content:start"></div>'+
       '<div class="grade" id="e-lado" style="align-content:start"></div></div>';
-    if(window.innerWidth<1100) $('vista').firstChild.style.gridTemplateColumns='1fr';
+    if(window.innerWidth<1100) $('vista').children[1].style.gridTemplateColumns='1fr';
+    $('e-volta').onclick=function(){ vai('empresas',''); };
     lista(); $('e-busca').oninput=lista;
     $('e-lista').onclick=function(ev){ var b=ev.target.closest('[data-e]'); if(b) vai('empresas',b.dataset.e); };
     $('f-nova').onsubmit=function(ev){ ev.preventDefault(); post({a:'admin-empresa',nome:this.nome.value}).then(function(r){ if(r.ok){ toast('Empresa criada.'); EMP=r.slug; recarrega(); } else toast(r.erro||'Erro.'); }); };
@@ -692,6 +763,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
         '<div class="campo"><label>Descrição curta</label><input name="descricao"></div><div class="campo" data-txt hidden><label>Texto</label><textarea name="texto"></textarea></div>'+
         '<label style="font-size:.8rem;display:flex;gap:8px"><input type="checkbox" name="publicado" checked> Visível para o cliente</label><div style="display:flex;gap:8px"><button class="pill solid">Salvar entrega</button><button class="pill" type="button" id="fi-limpa">Limpar</button></div></form></section>';
     pessoas(e); negocios(e);
+    if(ABRE_PESSOA){ var pf=$('e-pessoas').querySelector('[data-pf="'+ABRE_PESSOA+'"]'); ABRE_PESSOA=''; if(pf){ pf.hidden=false; setTimeout(function(){ pf.scrollIntoView({behavior:'smooth',block:'center'}); },60); } }
     $('f-pessoa').onsubmit=function(ev){ ev.preventDefault(); var f=this; post({a:'admin-pessoa',slug:e.slug,nome:f.nome.value,email:f.email.value,whatsapp:f.whatsapp.value}).then(function(r){ if(!r.ok){toast(r.erro||'Erro.');return;} toast('Pessoa vinculada. Gere o link quando quiser liberar.'); recarrega(); }); };
     $('e-meio').querySelector('[data-go-acoes]').onclick=function(){ FILTRO_CLI=e.slug; vai('acoes'); };
     get('?a=conteudo&e='+encodeURIComponent(e.slug)).then(function(d){ CONT=d; itens(e); acoesEmp(e); });

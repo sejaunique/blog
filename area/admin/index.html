@@ -441,6 +441,23 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
 .arq-dica{font-size:.64rem;color:var(--muted);text-align:center;margin-top:-4px}
 .arq-msg{margin:0;font-size:.78rem;color:var(--muted);line-height:1.45}
 .arq .pill{justify-self:start}
+.em-logo{position:relative;width:132px}
+.em-logo #e-foto{display:block!important}
+.em-logo .ini{width:132px!important;height:132px!important;border-radius:28px!important;font-size:2.4rem;background:var(--marinho);color:#fff;display:grid;place-items:center;font-weight:800;letter-spacing:-.04em;cursor:pointer}
+.em-logo .foto-acoes{position:absolute;left:0;top:100%;z-index:5;margin-top:6px;width:250px;justify-content:flex-start;background:var(--bg);border:1px solid var(--ws-line);border-radius:16px;padding:8px;box-shadow:0 14px 30px rgba(0,0,0,.15);display:none}
+.em-logo:hover .foto-acoes,.em-logo:focus-within .foto-acoes{display:flex}
+.em-pess{display:grid;gap:8px}
+.em-p{min-width:250px;grid-template-columns:44px 1fr auto;padding:8px 12px 8px 8px}
+.em-p .em-p-av{width:44px;height:44px;border-radius:50%;background:var(--marinho);color:#fff;border:0;font-size:.8rem}
+.em-p b{font-size:.9rem;margin:0}
+#em-tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
+#em-tags .mini{font-size:.72rem;border-radius:999px}
+.em-corpo{gap:18px}
+.em-pane{display:grid;gap:16px;align-content:start}
+.em-pane[hidden]{display:none}
+.em-pane[data-pane="resumo"]{display:flex;flex-direction:column;gap:14px}
+.em-pane[data-pane="resumo"][hidden]{display:none}
+.em-pane>.card{box-shadow:none}
 </style>
 </head>
 <body data-casco="area">
@@ -1049,13 +1066,12 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     if(!LISTA_EMP.length) LISTA_EMP=E.slice().sort(function(a,b){return a.nome.localeCompare(b.nome,'pt-BR');}).map(function(x){return x.slug;});
     var i=LISTA_EMP.indexOf(EMP), ant=i>0?LISTA_EMP[i-1]:'', prox=i>=0&&i<LISTA_EMP.length-1?LISTA_EMP[i+1]:'';
     $('vista').innerHTML='<div class="ct-barra"><button class="pill" type="button" id="e-volta">← Todas as empresas</button><span class="muted" style="font-size:.76rem">'+(i>=0?(i+1)+' de '+LISTA_EMP.length:'')+'</span><button class="pill" id="e-ant"'+(ant?'':' disabled')+' title="Empresa anterior">‹</button><button class="pill" id="e-prox"'+(prox?'':' disabled')+' title="Próxima empresa">›</button></div>'+
-      '<div class="grade" style="grid-template-columns:minmax(0,1fr) minmax(0,380px)">'+
-      '<div class="grade" id="e-meio" style="align-content:start"></div>'+
-      '<div class="grade" id="e-lado" style="align-content:start"></div></div>';
-    if(window.innerWidth<1100) $('vista').children[1].style.gridTemplateColumns='1fr';
+      '<div class="ct ct2"><section class="ct-meio" id="em-meio"></section><aside class="ct-dir" id="em-dir"></aside></div>'+
+      '<div hidden><div id="e-meio"></div><div id="e-lado"></div></div>';
     $('e-volta').onclick=function(){ vai('empresas',''); };
     $('e-ant').onclick=function(){ if(ant) vai('empresas',ant); };
     $('e-prox').onclick=function(){ if(prox) vai('empresas',prox); };
+    delete CONTS[EMP];
     detalhe();
   }
   function lista(){
@@ -1076,7 +1092,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     var sal=e.dados||{}; Object.keys(sal).forEach(function(k){ if(sal[k]) base[k]=sal[k]; });
     return base;
   }
-  function detalhe(){
+  function detalheBase(){
     var e=emp(EMP); if(!e){ $('e-meio').innerHTML='<div class="vazio">Escolha uma empresa.</div>'; return; }
     var u=e.usuarios[0]||{}, dg=e.diagnostico, pr=PROPS.filter(function(p){return p.slug===e.slug;});
     $('e-lado').innerHTML=
@@ -1200,6 +1216,87 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
         '<div class="bts">'+'<select class="mini" data-tp="'+esc(a.id)+'">'+Object.keys(TIPO).map(function(x){return '<option value="'+x+'"'+(x===(a.tipo||'acao')?' selected':'')+'>'+TIPO[x]+'</option>';}).join('')+'</select>'+'<select class="mini" data-dn="'+esc(a.id)+'"><option value="unique">Unique faz</option><option value="cliente"'+((a.dono)==='cliente'?' selected':'')+'>Cliente faz</option></select>'+(e.usuarios.length?'<select class="mini" data-pp="'+esc(a.id)+'" title="Delegada a"><option value="">Sem pessoa</option>'+e.usuarios.map(function(u){return '<option value="'+esc(u.email)+'"'+(u.email===a.pessoa?' selected':'')+'>'+esc(u.nome)+'</option>';}).join('')+'</select>':'')+'<input type="date" class="mini" data-pz="'+esc(a.id)+'" value="'+esc(a.prazo||'')+'" title="Data de entrega deste cliente"><select class="mini" data-st="'+esc(a.id)+'">'+Object.keys(ST).map(function(k){return '<option value="'+k+'"'+(k===a.status?' selected':'')+'>'+ST[k]+'</option>';}).join('')+'</select></div></div>'; }).join(''):'<div class="vazio">Nenhuma ação para essa empresa. Marque a empresa em uma linha da tabela de ações.</div>';
     $('e-acoes').onchange=function(ev){ var t=ev.target, id=t.dataset.st||t.dataset.pz||t.dataset.tp||t.dataset.dn||t.dataset.pp; if(!id) return; var a=A.filter(function(x){return x.id===id;})[0];
       post({a:'acao-status',slug:e.slug,id:id,status:t.dataset.st?t.value:a.status,prazo:t.dataset.pz?t.value:undefined,tipo:t.dataset.tp?t.value:undefined,dono:t.dataset.dn?t.value:undefined,pessoa:t.dataset.pp!==undefined?t.value:undefined}).then(function(r){ toast(r.ok?'Atualizado.':'Erro.'); if(r.ok) carrega(); }); };
+  }
+
+  /* ---------- PÁGINA DA EMPRESA (mesmo layout da página do contato) ---------- */
+  var EMPTAB='resumo', m0=null;
+  function detalhe(){
+    var e=emp(EMP); if(!e){ vai('empresas',''); return; }
+    var d=dadosDe(e), u=e.usuarios[0]||{}, tel=d.telefone||u.whatsapp||'', mail=d.email||u.email||'';
+    var ABAS=[['resumo','Resumo'],['dados','Dados'],['negocios','Negócios'],['pessoas','Pessoas'],['acoes','Ações'],['entregas','Entregas']];
+    $('em-meio').innerHTML='<header class="ct-topo em-topo"><div id="em-logo" class="em-logo"></div>'+
+        '<div class="ct-id"><h2>'+esc(e.nome)+'</h2><p>'+esc([d.razao,d.segmento].filter(Boolean).join(' · ')||'Sem dados preenchidos')+(tel?'<span>'+esc(tel)+'</span>':'')+'</p><p>'+esc([d.cidade,d.uf].filter(Boolean).join(' / '))+(mail?'<span>'+esc(mail)+'</span>':'')+(d.cnpj?'<span>CNPJ '+esc(d.cnpj)+'</span>':'')+'</p>'+
+          '<div class="ct-acoes">'+(tel?'<a class="ct-bola" title="WhatsApp" target="_blank" rel="noopener" href="'+esc(zap(tel))+'">'+ic('whatsapp')+'</a><a class="ct-bola" title="Ligar" href="tel:'+esc(String(tel).replace(/[^\d+]/g,''))+'">'+ic('phone')+'</a>':'')+
+          (mail?'<a class="ct-bola" title="E-mail" href="mailto:'+esc(mail)+'">'+ic('mail')+'</a>':'')+'<button class="ct-bola" title="Agendar reunião" data-em="agenda">'+ic('reuniao')+'</button><button class="ct-bola" title="Nova proposta" data-em="prop">'+ic('proposta')+'</button><button class="ct-bola" title="Editar dados" data-em="editar">'+ic('editar')+'</button><a class="ct-bola" title="Ver como o cliente" target="_blank" href="/area/painel/?e='+esc(e.slug)+'">'+ic('abrir')+'</a></div></div>'+
+        '<div class="ct-resp"><div class="em-pess">'+(e.usuarios.length?e.usuarios.slice(0,3).map(function(p){ var cr=p.crm||{};
+            return '<button class="ct-emp em-p" data-ct="'+esc(e.slug+'|'+p.email)+'">'+CF.avatar(p.nome,e.slug,p.email,p.foto,'ct-emp-logo em-p-av')+'<span><small>Contato</small><b>'+esc(p.nome)+'</b>'+(cr.cargo||cr.influencia?'<i style="margin:0">'+esc([cr.cargo,cr.influencia].filter(Boolean).join(' · '))+'</i>':'')+'</span><span class="ct-emp-s">↗</span></button>'; }).join('')+(e.usuarios.length>3?'<button class="ct-link" data-em="pessoas">+'+(e.usuarios.length-3)+' pessoas</button>':''):'<button class="ct-emp em-p" data-em="pessoas"><span class="ct-emp-logo em-p-av">+</span><span><small>Contato</small><b>Vincular pessoa</b></span></button>')+'</div>'+
+          '<div id="em-tags"><span id="em-etapa"></span>'+(d.tipoCliente?'<em class="ct-tag n">'+esc(d.tipoCliente)+'</em>':'')+(d.grupo?'<em class="ct-tag m2">'+esc(d.grupo)+'</em>':'')+(e.tags||[]).map(function(t){return '<em class="ct-tag n">'+esc(t)+'</em>';}).join('')+'</div></div></header>'+
+      '<nav class="ct-abas">'+ABAS.map(function(a){return '<button data-aba="'+a[0]+'" aria-current="'+(EMPTAB===a[0])+'">'+a[1]+'</button>';}).join('')+'<span class="ct-chip-r ct-chip-abas"><span class="ct-mini">CR</span><span><small>Responsável</small>'+esc(d.responsavel||'Carlos Ribeiro')+'</span></span></nav>'+
+      '<div class="ct-corpo em-corpo">'+ABAS.map(function(a){return '<div class="em-pane" data-pane="'+a[0]+'"'+(EMPTAB===a[0]?'':' hidden')+'></div>';}).join('')+'</div>';
+    // a ficha completa (já existente) é montada escondida e redistribuída nas abas
+    $('e-meio').innerHTML=''; $('e-lado').innerHTML='';
+    var abreP=ABRE_PESSOA; if(abreP) EMPTAB='pessoas';
+    detalheBase();
+    var lado=[].slice.call($('e-lado').children), meio=[].slice.call($('e-meio').children), P=function(n){ return $('em-meio').querySelector('[data-pane="'+n+'"]'); };
+    var perfil=lado[0];
+    $('em-logo').appendChild($('e-foto'));
+    $('em-etapa').appendChild($('e-etapa'));
+    if(perfil) perfil.remove();
+    lado.slice(1).forEach(function(sec){ if(sec.classList.contains('arq')) return; P('dados').appendChild(sec); });
+    var mapa=['negocios','pessoas','acoes','entregas']; meio.forEach(function(sec,i){ P(mapa[i]||'entregas').appendChild(sec); });
+    P('dados').onclick=function(ev){ var b=ev.target.closest('[data-p]'); if(b){ EDIT=b.dataset.p; vai('propostas'); } };
+    var arq=lado.filter(function(x){return x.classList.contains('arq');})[0];
+    resumoEmp(e);
+    direitaEmp(e,arq);
+    if(abreP){ m0=$('e-pessoas')&&$('e-pessoas').querySelector('[data-pf="'+abreP+'"]'); if(m0){ m0.hidden=false; setTimeout(function(){ m0.scrollIntoView({behavior:'smooth',block:'center'}); },80); } }
+    var m=$('em-meio');
+    m.onclick=function(ev){ var b=ev.target.closest('[data-aba],[data-em],[data-ct]'); if(!b||!m.contains(b)) return;
+      if(b.dataset.aba){ EMPTAB=b.dataset.aba; m.querySelectorAll('[data-aba]').forEach(function(z){z.setAttribute('aria-current',z===b);}); m.querySelectorAll('[data-pane]').forEach(function(z){ z.hidden=z.dataset.pane!==EMPTAB; }); }
+      if(b.dataset.ct) abreContato(b.dataset.ct);
+      if(b.dataset.em==='pessoas'){ m.querySelector('[data-aba="pessoas"]').click(); }
+      if(b.dataset.em==='agenda') agenda({titulo:'Reunião Unique · '+e.nome,inicio:'',slug:e.slug,emails:e.usuarios.map(function(x){return x.email;})});
+      if(b.dataset.em==='prop'){ EDIT=''; NOVA_SLUG=e.slug; vai('propostas'); }
+      if(b.dataset.em==='editar'){ m.querySelector('[data-aba="dados"]').click(); var f=$('f-dados'); if(f){ f.hidden=false; f.scrollIntoView({behavior:'smooth',block:'start'}); } } };
+  }
+  function eventosEmp(e){ var ev=[];
+    (NOTAS[e.slug]||[]).forEach(function(n){ var p=e.usuarios.filter(function(x){return x.email===n.email;})[0]; ev.push({d:n.data,t:'nota',tit:'Anotação'+(p?' · '+p.nome:''),txt:n.texto,id:n.id}); });
+    if(e.diagnostico) ev.push({d:e.diagnostico.data,t:'diag',tit:'Respondeu o diagnóstico',txt:'Relatório disponível na área do cliente.',link:'/diagnostico/relatorio/?r='+e.diagnostico.token,tag:'Diagnóstico'});
+    (e.negocios||[]).forEach(function(n){ (n.historico||[]).forEach(function(h){ ev.push({d:h.data,t:'neg',tit:n.dados.nome,txt:h.texto,tag:n.dados.etapa}); }); });
+    PROPS.filter(function(p){return p.slug===e.slug;}).forEach(function(p){ ev.push({d:p.atualizado||p.criado,t:'prop',tit:'Proposta · '+p.titulo,txt:PST[p.status]+' · '+brl(p.total)+(p.vista?' · aberta pelo cliente em '+dt(p.vista):''),tag:PST[p.status]}); });
+    ((CONTS[e.slug]||{}).acoes||[]).forEach(function(a){ if(a.prazo){ var p=e.usuarios.filter(function(x){return x.email===a.pessoa;})[0]; ev.push({d:a.prazo,t:'acao',tit:a.titulo,txt:(TIPO[a.tipo]||'Ação')+' · '+(a.dono==='cliente'?'cliente faz':'Unique faz')+(p?' · '+p.nome:''),tag:ST[a.status]}); } });
+    var mails=e.usuarios.map(function(x){return x.email;});
+    (GEV||[]).forEach(function(g){ if((g.convidados||[]).some(function(c){return mails.indexOf(c)>=0;})) ev.push({d:g.inicio,t:'reun',tit:g.titulo,txt:'Reunião no Google Agenda'+(g.meet?' · Meet':''),link:g.meet||g.link,tag:'Reunião'}); });
+    e.usuarios.forEach(function(p){ if(p.criado) ev.push({d:p.criado,t:'novo',tit:p.nome+' entrou no CRM',txt:({diagnostico:'Pelo diagnóstico',proposta:'Por uma proposta',admin:'Cadastrado por você'}[p.origem]||'Cadastro'),tag:USTATUS[p.status]}); });
+    if(e.criado) ev.push({d:e.criado,t:'novo',tit:'Empresa criada',txt:({diagnostico:'Veio pelo diagnóstico',proposta:'Veio por proposta'}[e.origem]||'Cadastro manual'),tag:ETAPA[e.etapa][0]});
+    return ev.sort(function(a,b){ return String(b.d).localeCompare(String(a.d)); }); }
+  function resumoEmp(e){
+    var b=$('em-meio')&&$('em-meio').querySelector('[data-pane="resumo"]'); if(!b) return;
+    if(!NOTAS[e.slug]||!CONTS[e.slug]){ b.innerHTML='<p class="ct-vazio">Carregando…</p>';
+      Promise.all([NOTAS[e.slug]?0:get('?a=admin-notas&e='+encodeURIComponent(e.slug)).then(function(r){ NOTAS[e.slug]=(r&&r.notas)||[]; }),CONTS[e.slug]?0:get('?a=conteudo&e='+encodeURIComponent(e.slug)).then(function(r){ CONTS[e.slug]=r||{}; })])
+        .then(function(){ if(EMP===e.slug){ resumoEmp(e); direitaEmp(e); } }); return; }
+    var EV=eventosEmp(e), IC={nota:'chat',diag:'diag',neg:'alvo',prop:'proposta',acao:'check',reun:'reuniao',novo:'users'};
+    b.innerHTML='<div class="ct-linha">'+(EV.length?EV.map(function(v){ return '<div class="ct-ev"><span class="ct-ev-ic '+v.t+'">'+ic(IC[v.t])+'</span><small class="ct-ev-d">'+dt(v.d)+'</small><div class="ct-ev-c"><div><b>'+esc(v.tit)+'</b><p>'+esc(v.txt)+'</p></div><div class="ct-ev-r">'+(v.tag?'<em class="ct-tag n">'+esc(v.tag)+'</em>':'')+(v.link?'<a href="'+esc(v.link)+'" target="_blank" rel="noopener" class="ct-link">Abrir ↗</a>':'')+(v.t==='nota'?'<button class="ct-link" data-ndel="'+esc(v.id)+'">Apagar</button>':'')+'</div></div></div>'; }).join(''):'<p class="ct-vazio">Nada registrado ainda.</p>')+'</div>'+
+      '<form class="ct-nota" id="em-nota"><input placeholder="Escreva uma anotação sobre '+esc(e.nome)+'…" required><button class="ct-env" title="Salvar anotação">'+ic('check')+'</button></form>';
+    $('em-nota').onsubmit=function(ev){ ev.preventDefault(); var i=this.querySelector('input'); post({a:'admin-nota',slug:e.slug,email:'',texto:i.value}).then(function(r){ if(!r.ok){toast(r.erro||'Erro.');return;} NOTAS[e.slug].unshift(r.nota); resumoEmp(e); toast('Anotação salva.'); }); };
+    b.onclick=function(ev){ var d=ev.target.closest('[data-ndel]'); if(!d) return; post({a:'admin-nota-del',slug:e.slug,id:d.dataset.ndel}).then(function(){ NOTAS[e.slug]=NOTAS[e.slug].filter(function(n){return n.id!==d.dataset.ndel;}); resumoEmp(e); }); };
+  }
+  function direitaEmp(e,arq){
+    var dir=$('em-dir'); if(!dir) return;
+    var velho=arq||dir.querySelector('.arq');
+    var N=(e.negocios||[]).filter(function(n){return FECHADAS.indexOf(n.dados.etapa)<0;}), n=N[0], TODAS=(CONTS[e.slug]||{}).acoes||null;
+    var BL=[['a_fazer','A fazer','cz'],['fazendo','Em andamento','am'],['feito','Concluído','vd'],['cancelado','Cancelado','vm']];
+    var nome=function(m){ var p=e.usuarios.filter(function(x){return x.email===m;})[0]; return p?p.nome.split(' ')[0]:''; };
+    dir.innerHTML=(n?'<div class="ct-cartao neg mini"><div class="ct-c-h"><b>'+esc(n.dados.nome)+'</b><button class="ct-seta-b" data-ab="negocios">↗</button></div><div class="ct-neg-l"><strong>'+(n.dados.valor?brl(n.dados.valor):'—')+'</strong><span>'+esc(n.dados.etapa)+(n.dados.probabilidade!=null?' · '+n.dados.probabilidade+'%':'')+'</span></div>'+(N.length>1?'<small>+'+(N.length-1)+' negócio(s) em aberto</small>':'')+'</div>':
+        '<div class="ct-cartao neg mini"><div class="ct-c-h"><b>Nenhum negócio aberto</b></div><button class="ct-btn" data-ab="negocios">Criar negócio</button></div>')+
+      '<div class="ct-del-h"><b>Ações da empresa</b><button class="pill solid" data-ab="acoes">Plano completo</button></div>'+
+      (TODAS===null?'<p class="ct-vazio">Carregando…</p>':BL.map(function(bl){ var L=TODAS.filter(function(a){return (a.status==='arquivado'?'feito':a.status)===bl[0];});
+        return '<div class="ct-bloco '+bl[2]+'"><div class="ct-bloco-h"><b>'+bl[1]+'</b><span>'+L.length+'</span></div>'+(L.length?L.slice(0,6).map(function(a){ var at=a.prazo&&a.prazo<hoje()&&!fechado(a.status);
+          return '<div class="ct-item"><div><p>'+esc(a.titulo)+'</p><small'+(at?' class="atr"':'')+'>'+[a.pessoa?nome(a.pessoa):(a.dono==='cliente'?'Cliente':'Unique'),a.prazo?(at?'atrasada · ':'')+dt(a.prazo):''].filter(Boolean).join(' · ')+'</small></div><select class="ct-st" data-st="'+esc(a.id)+'">'+BL.map(function(o){return '<option value="'+o[0]+'"'+(o[0]===a.status?' selected':'')+'>'+o[1]+'</option>';}).join('')+'</select></div>'; }).join('')+(L.length>6?'<p class="ct-b-vazio">+'+(L.length-6)+' no plano completo</p>':''):'<p class="ct-b-vazio">Nada aqui.</p>')+'</div>'; }).join(''))+
+      '<div id="em-arq"></div>';
+    if(velho){ $('em-arq').replaceWith(velho); } else { var a2=document.createElement('section'); a2.className='arq'; $('em-arq').replaceWith(a2); blocoArquivos(a2,e.slug); }
+    dir.onclick=function(ev){ var b=ev.target.closest('[data-ab]'); if(!b) return; var t=$('em-meio').querySelector('[data-aba="'+b.dataset.ab+'"]'); if(t){ t.click(); window.scrollTo({top:0,behavior:'smooth'}); } };
+    dir.onchange=function(ev){ var sl=ev.target; if(!sl.dataset.st) return; sl.disabled=true;
+      post({a:'acao-status',slug:e.slug,id:sl.dataset.st,status:sl.value}).then(function(r){ if(!r.ok){ toast('Erro.'); return; } toast('Ação: '+ST[sl.value]+'.'); var a=(CONTS[e.slug].acoes||[]).filter(function(x){return x.id===sl.dataset.st;})[0]; if(a) a.status=sl.value; direitaEmp(e); resumoEmp(e); }); };
   }
 
   /* ---------- AÇÕES (tabela única) ---------- */

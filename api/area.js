@@ -62,6 +62,7 @@ const CATALOGO = require('./_area/catalogo.js');
 const { notifica, chaves } = require('./_area/push.js');
 const GOOGLE = require('./_area/google.js');
 const CAMPOS = require('./_area/campos.js');
+const CONSULTA = require('./_area/consulta.js');
 
 const URL_DB = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -399,6 +400,13 @@ module.exports = async (req, res) => {
         if (!it || !it.arquivo || (!s.admin && !it.publicado)) return res.status(404).json({ ok: false });
         res.setHeader('Location', it.arquivo.url);
         return res.status(302).end();
+      }
+
+      // preenchimento automático: CNPJ (Receita), CEP e cidades do IBGE
+      if (q.a === 'admin-cnpj' || q.a === 'admin-cep' || q.a === 'admin-cidades') {
+        if (!s.admin) return res.status(403).json({ ok: false });
+        const r = q.a === 'admin-cnpj' ? await CONSULTA.cnpj(redis, q.v) : q.a === 'admin-cep' ? await CONSULTA.cep(redis, q.v) : await CONSULTA.cidades(redis, q.v);
+        return res.json(r);
       }
 
       if (q.a === 'admin-resumo') {
@@ -795,6 +803,7 @@ module.exports = async (req, res) => {
       const [ev] = await redis([['GET', 'area:emp:' + slug]]);
       const e = json(ev) || { slug, nome: (CATALOGO[slug] || {}).nome || slug, criado: new Date().toISOString() };
       const d = CAMPOS.limpa(CAMPOS.empresa, b.dados);
+      if (d.__erros) return res.status(400).json({ ok: false, erro: d.__erros.join(' ') });
       e.dados = d;
       e.editado = new Date().toISOString();
       if (!e.num) { const [n] = await redis([['INCR', 'area:seq:emp']]); e.num = n; }
@@ -814,7 +823,9 @@ module.exports = async (req, res) => {
       const nome = limpo(b.nome, 80), wa = b.whatsapp !== undefined ? limpo(b.whatsapp, 30) : u.whatsapp;
       if (nome) u.nome = nome;
       u.whatsapp = wa;
-      u.crm = CAMPOS.limpa(CAMPOS.pessoa, b.dados);
+      const crm = CAMPOS.limpa(CAMPOS.pessoa, b.dados);
+      if (crm.__erros) return res.status(400).json({ ok: false, erro: crm.__erros.join(' ') });
+      u.crm = crm;
       if (!u.num) { const [n] = await redis([['INCR', 'area:seq:pessoa']]); u.num = n; }
       u.editado = new Date().toISOString();
       await redis([['SET', k, JSON.stringify(u)]]);
@@ -824,6 +835,7 @@ module.exports = async (req, res) => {
     // negócios da empresa (modelo NEGÓCIO): area:neg:<slug> hash id -> negócio
     if (b.a === 'admin-negocio') {
       const d = CAMPOS.limpa(CAMPOS.negocio, b.dados);
+      if (d.__erros) return res.status(400).json({ ok: false, erro: d.__erros.join(' ') });
       if (!d.nome) return res.status(400).json({ ok: false, erro: 'Dê um nome ao negócio.' });
       if (!d.etapa) d.etapa = 'Lead';
       const id = /^[a-z0-9]{4,20}$/.test(b.id || '') ? b.id : '';

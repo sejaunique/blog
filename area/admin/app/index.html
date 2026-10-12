@@ -163,6 +163,11 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
 .mch label{display:inline-flex!important;align-items:center;gap:0;border:1px solid var(--a-line);border-radius:999px;padding:8px 12px;font-size:.82rem!important;color:var(--fg)!important;font-weight:500!important;background:var(--a-bg);cursor:pointer}
 .mch label:has(:checked){background:var(--fg);color:var(--bg)!important;border-color:var(--fg)}
 .mch input{display:none}
+.dica{display:block;font-size:.72rem;font-weight:500;color:var(--a-sub)}
+.dica:empty{display:none}
+.dica.ok{color:var(--verde-txt);font-weight:700}
+.dica.erro{color:var(--erro);font-weight:700}
+.f .auto{box-shadow:0 0 0 2px var(--verde) inset}
 .grp{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--a-sub);font-weight:700;margin:8px 2px -2px}
 .hist{font-size:.78rem;color:var(--a-sub);display:grid;gap:8px;margin-top:4px}
 .hist b{color:var(--fg)}
@@ -207,6 +212,7 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
 <div class="folha" id="folha" hidden></div>
 
 <script src="/blog/posts.js"></script>
+<script src="/area/admin/crm-form.js"></script>
 <script>
 (function(){
   /* versão de computador */
@@ -514,22 +520,8 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
       f.querySelector('form').onsubmit=function(e){ e.preventDefault(); post({a:'admin-empresa',nome:this.n.value}).then(function(r){ if(!r.ok){toast(r.erro||'Erro.');return;} fechaFolha(); carrega().then(function(){ abre({t:'empresa',s:r.slug}); }); }); }; }); });
   }
   function CD(n){ return (R.campos||{})[n]||[]; }
-  function vazio(v){ return v==null||v===''||(Array.isArray(v)&&!v.length); }
-  function valTxt(c,v,pess){ if(vazio(v)) return ''; if(c.t==='moeda') return brl(v); if(c.t==='pct') return v+'%'; if(c.t==='data') return new Date(v+'T12:00').toLocaleDateString('pt-BR');
-    if(c.t==='contatos') return v.map(function(m){ var u=(pess||[]).filter(function(x){return x.email===m;})[0]; return u?u.nome:m; }).join(', ');
-    return Array.isArray(v)?v.join(', '):String(v); }
-  function campoForm(c,v,pess){
-    var n=' name="'+c.k+'"', val=vazio(v)?'':v, h='<label>'+esc(c.r);
-    if(c.t==='longo') return h+'<textarea'+n+'>'+esc(val)+'</textarea></label>';
-    if(c.t==='sel'){ var op=c.op.slice(); if(val&&op.indexOf(val)<0) op.unshift(val); return h+'<select'+n+'><option value="">—</option>'+op.map(function(o){return '<option'+(o===val?' selected':'')+'>'+esc(o)+'</option>';}).join('')+'</select></label>'; }
-    if(c.t==='multi'||c.t==='contatos'){ var L=c.t==='contatos'?(pess||[]).map(function(u){return [u.email,u.nome];}):c.op.map(function(o){return [o,o];}), sel=val||[];
-      return '<div><div class="grp" style="margin:0 0 6px;letter-spacing:0;text-transform:none;font-size:.76rem">'+esc(c.r)+'</div><div class="mch" data-multi="'+c.k+'">'+(L.length?L.map(function(o){return '<label><input type="checkbox" value="'+esc(o[0])+'"'+(sel.indexOf(o[0])>=0?' checked':'')+'>'+esc(o[1])+'</label>';}).join(''):'<small style="color:var(--a-sub)">Vincule pessoas à empresa primeiro.</small>')+'</div></div>'; }
-    var tp={data:'date',email:'email',tel:'tel',pct:'number'}[c.t]||'text', im={moeda:' inputmode="decimal"',tel:' inputmode="tel"',url:' inputmode="url"',email:' inputmode="email"'}[c.t]||(c.mask?' inputmode="numeric"':'');
-    if(c.t==='moeda'&&val!=='') val=String(val).replace('.',',');
-    return h+'<input type="'+tp+'"'+n+im+(c.t==='pct'?' min="0" max="100" step="5"':'')+(c.obrig?' required':'')+' value="'+esc(val)+'"></label>';
-  }
-  function leForm(fm,defs){ var o={}; defs.forEach(function(c){ if(c.t==='multi'||c.t==='contatos') o[c.k]=[].map.call(fm.querySelectorAll('[data-multi="'+c.k+'"] :checked'),function(i){return i.value;}); else { var el=fm.elements[c.k]; if(el) o[c.k]=el.value; } }); return o; }
-  function formCampos(defs,d,pess,grupos){ var g='', h=''; defs.forEach(function(c){ if(grupos&&c.g!==g){ g=c.g; h+='<p class="grp">'+esc(g)+'</p>'; } h+=campoForm(c,d[c.k],pess); }); return h; }
+  var CF=CRMF({estilo:'app',get:function(q){return get(q);},toast:function(t){toast(t);}});
+  var vazio=CF.vazio, valTxt=CF.valTxt, campoForm=CF.campoForm, leForm=CF.leForm, formCampos=CF.formCampos;
   function dadosDe(e){
     var dg=(DIAGS||[]).filter(function(d){return d.slug===e.slug;})[0]||{}, u=e.usuarios[0]||{}, base=Object.assign({}, dg.dados||{});
     if(!base.email&&(u.email||dg.email)) base.email=u.email||dg.email;
@@ -541,7 +533,7 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
   function folhaDados(e){
     var d=dadosDe(e), C=CD('empresa');
     abreFolha('<h3>Dados da empresa</h3><form class="f"><label>Nome da empresa<input name="nome" value="'+esc(e.nome)+'" required></label>'+formCampos(C,d,null,true)+'<button class="bt pri cheio">Salvar dados</button></form>',function(f){
-      var fm=f.querySelector('form'); fm.onsubmit=function(ev){ ev.preventDefault();
+      var fm=f.querySelector('form'); CF.liga(fm,{nome:'nome'}); fm.onsubmit=function(ev){ ev.preventDefault(); if(CF.confere(fm)) return;
         post({a:'admin-dados',slug:e.slug,nome:fm.elements.nome.value,dados:leForm(fm,C)}).then(function(r){ if(!r.ok){toast(r.erro||'Erro.');return;} e.dados=r.dados; e.nome=r.nome; e.num=r.num; fechaFolha(); toast('Dados salvos.'); desenha(); }); }; });
   }
   function folhaPessoa(e,u){
@@ -550,7 +542,8 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
       '<button class="bt pri cheio">Salvar contato</button><button class="bt cheio" type="button" data-conv>'+(u.status==='convite'?'Liberar acesso':'Gerar link de senha')+'</button></form>',function(f){
       var fm=f.querySelector('form');
       fm.querySelector('[data-conv]').onclick=function(){ fechaFolha(); setTimeout(function(){ convite(e.slug,u.email,u.nome,u.whatsapp); },260); };
-      fm.onsubmit=function(ev){ ev.preventDefault();
+      CF.liga(fm);
+      fm.onsubmit=function(ev){ ev.preventDefault(); if(CF.confere(fm)) return;
         post({a:'admin-pessoa-dados',slug:e.slug,email:u.email,nome:fm.elements.nome.value,whatsapp:fm.elements.whatsapp.value,dados:leForm(fm,P)}).then(function(r){ if(!r.ok){toast(r.erro||'Erro.');return;}
           e.usuarios=e.usuarios.map(function(x){return x.email===r.pessoa.email?r.pessoa:x;}); fechaFolha(); toast('Contato salvo.'); desenha(); }); }; });
   }
@@ -562,7 +555,8 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
       var fm=f.querySelector('form'), del=fm.querySelector('[data-del]');
       if(del) del.onclick=function(){ if(del.dataset.ok!=='1'){ del.dataset.ok='1'; del.textContent='Toque de novo para excluir'; return; }
         post({a:'admin-negocio-del',slug:e.slug,id:n.id}).then(function(){ e.negocios=(e.negocios||[]).filter(function(x){return x!==n;}); fechaFolha(); toast('Negócio excluído.'); desenha(); }); };
-      fm.onsubmit=function(ev){ ev.preventDefault(); salvaNeg(e,n?n.id:'',leForm(fm,C)).then(function(ok){ if(ok){ fechaFolha(); desenha(); } }); }; });
+      CF.liga(fm);
+      fm.onsubmit=function(ev){ ev.preventDefault(); if(CF.confere(fm)) return; salvaNeg(e,n?n.id:'',leForm(fm,C)).then(function(ok){ if(ok){ fechaFolha(); desenha(); } }); }; });
   }
   function salvaNeg(e,id,dados){ return post({a:'admin-negocio',slug:e.slug,id:id,dados:dados}).then(function(r){ if(!r.ok){toast(r.erro||'Erro.');return false;}
     var L=(e.negocios||[]).filter(function(x){return x.id!==r.negocio.id;}); L.unshift(r.negocio); L.sort(function(a,b){return String(b.criado).localeCompare(String(a.criado));}); e.negocios=L; toast('Negócio salvo.'); return true; }); }

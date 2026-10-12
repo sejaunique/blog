@@ -133,10 +133,14 @@ async function imagem(url, ms) {
     return 'data:' + tipo.split(';')[0] + ';base64,' + b.toString('base64');
   } catch (e) { return null; } finally { clearTimeout(t); }
 }
-async function fotoInstagram(valor) {
+async function fotoInstagram(valor, redis) {
   const h = String(valor || '').trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/[/?#].*$/, '').replace(/^@+/, '').toLowerCase();
   if (!/^[a-z0-9._]{1,30}$/.test(h)) return { ok: false, erro: 'Informe um @ do Instagram válido.' };
-  let url = '';
+  let url = '', perfilPessoal = false;
+  // 1) caminho oficial (se a conta da Meta estiver conectada): funciona para perfis comerciais/criador
+  if (redis) {
+    try { const META = require('./meta.js'); const c = await META.conf(redis); if (c && c.token) { const m = await META.foto(c, h); if (m.url) { const d = await imagem(m.url); if (d) return { ok: true, dados: d, perfil: '@' + h, fonte: 'meta' }; } else if (m.erro === 'perfil pessoal ou inexistente') perfilPessoal = true; } } catch (e) { /* segue */ }
+  }
   try {
     const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 7000);
     const r = await fetch('https://i.instagram.com/api/v1/users/web_profile_info/?username=' + h, { signal: ctl.signal, headers: { 'x-ig-app-id': '936619743392459', 'User-Agent': 'Instagram 219.0.0.12.117 Android', Accept: 'application/json' } });
@@ -155,7 +159,7 @@ async function fotoInstagram(valor) {
   let dados = url ? await imagem(url) : null;
   // reserva 2: unavatar.io
   if (!dados) dados = await imagem('https://unavatar.io/instagram/' + h + '?fallback=false');
-  if (!dados) return { ok: false, erro: 'O Instagram não liberou a foto de @' + h + ' agora. Use "Enviar foto".' };
+  if (!dados) return { ok: false, pessoal: perfilPessoal, erro: perfilPessoal ? '@' + h + ' parece ser um perfil pessoal (a Meta só libera foto de perfil comercial). Use "Enviar foto".' : 'Não consegui a foto de @' + h + '. Use "Enviar foto".' };
   return { ok: true, dados, perfil: '@' + h };
 }
 
@@ -169,7 +173,7 @@ async function fotoAuto(redis, slug, email, insta) {
     const [v] = await redis([['GET', kReg]]); const reg = json(v); if (!reg) return null;
     if (reg.foto && reg.fotoOrigem !== undefined && reg.fotoOrigem === '@' + h) return null;
     if (reg.foto && !(reg.fotoOrigem || '').startsWith('@')) return null;
-    const f = await fotoInstagram(h);
+    const f = await fotoInstagram(h, redis);
     if (!f.ok || f.dados.length > 400000) return null;
     reg.foto = Date.now().toString(36); reg.fotoOrigem = '@' + h;
     await redis([['SET', 'area:foto:' + (email ? 'p:' + slug + ':' + email : 'emp:' + slug), f.dados], ['SET', kReg, JSON.stringify(reg)]]);

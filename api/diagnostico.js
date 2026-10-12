@@ -200,6 +200,12 @@ module.exports = async (req, res) => {
     await redis([['LPUSH', LISTA, JSON.stringify(item)], ['SET', 'diag:r:' + item.token, JSON.stringify(item)]]);
     // já entra como lead na Área do Cliente (sem avisar ninguém)
     try { await criaLead(redis, item); } catch (e) { /* o diagnóstico já foi salvo */ }
+    // com a Meta conectada, o Instagram do diagnóstico já vira a foto da empresa
+    try {
+      const ig = String((item.respostas || []).filter(r => r.id === 'instagram').map(r => r.resposta)[0] || '').trim();
+      const [m] = await redis([['GET', 'area:meta']]);
+      if (m && (/^@|instagram\.com\//i.test(ig) || /^[a-z0-9_]{2,30}$/i.test(ig))) await Promise.race([require('./_area/consulta.js').fotoAuto(redis, slugify(item.empresa), '', ig), new Promise(r => setTimeout(r, 8000))]);
+    } catch (e) { /* segue sem foto */ }
     if (item.origem !== 'formulario-antigo') await notifica(redis, { titulo: 'Novo diagnóstico', texto: item.empresa + (item.nome ? ' · ' + item.nome : ''), url: '/area/admin/#empresas/' + slugify(item.empresa) });
     return res.json({ ok: true, id: item.id });
   } catch (e) {

@@ -403,9 +403,14 @@ module.exports = async (req, res) => {
       }
 
       // preenchimento automático: CNPJ (Receita), CEP e cidades do IBGE
+      if (q.a === 'admin-meta') {
+        if (!s.admin) return res.status(403).json({ ok: false });
+        const c = await require('./_area/meta.js').conf(redis);
+        return res.json({ ok: true, conectado: !!(c && c.token), igUser: c ? c.igUser : '', pagina: c ? c.pagina : '', desde: c ? c.conectado : '' });
+      }
       if (q.a === 'admin-foto-insta') {
         if (!s.admin) return res.status(403).json({ ok: false });
-        return res.json(await CONSULTA.fotoInstagram(q.u));
+        return res.json(await CONSULTA.fotoInstagram(q.u, redis));
       }
       // foto da empresa (k=emp:<slug>) ou do contato (k=p:<slug>:<email>): admin ou alguém da própria empresa
       if (q.a === 'foto') {
@@ -638,6 +643,10 @@ module.exports = async (req, res) => {
     if (!s.admin) return res.status(403).json({ ok: false });
     const slug = slugify(b.slug);
 
+    // conexão oficial com a Meta (o Carlos cola as credenciais; nada disso volta para a tela)
+    if (b.a === 'admin-meta-conecta') return res.json(await require('./_area/meta.js').conecta(redis, b));
+    if (b.a === 'admin-meta-sair') { await redis([['DEL', 'area:meta']]); return res.json({ ok: true }); }
+
     if (b.a === 'admin-empresa') {
       const nome = limpo(b.nome, 80), sl = slugify(nome);
       if (sl.length < 2) return res.status(400).json({ ok: false, erro: 'Nome inválido.' });
@@ -830,6 +839,9 @@ module.exports = async (req, res) => {
       return res.json({ ok: true, dados: d, nome: e.nome, num: e.num });
     }
 
+    // conexão oficial com a Meta (o Carlos cola as credenciais; nada disso volta para a tela)
+    // foto automática pelo @ (usada quando a Meta está conectada)
+    if (b.a === 'admin-foto-auto') { const v = await CONSULTA.fotoAuto(redis, slug, b.email ? limpo(b.email, 120).toLowerCase() : '', b.insta); return res.json({ ok: !!v, foto: v || '' }); }
     // foto da empresa ou do contato (já recortada e reduzida no navegador)
     if (b.a === 'admin-foto') {
       const email = b.email ? limpo(b.email, 120).toLowerCase() : '';

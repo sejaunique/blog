@@ -124,13 +124,13 @@
     function editor(fonte){ estiloEditor(); return new Promise(function(fim){
       var L=280, veu=document.createElement('div'); veu.className='crop-veu';
       veu.innerHTML='<div class="crop-box" role="dialog" aria-label="Ajustar foto"><h3>Ajustar foto</h3><p>Arraste para posicionar e use o zoom para enquadrar na bolinha.</p><div class="crop-palco"><img alt=""><i></i></div>'+
-        '<label class="crop-zoom"><span>−</span><input type="range" min="1" max="4" step="0.01" value="1" aria-label="Zoom"><span>+</span></label><div class="crop-bts"><button type="button" data-x>Cancelar</button><button type="button" class="ok" data-ok>Salvar foto</button></div></div>';
+        '<label class="crop-zoom"><span>−</span><input type="range" min="1" max="8" step="0.01" value="1" aria-label="Zoom"><span>+</span></label><div class="crop-bts"><button type="button" data-x>Cancelar</button><button type="button" class="ok" data-ok>Salvar foto</button></div></div>';
       document.body.appendChild(veu);
       var palco=veu.querySelector('.crop-palco'), img=veu.querySelector('img'), rg=veu.querySelector('input'), w=0,h=0,base=1,z=1,x=0,y=0, pts={}, pinca=null;
       function S(){ return base*z; }
       function prende(){ var s=S(); x=Math.min(0,Math.max(L-w*s,x)); y=Math.min(0,Math.max(L-h*s,y)); }
       function desenha(){ prende(); img.style.transform='translate('+x+'px,'+y+'px) scale('+S()+')'; }
-      function zoom(nz,cx,cy){ nz=Math.max(1,Math.min(4,nz)); if(cx==null){cx=L/2;cy=L/2;} var s0=S(); z=nz; var s1=S(); x=cx-(cx-x)*s1/s0; y=cy-(cy-y)*s1/s0; rg.value=z; desenha(); }
+      function zoom(nz,cx,cy){ nz=Math.max(1,Math.min(8,nz)); if(cx==null){cx=L/2;cy=L/2;} var s0=S(); z=nz; var s1=S(); x=cx-(cx-x)*s1/s0; y=cy-(cy-y)*s1/s0; rg.value=z; desenha(); }
       img.onload=function(){ w=img.naturalWidth; h=img.naturalHeight; base=L/Math.min(w,h); z=1; x=(L-w*base)/2; y=(L-h*base)/2; desenha(); };
       img.onerror=function(){ op.toast('Não consegui abrir essa imagem.'); sai(null); };
       if(typeof fonte==='string') img.src=fonte; else { var fr=new FileReader(); fr.onload=function(){ img.src=fr.result; }; fr.readAsDataURL(fonte); }
@@ -152,7 +152,9 @@
         cx.drawImage(img,x*k,y*k,w*S()*k,h*S()*k); try{ sai(cv.toDataURL('image/jpeg',0.86)); }catch(e){ op.toast('Não foi possível usar essa imagem.'); sai(null); } };
     }); }
     function fotoBotoes(tem){ var c=app?'bt peq':'pill';
-      return '<div class="foto-acoes"><button type="button" class="'+c+'" data-foto-abre>Abrir Instagram</button><button type="button" class="'+c+'" data-foto-cola>Colar imagem</button><label class="'+c+'" style="cursor:pointer">Enviar foto<input type="file" accept="image/*" data-foto-arq hidden></label>'+(tem?'<button type="button" class="'+c+'" data-foto-ajusta>Ajustar</button><button type="button" class="'+c+'" data-foto-del>Remover</button>':'')+'</div>'; }
+      return '<div class="foto-acoes"><button type="button" class="'+c+'" data-foto-insta>Puxar do Instagram</button>'+(app?'':'<button type="button" class="'+c+'" data-foto-abre>Abrir Instagram</button><button type="button" class="'+c+'" data-foto-cola>Colar imagem</button>')+
+        '<label class="'+c+'" style="cursor:pointer">Enviar foto<input type="file" accept="image/*" data-foto-arq hidden></label>'+(tem?'<button type="button" class="'+c+'" data-foto-ajusta>Ajustar</button><button type="button" class="'+c+'" data-foto-del>Remover</button>':'')+'</div>'+
+        (app&&!tem?'<small class="foto-dica">Perfil pessoal? Tire um print do perfil no Instagram, toque em Enviar foto e aproxime na bolinha.</small>':''); }
     var TENTOU={};
     function limpaInsta(v){ return String(v||'').trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i,'').replace(/[/?#].*$/,'').replace(/^@+/,'').toLowerCase(); }
     // liga os botões de foto dentro de "raiz". cfg: {slug, email?, insta(): @ atual, estado(): {foto, origem}, campo: input do Instagram (opcional), depois(v)}
@@ -162,12 +164,13 @@
       function doInsta(h,quieto,btn){ h=limpaInsta(h); if(!/^[a-z0-9._]{1,30}$/.test(h)){ if(!quieto) op.toast('Informe um @ do Instagram válido.'); return; }
         TENTOU[chave+'@'+h]=1; var t=btn&&btn.textContent; if(btn){ btn.disabled=true; btn.textContent='Buscando…'; }
         op.get('?a=admin-foto-insta&u='+encodeURIComponent(h)).then(function(r){ if(btn){ btn.disabled=false; btn.textContent=t; }
-          if(!r||!r.ok){ if(!quieto) op.toast((r&&r.erro)||'Não consegui puxar a foto.'); return; }
+          if(!r||!r.ok){ if(!quieto) op.toast((op.meta&&!op.meta()&&!(r&&r.pessoal))?'O Instagram bloqueia a busca sem a conexão oficial. Conecte em Site → Instagram (no computador) ou use Enviar foto.':((r&&r.erro)||'Não consegui puxar a foto.')); return; }
           return reduz(r.dados).then(function(d){ return salva(d,'@'+h,quieto); },function(){ if(!quieto) op.toast('A imagem do Instagram veio com problema. Use "Enviar foto".'); }); }).catch(function(){ if(btn){ btn.disabled=false; btn.textContent=t; } }); }
       // automático: quando o @ muda (e a foto atual não foi enviada à mão) ou ao abrir uma ficha com @ e sem foto
       function podeAuto(h){ var e=cfg.estado?cfg.estado():{}; h='@'+limpaInsta(h); if(h==='@') return false; if(!e.foto) return true; return /^@/.test(e.origem||'')&&e.origem!==h; }
       if(cfg.campo) cfg.campo.addEventListener('change',function(){ var v=cfg.campo.value; if(valido('insta',v)&&podeAuto(v)) doInsta(v,true); });
       estiloEditor();
+      var ini=cfg.insta&&cfg.insta(); if(op.meta&&op.meta()&&ini&&valido('insta',ini)&&!(cfg.estado&&cfg.estado().foto)&&!TENTOU[chave+'@'+limpaInsta(ini)]) doInsta(ini,true);
       raiz.addEventListener('click',function(ev){
         var b=ev.target.closest('[data-foto-insta],[data-foto-del],[data-foto-ajusta],[data-foto-abre],[data-foto-cola]'); if(!b||!raiz.contains(b)) return; ev.preventDefault();
         if(b.hasAttribute('data-foto-abre')){ var hh=limpaInsta((cfg.insta&&cfg.insta())||''); if(!hh){ hh=limpaInsta(prompt('Qual o @ do Instagram?')||''); if(!hh) return; }

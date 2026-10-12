@@ -395,7 +395,8 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     carrega().then(desenha);
   }
   function carrega(){
-    return Promise.all([get('?a=admin-resumo'),get('?a=admin-acoes'),get('?a=admin-propostas'),get('?a=admin-diagnosticos')]).then(function(x){
+    return Promise.all([get('?a=admin-resumo'),get('?a=admin-acoes'),get('?a=admin-propostas'),get('?a=admin-diagnosticos'),get('?a=admin-meta')]).then(function(x){
+      META=x[4]||null;
       R=x[0]; AC=x[1]; PROPS=(x[2].propostas||[]); DIAGS=(x[3].diagnosticos||[]); BLOB=R.blob;
       var n=notifCount(); $('sino-dot').hidden=!n; var sd=$('side-dot'); if(sd) sd.hidden=!n;
       return gget('?a=status').then(function(st){ GS=st||{}; if(!GS.conectado){ GEV=[]; return; } return gget('?a=eventos').then(function(e){ GEV=(e&&e.eventos)||[]; }); });
@@ -716,7 +717,8 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
       return '<button type="button" data-e="'+esc(e.slug)+'" aria-current="'+(e.slug===EMP)+'"><span>'+esc(e.nome)+'</span><small>'+ETAPA[e.etapa][0]+'</small></button>'; }).join('');
   }
   function CD(n){ return (R.campos||{})[n]||[]; }
-  var CF=CRMF({estilo:'desk',get:function(q){return get(q);},post:function(o){return post(o);},toast:function(t){toast(t);}});
+  var META=null;
+  var CF=CRMF({estilo:'desk',get:function(q){return get(q);},post:function(o){return post(o);},toast:function(t){toast(t);},meta:function(){ return !!(META&&META.conectado); }});
   var vazio=CF.vazio, valTxt=CF.valTxt, campoForm=CF.campoForm, leForm=CF.leForm, formCampos=CF.formCampos;
   function dadosDe(e){
     var dg=(DIAGS||[]).filter(function(d){return d.slug===e.slug;})[0]||{}, u=e.usuarios[0]||{}, base=Object.assign({}, dg.dados||{});
@@ -1080,7 +1082,28 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     $('vista').innerHTML='<section class="card"><div class="card-h"><h2>Páginas</h2></div>'+links([
       ['home','/','Home','Página principal da Unique'],['check','/cases/','Cases','Todos os cases de clientes'],['diag','/diagnostico/','Diagnóstico','Formulário que vira lead'],
       ['post','/blog/','Blog','Opiniões curtas sobre vendas'],['link','/links/','Links','Página da bio do Instagram'],['lock','/area/','Área do cliente','Login dos clientes'],
-      ['grafico','https://vercel.com/sejaunique','Vercel','Publicação e configurações'],['config','https://github.com/sejaunique/blog','GitHub','Código do site']])+'</section>';
+      ['grafico','https://vercel.com/sejaunique','Vercel','Publicação e configurações'],['config','https://github.com/sejaunique/blog','GitHub','Código do site']])+'</section>'+cartaoMeta();
+    ligaMeta();
+  }
+  /* ---------- INSTAGRAM (META): foto automática pelo @ ---------- */
+  function cartaoMeta(){
+    var on=META&&META.conectado;
+    return '<section class="card" id="meta" style="margin-top:18px"><div class="card-h"><h2>Instagram · foto automática</h2>'+(on?'<span class="selo s-verde">Conectado</span>':'<span class="selo s-neu">Desconectado</span>')+'</div>'+
+      (on?'<p style="font-size:.86rem;margin:0 0 12px">Ligado à conta <b>@'+esc(META.igUser)+'</b> (Página '+esc(META.pagina)+'). Ao preencher o @ de uma empresa ou contato com perfil comercial, a foto entra sozinha.</p><button class="pill" id="meta-sair">Desconectar</button>':
+      '<p class="muted" style="font-size:.84rem;margin:-6px 0 12px">O Instagram só libera a foto de perfil para servidores pelo caminho oficial da Meta. Faça isso uma vez (uns 10 minutos) e a foto de qualquer perfil <b>comercial</b> entra sozinha pelo @. Perfis pessoais continuam pelo "Enviar foto".</p>'+
+      '<ol style="font-size:.84rem;line-height:1.6;margin:0 0 14px;padding-left:18px">'+
+        '<li>No Instagram da Unique: a conta precisa ser <b>Profissional</b> (Comercial ou Criador) e estar <b>ligada à Página do Facebook</b> (Instagram → Configurações → Central de Contas).</li>'+
+        '<li>Entre em <a href="https://developers.facebook.com/apps/" target="_blank" rel="noopener">developers.facebook.com/apps</a> → <b>Criar app</b> → tipo <b>Empresa</b> (Business). Nome: "Unique Workspace".</li>'+
+        '<li>No app: <b>Configurações do app → Básico</b>. Copie o <b>ID do aplicativo</b> e a <b>Chave secreta do aplicativo</b>.</li>'+
+        '<li>Abra o <a href="https://developers.facebook.com/tools/explorer/" target="_blank" rel="noopener">Explorador da API do Graph</a>, escolha o app, clique em <b>Gerar token de acesso</b> e marque as permissões <b>pages_show_list</b>, <b>instagram_basic</b>, <b>business_management</b> e <b>pages_read_engagement</b>. Autorize a sua Página e o Instagram. Copie o token.</li>'+
+        '<li>Cole os três abaixo e clique em Conectar. O workspace troca o token por um acesso que não expira.</li></ol>'+
+      '<form class="form" id="meta-f"><div class="l3"><div class="campo"><label>ID do aplicativo</label><input name="app" inputmode="numeric" autocomplete="off" required></div><div class="campo"><label>Chave secreta do aplicativo</label><input name="segredo" type="password" autocomplete="off" required></div><div class="campo"><label>Token de acesso</label><input name="token" type="password" autocomplete="off" required></div></div><div><button class="pill solid">Conectar</button></div></form>')+'</section>';
+  }
+  function ligaMeta(){
+    var f=$('meta-f'); if(f) f.onsubmit=function(ev){ ev.preventDefault(); var bt=f.querySelector('button'); bt.disabled=true; bt.textContent='Conectando…';
+      post({a:'admin-meta-conecta',app:f.app.value,segredo:f.segredo.value,token:f.token.value}).then(function(r){ bt.disabled=false; bt.textContent='Conectar';
+        if(!r.ok){ toast(r.erro||'Não foi possível conectar.'); return; } toast('Instagram conectado: @'+r.igUser+'.'); get('?a=admin-meta').then(function(m){ META=m; vSite(); }); }); };
+    var sa=$('meta-sair'); if(sa) sa.onclick=function(){ post({a:'admin-meta-sair'}).then(function(){ META={conectado:false}; vSite(); toast('Instagram desconectado.'); }); };
   }
   function vAlda(){
     cabecalho('Alda.CRM','o seu CRM',[]);

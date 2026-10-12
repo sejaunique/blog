@@ -140,6 +140,9 @@ button,input,select,textarea{font:inherit;color:inherit}
 .foto-acoes{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:0 0 6px}
 .foto-acoes .bt{font-size:.74rem}
 #p-foto .foto-acoes,#d-foto .foto-acoes{justify-content:flex-start;margin:0}
+.foto-dica{display:block;font-size:.72rem;color:var(--a-sub);margin:2px 0 6px;line-height:1.35}
+#p-foto,#d-foto{flex-wrap:wrap}
+#p-foto>div:last-of-type,#d-foto>div:last-of-type{flex:1;min-width:0}
 .perfil .av{width:76px;height:76px;font-size:1.6rem;margin:0 auto 10px}
 .perfil h2{margin:0;font-size:1.35rem;letter-spacing:-.03em}
 .perfil small{color:var(--a-sub)}
@@ -325,8 +328,9 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
     document.addEventListener('visibilitychange',function(){ if(!document.hidden) carrega().then(desenha); });
   }
   function carrega(){
-    return Promise.all([get('?a=admin-resumo'),get('?a=admin-acoes'),get('?a=admin-propostas'),get('?a=admin-diagnosticos'),get('?a=admin-notif')]).then(function(x){
+    return Promise.all([get('?a=admin-resumo'),get('?a=admin-acoes'),get('?a=admin-propostas'),get('?a=admin-diagnosticos'),get('?a=admin-notif'),get('?a=admin-meta')]).then(function(x){
       if(!x[0].ok){ location.reload(); return; }
+      META=x[5]||null;
       R=x[0]; AC=x[1]; PROPS=x[2].propostas||[]; DIAGS=x[3].diagnosticos||[]; NOTIF=x[4].notif||[];
       var n=contaAvisos(); ['bd-sino','bd-tab'].forEach(function(i){ $(i).hidden=!n; $(i).textContent=n>99?'99+':n; });
       return gget('?a=status').then(function(st){ GS=st||{}; if(!GS.conectado){ GEV=[]; return; } return gget('?a=eventos').then(function(e){ GEV=(e&&e.eventos)||[]; }); });
@@ -548,7 +552,8 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
       f.querySelector('form').onsubmit=function(e){ e.preventDefault(); post({a:'admin-empresa',nome:this.n.value}).then(function(r){ if(!r.ok){toast(r.erro||'Erro.');return;} fechaFolha(); carrega().then(function(){ abre({t:'empresa',s:r.slug}); }); }); }; }); });
   }
   function CD(n){ return (R.campos||{})[n]||[]; }
-  var CF=CRMF({estilo:'app',get:function(q){return get(q);},post:function(o){return post(o);},toast:function(t){toast(t);}});
+  var META=null;
+  var CF=CRMF({estilo:'app',get:function(q){return get(q);},post:function(o){return post(o);},toast:function(t){toast(t);},meta:function(){ return !!(META&&META.conectado); }});
   var vazio=CF.vazio, valTxt=CF.valTxt, campoForm=CF.campoForm, leForm=CF.leForm, formCampos=CF.formCampos;
   function dadosDe(e){
     var dg=(DIAGS||[]).filter(function(d){return d.slug===e.slug;})[0]||{}, u=e.usuarios[0]||{}, base=Object.assign({}, dg.dados||{});

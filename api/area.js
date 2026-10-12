@@ -356,7 +356,8 @@ module.exports = async (req, res) => {
         }
         if (q.a === 'admin-diagnosticos') {
           const [lst] = await redis([['LRANGE', 'diag:lista', 0, 299]]);
-          const diagnosticos = (lst || []).map(json).filter(Boolean).map(d => ({ id: d.id, data: d.data, empresa: d.empresa, nome: d.nome, email: d.email, whatsapp: d.whatsapp, token: d.token, slug: slugify(d.empresa), respostas: (d.respostas || []).length }));
+          const CAMPOS_D = ['cnpj', 'instagram', 'segmento', 'tempo', 'faturamento', 'colaboradores'];
+          const diagnosticos = (lst || []).map(json).filter(Boolean).map(d => { const dd = {}; (d.respostas || []).forEach(r => { if (CAMPOS_D.indexOf(r.id) >= 0 && r.resposta && !dd[r.id]) dd[r.id] = r.resposta; }); return { id: d.id, data: d.data, empresa: d.empresa, nome: d.nome, email: d.email, whatsapp: d.whatsapp, token: d.token, slug: slugify(d.empresa), respostas: (d.respostas || []).length, dados: dd }; });
           return res.json({ ok: true, diagnosticos });
         }
         const [slugsDb, mH] = await redis([['SMEMBERS', 'area:emps'], ['HGETALL', 'area:modelos']]);
@@ -405,7 +406,7 @@ module.exports = async (req, res) => {
           const [e, emails] = await redis([['GET', 'area:emp:' + slug], ['SMEMBERS', 'area:users:' + slug]]);
           const users = emails && emails.length ? await redis(emails.map(m => ['GET', 'area:user:' + slug + ':' + m])) : [];
           const ev = json(e) || { slug, nome: (CATALOGO[slug] || {}).nome || slug };
-          empresas.push({ slug, nome: ev.nome, etapa: ETAPAS.indexOf(ev.etapa) >= 0 ? ev.etapa : (ev.origem === 'diagnostico' ? 'lead' : 'cliente'), tags: ev.tags || [], origem: ev.origem || '', criado: ev.criado || '', usuarios: users.map(json).filter(Boolean).map(usuarioPublico) });
+          empresas.push({ slug, nome: ev.nome, dados: ev.dados || {}, etapa: ETAPAS.indexOf(ev.etapa) >= 0 ? ev.etapa : (ev.origem === 'diagnostico' ? 'lead' : 'cliente'), tags: ev.tags || [], origem: ev.origem || '', criado: ev.criado || '', usuarios: users.map(json).filter(Boolean).map(usuarioPublico) });
         }
         const [dH, mH] = await redis([['HGETALL', 'area:diag'], ['HGETALL', 'area:modelos']]);
         const dg = {};
@@ -784,6 +785,19 @@ module.exports = async (req, res) => {
       const [ok] = await redis([['SET', 'area:user:' + slug + ':' + email, JSON.stringify({ email, nome, whatsapp: limpo(b.whatsapp, 30), slug, empresaNome: e.nome, status: 'convite', criado: new Date().toISOString(), origem: 'admin' }), 'NX'], ['SADD', 'area:users:' + slug, email]]);
       if (!ok) return res.status(409).json({ ok: false, erro: 'Essa pessoa já está vinculada à empresa.' });
       return res.json({ ok: true });
+    }
+
+    if (b.a === 'admin-dados') {
+      const CAMPOS = ['razao', 'cnpj', 'segmento', 'cidade', 'endereco', 'site', 'instagram', 'telefone', 'email', 'responsavel', 'tempo', 'faturamento', 'colaboradores', 'obs'];
+      const [ev] = await redis([['GET', 'area:emp:' + slug]]);
+      const e = json(ev) || { slug, nome: (CATALOGO[slug] || {}).nome || slug, criado: new Date().toISOString() };
+      const d = {};
+      CAMPOS.forEach(k => { const v = limpo((b.dados || {})[k], k === 'obs' || k === 'endereco' ? 1000 : 160); if (v) d[k] = v; });
+      e.dados = d;
+      const nome = limpo(b.nome, 80);
+      if (nome) e.nome = nome;
+      await redis([['SET', 'area:emp:' + slug, JSON.stringify(e)], ['SADD', 'area:emps', slug]]);
+      return res.json({ ok: true, dados: d, nome: e.nome });
     }
 
     if (b.a === 'admin-convite') {

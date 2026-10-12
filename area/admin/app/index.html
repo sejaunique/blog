@@ -489,6 +489,21 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
     fab(function(){ abreFolha('<h3>Nova empresa</h3><form class="f"><label>Nome da empresa<input name="n" required></label><button class="bt pri cheio">Criar</button></form>',function(f){
       f.querySelector('form').onsubmit=function(e){ e.preventDefault(); post({a:'admin-empresa',nome:this.n.value}).then(function(r){ if(!r.ok){toast(r.erro||'Erro.');return;} fechaFolha(); carrega().then(function(){ abre({t:'empresa',s:r.slug}); }); }); }; }); });
   }
+  var CAMPOS=[['razao','Razão social'],['cnpj','CNPJ'],['segmento','Segmento'],['cidade','Cidade / UF'],['endereco','Endereço'],['responsavel','Responsável'],['telefone','Telefone / WhatsApp'],['email','E-mail'],['site','Site'],['instagram','Instagram'],['tempo','Tempo de mercado'],['faturamento','Faturamento'],['colaboradores','Colaboradores'],['obs','Observações']];
+  function dadosDe(e){
+    var dg=(DIAGS||[]).filter(function(d){return d.slug===e.slug;})[0]||{}, u=e.usuarios[0]||{}, base=Object.assign({}, dg.dados||{});
+    if(!base.email&&(u.email||dg.email)) base.email=u.email||dg.email;
+    if(!base.telefone&&(u.whatsapp||dg.whatsapp)) base.telefone=u.whatsapp||dg.whatsapp;
+    if(!base.responsavel&&(u.nome||dg.nome)) base.responsavel=u.nome||dg.nome;
+    var sal=e.dados||{}; Object.keys(sal).forEach(function(k){ if(sal[k]) base[k]=sal[k]; });
+    return base;
+  }
+  function folhaDados(e){
+    var d=dadosDe(e);
+    abreFolha('<h3>Dados da empresa</h3><form class="f"><label>Nome da empresa<input name="nome" value="'+esc(e.nome)+'" required></label>'+CAMPOS.map(function(c){ return c[0]==='obs'||c[0]==='endereco'?'<label>'+c[1]+'<textarea name="'+c[0]+'" style="min-height:70px">'+esc(d[c[0]]||'')+'</textarea></label>':'<label>'+c[1]+'<input name="'+c[0]+'" value="'+esc(d[c[0]]||'')+'"'+(c[0]==='cnpj'?' inputmode="numeric"':c[0]==='email'?' inputmode="email"':c[0]==='telefone'?' inputmode="tel"':'')+'></label>'; }).join('')+'<button class="bt pri cheio">Salvar dados</button></form>',function(f){
+      var fm=f.querySelector('form'); fm.onsubmit=function(ev){ ev.preventDefault(); var o={}; CAMPOS.forEach(function(c){ o[c[0]]=fm[c[0]].value; });
+        post({a:'admin-dados',slug:e.slug,nome:fm.nome.value,dados:o}).then(function(r){ if(!r.ok){toast(r.erro||'Erro.');return;} e.dados=r.dados; e.nome=r.nome; fechaFolha(); toast('Dados salvos.'); desenha(); }); }; });
+  }
   var CONT={};
   function tEmpresa(p){
     var e=emp(p.s); if(!e){ volta(); return; }
@@ -500,6 +515,9 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
         (u.email?'<a href="mailto:'+esc(u.email)+'">'+ic('mail')+'E-mail</a>':'<button disabled style="opacity:.4">'+ic('mail')+'E-mail</button>')+'<button data-ag>'+ic('reuniao')+'Agendar</button><button data-prop>'+ic('proposta')+'Proposta</button></div>'+
       ((dg||pr.length)?'<div class="sec"><h2>Comercial</h2></div><div class="cartao">'+(dg?'<a class="item" target="_blank" href="/diagnostico/relatorio/?r='+esc(dg.token)+'"><span class="av mar" style="background:var(--marinho)">'+ic('diag')+'</span><span class="tx"><b>Diagnóstico</b><small>Respondido em '+dt(dg.data)+'</small></span>'+ic('dir').replace('class="ic"','class="ic dir"')+'</a>':'')+
         pr.map(function(x){return '<button class="item" data-pr="'+esc(x.id)+'"><span class="av '+(x.status==='aceita'?'ver':'pre')+'">'+ic('proposta')+'</span><span class="tx"><b>'+esc(x.titulo)+'</b><small>'+PST[x.status]+' · '+brl(x.total)+(x.vista?' · aberta '+dt(x.vista):'')+'</small></span>'+ic('dir').replace('class="ic"','class="ic dir"')+'</button>';}).join('')+'</div>':'')+
+      (function(){ var d=dadosDe(e), L=CAMPOS.filter(function(c){return d[c[0]];});
+        return '<div class="sec"><h2>Dados da empresa</h2><button data-dados>Editar</button></div><div class="cartao">'+(L.length?L.map(function(c){ var v=d[c[0]], href=c[0]==='site'?(/^https?:/.test(v)?v:'https://'+v):c[0]==='instagram'?'https://instagram.com/'+String(v).replace(/^@|https?:\/\/(www\.)?instagram\.com\//g,'').replace(/\/.*$/,''):c[0]==='email'?'mailto:'+v:'';
+          return '<div class="item" style="cursor:default;padding:11px 14px"><span class="tx"><small style="margin:0">'+c[1]+'</small><b style="white-space:normal;font-weight:500">'+(href?'<a href="'+esc(href)+'" target="_blank" style="color:inherit">'+esc(v)+'</a>':esc(v))+'</b></span><button class="ib" data-cp="'+esc(v)+'" aria-label="Copiar">'+ic('copiar')+'</button></div>'; }).join(''):'<div class="vazio">Nenhum dado preenchido. Toque em Editar.</div>')+'</div>'; })()+
       '<div class="sec"><h2>Pessoas</h2><button data-np>+ Vincular</button></div><div class="cartao">'+(e.usuarios.length?e.usuarios.map(function(x){
         return '<div class="item" style="cursor:default"><span class="av neu">'+esc(ini(x.nome))+'</span><span class="tx"><b>'+esc(x.nome)+'</b><small>'+USTATUS[x.status]+(x.ultimo?' · entrou '+dt(x.ultimo,1):'')+'<br>'+esc(x.email)+'</small></span><button class="bt peq '+(x.status==='convite'?'ver':'')+'" data-conv="'+esc(x.email)+'" data-wa="'+esc(x.whatsapp||'')+'" data-nome="'+esc(x.nome)+'">'+(x.status==='convite'?'Liberar':'Link')+'</button></div>'; }).join(''):'<div class="vazio">Ninguém vinculado.</div>')+'</div>'+
       '<div class="sec"><h2>Plano de ações</h2></div><div class="cartao" id="e-acoes"><div class="vazio">Carregando…</div></div>'+
@@ -518,6 +536,8 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
       post({a:'acao-status',slug:e.slug,id:id,status:t.dataset.st?t.value:a.status,prazo:t.dataset.pz?t.value:undefined,tipo:t.dataset.tp?t.value:undefined,dono:t.dataset.dn?t.value:undefined}).then(function(r){ toast(r.ok?'Atualizado.':'Erro.'); if(r.ok) get('?a=admin-acoes').then(function(x){AC=x;}); }); };
     $('tela').onclick=function(ev){ var b=ev.target.closest('button'); if(!b) return;
       if(b.hasAttribute('data-mover')) folhaEtapa(e.slug);
+      if(b.hasAttribute('data-dados')) folhaDados(e);
+      if(b.dataset.cp){ try{ navigator.clipboard.writeText(b.dataset.cp); toast('Copiado.'); }catch(x){} }
       if(b.hasAttribute('data-ag')) agenda({titulo:'Reunião Unique · '+e.nome,slug:e.slug,emails:e.usuarios.map(function(x){return x.email;})});
       if(b.hasAttribute('data-prop')) folhaProposta(null,e.slug);
       if(b.dataset.pr) folhaProposta(PROPS.filter(function(x){return x.id===b.dataset.pr;})[0]);

@@ -602,6 +602,15 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     $('e-lista').innerHTML=(R.empresas||[]).filter(function(e){return !q||e.nome.toLowerCase().indexOf(q)>=0;}).map(function(e){
       return '<button type="button" data-e="'+esc(e.slug)+'" aria-current="'+(e.slug===EMP)+'"><span>'+esc(e.nome)+'</span><small>'+ETAPA[e.etapa][0]+'</small></button>'; }).join('');
   }
+  var CAMPOS=[['razao','Razão social'],['cnpj','CNPJ'],['segmento','Segmento'],['cidade','Cidade / UF'],['endereco','Endereço'],['responsavel','Responsável'],['telefone','Telefone / WhatsApp'],['email','E-mail'],['site','Site'],['instagram','Instagram'],['tempo','Tempo de mercado'],['faturamento','Faturamento'],['colaboradores','Colaboradores'],['obs','Observações']];
+  function dadosDe(e){
+    var dg=(DIAGS||[]).filter(function(d){return d.slug===e.slug;})[0]||{}, u=e.usuarios[0]||{}, base=Object.assign({}, dg.dados||{});
+    if(!base.email&&(u.email||dg.email)) base.email=u.email||dg.email;
+    if(!base.telefone&&(u.whatsapp||dg.whatsapp)) base.telefone=u.whatsapp||dg.whatsapp;
+    if(!base.responsavel&&(u.nome||dg.nome)) base.responsavel=u.nome||dg.nome;
+    var sal=e.dados||{}; Object.keys(sal).forEach(function(k){ if(sal[k]) base[k]=sal[k]; });
+    return base;
+  }
   function detalhe(){
     var e=emp(EMP); if(!e){ $('e-meio').innerHTML='<div class="vazio">Escolha uma empresa.</div>'; return; }
     var u=e.usuarios[0]||{}, dg=e.diagnostico, pr=PROPS.filter(function(p){return p.slug===e.slug;});
@@ -617,6 +626,14 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
         '<div>'+ic('chat')+'<span><small>Origem</small><b>'+({diagnostico:'Diagnóstico',proposta:'Proposta'}[e.origem]||'Cadastro manual')+'</b></span></div>'+
         '<div>'+ic('alvo')+'<span><small>Etiquetas</small>'+((e.tags||[]).length?'<span class="tg" style="margin-top:4px">'+e.tags.map(function(t){return '<span>'+esc(t)+'</span>';}).join('')+'</span>':'<b class="muted" style="font-weight:400">nenhuma</b>')+'</span></div>'+
       '</div><details style="margin-top:12px"><summary class="muted" style="font-size:.76rem;cursor:pointer">Editar etiquetas</summary><div id="e-tags" style="display:grid;gap:4px;margin-top:8px;font-size:.8rem">'+(R.tags||[]).map(function(t){return '<label><input type="checkbox" value="'+esc(t)+'"'+((e.tags||[]).indexOf(t)>=0?' checked':'')+'> '+esc(t)+'</label>';}).join('')+'</div></details></section>';
+    (function(){ var d=dadosDe(e), L=CAMPOS.filter(function(c){return d[c[0]];}), sec=document.createElement('section'); sec.className='card';
+      sec.innerHTML='<div class="card-h"><h2>Dados da empresa</h2><button class="pill" data-ed-dados>'+ic('editar')+'Editar</button></div><div class="dados" id="e-dados">'+(L.length?L.map(function(c){ return '<div>'+ic('doc')+'<span><small>'+c[1]+'</small><b>'+esc(d[c[0]])+'</b></span><button class="cbtn" data-cp="'+esc(d[c[0]])+'" title="Copiar">'+ic('copiar')+'</button></div>'; }).join(''):'<div class="vazio" style="display:block">Nenhum dado preenchido.</div>')+'</div>'+
+        '<form class="form" id="f-dados" hidden style="margin-top:12px"><div class="campo"><label>Nome da empresa</label><input name="nome" value="'+esc(e.nome)+'" required></div>'+CAMPOS.map(function(c){ return '<div class="campo"><label>'+c[1]+'</label>'+(c[0]==='obs'||c[0]==='endereco'?'<textarea name="'+c[0]+'" style="min-height:60px">'+esc(d[c[0]]||'')+'</textarea>':'<input name="'+c[0]+'" value="'+esc(d[c[0]]||'')+'">')+'</div>'; }).join('')+'<button class="pill solid">Salvar dados</button></form>';
+      $('e-lado').appendChild(sec);
+      sec.onclick=function(ev){ var b=ev.target.closest('button'); if(!b) return; if(b.hasAttribute('data-ed-dados')){ var f=$('f-dados'); f.hidden=!f.hidden; } if(b.dataset.cp){ try{navigator.clipboard.writeText(b.dataset.cp); toast('Copiado.');}catch(x){} } };
+      $('f-dados').onsubmit=function(ev){ ev.preventDefault(); var fm=this, o={}; CAMPOS.forEach(function(c){ o[c[0]]=fm[c[0]].value; });
+        post({a:'admin-dados',slug:e.slug,nome:fm.nome.value,dados:o}).then(function(r){ if(!r.ok){toast(r.erro||'Erro.');return;} e.dados=r.dados; e.nome=r.nome; toast('Dados salvos.'); lista(); detalhe(); }); };
+    })();
     $('e-etapa').onchange=function(){ crm(e.slug,{etapa:this.value}).then(function(){toast('Etapa atualizada.'); lista();}); };
     $('e-tags').onchange=function(){ crm(e.slug,{tags:[].map.call(this.querySelectorAll(':checked'),function(i){return i.value;})}).then(detalhe); };
     $('e-agenda').onclick=function(){ agenda({titulo:'Reunião Unique · '+e.nome,inicio:'',slug:e.slug,emails:e.usuarios.map(function(x){return x.email;})}); };

@@ -408,6 +408,12 @@ module.exports = async (req, res) => {
         const c = await require('./_area/meta.js').conf(redis);
         return res.json({ ok: true, conectado: !!(c && c.token), igUser: c ? c.igUser : '', pagina: c ? c.pagina : '', desde: c ? c.conectado : '' });
       }
+      // anotações dos contatos de uma empresa (area:notas:<slug>, mais nova primeiro)
+      if (q.a === 'admin-notas') {
+        if (!s.admin) return res.status(403).json({ ok: false });
+        const [l] = await redis([['LRANGE', 'area:notas:' + slugify(q.e), 0, 199]]);
+        return res.json({ ok: true, notas: (l || []).map(json).filter(Boolean) });
+      }
       if (q.a === 'admin-foto-insta') {
         if (!s.admin) return res.status(403).json({ ok: false });
         return res.json(await CONSULTA.fotoInstagram(q.u, redis));
@@ -840,6 +846,19 @@ module.exports = async (req, res) => {
     }
 
     // conexão oficial com a Meta (o Carlos cola as credenciais; nada disso volta para a tela)
+    if (b.a === 'admin-nota') {
+      const texto = limpo(b.texto, 2000);
+      if (!texto) return res.status(400).json({ ok: false, erro: 'Escreva a anotação.' });
+      const n = { id: Date.now().toString(36) + crypto.randomBytes(2).toString('hex'), email: limpo(b.email, 120).toLowerCase(), texto, data: new Date().toISOString() };
+      await redis([['LPUSH', 'area:notas:' + slug, JSON.stringify(n)], ['LTRIM', 'area:notas:' + slug, 0, 499]]);
+      return res.json({ ok: true, nota: n });
+    }
+    if (b.a === 'admin-nota-del') {
+      const [l] = await redis([['LRANGE', 'area:notas:' + slug, 0, 499]]);
+      const v = (l || []).find(x => (json(x) || {}).id === b.id);
+      if (v) await redis([['LREM', 'area:notas:' + slug, 1, v]]);
+      return res.json({ ok: true });
+    }
     // foto automática pelo @ (usada quando a Meta está conectada)
     if (b.a === 'admin-foto-auto') { const v = await CONSULTA.fotoAuto(redis, slug, b.email ? limpo(b.email, 120).toLowerCase() : '', b.insta); return res.json({ ok: !!v, foto: v || '' }); }
     // foto da empresa ou do contato (já recortada e reduzida no navegador)

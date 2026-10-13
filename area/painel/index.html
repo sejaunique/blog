@@ -278,6 +278,7 @@
       var atrasada=a.prazo&&a.prazo<hoje&&a.status!=='feito'&&a.status!=='cancelado';
       return '<div class="acao '+(a.status==='feito'?'feito ':'')+(a.status==='cancelado'?'cancelado ':'')+(atrasada?'atrasada':'')+'"><div><h3>'+esc(a.titulo)+'</h3>'+(a.detalhe?'<p>'+esc(a.detalhe)+'</p>':'')+
         (a.link?'<p><a href="'+esc(a.link)+'" target="_blank" rel="noopener">'+({post:'Ler o post',video:'Assistir à videoaula',reuniao:'Abrir a reunião'}[a.tipo]||'Abrir o link')+' →</a></p>':'')+
+        ((a.anexos||[]).length?'<p class="anexos">'+a.anexos.map(function(x){ return '<a href="'+esc(x.link)+'" target="_blank" rel="noopener">📎 '+esc(x.nome||'Anexo')+'</a>'; }).join(' ')+'</p>':'')+
         '<div class="meta">'+(a.inicio?'<span>Início: '+data(String(a.inicio).slice(0,10))+'</span>':'')+(a.responsavel?'<span>Responsável: '+esc(a.responsavel)+'</span>':'')+(a.prazo?'<span class="prazo">Prazo: '+data(a.prazo)+(atrasada?' (atrasada)':'')+'</span>':'')+'</div></div>'+
         '<div class="sels">'+sel(a.id,'status',STATUS,a.status,'st-'+a.status)+sel(a.id,'tipo',TIPO,a.tipo||'acao','mini')+sel(a.id,'dono',DONO,a.dono||'unique','mini')+'</div></div>';
     }).join('')+(ARQ.length?'<details class="arq"><summary>Materiais e avisos ('+ARQ.length+')</summary>'+ARQ.map(function(a){

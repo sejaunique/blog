@@ -28,9 +28,10 @@ async function raiz(redis) {
 }
 
 // garante a pasta da empresa e o compartilhamento com os contatos; devolve {id, link}
-async function pastaEmpresa(redis, slug) {
+async function pastaEmpresa(redis, slug, nomePadrao) {
   const [ev, emails] = await redis([['GET', 'area:emp:' + slug], ['SMEMBERS', 'area:users:' + slug]]);
-  const e = json(ev);
+  // empresas do catálogo podem ainda não ter registro próprio: cria a partir do nome do catálogo
+  const e = json(ev) || (nomePadrao ? { slug, nome: nomePadrao, criado: new Date().toISOString() } : null);
   if (!e) return null;
   let mudou = false;
   if (e.drivePasta) {
@@ -76,4 +77,4 @@ async function envia(redis, pasta, nome, tipo, dados) {
   return r.ok && j.id ? j : null;
 }
 
-module.exports = { pronto, pastaEmpresa, lista, envia };
+module.exports = { pronto, raiz, pastaEmpresa, lista, envia };

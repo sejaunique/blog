@@ -251,6 +251,7 @@ function limpaAcao(a) {
     tipo: ['acao', 'post', 'video', 'reuniao', 'material'].indexOf(a.tipo) >= 0 ? a.tipo : 'acao',
     link: (/^https:\/\//i.test(a.link || '') || /^\/[^/]/.test(a.link || '')) ? limpo(a.link, 600) : '',
     status: STATUS_ACAO.indexOf(a.status) >= 0 ? a.status : 'a_fazer',
+    anexos: (Array.isArray(a.anexos) ? a.anexos : []).map(x => ({ nome: limpo((x || {}).nome, 160), link: /^https:\/\//i.test((x || {}).link || '') ? limpo(x.link, 600) : '' })).filter(x => x.link).slice(0, 20),
     criado: limpo(a.criado, 30) || new Date().toISOString()
   };
 }
@@ -386,7 +387,7 @@ module.exports = async (req, res) => {
         const DR = require('./_area/drive.js');
         const p = await DR.pronto(redis);
         if (!p.ok) return res.json({ ok: true, drive: false, falta: p.falta });
-        const pasta = await DR.pastaEmpresa(redis, slug);
+        const pasta = await DR.pastaEmpresa(redis, slug, (CATALOGO[slug] || {}).nome);
         if (!pasta) return res.json({ ok: true, drive: false, falta: 'erro' });
         const arquivos = await DR.lista(redis, pasta.id);
         return res.json({ ok: true, drive: true, pasta: { link: pasta.link }, arquivos: arquivos || [] });
@@ -508,7 +509,8 @@ module.exports = async (req, res) => {
       if (!p.ok) return res.status(503).json({ ok: false, erro: 'A pasta de arquivos ainda não está ligada.' });
       const dados = await lerCorpoBruto(req);
       if (!dados.length) return res.status(400).json({ ok: false, erro: 'Arquivo vazio.' });
-      const pasta = await DR.pastaEmpresa(redis, slug);
+      const pasta = s.admin && !slug ? { id: await DR.raiz(redis) } : await DR.pastaEmpresa(redis, slug, (CATALOGO[slug] || {}).nome);
+      if (pasta && !pasta.id) return res.status(502).json({ ok: false, erro: 'Não consegui abrir a pasta da Unique no Drive.' });
       if (!pasta) return res.status(502).json({ ok: false, erro: 'Não consegui abrir a pasta da empresa.' });
       const nome = limpo(q.nome, 160) || 'arquivo';
       const f = await DR.envia(redis, pasta.id, nome, limpo(q.tipo, 100).replace(/[^\w.+\/-]/g, ''), dados);

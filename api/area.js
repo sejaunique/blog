@@ -404,7 +404,9 @@ module.exports = async (req, res) => {
         });
         // lista de leitura (posts do blog delegados a cada pessoa): o cliente vê só a dele
         const [lH] = await redis([['HGETALL', 'area:leit:' + slug]]);
-        const leituras = lerPares(lH).map(([, v]) => json(v)).filter(Boolean).filter(l => s.admin || l.pessoa === s.email).sort((a, b) => String(a.criado).localeCompare(String(b.criado)));
+        const leituras = lerPares(lH).map(([, v]) => json(v)).filter(Boolean).filter(l => s.admin || l.pessoa === s.email || l.pessoa === '*')
+          .map(l => (!s.admin && l.pessoa === '*') ? Object.assign({}, l, { lido: (l.lidoPor || {})[s.email] || '', todos: true }) : l)
+          .sort((a, b) => String(a.criado).localeCompare(String(b.criado)));
         return res.json({ ok: true, empresa: { slug, nome: e.nome }, itens: c.itens, acoes: c.acoes, leituras, admin: !!s.admin, eu: s.admin ? '' : s.email });
       }
 
@@ -425,6 +427,16 @@ module.exports = async (req, res) => {
         return res.json({ ok: true, conectado: !!(c && c.token), igUser: c ? c.igUser : '', pagina: c ? c.pagina : '', desde: c ? c.conectado : '' });
       }
       // anotações dos contatos de uma empresa (area:notas:<slug>, mais nova primeiro)
+      // todas as leituras (para a tela de postagens): post -> [{slug, pessoa, lido, lidoPor}]
+      if (q.a === 'admin-leituras') {
+        if (!s.admin) return res.status(403).json({ ok: false });
+        const [slugsDb] = await redis([['SMEMBERS', 'area:emps']]);
+        const sl = slugsDb || [];
+        const hs = sl.length ? await redis(sl.map(x => ['HGETALL', 'area:leit:' + x])) : [];
+        const out = [];
+        sl.forEach((x, i) => lerPares(hs[i]).forEach(([, v]) => { const l = json(v); if (l) out.push(Object.assign(l, { slug: x })); }));
+        return res.json({ ok: true, leituras: out });
+      }
       if (q.a === 'admin-notas') {
         if (!s.admin) return res.status(403).json({ ok: false });
         const [l] = await redis([['LRANGE', 'area:notas:' + slugify(q.e), 0, 199]]);
@@ -644,11 +656,16 @@ module.exports = async (req, res) => {
       const slug = s.admin ? slugify(b.slug) : s.slug;
       const [v] = await redis([['HGET', 'area:leit:' + slug, String(b.id || '')]]);
       const l = json(v);
-      if (!l || (!s.admin && l.pessoa !== s.email)) return res.status(404).json({ ok: false });
-      l.lido = b.lido ? new Date().toISOString() : '';
+      if (!l || (!s.admin && l.pessoa !== s.email && l.pessoa !== '*')) return res.status(404).json({ ok: false });
+      if (l.pessoa === '*') {
+        const quem = s.admin ? limpo(b.email, 120).toLowerCase() : s.email;
+        if (!quem) return res.status(400).json({ ok: false });
+        l.lidoPor = l.lidoPor || {};
+        if (b.lido) l.lidoPor[quem] = new Date().toISOString(); else delete l.lidoPor[quem];
+      } else l.lido = b.lido ? new Date().toISOString() : '';
       await redis([['HSET', 'area:leit:' + slug, l.id, JSON.stringify(l)]]);
       if (!s.admin && l.lido) await notifica(redis, { titulo: 'Leitura concluída', texto: s.nome + ' leu: ' + l.titulo, url: '/area/admin/#contatos/' + encodeURIComponent(slug + '|' + s.email) });
-      return res.json({ ok: true, leitura: l });
+      return res.json({ ok: true, leitura: l.pessoa === '*' ? Object.assign({}, l, { lido: (l.lidoPor || {})[s.admin ? limpo(b.email, 120).toLowerCase() : s.email] || '' }) : l });
     }
 
     if (b.a === 'curtir' || b.a === 'comentar' || b.a === 'comentar-del' || b.a === 'publico') {
@@ -895,9 +912,9 @@ module.exports = async (req, res) => {
     // conexão oficial com a Meta (o Carlos cola as credenciais; nada disso volta para a tela)
     // lista de leitura: posts do blog delegados a uma pessoa
     if (b.a === 'admin-leitura') {
-      const email = limpo(b.email, 120).toLowerCase();
+      const email = b.email === '*' ? '*' : limpo(b.email, 120).toLowerCase();
       const posts = (Array.isArray(b.posts) ? b.posts : []).slice(0, 40);
-      if (!emailOk(email) || !posts.length) return res.status(400).json({ ok: false, erro: 'Escolha ao menos um post.' });
+      if ((email !== '*' && !emailOk(email)) || !posts.length) return res.status(400).json({ ok: false, erro: 'Escolha ao menos um post.' });
       const [lH] = await redis([['HGETALL', 'area:leit:' + slug]]);
       const ja = {}; lerPares(lH).forEach(([, v]) => { const l = json(v); if (l) ja[l.pessoa + '|' + l.post] = 1; });
       const cmds = [], novos = [];

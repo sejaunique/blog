@@ -78,6 +78,28 @@ module.exports = {
         grifo: 'roteiro e prompt',
         data: '2026-10-08'
       }
+    ],
+    acoes: [
+      {
+        id: 'alubanfunilatend',
+        titulo: 'Implantar o funil de atendimento (7 etapas)',
+        detalhe: 'Siga a página "Funil de atendimento: regras de movimentação". Falta configurar: 1) escrever os textos dos Follow-ups 1 e 2 (5 min e 1 h depois da saída do bot); 2) gravar o áudio do Follow-up 3 (2 h depois); 3) definir o script de ligação/abordagem manual do SDR para quem não respondeu; 4) configurar a regra automática de 48 h (Finalizado → Perdido). Regra de ouro: nenhum lead para em uma etapa sem dono.',
+        tipo: 'material',
+        dono: 'unique',
+        link: '/clientes/tendasaluban/funil-atendimento/',
+        status: 'a_fazer',
+        criado: '2026-10-14T04:00:00.000Z'
+      },
+      {
+        id: 'alubanchatbotia',
+        titulo: 'Ativar o Chatbot IA (roteiro e prompt)',
+        detalhe: 'Siga a página "Chatbot IA: roteiro e prompt". Falta definir: número(s) da consultora que recebe o resumo; se Licitação vai para outro responsável; em quanto tempo o bot volta se a consultora não assumir; cidade e WhatsApp de cada unidade (MG, GO, RN) para aluguel; para qual unidade vão Compra, Licitação e SAC; horário de atendimento. Antes de ativar, rodar o checklist de testes da página (12 itens).',
+        tipo: 'material',
+        dono: 'unique',
+        link: '/clientes/tendasaluban/chatbot/',
+        status: 'a_fazer',
+        criado: '2026-10-14T04:00:00.000Z'
+      }
     ]
   }
 };

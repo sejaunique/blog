@@ -367,6 +367,7 @@ module.exports = async (req, res) => {
           const diagnosticos = (lst || []).map(json).filter(Boolean).map(d => { const dd = {}; (d.respostas || []).forEach(r => { if (CAMPOS_D.indexOf(r.id) >= 0 && r.resposta && !dd[r.id]) dd[r.id] = r.resposta; }); return { id: d.id, data: d.data, empresa: d.empresa, nome: d.nome, email: d.email, whatsapp: d.whatsapp, token: d.token, slug: slugify(d.empresa), respostas: (d.respostas || []).length, dados: dd }; });
           return res.json({ ok: true, diagnosticos });
         }
+        for (const sl of Object.keys(CATALOGO)) if ((CATALOGO[sl].acoes || []).length) await semeiaAcoes(sl); // ações do catálogo aparecem já no painel do Carlos
         const [slugsDb, mH] = await redis([['SMEMBERS', 'area:emps'], ['HGETALL', 'area:modelos']]);
         const slugs = Array.from(new Set((slugsDb || []).concat(Object.keys(CATALOGO)))).sort();
         const por = slugs.length ? await redis(slugs.flatMap(sl => [['HGETALL', 'area:acoes:' + sl], ['HGETALL', 'area:mst:' + sl]])) : [];

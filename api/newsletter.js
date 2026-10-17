@@ -199,6 +199,12 @@ module.exports = async (req, res) => {
     if (req.method !== 'POST') return res.status(405).json({ ok: false });
     const b = corpo(req);
     if (b.a === 'enviar-agora') return res.json(await verificar());
+    if (b.a === 'reenviar') {
+      const slug = String(b.slug || '').replace(/[^a-z0-9-]/g, '');
+      if (!slug) return res.status(400).json({ ok: false });
+      await redis([['SREM', 'news:enviados', slug], ['DEL', 'news:env:' + slug]]);
+      return res.json(await verificar());
+    }
     if (b.a === 'remover') { await redis([['HDEL', 'news:assinantes', String(b.email || '').toLowerCase()]]); return res.json({ ok: true }); }
     if (b.a === 'teste') {
       const lista = await posts();

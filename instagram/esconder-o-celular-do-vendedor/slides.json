@@ -1,0 +1,149 @@
+{
+ "legenda": "Tivemos que esconder o celular do vendedor.\n\nNum cliente nosso, os celulares do time comercial ficam enfileirados na mesa. O vendedor só pega o aparelho quando toca uma ligação.\n\nParece birra de criança. E é quase isso: com o celular na mão, ele responde pelo WhatsApp do aparelho, não usa o mensageiro do CRM e os dados ficam pela metade.\n\nSem dado, a base vira uma lista de nomes. Com dado, vira dinheiro.\n\nA estratégia muda de empresa para empresa: tirar o celular, colocar a ligação no CRM, contratar quem entende o processo. O princípio não muda: Comportamento Repetido Muda.\n\nResponda sem abrir planilha:\n1. Quanto você tem em orçamentos em aberto, em reais?\n2. Quantas propostas isso representa?\n3. Qual foi o maior motivo de perda?\n4. Quanto falta para a meta?\n\nNão soube responder? O seu comercial está delegado. Ou abandonado.\n\n📌 O texto completo está no blog. Link na bio.\n\n#vendas #crm #gestaocomercial #timedevendas #processocomercial #consultoriadevendas #sejaunique",
+ "slides": [
+  {
+   "tipo": "capa",
+   "selo": "Gestão comercial",
+   "nome": "Celulares na mesa",
+   "local": "Time comercial de um cliente",
+   "img": "blog/assets/criancas-emburradas.jpg",
+   "pos": "28% center",
+   "destaque": "1 regra",
+   "destaque_tx": "celular só quando\ntoca uma ligação",
+   "titulo": "Tivemos que esconder\n//--o celular do vendedor.--//",
+   "texto": "Parece birra de criança. É ==boicote ao processo==.",
+   "tam": 84
+  },
+  {
+   "tipo": "lista",
+   "selo": "O problema",
+   "titulo": "Celular na mão.\n//--Processo no lixo.--//",
+   "tam": 100,
+   "itens": [
+    {
+     "icone": "message-circle",
+     "cor": "magenta",
+     "titulo": "WhatsApp do aparelho",
+     "texto": "Fora do mensageiro do CRM"
+    },
+    {
+     "icone": "database-off",
+     "cor": "claro",
+     "titulo": "A conversa some",
+     "texto": "Histórico e dados pela metade"
+    },
+    {
+     "icone": "clock-exclamation",
+     "cor": "marinho",
+     "titulo": "Senso de urgência",
+     "texto": "“Depois eu registro.”"
+    }
+   ],
+   "nota": "Cada exceção parece pequena.\nSomadas, ==apagam a memória== da empresa."
+  },
+  {
+   "tipo": "versus",
+   "titulo": "Antes e depois\n//da regra da mesa//",
+   "antes": {
+    "selo": "Antes · Celular na mão",
+    "titulo": "Dado\n--pela metade.--",
+    "texto": "Cada vendedor conversa do próprio aparelho. A empresa não sabe o que foi falado nem o que ficou para trás."
+   },
+   "depois": {
+    "selo": "Depois · Celulares na mesa",
+    "titulo": "Tudo\n++no CRM.++",
+    "texto": "O celular só sai da mesa quando toca uma ligação. O resto passa pelo CRM.",
+    "img": "blog/assets/celulares-mesa.jpg",
+    "pos": "center 45%"
+   }
+  },
+  {
+   "tipo": "frase",
+   "icone": "database",
+   "texto": "Sem dado, a base\nvira uma lista\nde nomes.\n//++Com dado,\nvira dinheiro.++//",
+   "assina": "Carlos Ribeiro",
+   "mascote": true,
+   "tam": 86
+  },
+  {
+   "tipo": "passos",
+   "selo": "Comportamento Repetido Muda",
+   "titulo": "Muda a estratégia.\n//O princípio, não.//",
+   "tam": 96,
+   "itens": [
+    {
+     "icone": "device-mobile-off",
+     "cor": "marinho",
+     "titulo": "Tirar o celular",
+     "texto": "Nesta empresa, foi a regra da mesa."
+    },
+    {
+     "icone": "phone-call",
+     "cor": "verde",
+     "titulo": "Ligação no CRM",
+     "texto": "Em outra, tudo registrado na própria ferramenta."
+    },
+    {
+     "icone": "users",
+     "cor": "marinho",
+     "titulo": "Contratar certo",
+     "texto": "Vendedores que já entendem o valor do processo."
+    }
+   ]
+  },
+  {
+   "tipo": "lista",
+   "selo": "Teste para o dono",
+   "titulo": "Responda sem\n//abrir planilha//",
+   "tam": 96,
+   "brilho": "c",
+   "itens": [
+    {
+     "icone": "coin",
+     "cor": "verde",
+     "titulo": "Orçamentos em aberto",
+     "texto": "Quanto, em reais?"
+    },
+    {
+     "icone": "chart-bar",
+     "cor": "claro",
+     "titulo": "Propostas na mesa",
+     "texto": "Quantas são?"
+    },
+    {
+     "icone": "x",
+     "cor": "magenta",
+     "titulo": "Motivo de perda",
+     "texto": "Qual foi o maior?"
+    },
+    {
+     "icone": "target",
+     "cor": "marinho",
+     "titulo": "Meta",
+     "texto": "Quanto falta?"
+    }
+   ],
+   "top": 520,
+   "nota_top": 1150,
+   "nota": "Não soube? O comercial está ==delegado.=="
+  },
+  {
+   "tipo": "frase",
+   "escuro": true,
+   "icone": "repeat",
+   "texto": "Esconder o celular\nparece exagero.\n//++Exagero é não saber\nquanto dinheiro\nestá na mesa.++//",
+   "assina": "Carlos Ribeiro",
+   "mascote": true,
+   "tam": 80,
+   "top": 290
+  },
+  {
+   "tipo": "cta",
+   "selo": "Sua vez",
+   "titulo": "Você saberia\nresponder\n//as 4 perguntas?//",
+   "texto": "Me conta nos comentários. E leia o texto completo no blog.",
+   "botao": "Leia o post completo",
+   "url": "sejaunique.vercel.app/blog · link na bio"
+  }
+ ]
+}

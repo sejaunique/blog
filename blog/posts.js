@@ -409,7 +409,7 @@ Contratação é venda. Se você trata a vaga como um anúncio qualquer, atrai g
   },
   {
     slug: "crm-nao-e-software",
-    capa: "assets/capa-crm.jpg",
+    capa: "assets/capa-crm-postits.jpg",
     titulo: "CRM não é software. É ==Comportamento Repetido Muda==",
     data: "2026-09-30",
     categoria: "Cultura",

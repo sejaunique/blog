@@ -107,6 +107,7 @@ Mesma conexão do Google Agenda, com a permissão do Drive (app Interno da sejau
 - `comercial-atleta/`: material de apoio da palestra Comercial Atleta (https://sejaunique.vercel.app/comercial-atleta/). Mostra o Método CRM e os 4 pilares abertos; o resto (checklist diário, semana e mês, placar, conta do reativo, mensagens-base, tracker de 30 dias) libera depois do cadastro (nome, empresa, WhatsApp, e-mail). As marcações do visitante ficam salvas no aparelho dele. Tem os banners do diagnóstico e do Alda.CRM.
 - `comercial-atleta/comercial-atleta.docx`: versão Word para impressão (botão na página). A página também imprime ou salva em PDF.
 - `api/material.js`: recebe o cadastro. Guarda em `mat:leads`, cria a empresa como **lead** no CRM com a etiqueta **Palestra** (sem mexer em quem já existe), publica o material como entrega, inscreve na newsletter (origem `comercial-atleta`) e avisa no app. Novo material: acrescente em `MATERIAIS` no topo do arquivo.
+- Visualização ADM: logado no workspace (`/area/admin/`), a página abre o material completo sem cadastro, com uma barra no topo (total de cadastros, cadastros de hoje, lista dos últimos com link para a empresa no CRM e para o WhatsApp, e o botão "Ver como visitante"). Vem de `GET /api/material?a=adm&material=<id>`, que só responde para a sessão de admin.
 - Capa de compartilhamento: `assets/og/comercial-atleta.jpg` (entrada em `EXTRAS` de `tools/og_cliente.py`).
 
 ## Newsletter do blog

@@ -37,8 +37,30 @@ const limpa = (s, n) => String(s == null ? '' : s).trim().replace(/\s+/g, ' ').s
 
 module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
-  if (req.method !== 'POST') return res.status(405).json({ ok: false });
   if (!URL_DB || !TOKEN) return res.status(500).json({ ok: false, erro: 'Banco não configurado.' });
+
+  // GET ?a=adm&material=X -> visualização ADM: com a sessão de admin do workspace (cookie ua_sess),
+  // libera o material sem cadastro e devolve os cadastros recebidos daquele material.
+  if (req.method === 'GET' && (req.query || {}).a === 'adm') {
+    try {
+      const mt = String((req.query || {}).material || '');
+      const c = String(req.headers.cookie || '').match(/(?:^|;\s*)ua_sess=([a-f0-9]{48})/);
+      if (!c || !MATERIAIS[mt]) return res.json({ ok: true, admin: false });
+      const [s] = await redis([['GET', 'area:sess:' + c[1]]]);
+      const v = json(s);
+      if (!(v && v.admin)) return res.json({ ok: true, admin: false });
+      const [lst] = await redis([['LRANGE', 'mat:leads', 0, 1999]]);
+      const leads = (lst || []).map(json).filter(x => x && x.material === mt);
+      const hoje = new Date().toLocaleDateString('sv-SE', { timeZone: 'America/Sao_Paulo' });
+      return res.json({
+        ok: true, admin: true, total: leads.length,
+        hoje: leads.filter(x => new Date(x.data).toLocaleDateString('sv-SE', { timeZone: 'America/Sao_Paulo' }) === hoje).length,
+        ultimos: leads.slice(0, 30).map(x => ({ nome: x.nome, empresa: x.empresa, slug: x.slug, whatsapp: x.whatsapp, email: x.email, data: x.data }))
+      });
+    } catch (e) { return res.json({ ok: true, admin: false }); }
+  }
+
+  if (req.method !== 'POST') return res.status(405).json({ ok: false });
   try {
     const b = corpo(req);
     if (b.a !== 'liberar') return res.status(400).json({ ok: false });

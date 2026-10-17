@@ -189,6 +189,28 @@ body.liberado #conteudo{display:block}
 .alda-bt{background:#2e2e2e;color:#fff;border-color:#2e2e2e}
 .alda-bt2{color:#2e2e2e;border-color:#2e2e2e}
 
+
+/* visualização ADM */
+.admbar{background:var(--marinho);color:#f5f5f5}
+.admbar .wrap{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between;padding-block:16px}
+.admbar .sel{display:inline-flex;align-items:center;gap:10px;font-size:.68rem;font-weight:800;letter-spacing:.28em;text-transform:uppercase}
+.admbar .sel i{width:8px;height:8px;border-radius:50%;background:var(--verde);display:block;animation:pis 1.8s ease-in-out infinite}
+.admbar .tx{font-size:.85rem;opacity:.85;margin:4px 0 0}
+.admbar .num2{display:flex;gap:22px}
+.admbar .num2 b{display:block;font-size:1.9rem;font-weight:200;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.admbar .num2 small{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;opacity:.75}
+.admbar .acs{display:flex;flex-wrap:wrap;gap:8px}
+.admbar .btn{color:#f5f5f5;border-color:rgba(245,245,245,.5)}
+.admbar .btn.verde{color:#000;border-color:var(--verde)}
+.admbar .lista{display:none;padding-bottom:18px}
+.admbar.aberta .lista{display:block}
+.admbar table{width:100%;border-collapse:collapse;font-size:.85rem}
+.admbar th{text-align:left;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;opacity:.7;padding:8px 10px;border-bottom:1px solid rgba(245,245,245,.3)}
+.admbar td{padding:9px 10px;border-bottom:1px solid rgba(245,245,245,.12)}
+.admbar td a{color:#f5f5f5}
+.admbar .vazio{opacity:.75;font-size:.9rem;margin:6px 0 0}
+body.modo-adm .ok{display:none!important}
+@media print{.admbar{display:none!important}}
 @media (max-width:900px){
   .pilares{grid-template-columns:1fr 1fr}
   .gate,.diag,.alda-in{grid-template-columns:1fr}
@@ -568,6 +590,26 @@ body.liberado #conteudo{display:block}
   $('#trk').addEventListener('click',function(e){ var b=e.target.closest('button[data-d]'); if(!b) return; var d=b.dataset.d; tv[d]=tv[d]||{}; tv[d][b.dataset.p]=!tv[d][b.dataset.p]; ls.set(TK,tv); trk(); });
   $('#trk-zera').addEventListener('click',function(){ if(!confirm('Recomeçar o desafio do dia 1?')) return; tv={}; ls.set(TK,tv); trk(); });
   trk();
+
+
+  // ---------- visualização ADM (logado como admin no workspace) ----------
+  function dt(x){ try{return new Date(x).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}catch(e){return '';} }
+  fetch('/api/material?a=adm&material='+MAT,{credentials:'same-origin',cache:'no-store'}).then(function(r){return r.json();}).then(function(r){
+    if(!r||!r.admin) return;
+    document.body.classList.add('modo-adm','liberado');
+    var visitante=false, el=document.createElement('section'); el.className='admbar'; el.setAttribute('aria-label','Visualização ADM');
+    var linhas=(r.ultimos||[]).map(function(x){ var w=String(x.whatsapp||'').replace(/\D/g,''); if(w.length>=10&&w.length<=11) w='55'+w;
+      return '<tr><td>'+dt(x.data)+'</td><td>'+esc(x.nome)+'</td><td><a href="/area/admin/#empresas/'+encodeURIComponent(x.slug||'')+'">'+esc(x.empresa)+'</a></td><td>'+(w?'<a href="https://wa.me/'+w+'" target="_blank" rel="noopener">'+esc(x.whatsapp)+'</a>':'')+'</td><td>'+esc(x.email)+'</td></tr>'; }).join('');
+    el.innerHTML='<div class="wrap"><div><span class="sel"><i></i>Visualização ADM</span><p class="tx">Você vê o material completo porque está logado no workspace. O visitante precisa se cadastrar.</p></div>'+
+      '<div class="num2"><div><b>'+(r.total||0)+'</b><small>cadastros</small></div><div><b>'+(r.hoje||0)+'</b><small>hoje</small></div></div>'+
+      '<div class="acs"><button class="btn sm verde" type="button" data-adm="lista">Ver cadastros</button><button class="btn sm" type="button" data-adm="vis">Ver como visitante</button><a class="btn sm" href="/area/admin/#crm">Abrir CRM</a></div></div>'+
+      '<div class="wrap lista">'+(linhas?'<div class="rolar"><table><thead><tr><th>Quando</th><th>Nome</th><th>Empresa</th><th>WhatsApp</th><th>E-mail</th></tr></thead><tbody>'+linhas+'</tbody></table></div>':'<p class="vazio">Nenhum cadastro ainda.</p>')+'</div>';
+    var main=document.querySelector('main'); main.insertBefore(el,main.firstChild);
+    el.addEventListener('click',function(e){ var b=e.target.closest('[data-adm]'); if(!b) return;
+      if(b.dataset.adm==='lista'){ var a=el.classList.toggle('aberta'); b.textContent=a?'Fechar cadastros':'Ver cadastros'; }
+      if(b.dataset.adm==='vis'){ visitante=!visitante; document.body.classList.toggle('liberado',!visitante); b.textContent=visitante?'Ver como ADM':'Ver como visitante'; }
+    });
+  }).catch(function(){});
 
   $('#imprimir').addEventListener('click',function(){ window.print(); });
 })();

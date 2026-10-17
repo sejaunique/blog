@@ -502,7 +502,7 @@ Ele tentou fugir: "não precisa". Eu insisti. E combinei: ==se o Danilo fechar, 
   },
   {
     slug: "o-dinheiro-esta-nos-orcamentos",
-    capa: "assets/capa-fecha-tudo.jpg",
+    capa: "assets/capa-orcamentos-moedas.jpg",
     titulo: "O dinheiro do mês está nos ==orçamentos que você já mandou==",
     data: "2026-09-30",
     categoria: "Estratégia",

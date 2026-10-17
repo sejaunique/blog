@@ -59,6 +59,82 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 
 window.POSTS = [
   {
+    slug: "o-audio-que-abre-a-porta",
+    capa: "assets/carlos-ligacao.jpg",
+    titulo: "Não faz sentido você fechar comigo e ==quem você ama não me conhecer==",
+    data: "2026-10-16",
+    categoria: "Técnica",
+    resumo: "A tática de indicação que mais funciona para mim: pedir no momento certo, no máximo 3 nomes, e abrir a conversa com o áudio do próprio cliente.",
+    texto: `
+Muita gente pede indicação do jeito errado. Pede na hora errada, pede "qualquer um que você conhecer" e depois manda uma mensagem fria: "Oi, o Fulano me passou seu contato".
+
+Não funciona. E a culpa não é da indicação. É do método.
+
+Vou te mostrar a tática que eu uso e que ==sempre dá certo==.
+
+## 1. Peça no momento uau
+
+Indicação não se pede em qualquer dia. Se pede quando o cliente está feliz com você. São três momentos:
+
+- **No fechamento:** ele acabou de decidir por você
+- **Na primeira vitória:** a primeira boa notícia que o seu produto ou serviço trouxe
+- **Na entrega:** quando ele vê o resultado na mão
+
+> Indicação pedida no momento uau é continuação da alegria do cliente. Fora dele, é favor.
+
+## 2. No máximo 3 nomes
+
+Eu não peço "quem você conhecer". Eu peço ==no máximo 3 pessoas==. E peço para ele escolher as 3.
+
+Pedido aberto trava o cliente. Pedido com limite faz ele pensar em quem realmente importa.
+
+## 3. O gancho: valide a decisão dele
+
+Aqui está o coração da tática. O pedido não é "me indica alguém". É assim:
+
+> Não faz sentido você fechar comigo e as pessoas que você mais ama e admira não me conhecerem.
+
+Pode ser alguém da vida profissional, pessoal ou afetiva. Quem ele admira ou quem ele ama.
+
+Repare no que essa frase faz: ela ==valida a decisão que ele acabou de tomar==. Ele fechou com você porque acredita no seu trabalho. Indicar quem ele ama é a prova de que fez a escolha certa. Primeiro você valida a decisão dele. Depois ele valida você para quem ele ama.
+
+## 4. Peça um áudio, não um contato
+
+Depois do pitch, eu peço a indicação e peço uma coisa a mais: **um áudio do próprio cliente** falando da pessoa e de mim.
+
+Algo como: "Fala, Fulano! Tô te indicando o Carlos porque ele é assim, confiável, faz isso e aquilo…"
+
+Contato sozinho é número de telefone. Áudio é ==confiança gravada==.
+
+## 5. O quebra-gelo com curiosidade
+
+Agora vem a abordagem. Eu não começo me apresentando. Eu começo assim:
+
+> Oi, Fulano! Você conhece o João? Ele falou de você. Quero te mostrar o que ele disse, posso?
+
+A pessoa quer saber o que falaram dela. Ela responde. E aí eu mando o áudio do cliente.
+
+Pronto: a primeira voz que ela escuta sobre mim não é a minha. É a de alguém que ela conhece e confia.
+
+## E se não fechar?
+
+Nem toda indicação vira reunião na hora. Tudo bem.
+
+Quem não fecha entra na minha **grade de esquenta**: conteúdo, contato e presença até chegar o momento certo para uma reunião. A indicação não se perde. Ela amadurece.
+
+## Resumindo
+
+- Peça no momento uau: fechamento, primeira vitória ou entrega
+- No máximo 3 nomes, escolhidos pelo cliente
+- O gancho: quem ele ama e admira precisa te conhecer
+- Peça um áudio do cliente
+- Abra com curiosidade e mande o áudio
+- Não fechou? Grade de esquenta
+
+Se você quer entender por que indicação precisa virar programa e não sorte, leia também [Sua empresa vive de indicação. E não investe um real nela](#o-poder-da-indicacao).
+`
+  },
+  {
     slug: "maslow-e-o-poder-da-imagem",
     capa: "assets/laura-capa.jpg",
     titulo: "A mesma médica. O mesmo diploma. ==Outro valor==.",

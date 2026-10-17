@@ -59,6 +59,58 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 
 window.POSTS = [
   {
+    slug: "transformando-o-comercial-de-confeccoes",
+    titulo: "Transformando o comercial de ==confecções==",
+    data: "2026-10-17",
+    categoria: "Estratégia",
+    resumo: "Lições da minha palestra na Imersão Online: mentalidade de vendedor, o poder da decisão, os 4 pilares da roda comercial, rotina e processo.",
+    texto: `
+O sucesso de uma confecção não depende só de boas máquinas, prazo cumprido ou qualidade impecável. O coração do negócio é o **departamento comercial**.
+
+Foi com essa premissa, direta e provocativa, que conduzi minha palestra na última edição da Imersão Online: um raio-x de como estruturar vendas previsíveis no setor têxtil.
+
+Aqui vão os principais pontos, para ajudar a sua empresa a sair do improviso e escalar resultado.
+
+## 1. Você não está vendedor. Você é vendedor
+
+O verdadeiro vendedor é um ==elo de confiança entre as pontas==. Ele traduz a necessidade do cliente para a fábrica e alinha as expectativas com a diretoria.
+
+- **Comportamento e atitude:** vendas são comportamentais. O bom profissional comercial tem resiliência, contorna objeções como prazo e preço e assume a negociação, sem se esconder atrás de um atendimento passivo.
+- **Fim do tirador de pedidos:** esperar o cliente mandar mensagem ou só responder orçamento transforma o time em torcedor, e não em vendedor.
+
+## 2. O poder da decisão
+
+Crescer não exige só sorte ou talento. Exige **decisão**.
+
+Adiar problemas evidentes, deixar conversas pendentes, ignorar métricas: cada uma dessas atitudes é uma pequena falha. Somadas, elas quebram o negócio.
+
+> Decidir é cortar distrações, abandonar narrativas confortáveis e assumir o controle do faturamento.
+
+## 3. Os 4 pilares da roda comercial
+
+Um setor de vendas funciona como um carro: não roda faltando roda. São quatro:
+
+- **Prospecção:** ir ativamente atrás de quem nunca comprou de você, com mapeamento e abordagem inteligentes, usando seus melhores clientes como referência.
+- **Nutrição:** educar o lead com argumentos, cases, amostras e demonstração de valor, para gerar confiança antes da venda.
+- **Fidelização:** dar atenção contínua a quem já compra. Muita empresa perde cliente antigo por ==relaxamento no pós-venda== e abre a porta para o concorrente.
+- **Recuperação:** reatar o contato com inativos e com leads que esfriaram, com empatia e persistência.
+
+## 4. Rotina, disciplina e agenda
+
+Um dos maiores gargalos é a falta de rotina.
+
+> Pilar sem agenda é apenas intenção.
+
+Cada frente precisa de dia e horário na semana: prospecção, nutrição, fidelização e recuperação. E toda semana, uma reunião rápida de alinhamento de metas e acompanhamento do placar.
+
+## 5. Processo vs. operação
+
+Empresas médias investem em pessoas. Empresas grandes escalam com ==processos sólidos==.
+
+O objetivo é uma operação tão bem desenhada e previsível que o resultado deixe de depender do improviso de cada dia.
+`
+  },
+  {
     slug: "esconder-o-celular-do-vendedor",
     capa: "assets/capa-celulares.jpg",
     titulo: "Tivemos que ==esconder o celular== do vendedor",

@@ -59,6 +59,74 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 
 window.POSTS = [
   {
+    slug: "esconder-o-celular-do-vendedor",
+    capa: "assets/capa-celulares.jpg",
+    titulo: "Tivemos que ==esconder o celular== do vendedor",
+    data: "2026-10-17",
+    categoria: "Gestão",
+    resumo: "Celulares presos na mesa, liberados só quando toca uma ligação. Parece loucura. É o preço de um time que boicota o processo sem nem perceber.",
+    texto: `
+Vendedor é um bicho estranho.
+
+Ele faz de tudo para boicotar o processo que ajuda a empresa e que ajuda **ele mesmo**.
+
+A foto deste post é de uma empresa que a gente atende. Os celulares do time comercial ficam todos ali, enfileirados na mesa, com uma placa: "Celulares aqui!". O vendedor só pega o aparelho se tocar uma ligação.
+
+![Celulares do time comercial na mesa, liberados só quando toca uma ligação.](assets/celulares-mesa.jpg)
+
+Por quê? Porque, com o celular na mão, ele responde o cliente pelo WhatsApp do aparelho e ==não usa o mensageiro do CRM==. A conversa some, o histórico some, os dados ficam pela metade. E quando os dados ficam pela metade, ninguém consegue gerir nada.
+
+Olha a que ponto a gente chegou: esconder o videogame e o doce da criança, porque senão ela não faz o dever de casa.
+
+## O boicote vem disfarçado de urgência
+
+Ninguém boicota o processo de propósito. O boicote chega pelo **senso de urgência**.
+
+"O cliente está esperando, depois eu registro." "É só uma mensagem rápida, nem precisa ir para o CRM." "Esse aqui é diferente."
+
+Cada exceção parece pequena. Somadas, elas apagam a memória comercial da empresa.
+
+## O dinheiro está na base, não no cliente novo
+
+A maioria das empresas não percebe que a maior parte do faturamento vem da ==base de clientes==, e não de clientes novos.
+
+Mesmo assim, o time passa mais tempo atendendo cliente novo do que cuidando de quem já comprou. E conquistar um cliente novo custa bem mais caro do que manter um. Em vendas, fala-se em até cinco vezes mais.
+
+Só que cuidar da base exige uma coisa: **dados**. Saber quem comprou, o quê, quando, por quanto e o que ficou para trás. Se a conversa aconteceu no celular do vendedor e não no CRM, essa informação não existe.
+
+> Sem dado, a base vira uma lista de nomes. Com dado, vira dinheiro.
+
+## Comportamento Repetido Muda
+
+É por isso que a gente aplica o método **CRM: Comportamento Repetido Muda**.
+
+A ferramenta não resolve sozinha. O que muda o jogo é o comportamento certo repetido todos os dias, até virar o normal.
+
+A estratégia para chegar lá muda de empresa para empresa:
+
+- Nesta, foi tirar o celular da mão do vendedor
+- Em outra, vai ser colocar as ligações dentro do próprio CRM
+- Em outra, vai ser contratar vendedores que já entendem o valor do processo
+
+O caminho varia. O princípio não: ==o comportamento repetido precisa ser executado== até mudar a frequência do time.
+
+Uma empresa com dados lê o próprio comercial numa frequência totalmente diferente.
+
+## Responda sem abrir planilha
+
+Se você é dono de empresa, tente responder agora, de cabeça ou em menos de um minuto:
+
+- Quanto você tem em orçamentos em aberto hoje, em reais?
+- Quantas propostas isso representa?
+- Qual foi o maior motivo de perda no último mês?
+- Quanto falta para a sua meta?
+
+Se você não conseguiu responder, o problema não é o vendedor. É que você ==não conhece a sua própria venda==. E quando o dono não conhece a venda, o comercial fica delegado. Ou melhor: abandonado.
+
+Esconder o celular parece exagero. Exagero é tocar uma empresa sem saber quanto dinheiro está na mesa.
+`
+  },
+  {
     slug: "o-audio-que-abre-a-porta",
     capa: "assets/audio-whatsapp-capa.jpg",
     titulo: "Não faz sentido você fechar comigo e ==quem você ama não me conhecer==",

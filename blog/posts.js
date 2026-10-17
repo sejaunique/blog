@@ -70,6 +70,10 @@ O sucesso de uma confecção não depende só de boas máquinas, prazo cumprido 
 
 Uma curiosidade: esse texto nasceu de uma palestra. Eu estava falando na **Imersão Confecção Lucrativa**, da Textil Club, e o tema era livre. Podia escolher qualquer assunto. Escolhi o comercial, porque é onde eu vejo a maioria das confecções travar.
 
+A Textil Club é do **Tarcísio Gaipo**, um cara que eu admiro e que vive o dia a dia de quem produz e vende moda. Receber esse convite dele já valeu o dia.
+
+![Tarcísio Gaipo, da Textil Club.](assets/tarcisio-textil-club.jpg)
+
 Foi um raio-x de como estruturar vendas previsíveis no setor têxtil.
 
 Aqui vão os principais pontos, para ajudar a sua empresa a sair do improviso e escalar resultado.
@@ -111,6 +115,10 @@ Cada frente precisa de dia e horário na semana: prospecção, nutrição, fidel
 Empresas médias investem em pessoas. Empresas grandes escalam com ==processos sólidos==.
 
 O objetivo é uma operação tão bem desenhada e previsível que o resultado deixe de depender do improviso de cada dia.
+
+![Eu e o Tarcísio Gaipo.](assets/carlos-tarcisio.jpg)
+
+Obrigado, Tarcísio e toda a turma da Textil Club, pelo espaço.
 `
   },
   {

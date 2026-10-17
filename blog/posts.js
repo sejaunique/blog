@@ -60,7 +60,7 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 window.POSTS = [
   {
     slug: "o-audio-que-abre-a-porta",
-    capa: "assets/carlos-ligacao.jpg",
+    capa: "assets/carlos-ligacao-capa.jpg",
     titulo: "Não faz sentido você fechar comigo e ==quem você ama não me conhecer==",
     data: "2026-10-16",
     categoria: "Técnica",

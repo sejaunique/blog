@@ -64,11 +64,13 @@ window.POSTS = [
     titulo: "Transformando o comercial de ==confecções==",
     data: "2026-10-17",
     categoria: "Estratégia",
-    resumo: "Lições da minha palestra na Imersão Online: mentalidade de vendedor, o poder da decisão, os 4 pilares da roda comercial, rotina e processo.",
+    resumo: "Lições da minha palestra na Imersão Confecção Lucrativa, da Textil Club: mentalidade de vendedor, o poder da decisão, os 4 pilares da roda comercial, rotina e processo.",
     texto: `
 O sucesso de uma confecção não depende só de boas máquinas, prazo cumprido ou qualidade impecável. O coração do negócio é o **departamento comercial**.
 
-Foi com essa premissa, direta e provocativa, que conduzi minha palestra na última edição da Imersão Online: um raio-x de como estruturar vendas previsíveis no setor têxtil.
+Uma curiosidade: esse texto nasceu de uma palestra. Eu estava falando na **Imersão Confecção Lucrativa**, da Textil Club, e o tema era livre. Podia escolher qualquer assunto. Escolhi o comercial, porque é onde eu vejo a maioria das confecções travar.
+
+Foi um raio-x de como estruturar vendas previsíveis no setor têxtil.
 
 Aqui vão os principais pontos, para ajudar a sua empresa a sair do improviso e escalar resultado.
 

@@ -1,0 +1,53 @@
+{
+ "estilo": "editorial",
+ "legenda": "O coração de uma confecção é o comercial.\n\nNa Imersão Confecção Lucrativa, da Textil Club, o tema da minha palestra era livre. Escolhi o comercial, porque é onde eu vejo a maioria das confecções travar.\n\nOs 4 pilares da roda comercial:\n1. Prospecção: ir atrás de quem nunca comprou\n2. Nutrição: gerar confiança antes da venda\n3. Fidelização: não relaxar com quem já compra\n4. Recuperação: resgatar inativos e leads frios\n\nPilar sem agenda é apenas intenção.\n\nObrigado, Tarcísio Gaipo e toda a turma da Textil Club, pelo espaço.\n\n📌 O texto completo está no blog. Link na bio.\n\n#confeccao #moda #vendas #gestaocomercial #textilclub #consultoriadevendas #sejaunique",
+ "slides": [
+  {
+   "tipo": "abertura",
+   "img": "blog/assets/carlos-palestra-confeccoes.jpg",
+   "pos": "center 0%",
+   "kicker": "Imersão Confecção Lucrativa · Textil Club",
+   "titulo": "O coração da confecção é o ==comercial.==",
+   "texto": "O tema era livre. Escolhi falar de vendas, porque é onde a maioria das confecções trava.",
+   "tam": 104
+  },
+  {
+   "tipo": "grade",
+   "escuros": true,
+   "kicker": "A roda comercial",
+   "titulo": "Carro não roda\nfaltando roda.",
+   "tam": 104,
+   "top": 420,
+   "alt": 680,
+   "itens": [
+    {
+     "titulo": "Prospecção",
+     "texto": "Ir atrás de quem nunca comprou de você."
+    },
+    {
+     "titulo": "Nutrição",
+     "texto": "Gerar confiança antes da venda."
+    },
+    {
+     "titulo": "Fidelização",
+     "texto": "Não relaxar com quem já compra."
+    },
+    {
+     "titulo": "Recuperação",
+     "texto": "Resgatar inativos e leads frios."
+    }
+   ],
+   "nota": "Pilar sem agenda é ==apenas intenção.=="
+  },
+  {
+   "tipo": "fecho",
+   "img": "blog/assets/carlos-tarcisio.jpg",
+   "pos": "center 30%",
+   "kicker": "Obrigado",
+   "titulo": "Tarcísio Gaipo\ne Textil Club",
+   "texto": "Pelo espaço e pela turma. O resumo completo da palestra está no blog.",
+   "botao": "Leia o post completo",
+   "tam": 92
+  }
+ ]
+}

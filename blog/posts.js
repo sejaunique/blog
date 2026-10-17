@@ -60,6 +60,7 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 window.POSTS = [
   {
     slug: "transformando-o-comercial-de-confeccoes",
+    capa: "assets/capa-palestra-confeccoes.jpg",
     titulo: "Transformando o comercial de ==confecções==",
     data: "2026-10-17",
     categoria: "Estratégia",

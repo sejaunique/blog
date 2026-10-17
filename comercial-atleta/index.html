@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<script src="/assets/tema.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comercial Atleta · Material de apoio · Unique</title>
+<meta name="description" content="Os 4 pilares comerciais, a rotina diária, semanal e mensal, o placar de indicadores e o desafio de 30 dias. Material de apoio da palestra Comercial Atleta, de Carlos Ribeiro.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Unique Consultoria">
+<meta property="og:title" content="Comercial Atleta · Material de apoio">
+<meta property="og:description" content="Os 4 pilares comerciais, a rotina diária, semanal e mensal, o placar de indicadores e o desafio de 30 dias.">
+<meta property="og:url" content="https://sejaunique.vercel.app/comercial-atleta/">
+<meta property="og:image" content="https://sejaunique.vercel.app/assets/og/comercial-atleta.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://sejaunique.vercel.app/assets/og/comercial-atleta.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+.doc{max-width:1000px;margin-inline:auto;padding-inline:20px}
+section.bloco{padding-block:72px 0}
+.n{font-size:.68rem;font-weight:600;letter-spacing:.3em;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-variant-numeric:tabular-nums}
+.bloco h2{font-size:clamp(1.7rem,3.6vw,2.6rem);font-weight:800;letter-spacing:-.035em;line-height:1.05;margin:16px 0 10px;text-wrap:balance}
+.bloco h2 .leve{font-weight:200;font-style:italic}
+.bloco>p.lead,.bloco .lead{color:var(--muted);max-width:62ch;margin:0 0 28px;font-size:1.05rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px}
+
+/* capa */
+.capa h1{max-width:16ch}
+.capa .tres-i{height:150px;width:175px;right:max(20px,calc((100vw - var(--wide))/2 + 20px));bottom:-24px}
+.capa .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.capa .meta span{font-size:.78rem;font-weight:600;border:1px solid var(--ink-line);border-radius:999px;padding:8px 14px;color:var(--ink-fg)}
+
+/* método */
+.crm{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.crm div{border-top:2px solid var(--fg);padding-top:18px}
+.crm b{display:block;font-size:clamp(3rem,7vw,5rem);font-weight:100;line-height:.9;letter-spacing:-.05em}
+.crm span{font-weight:800;font-size:1.15rem}
+.crm div:last-child{border-color:var(--verde-txt)}.crm div:last-child b,.crm div:last-child span{color:var(--verde-txt)}
+
+/* pilares */
+.pilares{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.pilar{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px;display:grid;gap:10px;align-content:start}
+.pilar .num{font-size:3.4rem;color:var(--marinho-txt)}
+.pilar h3{margin:0;font-size:1.2rem;font-weight:800;letter-spacing:-.02em}
+.pilar p{margin:0;color:var(--muted);font-size:.95rem;line-height:1.55}
+.pilar ul{margin:6px 0 0;padding-left:18px;font-size:.92rem;line-height:1.55}
+.pilar .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.pilar .tags em{font-style:normal;font-size:.72rem;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:5px 10px;background:var(--soft)}
+.pilar .det{display:none}
+body.liberado .pilar .det{display:grid;gap:8px}
+.pilar .det h4{margin:8px 0 0;font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:var(--verde-txt);font-weight:600}
+
+/* cadastro */
+.gate{margin-top:56px;background:var(--ink);color:var(--ink-fg);border-radius:28px;padding:clamp(28px,5vw,52px);display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center;position:relative;overflow:hidden}
+.gate .spaced{color:var(--ink-muted)}
+.gate h2{margin:12px 0 12px;font-size:clamp(1.8rem,3.8vw,2.7rem);font-weight:800;letter-spacing:-.035em;line-height:1.02}
+.gate h2 .leve{display:block;font-weight:200;font-style:italic}
+.gate p{color:var(--ink-muted);margin:0}
+.gate ul{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-size:.95rem}
+.gate ul li{display:flex;gap:10px;align-items:center}
+.gate ul .ic{color:var(--verde)}
+.gate form{display:grid;gap:12px}
+.gate .duas{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gate input{font:inherit;font-size:1rem;color:#0b0b0c;background:#fff;border:2px solid #fff;border-radius:999px;padding:14px 20px;width:100%;outline:none}
+.gate input:focus{box-shadow:0 0 0 4px rgba(0,230,118,.4)}
+.gate input::placeholder{color:#6b6b72}
+.gate button{font:inherit;font-weight:800;font-size:1rem;background:var(--verde);color:#000;border:0;border-radius:999px;padding:16px 26px;cursor:pointer;display:inline-flex;gap:10px;align-items:center;justify-content:center}
+.gate button:disabled{opacity:.6;cursor:wait}
+.gate .aviso-nl{font-size:.8rem;color:var(--ink-muted);margin:2px 0 0;display:flex;gap:8px;align-items:flex-start}
+.gate .aviso-nl .ic{color:var(--verde);margin-top:2px}
+.gate .msg{margin:0;font-weight:700;color:#ff4d8f}.gate .msg:empty{display:none}
+.isca{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+.gate .tres-i{position:absolute;right:-18px;bottom:-40px;height:150px;width:110px;opacity:.12}
+.gate .tres-i .I{background:#fff}
+body.liberado .gate{display:none}
+
+/* banner de liberado + newsletter */
+.ok{display:none;margin-top:56px;border-radius:24px;background:var(--verde);color:#000;padding:26px 28px;grid-template-columns:auto 1fr auto;gap:20px;align-items:center}
+body.liberado .ok{display:grid}
+.ok .selo{width:52px;height:52px;border-radius:50%;background:#000;color:var(--verde);display:grid;place-items:center}
+.ok .selo .ic{width:26px;height:26px}
+.ok b{display:block;font-size:1.25rem;font-weight:800;letter-spacing:-.02em}
+.ok p{margin:4px 0 0;font-size:.95rem;font-weight:500}
+.ok .nl-tag{display:inline-flex;gap:8px;align-items:center;font-size:.7rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;margin-top:10px}
+.ok .nl-tag i{width:8px;height:8px;border-radius:50%;background:#000;display:block;animation:pis 1.8s ease-in-out infinite}
+@keyframes pis{50%{opacity:.25}}
+.ok .btn{border-color:#000;color:#000}
+body.liberado [data-newsletter="site"]{display:none}
+
+/* ferramentas */
+.ferr{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+#conteudo{display:none}
+body.liberado #conteudo{display:block}
+
+/* checklists */
+.blocos{display:grid;gap:14px}
+.bl{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;display:grid;grid-template-columns:150px 1fr;gap:20px}
+.bl .h{display:grid;gap:4px;align-content:start}
+.bl .h time{font-size:1.9rem;font-weight:100;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.bl .h b{font-size:.95rem;font-weight:800}
+.bl .h small{color:var(--muted);font-size:.78rem}
+.chk{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.chk label{display:flex;gap:12px;align-items:flex-start;cursor:pointer;padding:6px 0;line-height:1.45}
+.chk input{appearance:none;-webkit-appearance:none;width:22px;height:22px;border:1.5px solid var(--muted);border-radius:7px;flex:none;margin:0;display:grid;place-items:center;cursor:pointer;background:var(--bg)}
+.chk input:checked{background:var(--verde);border-color:var(--verde)}
+.chk input:checked::after{content:"";width:6px;height:11px;border:solid #000;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.chk input:checked+span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--verde-txt)}
+.prog{display:flex;align-items:center;gap:14px;margin:0 0 18px}
+.prog .barra{flex:1;height:8px;border-radius:999px;background:var(--soft);overflow:hidden;border:1px solid var(--line)}
+.prog .barra i{display:block;height:100%;width:0;background:var(--verde);transition:width .3s}
+.prog span{font-size:.85rem;font-weight:700;font-variant-numeric:tabular-nums;min-width:9ch;text-align:right}
+.prog button{font:inherit;font-size:.75rem;font-weight:600;background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:6px 12px;cursor:pointer}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.duo .card h3{margin:0 0 12px;font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;font-weight:600;color:var(--marinho-txt)}
+.duo .card.ink{background:var(--ink);color:var(--ink-fg);border-color:var(--ink)}
+.duo .card.ink h3{color:var(--verde)}
+.duo .card.ink .chk input{background:transparent;border-color:var(--ink-muted)}
+.duo .card.ink .chk input:checked+span{color:var(--ink-muted)}
+
+/* tabelas */
+.tab{width:100%;border-collapse:collapse;font-size:.95rem}
+.tab th{text-align:left;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--muted);padding:10px 12px;border-bottom:2px solid var(--fg)}
+.tab td{padding:12px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tab td b{font-weight:800}
+.tab{min-width:520px}
+.tab input{font:inherit;font-size:.95rem;width:100%;min-width:70px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--bg);color:var(--fg)}
+.tab .q{color:var(--muted);font-size:.85rem;font-style:italic}
+.rolar{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.reuniao{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}
+.reuniao div{border-top:2px solid var(--fg);padding-top:14px}
+.reuniao div:last-child{border-color:var(--verde-txt)}
+.reuniao b{display:block;font-size:2.6rem;font-weight:100;letter-spacing:-.04em;line-height:1;color:var(--marinho-txt)}
+.reuniao div:last-child b{color:var(--verde-txt)}
+.reuniao strong{display:block;margin-top:6px}
+.reuniao p{margin:4px 0 0;color:var(--muted);font-size:.9rem}
+
+/* conta do reativo */
+.conta{display:grid;grid-template-columns:repeat(4,1fr) 1.2fr;gap:12px;align-items:stretch}
+.conta label{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;display:grid;gap:8px;font-size:.82rem;font-weight:700}
+.conta input{font:inherit;font-size:1.3rem;font-weight:300;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--fg);padding:4px 0;width:100%;outline:none}
+.conta .res{background:var(--ink);color:var(--ink-fg);border-radius:18px;padding:16px;display:grid;gap:8px;align-content:start}
+.conta .res small{font-size:.82rem;font-weight:700;color:var(--verde)}
+.conta .res output{font-size:clamp(1.4rem,3vw,2rem);font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+
+/* mensagens */
+.msgs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.msgs .card{display:grid;gap:12px;align-content:start}
+.msgs h3{margin:0;font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;font-weight:600;color:var(--verde-txt)}
+.msgs h3 small{display:block;margin-top:6px;letter-spacing:0;text-transform:none;font-size:1rem;font-weight:800;color:var(--fg)}
+.msgs blockquote{margin:0;padding:14px 16px;border-left:3px solid var(--verde);background:var(--soft);border-radius:0 14px 14px 0;line-height:1.55;font-size:.95rem}
+
+/* tracker */
+.trk{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.dia{border:1px solid var(--line);border-radius:16px;padding:12px;background:var(--card)}
+.dia.cheio{border-color:var(--verde-txt);background:color-mix(in srgb,var(--verde) 12%,var(--card))}
+.dia b{display:flex;justify-content:space-between;font-size:.8rem;font-weight:800;margin-bottom:8px}
+.dia b span{color:var(--muted);font-weight:500}
+.dia .bt{display:flex;gap:5px}
+.dia button{flex:1;aspect-ratio:1;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--muted);font:inherit;font-size:.68rem;font-weight:800;cursor:pointer;padding:0}
+.dia button[aria-pressed="true"]{background:var(--verde);border-color:var(--verde);color:#000}
+.legenda{display:flex;flex-wrap:wrap;gap:14px;font-size:.8rem;color:var(--muted);margin:0 0 16px}
+.legenda b{color:var(--fg)}
+
+/* banners finais */
+.diag{margin-top:96px;display:grid;grid-template-columns:1fr 1fr;background:var(--ink);color:var(--ink-fg);overflow:hidden;border-radius:28px}
+.diag .txt{padding:clamp(32px,5vw,64px);display:grid;gap:18px;align-content:center}
+.diag .spaced{color:var(--ink-muted)}
+.diag h2{font-size:clamp(2rem,4.4vw,3.2rem);line-height:1;font-weight:800;letter-spacing:-.04em;margin:0;text-wrap:balance}
+.diag h2 .leve{font-weight:200;font-style:italic}
+.diag p{color:var(--ink-muted);margin:0;max-width:46ch}
+.diag .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.diag .ctas .btn:not(.verde){color:var(--ink-fg)}
+.diag figure{margin:0;position:relative;min-height:360px}
+.diag figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1);-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%);mask-image:linear-gradient(90deg,transparent,#000 35%)}
+.alda{margin-top:72px;background:#fff;border-top:1px solid #e4e4e7;border-bottom:1px solid #e4e4e7;color:#2e2e2e;overflow:hidden}
+.alda-in{display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:center;padding-block:44px}
+.alda-pato{width:110px;height:auto;align-self:end;margin-bottom:-44px}
+.alda h2{margin:0 0 8px;font-size:clamp(1.6rem,3vw,2.3rem);font-weight:900;letter-spacing:-.035em;line-height:1.05;color:#2e2e2e}
+.alda h2 span{font-weight:300;font-style:italic}
+.alda p{margin:0;max-width:60ch;color:#4a4a4a}
+.alda-bts{display:grid;gap:10px}
+.alda-bt{background:#2e2e2e;color:#fff;border-color:#2e2e2e}
+.alda-bt2{color:#2e2e2e;border-color:#2e2e2e}
+
+@media (max-width:900px){
+  .pilares{grid-template-columns:1fr 1fr}
+  .gate,.diag,.alda-in{grid-template-columns:1fr}
+  .alda-pato{display:none}
+  .diag figure{min-height:240px}
+  .conta{grid-template-columns:1fr 1fr}
+  .conta .res{grid-column:1/-1}
+  .reuniao{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .pilares,.duo,.msgs,.crm{grid-template-columns:1fr}
+  .crm{gap:10px}
+  .bl{grid-template-columns:1fr;gap:10px}
+  .gate .duas{grid-template-columns:1fr}
+  .ok{grid-template-columns:auto 1fr}
+  .ok .btn{grid-column:1/-1}
+}
+@media print{
+  .gate,.ok,.ferr,.diag,.alda,[data-newsletter],.prog button,.capa .tres-i{display:none!important}
+  #conteudo{display:block!important}
+  .pilar .det{display:grid!important}
+  .card,.pilar,.bl,.dia{break-inside:avoid}
+  section.bloco{padding-top:28px}
+  body{background:#fff;color:#000}
+}
+</style>
+</head>
+<body class="leitura">
+<script src="/assets/casco.js"></script>
+<main>
+
+<section class="capa">
+  <div class="wrap">
+    <span class="spaced">Material de apoio · Palestra</span>
+    <h1>Comercial Atleta <span class="leve">a rotina que tira a venda do improviso.</span></h1>
+    <p>Os 4 pilares comerciais transformados em rotina diária, semanal e mensal, com placar de indicadores e um desafio de 30 dias. Por Carlos Ribeiro, criador do Método CRM.</p>
+    <div class="meta"><span>4 pilares</span><span>Checklist diário</span><span>Placar</span><span>Mensagens-base</span><span>Desafio de 30 dias</span></div>
+  </div>
+  <div class="tres-i"><div class="I mag"></div><div class="I mar"></div><div class="I ver"></div></div>
+</section>
+
+<div class="doc">
+
+<section class="bloco">
+  <span class="n">MÉTODO CRM</span>
+  <h2>Comportamento Repetido Muda <span class="leve">o resultado comercial.</span></h2>
+  <p class="lead">Atleta não treina quando tem vontade: treina porque está na agenda. O comercial reativo espera o cliente, responde e torce. O comercial atleta tem ação marcada para cada pilar, todos os dias.</p>
+  <div class="crm">
+    <div><b>C</b><span>Comportamento</span></div>
+    <div><b>R</b><span>Repetido</span></div>
+    <div><b>M</b><span>Muda</span></div>
+  </div>
+</section>
+
+<section class="bloco" id="pilares">
+  <span class="n">01 · OS 4 PILARES</span>
+  <h2>Toda ação comercial <span class="leve">cabe em um destes quatro.</span></h2>
+  <p class="lead">Prospecção e Nutrição geram o cliente, Fidelização evolui o cliente e Recuperação traz de volta quem escapou de qualquer etapa.</p>
+  <div class="pilares">
+    <article class="pilar">
+      <span class="num">01</span><h3>Prospecção</h3>
+      <p>Eu vou atrás do cliente. Ação ativa, sem tráfego.</p>
+      <div class="det">
+        <h4>Ações</h4>
+        <ul><li>Lista de alvos pelo perfil de cliente ideal</li><li>Abordagem diária: WhatsApp, ligação, LinkedIn, visita</li><li>Cadência de follow-up com dia e canal</li><li>Pedido ativo de indicação</li></ul>
+        <h4>Números</h4>
+        <div class="tags"><em>Abordagens por dia</em><em>Taxa de resposta</em><em>Reuniões marcadas</em></div>
+      </div>
+    </article>
+    <article class="pilar">
+      <span class="num">02</span><h3>Nutrição</h3>
+      <p>Tudo que chega: orgânico e tráfego.</p>
+      <div class="det">
+        <h4>Ações</h4>
+        <ul><li>Responder rápido e com padrão</li><li>Qualificar: necessidade, momento e quem decide</li><li>Conduzir por etapas, com próximo passo marcado</li><li>Separar a origem: orgânico ou tráfego</li></ul>
+        <h4>Números</h4>
+        <div class="tags"><em>Leads recebidos</em><em>Tempo de resposta</em><em>Conversão por etapa</em><em>Custo por lead</em></div>
+      </div>
+    </article>
+    <article class="pilar">
+      <span class="num">03</span><h3>Fidelização</h3>
+      <p>Quem já comprou, de R$ 1 a R$ 1 milhão.</p>
+      <div class="det">
+        <h4>Ações</h4>
+        <ul><li>Pós-venda com data marcada</li><li>Recompra antes de o cliente precisar</li><li>Aumento de ticket: complemento e upgrade</li><li>Curva ABC, ICP, lookalike e estratégia dedicada aos melhores</li></ul>
+        <h4>Números</h4>
+        <div class="tags"><em>Recompra</em><em>Ticket médio</em><em>LTV</em><em>Churn</em></div>
+      </div>
+    </article>
+    <article class="pilar">
+      <span class="num">04</span><h3>Recuperação</h3>
+      <p>Quem escapou dos outros três pilares.</p>
+      <div class="det">
+        <h4>Ações</h4>
+        <ul><li>Nova abordagem a quem não respondeu</li><li>Retomar leads travados no funil</li><li>Reativar clientes que pararam de comprar</li></ul>
+        <h4>Números</h4>
+        <div class="tags"><em>Contatos de recuperação</em><em>Reativação</em><em>Receita recuperada</em></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="gate" id="liberar">
+    <div>
+      <span class="spaced">Material completo · gratuito</span>
+      <h2>Libere o seu plano de treino <span class="leve">comercial.</span></h2>
+      <p>Preencha e o material abre aqui mesmo, pronto para usar no celular ou imprimir.</p>
+      <ul>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Checklist diário por pilar</li>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Rotina semanal, reunião de 30 min e rotina mensal</li>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Placar de indicadores e a conta do reativo</li>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Mensagens-base e tracker de 30 dias</li>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Versão em Word para impressão</li>
+      </ul>
+    </div>
+    <form id="f-lib" novalidate>
+      <div class="duas">
+        <input name="nome" autocomplete="name" placeholder="Seu nome" aria-label="Seu nome" maxlength="80" required>
+        <input name="empresa" autocomplete="organization" placeholder="Empresa" aria-label="Empresa" maxlength="80" required>
+      </div>
+      <input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="WhatsApp com DDD" aria-label="WhatsApp com DDD" maxlength="30" required>
+      <input name="email" type="email" autocomplete="email" placeholder="Seu melhor e-mail" aria-label="Seu e-mail" maxlength="120" required>
+      <input class="isca" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit">Liberar o material <i class="ic" style="--i:var(--ic-seta)"></i></button>
+      <p class="msg" role="status" aria-live="polite"></p>
+      <p class="aviso-nl"><i class="ic" style="--i:var(--ic-mail)"></i>Ao liberar, você entra na newsletter Unique e recebe os posts novos do blog. Cancele quando quiser, com um clique.</p>
+    </form>
+    <div class="tres-i" aria-hidden="true"><div class="I"></div><div class="I"></div><div class="I"></div></div>
+  </div>
+
+  <div class="ok" role="status" aria-live="polite">
+    <div class="selo"><i class="ic" style="--i:var(--ic-check)"></i></div>
+    <div>
+      <b id="ok-t">Material liberado!</b>
+      <p id="ok-p">E você já está na newsletter Unique: cada post novo do blog chega direto no seu e-mail.</p>
+      <span class="nl-tag"><i></i>Newsletter Unique · inscrição ativa</span>
+    </div>
+    <a class="btn" href="#conteudo">Ir para o material <i class="ic" style="--i:var(--ic-seta)"></i></a>
+  </div>
+</section>
+
+<div id="conteudo">
+
+<div class="ferr">
+  <a class="btn solid" href="/comercial-atleta/comercial-atleta.docx" download><i class="ic" style="--i:var(--ic-download)"></i>Baixar versão Word</a>
+  <button class="btn" type="button" id="imprimir"><i class="ic" style="--i:var(--ic-doc)"></i>Imprimir ou salvar PDF</button>
+</div>
+
+<section class="bloco" id="dia">
+  <span class="n">02 · CHECKLIST DIÁRIO</span>
+  <h2>Um dia de treino, <span class="leve">bloco por bloco.</span></h2>
+  <p class="lead">O dia começa e termina com o placar, e cada pilar tem um bloco fixo. Horários de exemplo: ajuste ao seu ciclo de venda. As marcações ficam salvas neste aparelho e zeram no dia seguinte.</p>
+  <div class="prog" data-grupo="dia"><div class="barra"><i></i></div><span>0 de 0</span><button type="button" data-zera="dia">Zerar o dia</button></div>
+  <div class="blocos" data-grupo="dia">
+    <div class="bl"><div class="h"><time>08:00</time><b>Placar de abertura</b><small>15 minutos</small></div><ul class="chk">
+      <li><label><input type="checkbox" data-k="d1"><span>Revisar os números de ontem</span></label></li>
+      <li><label><input type="checkbox" data-k="d2"><span>Montar a lista do dia: quem abordar, quem retomar, quem recuperar</span></label></li></ul></div>
+    <div class="bl"><div class="h"><time>08:15</time><b>Prospecção</b><small>eu vou atrás</small></div><ul class="chk">
+      <li><label><input type="checkbox" data-k="d3"><span>Fazer as abordagens novas do dia para a lista de alvos</span></label></li>
+      <li><label><input type="checkbox" data-k="d4"><span>Fazer os follow-ups da cadência que vencem hoje</span></label></li>
+      <li><label><input type="checkbox" data-k="d5"><span>Pedir pelo menos uma indicação a um cliente</span></label></li>
+      <li><label><input type="checkbox" data-k="d6"><span>Registrar respostas e reuniões marcadas no CRM</span></label></li></ul></div>
+    <div class="bl"><div class="h"><time>10:00</time><b>Nutrição</b><small>tudo que chega</small></div><ul class="chk">
+      <li><label><input type="checkbox" data-k="d7"><span>Responder todos os leads que chegaram desde ontem</span></label></li>
+      <li><label><input type="checkbox" data-k="d8"><span>Qualificar cada lead novo: necessidade, momento e quem decide</span></label></li>
+      <li><label><input type="checkbox" data-k="d9"><span>Deixar todo lead aberto com o próximo passo agendado</span></label></li>
+      <li><label><input type="checkbox" data-k="d10"><span>Marcar a origem de cada lead: orgânico ou tráfego</span></label></li></ul></div>
+    <div class="bl"><div class="h"><time>13:30</time><b>Fidelização</b><small>quem já comprou</small></div><ul class="chk">
+      <li><label><input type="checkbox" data-k="d11"><span>Fazer os contatos de pós-venda do dia</span></label></li>
+      <li><label><input type="checkbox" data-k="d12"><span>Chamar os clientes com recompra prevista para os próximos dias</span></label></li>
+      <li><label><input type="checkbox" data-k="d13"><span>Oferecer complemento ou upgrade a quem faz sentido</span></label></li>
+      <li><label><input type="checkbox" data-k="d14"><span>Dar atenção dedicada a pelo menos um cliente da curva A</span></label></li></ul></div>
+    <div class="bl"><div class="h"><time>15:00</time><b>Recuperação</b><small>trazer de volta</small></div><ul class="chk">
+      <li><label><input type="checkbox" data-k="d15"><span>Fazer os contatos com clientes inativos</span></label></li>
+      <li><label><input type="checkbox" data-k="d16"><span>Retomar leads parados no funil</span></label></li>
+      <li><label><input type="checkbox" data-k="d17"><span>Nova abordagem a quem disse “agora não” na prospecção</span></label></li>
+      <li><label><input type="checkbox" data-k="d18"><span>Registrar o motivo de cada perda</span></label></li></ul></div>
+    <div class="bl"><div class="h"><time>16:30</time><b>Nutrição</b><small>segunda rodada</small></div><ul class="chk">
+      <li><label><input type="checkbox" data-k="d19"><span>Responder os retornos e leads do dia</span></label></li>
+      <li><label><input type="checkbox" data-k="d20"><span>Confirmar as reuniões e propostas de amanhã</span></label></li></ul></div>
+    <div class="bl"><div class="h"><time>17:30</time><b>Placar de fechamento</b><small>fechar o dia</small></div><ul class="chk">
+      <li><label><input type="checkbox" data-k="d21"><span>Atualizar o CRM</span></label></li>
+      <li><label><input type="checkbox" data-k="d22"><span>Lançar os números do dia no placar</span></label></li>
+      <li><label><input type="checkbox" data-k="d23"><span>Marcar o dia no tracker de 30 dias</span></label></li></ul></div>
+  </div>
+</section>
+
+<section class="bloco" id="semana">
+  <span class="n">03 · SEMANA E MÊS</span>
+  <h2>O treino também tem <span class="leve">ciclo longo.</span></h2>
+  <p class="lead">O dia cuida da execução. A semana e o mês cuidam da direção e da estratégia.</p>
+  <div class="duo">
+    <div class="card" data-grupo="semana"><h3>Toda semana</h3><ul class="chk">
+      <li><label><input type="checkbox" data-k="s1"><span>Revisar o funil: em que etapa os leads estão parando</span></label></li>
+      <li><label><input type="checkbox" data-k="s2"><span>Atualizar a lista de prospecção com novos alvos</span></label></li>
+      <li><label><input type="checkbox" data-k="s3"><span>Puxar a lista de clientes que pararam de comprar</span></label></li>
+      <li><label><input type="checkbox" data-k="s4"><span>Preencher o placar da semana</span></label></li>
+      <li><label><input type="checkbox" data-k="s5"><span>Fazer a reunião comercial de 30 minutos</span></label></li></ul></div>
+    <div class="card ink" data-grupo="mes"><h3>Todo mês</h3><ul class="chk">
+      <li><label><input type="checkbox" data-k="m1"><span>Curva ABC da carteira: quem mais compra e quem mais vale</span></label></li>
+      <li><label><input type="checkbox" data-k="m2"><span>Revisar o ICP com base nos clientes da curva A</span></label></li>
+      <li><label><input type="checkbox" data-k="m3"><span>Montar a lista de lookalike para a Prospecção</span></label></li>
+      <li><label><input type="checkbox" data-k="m4"><span>Campanha dedicada aos melhores clientes</span></label></li>
+      <li><label><input type="checkbox" data-k="m5"><span>Campanha de recuperação para a base inativa e os leads perdidos</span></label></li>
+      <li><label><input type="checkbox" data-k="m6"><span>Definir a meta de cada pilar para o próximo mês</span></label></li></ul></div>
+  </div>
+  <h3 style="margin:44px 0 0;font-size:1.25rem;font-weight:800;letter-spacing:-.02em">Reunião comercial de 30 minutos</h3>
+  <p class="muted" style="margin:6px 0 0">Mesmo dia, mesmo horário, pauta fixa. É o treino coletivo, não um desabafo.</p>
+  <div class="reuniao">
+    <div><b>5’</b><strong>Placar</strong><p>Os números da semana, pilar por pilar.</p></div>
+    <div><b>10’</b><strong>Travas</strong><p>Onde o funil parou e por quê.</p></div>
+    <div><b>10’</b><strong>Ações</strong><p>O que cada pessoa fará em cada pilar.</p></div>
+    <div><b>5’</b><strong>Compromisso</strong><p>A meta da semana dita em voz alta.</p></div>
+  </div>
+</section>
+
+<section class="bloco" id="placar">
+  <span class="n">04 · PLACAR</span>
+  <h2>O que não é medido <span class="leve">não é treinado.</span></h2>
+  <p class="lead">Comece com um número por pilar e preencha toda semana. O que você digita fica salvo neste aparelho.</p>
+  <div class="rolar"><table class="tab">
+    <thead><tr><th>Pilar</th><th>Indicador</th><th>Meta</th><th>Realizado</th></tr></thead>
+    <tbody id="placar-l"></tbody>
+  </table></div>
+
+  <h3 style="margin:48px 0 6px;font-size:1.25rem;font-weight:800;letter-spacing:-.02em">A conta do reativo</h3>
+  <p class="muted" style="margin:0 0 18px">Quanto o comercial reativo deixa na mesa todo mês. Preencha com os números da sua empresa.</p>
+  <div class="conta">
+    <label>Leads por mês<input id="c1" inputmode="decimal" placeholder="0"></label>
+    <label>% sem retorno<input id="c2" inputmode="decimal" placeholder="0"></label>
+    <label>Taxa de conversão (%)<input id="c3" inputmode="decimal" placeholder="0"></label>
+    <label>Ticket médio (R$)<input id="c4" inputmode="decimal" placeholder="0"></label>
+    <div class="res"><small>Dinheiro na mesa por mês</small><output id="c-res">R$ 0</output></div>
+  </div>
+</section>
+
+<section class="bloco" id="mensagens">
+  <span class="n">05 · MENSAGENS-BASE</span>
+  <h2>Um modelo de abordagem <span class="leve">por pilar.</span></h2>
+  <p class="lead">Pontos de partida para o WhatsApp. Troque o que está entre colchetes e ajuste ao tom da sua marca.</p>
+  <div class="msgs">
+    <div class="card"><h3>Prospecção<small>Primeira abordagem</small></h3><blockquote>Oi, [nome], tudo bem? Sou [seu nome], da [empresa]. Trabalho com [segmento] e ajudamos empresas como a [empresa do cliente] a [resultado]. Faz sentido conversarmos 15 minutos esta semana?</blockquote><button class="btn sm" type="button" data-copia><i class="ic" style="--i:var(--ic-doc)"></i>Copiar</button></div>
+    <div class="card"><h3>Nutrição<small>Resposta a um lead que chegou</small></h3><blockquote>Oi, [nome]! Obrigado pelo contato. Para eu te ajudar do jeito certo: o que você está buscando hoje e para quando precisa? Posso te mandar as opções ainda hoje.</blockquote><button class="btn sm" type="button" data-copia><i class="ic" style="--i:var(--ic-doc)"></i>Copiar</button></div>
+    <div class="card"><h3>Fidelização<small>Pós-venda e recompra</small></h3><blockquote>Oi, [nome], como está sendo a experiência com [produto/serviço]? Pelo seu último pedido, o [produto] deve acabar por volta de [data]. Quer que eu já deixe separado para você?</blockquote><button class="btn sm" type="button" data-copia><i class="ic" style="--i:var(--ic-doc)"></i>Copiar</button></div>
+    <div class="card"><h3>Recuperação<small>Cliente que parou de comprar</small></h3><blockquote>Oi, [nome], senti sua falta por aqui! Faz [tempo] desde a sua última compra e queria entender: aconteceu alguma coisa que eu possa melhorar? Separei uma condição especial para a sua volta: [oferta].</blockquote><button class="btn sm" type="button" data-copia><i class="ic" style="--i:var(--ic-doc)"></i>Copiar</button></div>
+  </div>
+</section>
+
+<section class="bloco" id="desafio">
+  <span class="n">06 · DESAFIO DE 30 DIAS</span>
+  <h2>30 dias de rotina. <span class="leve">Comportamento repetido muda.</span></h2>
+  <p class="lead">Toque em cada pilar treinado no dia. O dia fica verde quando os cinco blocos foram cumpridos.</p>
+  <p class="legenda"><span><b>P</b> Prospecção</span><span><b>N</b> Nutrição</span><span><b>F</b> Fidelização</span><span><b>R</b> Recuperação</span><span><b>✓</b> Placar</span><span id="trk-total"></span></p>
+  <div class="trk" id="trk"></div>
+  <div class="prog" style="margin-top:16px"><div class="barra"><i id="trk-barra"></i></div><span id="trk-n">0 de 30</span><button type="button" id="trk-zera">Recomeçar</button></div>
+</section>
+
+</div><!-- /conteudo -->
+</div><!-- /doc -->
+
+<section class="wrap" style="padding-inline:20px">
+  <div class="diag">
+    <div class="txt">
+      <span class="spaced">Próximo passo</span>
+      <h2>Qual é o score comercial <span class="leve">da sua empresa?</span></h2>
+      <p>Faça o diagnóstico. Em 10 a 15 minutos você responde sobre os 4 pilares do seu comercial e recebe um relatório com o score, os gargalos e um plano de ação.</p>
+      <div class="ctas"><a class="btn verde" href="/diagnostico/">Faça seu diagnóstico comercial <i class="ic" style="--i:var(--ic-seta)"></i></a>
+      <a class="btn" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Vi%20a%20palestra%20Comercial%20Atleta%20e%20quero%20conversar%20sobre%20o%20comercial%20da%20minha%20empresa." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Falar com o Carlos</a></div>
+    </div>
+    <figure><img src="/assets/fotos/palco.jpg" alt="Carlos Ribeiro em palestra, com microfone" width="1280" height="853" loading="lazy"></figure>
+  </div>
+</section>
+
+<section class="alda" aria-labelledby="h-alda">
+  <div class="wrap alda-in">
+    <img class="alda-pato" src="/diagnostico/relatorio/alda-pato.png" alt="" width="134" height="238" loading="lazy">
+    <div class="alda-tx">
+      <span class="spaced" style="display:block;margin-bottom:10px;color:#5e5e66">Alda.CRM</span>
+      <h2 id="h-alda">Atendimento e CRM <span>em um só lugar.</span></h2>
+      <p>WhatsApp, funil de vendas e follow-up organizados numa plataforma feita para quem vende pelo WhatsApp. A ferramenta que a Unique usa para tirar o plano do papel.</p>
+    </div>
+    <div class="alda-bts">
+      <a class="btn alda-bt" href="https://aldacrm.com" target="_blank" rel="noopener">Conhecer o Alda.CRM <i class="ic" style="--i:var(--ic-seta-up)"></i></a>
+      <a class="btn alda-bt2" href="https://wa.me/5511920781458?text=Ol%C3%A1%21%20Vim%20pelo%20material%20Comercial%20Atleta%20da%20Unique%20e%20quero%20conhecer%20o%20Alda.CRM." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Falar com o Alda</a>
+    </div>
+  </div>
+</section>
+
+</main>
+<script>
+(function(){
+  var MAT='comercial-atleta', K='ua_mat_'+MAT;
+  var ls={get:function(k){try{return JSON.parse(localStorage.getItem(k)||'null');}catch(e){return null;}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+  var $=function(s,el){return (el||document).querySelector(s);}, $$=function(s,el){return [].slice.call((el||document).querySelectorAll(s));};
+  var hoje=new Date().toLocaleDateString('sv-SE',{timeZone:'America/Sao_Paulo'});
+
+  // ---------- liberação ----------
+  function libera(d, novo){
+    document.body.classList.add('liberado');
+    var pn=(d&&d.nome||'').split(' ')[0];
+    if(novo){
+      $('#ok-t').textContent=(pn?pn+', o':'O')+' material está liberado!';
+      $('#ok-p').textContent=(d.nl==='ja'?'Você já estava na newsletter Unique: continua recebendo':'E você já está na newsletter Unique: vai receber')+' cada post novo do blog direto no seu e-mail.';
+    } else {
+      $('#ok-t').textContent='Bem-vindo de volta'+(pn?', '+pn:'')+'!';
+    }
+  }
+  var salvo=ls.get(K); if(salvo) libera(salvo,false);
+
+  var f=$('#f-lib'), msg=$('.msg',f), bt=$('button',f);
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var d={nome:f.nome.value.trim(),empresa:f.empresa.value.trim(),whatsapp:f.whatsapp.value.trim(),email:f.email.value.trim()};
+    if(d.nome.length<2){msg.textContent='Informe o seu nome.';f.nome.focus();return;}
+    if(d.empresa.length<2){msg.textContent='Informe o nome da empresa.';f.empresa.focus();return;}
+    if(d.whatsapp.replace(/\D/g,'').length<10){msg.textContent='Confira o seu WhatsApp com DDD.';f.whatsapp.focus();return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)){msg.textContent='Confira o seu e-mail.';f.email.focus();return;}
+    bt.disabled=true; msg.textContent='';
+    fetch('/api/material',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({a:'liberar',material:MAT,nome:d.nome,empresa:d.empresa,whatsapp:d.whatsapp,email:d.email,site:f.site.value})})
+      .then(function(r){return r.json().catch(function(){return {};});})
+      .then(function(r){
+        if(!r||!r.ok){bt.disabled=false;msg.textContent=(r&&r.erro)||'Não deu certo agora. Tente de novo em instantes.';return;}
+        var v={nome:d.nome,empresa:d.empresa,nl:r.newsletter,data:new Date().toISOString()};
+        ls.set(K,v); libera(v,true);
+        var ok=$('.ok'); if(ok&&ok.scrollIntoView) ok.scrollIntoView({behavior:'smooth',block:'center'});
+      })
+      .catch(function(){bt.disabled=false;msg.textContent='Sem conexão. Tente de novo.';});
+  });
+
+  // ---------- checklists ----------
+  var CK='ua_ca_chk', st=ls.get(CK)||{};
+  // o checklist do dia zera a cada dia; semana e mês ficam até zerar
+  if(st.dia&&st.dia.data!==hoje) st.dia={data:hoje,k:{}};
+  ['dia','semana','mes'].forEach(function(g){ if(!st[g]) st[g]={data:hoje,k:{}}; });
+  function grupoDe(el){var g=el.closest('[data-grupo]');return g?g.getAttribute('data-grupo'):'dia';}
+  $$('.chk input[data-k]').forEach(function(i){
+    var g=grupoDe(i); i.checked=!!st[g].k[i.dataset.k];
+    i.addEventListener('change',function(){ st[g].k[i.dataset.k]=i.checked; ls.set(CK,st); prog(); });
+  });
+  function prog(){
+    $$('.prog[data-grupo]').forEach(function(p){
+      var g=p.getAttribute('data-grupo'), its=$$('.blocos[data-grupo="'+g+'"] .chk input'), n=its.filter(function(i){return i.checked;}).length;
+      $('.barra i',p).style.width=(its.length?n/its.length*100:0)+'%'; $('span',p).textContent=n+' de '+its.length;
+    });
+  }
+  $$('[data-zera]').forEach(function(b){ b.addEventListener('click',function(){ var g=b.dataset.zera; st[g]={data:hoje,k:{}}; ls.set(CK,st); $$('.blocos[data-grupo="'+g+'"] .chk input').forEach(function(i){i.checked=false;}); prog(); }); });
+  prog();
+
+  // ---------- placar ----------
+  var PL=[['Prospecção','Abordagens feitas'],['Prospecção','Taxa de resposta (%)'],['Prospecção','Reuniões marcadas'],['Nutrição','Leads recebidos (orgânico / tráfego)'],['Nutrição','Tempo médio de resposta'],['Nutrição','Conversão por etapa (%)'],['Nutrição','Custo por lead (R$)'],['Fidelização','Clientes que recompraram'],['Fidelização','Ticket médio (R$)'],['Fidelização','Clientes perdidos (churn)'],['Recuperação','Contatos de recuperação'],['Recuperação','Clientes e leads reativados'],['Recuperação','Receita recuperada (R$)']];
+  var PK='ua_ca_placar', pv=ls.get(PK)||{};
+  var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+  $('#placar-l').innerHTML=PL.map(function(l,i){ var prim=i===0||PL[i-1][0]!==l[0]; return '<tr><td>'+(prim?'<b>'+l[0]+'</b>':'')+'</td><td>'+l[1]+'</td><td><input data-p="m'+i+'" aria-label="Meta: '+esc(l[1])+'" value="'+esc(pv['m'+i]||'')+'"></td><td><input data-p="r'+i+'" aria-label="Realizado: '+esc(l[1])+'" value="'+esc(pv['r'+i]||'')+'"></td></tr>'; }).join('');
+  $$('#placar-l input').forEach(function(i){ i.addEventListener('input',function(){ pv[i.dataset.p]=i.value; ls.set(PK,pv); }); });
+
+  // ---------- conta do reativo ----------
+  var num=function(id){var v=String($(id).value||'').replace(/\./g,'').replace(',','.').replace(/[^\d.]/g,'');return parseFloat(v)||0;};
+  var brl=function(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});};
+  function conta(){ $('#c-res').textContent=brl(num('#c1')*(num('#c2')/100)*(num('#c3')/100)*num('#c4')); }
+  ['#c1','#c2','#c3','#c4'].forEach(function(id){ $(id).addEventListener('input',conta); });
+
+  // ---------- copiar mensagens ----------
+  $$('[data-copia]').forEach(function(b){ b.addEventListener('click',function(){
+    var t=b.parentNode.querySelector('blockquote').textContent.trim(), ok=function(){var h=b.innerHTML;b.textContent='Copiado!';setTimeout(function(){b.innerHTML=h;},1600);};
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok,function(){}); else { var a=document.createElement('textarea'); a.value=t; document.body.appendChild(a); a.select(); try{document.execCommand('copy');ok();}catch(e){} a.remove(); }
+  }); });
+
+  // ---------- tracker de 30 dias ----------
+  var TK='ua_ca_trk', tv=ls.get(TK)||{}, P=[['p','P','Prospecção'],['n','N','Nutrição'],['f','F','Fidelização'],['r','R','Recuperação'],['x','✓','Placar']];
+  function trk(){
+    var h='', cheios=0;
+    for(var d=1; d<=30; d++){
+      var v=tv[d]||{}, c=P.every(function(p){return v[p[0]];}); if(c) cheios++;
+      h+='<div class="dia'+(c?' cheio':'')+'"><b>Dia '+d+(c?'<span>completo</span>':'')+'</b><div class="bt">'+P.map(function(p){return '<button type="button" data-d="'+d+'" data-p="'+p[0]+'" aria-pressed="'+(!!v[p[0]])+'" aria-label="Dia '+d+': '+p[2]+'">'+p[1]+'</button>';}).join('')+'</div></div>';
+    }
+    $('#trk').innerHTML=h; $('#trk-n').textContent=cheios+' de 30'; $('#trk-barra').style.width=(cheios/30*100)+'%';
+  }
+  $('#trk').addEventListener('click',function(e){ var b=e.target.closest('button[data-d]'); if(!b) return; var d=b.dataset.d; tv[d]=tv[d]||{}; tv[d][b.dataset.p]=!tv[d][b.dataset.p]; ls.set(TK,tv); trk(); });
+  $('#trk-zera').addEventListener('click',function(){ if(!confirm('Recomeçar o desafio do dia 1?')) return; tv={}; ls.set(TK,tv); trk(); });
+  trk();
+
+  $('#imprimir').addEventListener('click',function(){ window.print(); });
+})();
+</script>
+</body>
+</html>

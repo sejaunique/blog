@@ -56,6 +56,9 @@ EXTRAS = [
     {"arquivo": "case-infindo.jpg", "rotulo": "Case · Infindo Fotografia", "pill": "Case de sucesso",
      "titulo": "De volume a valor: uma nova marca", "grifo": "nova marca",
      "descricao": "Nova marca, sucessão familiar planejada e recorde de faturamento na retomada pós-pandemia."},
+    {"arquivo": "comercial-atleta.jpg", "rotulo": "Palestra · Material de apoio", "pill": "Material gratuito",
+     "titulo": "Comercial Atleta", "chamada": "Comercial Atleta: a rotina dos 4 pilares", "grifo": "4 pilares",
+     "descricao": "Checklist diário, rotina semanal e mensal, placar de indicadores e o desafio de 30 dias."},
 ]
 
 def chamada_html(p):

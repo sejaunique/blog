@@ -103,6 +103,12 @@ Menu lateral com: Painel (controle e gestão), CRM (Kanban), Notificações (apr
 ### Arquivos no Google Drive
 Mesma conexão do Google Agenda, com a permissão do Drive (app Interno da sejaunique.com). Cada empresa ganha a pasta "Unique · <Empresa>" dentro de "Clientes Unique" no Drive do Carlos (`api/_area/drive.js`), compartilhada como editor com os e-mails dos contatos, sem e-mail de aviso. O bloco Arquivos aparece no contato, na empresa e na área do cliente (lista, abrir pasta, enviar até ~4 MB pelo site; maiores direto no Drive). Se a conexão for anterior ao Drive, o bloco mostra "Ligar pasta no Google Drive" (reconecta e pede a permissão).
 
+## Materiais ricos (isca de lead)
+- `comercial-atleta/`: material de apoio da palestra Comercial Atleta (https://sejaunique.vercel.app/comercial-atleta/). Mostra o Método CRM e os 4 pilares abertos; o resto (checklist diário, semana e mês, placar, conta do reativo, mensagens-base, tracker de 30 dias) libera depois do cadastro (nome, empresa, WhatsApp, e-mail). As marcações do visitante ficam salvas no aparelho dele. Tem os banners do diagnóstico e do Alda.CRM.
+- `comercial-atleta/comercial-atleta.docx`: versão Word para impressão (botão na página). A página também imprime ou salva em PDF.
+- `api/material.js`: recebe o cadastro. Guarda em `mat:leads`, cria a empresa como **lead** no CRM com a etiqueta **Palestra** (sem mexer em quem já existe), publica o material como entrega, inscreve na newsletter (origem `comercial-atleta`) e avisa no app. Novo material: acrescente em `MATERIAIS` no topo do arquivo.
+- Capa de compartilhamento: `assets/og/comercial-atleta.jpg` (entrada em `EXTRAS` de `tools/og_cliente.py`).
+
 ## Newsletter do blog
 - Formulário: `assets/newsletter.js` (`<div data-newsletter="origem" data-variante="faixa|cartao">`). Entra sozinho no rodapé de todas as páginas com `casco.js` (fora da área do cliente), no blog e na página `/links/`.
 - API: `api/newsletter.js`. Assinantes no Redis (`news:assinantes`). Sem e-mail de boas-vindas: o assinante só recebe quando sai post novo.

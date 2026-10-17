@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <script src="/assets/tema.js"></script>
 <script src="/assets/whats.js" defer></script>
+<script src="/assets/newsletter.js" defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta property="og:title" content="Blog Seja Unique"><meta property="og:description" content="Opiniões curtas sobre técnicas e estratégias de vendas. Por Carlos Ribeiro, Unique."><meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
@@ -281,7 +282,8 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
 
 <main id="app"></main>
 
-<footer class="foot">
+<section data-newsletter="blog" style="margin-top:112px"></section>
+<footer class="foot" style="margin-top:0">
   <div class="wrap">
     <div class="mk"><i data-svg="mark"></i><span>Consultoria<br>em Vendas</span></div>
     <nav aria-label="Contato">
@@ -293,6 +295,10 @@ button.btn.solid{background:var(--pill);color:var(--pill-fg)}
 </footer>
 
 <script src="posts.js"></script>
+<script>
+// confere se há post novo para avisar os assinantes da newsletter (o servidor decide; não faz nada se não houver)
+try{ setTimeout(function(){ fetch("/api/newsletter?a=verificar",{keepalive:true}).catch(function(){}); },2500); }catch(e){}
+</script>
 <script>
 (function(){
   var C = window.BLOG || {}, POSTS = (window.POSTS || []).slice(), L = C.links || {};

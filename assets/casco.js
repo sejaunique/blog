@@ -51,7 +51,15 @@
       '<li><a href="/area/"><i class="ic" style="--i:var(--ic-login)"></i>Área do cliente</a></li>'+
       '<li><a href="/area/#cadastro"><i class="ic" style="--i:var(--ic-user)"></i>Solicitar acesso</a></li></ul></div>'+
     '</div><div class="base"><span>© 2018–'+new Date().getFullYear()+' Seja Unique · Goiânia, GO</span><span>Let’s made f*ck <b>UN1QUE</b> things for u</span></div></div>';
-  function poeRodape(){ document.body.appendChild(foot); }
+  // faixa de inscrição na newsletter, logo acima do rodapé (fora da área do cliente, páginas de cliente e propostas)
+  var semNews=ativo==='area'||/^\/(clientes|proposta|area)\//.test(location.pathname);
+  var news=null;
+  if(!semNews){
+    news=document.createElement('section'); news.setAttribute('data-newsletter','site'); news.style.marginTop='96px';
+    foot.style.marginTop='0';
+    var ns=document.createElement('script'); ns.src='/assets/newsletter.js'; ns.defer=true; document.head.appendChild(ns);
+  }
+  function poeRodape(){ if(news) document.body.appendChild(news); document.body.appendChild(foot); }
   // páginas de cliente ganham curtidas, comentários, compartilhar e o botão de página pública
   if(/^\/clientes\/[a-z0-9]+\/[a-z0-9-]+\/?/.test(location.pathname)){
     var sc=document.createElement('script'); sc.src='/assets/interacao.js'; sc.defer=true; document.head.appendChild(sc);

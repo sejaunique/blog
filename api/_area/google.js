@@ -7,7 +7,7 @@
 
 const SITE = 'https://sejaunique.vercel.app';
 const VOLTA = SITE + '/api/agenda?a=volta';
-const ESCOPO = 'https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/userinfo.email openid';
+const ESCOPO = 'https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/userinfo.email openid';
 const API = 'https://www.googleapis.com/calendar/v3/calendars/primary/events';
 const json = s => { try { return s ? JSON.parse(s) : null; } catch (e) { return null; } };
 
@@ -151,4 +151,30 @@ async function criaEvento(redis, d) {
   return r;
 }
 
-module.exports = { app, conta, token, urlConectar, trocaCodigo, sincroniza, eventos, criaEvento, g, API, VOLTA };
+
+// envia um e-mail pela conta Google conectada (Gmail API). Precisa do escopo gmail.send.
+function b64url(s) { return Buffer.from(s).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
+function cab(s) { return /^[\x20-\x7e]*$/.test(s) ? s : '=?UTF-8?B?' + Buffer.from(s).toString('base64') + '?='; }
+async function enviaEmail(redis, m) {
+  const t = await token(redis);
+  if (!t) return { ok: false, off: true };
+  const c = await conta(redis);
+  const de = m.de || c.email;
+  const lim = 'u' + Date.now().toString(36) + Math.random().toString(36).slice(2);
+  const linhas = [
+    'From: ' + (m.nomeDe ? cab(m.nomeDe) + ' <' + de + '>' : de),
+    'To: ' + m.para,
+    'Subject: ' + cab(m.assunto),
+    'MIME-Version: 1.0'
+  ].concat(Object.keys(m.cabecalhos || {}).map(k => k + ': ' + m.cabecalhos[k])).concat([
+    'Content-Type: multipart/alternative; boundary="' + lim + '"', '',
+    '--' + lim, 'Content-Type: text/plain; charset=UTF-8', 'Content-Transfer-Encoding: base64', '', Buffer.from(m.texto || '').toString('base64'),
+    '--' + lim, 'Content-Type: text/html; charset=UTF-8', 'Content-Transfer-Encoding: base64', '', Buffer.from(m.html || '').toString('base64'),
+    '--' + lim + '--', ''
+  ]);
+  const r = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', { method: 'POST', headers: { Authorization: 'Bearer ' + t, 'Content-Type': 'application/json' }, body: JSON.stringify({ raw: b64url(linhas.join('\r\n')) }) });
+  const j = await r.json().catch(() => ({}));
+  return { ok: r.ok, status: r.status, erro: r.ok ? '' : (j.error && j.error.message) || 'Falha no envio' };
+}
+
+module.exports = { enviaEmail, app, conta, token, urlConectar, trocaCodigo, sincroniza, eventos, criaEvento, g, API, VOLTA };

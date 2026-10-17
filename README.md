@@ -102,3 +102,10 @@ Menu lateral com: Painel (controle e gestão), CRM (Kanban), Notificações (apr
 
 ### Arquivos no Google Drive
 Mesma conexão do Google Agenda, com a permissão do Drive (app Interno da sejaunique.com). Cada empresa ganha a pasta "Unique · <Empresa>" dentro de "Clientes Unique" no Drive do Carlos (`api/_area/drive.js`), compartilhada como editor com os e-mails dos contatos, sem e-mail de aviso. O bloco Arquivos aparece no contato, na empresa e na área do cliente (lista, abrir pasta, enviar até ~4 MB pelo site; maiores direto no Drive). Se a conexão for anterior ao Drive, o bloco mostra "Ligar pasta no Google Drive" (reconecta e pede a permissão).
+
+## Newsletter do blog
+- Formulário: `assets/newsletter.js` (`<div data-newsletter="origem" data-variante="faixa|cartao">`). Entra sozinho no rodapé de todas as páginas com `casco.js` (fora da área do cliente), no blog e na página `/links/`.
+- API: `api/newsletter.js`. Assinantes no Redis (`news:assinantes`). Sem e-mail de boas-vindas: o assinante só recebe quando sai post novo.
+- Envio: pelo Gmail da conta Google conectada no workspace (escopo `gmail.send`; ative a Gmail API no Google Cloud e reconecte o Google). Cada post novo em `blog/posts.js` (data dos últimos 10 dias) vira um e-mail dedicado, com link de cancelar inscrição.
+- Gatilhos: toda visita ao blog chama `?a=verificar`; cron diário na Vercel (`vercel.json`); botão "Verificar e enviar agora" no admin. Na primeira verificação, os posts que já existem são só marcados (ninguém recebe post antigo).
+- Admin: menu **Newsletter** em `/area/admin/` (assinantes, fila, envios, teste, CSV).

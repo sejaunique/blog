@@ -1,0 +1,8 @@
+{
+  "crons": [
+    { "path": "/api/newsletter?a=verificar", "schedule": "0 12 * * *" }
+  ],
+  "functions": {
+    "api/newsletter.js": { "maxDuration": 60 }
+  }
+}

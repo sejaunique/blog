@@ -457,7 +457,7 @@ Em 90 dias de rotina bem aplicada, uma empresa descobre onde perde dinheiro, que
   },
   {
     slug: "indicacao-preco-camarada",
-    capa: "assets/capa-indicacao.jpg",
+    capa: "assets/capa-indicacao-danilo.jpg",
     titulo: "“Ele disse que você faria um ==preço camarada==”",
     data: "2026-09-30",
     categoria: "Técnica",

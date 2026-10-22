@@ -27,7 +27,8 @@ const MATERIAIS = {
     titulo: 'Orçamentos parados · Manual de fechamento do mês',
     descricao: 'Supervisão, cliente x lead, oferta com condicional, calendário comercial, bonificação e CRM, com plano de 7 dias, auditoria de conversas, calculadora e gerador de oferta.',
     url: '/orcamentos-parados/',
-    tag: 'Aula CRM'
+    tag: 'Aula CRM',
+    aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
   }
 };
 
@@ -80,6 +81,7 @@ module.exports = async (req, res) => {
     if (!EMAIL.test(email)) return res.status(400).json({ ok: false, erro: 'Confira o seu e-mail.' });
     if (whatsapp.replace(/\D/g, '').length < 10) return res.status(400).json({ ok: false, erro: 'Confira o seu WhatsApp com DDD.' });
     if (empresa.length < 2) return res.status(400).json({ ok: false, erro: 'Informe o nome da empresa.' });
+    if (m.aceite && b.aceite !== true) return res.status(400).json({ ok: false, erro: 'Para liberar, marque que concorda em receber os conteúdos e com a LGPD.' });
 
     const ip = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'x';
     const [n] = await redis([['INCR', 'rl:mat:' + ip], ['EXPIRE', 'rl:mat:' + ip, 3600]]);
@@ -87,10 +89,12 @@ module.exports = async (req, res) => {
 
     const agora = new Date().toISOString();
     const slug = slugify(empresa);
+    // consentimento (LGPD): o que a pessoa aceitou, quando e de onde
+    const consentimento = b.aceite === true ? { data: agora, material: b.material, texto: m.aceite || 'Newsletter do blog Unique', ip } : null;
 
     // 1. registro do cadastro
     const cmds = [
-      ['LPUSH', 'mat:leads', JSON.stringify({ material: b.material, nome, empresa, slug, whatsapp, email, data: agora })],
+      ['LPUSH', 'mat:leads', JSON.stringify({ material: b.material, nome, empresa, slug, whatsapp, email, data: agora, consentimento })],
       ['LTRIM', 'mat:leads', 0, 1999]
     ];
 
@@ -112,6 +116,7 @@ module.exports = async (req, res) => {
     const atual = json(v);
     const ass = atual || { email, token: crypto.randomBytes(16).toString('hex'), data: agora, origem: b.material };
     if (!ass.nome) ass.nome = nome;
+    if (consentimento) { ass.consentimento = consentimento; ass.anuncios = true; ass.whatsapp = ass.whatsapp || whatsapp; }
     await redis([['HSET', 'news:assinantes', email, JSON.stringify(ass)], ['SREM', 'news:saiu', email]]);
 
     // 5. aviso no app

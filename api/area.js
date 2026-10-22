@@ -59,6 +59,7 @@
 
 const crypto = require('crypto');
 const CATALOGO = require('./_area/catalogo.js');
+const BIBLIOTECA = require('./_area/biblioteca.js');
 const { notifica, chaves } = require('./_area/push.js');
 const GOOGLE = require('./_area/google.js');
 const CAMPOS = require('./_area/campos.js');
@@ -177,6 +178,19 @@ async function semeiaAcoes(slug) {
   const novas = await redis(cat.map(a => ['SADD', 'area:acoes-cat:' + slug, a.id]));
   const cmds = [];
   cat.forEach((a, i) => { if (novas[i] === 1) cmds.push(['HSETNX', 'area:acoes:' + slug, a.id, JSON.stringify(limpaAcao(a))]); });
+  if (cmds.length) await redis(cmds);
+}
+// Ações compartilhadas de api/_area/biblioteca.js entram na biblioteca (area:modelos) uma única vez.
+async function semeiaBiblioteca() {
+  if (!BIBLIOTECA.length) return;
+  const novas = await redis(BIBLIOTECA.map(m => ['SADD', 'area:modelos-cat', m.id]));
+  const cmds = [];
+  BIBLIOTECA.forEach((m, i) => {
+    if (novas[i] !== 1) return;
+    const a = limpaAcao(m); delete a.status;
+    a.destino = m.destino === 'todos' ? 'todos' : (Array.isArray(m.destino) ? m.destino : []);
+    cmds.push(['HSETNX', 'area:modelos', a.id, JSON.stringify(a)]);
+  });
   if (cmds.length) await redis(cmds);
 }
 function lerPares(h) {
@@ -368,6 +382,7 @@ module.exports = async (req, res) => {
           return res.json({ ok: true, diagnosticos });
         }
         for (const sl of Object.keys(CATALOGO)) if ((CATALOGO[sl].acoes || []).length) await semeiaAcoes(sl); // ações do catálogo aparecem já no painel do Carlos
+        await semeiaBiblioteca(); // ações compartilhadas de api/_area/biblioteca.js
         const [slugsDb, mH] = await redis([['SMEMBERS', 'area:emps'], ['HGETALL', 'area:modelos']]);
         const slugs = Array.from(new Set((slugsDb || []).concat(Object.keys(CATALOGO)))).sort();
         const por = slugs.length ? await redis(slugs.flatMap(sl => [['HGETALL', 'area:acoes:' + sl], ['HGETALL', 'area:mst:' + sl]])) : [];

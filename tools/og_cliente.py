@@ -59,6 +59,9 @@ EXTRAS = [
     {"arquivo": "comercial-atleta.jpg", "rotulo": "Palestra · Material de apoio", "pill": "Material gratuito",
      "titulo": "Comercial Atleta", "chamada": "Comercial Atleta: a rotina dos 4 pilares", "grifo": "4 pilares",
      "descricao": "Checklist diário, rotina semanal e mensal, placar de indicadores e o desafio de 30 dias."},
+    {"arquivo": "orcamentos-parados.jpg", "rotulo": "Manual · Fechamento do mês", "pill": "Material gratuito",
+     "titulo": "Orçamentos parados", "chamada": "Orçamento parado não se resolve com desconto", "grifo": "desconto",
+     "descricao": "Supervisão, cliente x lead, oferta com condicional, calendário comercial, bonificação e CRM. Com checklist de 7 dias."},
 ]
 
 def chamada_html(p):

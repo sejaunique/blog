@@ -22,6 +22,12 @@ const MATERIAIS = {
     descricao: 'Os 4 pilares comerciais, a rotina diária, semanal e mensal, o placar de indicadores e o desafio de 30 dias.',
     url: '/comercial-atleta/',
     tag: 'Palestra'
+  },
+  'orcamentos-parados': {
+    titulo: 'Orçamentos parados · Manual de fechamento do mês',
+    descricao: 'Supervisão, cliente x lead, oferta com condicional, calendário comercial, bonificação e CRM, com plano de 7 dias, auditoria de conversas, calculadora e gerador de oferta.',
+    url: '/orcamentos-parados/',
+    tag: 'Aula CRM'
   }
 };
 

@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<script src="/assets/tema.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orçamentos parados · Manual de fechamento do mês · Unique</title>
+<meta name="description" content="51 orçamentos parados e 1 semana para fechar o mês. Antes do desconto: supervisão, separar cliente de lead, oferta com condicional, calendário comercial, bonificação e CRM. Manual com checklist de aplicação imediata.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Unique Consultoria">
+<meta property="og:title" content="Orçamentos parados · Manual de fechamento do mês">
+<meta property="og:description" content="Antes do desconto, o método: supervisão, cliente x lead, oferta com condicional, calendário, bonificação e CRM. Com checklist para aplicar hoje.">
+<meta property="og:url" content="https://sejaunique.vercel.app/orcamentos-parados/">
+<meta property="og:image" content="https://sejaunique.vercel.app/assets/og/orcamentos-parados.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://sejaunique.vercel.app/assets/og/orcamentos-parados.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@400;600;700&display=swap">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+.doc{max-width:1040px;margin-inline:auto;padding-inline:20px}
+section.bloco{padding-block:88px 0}
+.n{font-size:.68rem;font-weight:600;letter-spacing:.3em;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-variant-numeric:tabular-nums}
+.bloco h2{font-size:clamp(1.8rem,3.8vw,2.8rem);font-weight:800;letter-spacing:-.035em;line-height:1.04;margin:16px 0 12px;text-wrap:balance}
+.bloco h2 .leve,.leve{font-weight:200;font-style:italic}
+.lead{color:var(--muted);max-width:64ch;margin:0 0 30px;font-size:1.06rem;line-height:1.65}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px}
+.mag{color:var(--magenta-txt)}.ver{color:var(--verde-txt)}.mar{color:var(--marinho-txt)}
+.grifo{text-decoration:underline;text-decoration-color:var(--grifo);text-decoration-thickness:2px;text-underline-offset:6px}
+
+/* capa */
+.capa h1{max-width:18ch}
+.capa .tres-i{height:150px;width:175px;right:max(20px,calc((100vw - var(--wide))/2 + 20px));bottom:-24px}
+.capa .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.capa .meta span{font-size:.78rem;font-weight:600;border:1px solid var(--ink-line);border-radius:999px;padding:8px 14px;color:var(--ink-fg)}
+.capa .fala{margin:34px 0 0;max-width:620px;border-left:3px solid var(--magenta);padding:6px 0 6px 20px;color:var(--ink-fg);font-size:clamp(1.05rem,2vw,1.3rem);font-weight:300;font-style:italic;line-height:1.45}
+.capa .fala small{display:block;margin-top:8px;font-style:normal;font-size:.75rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-muted)}
+
+/* sumário */
+.sum{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:48px}
+.sum a{display:grid;gap:4px;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:16px;padding:14px 16px;background:var(--card);transition:transform .2s,border-color .2s}
+.sum a:hover{transform:translateY(-2px);border-color:var(--fg)}
+.sum b{font-size:.66rem;letter-spacing:.24em;color:var(--muted);font-weight:600}
+.sum span{font-weight:700;font-size:.92rem;line-height:1.3}
+
+/* casos */
+.casos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.caso{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:grid;grid-template-rows:auto 1fr}
+.caso figure{margin:0;background:#0b141a;aspect-ratio:1/1;overflow:hidden;cursor:zoom-in;position:relative}
+.caso figure img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .5s}
+.caso:hover figure img{transform:scale(1.03)}
+.caso figure::after{content:"ampliar";position:absolute;right:10px;bottom:10px;font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;background:rgba(0,0,0,.6);color:#fff;padding:5px 9px;border-radius:999px}
+.caso .tx{padding:20px 22px;display:grid;gap:8px;align-content:start}
+.caso .tx em{font-style:normal;font-size:.64rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase}
+.caso h3{margin:0;font-size:1.12rem;font-weight:800;letter-spacing:-.02em;line-height:1.25}
+.caso p{margin:0;color:var(--muted);font-size:.93rem;line-height:1.55}
+.virada{margin-top:22px;display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;background:var(--ink);color:var(--ink-fg);border-radius:var(--r);padding:26px 30px}
+.virada b{font-size:clamp(2.6rem,6vw,4.4rem);font-weight:100;letter-spacing:-.05em;line-height:.9;color:var(--verde)}
+.virada p{margin:0;font-size:1.05rem;line-height:1.55;color:var(--ink-fg)}
+.virada p strong{color:var(--verde)}
+
+/* gráficos */
+.graf{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px 28px}
+.graf h3{margin:0 0 4px;font-size:1.05rem;font-weight:800;letter-spacing:-.01em}
+.graf .sub{margin:0 0 20px;color:var(--muted);font-size:.84rem}
+.barras{display:grid;gap:12px}
+.barra-l{display:grid;grid-template-columns:130px 1fr 44px;gap:12px;align-items:center;font-size:.86rem}
+.barra-l span:first-child{font-weight:600}
+.barra-l .trilho{height:22px;border-radius:8px;background:var(--soft);overflow:hidden}
+.barra-l .trilho i{display:block;height:100%;width:0;border-radius:8px;transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+.barra-l b{font-variant-numeric:tabular-nums;text-align:right;font-weight:800}
+.graf .nota{margin:16px 0 0;font-size:.76rem;color:var(--muted)}
+.duas-g{display:grid;grid-template-columns:1.15fr 1fr;gap:14px;margin-top:22px;align-items:start}
+.mult{display:grid;gap:18px}
+.mult .l{display:grid;gap:6px}
+.mult .l small{font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.mult .l div{height:28px;border-radius:8px;display:flex;align-items:center;padding-left:10px;font-weight:800;font-size:.85rem;width:0;transition:width 1.3s cubic-bezier(.2,.8,.2,1);white-space:nowrap;color:#000}
+.mult .x{font-size:clamp(2.4rem,5vw,3.6rem);font-weight:100;letter-spacing:-.05em;line-height:1}
+.mult .x b{font-weight:800;color:var(--verde-txt)}
+
+/* frase forte */
+.frase{margin:0;padding:clamp(28px,5vw,52px);border-radius:28px;background:var(--marinho);color:#f5f5f5;font-size:clamp(1.5rem,3.6vw,2.5rem);font-weight:800;letter-spacing:-.035em;line-height:1.12;text-wrap:balance;position:relative;overflow:hidden}
+.frase .leve{font-weight:200}
+.frase small{display:block;margin-top:18px;font-size:.8rem;font-weight:500;letter-spacing:0;line-height:1.6;opacity:.85;max-width:60ch}
+.frase .tres-i{position:absolute;right:-10px;bottom:-30px;height:130px;width:100px;opacity:.15}
+.frase .tres-i .I{background:#fff}
+.mitos{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.mito{border-radius:var(--r);padding:22px 24px;border:1px solid var(--line);background:var(--card);display:grid;gap:6px}
+.mito small{font-size:.64rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase}
+.mito p{margin:0;font-weight:700;font-size:1.02rem;line-height:1.4}
+
+/* supervisão */
+.sup{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sup .card h3{margin:0 0 10px;font-size:1.12rem;font-weight:800;letter-spacing:-.02em}
+.sup .card p{margin:0 0 10px;color:var(--muted);line-height:1.6;font-size:.95rem}
+.erro-l{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.erro-l li{display:flex;gap:10px;align-items:flex-start;font-size:.93rem;line-height:1.45}
+.erro-l .ic{color:var(--magenta-txt);flex:none;margin-top:2px}
+.erro-l.bom .ic{color:var(--verde-txt)}
+.desafio{margin-top:14px;display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;border:2px dashed var(--magenta-txt);border-radius:var(--r);padding:24px 28px}
+.desafio b{font-size:clamp(2.8rem,6vw,4.2rem);font-weight:900;letter-spacing:-.05em;line-height:.9;color:var(--magenta-txt)}
+.desafio p{margin:0;font-size:1rem;line-height:1.55}
+.desafio p strong{display:block;font-size:1.15rem;margin-bottom:4px}
+.audios{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+.audio{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;display:grid;gap:12px;align-content:start}
+.audio em{font-style:normal;font-size:.64rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase}
+.audio h3{margin:0;font-size:1.08rem;font-weight:800;letter-spacing:-.02em;line-height:1.3}
+.audio p{margin:0;color:var(--muted);font-size:.92rem;line-height:1.55}
+.play{display:flex;align-items:center;gap:12px;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:8px 16px 8px 8px}
+.play button{width:40px;height:40px;border-radius:50%;border:0;background:var(--fg);color:var(--bg);display:grid;place-items:center;cursor:pointer;flex:none}
+.play button svg{width:16px;height:16px}
+.play .onda{flex:1;height:26px;display:flex;align-items:center;gap:2px;cursor:pointer}
+.play .onda i{flex:1;background:var(--muted);border-radius:2px;opacity:.45;transition:opacity .2s,background .2s}
+.play .onda i.on{opacity:1;background:var(--verde-txt)}
+.play time{font-size:.78rem;font-weight:700;font-variant-numeric:tabular-nums;color:var(--muted);min-width:4ch}
+.curva{margin-top:14px}
+.curva svg{width:100%;height:auto;display:block}
+
+/* separação */
+.casa{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.casa .card{display:grid;gap:12px;align-content:start;position:relative;overflow:hidden}
+.casa .card .ic.gr{width:44px;height:44px}
+.casa h3{margin:0;font-size:1.2rem;font-weight:800;letter-spacing:-.02em}
+.casa p{margin:0;color:var(--muted);line-height:1.6;font-size:.95rem}
+.casa .card.ink{background:var(--ink);color:var(--ink-fg);border-color:var(--ink)}
+.casa .card.ink p{color:var(--ink-muted)}
+.regra{margin-top:14px;text-align:center;padding:22px;border-radius:var(--r);background:var(--soft);border:1px solid var(--line);font-size:clamp(1.05rem,2.2vw,1.35rem);font-weight:800;letter-spacing:-.02em}
+.regra .leve{font-weight:300}
+
+/* zonas */
+.zonas{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.zona{border-radius:var(--r);padding:28px;display:grid;gap:16px;align-content:start;border:1px solid var(--line);background:var(--card)}
+.zona .top-z{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.zona .selo{font-size:.64rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;padding:7px 12px;border-radius:999px}
+.zona.cli{border-top:4px solid var(--magenta-txt)}.zona.cli .selo{background:color-mix(in srgb,var(--magenta) 14%,transparent);color:var(--magenta-txt)}
+.zona.lea{border-top:4px solid var(--marinho-txt)}.zona.lea .selo{background:color-mix(in srgb,var(--marinho) 14%,transparent);color:var(--marinho-txt)}
+.zona h3{margin:0;font-size:1.35rem;font-weight:800;letter-spacing:-.025em;line-height:1.15}
+.zona p{margin:0;color:var(--muted);line-height:1.6;font-size:.95rem}
+.passos{list-style:none;counter-reset:p;margin:0;padding:0;display:grid;gap:10px}
+.passos li{counter-increment:p;display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:start;font-size:.94rem;line-height:1.5}
+.passos li::before{content:counter(p);width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:.8rem;font-weight:800;border:1.5px solid currentColor}
+.zona.cli .passos li::before{color:var(--magenta-txt)}.zona.lea .passos li::before{color:var(--marinho-txt)}
+.passos li b{display:block}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{font-size:.8rem;font-weight:600;border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:7px 12px}
+
+/* árvore */
+.arvore{margin-top:14px}
+.arvore svg{width:100%;height:auto;display:block}
+.arvore text{font-family:var(--font)}
+
+/* condicional */
+.formula{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1.1fr;gap:10px;align-items:stretch}
+.formula div{border-radius:18px;padding:18px;display:grid;gap:4px;align-content:center;text-align:center;border:1px solid var(--line);background:var(--card)}
+.formula div small{font-size:.62rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.formula div b{font-size:1.08rem;font-weight:800;letter-spacing:-.02em}
+.formula .op{border:0;background:none;font-size:1.8rem;font-weight:200;padding:0;color:var(--muted)}
+.formula .res{background:var(--verde);border-color:var(--verde);color:#000}
+.formula .res small{color:#000;opacity:.7}
+.ex{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+.ex .card{display:grid;gap:10px;align-content:start}
+.ex .card small{font-size:.64rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase}
+.ex .card p{margin:0;line-height:1.5;font-weight:600}
+.ex .card p.m{font-weight:400;color:var(--muted);font-size:.9rem}
+
+/* calendário */
+.cal{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:end}
+.sem{border-radius:20px;padding:20px;display:grid;gap:8px;align-content:end;color:#fff;position:relative;min-height:var(--h)}
+.sem small{font-size:.64rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;opacity:.85}
+.sem b{font-size:1.15rem;font-weight:800;letter-spacing:-.02em;line-height:1.2}
+.sem p{margin:0;font-size:.86rem;line-height:1.45;opacity:.9}
+.sem.s1{--h:200px;background:var(--marinho)}
+.sem.s2{--h:240px;background:color-mix(in srgb,var(--marinho) 70%,var(--verde-txt))}
+.sem.s3{--h:290px;background:color-mix(in srgb,var(--marinho) 35%,var(--verde-txt))}
+.sem.s4{--h:350px;background:var(--magenta)}
+.cal-eixo{display:flex;justify-content:space-between;margin-top:10px;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.cal-eixo span:last-child{color:var(--magenta-txt)}
+.cuidado{margin-top:14px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;border:1px solid var(--line);border-left:4px solid var(--alerta);border-radius:0 var(--r) var(--r) 0;padding:20px 24px;background:var(--card)}
+.cuidado .ic{width:28px;height:28px;color:var(--alerta)}
+.cuidado p{margin:0;line-height:1.6}
+
+/* bonificação */
+.bonus{display:grid;grid-template-columns:1.1fr 1fr;gap:14px}
+.bonus figure{margin:0;border-radius:var(--r);overflow:hidden;background:#0b141a;cursor:zoom-in}
+.bonus figure img{width:100%;display:block;max-height:520px;object-fit:cover;object-position:top}
+.regras-b{display:grid;gap:10px}
+.regras-b div{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;padding:16px 18px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+.regras-b b{font-size:1.9rem;font-weight:100;line-height:1;color:var(--verde-txt)}
+.regras-b strong{display:block;font-size:.98rem}
+.regras-b span{font-size:.88rem;color:var(--muted);line-height:1.5}
+
+/* crm */
+.crm3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.crm3 .card{display:grid;gap:10px;align-content:start}
+.crm3 .ic{width:30px;height:30px}
+.crm3 h3{margin:0;font-size:1.05rem;font-weight:800}
+.crm3 p{margin:0;color:var(--muted);font-size:.92rem;line-height:1.55}
+.campos{margin-top:14px}
+.campos .chips span{background:var(--card)}
+
+/* oferta Alda.CRM (identidade da marca Alda) */
+.alda{--a-amarelo:#fdd015;--a-laranja:#f49f1c;--a-grafite:#2e2e2e;--a-texto:#4a4a4a;
+  font-family:"Poppins",var(--font);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;background:#ffffff;color:var(--a-grafite);border-radius:28px;padding:40px 38px 88px 42px;position:relative;overflow:hidden;isolation:isolate;margin-top:34px;border:1px solid #eee}
+.alda::before{content:"";position:absolute;z-index:-1;right:-120px;top:-140px;width:520px;height:420px;border-radius:50%;background:radial-gradient(closest-side,rgba(253,208,21,.55),rgba(253,208,21,0))}
+.alda::after{content:"";position:absolute;z-index:-1;right:10%;bottom:-180px;width:460px;height:300px;border-radius:50%;background:radial-gradient(closest-side,rgba(253,208,21,.35),rgba(253,208,21,0))}
+.alda-caco{position:absolute;z-index:-1;left:0;bottom:0;width:74px;height:70px;background:linear-gradient(160deg,var(--a-amarelo) 0 45%,var(--a-laranja) 45% 60%,#ffc21a 60%);clip-path:polygon(0 18%,22% 0,100% 100%,0 100%)}
+.alda-cab{display:grid;gap:14px;align-content:start;position:relative}
+.alda-selo{justify-self:start;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--a-grafite);background:var(--a-amarelo);padding:6px 14px;border-radius:6px}
+.alda-logo{width:190px;height:auto;display:block;margin:2px 0}
+.alda h2{margin:0;font-family:"Poppins",var(--font);font-size:clamp(1.35rem,3vw,1.85rem);font-weight:700;letter-spacing:-.01em;line-height:1.18;color:var(--a-grafite);text-wrap:balance;max-width:22ch}
+.alda p{margin:0;color:var(--a-texto);max-width:46ch;font-size:.98rem;line-height:1.6}
+.alda .alda-assina{font-size:.8rem;color:#8a8a8a}
+.alda-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.alda .btn{font-family:"Poppins",var(--font);font-weight:600;border-radius:10px}
+.alda .btn.alda-btn{background:var(--a-amarelo);border-color:var(--a-amarelo);color:var(--a-grafite);box-shadow:0 6px 0 #e3b800}
+.alda .btn.alda-btn:hover{opacity:1;transform:translateY(-2px);box-shadow:0 8px 0 #e3b800}
+.alda .btn.alda-link{color:var(--a-grafite);border-color:#e2e2e2;background:#fff}
+.alda-lista{display:grid;gap:12px;align-content:start;position:relative}
+.alda-eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8a8a8a}
+.alda-lista ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.alda-lista li{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid #efefef;border-radius:14px;padding:14px 16px;box-shadow:0 4px 18px rgba(46,46,46,.06);transition:transform .2s,box-shadow .2s}
+.alda-lista li:hover{transform:translateX(4px);box-shadow:0 10px 26px rgba(46,46,46,.10)}
+.alda-lista li div{display:grid;gap:2px}
+.alda-lista strong{font-size:.95rem;font-weight:600;color:var(--a-grafite)}
+.alda-lista li div span{font-size:.84rem;color:var(--a-texto);line-height:1.45}
+.alda-ic{width:38px;height:38px;border-radius:9px;background:var(--a-amarelo);color:var(--a-grafite);display:grid;place-items:center;flex:none}
+.alda-ic svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.alda-pato{position:absolute;right:34px;bottom:-30px;width:62px;height:auto;transform:rotate(-8deg);transition:transform .3s}
+.alda:hover .alda-pato{transform:rotate(0) translateY(-10px)}
+
+/* cadastro */
+.gate{margin-top:88px;background:var(--ink);color:var(--ink-fg);border-radius:28px;padding:clamp(28px,5vw,52px);display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center;position:relative;overflow:hidden}
+.gate .spaced{color:var(--ink-muted)}
+.gate h2{margin:12px 0 12px;font-size:clamp(1.8rem,3.8vw,2.7rem);font-weight:800;letter-spacing:-.035em;line-height:1.02}
+.gate h2 .leve{display:block;font-weight:200;font-style:italic}
+.gate p{color:var(--ink-muted);margin:0}
+.gate ul{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-size:.95rem}
+.gate ul li{display:flex;gap:10px;align-items:center}
+.gate ul .ic{color:var(--verde)}
+.gate form{display:grid;gap:12px}
+.gate .duas{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gate input{font:inherit;font-size:1rem;color:#0b0b0c;background:#fff;border:2px solid #fff;border-radius:999px;padding:14px 20px;width:100%;outline:none}
+.gate input:focus{box-shadow:0 0 0 4px rgba(0,230,118,.4)}
+.gate input::placeholder{color:#6b6b72}
+.gate button{font:inherit;font-weight:800;font-size:1rem;background:var(--verde);color:#000;border:0;border-radius:999px;padding:16px 26px;cursor:pointer;display:inline-flex;gap:10px;align-items:center;justify-content:center}
+.gate button:disabled{opacity:.6;cursor:wait}
+.gate .aviso-nl{font-size:.8rem;color:var(--ink-muted);margin:2px 0 0;display:flex;gap:8px;align-items:flex-start}
+.gate .aviso-nl .ic{color:var(--verde);margin-top:2px}
+.gate .msg{margin:0;font-weight:700;color:#ff4d8f}.gate .msg:empty{display:none}
+.isca{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+.gate .tres-i{position:absolute;right:-18px;bottom:-40px;height:150px;width:110px;opacity:.12}
+.gate .tres-i .I{background:#fff}
+body.liberado .gate{display:none}
+.nl-banner{margin-top:14px;display:flex;gap:12px;align-items:center;justify-content:center;font-size:.82rem;color:var(--muted);text-align:center}
+.nl-banner .ic{color:var(--verde-txt)}
+body.liberado .nl-banner{display:none}
+
+.ok{display:none;margin-top:88px;border-radius:24px;background:var(--verde);color:#000;padding:26px 28px;grid-template-columns:auto 1fr auto;gap:20px;align-items:center}
+body.liberado .ok{display:grid}
+.ok .selo{width:52px;height:52px;border-radius:50%;background:#000;color:var(--verde);display:grid;place-items:center}
+.ok .selo .ic{width:26px;height:26px}
+.ok b{display:block;font-size:1.25rem;font-weight:800;letter-spacing:-.02em}
+.ok p{margin:4px 0 0;font-size:.95rem;font-weight:500}
+.ok .nl-tag{display:inline-flex;gap:8px;align-items:center;font-size:.7rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;margin-top:10px}
+.ok .nl-tag i{width:8px;height:8px;border-radius:50%;background:#000;display:block;animation:pis 1.8s ease-in-out infinite}
+@keyframes pis{50%{opacity:.25}}
+.ok .btn{border-color:#000;color:#000}
+body.liberado [data-newsletter="site"]{display:none}
+#conteudo{display:none}
+body.liberado #conteudo{display:block}
+.ferr{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+
+/* plano / checklist */
+.placar-geral{position:sticky;top:84px;z-index:5;margin:0 0 22px;background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:14px 18px;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.placar-geral b{font-size:1.8rem;font-weight:200;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1}
+.placar-geral small{display:block;font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.prog-b{height:10px;border-radius:999px;background:var(--soft);overflow:hidden;border:1px solid var(--line)}
+.prog-b i{display:block;height:100%;width:0;background:var(--verde);transition:width .35s}
+.placar-geral button{font:inherit;font-size:.72rem;font-weight:600;background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:7px 12px;cursor:pointer}
+.etapas{display:grid;gap:12px}
+.etp{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;display:grid;grid-template-columns:190px 1fr;gap:22px}
+.etp.feito{border-color:var(--verde-txt)}
+.etp .h{display:grid;gap:6px;align-content:start}
+.etp .h time{font-size:.64rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.etp .h b{font-size:1.1rem;font-weight:800;letter-spacing:-.02em;line-height:1.2}
+.etp .h small{color:var(--muted);font-size:.8rem;line-height:1.4}
+.etp .mini{height:6px;border-radius:999px;background:var(--soft);overflow:hidden;margin-top:6px}
+.etp .mini i{display:block;height:100%;width:0;background:var(--verde);transition:width .3s}
+.etp .mini-n{font-size:.74rem;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.etp.feito .mini-n{color:var(--verde-txt)}
+.chk{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.chk label{display:flex;gap:12px;align-items:flex-start;cursor:pointer;padding:7px 0;line-height:1.45;font-size:.96rem}
+.chk input{appearance:none;-webkit-appearance:none;width:22px;height:22px;border:1.5px solid var(--muted);border-radius:7px;flex:none;margin:0;display:grid;place-items:center;cursor:pointer;background:var(--bg)}
+.chk input:checked{background:var(--verde);border-color:var(--verde)}
+.chk input:checked::after{content:"";width:6px;height:11px;border:solid #000;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.chk input:checked+span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--verde-txt)}
+.chk span small{display:block;color:var(--muted);font-size:.8rem;margin-top:2px;text-decoration:none}
+
+/* auditoria de 30 conversas */
+.aud{display:grid;grid-template-columns:repeat(10,1fr);gap:8px}
+.aud button{aspect-ratio:1;border-radius:12px;border:1px solid var(--line);background:var(--bg);font:inherit;font-size:.8rem;font-weight:800;color:var(--muted);cursor:pointer;transition:transform .15s,background .2s}
+.aud button:hover{transform:scale(1.06)}
+.aud button[data-v="1"]{background:var(--verde);border-color:var(--verde);color:#000}
+.aud button[data-v="2"]{background:var(--magenta);border-color:var(--magenta);color:#fff}
+.aud-res{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.aud-res div{border-top:2px solid var(--fg);padding-top:10px}
+.aud-res b{display:block;font-size:2.2rem;font-weight:100;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.aud-res small{font-size:.78rem;color:var(--muted);font-weight:600}
+.aud-res div.v b{color:var(--verde-txt)}.aud-res div.m b{color:var(--magenta-txt)}
+.aud-veredito{margin:14px 0 0;font-weight:700;line-height:1.5}
+.crit{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.crit span{font-size:.78rem;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:6px 11px;background:var(--soft)}
+
+/* calculadora */
+.calc{display:grid;grid-template-columns:1fr 1.05fr;gap:14px}
+.calc .ent{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start}
+.calc label{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px;display:grid;gap:6px;font-size:.8rem;font-weight:700}
+.calc label small{font-weight:500;color:var(--muted);font-size:.74rem}
+.calc input{font:inherit;font-size:1.3rem;font-weight:300;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--fg);padding:4px 0;width:100%;outline:none}
+.calc input[type=range]{padding:0;border:0;accent-color:var(--verde-txt)}
+.calc .sai{background:var(--ink);color:var(--ink-fg);border-radius:var(--r);padding:24px;display:grid;gap:16px;align-content:start}
+.calc .sai small{font-size:.66rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-muted)}
+.calc .sai output{display:block;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-.04em;font-variant-numeric:tabular-nums;line-height:1.05}
+.calc .sai .verde{color:var(--verde)}
+.donut-w{display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center}
+.donut-w svg{width:120px;height:120px}
+.leg{display:grid;gap:8px;font-size:.86rem}
+.leg div{display:flex;gap:10px;align-items:center}
+.leg i{width:12px;height:12px;border-radius:4px;flex:none}
+.leg b{margin-left:auto;font-variant-numeric:tabular-nums}
+
+/* gerador de oferta */
+.gera{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.gera .op-l{display:grid;gap:14px;align-content:start}
+.gera fieldset{border:1px solid var(--line);border-radius:18px;padding:14px 16px;margin:0;background:var(--card)}
+.gera legend{font-size:.64rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);padding:0 6px}
+.gera .pls{display:flex;flex-wrap:wrap;gap:8px}
+.gera .pls button{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:999px;padding:8px 13px;cursor:pointer}
+.gera .pls button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.gera .msg-o{background:var(--soft);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:grid;gap:14px;align-content:start}
+.gera .msg-o blockquote{margin:0;padding:16px 18px;border-left:3px solid var(--verde);background:var(--bg);border-radius:0 14px 14px 0;line-height:1.6;font-size:.98rem;white-space:pre-line}
+.gera .alerta-o{font-size:.82rem;font-weight:700;color:var(--magenta-txt);margin:0}
+.gera .alerta-o:empty{display:none}
+
+/* mensagens */
+.msgs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.msgs .card{display:grid;gap:12px;align-content:start}
+.msgs h3{margin:0;font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;font-weight:600}
+.msgs h3 small{display:block;margin-top:6px;letter-spacing:0;text-transform:none;font-size:1rem;font-weight:800;color:var(--fg)}
+.msgs blockquote{margin:0;padding:14px 16px;border-left:3px solid var(--verde);background:var(--soft);border-radius:0 14px 14px 0;line-height:1.55;font-size:.95rem}
+
+/* banner diagnóstico */
+.diag{margin-top:96px;display:grid;grid-template-columns:1fr 1fr;background:var(--ink);color:var(--ink-fg);overflow:hidden;border-radius:28px}
+.diag .txt{padding:clamp(32px,5vw,64px);display:grid;gap:18px;align-content:center}
+.diag .spaced{color:var(--ink-muted)}
+.diag h2{font-size:clamp(2rem,4.4vw,3.2rem);line-height:1;font-weight:800;letter-spacing:-.04em;margin:0;text-wrap:balance}
+.diag h2 .leve{font-weight:200;font-style:italic}
+.diag p{color:var(--ink-muted);margin:0;max-width:46ch}
+.diag .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.diag .ctas .btn:not(.verde){color:var(--ink-fg)}
+.diag figure{margin:0;position:relative;min-height:360px}
+.diag figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1);-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%);mask-image:linear-gradient(90deg,transparent,#000 35%)}
+
+/* zoom de imagem */
+.zoom{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.88);display:none;place-items:center;padding:20px;cursor:zoom-out}
+.zoom.on{display:grid}
+.zoom img{max-width:min(720px,100%);max-height:92vh;border-radius:14px}
+
+/* revelar ao rolar */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s}
+.rv.vis{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+/* visualização ADM */
+.admbar{background:var(--marinho);color:#f5f5f5}
+.admbar .wrap{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between;padding-block:16px}
+.admbar .sel{display:inline-flex;align-items:center;gap:10px;font-size:.68rem;font-weight:800;letter-spacing:.28em;text-transform:uppercase}
+.admbar .sel i{width:8px;height:8px;border-radius:50%;background:var(--verde);display:block;animation:pis 1.8s ease-in-out infinite}
+.admbar .tx{font-size:.85rem;opacity:.85;margin:4px 0 0}
+.admbar .num2{display:flex;gap:22px}
+.admbar .num2 b{display:block;font-size:1.9rem;font-weight:200;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.admbar .num2 small{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;opacity:.75}
+.admbar .acs{display:flex;flex-wrap:wrap;gap:8px}
+.admbar .btn{color:#f5f5f5;border-color:rgba(245,245,245,.5)}
+.admbar .btn.verde{color:#000;border-color:var(--verde)}
+.admbar .lista{display:none;padding-bottom:18px}
+.admbar.aberta .lista{display:block}
+.admbar table{width:100%;border-collapse:collapse;font-size:.85rem}
+.admbar th{text-align:left;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;opacity:.7;padding:8px 10px;border-bottom:1px solid rgba(245,245,245,.3)}
+.admbar td{padding:9px 10px;border-bottom:1px solid rgba(245,245,245,.12)}
+.admbar td a{color:#f5f5f5}
+.admbar .vazio{opacity:.75;font-size:.9rem;margin:6px 0 0}
+.rolar{overflow-x:auto;-webkit-overflow-scrolling:touch}
+body.modo-adm .ok{display:none!important}
+
+@media (max-width:900px){
+  .sum{grid-template-columns:1fr 1fr}
+  .casos{grid-template-columns:1fr}
+  .caso{grid-template-columns:1fr 1.2fr;grid-template-rows:auto}
+  .caso figure{aspect-ratio:auto;min-height:240px}
+  .duas-g,.sup,.audios,.casa,.zonas,.bonus,.calc,.gera,.gate,.diag,.alda{grid-template-columns:1fr}
+  .crm3,.ex{grid-template-columns:1fr}
+  .formula{grid-template-columns:1fr;gap:6px}
+  .formula .op{padding:0;line-height:1}
+  .cal{grid-template-columns:1fr 1fr}
+  .sem{min-height:auto!important}
+  .diag figure{min-height:240px}
+  .alda{padding:28px 22px 80px}
+  .placar-geral{top:72px}
+}
+@media (max-width:640px){
+  section.bloco{padding-top:64px}
+  .caso{grid-template-columns:1fr}
+  .caso figure{min-height:0;aspect-ratio:1/1}
+  .mitos,.msgs{grid-template-columns:1fr}
+  .virada,.desafio{grid-template-columns:1fr;gap:10px}
+  .etp{grid-template-columns:1fr;gap:10px}
+  .aud{grid-template-columns:repeat(6,1fr)}
+  .calc .ent{grid-template-columns:1fr}
+  .barra-l{grid-template-columns:96px 1fr 36px;font-size:.8rem}
+  .gate .duas{grid-template-columns:1fr}
+  .ok{grid-template-columns:auto 1fr}
+  .ok .btn{grid-column:1/-1}
+  .cal{grid-template-columns:1fr}
+  .placar-geral{grid-template-columns:auto 1fr}
+  .placar-geral button{grid-column:1/-1}
+  .donut-w{grid-template-columns:96px 1fr}.donut-w svg{width:96px;height:96px}
+}
+@media print{
+  .admbar,.gate,.ok,.ferr,.diag,[data-newsletter],.nl-banner,.placar-geral button,.capa .tres-i,.play,.zoom,.sum{display:none!important}
+  #conteudo{display:block!important}
+  .rv{opacity:1!important;transform:none!important}
+  .card,.etp,.zona,.caso,.graf{break-inside:avoid}
+  .placar-geral{position:static;box-shadow:none}
+  section.bloco{padding-top:28px}
+  body{background:#fff;color:#000}
+}
+</style>
+</head>
+<body class="leitura">
+<script src="/assets/casco.js"></script>
+<main>
+
+<section class="capa">
+  <div class="wrap">
+    <span class="spaced">Manual de fechamento do mês · Unique</span>
+    <h1>Orçamento parado <span class="leve">não se resolve com desconto. Se resolve com método.</span></h1>
+    <p>Três casos reais desta semana, a lógica por trás de cada um e um plano para aplicar hoje: supervisão, separar cliente de lead, oferta com condicional, calendário comercial, bonificação e CRM.</p>
+    <blockquote class="fala">“51 orçamentos em follow-up aqui e 1 semana para fechar o mês! Mando figurinha do gatinho? Qual a estratégia?”<small>Mensagem de um empresário · 15h32</small></blockquote>
+    <div class="meta"><span>3 casos reais</span><span>Cliente x lead</span><span>Oferta com condicional</span><span>Calendário comercial</span><span>Checklist de 7 dias</span></div>
+  </div>
+  <div class="tres-i"><div class="I mag"></div><div class="I mar"></div><div class="I ver"></div></div>
+</section>
+
+<div class="doc">
+
+<nav class="sum" aria-label="Neste manual">
+  <a href="#casos"><b>01</b><span>Os 3 casos</span></a>
+  <a href="#vendedor"><b>02</b><span>Seu vendedor não ama seu negócio</span></a>
+  <a href="#supervisao"><b>03</b><span>Supervisão de atendimento</span></a>
+  <a href="#separar"><b>04</b><span>Cliente ou lead?</span></a>
+  <a href="#zonas"><b>05</b><span>Zona de perigo e zona de lead</span></a>
+  <a href="#condicional"><b>06</b><span>Toda oferta tem condicional</span></a>
+  <a href="#calendario"><b>07</b><span>Calendário comercial</span></a>
+  <a href="#crm"><b>08</b><span>Bonificação e CRM</span></a>
+</nav>
+
+<!-- 01 -->
+<section class="bloco" id="casos">
+  <span class="n">01 · OS 3 CASOS</span>
+  <h2>Fim de mês chegando, <span class="leve">e o dinheiro parado no funil.</span></h2>
+  <p class="lead">Fazer promoção para virar negócio está errado? Não está. O mês precisa de faturamento e de entrada de caixa. Mas essas situações não aparecem do nada: elas são o efeito colateral de um comercial sem rotina, sem supervisão e sem separação de quem é quem.</p>
+  <div class="casos">
+    <article class="caso rv">
+      <figure data-zoom><img src="midia/print-desconto.jpg" alt="Print de WhatsApp: empresa com orçamentos parados quer gravar vídeo de suspense e lançar ação de desconto na segunda" width="1080" height="1077" loading="lazy"></figure>
+      <div class="tx"><em class="mag">Caso 1 · O reflexo do desconto</em><h3>Orçamentos enviados e parados: “vamos fazer uma ação de desconto”</h3><p>Vídeo de suspense amanhã, desconto na segunda, para fechar a última semana com faturamento bom. A pergunta certa não é “quanto de desconto?”, é “para quem?”.</p></div>
+    </article>
+    <article class="caso rv">
+      <figure data-zoom><img src="midia/print-51-orcamentos.jpg" alt="Print de WhatsApp com o funil de follow-up: 51 orçamentos e uma semana para fechar o mês" width="1080" height="1206" loading="lazy"></figure>
+      <div class="tx"><em class="mar">Caso 2 · O funil travado</em><h3>51 orçamentos em follow-up e 1 semana para fechar o mês</h3><p>Muito cliente que não responde. Aqui o objetivo não é dar desconto: é descobrir o que faz cada um evoluir. Ganhar a venda ou, pelo menos, ganhar um “não” claro para dar foco ao que vai dar resultado.</p></div>
+    </article>
+    <article class="caso rv">
+      <figure data-zoom><img src="midia/print-55mil.jpg" alt="Print de WhatsApp: comprovante de Pix e a mensagem 'Ela vendeu 55.000 hoje'" width="802" height="1280" loading="lazy"></figure>
+      <div class="tx"><em class="ver">Caso 3 · A cenoura certa</em><h3>R$ 100 por pedido fechado. Resultado: R$ 55.000 em um dia</h3><p>Bonificação de R$ 100 para pedidos acima de um valor, se fechassem. Milagre? Não. Uma vendedora que precisava de comportamento correto, e um comportamento que foi bonificado em dinheiro.</p></div>
+    </article>
+  </div>
+
+  <div class="duas-g">
+    <div class="graf rv">
+      <h3>Onde estavam os 51 orçamentos</h3>
+      <p class="sub">Colunas de follow-up visíveis no print do Caso 2</p>
+      <div class="barras" data-barras>
+        <div class="barra-l"><span>FUP 2 dias</span><div class="trilho"><i style="--w:72%;background:var(--marinho-txt)"></i></div><b>13</b></div>
+        <div class="barra-l"><span>FUP 7 dias</span><div class="trilho"><i style="--w:56%;background:var(--marinho-txt)"></i></div><b>10</b></div>
+        <div class="barra-l"><span>FUP 15 dias</span><div class="trilho"><i style="--w:100%;background:var(--magenta-txt)"></i></div><b>18</b></div>
+        <div class="barra-l"><span>Outras etapas</span><div class="trilho"><i style="--w:56%;background:var(--muted)"></i></div><b>10</b></div>
+      </div>
+      <p class="nota">A coluna mais cheia é a de 15 dias: quanto mais tempo parado, mais frio fica o orçamento. “Outras etapas” = 51 menos as três colunas visíveis.</p>
+    </div>
+    <div class="graf rv">
+      <h3>O retorno da cenoura</h3>
+      <p class="sub">Caso 3: bonificação por pedido x venda do dia</p>
+      <div class="mult" data-mult>
+        <div class="l"><small>Bonificação por pedido</small><div style="--w:3%;background:var(--magenta)"></div><span style="font-weight:800">R$ 100</span></div>
+        <div class="l"><small>Vendido em um dia</small><div style="--w:100%;background:var(--verde)">R$ 55.000</div></div>
+        <p class="x"><b>550×</b> <span class="leve" style="font-size:.4em;letter-spacing:0">o valor da bonificação</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="virada rv">
+    <b>3</b>
+    <p>Três situações, uma causa: <strong>comportamento comercial</strong>. Desconto, figurinha e mensagem de “e aí, vamos fechar?” não resolvem o que é falta de rotina, de supervisão e de separação. Vamos à explicação.</p>
+  </div>
+</section>
+
+<!-- 02 -->
+<section class="bloco" id="vendedor">
+  <span class="n">02 · A VERDADE QUE DÓI</span>
+  <h2>Seu vendedor <span class="leve">não ama o seu negócio.</span></h2>
+  <figure class="frase rv">
+    Ele não vai dar 110% pela sua empresa. <span class="leve">Não vai. Nunca deu.</span>
+    <small>Ele não tem a sua consciência de que o atendimento tem que ser com educação, da melhor maneira, para o cliente voltar e indicar. Então o trabalho é seu: criar maneiras de fazer ele evoluir no que ele já sabe que tem que fazer. É ensinar padre a rezar missa, é chover no molhado. E é exatamente isso que funciona.</small>
+    <div class="tres-i" aria-hidden="true"><div class="I"></div><div class="I"></div><div class="I"></div></div>
+  </figure>
+  <div class="mitos">
+    <div class="mito rv"><small class="mag">O que o dono pensa</small><p>“Já falei com ele. Agora ele vai prestar atenção, vai dar uma olhada.”</p></div>
+    <div class="mito rv"><small class="ver">O que acontece</small><p>Não vai. Não vai. Não vai. Sem acompanhamento, o comportamento volta ao que era.</p></div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section class="bloco" id="supervisao">
+  <span class="n">03 · SUPERVISÃO DE ATENDIMENTO</span>
+  <h2>Tem muito dinheiro parado <span class="leve">em atendimento mal feito.</span></h2>
+  <p class="lead">O cliente diz “gostei” e o vendedor responde “qualquer coisa me chama”. É coisa boba, e está parada. O cliente só recebe o melhor atendimento quando o dono olha: <strong>é o olho do dono que engorda o boi.</strong></p>
+  <div class="sup">
+    <div class="card rv">
+      <h3 class="mag">O que trava o orçamento</h3>
+      <ul class="erro-l">
+        <li><i class="ic" style="--i:var(--ic-x)"></i>“Ah, beleza. Qualquer coisa me chama.”</li>
+        <li><i class="ic" style="--i:var(--ic-x)"></i>A mesma mensagem que ninguém responde, enviada de novo e de novo</li>
+        <li><i class="ic" style="--i:var(--ic-x)"></i>Achar que é a última Coca-Cola do deserto: mandar uma mensagem e esperar o cliente voltar</li>
+        <li><i class="ic" style="--i:var(--ic-x)"></i>Trocar produto por valor, sem entender a dor</li>
+      </ul>
+    </div>
+    <div class="card rv">
+      <h3 class="ver">O que destrava</h3>
+      <ul class="erro-l bom">
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Qualificar melhor: entender a necessidade para entregar a solução da dor, não só o produto</li>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Sugerir coisas novas e possibilidades</li>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Mostrar que a empresa tem outras soluções e outros caminhos para o problema dele</li>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Transformar tirador de pedido em vendedor</li>
+      </ul>
+    </div>
+  </div>
+  <div class="desafio rv">
+    <b>30</b>
+    <p><strong>O desafio de hoje: leia 30 conversas do seu time.</strong>Pegue o WhatsApp, olhe 30 atendimentos e responda com honestidade: você atenderia dessa forma? Você venderia dessa forma?</p>
+    <a class="btn solid" href="#auditoria">Usar a ferramenta <i class="ic" style="--i:var(--ic-seta)"></i></a>
+  </div>
+
+  <div class="audios">
+    <div class="audio rv">
+      <em class="mag">Caso real · A gestora que afrouxou</em>
+      <h3>Supervisão frouxa, resultado em queda</h3>
+      <p>Uma gestora comercial olhando os atendimentos viu orçamentos parados por falta de comportamento de venda. E percebeu o outro lado: quando ela deu uma afrouxada na supervisão, os resultados também começaram a cair.</p>
+      <div class="play" data-audio="midia/audio-gestora-1.m4a"><button type="button" aria-label="Ouvir áudio 1"></button><div class="onda"></div><time>0:19</time></div>
+      <div class="play" data-audio="midia/audio-gestora-2.m4a"><button type="button" aria-label="Ouvir áudio 2"></button><div class="onda"></div><time>0:30</time></div>
+    </div>
+    <div class="audio rv">
+      <em class="ver">Caso real · A vendedora no piloto automático</em>
+      <h3>Mudou a abordagem, passou a melhor vendedora</h3>
+      <p>Ela perguntava uma coisa, o cliente não respondia, e ela repetia a mesma mensagem, mesmo sabendo que ninguém respondia. Depois que a mudança foi aplicada, os resultados dela começaram a subir em relação à vendedora que era a melhor, e os da melhor começaram a cair.</p>
+      <div class="play" data-audio="midia/audio-vendedora.m4a"><button type="button" aria-label="Ouvir áudio do caso"></button><div class="onda"></div><time>0:21</time></div>
+    </div>
+  </div>
+
+  <div class="graf curva rv">
+    <h3>Por que a supervisão tem que ser frequente</h3>
+    <p class="sub">Ilustração do comportamento: o vendedor que se sente acompanhado para de cometer erros crassos, e o hábito muda</p>
+    <svg viewBox="0 0 720 230" role="img" aria-label="Gráfico ilustrativo: com supervisão diária a qualidade do atendimento sobe e se mantém; quando a supervisão afrouxa, ela cai">
+      <g stroke="var(--line)" stroke-width="1"><line x1="40" y1="30" x2="700" y2="30"/><line x1="40" y1="90" x2="700" y2="90"/><line x1="40" y1="150" x2="700" y2="150"/><line x1="40" y1="200" x2="700" y2="200"/></g>
+      <rect x="430" y="20" width="270" height="180" fill="var(--magenta)" opacity=".07"/>
+      <text x="565" y="196" text-anchor="middle" font-size="11" font-weight="700" fill="var(--magenta-txt)" letter-spacing="2">SUPERVISÃO AFROUXOU</text>
+      <path class="linha" d="M40 180 C120 170 160 120 230 95 S360 60 430 58 S520 90 580 120 S660 160 700 165" fill="none" stroke="var(--verde-txt)" stroke-width="3.5" stroke-linecap="round"/>
+      <path class="linha" d="M430 58 C500 56 600 52 700 50" fill="none" stroke="var(--verde-txt)" stroke-width="2" stroke-dasharray="6 6" opacity=".6"/>
+      <text x="696" y="70" text-anchor="end" font-size="11" fill="var(--muted)">se continuasse</text>
+      <text x="44" y="222" font-size="11" fill="var(--muted)">supervisão diária começa</text>
+      <text x="700" y="222" text-anchor="end" font-size="11" fill="var(--muted)">tempo</text>
+      <text x="44" y="22" font-size="11" fill="var(--muted)">qualidade do atendimento</text>
+    </svg>
+    <p class="nota">Curva ilustrativa, sem escala: representa o padrão descrito nos dois casos reais acima.</p>
+  </div>
+</section>
+
+<!-- 04 -->
+<section class="bloco" id="separar">
+  <span class="n">04 · SEPARE O JOIO DO TRIGO</span>
+  <h2>Dentro da etapa travada <span class="leve">existem dois perfis.</span></h2>
+  <p class="lead">Todo orçamento parado (enviou e não respondeu, negociação que travou) é de um cliente ou de um lead. Não dá para fazer desconto e promoção para todo mundo: você dá a mão e logo vão querer o braço. Primeiro separe. Para cada um, a ação é diferente.</p>
+  <div class="casa">
+    <div class="card rv">
+      <i class="ic gr mar" style="--i:var(--ic-users)"></i>
+      <h3>O cliente é o primo querido</h3>
+      <p>Ele já comprou, conhece sua qualidade, sabe que você entrega. Se o primo toca a campainha sem avisar, você recebe numa boa, até fica feliz. Com cliente existe intimidade: dá para ligar, marcar reunião, visitar.</p>
+    </div>
+    <div class="card ink rv">
+      <i class="ic gr" style="--i:var(--ic-user);color:var(--verde)"></i>
+      <h3>O lead é alguém que você nunca viu</h3>
+      <p>Ele não vem à sua casa de primeira. Precisa de mais contato, mais situações, mais argumento. Ele tem medo. Às vezes você vai precisar de um voucher de primeira compra para ele experimentar a qualidade de que você tanto fala.</p>
+    </div>
+  </div>
+  <p class="regra rv">Só é possível fazer algo <span class="leve">se você souber</span> para quem vai fazer.</p>
+  <div class="mitos">
+    <div class="mito rv"><small class="mag">Sem separar</small><p>Desconto para o cliente que não precisava de desconto: você complica uma relação que lutou para conquistar e que custou caro.</p></div>
+    <div class="mito rv"><small class="mag">Sem separar</small><p>Toda a atenção nos leads para fechar o mês, enquanto os clientes da base nem foram ativados.</p></div>
+  </div>
+</section>
+
+<!-- 05 -->
+<section class="bloco" id="zonas">
+  <span class="n">05 · AS DUAS ZONAS</span>
+  <h2>Cada perfil, <span class="leve">um tratamento.</span></h2>
+  <div class="zonas">
+    <article class="zona cli rv">
+      <div class="top-z"><span class="selo">Zona de perigo · Cliente</span><i class="ic mag" style="--i:var(--ic-alerta);width:24px;height:24px"></i></div>
+      <h3>Como alguém com quem eu tenho intimidade está travado num orçamento?</h3>
+      <ol class="passos">
+        <li><span><b>O vendedor ligou?</b>Ligou e tirou um tempo de qualidade, ou só mandou “e aí, vamos fechar?”. É cliente: liga, marca reunião, visita, faz o que for.</span></li>
+        <li><span><b>Qual é a objeção?</b>Preço, prazo, praça, quantidade? Descubra o que está travando de verdade.</span></li>
+        <li><span><b>Qual é o histórico?</b>Ele compra bem ou compra mal? Vale quanto para a empresa?</span></li>
+        <li><span><b>Quem decide é o gestor ou o dono.</b>O vendedor não tem esse poder. “Para esse cliente está autorizado isso. Para aquele, não pode: vamos perder essa venda, infelizmente.”</span></li>
+      </ol>
+      <div class="chips"><span>Ligar</span><span>Reunião</span><span>Visita</span><span>Melhorar pagamento</span><span>Desconto autorizado</span></div>
+    </article>
+    <article class="zona lea rv">
+      <div class="top-z"><span class="selo">Zona de lead · Ainda não é cliente</span><i class="ic mar" style="--i:var(--ic-ideia);width:24px;height:24px"></i></div>
+      <h3>Como gerar confiança em quem nunca comprou de mim?</h3>
+      <ol class="passos">
+        <li><span><b>Case parecido com ele.</b>É empresa de segurança comprando camisa? Mostre outras empresas de segurança. É esportivo? Mostre seu maior case esportivo.</span></li>
+        <li><span><b>Material de apoio e prova.</b>Showroom, loja física para pegar no produto e, se a venda é grande, vale investir numa amostra.</span></li>
+        <li><span><b>Voucher de primeira compra.</b>Avise que vai dar um desconto porque quer ser parceiro dele a longo prazo.</span></li>
+        <li><span><b>Mix e opção de entrada.</b>Apresente o mix para mostrar um diferencial e tenha um produto abaixo: “tem uma opção mais barata, vamos experimentar essa primeiro?”.</span></li>
+      </ol>
+      <div class="chips"><span>Cases do segmento</span><span>Bônus condicional</span><span>Amostra</span><span>Downgrade</span><span>Voucher 1ª compra</span></div>
+    </article>
+  </div>
+
+  <div class="graf arvore rv">
+    <h3>O caminho de cada orçamento parado</h3>
+    <p class="sub">Antes de qualquer promoção, cada orçamento passa por aqui</p>
+    <svg viewBox="0 0 760 300" role="img" aria-label="Fluxo: orçamento parado; já comprou de você? Sim, zona de perigo do cliente: ligar, entender a objeção, gestor decide. Não, zona de lead: case, prova, voucher e mix. Depois das ações comportamentais, zona de agressividade com condicional.">
+      <defs><marker id="sx" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker></defs>
+      <rect x="290" y="10" width="180" height="46" rx="23" fill="var(--fg)"/><text x="380" y="39" text-anchor="middle" font-size="14" font-weight="800" fill="var(--bg)">Orçamento parado</text>
+      <line x1="380" y1="56" x2="380" y2="84" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#sx)"/>
+      <rect x="270" y="86" width="220" height="44" rx="12" fill="none" stroke="var(--fg)" stroke-width="1.5"/><text x="380" y="113" text-anchor="middle" font-size="13" font-weight="700" fill="var(--fg)">Já comprou de você?</text>
+      <path d="M270 108 H150 V150" fill="none" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#sx)"/><text x="200" y="100" font-size="12" font-weight="800" fill="var(--magenta-txt)">SIM</text>
+      <path d="M490 108 H610 V150" fill="none" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#sx)"/><text x="540" y="100" font-size="12" font-weight="800" fill="var(--marinho-txt)">NÃO</text>
+      <rect x="30" y="152" width="240" height="70" rx="14" fill="var(--magenta)" opacity=".12"/><rect x="30" y="152" width="240" height="70" rx="14" fill="none" stroke="var(--magenta-txt)" stroke-width="1.5"/>
+      <text x="150" y="178" text-anchor="middle" font-size="13" font-weight="800" fill="var(--magenta-txt)">Zona de perigo · cliente</text><text x="150" y="200" text-anchor="middle" font-size="11.5" fill="var(--fg)">ligar · objeção · histórico</text><text x="150" y="214" text-anchor="middle" font-size="11.5" fill="var(--fg)">o gestor decide</text>
+      <rect x="490" y="152" width="240" height="70" rx="14" fill="var(--marinho)" opacity=".12"/><rect x="490" y="152" width="240" height="70" rx="14" fill="none" stroke="var(--marinho-txt)" stroke-width="1.5"/>
+      <text x="610" y="178" text-anchor="middle" font-size="13" font-weight="800" fill="var(--marinho-txt)">Zona de lead</text><text x="610" y="200" text-anchor="middle" font-size="11.5" fill="var(--fg)">case · prova · voucher</text><text x="610" y="214" text-anchor="middle" font-size="11.5" fill="var(--fg)">mix e opção de entrada</text>
+      <path d="M150 222 V254 H290" fill="none" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#sx)"/><path d="M610 222 V254 H470" fill="none" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#sx)"/>
+      <rect x="292" y="232" width="176" height="46" rx="23" fill="var(--verde)"/><text x="380" y="252" text-anchor="middle" font-size="12.5" font-weight="800" fill="#000">Zona de agressividade</text><text x="380" y="268" text-anchor="middle" font-size="11" fill="#000">sempre com condicional</text>
+    </svg>
+  </div>
+</section>
+
+<!-- 06 -->
+<section class="bloco" id="condicional">
+  <span class="n">06 · ZONA DE AGRESSIVIDADE</span>
+  <h2>Toda oferta tem <span class="leve">uma condicional.</span></h2>
+  <p class="lead">Separou o joio do trigo e já fez todas as ações comportamentais, que geram esforço? Agora sim, a zona de agressividade. Mas se a promoção dá benefício, ela exige uma ação: “eu te dou esse benefício se você agir dessa maneira”. E toda promoção agressiva tem uma condicional agressiva.</p>
+  <div class="formula rv" aria-label="Benefício mais condição mais prazo igual oferta que fecha">
+    <div><small>Benefício</small><b>o que ele ganha</b></div><span class="op">+</span>
+    <div><small>Condição</small><b>o que ele faz</b></div><span class="op">+</span>
+    <div><small>Prazo</small><b>até quando</b></div><span class="op">=</span>
+    <div class="res"><small>Resultado</small><b>oferta que fecha</b></div>
+  </div>
+  <div class="ex">
+    <div class="card rv"><small class="ver">Por prazo</small><p>“Te dou esse desconto se você fechar hoje.”</p><p class="m">Até 24 horas, até o fim da semana, só para este pedido.</p></div>
+    <div class="card rv"><small class="ver">Por quantidade</small><p>“Se você comprar tantas peças, eu te dou isso daqui.”</p><p class="m">O benefício cresce junto com o pedido.</p></div>
+    <div class="card rv"><small class="mag">Sem condicional</small><p>“Estamos com 10% de desconto.”</p><p class="m">Benefício solto ensina o cliente a esperar a próxima promoção.</p></div>
+  </div>
+</section>
+
+<!-- 07 -->
+<section class="bloco" id="calendario">
+  <span class="n">07 · CALENDÁRIO COMERCIAL</span>
+  <h2>Cada semana do mês <span class="leve">tem uma missão.</span></h2>
+  <p class="lead">A agressividade aumenta conforme o mês avança. Quem começa a semana 1 acionando a base não chega na última semana desesperado com 51 orçamentos parados.</p>
+  <div class="cal rv">
+    <div class="sem s1"><small>Semana 1</small><b>Acionar todos os seus contatos</b><p>Base de clientes ativada logo no começo do mês.</p></div>
+    <div class="sem s2"><small>Semana 2</small><b>Rotina e condução</b><p>Os 4 pilares rodando todo dia, cada lead com o próximo passo marcado.</p></div>
+    <div class="sem s3"><small>Semana 3</small><b>Acionar todos os orçamentos em aberto</b><p>Para começar a entender a objeção de cada um.</p></div>
+    <div class="sem s4"><small>Última semana · 3 a 5 dias</small><b>Desespero total</b><p>“Deu a louca no gerente”: fazer tudo para fechar hoje, agora, na velocidade máxima possível.</p></div>
+  </div>
+  <div class="cal-eixo"><span>Início do mês · relacionamento</span><span>Fim do mês · agressividade</span></div>
+  <div class="cuidado rv">
+    <i class="ic" style="--i:var(--ic-alerta)"></i>
+    <p><strong>Cuidado com o caixa.</strong> Se você precisa de capital de giro, de dinheiro para pagar a folha e tudo que está envolvido no mês, às vezes vai precisar vender só pelo preço da matéria-prima, vender de qualquer jeito. Se for fazer isso, faça na última semana. Por isso existe o calendário.</p>
+  </div>
+</section>
+
+<!-- 08 -->
+<section class="bloco" id="crm">
+  <span class="n">08 · BONIFICAÇÃO E CRM</span>
+  <h2>Cenoura na frente <span class="leve">e a casa organizada.</span></h2>
+  <p class="lead">“Não só de desconto, mas de cenoura na frente ou atrás para a equipe comercial.” O que estimula o comportamento é bonificação em dinheiro. A pressão muda com dinheiro.</p>
+  <div class="bonus">
+    <figure class="rv" data-zoom><img src="midia/print-55mil.jpg" alt="Print de WhatsApp: 'Ela vendeu 55.000 hoje' e a resposta 'Então... a pressão muda com dinheiro'" width="802" height="1280" loading="lazy"></figure>
+    <div class="regras-b">
+      <div class="rv"><b>1</b><span><strong>Bonifique o comportamento, não só a meta</strong>R$ 100 para cada pedido acima de um valor que fosse fechado. Simples de entender, rápido de receber.</span></div>
+      <div class="rv"><b>2</b><span><strong>Regra clara e prazo curto</strong>Valor mínimo do pedido, o que conta como fechado e até quando vale. Sem regra clara, a cenoura vira discussão.</span></div>
+      <div class="rv"><b>3</b><span><strong>Placar à vista</strong>Todo mundo vê quem fechou o quê. Competição saudável acelera o fim do mês.</span></div>
+      <div class="rv"><b>4</b><span><strong>Junto com a supervisão</strong>A bonificação puxa o resultado, a supervisão garante o jeito certo de chegar nele.</span></div>
+    </div>
+  </div>
+
+  <h3 style="margin:72px 0 6px;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;letter-spacing:-.03em">Por que eu bato tão pesado em CRM</h3>
+  <p class="lead">Se não está organizado, como lembrar de todo mundo? De cada situação? Como separar os lotes de cliente e de lead? Precisa de CRM. Ou planilha, ou o Alda, ou qualquer um. Mas precisa.</p>
+  <div class="crm3">
+    <div class="card rv"><i class="ic mar" style="--i:var(--ic-lista)"></i><h3>Separar os lotes</h3><p>Cliente de um lado, lead do outro, cada um com a sua ação. É o que torna possível tudo que está neste manual.</p></div>
+    <div class="card rv"><i class="ic mag" style="--i:var(--ic-alerta)"></i><h3>CRM mal mapeado confunde</h3><p>Um CRM que não foi mapeado da maneira certa, às vezes, mais confunde do que esclarece.</p></div>
+    <div class="card rv"><i class="ic ver" style="--i:var(--ic-coracao)"></i><h3>O ativo mais valioso</h3><p>O mapeamento de clientes é a parte mais valiosa do seu negócio. Resolva ele primeiro.</p></div>
+  </div>
+  <div class="graf campos rv">
+    <h3>O mínimo que cada orçamento precisa ter no CRM</h3>
+    <p class="sub">Sem esses campos, não dá para separar, priorizar nem cobrar</p>
+    <div class="chips"><span>Cliente ou lead</span><span>Histórico de compra</span><span>Valor do orçamento</span><span>Etapa do funil</span><span>Data do último contato</span><span>Objeção (preço, prazo, quantidade)</span><span>Próximo passo com data</span><span>Responsável</span><span>Motivo da perda</span></div>
+  </div>
+
+  <section class="alda rv" aria-labelledby="alda-t">
+    <div class="alda-cab">
+      <span class="alda-selo">Condição para quem leu este manual</span>
+      <img class="alda-logo" src="/diagnostico/relatorio/alda-logo.png" alt="Alda CRM" width="520" height="203">
+      <h2 id="alda-t">Atendimento e CRM em um só lugar para nunca mais ter orçamento esquecido</h2>
+      <p>Uma demonstração do Alda.CRM montada com o seu funil de vendas, com a implantação acompanhada pela Unique.</p>
+      <p class="alda-assina">Implantado pela Unique Consultoria Comercial</p>
+      <div class="alda-acts">
+        <a class="btn alda-btn" href="https://wa.me/5511920781458?text=Ol%C3%A1%21%20Li%20o%20manual%20Or%C3%A7amentos%20parados%20da%20Unique%20e%20quero%20conhecer%20o%20Alda.CRM." target="_blank" rel="noopener">Quero conhecer o Alda.CRM</a>
+        <a class="btn alda-link" href="https://aldacrm.com" target="_blank" rel="noopener">Ver o site</a>
+      </div>
+    </div>
+    <div class="alda-lista">
+      <span class="alda-eyebrow">Neste manual, o Alda ajuda em</span>
+      <ul>
+        <li><span class="alda-ic"><svg viewBox="0 0 24 24"><path d="M4 5h16l-6 8v6l-4 2v-8z"/></svg></span><div><strong>Funil com cliente e lead separados</strong><span>Cada orçamento na etapa certa, com etiqueta, valor e objeção.</span></div></li>
+        <li><span class="alda-ic"><svg viewBox="0 0 24 24"><path d="M5 18v-6a7 7 0 0 1 14 0v6"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/></svg></span><div><strong>Supervisão de atendimento</strong><span>As conversas do time no WhatsApp em um só lugar, para o dono olhar.</span></div></li>
+        <li><span class="alda-ic"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 4v4h-4M20 12a8 8 0 0 1-14 5.3M4 20v-4h4"/></svg></span><div><strong>Follow-up que não depende de memória</strong><span>Próximo passo com data para nenhum orçamento esfriar.</span></div></li>
+        <li><span class="alda-ic"><svg viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-7z"/></svg></span><div><strong>Oferta para o lote certo</strong><span>A condicional vai para quem deve receber, nunca para todo mundo.</span></div></li>
+      </ul>
+    </div>
+    <img class="alda-pato" src="/diagnostico/relatorio/alda-pato.png" alt="" aria-hidden="true" width="134" height="238">
+    <span class="alda-caco" aria-hidden="true"></span>
+  </section>
+
+  <!-- cadastro -->
+  <div class="gate" id="liberar">
+    <div>
+      <span class="spaced">Kit de aplicação · gratuito</span>
+      <h2>Agora é aplicar. <span class="leve">Hoje.</span></h2>
+      <p>Preencha e as ferramentas abrem aqui mesmo, prontas para usar com o time no celular ou impressas.</p>
+      <ul>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Plano de 7 dias com checklist e progresso</li>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Auditoria das 30 conversas</li>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Calculadora do dinheiro parado</li>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Gerador de oferta com condicional</li>
+        <li><i class="ic" style="--i:var(--ic-check)"></i>Mensagens prontas para cliente e lead</li>
+      </ul>
+    </div>
+    <form id="f-lib" novalidate>
+      <div class="duas">
+        <input name="nome" autocomplete="name" placeholder="Seu nome" aria-label="Seu nome" maxlength="80" required>
+        <input name="empresa" autocomplete="organization" placeholder="Empresa" aria-label="Empresa" maxlength="80" required>
+      </div>
+      <input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="WhatsApp com DDD" aria-label="WhatsApp com DDD" maxlength="30" required>
+      <input name="email" type="email" autocomplete="email" placeholder="Seu melhor e-mail" aria-label="Seu e-mail" maxlength="120" required>
+      <input class="isca" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit">Liberar o kit de aplicação <i class="ic" style="--i:var(--ic-seta)"></i></button>
+      <p class="msg" role="status" aria-live="polite"></p>
+      <p class="aviso-nl"><i class="ic" style="--i:var(--ic-mail)"></i>Ao liberar, você entra na newsletter Unique e recebe os posts novos do blog. Cancele quando quiser, com um clique.</p>
+    </form>
+    <div class="tres-i" aria-hidden="true"><div class="I"></div><div class="I"></div><div class="I"></div></div>
+  </div>
+  <p class="nl-banner"><i class="ic" style="--i:var(--ic-mail)"></i>Quem libera o kit entra automaticamente na newsletter Unique.</p>
+
+  <div class="ok" role="status" aria-live="polite">
+    <div class="selo"><i class="ic" style="--i:var(--ic-check)"></i></div>
+    <div>
+      <b id="ok-t">Kit liberado!</b>
+      <p id="ok-p">E você já está na newsletter Unique: cada post novo do blog chega direto no seu e-mail.</p>
+      <span class="nl-tag"><i></i>Newsletter Unique · inscrição ativa</span>
+    </div>
+    <a class="btn" href="#plano">Ir para o plano <i class="ic" style="--i:var(--ic-seta)"></i></a>
+  </div>
+</section>
+
+<div id="conteudo">
+
+<div class="ferr">
+  <button class="btn solid" type="button" id="imprimir"><i class="ic" style="--i:var(--ic-doc)"></i>Imprimir ou salvar PDF</button>
+  <a class="btn" href="#auditoria"><i class="ic" style="--i:var(--ic-chat)"></i>Auditoria</a>
+  <a class="btn" href="#calculadora"><i class="ic" style="--i:var(--ic-grafico)"></i>Calculadora</a>
+  <a class="btn" href="#gerador"><i class="ic" style="--i:var(--ic-ideia)"></i>Gerador de oferta</a>
+</div>
+
+<section class="bloco" id="plano">
+  <span class="n">09 · PLANO DE 7 DIAS</span>
+  <h2>Do diagnóstico ao fechamento, <span class="leve">um dia de cada vez.</span></h2>
+  <p class="lead">Marque conforme fizer. O progresso fica salvo neste aparelho, então dá para abrir de novo amanhã e continuar de onde parou.</p>
+  <div class="placar-geral"><div><small>Plano</small><b id="pg-n">0%</b></div><div class="prog-b"><i id="pg-b"></i></div><button type="button" id="pg-zera">Recomeçar</button></div>
+  <div class="etapas" id="etapas"></div>
+</section>
+
+<section class="bloco" id="auditoria">
+  <span class="n">10 · AUDITORIA DAS 30 CONVERSAS</span>
+  <h2>Você atenderia <span class="leve">dessa forma?</span></h2>
+  <p class="lead">Abra o WhatsApp do time e leia 30 conversas. Toque em cada número: uma vez = eu atenderia e venderia assim (verde); duas vezes = não atenderia (magenta); três = limpa.</p>
+  <div class="crit"><span>Respondeu rápido?</span><span>Entendeu a necessidade?</span><span>Sugeriu algo a mais?</span><span>Deixou próximo passo marcado?</span><span>Fugiu do “qualquer coisa me chama”?</span></div>
+  <div class="aud" id="aud"></div>
+  <div class="aud-res"><div class="v"><b id="a-v">0</b><small>eu atenderia assim</small></div><div class="m"><b id="a-m">0</b><small>eu não atenderia assim</small></div><div><b id="a-p">0%</b><small>de atendimento aprovado</small></div></div>
+  <p class="aud-veredito" id="a-ver"></p>
+</section>
+
+<section class="bloco" id="calculadora">
+  <span class="n">11 · CALCULADORA</span>
+  <h2>Quanto dinheiro está <span class="leve">parado no seu funil?</span></h2>
+  <p class="lead">Coloque os números dos seus orçamentos em aberto. A calculadora separa clientes e leads e mostra o que volta para o caixa com a taxa de recuperação que você acredita ser possível.</p>
+  <div class="calc">
+    <div class="ent">
+      <label>Orçamentos em aberto<input id="k-q" inputmode="numeric" value="51"></label>
+      <label>Ticket médio (R$)<input id="k-t" inputmode="decimal" placeholder="0" value="5000"></label>
+      <label>Quantos são de clientes?<small id="k-c-l">40%</small><input id="k-c" type="range" min="0" max="100" value="40" aria-label="Percentual de orçamentos de clientes"></label>
+      <label>Taxa de recuperação<small id="k-r-l">20%</small><input id="k-r" type="range" min="0" max="100" value="20" aria-label="Taxa de recuperação esperada"></label>
+    </div>
+    <div class="sai">
+      <div><small>Dinheiro parado no funil</small><output id="k-tot">R$ 0</output></div>
+      <div class="donut-w">
+        <svg viewBox="0 0 42 42" aria-hidden="true"><circle cx="21" cy="21" r="15.9" fill="none" stroke="#26262a" stroke-width="6"/><circle id="k-arc" cx="21" cy="21" r="15.9" fill="none" stroke="#ff4d8f" stroke-width="6" stroke-dasharray="0 100" transform="rotate(-90 21 21)"/><circle id="k-arc2" cx="21" cy="21" r="15.9" fill="none" stroke="#8f98ff" stroke-width="6" stroke-dasharray="0 100" transform="rotate(-90 21 21)"/></svg>
+        <div class="leg"><div><i style="background:#ff4d8f"></i>Clientes · zona de perigo<b id="k-cv">R$ 0</b></div><div><i style="background:#8f98ff"></i>Leads · zona de lead<b id="k-lv">R$ 0</b></div></div>
+      </div>
+      <div><small>Volta para o caixa se recuperar</small><output id="k-rec" class="verde">R$ 0</output></div>
+    </div>
+  </div>
+</section>
+
+<section class="bloco" id="gerador">
+  <span class="n">12 · GERADOR DE OFERTA</span>
+  <h2>Monte a oferta <span class="leve">com condicional.</span></h2>
+  <p class="lead">Escolha para quem é, o benefício, a condição e o prazo. A mensagem sai pronta para copiar. Troque o que está entre colchetes.</p>
+  <div class="gera">
+    <div class="op-l">
+      <fieldset><legend>Para quem</legend><div class="pls" data-g="quem"><button type="button" data-v="cliente" aria-pressed="true">Cliente</button><button type="button" data-v="lead" aria-pressed="false">Lead</button></div></fieldset>
+      <fieldset><legend>Benefício</legend><div class="pls" data-g="ben"><button type="button" data-v="desc" aria-pressed="true">Desconto</button><button type="button" data-v="pag" aria-pressed="false">Condição de pagamento</button><button type="button" data-v="brinde" aria-pressed="false">Bônus no pedido</button><button type="button" data-v="frete" aria-pressed="false">Frete ou prazo de entrega</button><button type="button" data-v="voucher" aria-pressed="false">Voucher de 1ª compra</button></div></fieldset>
+      <fieldset><legend>Condição</legend><div class="pls" data-g="cond"><button type="button" data-v="fechar" aria-pressed="true">Fechar este orçamento</button><button type="button" data-v="qtd" aria-pressed="false">A partir de [X] peças</button><button type="button" data-v="valor" aria-pressed="false">Pedido acima de R$ [X]</button></div></fieldset>
+      <fieldset><legend>Prazo</legend><div class="pls" data-g="prazo"><button type="button" data-v="hoje" aria-pressed="true">Hoje</button><button type="button" data-v="24h" aria-pressed="false">24 horas</button><button type="button" data-v="semana" aria-pressed="false">Esta semana</button></div></fieldset>
+    </div>
+    <div class="msg-o">
+      <blockquote id="g-msg"></blockquote>
+      <p class="alerta-o" id="g-al"></p>
+      <button class="btn sm solid" type="button" id="g-cop"><i class="ic" style="--i:var(--ic-doc)"></i>Copiar mensagem</button>
+    </div>
+  </div>
+</section>
+
+<section class="bloco" id="mensagens">
+  <span class="n">13 · MENSAGENS-BASE</span>
+  <h2>O que falar <span class="leve">em cada zona.</span></h2>
+  <p class="lead">Pontos de partida para o WhatsApp. Para cliente, a mensagem serve para marcar a ligação: a conversa de verdade é por telefone ou pessoalmente.</p>
+  <div class="msgs">
+    <div class="card"><h3 class="mag">Cliente<small>Marcar a ligação</small></h3><blockquote>Oi, [nome], tudo bem? Vi aqui o orçamento do [produto] e quero entender com você o que ficou pendente para ajustar do jeito certo. Posso te ligar hoje às [hora] ou prefere amanhã cedo?</blockquote><button class="btn sm" type="button" data-copia><i class="ic" style="--i:var(--ic-doc)"></i>Copiar</button></div>
+    <div class="card"><h3 class="mag">Cliente<small>Na ligação: descobrir a objeção</small></h3><blockquote>[nome], o que está pesando mais nessa decisão hoje: o valor, o prazo, a quantidade ou o momento? Se a gente resolver isso, fechamos?</blockquote><button class="btn sm" type="button" data-copia><i class="ic" style="--i:var(--ic-doc)"></i>Copiar</button></div>
+    <div class="card"><h3 class="mar">Lead<small>Case do mesmo segmento</small></h3><blockquote>Oi, [nome]! Lembrei de você porque acabamos de entregar para a [empresa do mesmo segmento], que tinha uma necessidade parecida com a sua. Te mando umas fotos de como ficou? Acho que vai te ajudar a decidir.</blockquote><button class="btn sm" type="button" data-copia><i class="ic" style="--i:var(--ic-doc)"></i>Copiar</button></div>
+    <div class="card"><h3 class="mar">Lead<small>Opção de entrada</small></h3><blockquote>[nome], se fizer mais sentido começar menor, tenho uma opção de entrada: [produto mais em conta]. Você experimenta a nossa qualidade e, gostando, partimos para o pedido completo. Quer que eu monte?</blockquote><button class="btn sm" type="button" data-copia><i class="ic" style="--i:var(--ic-doc)"></i>Copiar</button></div>
+    <div class="card"><h3 class="ver">Fechamento<small>Pedir um “não” claro</small></h3><blockquote>[nome], não quero ficar te incomodando. Me diz com sinceridade: esse orçamento ainda faz sentido para você ou posso encerrar por aqui? Qualquer resposta me ajuda.</blockquote><button class="btn sm" type="button" data-copia><i class="ic" style="--i:var(--ic-doc)"></i>Copiar</button></div>
+    <div class="card"><h3 class="ver">Time<small>Regra da bonificação</small></h3><blockquote>Time, valendo até [data]: cada pedido acima de R$ [valor] fechado e pago rende R$ [bônus] para quem fechou. O placar fica no [grupo/quadro] e atualiza todo dia às [hora]. Bora!</blockquote><button class="btn sm" type="button" data-copia><i class="ic" style="--i:var(--ic-doc)"></i>Copiar</button></div>
+  </div>
+</section>
+
+</div><!-- /conteudo -->
+</div><!-- /doc -->
+
+<section class="wrap" style="padding-inline:20px">
+  <div class="diag">
+    <div class="txt">
+      <span class="spaced">Próximo passo</span>
+      <h2>Qual é o score comercial <span class="leve">da sua empresa?</span></h2>
+      <p>Faça o diagnóstico. Em 10 a 15 minutos você responde sobre os 4 pilares do seu comercial e recebe um relatório com o score, os gargalos e um plano de ação.</p>
+      <div class="ctas"><a class="btn verde" href="/diagnostico/">Faça seu diagnóstico comercial <i class="ic" style="--i:var(--ic-seta)"></i></a>
+      <a class="btn" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Li%20o%20manual%20Or%C3%A7amentos%20parados%20e%20quero%20conversar%20sobre%20o%20comercial%20da%20minha%20empresa." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Falar com o Carlos</a></div>
+    </div>
+    <figure><img src="/assets/fotos/palco.jpg" alt="Carlos Ribeiro em palestra, com microfone" width="1280" height="853" loading="lazy"></figure>
+  </div>
+</section>
+
+<div class="zoom" id="zoom" role="dialog" aria-label="Imagem ampliada"><img alt=""></div>
+</main>
+<script>
+(function(){
+  var MAT='orcamentos-parados', K='ua_mat_'+MAT;
+  var ls={get:function(k){try{return JSON.parse(localStorage.getItem(k)||'null');}catch(e){return null;}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+  var $=function(s,el){return (el||document).querySelector(s);}, $$=function(s,el){return [].slice.call((el||document).querySelectorAll(s));};
+  var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+  var brl=function(v){return (v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});};
+
+  // ---------- revelar ao rolar + animar gráficos ----------
+  var anima=function(el){
+    el.classList.add('vis');
+    $$('[data-barras] .trilho i',el).forEach(function(i){i.style.width=i.style.getPropertyValue('--w');});
+    $$('[data-mult] .l div',el).forEach(function(d){d.style.width=d.style.getPropertyValue('--w');});
+  };
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){anima(e.target);io.unobserve(e.target);}});},{threshold:.15});
+    $$('.rv').forEach(function(el){io.observe(el);});
+  } else $$('.rv').forEach(anima);
+
+  // ---------- zoom dos prints ----------
+  var z=$('#zoom');
+  $$('[data-zoom]').forEach(function(f){f.addEventListener('click',function(){var im=$('img',f);$('img',z).src=im.src;$('img',z).alt=im.alt;z.classList.add('on');});});
+  z.addEventListener('click',function(){z.classList.remove('on');});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')z.classList.remove('on');});
+
+  // ---------- players de áudio ----------
+  var PLAY='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg>', PAUSE='<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>';
+  var atual=null;
+  $$('.play').forEach(function(p,ix){
+    var a=new Audio(); a.preload='none'; a.src=p.dataset.audio;
+    var bt=$('button',p), on=$('.onda',p), tm=$('time',p), N=34, dur0=tm.textContent;
+    var h=''; for(var i=0;i<N;i++){ var v=30+Math.abs(Math.sin((i+1)*(ix+2)*1.7))*70; h+='<i style="height:'+v.toFixed(0)+'%"></i>'; } on.innerHTML=h;
+    bt.innerHTML=PLAY;
+    var fmt=function(s){s=Math.max(0,Math.floor(s));return Math.floor(s/60)+':'+('0'+s%60).slice(-2);};
+    bt.addEventListener('click',function(){ if(a.paused){ if(atual&&atual!==a) atual.pause(); atual=a; a.play().catch(function(){}); } else a.pause(); });
+    a.addEventListener('play',function(){bt.innerHTML=PAUSE;});
+    a.addEventListener('pause',function(){bt.innerHTML=PLAY;});
+    a.addEventListener('ended',function(){bt.innerHTML=PLAY;tm.textContent=dur0;$$('i',on).forEach(function(x){x.classList.remove('on');});});
+    a.addEventListener('timeupdate',function(){ if(!a.duration) return; var k=Math.round(a.currentTime/a.duration*N); $$('i',on).forEach(function(x,j){x.classList.toggle('on',j<k);}); tm.textContent=fmt(a.duration-a.currentTime); });
+    on.addEventListener('click',function(e){ var r=on.getBoundingClientRect(), f=(e.clientX-r.left)/r.width; var go=function(){a.currentTime=f*a.duration;}; if(a.duration) go(); else { a.addEventListener('loadedmetadata',go,{once:true}); a.load(); } if(a.paused) bt.click(); });
+  });
+
+  // ---------- liberação ----------
+  function libera(d, novo){
+    document.body.classList.add('liberado');
+    var pn=(d&&d.nome||'').split(' ')[0];
+    if(novo){
+      $('#ok-t').textContent=(pn?pn+', o':'O')+' kit de aplicação está liberado!';
+      $('#ok-p').textContent=(d.nl==='ja'?'Você já estava na newsletter Unique: continua recebendo':'E você já está na newsletter Unique: vai receber')+' cada post novo do blog direto no seu e-mail.';
+    } else {
+      $('#ok-t').textContent='Bem-vindo de volta'+(pn?', '+pn:'')+'!';
+      $('#ok-p').textContent='O seu plano continua de onde você parou.';
+    }
+  }
+  var salvo=ls.get(K); if(salvo) libera(salvo,false);
+
+  var f=$('#f-lib'), msg=$('.msg',f), bt=$('button',f);
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var d={nome:f.nome.value.trim(),empresa:f.empresa.value.trim(),whatsapp:f.whatsapp.value.trim(),email:f.email.value.trim()};
+    if(d.nome.length<2){msg.textContent='Informe o seu nome.';f.nome.focus();return;}
+    if(d.empresa.length<2){msg.textContent='Informe o nome da empresa.';f.empresa.focus();return;}
+    if(d.whatsapp.replace(/\D/g,'').length<10){msg.textContent='Confira o seu WhatsApp com DDD.';f.whatsapp.focus();return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)){msg.textContent='Confira o seu e-mail.';f.email.focus();return;}
+    bt.disabled=true; msg.textContent='';
+    fetch('/api/material',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({a:'liberar',material:MAT,nome:d.nome,empresa:d.empresa,whatsapp:d.whatsapp,email:d.email,site:f.site.value})})
+      .then(function(r){return r.json().catch(function(){return {};});})
+      .then(function(r){
+        if(!r||!r.ok){bt.disabled=false;msg.textContent=(r&&r.erro)||'Não deu certo agora. Tente de novo em instantes.';return;}
+        var v={nome:d.nome,empresa:d.empresa,nl:r.newsletter,data:new Date().toISOString()};
+        ls.set(K,v); libera(v,true);
+        var ok=$('.ok'); if(ok&&ok.scrollIntoView) ok.scrollIntoView({behavior:'smooth',block:'center'});
+      })
+      .catch(function(){bt.disabled=false;msg.textContent='Sem conexão. Tente de novo.';});
+  });
+
+  // ---------- plano de 7 dias ----------
+  var PLANO=[
+    ['Dia 1','Supervisão','O olho do dono',[
+      ['Ler 30 conversas do time no WhatsApp','Use a auditoria logo abaixo'],
+      ['Perguntar em cada uma: eu atenderia e venderia assim?',''],
+      ['Anotar os 3 erros que mais se repetem',''],
+      ['Conversar com cada vendedor mostrando a conversa real','Não vale só “falar”: mostre o print e o jeito certo'],
+      ['Combinar o horário diário de supervisão','Supervisão frouxa derruba o resultado']]],
+    ['Dia 2','Separar o joio do trigo','Cliente ou lead',[
+      ['Listar todos os orçamentos em aberto no CRM ou planilha',''],
+      ['Marcar cada um: cliente (já comprou) ou lead',''],
+      ['Anotar o histórico de cada cliente: compra bem ou compra mal',''],
+      ['Anotar a objeção conhecida: preço, prazo, quantidade ou sem resposta',''],
+      ['Ordenar os dois lotes pelo valor do orçamento','']]],
+    ['Dia 3','Zona de perigo','Clientes travados',[
+      ['Ligar para cada cliente travado (ligação, não mensagem)',''],
+      ['Marcar reunião ou visita com os maiores valores',''],
+      ['Levar ao gestor ou dono os casos de preço','Autorizar desconto, melhorar pagamento ou aceitar perder'],
+      ['Registrar cada “não” no CRM','Um não claro libera foco']]],
+    ['Dia 4','Zona de lead','Gerar confiança',[
+      ['Enviar a cada lead um case do mesmo segmento',''],
+      ['Oferecer material de apoio, showroom ou amostra nos pedidos grandes',''],
+      ['Apresentar o mix: um item que complementa o pedido',''],
+      ['Oferecer a opção de entrada (downgrade) a quem travou no preço',''],
+      ['Usar o voucher de primeira compra com condicional','']]],
+    ['Dia 5','Cenoura para o time','Bonificação',[
+      ['Definir a bonificação: R$ [X] por pedido acima de R$ [Y] fechado',''],
+      ['Escrever a regra: o que conta, até quando, quando paga',''],
+      ['Comunicar ao time e montar o placar à vista',''],
+      ['Atualizar o placar todo dia','']]],
+    ['Dias 6 e 7','Zona de agressividade','Última semana',[
+      ['Montar a oferta: benefício + condição + prazo','Use o gerador de oferta'],
+      ['Enviar só para o lote certo, nunca para todos',''],
+      ['Nos últimos 3 a 5 dias: velocidade máxima, fechar hoje',''],
+      ['Se o caixa exigir vender a preço de custo, fazer só agora e com consciência',''],
+      ['Pedir um “não” claro a quem não responde','']]],
+    ['Todo mês','Calendário comercial','Para não repetir',[
+      ['Semana 1: acionar todos os contatos da base',''],
+      ['Semana 2: rotina dos 4 pilares, cada lead com próximo passo',''],
+      ['Semana 3: acionar todos os orçamentos em aberto e entender a objeção',''],
+      ['Última semana: ofensiva de fechamento com condicional',''],
+      ['Revisar o mapeamento do CRM: cliente/lead, etapa, objeção, valor','']]]
+  ];
+  var PK='ua_op_plano', pv=ls.get(PK)||{};
+  $('#etapas').innerHTML=PLANO.map(function(e,i){
+    return '<div class="etp" data-e="'+i+'"><div class="h"><time>'+esc(e[0])+'</time><b>'+esc(e[1])+'</b><small>'+esc(e[2])+'</small><div class="mini"><i></i></div><span class="mini-n"></span></div><ul class="chk">'+
+      e[3].map(function(t,j){var k='e'+i+'_'+j;return '<li><label><input type="checkbox" data-k="'+k+'"'+(pv[k]?' checked':'')+'><span>'+esc(t[0])+(t[1]?'<small>'+esc(t[1])+'</small>':'')+'</span></label></li>';}).join('')+'</ul></div>';
+  }).join('');
+  function progPlano(){
+    var tot=0, ok=0;
+    $$('.etp').forEach(function(el){ var its=$$('input',el), n=its.filter(function(i){return i.checked;}).length; tot+=its.length; ok+=n;
+      $('.mini i',el).style.width=(n/its.length*100)+'%'; $('.mini-n',el).textContent=n===its.length?'Concluído':n+' de '+its.length; el.classList.toggle('feito',n===its.length); });
+    var p=tot?Math.round(ok/tot*100):0; $('#pg-n').textContent=p+'%'; $('#pg-b').style.width=p+'%';
+  }
+  $('#etapas').addEventListener('change',function(e){ var i=e.target; if(!i.dataset.k) return; pv[i.dataset.k]=i.checked; ls.set(PK,pv); progPlano(); });
+  $('#pg-zera').addEventListener('click',function(){ if(!confirm('Recomeçar o plano do zero?')) return; pv={}; ls.set(PK,pv); $$('#etapas input').forEach(function(i){i.checked=false;}); progPlano(); });
+  progPlano();
+
+  // ---------- auditoria das 30 conversas ----------
+  var AK='ua_op_aud', av=ls.get(AK)||{};
+  $('#aud').innerHTML=Array.apply(null,{length:30}).map(function(_,i){return '<button type="button" data-i="'+(i+1)+'" data-v="'+(av[i+1]||0)+'" aria-label="Conversa '+(i+1)+'">'+(i+1)+'</button>';}).join('');
+  function aud(){
+    var v=0,m=0; for(var i=1;i<=30;i++){ if(av[i]===1) v++; if(av[i]===2) m++; }
+    var p=(v+m)?Math.round(v/(v+m)*100):0;
+    $('#a-v').textContent=v; $('#a-m').textContent=m; $('#a-p').textContent=p+'%';
+    var t=''; if(v+m===30){ t=p>=80?'Atendimento forte. Agora o foco é manter a supervisão diária para não afrouxar.':p>=50?'Atendimento irregular: tem dinheiro parado aqui. Leve as conversas reprovadas para a conversa com cada vendedor.':'Alerta vermelho: a maior parte dos atendimentos você não faria assim. Supervisão diária começa amanhã cedo.'; } else if(v+m) t='Faltam '+(30-v-m)+' conversas para o veredito.';
+    $('#a-ver').textContent=t;
+  }
+  $('#aud').addEventListener('click',function(e){ var b=e.target.closest('button[data-i]'); if(!b) return; var i=b.dataset.i; av[i]=((av[i]||0)+1)%3; b.dataset.v=av[i]; ls.set(AK,av); aud(); });
+  aud();
+
+  // ---------- calculadora ----------
+  var num=function(id){var v=String($(id).value||'').replace(/\./g,'').replace(',','.').replace(/[^\d.]/g,'');return parseFloat(v)||0;};
+  var CKK='ua_op_calc', cv=ls.get(CKK); if(cv){ ['q','t','c','r'].forEach(function(k){ if(cv[k]!=null) $('#k-'+k).value=cv[k]; }); }
+  function calc(){
+    var q=num('#k-q'), t=num('#k-t'), c=+$('#k-c').value, r=+$('#k-r').value, tot=q*t;
+    $('#k-c-l').textContent=c+'% clientes · '+(100-c)+'% leads'; $('#k-r-l').textContent=r+'%';
+    $('#k-tot').textContent=brl(tot); $('#k-cv').textContent=brl(tot*c/100); $('#k-lv').textContent=brl(tot*(100-c)/100); $('#k-rec').textContent=brl(tot*r/100);
+    $('#k-arc').setAttribute('stroke-dasharray',c+' '+(100-c)); $('#k-arc2').setAttribute('stroke-dasharray',(100-c)+' '+c); $('#k-arc2').setAttribute('stroke-dashoffset',-c);
+    ls.set(CKK,{q:$('#k-q').value,t:$('#k-t').value,c:c,r:r});
+  }
+  ['#k-q','#k-t','#k-c','#k-r'].forEach(function(id){ $(id).addEventListener('input',calc); });
+  calc();
+
+  // ---------- gerador de oferta ----------
+  var G={quem:'cliente',ben:'desc',cond:'fechar',prazo:'hoje'};
+  var BEN={desc:'um desconto de [X]%',pag:'uma condição especial de pagamento: [parcelas/prazo]',brinde:'[bônus] no seu pedido, sem custo',frete:'[frete grátis / entrega antecipada]',voucher:'um voucher de primeira compra de [X]%'};
+  var COND={fechar:'fechando este orçamento',qtd:'para pedidos a partir de [X] peças',valor:'para pedidos acima de R$ [X]'};
+  var PRAZO={hoje:'até hoje, às [hora]','24h':'nas próximas 24 horas',semana:'até [dia da semana], fim desta semana'};
+  function gera(){
+    var abre=G.quem==='cliente'?'Oi, [nome]! Você é cliente da casa e quero que esse pedido saia.':'Oi, [nome]! Quero muito ter a [empresa dele] como parceira a longo prazo, então preparei algo para a sua primeira compra.';
+    var txt=abre+'\n\nConsegui liberar '+BEN[G.ben]+' '+COND[G.cond]+', '+PRAZO[G.prazo]+'.\n\nDepois desse prazo a condição volta ao normal. Te mando o pedido para confirmar?';
+    $('#g-msg').textContent=txt;
+    var al=''; if(G.quem==='cliente'&&(G.ben==='desc'||G.ben==='voucher')) al=G.ben==='voucher'?'Voucher de primeira compra é para lead, não para quem já é cliente.':'Desconto para cliente só com autorização do gestor ou dono, depois de entender a objeção.';
+    $('#g-al').textContent=al;
+  }
+  $$('.gera .pls').forEach(function(g){ g.addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b) return; $$('button',g).forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');}); G[g.dataset.g]=b.dataset.v; gera(); }); });
+  gera();
+
+  // ---------- copiar ----------
+  function copia(t,b){ var ok=function(){var h=b.innerHTML;b.textContent='Copiado!';setTimeout(function(){b.innerHTML=h;},1600);};
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok,function(){}); else { var a=document.createElement('textarea'); a.value=t; document.body.appendChild(a); a.select(); try{document.execCommand('copy');ok();}catch(e){} a.remove(); } }
+  $$('[data-copia]').forEach(function(b){ b.addEventListener('click',function(){ copia(b.parentNode.querySelector('blockquote').textContent.trim(),b); }); });
+  $('#g-cop').addEventListener('click',function(){ copia($('#g-msg').textContent,this); });
+  $('#imprimir').addEventListener('click',function(){ window.print(); });
+
+  // ---------- visualização ADM (logado como admin no workspace) ----------
+  function dt(x){ try{return new Date(x).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}catch(e){return '';} }
+  fetch('/api/material?a=adm&material='+MAT,{credentials:'same-origin',cache:'no-store'}).then(function(r){return r.json();}).then(function(r){
+    if(!r||!r.admin) return;
+    document.body.classList.add('modo-adm','liberado');
+    var visitante=false, el=document.createElement('section'); el.className='admbar'; el.setAttribute('aria-label','Visualização ADM');
+    var linhas=(r.ultimos||[]).map(function(x){ var w=String(x.whatsapp||'').replace(/\D/g,''); if(w.length>=10&&w.length<=11) w='55'+w;
+      return '<tr><td>'+dt(x.data)+'</td><td>'+esc(x.nome)+'</td><td><a href="/area/admin/#empresas/'+encodeURIComponent(x.slug||'')+'">'+esc(x.empresa)+'</a></td><td>'+(w?'<a href="https://wa.me/'+w+'" target="_blank" rel="noopener">'+esc(x.whatsapp)+'</a>':'')+'</td><td>'+esc(x.email)+'</td></tr>'; }).join('');
+    el.innerHTML='<div class="wrap"><div><span class="sel"><i></i>Visualização ADM</span><p class="tx">Você vê o kit completo porque está logado no workspace. O visitante precisa se cadastrar.</p></div>'+
+      '<div class="num2"><div><b>'+(r.total||0)+'</b><small>cadastros</small></div><div><b>'+(r.hoje||0)+'</b><small>hoje</small></div></div>'+
+      '<div class="acs"><button class="btn sm verde" type="button" data-adm="lista">Ver cadastros</button><button class="btn sm" type="button" data-adm="vis">Ver como visitante</button><a class="btn sm" href="/area/admin/#crm">Abrir CRM</a></div></div>'+
+      '<div class="wrap lista">'+(linhas?'<div class="rolar"><table><thead><tr><th>Quando</th><th>Nome</th><th>Empresa</th><th>WhatsApp</th><th>E-mail</th></tr></thead><tbody>'+linhas+'</tbody></table></div>':'<p class="vazio">Nenhum cadastro ainda.</p>')+'</div>';
+    var main=document.querySelector('main'); main.insertBefore(el,main.firstChild);
+    el.addEventListener('click',function(e){ var b=e.target.closest('[data-adm]'); if(!b) return;
+      if(b.dataset.adm==='lista'){ var a=el.classList.toggle('aberta'); b.textContent=a?'Fechar cadastros':'Ver cadastros'; }
+      if(b.dataset.adm==='vis'){ visitante=!visitante; document.body.classList.toggle('liberado',!visitante); b.textContent=visitante?'Ver como ADM':'Ver como visitante'; }
+    });
+  }).catch(function(){});
+})();
+</script>
+</body>
+</html>

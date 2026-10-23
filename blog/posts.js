@@ -52,6 +52,8 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
    - Vídeo:            [video](https://youtu.be/XXXXXXXXXXX)
                        [video: legenda do vídeo](https://youtu.be/XXXXXXXXXXX)
    - Link:             [texto do link](https://site.com)
+   - Banner de material (isca de lead), em um parágrafo só:
+     [material: Título | Texto | assets/foto.jpg | item 1; item 2; item 3 | Texto do botão](/pagina-do-material/)
    Capa: use  capa: "assets/foto.jpg"  ou  video: "link do YouTube"
    (o vídeo vira a capa do post e a miniatura aparece na lista).
    O post mais novo (pela data) aparece primeiro.
@@ -144,9 +146,9 @@ Como lembrar de todo mundo? De cada situação? Como separar os lotes? Por isso 
 
 ## O manual completo
 
-Organizei tudo isso num manual gratuito: os três casos com prints e áudios, cliente x lead, as duas zonas, a oferta com condicional, o calendário e um **plano de 7 dias** com checklist, auditoria de 30 conversas, calculadora do dinheiro parado e gerador de oferta.
+Organizei tudo isso num manual gratuito, para você ler hoje e aplicar com o time amanhã cedo.
 
-[Acesse o manual Orçamentos parados](https://sejaunique.vercel.app/orcamentos-parados/)
+[material: Onde está o seu cliente? | O manual completo para destravar os orçamentos parados e fechar o mês sem dar desconto para a multidão inteira. | assets/multidao.jpg | Os 3 casos reais, com prints e áudios; Cliente x lead e as duas zonas; Oferta com condicional e calendário comercial; Plano de 7 dias com checklist; Auditoria de 30 conversas, calculadora e gerador de oferta | Quero o manual](/orcamentos-parados/)
 `
   },
   {

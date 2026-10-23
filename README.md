@@ -7,6 +7,7 @@ Site oficial da Unique Consultoria Comercial e o Blog Seja Unique.
 - `blog/index.html`: layout do blog.
 - `blog/posts.js`: nome do blog, links e todos os posts.
 - `blog/assets/`: fotos dos posts.
+- Banner de material no meio do post (isca de lead): `[material: Título | Texto | assets/foto.jpg | item 1; item 2 | Texto do botão](/pagina/)` em um parágrafo só. Vira um cartão escuro com a foto, a lupa animada, a lista e o botão verde.
 
 Cada envio para a branch `main` é publicado automaticamente na Vercel.
 

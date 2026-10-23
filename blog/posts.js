@@ -68,8 +68,6 @@ window.POSTS = [
     categoria: "Estratégia",
     resumo: "51 orçamentos parados e uma semana para fechar o mês. Desconto para todo mundo é o caminho mais caro. Antes, supervisão, cliente x lead e oferta com condicional.",
     texto: `
-![Onde está o seu cliente? Foto: CHUTTERSNAP / Unsplash](assets/multidao.jpg)
-
 Essa semana recebi uma mensagem de um empresário:
 
 > "51 orçamentos em follow-up aqui e 1 semana para fechar o mês! Mando figurinha do gatinho? Qual a estratégia?"

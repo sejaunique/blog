@@ -59,11 +59,11 @@ def grade(d, i, n):
 
 def fecho(d, i, n):
     return (topo(i, n)
-            + '<div style="position:absolute;left:64px;right:64px;top:150px;height:640px;border-radius:30px;overflow:hidden"><img src="%s" style="width:100%%;height:100%%;object-fit:cover;object-position:%s"></div>' % (foto(d["img"]), d.get("pos", "center"))
-            + '<div style="position:absolute;left:64px;right:64px;top:830px"><div class="k" style="color:%s">%s</div><div class="A" style="font-size:%dpx;margin-top:18px">%s</div>'
+            + '<div style="position:absolute;left:64px;right:64px;top:150px;height:%dpx;border-radius:30px;overflow:hidden"><img src="%s" style="width:100%%;height:100%%;object-fit:cover;object-position:%s"></div>' % (d.get("foto_alt", 640), foto(d["img"]), d.get("pos", "center"))
+            + '<div style="position:absolute;left:64px;right:64px;top:%dpx"><div class="k" style="color:%s">%s</div><div class="A" style="font-size:%dpx;margin-top:18px">%s</div>'
               '<div style="font-size:28px;line-height:1.4;margin-top:20px;opacity:.85;max-width:900px">%s</div>'
               '<div style="margin-top:34px;display:inline-flex;align-items:center;gap:14px;background:%s;color:#0b0b0c;font-weight:800;font-size:28px;padding:18px 32px;border-radius:999px">%s →</div></div>'
-              % (VERDE, tx(d["kicker"]), d.get("tam", 96), tx(d["titulo"]), tx(d["texto"]), VERDE, tx(d["botao"]))
+              % (150 + d.get("foto_alt", 640) + 40, VERDE, tx(d["kicker"]), d.get("tam", 96), tx(d["titulo"]), tx(d["texto"]), VERDE, tx(d["botao"]))
             + barra(d.get("rodape", "sejaunique.vercel.app/blog · link na bio"), False))
 
 TIPOS = {"abertura": abertura, "grade": grade, "fecho": fecho}

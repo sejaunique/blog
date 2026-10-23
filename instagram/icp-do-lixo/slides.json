@@ -2,15 +2,54 @@
  "estilo": "editorial",
  "legenda": "Seu rolê não é para todo mundo. Mas todo mundo está chegando.\n\nEssa semana fui surpreendido pelo Túlio, empresário do digital. Cara sábio: ouvido atento, coração ensinável, pronto para reescrever o processo.\n\nO problema dele é o que todo mundo queria ter: lead demais. Ele não quer fechar tudo. Quer qualificar melhor e não perder tempo com quem não é cliente.\n\nA pergunta que eu fiz: você já fez o ICP do lixo? O de quem NÃO é o seu cliente?\n\nSem ele, você atende todo mundo tentando transformar curioso em cliente ideal.\n\nA estratégia: isca + IA + filtro por temperatura. Quem preenche a isca inteira e bate com o ICP é quente. Quem bate com o ICP do lixo recebe resposta automática.\n\n📌 Montei uma tarefa gratuita para você fazer o seu ICP e o seu ICP do lixo. Link na bio.\n\n#vendas #icp #qualificacao #leads #gestaocomercial #consultoriadevendas #sejaunique",
  "slides": [
-  {"tipo": "abertura", "img": "blog/assets/tulio.jpg", "pos": "center 18%", "kicker": "Case · Túlio, empresário do digital", "titulo": "Seu rolê não é para todo mundo. ==Mas todo mundo está chegando.==", "texto": "Lead demais não é problema de venda. É falta de filtro.", "tam": 96},
-  {"tipo": "grade", "escuros": true, "kicker": "A rede de proteção", "titulo": "Você já fez o\n==ICP do lixo?==", "tam": 104, "top": 420, "alt": 680,
+  {
+   "tipo": "abertura",
+   "img": "blog/assets/tulio.jpg",
+   "pos": "center 18%",
+   "kicker": "Case · Túlio, empresário do digital",
+   "titulo": "Seu rolê não é para todo mundo. ==Mas todo mundo está chegando.==",
+   "texto": "Lead demais não é problema de venda. É falta de filtro.",
+   "tam": 96
+  },
+  {
+   "tipo": "grade",
+   "escuros": true,
+   "kicker": "A rede de proteção",
+   "titulo": "Você já fez o\n==ICP do lixo?==",
+   "tam": 104,
+   "top": 420,
+   "alt": 680,
    "itens": [
-    {"titulo": "ICP certo", "texto": "Quem é o seu cliente. Com certeza."},
-    {"titulo": "ICP do lixo", "texto": "Quem não é. Para eliminar logo."},
-    {"titulo": "Isca", "texto": "Quem preenche tudo vai respeitar o processo."},
-    {"titulo": "IA + temperatura", "texto": "Quente, morno, frio. Atenda primeiro o quente."}
+    {
+     "titulo": "ICP certo",
+     "texto": "Quem é o seu cliente. Com certeza."
+    },
+    {
+     "titulo": "ICP do lixo",
+     "texto": "Quem não é. Para eliminar logo."
+    },
+    {
+     "titulo": "Isca",
+     "texto": "Quem preenche tudo vai respeitar o processo."
+    },
+    {
+     "titulo": "IA + temperatura",
+     "texto": "Quente, morno, frio. Atenda primeiro o quente."
+    }
    ],
-   "nota": "Não é atender menos. É atender ==primeiro quem importa.=="},
-  {"tipo": "fecho", "img": "blog/assets/tulio-selfie.jpg", "pos": "center 35%", "kicker": "Tarefa gratuita", "titulo": "Faça o seu ICP\ne o seu ICP do lixo", "texto": "Com o termômetro de leads e o texto pronto para colar na IA do seu atendimento.", "botao": "Link na bio", "rodape": "sejaunique.vercel.app/icp", "tam": 90}
+   "nota": "Não é atender menos. É atender ==primeiro quem importa.=="
+  },
+  {
+   "tipo": "fecho",
+   "img": "blog/assets/tulio-selfie.jpg",
+   "pos": "center 24%",
+   "kicker": "Tarefa gratuita",
+   "titulo": "Faça o seu ICP\ne o seu ICP do lixo",
+   "texto": "Com o termômetro de leads e o texto pronto para a IA.",
+   "botao": "Link na bio",
+   "rodape": "sejaunique.vercel.app/icp",
+   "tam": 78,
+   "foto_alt": 720
+  }
  ]
 }

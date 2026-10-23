@@ -201,6 +201,8 @@ def gerar(slug):
     dados = json.load(open(os.path.join(pasta, "slides.json")))
     slides = dados["slides"]; n = len(slides)
     pan = dados["panorama"]
+    global ARROBA
+    ARROBA = dados.get("arroba", ARROBA)
     ctx = {"foto": pan["foto"], "larg": pan.get("largura", 2700), "x0": pan.get("x0", 0), "y0": pan.get("y0", 0)}
     css = CSS % {"f1": fonte("Montserrat[wght].ttf"), "f2": fonte("Montserrat-Italic[wght].ttf")}
     for f in os.listdir(pasta):

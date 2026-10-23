@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inscrição no evento · Unique Consultoria Comercial</title>
+<meta name="description" content="Faça sua inscrição e receba o link do Google Meet para participar do evento ao vivo da Unique.">
+<meta property="og:title" content="Evento ao vivo · Unique Consultoria Comercial">
+<meta property="og:description" content="Vagas por inscrição. O link do Meet é liberado só para quem se cadastra.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:image" content="https://sejaunique.vercel.app/assets/og-site.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#000000">
+<script src="/assets/tema.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+/* Página de inscrição em evento — a mesma página para todo evento; o banner vem de /api/_eventos.js */
+.ev{--ev-bg:var(--marinho,#0b1f4b);--ev-fg:#fff;--ev-sub:rgba(255,255,255,.74);--ev-acento:var(--verde,#00e676)}
+.ev[data-cor="magenta"]{--ev-bg:var(--magenta,#e6007e);--ev-acento:#fff}
+.ev[data-cor="verde"]{--ev-bg:var(--verde,#00e676);--ev-fg:#0a0a0a;--ev-sub:rgba(10,10,10,.72);--ev-acento:#0a0a0a}
+.ev[data-cor="preto"]{--ev-bg:#0a0a0a;--ev-acento:var(--verde,#00e676)}
+
+/* banner */
+.banner{background:var(--ev-bg);color:var(--ev-fg);position:relative;overflow:hidden;padding:72px 0 88px}
+.banner.com-img{background-size:cover;background-position:center}
+.banner.com-img::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.55) 55%,rgba(0,0,0,.2) 100%)}
+.banner .grade-ev{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:calc(100%/12) 100%,calc(100%/12) 100%;pointer-events:none}
+.banner-in{position:relative;z-index:1;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:start}
+.selo{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;font-weight:800;letter-spacing:.3em;text-transform:uppercase;border:2px solid currentColor;border-radius:999px;padding:9px 16px}
+.selo i{width:8px;height:8px;border-radius:50%;background:var(--ev-acento);animation:pisca 1.8s ease-in-out infinite}
+@keyframes pisca{50%{opacity:.25}}
+.banner h1{font-size:clamp(2.6rem,6.4vw,5.4rem);line-height:.98;font-weight:900;letter-spacing:-.045em;margin:28px 0 0}
+.banner h1 em{display:block;font-style:italic;font-weight:200}
+.banner .sub{font-size:1.12rem;line-height:1.55;font-weight:500;color:var(--ev-sub);max-width:52ch;margin:24px 0 0}
+.quando{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
+.quando span{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:12px 16px;font-weight:700;font-size:.98rem}
+.ev[data-cor="verde"] .quando span{background:rgba(10,10,10,.08);border-color:rgba(10,10,10,.18)}
+.quando svg{width:20px;height:20px;flex:none}
+.vagas{margin-top:22px;font-weight:700;font-size:.9rem;display:flex;gap:10px;align-items:center;color:var(--ev-sub)}
+.vagas svg{width:18px;height:18px;color:var(--ev-acento)}
+
+/* formulário */
+.form-card{background:#fff;color:#0a0a0a;border-radius:28px;padding:34px 30px;box-shadow:0 30px 80px rgba(0,0,0,.28);position:relative}
+.form-card h2{font-size:1.65rem;font-weight:900;letter-spacing:-.03em;line-height:1.1;margin:0}
+.form-card h2 span{font-weight:300;font-style:italic}
+.form-card .lead{margin:10px 0 22px;color:#4a4a52;font-size:.95rem;line-height:1.5}
+.campo{display:grid;gap:6px;margin-bottom:14px}
+.campo label{font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#2e2e33}
+.campo small{font-size:.78rem;color:#6b6b72;font-weight:500}
+.campo input{font:inherit;font-size:1rem;font-weight:500;color:#0a0a0a;background:#f6f6f8;border:2px solid #e2e2e8;border-radius:14px;padding:14px 16px;width:100%;outline:none;transition:border-color .15s,box-shadow .15s}
+.campo input:focus{border-color:#0a0a0a;background:#fff;box-shadow:0 0 0 4px rgba(10,10,10,.08)}
+.campo input[aria-invalid="true"]{border-color:#e6007e}
+.dupla{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.isca{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+.enviar{font:inherit;width:100%;margin-top:6px;font-size:1.08rem;font-weight:800;cursor:pointer;background:#0a0a0a;color:#fff;border:0;border-radius:999px;padding:18px 26px;display:flex;align-items:center;justify-content:center;gap:12px;transition:transform .15s}
+.enviar:hover{transform:translateY(-2px)}
+.enviar:disabled{opacity:.6;transform:none;cursor:wait}
+.enviar svg{width:20px;height:20px}
+.msg{margin:12px 0 0;font-weight:700;font-size:.92rem;color:#c2006a}.msg:empty{display:none}
+.aviso-news{display:flex;gap:12px;align-items:flex-start;background:#eafff3;border:1px solid #b7f5d2;border-radius:16px;padding:12px 14px;margin-top:16px;font-size:.84rem;line-height:1.45;color:#14532d}
+.aviso-news svg{width:20px;height:20px;flex:none;margin-top:1px;color:#0a8a43}
+.aceite{display:flex;gap:10px;align-items:flex-start;margin:4px 0 14px;font-size:.8rem;line-height:1.45;color:#4a4a52;cursor:pointer}
+.aceite input{width:20px;height:20px;flex:none;margin:1px 0 0;accent-color:#0a0a0a}
+.aceite a{color:#0a0a0a;font-weight:700}
+.adm{position:fixed;left:16px;right:16px;bottom:16px;z-index:60;max-width:760px;margin:0 auto;background:#0a0a0a;color:#fff;border-radius:18px;padding:14px 18px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;box-shadow:0 18px 50px rgba(0,0,0,.35);font-size:.9rem}
+.adm b{color:#00e676;font-size:1.1rem}
+.adm a{color:#0a0a0a;background:#00e676;border-radius:999px;padding:8px 14px;font-weight:800;text-decoration:none}
+.adm a.sec{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
+.adm .x{margin-left:auto;background:none;border:0;color:#fff;font-size:1.3rem;cursor:pointer;line-height:1}
+.trava{display:flex;gap:10px;align-items:center;margin-top:12px;font-size:.8rem;color:#6b6b72;font-weight:600}
+.trava svg{width:16px;height:16px;flex:none}
+
+/* depois do cadastro */
+.ok{text-align:left}
+.ok .tique{width:56px;height:56px;border-radius:50%;background:#00e676;color:#0a0a0a;display:grid;place-items:center;margin-bottom:18px}
+.ok .tique svg{width:28px;height:28px}
+.ok h2{margin-bottom:8px}
+.ok p{color:#4a4a52;line-height:1.55;margin:0 0 18px}
+.meet{display:flex;align-items:center;justify-content:center;gap:12px;background:#00e676;color:#0a0a0a;font-weight:900;font-size:1.12rem;border-radius:999px;padding:18px 24px;text-decoration:none;transition:transform .15s}
+.meet:hover{transform:translateY(-2px)}
+.meet svg{width:22px;height:22px}
+.link-txt{display:block;margin-top:10px;font-size:.85rem;color:#4a4a52;word-break:break-all;text-align:center}
+.agenda{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:12px;border:2px solid #0a0a0a;color:#0a0a0a;border-radius:999px;padding:14px 20px;font-weight:800;text-decoration:none}
+.agenda svg{width:18px;height:18px}
+
+/* conteúdo */
+.bloco{padding-block:96px}
+.bloco h2.t{font-size:clamp(2rem,4vw,3rem);font-weight:900;letter-spacing:-.04em;line-height:1.02;margin:0 0 40px}
+.bloco h2.t em{font-weight:200;font-style:italic}
+.aprende{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;list-style:none;padding:0;margin:0}
+.aprende li{display:flex;gap:16px;align-items:flex-start;border:1px solid var(--line,#e4e4e7);border-radius:20px;padding:24px;font-weight:700;font-size:1.06rem;line-height:1.4;background:var(--card,#fff)}
+.aprende li b{font-size:.8rem;font-weight:900;color:var(--marinho-txt,var(--marinho,#0b1f4b));min-width:28px;padding-top:3px}
+.passos-ev{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;counter-reset:p}
+.passos-ev div{border-top:3px solid var(--fg,#0a0a0a);padding-top:20px}
+.passos-ev div::before{counter-increment:p;content:"0" counter(p);display:block;font-size:2.4rem;font-weight:900;letter-spacing:-.04em;margin-bottom:8px}
+.passos-ev h3{margin:0 0 6px;font-size:1.15rem;font-weight:800}
+.passos-ev p{margin:0;color:var(--muted,#5e5e66);line-height:1.5}
+.cta-vaga{margin-top:40px}
+
+/* banners: diagnóstico + Alda.CRM */
+.diag{background:#0a0a0a;color:#fff;padding-block:64px}
+.diag-in{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
+.diag h2{margin:0 0 10px;font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:900;letter-spacing:-.035em;line-height:1.04}
+.diag h2 span{font-weight:200;font-style:italic;color:#00e676}
+.diag p{margin:0;color:rgba(255,255,255,.72);max-width:58ch;line-height:1.55}
+.diag .btn{background:#00e676;color:#0a0a0a;border-color:#00e676;font-weight:900}
+.alda{padding-block:0;background:#fff;border-top:1px solid #e4e4e7;color:#2e2e2e;overflow:hidden}
+.alda-in{display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:center;padding-block:44px}
+.alda-pato{width:110px;height:auto;align-self:end;margin-bottom:-44px}
+.alda h2{margin:0 0 8px;font-size:clamp(1.6rem,3vw,2.3rem);font-weight:900;letter-spacing:-.035em;line-height:1.05;color:#2e2e2e}
+.alda h2 span{font-weight:300;font-style:italic}
+.alda p{margin:0;max-width:60ch;color:#4a4a4a}
+.alda-bts{display:grid;gap:10px}
+.alda-bt{background:#2e2e2e;color:#fff;border-color:#2e2e2e}
+.alda-bt2{color:#2e2e2e;border-color:#2e2e2e}
+
+.carregando .banner h1,.carregando .banner .sub,.carregando .quando{visibility:hidden}
+
+@media (max-width:1000px){
+  .banner-in{grid-template-columns:1fr;gap:40px}
+  .banner{padding:52px 0 60px}
+  .diag-in,.alda-in{grid-template-columns:1fr}
+  .alda-pato{display:none}
+}
+@media (max-width:640px){
+  .bloco{padding-block:72px}
+  .aprende,.passos-ev{grid-template-columns:1fr}
+  .dupla{grid-template-columns:1fr}
+  .form-card{padding:28px 20px;border-radius:24px}
+}
+</style>
+</head>
+<body data-casco="evento">
+<script src="/assets/casco.js"></script>
+<main class="ev carregando" id="ev" data-cor="marinho">
+
+<section class="banner" id="banner" aria-labelledby="ev-titulo">
+  <div class="grade-ev" aria-hidden="true"></div>
+  <div class="wrap banner-in">
+    <div>
+      <span class="selo"><i></i><span id="ev-tipo">Evento ao vivo</span></span>
+      <h1 id="ev-titulo"><span id="ev-t1">Carregando</span> <em id="ev-t2">o evento…</em></h1>
+      <p class="sub" id="ev-sub"></p>
+      <div class="quando" id="ev-quando"></div>
+      <p class="vagas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>O link do Meet é liberado só para quem faz o cadastro.</p>
+    </div>
+
+    <div class="form-card" id="cadastro">
+      <div id="form-area">
+        <h2>Garanta sua vaga <span>agora.</span></h2>
+        <p class="lead">Preencha os dados abaixo. Assim que terminar, o link para entrar no Google Meet aparece aqui na tela.</p>
+        <form id="f" novalidate>
+          <div class="campo"><label for="nome">Seu nome</label>
+            <input id="nome" name="nome" autocomplete="name" maxlength="80" required></div>
+          <div class="dupla">
+            <div class="campo"><label for="whatsapp">WhatsApp</label>
+              <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(62) 99999-9999" maxlength="16" required></div>
+            <div class="campo"><label for="nomeWhats">Nome no WhatsApp</label>
+              <input id="nomeWhats" name="nomeWhats" maxlength="60" required></div>
+          </div>
+          <div class="campo"><label for="empresa">Nome da empresa</label>
+            <input id="empresa" name="empresa" autocomplete="organization" maxlength="100" required></div>
+          <div class="campo"><label for="email">E-mail</label>
+            <input id="email" name="email" type="email" autocomplete="email" maxlength="120" required></div>
+          <label class="aceite"><input type="checkbox" name="aceite" required><span>Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a <a href="/privacidade/" target="_blank" rel="noopener">Política de Privacidade</a>. Posso cancelar quando quiser.</span></label>
+          <input class="isca" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="enviar" type="submit">Quero participar
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <p class="msg" id="msg" role="status" aria-live="polite"></p>
+          <div class="aviso-news">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>Ao se inscrever, você também entra na <b>Newsletter Unique</b> e recebe os posts novos do blog no seu e-mail. Dá para sair quando quiser, com um clique.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bloco">
+  <div class="wrap">
+    <span class="spaced" style="display:block;margin-bottom:14px">O que você vai levar</span>
+    <h2 class="t">Conteúdo prático, <em>para usar no dia seguinte.</em></h2>
+    <ul class="aprende" id="ev-aprende"></ul>
+  </div>
+</section>
+
+<section class="bloco" style="padding-top:0">
+  <div class="wrap">
+    <span class="spaced" style="display:block;margin-bottom:14px">Como participar</span>
+    <h2 class="t">Três passos <em>e você está dentro.</em></h2>
+    <div class="passos-ev">
+      <div><h3>Faça o cadastro</h3><p>Nome, WhatsApp, empresa e e-mail. Leva menos de um minuto.</p></div>
+      <div><h3>Receba o link</h3><p>O link do Google Meet aparece na tela logo depois do cadastro. Salve na sua agenda.</p></div>
+      <div><h3>Entre ao vivo</h3><p>No dia e horário marcados, clique no link e participe com a câmera ou só ouvindo.</p></div>
+    </div>
+    <a class="btn cta-vaga" href="#cadastro">Garantir minha vaga <i class="ic" style="--i:var(--ic-seta-up)"></i></a>
+  </div>
+</section>
+
+<section class="diag" aria-labelledby="h-diag">
+  <div class="wrap diag-in">
+    <div>
+      <span class="spaced" style="display:block;margin-bottom:10px;color:rgba(255,255,255,.6)">Diagnóstico comercial</span>
+      <h2 id="h-diag">Onde o seu comercial <span>está travando?</span></h2>
+      <p>Responda o diagnóstico gratuito da Unique e descubra em minutos quais pilares da sua operação de vendas pedem atenção primeiro.</p>
+    </div>
+    <a class="btn" href="/diagnostico/">Fazer meu diagnóstico <i class="ic" style="--i:var(--ic-seta)"></i></a>
+  </div>
+</section>
+
+<section class="alda" aria-labelledby="h-alda">
+  <div class="wrap alda-in">
+    <img class="alda-pato" src="/diagnostico/relatorio/alda-pato.png" alt="" width="134" height="238" loading="lazy">
+    <div class="alda-tx">
+      <span class="spaced" style="display:block;margin-bottom:10px;color:#5e5e66">Alda.CRM</span>
+      <h2 id="h-alda">Atendimento e CRM <span>em um só lugar.</span></h2>
+      <p>WhatsApp, funil de vendas e follow-up organizados numa plataforma feita para quem vende pelo WhatsApp. A ferramenta que a Unique usa para tirar o plano do papel.</p>
+    </div>
+    <div class="alda-bts">
+      <a class="btn alda-bt" href="https://aldacrm.com" target="_blank" rel="noopener">Conhecer o Alda.CRM <i class="ic" style="--i:var(--ic-seta-up)"></i></a>
+      <a class="btn alda-bt2" href="https://wa.me/5511920781458?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Unique%20e%20quero%20conhecer%20o%20Alda.CRM." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Falar com o Alda</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function(){
+  var main=document.getElementById('ev'), slug=new URLSearchParams(location.search).get('e')||'';
+  var ev=null, CHAVE='unique-evento:';
+  var IC={
+    cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>',
+    rel:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+    cam:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3"/></svg>',
+    ok:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>'
+  };
+  var esc=function(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); };
+  var $=function(id){ return document.getElementById(id); };
+
+  function dataBR(iso){
+    if(!iso) return '';
+    var p=iso.split('-'), d=new Date(+p[0],+p[1]-1,+p[2]);
+    var dias=['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
+    var meses=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+    return dias[d.getDay()]+', '+d.getDate()+' de '+meses[d.getMonth()];
+  }
+  function agendaURL(meet){
+    if(!ev.data||!ev.hora) return '';
+    var ini=new Date(ev.data+'T'+ev.hora+':00-03:00');
+    var m=String(ev.duracao||'1h').match(/(\d+)h(\d*)/), min=m?(+m[1]*60+(+m[2]||0)):60;
+    var fim=new Date(ini.getTime()+min*60000);
+    var f=function(d){ return d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,''); };
+    return 'https://calendar.google.com/calendar/render?action=TEMPLATE'+
+      '&text='+encodeURIComponent(ev.tipo+' · Unique')+
+      '&dates='+f(ini)+'/'+f(fim)+
+      '&details='+encodeURIComponent('Link do Google Meet: '+meet)+
+      '&location='+encodeURIComponent(meet);
+  }
+
+  function pinta(){
+    document.title=ev.tipo+' · Inscrição · Unique';
+    main.setAttribute('data-cor',ev.cor||'marinho');
+    $('ev-tipo').textContent=ev.tipo;
+    $('ev-t1').textContent=ev.titulo;
+    $('ev-t2').textContent=ev.tituloFino||'';
+    $('ev-sub').textContent=ev.subtitulo||'';
+    var q='';
+    if(ev.data) q+='<span>'+IC.cal+esc(dataBR(ev.data))+'</span>';
+    if(ev.hora) q+='<span>'+IC.rel+esc(ev.hora.replace(':','h'))+(ev.duracao?' · '+esc(ev.duracao):'')+'</span>';
+    if(ev.formato) q+='<span>'+IC.cam+esc(ev.formato)+'</span>';
+    $('ev-quando').innerHTML=q;
+    if(ev.banner){ var b=$('banner'); b.classList.add('com-img'); b.style.backgroundImage='url("'+ev.banner.replace(/"/g,'')+'")'; }
+    $('ev-aprende').innerHTML=(ev.aprende||[]).map(function(t,i){ return '<li><b>0'+(i+1)+'</b><span>'+esc(t)+'</span></li>'; }).join('');
+    main.classList.remove('carregando');
+  }
+
+  function liberado(meet,nome,ja){
+    if(!meet){
+      $('form-area').innerHTML='<div class="ok"><div class="tique">'+IC.ok+'</div>'+
+        '<h2>'+(ja?'Você já está inscrito!':'Vaga garantida!')+'</h2>'+
+        '<p>'+(nome?esc(nome.split(' ')[0])+', sua':'Sua')+' inscrição está confirmada. O link do Google Meet é liberado <b>aqui nesta página</b> antes do evento: é só voltar por este mesmo link.</p></div>';
+      return;
+    }
+    var ag=agendaURL(meet);
+    $('form-area').innerHTML='<div class="ok"><div class="tique">'+IC.ok+'</div>'+
+      '<h2>'+(ja?'Você já está inscrito!':'Vaga garantida!')+'</h2>'+
+      '<p>'+(nome?esc(nome.split(' ')[0])+', aqui':'Aqui')+' está o seu acesso ao '+esc(ev.tipo.toLowerCase())+'. Salve o link e entre no horário marcado.</p>'+
+      '<a class="meet" href="'+esc(meet)+'" target="_blank" rel="noopener">'+IC.cam+'Entrar no Google Meet</a>'+
+      '<span class="link-txt">'+esc(meet)+'</span>'+
+      (ag?'<a class="agenda" href="'+esc(ag)+'" target="_blank" rel="noopener">'+IC.cal+'Salvar na minha agenda</a>':'')+
+      '</div>';
+  }
+
+  // barra do Carlos (só aparece com a sessão de admin do workspace)
+  function adm(){
+    fetch('/api/evento?a=adm&e='+encodeURIComponent(ev.slug),{credentials:'same-origin'})
+      .then(function(r){ return r.json(); })
+      .then(function(r){
+        if(!r||!r.admin) return;
+        var d=document.createElement('div'); d.className='adm';
+        d.innerHTML='<span>Inscritos: <b>'+r.total+'</b> · hoje: <b>'+r.hoje+'</b></span>'+
+          '<a href="/api/evento?a=csv&e='+encodeURIComponent(ev.slug)+'">Baixar planilha</a>'+
+          (r.meet?'<a class="sec" href="'+esc(r.meet)+'" target="_blank" rel="noopener">Abrir o Meet</a>':'<span style="color:#ffb3d9">Falta o link do Meet em api/_eventos.js</span>')+
+          '<button class="x" type="button" aria-label="Fechar">×</button>';
+        d.querySelector('.x').onclick=function(){ d.remove(); };
+        document.body.appendChild(d);
+      }).catch(function(){});
+  }
+
+  // máscara do WhatsApp
+  var w=$('whatsapp');
+  w.addEventListener('input',function(){
+    var d=w.value.replace(/\D/g,'').slice(0,11), r=d;
+    if(d.length>2) r='('+d.slice(0,2)+') '+d.slice(2);
+    if(d.length>7) r='('+d.slice(0,2)+') '+d.slice(2,d.length-4)+'-'+d.slice(-4);
+    w.value=r;
+  });
+
+  var f=$('f'), msg=$('msg'), bt=f.querySelector('.enviar');
+  function erro(campo,t){ msg.textContent=t; if(campo){ campo.setAttribute('aria-invalid','true'); campo.focus(); } }
+  f.addEventListener('input',function(e){ e.target.removeAttribute('aria-invalid'); });
+  f.addEventListener('submit',function(e){
+    e.preventDefault(); msg.textContent='';
+    var d={a:'inscrever',aceite:f.aceite.checked,e:ev&&ev.slug, nome:f.nome.value.trim(), whatsapp:f.whatsapp.value.replace(/\D/g,''), nomeWhats:f.nomeWhats.value.trim(), empresa:f.empresa.value.trim(), email:f.email.value.trim(), site:f.site.value};
+    if(d.nome.length<2) return erro(f.nome,'Informe o seu nome.');
+    if(d.whatsapp.length<10) return erro(f.whatsapp,'Confira o seu WhatsApp com DDD.');
+    if(!d.nomeWhats) return erro(f.nomeWhats,'Informe o nome que aparece no seu WhatsApp.');
+    if(!d.empresa) return erro(f.empresa,'Informe o nome da empresa.');
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)) return erro(f.email,'Confira o seu e-mail.');
+    if(!d.aceite) return erro(f.aceite,'Para se inscrever, marque que concorda em receber os conteúdos e com a LGPD.');
+    bt.disabled=true; msg.textContent='Enviando…';
+    fetch('/api/evento',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})
+      .then(function(r){ return r.json().catch(function(){ return {}; }); })
+      .then(function(r){
+        if(!r||!r.ok){ bt.disabled=false; msg.textContent=(r&&r.erro)||'Não deu certo agora. Tente de novo em instantes.'; return; }
+        try{ var g=Object.assign({},d); delete g.site; localStorage.setItem(CHAVE+ev.slug,JSON.stringify({meet:r.meet,nome:d.nome,dados:g})); }catch(_){}
+        liberado(r.meet,d.nome,r.ja);
+      })
+      .catch(function(){ bt.disabled=false; msg.textContent='Sem conexão. Tente de novo.'; });
+  });
+
+  fetch('/api/evento'+(slug?'?e='+encodeURIComponent(slug):''))
+    .then(function(r){ return r.json(); })
+    .then(function(r){
+      if(!r.ok) throw 0;
+      ev=r.evento; pinta();
+      if(!ev.ativo) $('form-area').innerHTML='<h2>Inscrições <span>encerradas.</span></h2><p class="lead">Este evento já não recebe inscrições. Fale com a gente pelo WhatsApp para saber do próximo.</p>';
+      adm();
+      try{
+        var s=JSON.parse(localStorage.getItem(CHAVE+ev.slug)||'null');
+        if(s&&s.meet) liberado(s.meet,s.nome,true);
+        else if(s&&s.dados){
+          liberado('',s.nome,true);
+          // já inscrito e o link ainda não tinha saído: confere de novo se foi liberado
+          fetch('/api/evento',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({},s.dados,{silencioso:true}))})
+            .then(function(r){ return r.json(); })
+            .then(function(r){ if(r&&r.ok&&r.meet){ s.meet=r.meet; try{ localStorage.setItem(CHAVE+ev.slug,JSON.stringify(s)); }catch(_){} liberado(r.meet,s.nome,true); } })
+            .catch(function(){});
+        }
+      }catch(_){}
+    })
+    .catch(function(){
+      main.classList.remove('carregando');
+      $('ev-t1').textContent='Evento não encontrado.'; $('ev-t2').textContent='Confira o link que você recebeu.';
+      $('form-area').innerHTML='<h2>Inscrições fechadas</h2><p class="lead">Este evento não está com inscrições abertas. Fale com a gente pelo WhatsApp para saber do próximo.</p>';
+    });
+})();
+</script>
+</body>
+</html>

@@ -126,3 +126,10 @@ Mesma conexão do Google Agenda, com a permissão do Drive (app Interno da sejau
 - Envio: pelo Gmail da conta Google conectada no workspace (escopo `gmail.send`; ative a Gmail API no Google Cloud e reconecte o Google). Cada post novo em `blog/posts.js` (data dos últimos 10 dias) vira um e-mail dedicado, com link de cancelar inscrição.
 - Gatilhos: toda visita ao blog chama `?a=verificar`; cron diário na Vercel (`vercel.json`); botão "Verificar e enviar agora" no admin. Na primeira verificação, os posts que já existem são só marcados (ninguém recebe post antigo).
 - Admin: menu **Newsletter** em `/area/admin/` (assinantes, fila, envios, teste, CSV).
+
+## Eventos ao vivo (treinamentos, workshops, palestras)
+
+- `evento/index.html`: página única de inscrição (https://sejaunique.vercel.app/evento/?e=<slug>). Sem `?e=` abre o evento marcado como ativo.
+- `api/_eventos.js`: **é aqui que se troca o evento**: tipo (etiqueta do banner), título, subtítulo, data, hora, cor, imagem opcional do banner, lista "o que você vai levar", `ativo` (false fecha as inscrições) e o link do Meet.
+- `api/evento.js`: grava a inscrição (`ev:insc:<slug>`), cria o lead no CRM com a etiqueta do evento, inscreve na newsletter, avisa no app e devolve o link do Meet. O link nunca aparece no código da página: só sai do servidor depois do cadastro. Se o link ainda estiver vazio, a pessoa fica confirmada e o link aparece sozinho quando ela volta à página.
+- Logado no workspace, o Carlos vê na página uma barra com o total de inscritos e o botão "Baixar planilha" (`/api/evento?a=csv&e=<slug>`).

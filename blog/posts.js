@@ -62,6 +62,7 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 window.POSTS = [
   {
     slug: "icp-do-lixo",
+    capa: "assets/capa-icp-do-lixo.jpg",
     titulo: "Seu rolê não é para todo mundo. ==Mas todo mundo está chegando.==",
     data: "2026-10-23",
     categoria: "Estratégia",
@@ -76,6 +77,8 @@ O problema dele é o problema que todo mundo queria ter: ==muita demanda==.
 Só que ele não quer fechar tudo. Ele quer qualificar cada vez melhor, fechar com eficiência e, principalmente, **não perder tempo com quem não é cliente dele**.
 
 Ele já entendeu que o rolê dele não é para todo mundo. O problema é que todo mundo está chegando para o rolê dele.
+
+![Eu, o Túlio e o time, no meio da conversa.](assets/tulio-selfie.jpg)
 
 ## Primeiro: uma rede de proteção mais forte
 

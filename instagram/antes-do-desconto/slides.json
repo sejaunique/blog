@@ -1,142 +1,185 @@
 {
- "legenda": "\"51 orçamentos em follow-up e 1 semana para fechar o mês. Mando figurinha do gatinho?\"\n\nRecebi essa mensagem de um empresário essa semana. No mesmo dia, outra empresa queria lançar desconto na segunda para salvar o mês.\n\nPromoção no fim do mês não é errado. Errado é dar desconto para todo mundo: você dá a mão e logo vão querer o braço.\n\nAntes do desconto:\n1. Supervisão: leia 30 conversas do seu time hoje\n2. Separe cliente de lead\n3. Cliente travado: ligue, entenda a objeção, o gestor decide\n4. Lead travado: case do segmento, prova, voucher e opção de entrada\n5. Toda oferta com condicional: benefício + condição + prazo\n6. Calendário comercial para não chegar desesperado na última semana\n\nE a cenoura certa para o time: R$ 100 por pedido fechado virou R$ 55.000 vendidos em um dia.\n\n📌 O texto completo está no blog. E o manual com o plano de 7 dias, checklist, calculadora e gerador de oferta é exclusivo para cadastrados. Comente MANUAL ou acesse pelo link na bio.\n\n#vendas #gestaocomercial #empresarios #crm #fechamentodemes #consultoriadevendas #sejaunique",
+ "estilo": "lupa",
+ "legenda": "\"51 orçamentos em follow-up e 1 semana para fechar o mês. Mando figurinha do gatinho?\"\n\nRecebi essa mensagem de um empresário essa semana. No mesmo dia, outra empresa queria lançar desconto na segunda para salvar o mês.\n\nPromoção no fim do mês não é errado. Errado é dar desconto para todo mundo: você dá a mão e logo vão querer o braço.\n\nAntes do desconto:\n1. Supervisão: leia 30 conversas do seu time hoje\n2. Separe cliente de lead\n3. Cliente travado: ligue, entenda a objeção, o gestor decide\n4. Lead travado: case do segmento, prova, voucher e opção de entrada\n5. Toda oferta com condicional: benefício + condição + prazo\n6. Calendário comercial para não chegar desesperado na última semana\n\nE a cenoura certa para o time: R$ 100 por pedido fechado virou R$ 55.000 vendidos em um dia.\n\nAchou o seu cliente na multidão? 🔍\n\n📌 O texto completo está no blog. E o manual com o plano de 7 dias, checklist, calculadora e gerador de oferta é exclusivo para cadastrados. Comente MANUAL ou acesse pelo link na bio.\n\n#vendas #gestaocomercial #empresarios #crm #fechamentodemes #consultoriadevendas #sejaunique",
+ "panorama": {
+  "foto": "orcamentos-parados/midia/multidao.jpg",
+  "largura": 2700,
+  "x0": 540,
+  "y0": 150
+ },
  "slides": [
   {
-   "tipo": "capa",
-   "selo": "Fim de mês",
-   "nome": "Orçamentos parados",
-   "local": "1 semana para fechar o mês",
-   "img": "blog/assets/carlos-ligacao-4x5.jpg",
-   "pos": "center 25%",
-   "destaque": "51",
-   "destaque_tx": "orçamentos parados\nem follow-up",
-   "titulo": "Antes do desconto,\n//--separe quem é quem.--//",
-   "texto": "Desconto para todo mundo é o ==caminho mais caro== para fechar o mês.",
-   "tam": 84
-  },
-  {
-   "tipo": "frase",
-   "icone": "users",
-   "texto": "Seu vendedor\nnão ama o seu\nnegócio.\n//--Ele não vai\ndar 110%.--//",
-   "assina": "Carlos Ribeiro",
-   "mascote": true,
-   "tam": 90
-  },
-  {
-   "tipo": "lista",
-   "selo": "O dinheiro parado",
-   "titulo": "Atendimento\n//--mal feito.--//",
-   "tam": 104,
-   "itens": [
+   "tipo": "panorama",
+   "parte": 0,
+   "lupa": [
+    1254,
+    678
+   ],
+   "etiquetas": [
     {
-     "icone": "message-circle",
-     "cor": "magenta",
-     "titulo": "“Qualquer coisa me chama”",
-     "texto": "O cliente gostou e ficou no vácuo"
-    },
-    {
-     "icone": "repeat",
-     "cor": "claro",
-     "titulo": "A mesma mensagem",
-     "texto": "Que ninguém responde, de novo e de novo"
-    },
-    {
-     "icone": "eye",
-     "cor": "marinho",
-     "titulo": "Ninguém olhando",
-     "texto": "Supervisão frouxa, resultado em queda"
+     "tipo": "cli",
+     "txt": "Achei: cliente!",
+     "xy": [
+      1254,
+      470
+     ]
     }
    ],
-   "nota": "Desafio de hoje: leia ==30 conversas==\ndo seu time."
+   "kicker": "51 orçamentos parados · 1 semana",
+   "titulo": "Onde está\no seu cliente?",
+   "texto": "Arraste e procure.",
+   "tam": 138,
+   "base": 170
   },
   {
-   "tipo": "versus",
-   "titulo": "Cliente ou lead?\n//Cada um, uma ação.//",
-   "antes": {
-    "selo": "Cliente · zona de perigo",
-    "titulo": "Ligue.\n--Não mande “e aí?”--",
-    "texto": "Entenda a objeção e o histórico. Desconto só se o gestor ou o dono autorizar."
+   "tipo": "panorama",
+   "parte": 1,
+   "etiquetas": [
+    {
+     "txt": "lead",
+     "xy": [
+      1800,
+      360
+     ]
+    },
+    {
+     "txt": "lead",
+     "xy": [
+      2150,
+      300
+     ]
+    },
+    {
+     "txt": "lead?",
+     "xy": [
+      2480,
+      420
+     ]
+    },
+    {
+     "txt": "lead",
+     "xy": [
+      1950,
+      640
+     ]
+    },
+    {
+     "txt": "cliente?",
+     "xy": [
+      2330,
+      720
+     ]
+    },
+    {
+     "txt": "lead",
+     "xy": [
+      1760,
+      860
+     ]
+    },
+    {
+     "txt": "lead",
+     "xy": [
+      2560,
+      820
+     ]
+    }
+   ],
+   "titulo": "De longe, todo\nmundo parece //igual.//",
+   "texto": "E vem a tentação: mandar desconto para a multidão inteira.",
+   "tam": 104,
+   "base": 170
+  },
+  {
+   "tipo": "dupla",
+   "titulo": "Antes do desconto, separe quem é quem.",
+   "cima": {
+    "selo": "Já comprou de você",
+    "palavra": "Cliente.",
+    "texto": "Tem intimidade. É o primo querido que toca a campainha sem avisar."
    },
-   "depois": {
-    "selo": "Lead · gerar confiança",
-    "titulo": "Prove\n++antes de vender.++",
-    "texto": "Case do mesmo segmento, amostra, voucher de 1ª compra e uma opção de entrada.",
-    "img": "blog/assets/carlos-explicando.jpg",
-    "pos": "center 30%"
+   "baixo": {
+    "selo": "Nunca comprou",
+    "palavra": "Lead.",
+    "texto": "Tem medo. É o desconhecido na porta: precisa de mais prova."
    }
   },
   {
-   "tipo": "passos",
-   "selo": "Zona de agressividade",
-   "titulo": "Toda oferta tem\n//uma condicional.//",
-   "tam": 96,
+   "tipo": "zona",
+   "cor": "magenta",
+   "selo": "Cliente travado · zona de perigo",
+   "verbo": "Ligue.",
+   "texto": "Nada de “e aí, vamos fechar?” por mensagem.",
    "itens": [
-    {
-     "icone": "coin",
-     "cor": "verde",
-     "titulo": "Benefício",
-     "texto": "O que ele ganha: desconto, bônus, pagamento."
-    },
-    {
-     "icone": "target",
-     "cor": "marinho",
-     "titulo": "Condição",
-     "texto": "O que ele faz: fecha este pedido, compra X peças."
-    },
-    {
-     "icone": "clock-exclamation",
-     "cor": "magenta",
-     "titulo": "Prazo",
-     "texto": "Até quando: hoje, 24 horas, esta semana."
-    }
+    "Descubra a objeção: preço, prazo ou quantidade",
+    "Olhe o histórico: ele compra bem ou mal?",
+    "Desconto? Quem decide é o gestor ou o dono"
    ]
   },
   {
-   "tipo": "piramide",
-   "selo": "Calendário comercial",
-   "titulo": "Cada semana,\n//uma missão.//",
-   "tam": 100,
-   "niveis": [
-    {
-     "nome": "Semana 1 · base",
-     "cor": "claro"
-    },
-    {
-     "nome": "Semana 2 · rotina",
-     "cor": "claro"
-    },
-    {
-     "nome": "Semana 3 · orçamentos",
-     "cor": "verde",
-     "chip": "objeção"
-    },
-    {
-     "nome": "Última semana · fechar hoje",
-     "cor": "magenta",
-     "chip": "condicional"
-    }
-   ],
-   "legenda_cima": "Relacionamento",
-   "legenda_baixo": "Agressividade"
+   "tipo": "zona",
+   "cor": "marinho",
+   "selo": "Lead travado · gerar confiança",
+   "verbo": "Prove.",
+   "texto": "Ninguém compra 50 unidades do que nunca provou.",
+   "itens": [
+    "Case do mesmo segmento que ele",
+    "Amostra, showroom e material de apoio",
+    "Voucher de 1ª compra ou uma opção de entrada"
+   ]
   },
   {
-   "tipo": "frase",
-   "escuro": true,
-   "icone": "coin",
-   "texto": "R$ 100 por pedido\nfechado.\n//++R$ 55.000\nvendidos\nem um dia.++//",
-   "assina": "A pressão muda com dinheiro",
-   "mascote": true,
-   "tam": 86,
-   "top": 290
+   "tipo": "equacao",
+   "kicker": "Zona de agressividade",
+   "titulo": "Toda oferta tem //uma condicional.//",
+   "termos": [
+    [
+     "Benefício",
+     "o que ele ganha"
+    ],
+    [
+     "Condição",
+     "o que ele faz"
+    ],
+    [
+     "Prazo",
+     "até quando"
+    ]
+   ],
+   "resultado": "Oferta que fecha."
+  },
+  {
+   "tipo": "numero",
+   "kicker": "A cenoura certa para o time",
+   "de": "R$ 100",
+   "de_tx": "por pedido fechado acima de um valor",
+   "para": "R$ 55 mil",
+   "para_tx": "vendidos por uma vendedora em um dia.",
+   "frase": "A pressão muda com dinheiro.",
+   "tam": 205
   },
   {
    "tipo": "cta",
-   "selo": "Manual gratuito",
-   "titulo": "Quer o plano\nde 7 dias?\n//Comente MANUAL.//",
-   "texto": "Prints, áudios, checklist, calculadora e gerador de oferta. Exclusivo para cadastrados.",
-   "botao": "Acesse o manual",
-   "url": "sejaunique.vercel.app · link na bio",
-   "tam": 92
+   "parte": 0,
+   "lupa": [
+    1254,
+    678
+   ],
+   "etiquetas": [
+    {
+     "tipo": "cli",
+     "txt": "Cliente",
+     "xy": [
+      1254,
+      490
+     ]
+    }
+   ],
+   "titulo": "Achou?\n//Agora feche.//",
+   "texto": "O manual completo tem o plano de 7 dias, a auditoria de 30 conversas, a calculadora e o gerador de oferta.",
+   "botao": "Comente MANUAL",
+   "url": "ou link na bio",
+   "tam": 150
   }
  ]
 }

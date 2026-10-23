@@ -29,6 +29,11 @@ Gerador atual: `tools/carrossel.py`, na pegada do bloco do Alda.CRM no relatóri
 2. `python3 tools/carrossel.py <slug>` gera as imagens 1080x1350 e a `legenda.txt`.
 3. `python3 tools/instagram_pagina.py` atualiza a página https://sejaunique.vercel.app/instagram/.
 
+**Variar o layout:** o Carlos pediu (23/10) para não repetir sempre o mesmo layout. Alterne os geradores e crie novos quando fizer sentido:
+- `tools/carrossel.py`: claro, cards brancos (modelo Dra. Laura).
+- `tools/editorial.py`: escuro, foto sangrada e tipografia condensada (palestra Textil Club).
+- `tools/carrossel_lupa.py`: pôster escuro com foto panorâmica que continua entre os slides, lupa e etiquetas; cores cheias (cliente x lead, zona, equação, número). Usado em `antes-do-desconto`.
+
 Modelo APROVADO pelo Carlos em 11/10: carrossel da Dra. Laura Scher (maslow-e-o-poder-da-imagem). Todos os próximos carrosséis seguem este gerador. Máximo de 2 fotos por carrossel.
 
 ## Diagnóstico de Maturidade Comercial
@@ -110,6 +115,7 @@ Mesma conexão do Google Agenda, com a permissão do Drive (app Interno da sejau
 - Visualização ADM: logado no workspace (`/area/admin/`), a página abre o material completo sem cadastro, com uma barra no topo (total de cadastros, cadastros de hoje, lista dos últimos com link para a empresa no CRM e para o WhatsApp, e o botão "Ver como visitante"). Vem de `GET /api/material?a=adm&material=<id>`, que só responde para a sessão de admin.
 - Capa de compartilhamento: `assets/og/comercial-atleta.jpg` (entrada em `EXTRAS` de `tools/og_cliente.py`).
 - `orcamentos-parados/`: manual "Orçamentos parados · fechamento do mês" (https://sejaunique.vercel.app/orcamentos-parados/). Exclusivo para cadastrados: antes do cadastro só aparecem a capa, o sumário e o formulário. O cadastro (nome, empresa, WhatsApp, e-mail) exige o aceite de receber blog e anúncios e da LGPD; o aceite fica gravado (`consentimento`: texto, data, IP) no lead em `mat:leads` e no assinante da newsletter. Depois abrem os 3 casos (prints borrados e áudios em `orcamentos-parados/midia/`), o conteúdo, a oferta do Alda.CRM e o kit (plano de 7 dias, auditoria de 30 conversas, calculadora, gerador de oferta, mensagens).
+- Capa: foto da multidão (CHUTTERSNAP / Unsplash, `orcamentos-parados/midia/multidao.jpg`) com lupa interativa que procura o cliente; layout grande, com faixas de cor por seção.
 - `privacidade/`: Política de Privacidade (LGPD) linkada no aceite. Lead entra no CRM com a etiqueta **Aula CRM**.
 - `api/_area/biblioteca.js`: ações compartilhadas que entram sozinhas (uma única vez) na biblioteca de Ações do workspace. Já tem a ação do manual Orçamentos parados, sem cliente marcado.
 

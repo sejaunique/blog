@@ -23,6 +23,13 @@ const MATERIAIS = {
     url: '/comercial-atleta/',
     tag: 'Palestra'
   },
+  'icp': {
+    titulo: 'ICP e ICP do lixo · Tarefa de qualificação',
+    descricao: 'Defina quem é o seu cliente ideal, quem NÃO é (o ICP do lixo) e monte o termômetro de leads para atender primeiro quem vai respeitar o seu processo.',
+    url: '/icp/',
+    tag: 'Isca ICP',
+    aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
+  },
   'orcamentos-parados': {
     titulo: 'Orçamentos parados · Manual de fechamento do mês',
     descricao: 'Supervisão, cliente x lead, oferta com condicional, calendário comercial, bonificação e CRM, com plano de 7 dias, auditoria de conversas, calculadora e gerador de oferta.',

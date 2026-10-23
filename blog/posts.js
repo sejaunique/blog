@@ -61,6 +61,63 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 
 window.POSTS = [
   {
+    slug: "icp-do-lixo",
+    titulo: "Seu rolê não é para todo mundo. ==Mas todo mundo está chegando.==",
+    data: "2026-10-23",
+    categoria: "Estratégia",
+    resumo: "Quando chega lead demais, o problema não é falta de venda. É falta de filtro. Você já fez o ICP de quem NÃO é o seu cliente?",
+    texto: `
+Essa semana eu fui surpreendido por um empresário do segmento digital. O nome dele é Túlio.
+
+Cara sadio. E, principalmente, um cara sábio: ouvido atento, coração ensinável, pronto para não escrever na pedra. Escreve na areia e reescreve o processo inteiro se for preciso.
+
+O problema dele é o problema que todo mundo queria ter: ==muita demanda==.
+
+Só que ele não quer fechar tudo. Ele quer qualificar cada vez melhor, fechar com eficiência e, principalmente, **não perder tempo com quem não é cliente dele**.
+
+Ele já entendeu que o rolê dele não é para todo mundo. O problema é que todo mundo está chegando para o rolê dele.
+
+## Primeiro: uma rede de proteção mais forte
+
+No meio de quem chega tem muito curioso. E tem muito lixo.
+
+A pergunta que eu fiz para ele foi esta:
+
+> Você já fez o ICP contrário? O de quem NÃO é o seu cliente?
+
+Quando a gente faz o ICP certo, tem muita certeza de quem é o cliente. Mas, quando não faz o ==ICP do lixo==, não consegue identificar quem eliminar. E aí começa a atender todo mundo, tentando transformar cada pessoa no cliente ideal.
+
+Isso cansa o time, entope a agenda e esconde o cliente bom no meio da fila.
+
+## As duas ferramentas: isca e IA
+
+O Túlio já tem duas ferramentas poderosas na mão:
+
+- **Iscas:** um material, uma tarefa ou um formulário que a pessoa precisa preencher para receber algo de valor
+- **IA:** que lê o que a pessoa preencheu e classifica na hora
+
+A isca já é um filtro. Quem não tem interesse de verdade não preenche. Quem preenche tudo está dizendo, sem falar: ==eu vou respeitar o seu processo==.
+
+## Filtragem por temperatura
+
+A estratégia que eu faria no lugar dele é processualizar a triagem por temperatura:
+
+- **Quente:** preencheu a isca inteira e bate com o ICP. Atendimento humano, rápido.
+- **Morno:** bate com parte do ICP. Recebe conteúdo, case e convite para o próximo passo.
+- **Frio:** bate com o ICP do lixo ou não preencheu nada. Resposta automática educada, sem gastar a agenda do time.
+
+A IA faz a primeira leitura. O time dá atenção para quem merece atenção.
+
+> Não é sobre atender menos gente. É sobre atender primeiro quem vai respeitar o seu processo de execução.
+
+## Faça o seu ICP do lixo
+
+Montei uma tarefa prática para você fazer agora: o ICP certo, o ICP do lixo e o termômetro de leads com pontuação. No final, ela gera o texto pronto para você colar na IA do seu atendimento.
+
+[Fazer a tarefa do ICP e do ICP do lixo](/icp/)
+`
+  },
+  {
     slug: "antes-do-desconto",
     capa: "assets/multidao.jpg",
     titulo: "Antes do desconto, ==separe quem é quem==",

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<script src="/assets/tema.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ICP e ICP do lixo · Tarefa de qualificação · Unique</title>
+<meta name="description" content="Tarefa prática: defina o seu cliente ideal, o cliente que você NÃO quer (ICP do lixo) e monte o termômetro de leads para atender primeiro quem vai respeitar o seu processo.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Unique Consultoria">
+<meta property="og:title" content="Seu rolê não é para todo mundo · Tarefa ICP e ICP do lixo">
+<meta property="og:description" content="Defina quem é, quem não é e monte o termômetro de leads. Gratuito para cadastrados.">
+<meta property="og:url" content="https://sejaunique.vercel.app/icp/">
+<meta property="og:locale" content="pt_BR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+.w{max-width:980px;margin-inline:auto;padding-inline:clamp(20px,4vw,36px)}
+.ver{color:var(--verde-txt)}.mag{color:var(--magenta-txt)}.leve{font-weight:200;font-style:italic}
+.hero{background:#0b0b0c;color:#fff;padding:clamp(56px,9vw,110px) 0 clamp(48px,7vw,80px)}
+.hero .k{font-size:.78rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#00e676}
+.hero h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.02;letter-spacing:-.035em;margin:18px 0 20px;font-weight:800}
+.hero p{font-size:clamp(1.05rem,2vw,1.25rem);line-height:1.6;max-width:680px;opacity:.85}
+.gate{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px);margin:clamp(32px,5vw,56px) auto;padding:clamp(24px,4vw,40px);border:2px solid var(--fg,#0b0b0c);border-radius:28px}
+@media (max-width:760px){.gate{grid-template-columns:1fr}}
+.gate h2{font-size:clamp(1.6rem,3.6vw,2.3rem);line-height:1.08;letter-spacing:-.03em;margin:10px 0 14px}
+.gate ul{margin:16px 0 0;padding-left:20px;line-height:1.8}
+.spaced{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--verde-txt)}
+form{display:flex;flex-direction:column;gap:10px}
+input,textarea,select{font:inherit;font-size:1rem;padding:13px 15px;border-radius:14px;border:1.5px solid var(--line,#ddd);background:var(--bg,#fff);color:inherit;width:100%}
+textarea{min-height:88px;resize:vertical;line-height:1.5}
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.isca{position:absolute;left:-9999px}
+.aceite{display:flex;gap:10px;font-size:.78rem;line-height:1.5;opacity:.85}.aceite input{width:auto;margin-top:3px}
+button{font:inherit;font-weight:800;font-size:1rem;padding:15px 22px;border-radius:999px;border:0;background:#00e676;color:#0b0b0c;cursor:pointer}
+button.sec{background:transparent;border:1.5px solid currentColor;color:inherit}
+.msg{font-size:.85rem;min-height:1.2em;margin:0}
+#conteudo,.ok{display:none}
+body.liberado .gate{display:none}body.liberado #conteudo{display:block}body.liberado .ok{display:block}
+.ok{margin:32px auto 0;padding:22px 26px;border-radius:20px;background:#00e676;color:#0b0b0c}
+.ok b{font-size:1.15rem}
+.passo{margin:clamp(40px,6vw,64px) 0}
+.passo .num{font-size:.75rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+.passo h2{font-size:clamp(1.6rem,3.6vw,2.4rem);line-height:1.08;letter-spacing:-.03em;margin:8px 0 10px}
+.passo>p{line-height:1.65;max-width:720px;opacity:.85}
+.campos{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+@media (max-width:760px){.campos{grid-template-columns:1fr}}
+.campo label{display:block;font-weight:700;font-size:.92rem;margin-bottom:6px}
+.campo small{display:block;font-size:.78rem;opacity:.7;margin-bottom:8px;line-height:1.45}
+.lixo{border-left:6px solid var(--magenta-txt,#e0055e);padding-left:clamp(16px,3vw,28px)}
+.icp{border-left:6px solid var(--verde-txt,#078a46);padding-left:clamp(16px,3vw,28px)}
+.termo{border-left:6px solid var(--marinho-txt,#1e2357);padding-left:clamp(16px,3vw,28px)}
+.crit{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line,#e6e6e3)}
+.crit input[type=checkbox]{width:22px;height:22px;flex:none}
+.crit input.pts{width:76px;flex:none;text-align:center;padding:8px}
+.crit span{flex:1}
+.faixas{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+@media (max-width:760px){.faixas{grid-template-columns:1fr}}
+.faixa{border-radius:18px;padding:18px}
+.faixa b{display:block;font-size:1.1rem;margin-bottom:6px}
+.q{background:#00e676;color:#0b0b0c}.m{background:#fff3c4;color:#3b2f00}.f{background:#ffe0ec;color:#7a0030}
+.teste{margin-top:22px;padding:20px;border-radius:18px;background:var(--soft,#f3f3f1)}
+.res{font-size:1.4rem;font-weight:800;margin-top:10px}
+.acoes{display:flex;flex-wrap:wrap;gap:10px;margin:40px 0 70px}
+.ia{margin-top:18px;padding:18px 20px;border-radius:16px;border:1.5px dashed var(--line,#ccc);font-size:.92rem;line-height:1.6;white-space:pre-wrap}
+@media print{header,footer,.acoes,.hero,.ok{display:none!important}textarea,input{border:1px solid #999}}
+</style>
+</head>
+<body>
+<script src="/assets/casco.js"></script>
+<main>
+<section class="hero"><div class="w">
+  <span class="k">Tarefa prática · Unique</span>
+  <h1>Seu rolê não é para todo mundo. <span class="leve ver">Mas todo mundo está chegando.</span></h1>
+  <p>Defina quem é o seu cliente ideal (ICP), quem <b>não é</b> (o ICP do lixo) e monte um termômetro para atender primeiro quem vai respeitar o seu processo.</p>
+</div></section>
+
+<div class="w">
+  <div class="gate" id="liberar">
+    <div>
+      <span class="spaced">Gratuito para cadastrados</span>
+      <h2>Libere a tarefa <span class="leve">e faça hoje.</span></h2>
+      <p>Preencha e a tarefa abre aqui mesmo. O que você escrever fica salvo neste aparelho e dá para copiar ou imprimir no final.</p>
+      <ul>
+        <li>Passo 1: o ICP certo</li>
+        <li>Passo 2: o ICP do lixo</li>
+        <li>Passo 3: o termômetro de leads com pontuação</li>
+        <li>Pronto para usar na sua isca e na IA</li>
+      </ul>
+    </div>
+    <form id="f-lib" novalidate>
+      <div class="duas">
+        <input name="nome" autocomplete="name" placeholder="Seu nome" aria-label="Seu nome" maxlength="80" required>
+        <input name="empresa" autocomplete="organization" placeholder="Empresa" aria-label="Empresa" maxlength="80" required>
+      </div>
+      <input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="WhatsApp com DDD" aria-label="WhatsApp com DDD" maxlength="30" required>
+      <input name="email" type="email" autocomplete="email" placeholder="Seu melhor e-mail" aria-label="Seu e-mail" maxlength="120" required>
+      <input class="isca" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label class="aceite"><input type="checkbox" name="aceite" required><span>Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a <a href="/privacidade/" target="_blank" rel="noopener">Política de Privacidade</a>. Posso cancelar quando quiser.</span></label>
+      <button type="submit">Liberar a tarefa →</button>
+      <p class="msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+
+  <div class="ok"><b id="ok-t">Tarefa liberada!</b><p id="ok-p" style="margin:6px 0 0"></p></div>
+
+  <div id="conteudo">
+    <section class="passo icp">
+      <span class="num ver">Passo 1</span>
+      <h2>O ICP certo: <span class="leve">quem é o seu cliente.</span></h2>
+      <p>Pense nos seus 5 melhores clientes: os que pagam bem, respeitam o processo e indicam. O ICP é o retrato do que eles têm em comum.</p>
+      <div class="campos" data-grupo="icp"></div>
+    </section>
+
+    <section class="passo lixo">
+      <span class="num mag">Passo 2</span>
+      <h2>O ICP do lixo: <span class="leve">quem não é.</span></h2>
+      <p>Quase ninguém faz esta parte. Sem ela, você atende todo mundo tentando transformar curioso em cliente. Pense nos atendimentos que deram trabalho e não viraram nada.</p>
+      <div class="campos" data-grupo="lixo"></div>
+    </section>
+
+    <section class="passo termo">
+      <span class="num" style="color:var(--marinho-txt)">Passo 3</span>
+      <h2>O termômetro: <span class="leve">quem atender primeiro.</span></h2>
+      <p>Cada sinal vale pontos. Quem preenche a isca inteira e bate com o ICP sobe. Quem bate com o ICP do lixo desce. Ajuste os critérios e os pontos para o seu negócio.</p>
+      <div id="crits"></div>
+      <div class="faixas">
+        <div class="faixa q"><b>Quente · 7 ou mais</b>Atendimento humano em até 1 hora. É para fechar.</div>
+        <div class="faixa m"><b>Morno · 3 a 6</b>Nutrição: conteúdo, case e convite para o próximo passo.</div>
+        <div class="faixa f"><b>Frio · 2 ou menos</b>Resposta automática educada. Não gaste a agenda do time.</div>
+      </div>
+      <div class="teste">
+        <b>Teste com um lead real</b>
+        <p style="margin:6px 0 0;font-size:.9rem;opacity:.8">Marque os sinais que o último lead que chegou tem:</p>
+        <div id="teste"></div>
+        <div class="res" id="res">0 pontos</div>
+      </div>
+    </section>
+
+    <section class="passo">
+      <span class="num">Bônus</span>
+      <h2>Leve para a IA <span class="leve">e automatize a triagem.</span></h2>
+      <p>Copie o texto abaixo e cole no assistente de IA do seu atendimento ou no seu CRM. Ele já sai montado com as suas respostas.</p>
+      <div class="ia" id="ia"></div>
+    </section>
+
+    <div class="acoes">
+      <button type="button" id="copiar">Copiar tudo</button>
+      <button type="button" class="sec" onclick="print()">Imprimir</button>
+      <a class="sec" href="https://wa.me/5562996007574?text=Fiz%20a%20tarefa%20do%20ICP%20e%20quero%20ajuda%20para%20aplicar" style="display:inline-flex;align-items:center;padding:15px 22px;border-radius:999px;border:1.5px solid currentColor;font-weight:800;text-decoration:none;color:inherit">Quero ajuda para aplicar</a>
+    </div>
+  </div>
+</div>
+</main>
+
+<script>
+(function(){
+  var MAT='icp', K='ua_mat_'+MAT, KR='ua_icp_resp';
+  var $=function(s,c){return (c||document).querySelector(s);};
+  var ls={get:function(k){try{return JSON.parse(localStorage.getItem(k)||'null');}catch(e){return null;}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+
+  var CAMPOS={
+    icp:[
+      ['segmento','Segmento e porte','Ex.: confecções com 10 a 50 funcionários'],
+      ['decisor','Quem decide a compra','Cargo e perfil de quem assina'],
+      ['dor','A dor principal','O problema que faz ele procurar você'],
+      ['gatilho','O gatilho de compra','O que acontece antes de ele chegar até você'],
+      ['investimento','Capacidade de investimento','Faixa de ticket que ele paga sem sofrer'],
+      ['onde','Onde ele está','Canais, eventos, perfis, indicações']],
+    lixo:[
+      ['curioso','Sinais de curioso','Ex.: só quer saber preço, some depois da primeira resposta'],
+      ['processo','Quem não respeita o processo','Ex.: quer pular etapas, exige prazo impossível, não preenche nada'],
+      ['fit','Quem não tem fit','Segmento, porte ou momento que você não atende bem'],
+      ['dinheiro','Quem não pode investir','Sinais de que o orçamento não existe'],
+      ['frase','Frases que acendem o alerta','Ex.: "só uma dúvida rápida", "faz mais barato?"'],
+      ['custo','Quanto custa atender o lixo','Horas por semana que o time perde com eles']]
+  };
+  var CRIT=[
+    ['Preencheu a isca inteira',3],['Segmento e porte batem com o ICP',2],['Quem conversa é o decisor',2],
+    ['Tem a dor principal declarada',2],['Tem prazo ou gatilho de compra',1],
+    ['Só pediu preço',-2],['Pulou etapas ou não preencheu',-3],['Bate com o ICP do lixo',-3]];
+
+  var R=ls.get(KR)||{};
+  function salva(){ ls.set(KR,R); montaIA(); }
+
+  Object.keys(CAMPOS).forEach(function(g){
+    var box=$('[data-grupo="'+g+'"]');
+    box.innerHTML=CAMPOS[g].map(function(c){var id=g+'_'+c[0];return '<div class="campo"><label for="'+id+'">'+c[1]+'</label><small>'+c[2]+'</small><textarea id="'+id+'" data-k="'+id+'"></textarea></div>';}).join('');
+  });
+  var crits=R._crit||CRIT.map(function(c){return {t:c[0],p:c[1]};});
+  function desenhaCrit(){
+    $('#crits').innerHTML=crits.map(function(c,i){return '<div class="crit"><span><input data-ci="'+i+'" value="'+c.t.replace(/"/g,'&quot;')+'" style="border:0;padding:4px 0;background:transparent"></span><input class="pts" type="number" data-cp="'+i+'" value="'+c.p+'"></div>';}).join('');
+    $('#teste').innerHTML=crits.map(function(c,i){return '<label class="crit" style="cursor:pointer"><input type="checkbox" data-ct="'+i+'"><span>'+c.t+'</span><b>'+(c.p>0?'+':'')+c.p+'</b></label>';}).join('');
+    calc();
+  }
+  function calc(){
+    var t=0; document.querySelectorAll('[data-ct]').forEach(function(x){ if(x.checked) t+=+crits[x.dataset.ct].p||0; });
+    var f=t>=7?'Quente: atender agora':t>=3?'Morno: nutrir':'Frio: resposta automática';
+    $('#res').textContent=t+' pontos · '+f;
+  }
+  document.addEventListener('input',function(e){
+    var el=e.target;
+    if(el.dataset.k){ R[el.dataset.k]=el.value; salva(); }
+    if(el.dataset.ci){ crits[el.dataset.ci].t=el.value; R._crit=crits; salva(); }
+    if(el.dataset.cp){ crits[el.dataset.cp].p=+el.value||0; R._crit=crits; salva(); }
+  });
+  document.addEventListener('change',function(e){ if(e.target.dataset.cp||e.target.dataset.ci) desenhaCrit(); if(e.target.dataset.ct!==undefined) calc(); });
+  document.querySelectorAll('[data-k]').forEach(function(t){ t.value=R[t.dataset.k]||''; });
+  desenhaCrit();
+
+  function v(k){ return (R[k]||'').trim()||'(preencher)'; }
+  function montaIA(){
+    var txt='Você faz a triagem dos leads que chegam para a minha empresa. Classifique cada lead como QUENTE, MORNO ou FRIO e diga o motivo.\n\n'+
+      'MEU CLIENTE IDEAL (ICP):\n'+CAMPOS.icp.map(function(c){return '- '+c[1]+': '+v('icp_'+c[0]);}).join('\n')+
+      '\n\nQUEM NÃO É MEU CLIENTE (ICP DO LIXO):\n'+CAMPOS.lixo.map(function(c){return '- '+c[1]+': '+v('lixo_'+c[0]);}).join('\n')+
+      '\n\nPONTUAÇÃO:\n'+crits.map(function(c){return '- '+c.t+': '+(c.p>0?'+':'')+c.p;}).join('\n')+
+      '\n\nFAIXAS: 7 ou mais = QUENTE (passar para um humano em até 1 hora); 3 a 6 = MORNO (enviar conteúdo e convidar para o próximo passo); 2 ou menos = FRIO (resposta automática educada).';
+    $('#ia').textContent=txt; return txt;
+  }
+  montaIA();
+  $('#copiar').onclick=function(){ var t=montaIA(); try{navigator.clipboard.writeText(t).then(function(){$('#copiar').textContent='Copiado!';});}catch(e){} };
+
+  function libera(d,novo){
+    document.body.classList.add('liberado');
+    var pn=(d&&d.nome||'').split(' ')[0];
+    $('#ok-t').textContent=novo?(pn?pn+', a':'A')+' tarefa está liberada!':'Bem-vindo de volta'+(pn?', '+pn:'')+'!';
+    $('#ok-p').textContent=novo?'Suas respostas ficam salvas neste aparelho. E você recebe cada post novo do blog no seu e-mail.':'Suas respostas continuam de onde você parou.';
+  }
+  var salvo=ls.get(K); if(salvo) libera(salvo,false);
+  fetch('/api/material?a=adm&material='+MAT,{credentials:'same-origin',cache:'no-store'}).then(function(r){return r.json();}).then(function(r){ if(r&&r.admin) libera({nome:'Carlos'},false); }).catch(function(){});
+
+  var f=$('#f-lib'), msg=$('.msg',f), bt=$('button',f);
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var d={nome:f.nome.value.trim(),empresa:f.empresa.value.trim(),whatsapp:f.whatsapp.value.trim(),email:f.email.value.trim()};
+    if(d.nome.length<2){msg.textContent='Informe o seu nome.';return;}
+    if(d.empresa.length<2){msg.textContent='Informe o nome da empresa.';return;}
+    if(d.whatsapp.replace(/\D/g,'').length<10){msg.textContent='Confira o seu WhatsApp com DDD.';return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)){msg.textContent='Confira o seu e-mail.';return;}
+    if(!f.aceite.checked){msg.textContent='Para liberar, marque que concorda com os termos.';return;}
+    bt.disabled=true; msg.textContent='';
+    fetch('/api/material',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({a:'liberar',material:MAT,nome:d.nome,empresa:d.empresa,whatsapp:d.whatsapp,email:d.email,aceite:true,site:f.site.value})})
+      .then(function(r){return r.json().catch(function(){return {};});})
+      .then(function(r){
+        if(!r||!r.ok){bt.disabled=false;msg.textContent=(r&&r.erro)||'Não deu certo agora. Tente de novo.';return;}
+        var vv={nome:d.nome,empresa:d.empresa,data:new Date().toISOString()}; ls.set(K,vv); libera(vv,true);
+        window.scrollTo({top:$('.ok').offsetTop-90,behavior:'smooth'});
+      })
+      .catch(function(){bt.disabled=false;msg.textContent='Sem conexão. Tente de novo.';});
+  });
+})();
+</script>
+</body>
+</html>

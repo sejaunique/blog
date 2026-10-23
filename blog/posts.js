@@ -59,6 +59,95 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 
 window.POSTS = [
   {
+    slug: "antes-do-desconto",
+    capa: "assets/carlos-ligacao-capa.jpg",
+    titulo: "Antes do desconto, ==separe quem é quem==",
+    data: "2026-10-22",
+    categoria: "Estratégia",
+    resumo: "51 orçamentos parados e uma semana para fechar o mês. Desconto para todo mundo é o caminho mais caro. Antes, supervisão, cliente x lead e oferta com condicional.",
+    texto: `
+Essa semana recebi uma mensagem de um empresário:
+
+> "51 orçamentos em follow-up aqui e 1 semana para fechar o mês! Mando figurinha do gatinho? Qual a estratégia?"
+
+No mesmo dia, outra empresa me contou o plano: gravar um vídeo de suspense amanhã e lançar uma ação de desconto na segunda, para fechar a última semana com faturamento bom.
+
+Tem algo errado em fazer promoção para virar negócio? Não tem. Fim de mês chega, a empresa precisa faturar e ter entrada de caixa. Mas essa situação não aparece do nada. Ela é ==o efeito colateral== de um comercial que passou o mês sem rotina.
+
+![O funil de follow-up com 51 orçamentos (dados borrados)](assets/print-51-orcamentos.jpg)
+
+## Seu vendedor não ama o seu negócio
+
+Tire isso da cabeça: o vendedor não vai dar 110% pela sua empresa. Não vai. Nunca deu.
+
+Ele não tem a sua consciência de que o atendimento precisa ser o melhor para o cliente voltar e indicar. Por isso tem tanto dinheiro parado em atendimento mal feito. O cliente diz "gostei" e o vendedor responde "qualquer coisa me chama". É coisa boba. E está parada.
+
+E não adianta chegar e falar "atende direito, responde o cara". Você fala, larga a mão e acha que agora ele vai prestar atenção. Não vai.
+
+**É o olho do dono que engorda o boi.** Supervisão é olhar os atendimentos todos os dias, até o vendedor sentir que não pode errar, porque se errar você vai falar com ele de novo. Aí o comportamento muda.
+
+Um desafio para hoje: pegue o WhatsApp do seu time, leia ==30 conversas== e responda com honestidade. Você atenderia dessa forma? Você venderia dessa forma?
+
+## Dentro do orçamento parado tem dois perfis
+
+Antes de qualquer desconto, separe. Todo orçamento travado é de um **cliente** ou de um **lead**. E para cada um a ação é diferente.
+
+Se você dá desconto para todo mundo, dá a mão e logo vão querer o braço.
+
+O cliente é como um primo querido. Se ele toca a campainha sem avisar, você recebe numa boa. Ele já comprou, conhece sua qualidade, sabe que você entrega.
+
+O lead é alguém que você nunca viu. Ele não entra na sua casa de primeira. Precisa de mais contato, mais argumento, mais prova. Ele tem medo.
+
+## Cliente travado: zona de perigo
+
+Como alguém que tem intimidade comigo está travado num orçamento?
+
+- **O vendedor ligou?** Ligou e tirou um tempo de qualidade, ou só mandou "e aí, vamos fechar?"
+- **Qual é a objeção?** Preço, prazo, quantidade?
+- **Qual é o histórico?** Esse cliente compra bem ou compra mal?
+- **Quem decide é o gestor ou o dono.** "Para esse cliente está autorizado. Para aquele, não: vamos perder essa venda, infelizmente."
+
+## Lead travado: gerar confiança
+
+Eu nunca tomei Guaraná Jesus. Você acha que eu vou comprar 50 unidades para experimentar? Claro que não. Com o lead é igual:
+
+- mostre um **case do mesmo segmento** dele;
+- use material de apoio, showroom ou amostra quando a venda for grande;
+- ofereça um **voucher de primeira compra**, avisando que quer ser parceiro a longo prazo;
+- apresente o mix e tenha uma **opção de entrada**: "vamos experimentar essa primeiro?".
+
+## Toda oferta tem uma condicional
+
+Separou e já fez as ações comportamentais? Agora sim, a zona de agressividade. Mas benefício solto ensina o cliente a esperar a próxima promoção.
+
+> Eu te dou esse benefício se você agir dessa maneira.
+
+Desconto se fechar hoje, em 24 horas, nesta semana. Bônus se comprar tantas peças. ==Benefício + condição + prazo.==
+
+E se o caixa apertar a ponto de vender só pelo preço da matéria-prima, faça isso na última semana. Por isso existe um calendário comercial: na primeira semana, acione todos os seus contatos. Na terceira, todos os orçamentos em aberto, para entender a objeção. Nos últimos três a cinco dias, velocidade máxima.
+
+## A cenoura certa para o time
+
+No terceiro caso da semana, a empresa ofereceu R$ 100 de bonificação para cada pedido acima de um valor que fosse fechado. Naquele dia, uma vendedora vendeu **R$ 55.000**.
+
+![R$ 55.000 em um dia](assets/print-55mil.jpg)
+
+Milagre? Não. Era uma vendedora que precisava de comportamento correto, e esse comportamento foi bonificado em dinheiro. A pressão muda com dinheiro.
+
+## Sem CRM, não dá para separar
+
+Como lembrar de todo mundo? De cada situação? Como separar os lotes? Por isso eu bato tão pesado em CRM. Pode ser planilha, pode ser o Alda, pode ser qualquer um. Mas precisa. E precisa estar mapeado do jeito certo, senão confunde mais do que esclarece.
+
+> O mapeamento de clientes é a parte mais valiosa do seu negócio.
+
+## O manual completo
+
+Organizei tudo isso num manual gratuito: os três casos com prints e áudios, cliente x lead, as duas zonas, a oferta com condicional, o calendário e um **plano de 7 dias** com checklist, auditoria de 30 conversas, calculadora do dinheiro parado e gerador de oferta.
+
+[Acesse o manual Orçamentos parados](https://sejaunique.vercel.app/orcamentos-parados/)
+`
+  },
+  {
     slug: "transformando-o-comercial-de-confeccoes",
     capa: "assets/capa-palestra-confeccoes.jpg",
     titulo: "Transformando o comercial de ==confecções==",

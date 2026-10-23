@@ -1,0 +1,142 @@
+{
+ "legenda": "\"51 orçamentos em follow-up e 1 semana para fechar o mês. Mando figurinha do gatinho?\"\n\nRecebi essa mensagem de um empresário essa semana. No mesmo dia, outra empresa queria lançar desconto na segunda para salvar o mês.\n\nPromoção no fim do mês não é errado. Errado é dar desconto para todo mundo: você dá a mão e logo vão querer o braço.\n\nAntes do desconto:\n1. Supervisão: leia 30 conversas do seu time hoje\n2. Separe cliente de lead\n3. Cliente travado: ligue, entenda a objeção, o gestor decide\n4. Lead travado: case do segmento, prova, voucher e opção de entrada\n5. Toda oferta com condicional: benefício + condição + prazo\n6. Calendário comercial para não chegar desesperado na última semana\n\nE a cenoura certa para o time: R$ 100 por pedido fechado virou R$ 55.000 vendidos em um dia.\n\n📌 O texto completo está no blog. E o manual com o plano de 7 dias, checklist, calculadora e gerador de oferta é exclusivo para cadastrados. Comente MANUAL ou acesse pelo link na bio.\n\n#vendas #gestaocomercial #empresarios #crm #fechamentodemes #consultoriadevendas #sejaunique",
+ "slides": [
+  {
+   "tipo": "capa",
+   "selo": "Fim de mês",
+   "nome": "Orçamentos parados",
+   "local": "1 semana para fechar o mês",
+   "img": "blog/assets/carlos-ligacao-4x5.jpg",
+   "pos": "center 25%",
+   "destaque": "51",
+   "destaque_tx": "orçamentos parados\nem follow-up",
+   "titulo": "Antes do desconto,\n//--separe quem é quem.--//",
+   "texto": "Desconto para todo mundo é o ==caminho mais caro== para fechar o mês.",
+   "tam": 84
+  },
+  {
+   "tipo": "frase",
+   "icone": "users",
+   "texto": "Seu vendedor\nnão ama o seu\nnegócio.\n//--Ele não vai\ndar 110%.--//",
+   "assina": "Carlos Ribeiro",
+   "mascote": true,
+   "tam": 90
+  },
+  {
+   "tipo": "lista",
+   "selo": "O dinheiro parado",
+   "titulo": "Atendimento\n//--mal feito.--//",
+   "tam": 104,
+   "itens": [
+    {
+     "icone": "message-circle",
+     "cor": "magenta",
+     "titulo": "“Qualquer coisa me chama”",
+     "texto": "O cliente gostou e ficou no vácuo"
+    },
+    {
+     "icone": "repeat",
+     "cor": "claro",
+     "titulo": "A mesma mensagem",
+     "texto": "Que ninguém responde, de novo e de novo"
+    },
+    {
+     "icone": "eye",
+     "cor": "marinho",
+     "titulo": "Ninguém olhando",
+     "texto": "Supervisão frouxa, resultado em queda"
+    }
+   ],
+   "nota": "Desafio de hoje: leia ==30 conversas==\ndo seu time."
+  },
+  {
+   "tipo": "versus",
+   "titulo": "Cliente ou lead?\n//Cada um, uma ação.//",
+   "antes": {
+    "selo": "Cliente · zona de perigo",
+    "titulo": "Ligue.\n--Não mande “e aí?”--",
+    "texto": "Entenda a objeção e o histórico. Desconto só se o gestor ou o dono autorizar."
+   },
+   "depois": {
+    "selo": "Lead · gerar confiança",
+    "titulo": "Prove\n++antes de vender.++",
+    "texto": "Case do mesmo segmento, amostra, voucher de 1ª compra e uma opção de entrada.",
+    "img": "blog/assets/carlos-explicando.jpg",
+    "pos": "center 30%"
+   }
+  },
+  {
+   "tipo": "passos",
+   "selo": "Zona de agressividade",
+   "titulo": "Toda oferta tem\n//uma condicional.//",
+   "tam": 96,
+   "itens": [
+    {
+     "icone": "coin",
+     "cor": "verde",
+     "titulo": "Benefício",
+     "texto": "O que ele ganha: desconto, bônus, pagamento."
+    },
+    {
+     "icone": "target",
+     "cor": "marinho",
+     "titulo": "Condição",
+     "texto": "O que ele faz: fecha este pedido, compra X peças."
+    },
+    {
+     "icone": "clock-exclamation",
+     "cor": "magenta",
+     "titulo": "Prazo",
+     "texto": "Até quando: hoje, 24 horas, esta semana."
+    }
+   ]
+  },
+  {
+   "tipo": "piramide",
+   "selo": "Calendário comercial",
+   "titulo": "Cada semana,\n//uma missão.//",
+   "tam": 100,
+   "niveis": [
+    {
+     "nome": "Semana 1 · base",
+     "cor": "claro"
+    },
+    {
+     "nome": "Semana 2 · rotina",
+     "cor": "claro"
+    },
+    {
+     "nome": "Semana 3 · orçamentos",
+     "cor": "verde",
+     "chip": "objeção"
+    },
+    {
+     "nome": "Última semana · fechar hoje",
+     "cor": "magenta",
+     "chip": "condicional"
+    }
+   ],
+   "legenda_cima": "Relacionamento",
+   "legenda_baixo": "Agressividade"
+  },
+  {
+   "tipo": "frase",
+   "escuro": true,
+   "icone": "coin",
+   "texto": "R$ 100 por pedido\nfechado.\n//++R$ 55.000\nvendidos\nem um dia.++//",
+   "assina": "A pressão muda com dinheiro",
+   "mascote": true,
+   "tam": 86,
+   "top": 290
+  },
+  {
+   "tipo": "cta",
+   "selo": "Manual gratuito",
+   "titulo": "Quer o plano\nde 7 dias?\n//Comente MANUAL.//",
+   "texto": "Prints, áudios, checklist, calculadora e gerador de oferta. Exclusivo para cadastrados.",
+   "botao": "Acesse o manual",
+   "url": "sejaunique.vercel.app · link na bio",
+   "tam": 92
+  }
+ ]
+}

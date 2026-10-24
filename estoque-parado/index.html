@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<script src="/assets/tema.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estoque parado · Estratégias para indústria, atacado e confecção · Unique</title>
+<meta name="description" content="Estoque parado é dinheiro dormindo. Escolha o seu segmento (indústria, atacado ou confecção) e receba as estratégias: raio-x, ações por frente, plano de 30 dias com checklist, calculadoras e mensagens prontas.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Unique Consultoria">
+<meta property="og:title" content="Estoque parado é dinheiro dormindo · Estratégias por segmento">
+<meta property="og:description" content="Indústria, atacado ou confecção: raio-x do estoque, ações por frente, plano de 30 dias, calculadoras e mensagens prontas.">
+<meta property="og:url" content="https://sejaunique.vercel.app/estoque-parado/">
+<meta property="og:image" content="https://sejaunique.vercel.app/assets/og/estoque-parado.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://sejaunique.vercel.app/assets/og/estoque-parado.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@400;600;700&display=swap">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+/* ===== escala do manual: grande, de propósito ===== */
+body.leitura{font-size:1.125rem}
+main{overflow-x:clip}
+.wrap-m{max-width:1240px;margin-inline:auto;padding-inline:clamp(20px,4vw,40px)}
+.mag{color:var(--magenta-txt)}.ver{color:var(--verde-txt)}.mar{color:var(--marinho-txt)}
+.leve{font-weight:200;font-style:italic}
+.grifo{text-decoration:underline;text-decoration-color:var(--grifo);text-decoration-thickness:3px;text-underline-offset:8px}
+
+/* ===== capa: a multidão ===== */
+.hero{position:relative;min-height:calc(100svh - 84px);max-height:1000px;background:#0b0b0c;color:#fff;overflow:hidden;display:grid;align-items:center;isolation:isolate}
+.hero .foto{position:absolute;top:0;bottom:0;right:0;width:60%;background:url(midia/multidao.jpg) center/cover no-repeat}
+.hero .foto::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#0b0b0c 0%,rgba(11,11,12,.55) 16%,rgba(11,11,12,0) 38%),linear-gradient(0deg,rgba(11,11,12,.6) 0%,rgba(11,11,12,0) 30%)}
+.lupa{position:absolute;z-index:3;width:clamp(150px,19vw,260px);aspect-ratio:1;border-radius:50%;border:clamp(8px,1vw,12px) solid #fff;box-shadow:0 24px 60px rgba(0,0,0,.55),inset 0 0 0 3px rgba(0,0,0,.12);background-repeat:no-repeat;transform:translate(-50%,-50%);pointer-events:none;transition:left .9s cubic-bezier(.2,.8,.2,1),top .9s cubic-bezier(.2,.8,.2,1)}
+.lupa.solta{transition:none}
+.lupa::after{content:"";position:absolute;width:clamp(16px,2vw,24px);height:clamp(70px,8vw,110px);background:linear-gradient(90deg,#d9d9de,#fff 40%,#c4c4ca);border-radius:12px;left:84%;top:84%;transform:rotate(-45deg);transform-origin:top center}
+.etq{position:absolute;z-index:4;transform:translate(-50%,-100%);font-size:clamp(.66rem,.9vw,.8rem);font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:7px 11px;border-radius:999px;white-space:nowrap;pointer-events:none;opacity:0;animation:pinga .5s cubic-bezier(.2,1.4,.4,1) forwards}
+.etq::after{content:"";position:absolute;left:50%;bottom:-6px;width:10px;height:10px;transform:translateX(-50%) rotate(45deg);background:inherit}
+.etq.lead{background:#fff;color:#1e2357}
+.etq.cli{background:var(--verde);color:#000;font-size:clamp(.78rem,1.1vw,1rem);padding:10px 16px;z-index:5}
+@keyframes pinga{from{opacity:0;transform:translate(-50%,-80%) scale(.6)}to{opacity:1;transform:translate(-50%,-100%) scale(1)}}
+.hero .tx{position:relative;z-index:6;padding-block:clamp(56px,9vh,110px);width:100%}
+.hero .tx>*{max-width:min(42%,560px)}
+.hero .kick{display:inline-flex;align-items:center;gap:12px;font-size:.74rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:#d4d4d8}
+.hero .kick::before{content:"";width:36px;height:2px;background:var(--verde)}
+.hero h1{margin:20px 0 0;font-size:clamp(3rem,6.2vw,6.4rem);line-height:.9;font-weight:900;letter-spacing:-.055em;text-wrap:balance}
+.hero h1 .leve{display:block;margin-top:.12em;font-size:.62em;line-height:1;font-weight:200;letter-spacing:-.035em;color:var(--verde)}
+.hero .sub{margin:28px 0 0;max-width:46ch;font-size:clamp(1.1rem,1.7vw,1.4rem);line-height:1.5;color:#e4e4e7}
+.hero .sub b{color:#fff}
+.hero .acs{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.hero .acs .btn{font-size:.95rem;padding:16px 26px}
+.hero .acs .btn:not(.verde){color:#fff;border-color:rgba(255,255,255,.55)}
+.hero .credito{position:absolute;z-index:6;right:110px;bottom:18px;font-size:.66rem;color:#a1a1a8;letter-spacing:.06em}
+.hero .credito a{color:inherit}
+.dica{position:absolute;z-index:6;right:clamp(20px,4vw,40px);top:24px;font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);padding:10px 14px;border-radius:999px}
+@media (hover:none){.dica{display:none}}
+
+/* ===== faixa de números ===== */
+.numeros{background:#0b0b0c;color:#f5f5f5;border-top:1px solid #222}
+.numeros .wrap-m{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.numeros div.n4{padding:38px 24px 44px;border-left:1px solid #26262a}
+.numeros div.n4:first-child{border-left:0;padding-left:0}
+.numeros b{display:block;font-size:clamp(3rem,6.4vw,6rem);font-weight:900;letter-spacing:-.06em;line-height:.9;font-variant-numeric:tabular-nums}
+.numeros small{display:block;margin-top:12px;font-size:.95rem;line-height:1.4;color:#a1a1a8;max-width:22ch}
+.numeros .c1 b{color:#ff4d8f}.numeros .c2 b{color:var(--verde)}.numeros .c3 b{color:#fff}.numeros .c4 b{color:#8f98ff}
+
+/* ===== porta (cadastro) ===== */
+.porta{padding-block:clamp(56px,8vw,96px) 0}
+.gate{background:var(--verde);color:#000;border-radius:clamp(24px,3vw,40px);padding:clamp(28px,5vw,64px);display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(28px,4vw,56px);align-items:center;position:relative;overflow:hidden}
+.gate .spaced{color:#000;opacity:.7;font-weight:700}
+.gate h2{margin:14px 0 14px;font-size:clamp(2.4rem,5.4vw,4.6rem);font-weight:900;letter-spacing:-.05em;line-height:.92}
+.gate h2 .leve{display:block;font-weight:200;font-style:italic}
+.gate p{margin:0;font-size:1.08rem;line-height:1.55}
+.gate ul{margin:22px 0 0;padding:0;list-style:none;display:grid;gap:10px;font-size:1.02rem;font-weight:600}
+.gate ul li{display:flex;gap:12px;align-items:center}
+.gate ul li::before{content:"";width:22px;height:22px;flex:none;border-radius:50%;background:#000 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300e676' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/14px no-repeat}
+.gate form{display:grid;gap:12px;background:#0b0b0c;color:#f5f5f5;border-radius:28px;padding:clamp(20px,3vw,32px);box-shadow:0 30px 60px rgba(0,0,0,.25)}
+.gate form .ftit{margin:0 0 4px;font-size:1.25rem;font-weight:800;letter-spacing:-.02em}
+.gate .duas{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gate input{font:inherit;font-size:1.02rem;color:#0b0b0c;background:#fff;border:2px solid #fff;border-radius:14px;padding:15px 18px;width:100%;outline:none}
+.gate input:focus{box-shadow:0 0 0 4px rgba(0,230,118,.5)}
+.gate input::placeholder{color:#6b6b72}
+.gate button{font:inherit;font-weight:900;font-size:1.1rem;background:var(--verde);color:#000;border:0;border-radius:14px;padding:18px 26px;cursor:pointer;display:inline-flex;gap:10px;align-items:center;justify-content:center;transition:transform .15s}
+.gate button:hover{transform:translateY(-2px)}
+.gate button:disabled{opacity:.6;cursor:wait}
+.gate .msg{margin:0;font-weight:700;color:#ff4d8f}.gate .msg:empty{display:none}
+.isca{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+.aceite{display:flex;gap:12px;align-items:flex-start;font-size:.8rem;line-height:1.5;color:#c4c4ca;cursor:pointer}
+.aceite input{appearance:none;-webkit-appearance:none;width:22px!important;height:22px;padding:0!important;border-radius:7px!important;border:2px solid #fff!important;background:transparent!important;flex:none;display:grid;place-items:center;cursor:pointer;margin-top:1px}
+.aceite input:checked{background:var(--verde)!important;border-color:var(--verde)!important}
+.aceite input:checked::after{content:"";width:6px;height:11px;border:solid #000;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.aceite a{color:var(--verde)}
+.gate .tres-i{position:absolute;right:-30px;top:-40px;height:220px;width:170px;opacity:.14}
+.gate .tres-i .I{background:#000}
+body.liberado .gate,body.liberado .nl-banner{display:none}
+.nl-banner{margin:16px 0 0;text-align:center;font-size:.86rem;color:var(--muted)}
+.ok{display:none;border-radius:28px;background:var(--ink);color:#f5f5f5;padding:28px 32px;grid-template-columns:auto 1fr auto;gap:22px;align-items:center}
+body.liberado .ok{display:grid}
+.ok .selo{width:56px;height:56px;border-radius:50%;background:var(--verde);display:grid;place-items:center}
+.ok .selo::after{content:"";width:10px;height:20px;border:solid #000;border-width:0 4px 4px 0;transform:rotate(45deg) translate(-2px,-2px)}
+.ok b{display:block;font-size:1.45rem;font-weight:900;letter-spacing:-.03em}
+.ok p{margin:4px 0 0;color:#c4c4ca}
+.ok .nl-tag{display:inline-flex;gap:8px;align-items:center;font-size:.68rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;margin-top:10px;color:var(--verde)}
+.ok .nl-tag i{width:8px;height:8px;border-radius:50%;background:var(--verde);display:block;animation:pis 1.8s ease-in-out infinite}
+@keyframes pis{50%{opacity:.25}}
+.ok .btn{border-color:var(--verde);background:var(--verde);color:#000}
+.fechado{display:none}
+body.liberado .fechado{display:block}
+#conteudo{display:none}
+body.liberado #conteudo{display:block}
+body.liberado [data-newsletter="site"]{display:none}
+
+/* ===== sumário ===== */
+.sum{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:clamp(48px,6vw,80px);border-top:2px solid var(--fg)}
+.sum a{display:grid;gap:6px;text-decoration:none;color:inherit;padding:20px 18px 22px 0;border-bottom:1px solid var(--line);transition:padding .25s,color .2s}
+.sum a:hover{padding-left:10px;color:var(--verde-txt)}
+.sum b{font-size:clamp(2rem,3.2vw,2.8rem);font-weight:100;letter-spacing:-.04em;line-height:1}
+.sum span{font-weight:800;font-size:1.02rem;line-height:1.25}
+body:not(.liberado) .sum a{pointer-events:none;opacity:.55}
+
+/* ===== seções ===== */
+.sec{padding-block:clamp(80px,11vw,150px) 0}
+.cab{display:grid;grid-template-columns:auto 1fr;gap:clamp(16px,3vw,40px);align-items:start;margin-bottom:clamp(32px,4vw,52px)}
+.cab .num{font-size:clamp(5rem,13vw,12rem);font-weight:900;line-height:.78;letter-spacing:-.07em;color:transparent;-webkit-text-stroke:2px var(--fg);font-variant-numeric:tabular-nums}
+.cab .k{display:block;font-size:.74rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);margin:6px 0 12px}
+.cab h2{margin:0;font-size:clamp(2.4rem,6vw,5.4rem);font-weight:900;letter-spacing:-.055em;line-height:.92;text-wrap:balance;max-width:16ch}
+.cab h2 .leve{display:block;letter-spacing:-.04em}
+.lead{color:var(--muted);max-width:60ch;margin:0 0 36px;font-size:clamp(1.12rem,1.6vw,1.32rem);line-height:1.6}
+.lead strong{color:var(--fg)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:clamp(22px,3vw,34px)}
+
+/* casos: linhas grandes alternadas */
+.caso{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,5vw,72px);align-items:center;padding-block:clamp(28px,4vw,48px);border-top:1px solid var(--line)}
+.caso:nth-child(even) figure{order:2}
+.caso figure{margin:0;border-radius:32px;overflow:hidden;background:#0b141a;aspect-ratio:4/5;cursor:zoom-in;position:relative;box-shadow:0 30px 60px rgba(0,0,0,.18)}
+.caso figure img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .6s}
+.caso:hover figure img{transform:scale(1.04)}
+.caso figure::after{content:"ampliar";position:absolute;right:14px;bottom:14px;font-size:.66rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;background:rgba(0,0,0,.65);color:#fff;padding:7px 11px;border-radius:999px}
+.caso em{font-style:normal;font-size:.76rem;font-weight:800;letter-spacing:.28em;text-transform:uppercase}
+.caso h3{margin:12px 0 16px;font-size:clamp(1.8rem,3.6vw,3rem);font-weight:900;letter-spacing:-.045em;line-height:1}
+.caso p{margin:0;color:var(--muted);font-size:clamp(1.08rem,1.5vw,1.25rem);line-height:1.6;max-width:44ch}
+.caso .big{display:block;margin-top:24px;font-size:clamp(4rem,9vw,7.5rem);font-weight:900;letter-spacing:-.06em;line-height:.85}
+
+/* gráficos */
+.duas-g{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-top:clamp(28px,4vw,48px);align-items:stretch}
+.graf h3{margin:0 0 4px;font-size:1.3rem;font-weight:900;letter-spacing:-.02em}
+.graf .sub{margin:0 0 26px;color:var(--muted);font-size:.95rem}
+.barras{display:grid;gap:16px}
+.barra-l{display:grid;grid-template-columns:140px 1fr 56px;gap:14px;align-items:center;font-size:1rem}
+.barra-l span:first-child{font-weight:700}
+.barra-l .trilho{height:34px;border-radius:10px;background:var(--soft);overflow:hidden}
+.barra-l .trilho i{display:block;height:100%;width:0;border-radius:10px;transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.barra-l b{font-variant-numeric:tabular-nums;text-align:right;font-weight:900;font-size:1.5rem;letter-spacing:-.03em}
+.graf .nota{margin:20px 0 0;font-size:.86rem;color:var(--muted);line-height:1.5}
+.mult{display:grid;gap:22px}
+.mult .l{display:grid;gap:8px}
+.mult .l small{font-size:.74rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.mult .l div{height:42px;border-radius:10px;display:flex;align-items:center;padding-left:14px;font-weight:900;font-size:1.05rem;width:0;transition:width 1.4s cubic-bezier(.2,.8,.2,1);white-space:nowrap;color:#000}
+.mult .x{margin:6px 0 0;font-size:clamp(4rem,8vw,6.5rem);font-weight:900;letter-spacing:-.06em;line-height:.85;color:var(--verde-txt)}
+.mult .x span{display:block;font-size:1rem;font-weight:500;letter-spacing:0;color:var(--muted);margin-top:8px}
+
+/* faixas cheias */
+.faixa{margin-top:clamp(80px,11vw,150px);padding-block:clamp(64px,9vw,120px);position:relative;overflow:hidden}
+.faixa.marinho{background:var(--marinho);color:#f5f5f5}
+.faixa.ink{background:#0b0b0c;color:#f5f5f5}
+.faixa.mag{background:var(--magenta);color:#fff}
+.faixa .grita{margin:0;font-size:clamp(2.8rem,8.4vw,8rem);font-weight:900;letter-spacing:-.06em;line-height:.88;text-wrap:balance;max-width:14ch}
+.faixa .grita .leve{display:block;font-weight:200}
+.faixa .apoio{margin:32px 0 0;max-width:58ch;font-size:clamp(1.08rem,1.6vw,1.3rem);line-height:1.6;opacity:.9}
+.faixa .tres-i{position:absolute;right:clamp(10px,4vw,60px);bottom:-30px;height:clamp(160px,22vw,300px);width:clamp(120px,17vw,230px);opacity:.16}
+.faixa .tres-i .I{background:#fff}
+.mitos{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:clamp(36px,5vw,56px)}
+.mito{border-radius:24px;padding:26px 28px;display:grid;gap:10px}
+.faixa .mito{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14)}
+.mito small{font-size:.72rem;font-weight:800;letter-spacing:.26em;text-transform:uppercase}
+.mito p{margin:0;font-weight:800;font-size:clamp(1.15rem,1.8vw,1.45rem);line-height:1.3;letter-spacing:-.02em}
+.faixa .mito small.a{color:#ff7aa8}.faixa .mito small.b{color:var(--verde)}
+
+/* supervisão */
+.sup{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sup h3{margin:0 0 18px;font-size:clamp(1.5rem,2.4vw,2rem);font-weight:900;letter-spacing:-.03em}
+.lista-x{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.lista-x li{display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:start;font-size:1.1rem;line-height:1.45}
+.lista-x li::before{content:"✕";width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:.85rem;font-weight:900;background:color-mix(in srgb,var(--magenta) 14%,transparent);color:var(--magenta-txt)}
+.lista-x.bom li::before{content:"✓";background:color-mix(in srgb,var(--verde) 22%,transparent);color:var(--verde-txt)}
+.desafio{margin-top:16px;display:grid;grid-template-columns:auto 1fr auto;gap:clamp(18px,3vw,40px);align-items:center;background:var(--magenta);color:#fff;border-radius:32px;padding:clamp(26px,4vw,44px)}
+.desafio b{font-size:clamp(5.5rem,12vw,10rem);font-weight:900;letter-spacing:-.07em;line-height:.8}
+.desafio p{margin:0;font-size:clamp(1.08rem,1.6vw,1.3rem);line-height:1.5}
+.desafio p strong{display:block;font-size:clamp(1.5rem,2.6vw,2.2rem);letter-spacing:-.03em;line-height:1.1;margin-bottom:8px}
+.desafio .btn{background:#fff;color:#000;border-color:#fff;font-size:.95rem;padding:16px 24px}
+.audios{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.audio{display:grid;gap:14px;align-content:start}
+.audio em{font-style:normal;font-size:.74rem;font-weight:800;letter-spacing:.26em;text-transform:uppercase}
+.audio h3{margin:0;font-size:clamp(1.4rem,2.2vw,1.8rem);font-weight:900;letter-spacing:-.03em;line-height:1.1}
+.audio p{margin:0;color:var(--muted);font-size:1.05rem;line-height:1.6}
+.play{display:flex;align-items:center;gap:14px;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:10px 18px 10px 10px}
+.play button{width:52px;height:52px;border-radius:50%;border:0;background:var(--fg);color:var(--bg);display:grid;place-items:center;cursor:pointer;flex:none}
+.play button svg{width:18px;height:18px}
+.play .onda{flex:1;height:32px;display:flex;align-items:center;gap:2px;cursor:pointer}
+.play .onda i{flex:1;background:var(--muted);border-radius:2px;opacity:.45;transition:opacity .2s,background .2s}
+.play .onda i.on{opacity:1;background:var(--verde-txt)}
+.play time{font-size:.85rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--muted);min-width:4ch}
+.curva{margin-top:16px}
+.curva svg{width:100%;height:auto;display:block}
+
+/* separar */
+.casa{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.casa .card{display:grid;gap:14px;align-content:start;padding:clamp(28px,4vw,44px)}
+.casa .emoji{font-size:clamp(3rem,5vw,4.2rem);line-height:1}
+.casa h3{margin:0;font-size:clamp(1.7rem,3vw,2.5rem);font-weight:900;letter-spacing:-.04em;line-height:1}
+.casa p{margin:0;color:var(--muted);line-height:1.6;font-size:1.1rem}
+.casa .card.ink{background:#0b0b0c;color:#f5f5f5;border-color:#0b0b0c}
+.casa .card.ink p{color:#c4c4ca}
+.regra{margin:16px 0 0;padding:clamp(28px,4vw,44px);border-radius:28px;background:var(--fg);color:var(--bg);font-size:clamp(1.6rem,3.6vw,3rem);font-weight:900;letter-spacing:-.045em;line-height:1.05;text-wrap:balance}
+.regra .leve{font-weight:200}
+
+/* zonas */
+.zonas{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.zona{border-radius:32px;padding:clamp(28px,4vw,44px);display:grid;gap:20px;align-content:start}
+.zona.cli{background:var(--magenta);color:#fff}
+.zona.lea{background:var(--marinho);color:#fff}
+.zona .selo{justify-self:start;font-size:.72rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;padding:9px 14px;border-radius:999px;background:rgba(255,255,255,.16)}
+.zona h3{margin:0;font-size:clamp(1.7rem,3vw,2.5rem);font-weight:900;letter-spacing:-.04em;line-height:1.02}
+.passos{list-style:none;counter-reset:p;margin:0;padding:0;display:grid;gap:16px}
+.passos li{counter-increment:p;display:grid;grid-template-columns:44px 1fr;gap:16px;align-items:start;font-size:1.05rem;line-height:1.5;color:rgba(255,255,255,.88)}
+.passos li::before{content:counter(p);width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:1.1rem;font-weight:900;background:#fff;color:#000}
+.passos li b{display:block;color:#fff;font-size:1.15rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{font-size:.86rem;font-weight:700;border:1px solid currentColor;border-radius:999px;padding:8px 14px;opacity:.9}
+.arvore{margin-top:16px}
+.arvore svg{width:100%;height:auto;display:block}
+.arvore text{font-family:var(--font)}
+
+/* condicional */
+.formula{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:f}
+.formula div{border-radius:28px;padding:clamp(24px,3vw,36px);background:var(--card);border:1px solid var(--line);display:grid;gap:10px;align-content:start;position:relative}
+.formula div:not(:last-child)::after{content:"+";position:absolute;right:-22px;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-size:1.6rem;font-weight:300;z-index:2}
+.formula small{font-size:.74rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.formula b{font-size:clamp(2rem,4vw,3.4rem);font-weight:900;letter-spacing:-.05em;line-height:.95}
+.formula span{color:var(--muted);font-size:1.02rem;line-height:1.5}
+.resultado{margin-top:16px;border-radius:28px;background:var(--verde);color:#000;padding:clamp(24px,3.4vw,40px);display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 20px}
+.resultado small{font-size:.74rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase}
+.resultado b{font-size:clamp(2rem,5vw,4rem);font-weight:900;letter-spacing:-.05em;line-height:1}
+.ex{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.ex .card{display:grid;gap:12px;align-content:start}
+.ex small{font-size:.72rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase}
+.ex p{margin:0;line-height:1.35;font-weight:800;font-size:clamp(1.15rem,1.8vw,1.45rem);letter-spacing:-.02em}
+.ex p.m{font-weight:400;color:var(--muted);font-size:1rem;letter-spacing:0;line-height:1.55}
+
+/* calendário */
+.cal{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:end;min-height:520px}
+.sem{border-radius:28px;padding:clamp(20px,2.4vw,30px);display:grid;gap:10px;align-content:end;color:#fff;height:var(--h)}
+.sem small{font-size:.72rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;opacity:.85}
+.sem b{font-size:clamp(1.3rem,2.2vw,1.9rem);font-weight:900;letter-spacing:-.035em;line-height:1.05}
+.sem p{margin:0;font-size:1rem;line-height:1.45;opacity:.9}
+.sem .grande{font-size:clamp(3rem,6vw,5.4rem);font-weight:900;letter-spacing:-.06em;line-height:.8;opacity:.35}
+.sem.s1{--h:300px;background:var(--marinho)}
+.sem.s2{--h:360px;background:color-mix(in srgb,var(--marinho) 65%,#0b8a52)}
+.sem.s3{--h:430px;background:#078a46}
+.sem.s4{--h:520px;background:var(--magenta)}
+.cal-eixo{display:flex;justify-content:space-between;margin-top:14px;font-size:.8rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.cal-eixo span:last-child{color:var(--magenta-txt)}
+.cuidado{margin-top:16px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start;border-radius:28px;padding:clamp(22px,3vw,32px);background:color-mix(in srgb,var(--alerta) 12%,var(--card));border:1px solid color-mix(in srgb,var(--alerta) 40%,transparent)}
+.cuidado .sinal{width:52px;height:52px;border-radius:50%;background:var(--alerta);color:#fff;display:grid;place-items:center;font-size:1.6rem;font-weight:900}
+.cuidado p{margin:0;line-height:1.6;font-size:1.1rem}
+
+/* bonificação e crm */
+.bonus{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:16px;align-items:stretch}
+.bonus figure{margin:0;border-radius:32px;overflow:hidden;background:#0b141a;cursor:zoom-in;min-height:420px}
+.bonus figure img{width:100%;height:100%;display:block;object-fit:cover;object-position:top}
+.regras-b{display:grid;gap:12px}
+.regras-b div{display:grid;grid-template-columns:64px 1fr;gap:16px;align-items:start;padding:22px 24px;border:1px solid var(--line);border-radius:24px;background:var(--card)}
+.regras-b b{font-size:3.2rem;font-weight:100;line-height:.8;color:var(--verde-txt)}
+.regras-b strong{display:block;font-size:1.25rem;letter-spacing:-.02em;margin-bottom:4px}
+.regras-b span{font-size:1.02rem;color:var(--muted);line-height:1.5}
+.crm3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.crm3 .card{display:grid;gap:10px;align-content:start}
+.crm3 b.cn{font-size:clamp(3rem,5vw,4rem);font-weight:100;line-height:.8;letter-spacing:-.04em}
+.crm3 h3{margin:0;font-size:1.4rem;font-weight:900;letter-spacing:-.03em}
+.crm3 p{margin:0;color:var(--muted);font-size:1.05rem;line-height:1.55}
+.campos{margin-top:16px}
+.campos .chips span{background:var(--soft);border-color:var(--line);color:var(--fg);opacity:1}
+.crm-tit{margin:clamp(64px,8vw,110px) 0 12px;font-size:clamp(2rem,4.6vw,3.8rem);font-weight:900;letter-spacing:-.05em;line-height:.95}
+
+/* oferta Alda.CRM (identidade da marca Alda) */
+.alda{--a-amarelo:#fdd015;--a-laranja:#f49f1c;--a-grafite:#2e2e2e;--a-texto:#4a4a4a;font-family:"Poppins",var(--font);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:36px;background:#fff;color:var(--a-grafite);border-radius:36px;padding:clamp(28px,4.5vw,56px) clamp(24px,4.5vw,56px) 96px;position:relative;overflow:hidden;isolation:isolate;margin-top:16px;border:1px solid #eee}
+.alda::before{content:"";position:absolute;z-index:-1;right:-120px;top:-140px;width:620px;height:520px;border-radius:50%;background:radial-gradient(closest-side,rgba(253,208,21,.6),rgba(253,208,21,0))}
+.alda::after{content:"";position:absolute;z-index:-1;right:10%;bottom:-180px;width:560px;height:360px;border-radius:50%;background:radial-gradient(closest-side,rgba(253,208,21,.35),rgba(253,208,21,0))}
+.alda-caco{position:absolute;z-index:-1;left:0;bottom:0;width:90px;height:86px;background:linear-gradient(160deg,var(--a-amarelo) 0 45%,var(--a-laranja) 45% 60%,#ffc21a 60%);clip-path:polygon(0 18%,22% 0,100% 100%,0 100%)}
+.alda-cab{display:grid;gap:16px;align-content:start;position:relative}
+.alda-selo{justify-self:start;font-size:.76rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--a-grafite);background:var(--a-amarelo);padding:7px 14px;border-radius:6px}
+.alda-logo{width:230px;height:auto;display:block}
+.alda h2{margin:0;font-family:"Poppins",var(--font);font-size:clamp(1.7rem,3.4vw,2.6rem);font-weight:700;letter-spacing:-.02em;line-height:1.12;color:var(--a-grafite);text-wrap:balance}
+.alda p{margin:0;color:var(--a-texto);max-width:46ch;font-size:1.08rem;line-height:1.6}
+.alda .alda-assina{font-size:.84rem;color:#8a8a8a}
+.alda-acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.alda .btn{font-family:"Poppins",var(--font);font-weight:600;border-radius:12px;font-size:1rem;padding:16px 24px}
+.alda .btn.alda-btn{background:var(--a-amarelo);border-color:var(--a-amarelo);color:var(--a-grafite);box-shadow:0 6px 0 #e3b800}
+.alda .btn.alda-btn:hover{opacity:1;transform:translateY(-2px);box-shadow:0 8px 0 #e3b800}
+.alda .btn.alda-link{color:var(--a-grafite);border-color:#e2e2e2;background:#fff}
+.alda-lista{display:grid;gap:12px;align-content:start;position:relative}
+.alda-eyebrow{font-size:.76rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8a8a8a}
+.alda-lista ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.alda-lista li{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid #efefef;border-radius:16px;padding:18px 20px;box-shadow:0 4px 18px rgba(46,46,46,.06);transition:transform .2s,box-shadow .2s}
+.alda-lista li:hover{transform:translateX(4px);box-shadow:0 10px 26px rgba(46,46,46,.10)}
+.alda-lista li div{display:grid;gap:3px}
+.alda-lista strong{font-size:1.05rem;font-weight:600;color:var(--a-grafite)}
+.alda-lista li div span{font-size:.92rem;color:var(--a-texto);line-height:1.45}
+.alda-ic{width:44px;height:44px;border-radius:10px;background:var(--a-amarelo);color:var(--a-grafite);display:grid;place-items:center;flex:none}
+.alda-ic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.alda-pato{position:absolute;right:40px;bottom:-34px;width:76px;height:auto;transform:rotate(-8deg);transition:transform .3s}
+.alda:hover .alda-pato{transform:rotate(0) translateY(-12px)}
+
+/* ===== kit ===== */
+.ferr{display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(56px,7vw,90px)}
+.ferr .btn{font-size:.92rem;padding:14px 22px}
+.placar-geral{position:sticky;top:84px;z-index:5;margin:0 0 22px;background:var(--bg);border:1px solid var(--line);border-radius:22px;padding:16px 20px;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.placar-geral b{font-size:2.4rem;font-weight:900;letter-spacing:-.05em;font-variant-numeric:tabular-nums;line-height:1}
+.placar-geral small{display:block;font-size:.66rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.prog-b{height:14px;border-radius:999px;background:var(--soft);overflow:hidden;border:1px solid var(--line)}
+.prog-b i{display:block;height:100%;width:0;background:var(--verde);transition:width .35s}
+.placar-geral button{font:inherit;font-size:.76rem;font-weight:700;background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:8px 14px;cursor:pointer}
+.etapas{display:grid;gap:14px}
+.etp{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:clamp(22px,3vw,32px);display:grid;grid-template-columns:230px 1fr;gap:26px}
+.etp.feito{border-color:var(--verde-txt);box-shadow:inset 6px 0 0 var(--verde)}
+.etp .h{display:grid;gap:6px;align-content:start}
+.etp .h time{font-size:.72rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.etp .h b{font-size:1.6rem;font-weight:900;letter-spacing:-.035em;line-height:1.05}
+.etp .h small{color:var(--muted);font-size:.95rem;line-height:1.4}
+.etp .mini{height:8px;border-radius:999px;background:var(--soft);overflow:hidden;margin-top:8px}
+.etp .mini i{display:block;height:100%;width:0;background:var(--verde);transition:width .3s}
+.etp .mini-n{font-size:.82rem;font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums}
+.etp.feito .mini-n{color:var(--verde-txt)}
+.chk{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.chk label{display:flex;gap:14px;align-items:flex-start;cursor:pointer;padding:9px 0;line-height:1.45;font-size:1.08rem}
+.chk input{appearance:none;-webkit-appearance:none;width:26px;height:26px;border:2px solid var(--muted);border-radius:8px;flex:none;margin:0;display:grid;place-items:center;cursor:pointer;background:var(--bg)}
+.chk input:checked{background:var(--verde);border-color:var(--verde)}
+.chk input:checked::after{content:"";width:7px;height:13px;border:solid #000;border-width:0 3px 3px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.chk input:checked+span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--verde-txt)}
+.chk span small{display:block;color:var(--muted);font-size:.88rem;margin-top:3px}
+.aud{display:grid;grid-template-columns:repeat(10,1fr);gap:10px}
+.aud button{aspect-ratio:1;border-radius:16px;border:1px solid var(--line);background:var(--card);font:inherit;font-size:1rem;font-weight:900;color:var(--muted);cursor:pointer;transition:transform .15s,background .2s}
+.aud button:hover{transform:scale(1.06)}
+.aud button[data-v="1"]{background:var(--verde);border-color:var(--verde);color:#000}
+.aud button[data-v="2"]{background:var(--magenta);border-color:var(--magenta);color:#fff}
+.aud-res{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+.aud-res div{border-top:3px solid var(--fg);padding-top:12px}
+.aud-res b{display:block;font-size:clamp(3rem,6vw,4.6rem);font-weight:900;letter-spacing:-.06em;line-height:.9;font-variant-numeric:tabular-nums}
+.aud-res small{font-size:.9rem;color:var(--muted);font-weight:700}
+.aud-res div.v b{color:var(--verde-txt)}.aud-res div.m b{color:var(--magenta-txt)}
+.aud-veredito{margin:18px 0 0;font-weight:800;font-size:1.2rem;line-height:1.45}
+.crit{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.crit span{font-size:.9rem;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:8px 14px;background:var(--soft)}
+.calc{display:grid;grid-template-columns:1fr 1.05fr;gap:16px}
+.calc .ent{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start}
+.calc label{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px 20px;display:grid;gap:8px;font-size:.92rem;font-weight:800}
+.calc label small{font-weight:600;color:var(--muted);font-size:.84rem}
+.calc input{font:inherit;font-size:2rem;font-weight:300;letter-spacing:-.03em;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--fg);padding:4px 0;width:100%;outline:none}
+.calc input[type=range]{padding:0;border:0;accent-color:var(--verde-txt)}
+.calc .sai{background:#0b0b0c;color:#f5f5f5;border-radius:28px;padding:clamp(24px,3vw,34px);display:grid;gap:20px;align-content:start}
+.calc .sai small{font-size:.7rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#a1a1a8}
+.calc .sai output{display:block;font-size:clamp(2.4rem,5vw,3.6rem);font-weight:900;letter-spacing:-.05em;font-variant-numeric:tabular-nums;line-height:1}
+.calc .sai .verde{color:var(--verde)}
+.donut-w{display:grid;grid-template-columns:130px 1fr;gap:20px;align-items:center}
+.donut-w svg{width:130px;height:130px}
+.leg{display:grid;gap:10px;font-size:.98rem}
+.leg div{display:flex;gap:10px;align-items:center}
+.leg i{width:14px;height:14px;border-radius:4px;flex:none}
+.leg b{margin-left:auto;font-variant-numeric:tabular-nums}
+.gera{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.gera .op-l{display:grid;gap:14px;align-content:start}
+.gera fieldset{border:1px solid var(--line);border-radius:22px;padding:16px 18px;margin:0;background:var(--card)}
+.gera legend{font-size:.7rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);padding:0 6px}
+.gera .pls{display:flex;flex-wrap:wrap;gap:8px}
+.gera .pls button{font:inherit;font-size:.95rem;font-weight:700;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:999px;padding:10px 15px;cursor:pointer}
+.gera .pls button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.gera .msg-o{background:var(--verde);color:#000;border-radius:28px;padding:clamp(22px,3vw,32px);display:grid;gap:16px;align-content:start}
+.gera .msg-o blockquote{margin:0;padding:20px 22px;background:#fff;border-radius:20px;line-height:1.6;font-size:1.08rem;white-space:pre-line}
+.gera .alerta-o{font-size:.95rem;font-weight:800;margin:0;background:#000;color:#fff;padding:12px 16px;border-radius:14px}
+.gera .alerta-o:empty{display:none}
+.gera .msg-o .btn{background:#000;color:#fff;border-color:#000;justify-self:start}
+.msgs{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.msgs .card{display:grid;gap:14px;align-content:start}
+.msgs h3{margin:0;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;font-weight:800}
+.msgs h3 small{display:block;margin-top:8px;letter-spacing:-.02em;text-transform:none;font-size:1.35rem;font-weight:900;color:var(--fg)}
+.msgs blockquote{margin:0;padding:18px 20px;border-left:4px solid var(--verde);background:var(--soft);border-radius:0 18px 18px 0;line-height:1.6;font-size:1.05rem}
+
+/* diagnóstico */
+.diag{margin-top:clamp(90px,11vw,150px);display:grid;grid-template-columns:1fr 1fr;background:#0b0b0c;color:#f5f5f5;overflow:hidden;border-radius:36px}
+.diag .txt{padding:clamp(32px,5vw,72px);display:grid;gap:20px;align-content:center}
+.diag .spaced{color:#a1a1a8}
+.diag h2{font-size:clamp(2.4rem,5vw,4rem);line-height:.95;font-weight:900;letter-spacing:-.05em;margin:0;text-wrap:balance}
+.diag h2 .leve{font-weight:200}
+.diag p{color:#c4c4ca;margin:0;max-width:46ch;font-size:1.1rem;line-height:1.6}
+.diag .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.diag .ctas .btn{font-size:.95rem;padding:16px 24px}
+.diag .ctas .btn:not(.verde){color:#f5f5f5}
+.diag figure{margin:0;position:relative;min-height:420px}
+.diag figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1);-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%);mask-image:linear-gradient(90deg,transparent,#000 35%)}
+
+/* zoom */
+.zoom{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.9);display:none;place-items:center;padding:20px;cursor:zoom-out}
+.zoom.on{display:grid}
+.zoom img{max-width:min(760px,100%);max-height:92vh;border-radius:16px}
+
+/* revelar */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.vis{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.lupa{transition:none}.etq{animation:none;opacity:1}}
+
+/* ADM */
+.admbar{background:var(--marinho);color:#f5f5f5}
+.admbar .wrap{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between;padding-block:16px}
+.admbar .sel{display:inline-flex;align-items:center;gap:10px;font-size:.68rem;font-weight:800;letter-spacing:.28em;text-transform:uppercase}
+.admbar .sel i{width:8px;height:8px;border-radius:50%;background:var(--verde);display:block;animation:pis 1.8s ease-in-out infinite}
+.admbar .tx{font-size:.85rem;opacity:.85;margin:4px 0 0}
+.admbar .num2{display:flex;gap:22px}
+.admbar .num2 b{display:block;font-size:1.9rem;font-weight:200;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.admbar .num2 small{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;opacity:.75}
+.admbar .acs{display:flex;flex-wrap:wrap;gap:8px}
+.admbar .btn{color:#f5f5f5;border-color:rgba(245,245,245,.5)}
+.admbar .btn.verde{color:#000;border-color:var(--verde)}
+.admbar .lista{display:none;padding-bottom:18px}
+.admbar.aberta .lista{display:block}
+.admbar table{width:100%;border-collapse:collapse;font-size:.85rem}
+.admbar th{text-align:left;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;opacity:.7;padding:8px 10px;border-bottom:1px solid rgba(245,245,245,.3)}
+.admbar td{padding:9px 10px;border-bottom:1px solid rgba(245,245,245,.12)}
+.admbar td a{color:#f5f5f5}
+.admbar .vazio{opacity:.75;font-size:.9rem;margin:6px 0 0}
+.rolar{overflow-x:auto;-webkit-overflow-scrolling:touch}
+body.modo-adm .ok{display:none!important}
+
+@media (max-width:980px){
+  .hero{min-height:0;max-height:none;align-items:start}
+  .hero .foto{position:relative;width:100%;height:56svh;max-height:560px;grid-row:1}
+  .hero .foto::after{background:linear-gradient(0deg,#0b0b0c 0%,rgba(11,11,12,0) 34%)}
+  .hero .tx{grid-row:2;padding-block:8px 64px;margin-top:-40px}
+  .hero .tx>*{max-width:none}
+  .hero h1{font-size:clamp(2.8rem,11vw,4.6rem)}
+  .numeros .wrap-m{grid-template-columns:1fr 1fr}
+  .numeros div.n4{border-left:0;padding-left:0;border-top:1px solid #26262a}
+  .numeros div.n4:nth-child(-n+2){border-top:0}
+  .sum{grid-template-columns:1fr 1fr}
+  .caso{grid-template-columns:1fr}
+  .caso:nth-child(even) figure{order:0}
+  .caso figure{aspect-ratio:1/1;max-height:520px}
+  .duas-g,.sup,.audios,.casa,.zonas,.bonus,.calc,.gera,.gate,.diag,.alda,.mitos,.msgs{grid-template-columns:1fr}
+  .crm3,.ex,.formula{grid-template-columns:1fr}
+  .formula div:not(:last-child)::after{right:50%;top:auto;bottom:-30px;transform:translateX(50%)}
+  .cal{grid-template-columns:1fr 1fr;min-height:0}
+  .sem{height:auto;min-height:220px}
+  .desafio{grid-template-columns:1fr}
+  .diag figure{min-height:260px}
+  .placar-geral{top:72px}
+  .etp{grid-template-columns:1fr;gap:12px}
+}
+@media (max-width:620px){
+  .lupa{width:120px}
+  .cab{grid-template-columns:1fr;gap:4px}
+  .cab .num{font-size:4.6rem}
+  .sum{grid-template-columns:1fr}
+  .aud{grid-template-columns:repeat(6,1fr)}
+  .calc .ent{grid-template-columns:1fr}
+  .barra-l{grid-template-columns:100px 1fr 44px;font-size:.9rem}
+  .gate .duas{grid-template-columns:1fr}
+  .ok{grid-template-columns:auto 1fr}
+  .ok .btn{grid-column:1/-1}
+  .cal{grid-template-columns:1fr}
+  .placar-geral{grid-template-columns:auto 1fr}
+  .placar-geral button{grid-column:1/-1}
+  .donut-w{grid-template-columns:100px 1fr}.donut-w svg{width:100px;height:100px}
+  .alda-pato{width:60px;right:24px}
+}
+@media print{
+  .admbar,.gate,.ok,.ferr,.diag,[data-newsletter],.nl-banner,.placar-geral button,.play,.zoom,.sum,.lupa,.etq,.dica{display:none!important}
+  .fechado,#conteudo{display:block!important}
+  .rv{opacity:1!important;transform:none!important}
+  .card,.etp,.zona,.caso,.graf{break-inside:avoid}
+  .placar-geral{position:static;box-shadow:none}
+  .hero{min-height:0}.hero .foto{display:none}
+  .faixa,.zona,.sem,.desafio{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+/* ================= ESTOQUE PARADO ================= */
+/* capa: a prateleira que volta a girar */
+.capa{position:relative;background:#0b0b0c;color:#fff;overflow:hidden;isolation:isolate}
+.capa .wrap-m{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center;min-height:calc(100svh - 84px);max-height:980px;padding-block:clamp(48px,8vh,96px)}
+.capa .kick{display:inline-flex;align-items:center;gap:12px;font-size:.74rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:#d4d4d8}
+.capa .kick::before{content:"";width:36px;height:2px;background:var(--verde)}
+.capa h1{margin:20px 0 0;font-size:clamp(3rem,6.4vw,6.6rem);line-height:.88;font-weight:900;letter-spacing:-.055em;text-wrap:balance}
+.capa h1 .leve{display:block;margin-top:.14em;font-size:.6em;line-height:1;font-weight:200;letter-spacing:-.035em;color:var(--verde)}
+.capa .sub{margin:28px 0 0;max-width:44ch;font-size:clamp(1.1rem,1.7vw,1.4rem);line-height:1.5;color:#e4e4e7}
+.capa .sub b{color:#fff}
+.capa .acs{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.capa .acs .btn{font-size:.95rem;padding:16px 26px}
+.capa .acs .btn:not(.verde){color:#fff;border-color:rgba(255,255,255,.55)}
+.capa::before{content:"";position:absolute;z-index:-1;right:-10%;top:-20%;width:70%;height:90%;background:radial-gradient(closest-side,rgba(224,5,94,.28),rgba(224,5,94,0))}
+.capa::after{content:"";position:absolute;z-index:-1;right:5%;bottom:-30%;width:60%;height:70%;background:radial-gradient(closest-side,rgba(0,230,118,.16),rgba(0,230,118,0))}
+.prat-w{position:relative}
+.prat{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(6px,.9vw,12px);padding:clamp(14px,2vw,24px);border-radius:28px;background:linear-gradient(180deg,#151518,#0f0f11);border:1px solid #26262a;box-shadow:0 40px 80px rgba(0,0,0,.5)}
+.cx{aspect-ratio:1;border-radius:clamp(8px,1vw,12px);display:grid;place-items:center;font-size:clamp(.56rem,.8vw,.74rem);font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(224,5,94,.14);border:1px solid rgba(224,5,94,.5);color:#ff7aa8;transition:background .35s,border-color .35s,color .35s,transform .45s cubic-bezier(.2,1.4,.4,1),opacity .45s;position:relative}
+.cx::before{content:"";position:absolute;left:18%;right:18%;top:22%;height:2px;background:currentColor;opacity:.35;border-radius:2px}
+.cx.gira{background:var(--verde);border-color:var(--verde);color:#000;transform:scale(1.08)}
+.cx.sai{opacity:0;transform:scale(.4) translateY(-30px)}
+.cx.vazio{background:transparent;border:1px dashed #333338;color:transparent}
+.cx.vazio::before{display:none}
+.prat-leg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.prat-leg div{background:#141417;border:1px solid #26262a;border-radius:18px;padding:14px 18px}
+.prat-leg small{display:block;font-size:.64rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#a1a1a8}
+.prat-leg b{display:block;margin-top:4px;font-size:clamp(1.4rem,2.6vw,2.2rem);font-weight:900;letter-spacing:-.04em;font-variant-numeric:tabular-nums;line-height:1}
+.prat-leg .p b{color:#ff4d8f}.prat-leg .l b{color:var(--verde)}
+.prat-tag{position:absolute;left:-14px;top:-14px;background:#fff;color:#0b0b0c;font-size:.66rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;padding:9px 14px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+
+/* seletor de segmento */
+.seg-sec{padding-top:clamp(64px,9vw,120px)}
+.seg-cab{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:20px;margin-bottom:clamp(24px,3vw,40px)}
+.seg-cab h2{margin:0;font-size:clamp(2.4rem,6vw,5.2rem);font-weight:900;letter-spacing:-.055em;line-height:.92;max-width:14ch}
+.seg-cab h2 .leve{display:block}
+.seg-cab p{margin:0;color:var(--muted);max-width:40ch;font-size:1.1rem;line-height:1.55}
+.segs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.sg{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-rows:auto auto 1fr auto;gap:16px;border-radius:32px;padding:clamp(24px,3vw,34px);background:var(--card);border:2px solid var(--line);position:relative;overflow:hidden;transition:transform .25s,border-color .25s,box-shadow .25s;min-height:440px}
+.sg:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(0,0,0,.12)}
+.sg:focus-visible{outline:3px solid var(--verde);outline-offset:3px}
+.sg .ico{width:76px;height:76px;border-radius:22px;display:grid;place-items:center;color:#fff}
+.sg .ico svg{width:40px;height:40px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.sg[data-s="industria"] .ico{background:var(--marinho)}
+.sg[data-s="atacado"] .ico{background:var(--magenta)}
+.sg[data-s="confeccao"] .ico{background:#0b0b0c;color:var(--verde)}
+.sg h3{margin:0;font-size:clamp(2.2rem,3.6vw,3.2rem);font-weight:900;letter-spacing:-.05em;line-height:.95}
+.sg h3 small{display:block;font-size:.34em;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.sg p{margin:0;color:var(--muted);font-size:1.02rem;line-height:1.5}
+.sg ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:8px;align-content:start}
+.sg li{display:flex;gap:10px;align-items:flex-start;font-weight:700;font-size:.98rem;line-height:1.35}
+.sg li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--magenta);flex:none;margin-top:.45em}
+.sg .ir{display:inline-flex;align-items:center;justify-content:space-between;gap:10px;font-weight:900;font-size:1.02rem;border-top:1px solid var(--line);padding-top:16px}
+.sg .ir i.seta{width:44px;height:44px;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;transition:transform .25s}
+.sg:hover .ir i.seta{transform:translateX(4px)}
+.sg .ir i.seta::after{content:"";width:16px;height:16px;background:currentColor;-webkit-mask:var(--ic-seta) center/contain no-repeat;mask:var(--ic-seta) center/contain no-repeat}
+.sg .ok-s{position:absolute;right:22px;top:22px;font-size:.64rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;background:var(--verde);color:#000;padding:8px 12px;border-radius:999px;display:none}
+.sg[aria-pressed="true"]{border-color:var(--verde-txt);box-shadow:0 0 0 4px color-mix(in srgb,var(--verde) 30%,transparent)}
+.sg[aria-pressed="true"] .ok-s{display:block}
+
+/* segmento dentro do formulário */
+.seg-f{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.seg-f label{position:relative;cursor:pointer}
+.seg-f input{position:absolute;opacity:0;inset:0;width:100%!important;height:100%;margin:0;cursor:pointer}
+.seg-f span{display:block;text-align:center;font-weight:800;font-size:.92rem;padding:13px 8px;border-radius:14px;border:2px solid #3a3a40;color:#e4e4e7;transition:background .2s,border-color .2s}
+.seg-f input:checked+span{background:var(--verde);border-color:var(--verde);color:#000}
+.seg-f input:focus-visible+span{box-shadow:0 0 0 4px rgba(0,230,118,.5)}
+.gate .flab{font-size:.68rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#a1a1a8;margin:6px 0 -2px}
+
+/* barra da trilha */
+.trilha-w{position:sticky;top:84px;z-index:8;margin-top:clamp(48px,6vw,72px);pointer-events:none}
+.trilha{pointer-events:auto;background:var(--bg);border:1px solid var(--line);border-radius:22px;padding:10px 12px 10px 20px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;box-shadow:0 12px 30px rgba(0,0,0,.08)}
+.trilha .tt{font-size:.66rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.trilha .tt b{display:block;font-size:1.25rem;letter-spacing:-.02em;text-transform:none;color:var(--fg);font-weight:900;margin-top:2px}
+.trilha .pls{display:flex;flex-wrap:wrap;gap:6px}
+.trilha .pls button{font:inherit;font-weight:800;font-size:.9rem;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:10px 16px;cursor:pointer}
+.trilha .pls button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+
+/* semáforo */
+.semaf{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.sf{border-radius:30px;padding:clamp(24px,3vw,34px);display:grid;gap:14px;align-content:start;position:relative;overflow:hidden}
+.sf .d{font-size:clamp(3rem,6vw,5rem);font-weight:900;letter-spacing:-.06em;line-height:.85;font-variant-numeric:tabular-nums}
+.sf .d small{display:block;font-size:.22em;letter-spacing:.22em;text-transform:uppercase;font-weight:800;margin-top:10px;opacity:.75}
+.sf b{font-size:1.4rem;font-weight:900;letter-spacing:-.03em}
+.sf p{margin:0;line-height:1.55;font-size:1.04rem}
+.sf.s1{background:var(--soft);border:1px solid var(--line)}
+.sf.s1 .d{color:var(--marinho-txt)}
+.sf.s2{background:var(--marinho);color:#f5f5f5}
+.sf.s3{background:var(--magenta);color:#fff}
+.sf .luz{position:absolute;right:22px;top:22px;display:flex;gap:6px}
+.sf .luz i{width:12px;height:12px;border-radius:50%;background:currentColor;opacity:.2}
+.sf.s1 .luz i:nth-child(1),.sf.s2 .luz i:nth-child(2),.sf.s3 .luz i:nth-child(3){opacity:1}
+.raio{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px;margin-top:16px}
+.raio .card h3{margin:0 0 6px;font-size:clamp(1.5rem,2.4vw,2rem);font-weight:900;letter-spacing:-.03em}
+.raio .card>p{margin:0 0 14px;color:var(--muted)}
+.motivos{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.motivos span{font-size:.92rem;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:8px 14px;background:var(--soft)}
+.big-q{margin:18px 0 0;font-size:clamp(1.4rem,2.4vw,2rem);font-weight:900;letter-spacing:-.035em;line-height:1.15}
+.big-q .leve{display:block}
+
+/* frentes de ação */
+.frentes{display:grid;gap:clamp(40px,5vw,64px)}
+.fr-h{display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:end;padding-bottom:16px;border-bottom:2px solid var(--fg);margin-bottom:16px}
+.fr-h .n{font-size:clamp(3rem,6vw,5rem);font-weight:100;letter-spacing:-.06em;line-height:.8;font-variant-numeric:tabular-nums}
+.fr-h h3{margin:0;font-size:clamp(1.7rem,3.4vw,2.8rem);font-weight:900;letter-spacing:-.045em;line-height:1}
+.fr-h .bar{width:clamp(60px,10vw,140px);height:14px;border-radius:999px}
+.fr-h .bar.verde{background:var(--verde)}.fr-h .bar.marinho{background:var(--marinho)}.fr-h .bar.magenta{background:var(--magenta)}
+.acoes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ac{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:24px 24px 20px;display:grid;grid-template-rows:auto 1fr auto auto;gap:12px;transition:border-color .2s,box-shadow .2s}
+.ac h4{margin:0;font-size:1.32rem;font-weight:900;letter-spacing:-.03em;line-height:1.12}
+.ac p{margin:0;color:var(--muted);font-size:1.02rem;line-height:1.55}
+.ac .q{font-size:.88rem;line-height:1.45;padding:10px 12px;border-radius:12px;background:var(--soft)}
+.ac .q b{font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:2px;color:var(--muted)}
+.ac button{font:inherit;font-weight:800;font-size:.9rem;display:inline-flex;align-items:center;justify-content:center;gap:10px;border:2px solid var(--fg);background:transparent;color:var(--fg);border-radius:14px;padding:12px 14px;cursor:pointer;transition:background .2s,color .2s}
+.ac button::before{content:"+";font-size:1.2rem;line-height:1;font-weight:900}
+.ac button[aria-pressed="true"]{background:var(--verde);border-color:var(--verde);color:#000}
+.ac button[aria-pressed="true"]::before{content:"✓";font-size:1rem}
+.ac.no-plano{border-color:var(--verde-txt);box-shadow:inset 0 6px 0 var(--verde)}
+.contador{position:fixed;left:clamp(14px,3vw,28px);bottom:clamp(14px,3vw,28px);z-index:20;display:none;align-items:center;gap:12px;background:#0b0b0c;color:#fff;border-radius:999px;padding:10px 12px 10px 20px;box-shadow:0 20px 40px rgba(0,0,0,.35);font-weight:800;text-decoration:none}
+.contador b{background:var(--verde);color:#000;border-radius:999px;min-width:36px;height:36px;display:grid;place-items:center;font-size:1rem;padding:0 8px}
+body.liberado .contador.on{display:inline-flex}
+
+/* calculadoras */
+.calcs{display:grid;gap:clamp(36px,5vw,56px)}
+.calc-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;margin-bottom:16px}
+.calc-h b{font-size:.74rem;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+.calc-h h3{margin:0;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:900;letter-spacing:-.04em}
+.calc .sai .lin{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.calc .sai .lin output{font-size:clamp(1.7rem,3.2vw,2.7rem)}
+.calc .sai .mag{color:#ff4d8f}
+.calc .sai p.v{margin:0;font-size:1.05rem;line-height:1.55;color:#e4e4e7;border-top:1px solid #2a2a2e;padding-top:16px}
+.calc .sai p.v b{color:#fff}
+.cmp{display:grid;gap:12px}
+.cmp div{display:grid;gap:6px}
+.cmp small{font-size:.66rem!important}
+.cmp .tr{height:38px;border-radius:10px;background:#1c1c20;overflow:hidden;position:relative}
+.cmp .tr i{display:block;height:100%;border-radius:10px;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.cmp .tr span{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-weight:900;font-size:1rem;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.calc .un{font-size:.84rem;color:var(--muted);font-weight:600}
+
+/* plano de 30 dias: reaproveita .etapas/.etp/.chk/.placar-geral */
+
+/* meu planejamento */
+.plan-v{border:2px dashed var(--line);border-radius:28px;padding:clamp(24px,4vw,44px);text-align:center;color:var(--muted);font-size:1.1rem;line-height:1.55}
+.plan-v b{display:block;color:var(--fg);font-size:1.5rem;letter-spacing:-.03em;margin-bottom:6px}
+.plan-l{display:grid;gap:10px}
+.pl{display:grid;grid-template-columns:44px minmax(0,1.6fr) minmax(0,1fr) 170px 44px;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:14px 16px}
+.pl .i{width:44px;height:44px;border-radius:14px;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-weight:900;font-variant-numeric:tabular-nums}
+.pl b{display:block;font-size:1.1rem;letter-spacing:-.02em;line-height:1.2}
+.pl small{color:var(--muted);font-size:.84rem}
+.pl input{font:inherit;font-size:.98rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 12px;width:100%;outline:none}
+.pl input:focus{border-color:var(--verde-txt)}
+.pl .x{font:inherit;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:none;color:var(--muted);cursor:pointer;font-size:1.1rem}
+.pl .x:hover{color:var(--magenta-txt);border-color:var(--magenta-txt)}
+.plan-acs{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.plan-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.plan-meta div{border-top:3px solid var(--fg);padding-top:12px}
+.plan-meta small{display:block;font-size:.7rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.plan-meta b{display:block;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:900;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.copia{font:inherit;font-weight:800;font-size:.86rem;justify-self:start;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:999px;padding:10px 16px;cursor:pointer}
+
+/* prevenção */
+.prev{list-style:none;margin:clamp(32px,4vw,48px) 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.prev li{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:22px 24px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;font-weight:800;font-size:clamp(1.08rem,1.6vw,1.3rem);line-height:1.35;letter-spacing:-.015em}
+.prev li span{font-size:.7rem;font-weight:800;letter-spacing:.2em;color:var(--verde);padding-top:5px}
+
+@media (max-width:980px){
+  .capa .wrap-m{grid-template-columns:1fr;min-height:0;max-height:none}
+  .prat-w{max-width:560px}
+  .segs,.semaf,.raio,.acoes,.prev{grid-template-columns:1fr}
+  .sg{min-height:0}
+  .acoes{grid-template-columns:1fr 1fr}
+  .trilha-w{top:72px}
+  .pl{grid-template-columns:44px 1fr 44px}
+  .pl .r,.pl .d{grid-column:2/3}
+  .pl .x{grid-row:1;grid-column:3}
+}
+@media (max-width:620px){
+  .acoes,.plan-meta,.calc .sai .lin{grid-template-columns:1fr}
+  .seg-f{grid-template-columns:1fr}
+  .fr-h{grid-template-columns:auto 1fr}
+  .fr-h .bar{display:none}
+  .prat-tag{left:8px}
+  .trilha{padding:8px;justify-content:center;border-radius:18px}
+  .trilha .tt{display:none}
+  .trilha .pls button{font-size:.84rem;padding:9px 13px}
+}
+@media print{
+  .capa .prat-w,.capa .acs,.seg-sec,.trilha-w,.contador,.ac button,.plan-acs,.copia,.pl .x{display:none!important}
+  .capa .wrap-m{min-height:0;grid-template-columns:1fr}
+  .ac,.sf,.pl,.calc{break-inside:avoid}
+  .sf,.faixa{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body class="leitura">
+<script src="/assets/casco.js"></script>
+<main>
+
+<!-- ============ CAPA ============ -->
+<section class="capa" id="topo" aria-label="Capa">
+  <div class="wrap-m">
+    <div class="tx">
+      <span class="kick">Estratégias por segmento</span>
+      <h1>Estoque parado é dinheiro dormindo. <span class="leve">Hora de acordar.</span></h1>
+      <p class="sub">Lote encalhado, linha descontinuada, peça fora de grade. Escolha o seu segmento e receba <b>o plano para transformar estoque em caixa</b>: raio-x, ações, checklist de 30 dias, calculadoras e mensagens prontas.</p>
+      <div class="acs"><a class="btn verde" href="#segmento">Escolher meu segmento <i class="ic" style="--i:var(--ic-seta)"></i></a><a class="btn" href="#liberar">Liberar o material</a></div>
+    </div>
+    <div class="prat-w" aria-hidden="true">
+      <span class="prat-tag">Seu estoque, agora</span>
+      <div class="prat" id="prat"></div>
+      <div class="prat-leg"><div class="p"><small>Parado</small><b id="v-par">R$ 0</b></div><div class="l"><small>Virou caixa</small><b id="v-lib">R$ 0</b></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="numeros" aria-label="O que tem no material">
+  <div class="wrap-m">
+    <div class="n4 c3"><b>3</b><small>trilhas: indústria, atacado e confecção</small></div>
+    <div class="n4 c2"><b>20+</b><small>ações por segmento, separadas por frente</small></div>
+    <div class="n4 c1"><b>30</b><small>dias de plano com checklist e progresso</small></div>
+    <div class="n4 c4"><b>3</b><small>calculadoras: custo, desconto e meta de giro</small></div>
+  </div>
+</section>
+
+<div class="wrap-m">
+
+<!-- ============ SELETOR ============ -->
+<section class="seg-sec" id="segmento" aria-labelledby="seg-t">
+  <div class="seg-cab">
+    <h2 id="seg-t">Qual é o seu <span class="leve">negócio?</span></h2>
+    <p>Cada segmento encalha por um motivo diferente e tem saídas diferentes. Escolha o seu e o material abre na trilha certa.</p>
+  </div>
+  <div class="segs">
+    <button class="sg" type="button" data-s="industria" aria-pressed="false">
+      <span class="ok-s">Escolhido</span>
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l5 3V10l5 3V6h4v15"/><path d="M8 17h1M12 17h1M16 17h1"/></svg></span>
+      <h3><small>Trilha 01</small>Indústria</h3>
+      <ul><li>Lote produzido acima da demanda</li><li>Linha ou versão descontinuada</li><li>Matéria-prima e embalagem sem uso</li></ul>
+      <span class="ir">Ver estratégias da indústria <i class="seta"></i></span>
+    </button>
+    <button class="sg" type="button" data-s="atacado" aria-pressed="false">
+      <span class="ok-s">Escolhido</span>
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10M7.5 5l9 4"/></svg></span>
+      <h3><small>Trilha 02</small>Atacado</h3>
+      <ul><li>Compra grande na promoção do fornecedor</li><li>Itens curva C sem saída há meses</li><li>Produtos com validade chegando</li></ul>
+      <span class="ir">Ver estratégias do atacado <i class="seta"></i></span>
+    </button>
+    <button class="sg" type="button" data-s="confeccao" aria-pressed="false">
+      <span class="ok-s">Escolhido</span>
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M15 4l6 2v5h-3v8a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-8H3V6l6-2a3 3 0 0 0 6 0"/></svg></span>
+      <h3><small>Trilha 03</small>Confecção</h3>
+      <ul><li>Grade quebrada: sobrou só P ou só GG</li><li>Coleção ou estação passada</li><li>Tecido, aviamento e segunda linha</li></ul>
+      <span class="ir">Ver estratégias da confecção <i class="seta"></i></span>
+    </button>
+  </div>
+</section>
+
+<!-- ============ CADASTRO ============ -->
+<div class="porta">
+  <div class="gate" id="liberar">
+    <div>
+      <span class="spaced">Exclusivo para cadastrados · gratuito</span>
+      <h2>Libere as estratégias <span class="leve" id="g-seg">do seu segmento.</span></h2>
+      <p>Preencha e tudo abre aqui mesmo, pronto para usar com o time no celular ou impresso. Você pode trocar de trilha quando quiser.</p>
+      <ul>
+        <li>Raio-x do estoque e semáforo por idade</li>
+        <li>Mais de 20 ações separadas por frente</li>
+        <li>Plano de 30 dias com checklist e progresso</li>
+        <li>3 calculadoras: custo de segurar, desconto e meta</li>
+        <li>Seu planejamento pronto para copiar e imprimir</li>
+      </ul>
+    </div>
+    <form id="f-lib" novalidate>
+      <p class="ftit">Seus dados</p>
+      <p class="flab">Seu segmento</p>
+      <div class="seg-f" role="radiogroup" aria-label="Seu segmento">
+        <label><input type="radio" name="segmento" value="industria"><span>Indústria</span></label>
+        <label><input type="radio" name="segmento" value="atacado"><span>Atacado</span></label>
+        <label><input type="radio" name="segmento" value="confeccao"><span>Confecção</span></label>
+      </div>
+      <div class="duas">
+        <input name="nome" autocomplete="name" placeholder="Seu nome" aria-label="Seu nome" maxlength="80" required>
+        <input name="empresa" autocomplete="organization" placeholder="Empresa" aria-label="Empresa" maxlength="80" required>
+      </div>
+      <input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="WhatsApp com DDD" aria-label="WhatsApp com DDD" maxlength="30" required>
+      <input name="email" type="email" autocomplete="email" placeholder="Seu melhor e-mail" aria-label="Seu e-mail" maxlength="120" required>
+      <input class="isca" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label class="aceite"><input type="checkbox" name="aceite" required><span>Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a <a href="/privacidade/" target="_blank" rel="noopener">Política de Privacidade</a>. Posso cancelar quando quiser.</span></label>
+      <button type="submit">Liberar as estratégias <i class="ic" style="--i:var(--ic-seta)"></i></button>
+      <p class="msg" role="status" aria-live="polite"></p>
+    </form>
+    <div class="tres-i" aria-hidden="true"><div class="I"></div><div class="I"></div><div class="I"></div></div>
+  </div>
+  <p class="nl-banner">Quem libera o material entra automaticamente na newsletter Unique. Cancele quando quiser, com um clique.</p>
+
+  <div class="ok" role="status" aria-live="polite">
+    <div class="selo"></div>
+    <div>
+      <b id="ok-t">Material liberado!</b>
+      <p id="ok-p">E você já está na newsletter Unique: cada post novo do blog chega direto no seu e-mail.</p>
+      <span class="nl-tag"><i></i>Newsletter Unique · inscrição ativa</span>
+    </div>
+    <a class="btn" href="#raio-x">Começar <i class="ic" style="--i:var(--ic-seta)"></i></a>
+  </div>
+</div>
+
+</div><!-- /wrap-m -->
+
+<div class="fechado">
+<div class="trilha-w"><div class="wrap-m">
+  <div class="trilha" role="group" aria-label="Trilha">
+    <span class="tt">Você está na trilha<b id="t-nome">Indústria</b></span>
+    <div class="pls">
+      <button type="button" data-t="industria" aria-pressed="false">Indústria</button>
+      <button type="button" data-t="atacado" aria-pressed="false">Atacado</button>
+      <button type="button" data-t="confeccao" aria-pressed="false">Confecção</button>
+    </div>
+  </div>
+</div></div>
+<div class="wrap-m">
+
+  <nav class="sum" aria-label="Neste material">
+    <a href="#raio-x"><b>01</b><span>Raio-x do estoque</span></a>
+    <a href="#frentes"><b>02</b><span>As frentes de ação</span></a>
+    <a href="#calculadoras"><b>03</b><span>Calculadoras</span></a>
+    <a href="#plano"><b>04</b><span>Plano de 30 dias</span></a>
+    <a href="#planejamento"><b>05</b><span>Seu planejamento</span></a>
+    <a href="#mensagens"><b>06</b><span>Mensagens prontas</span></a>
+    <a href="#prevencao"><b>07</b><span>Para não encalhar de novo</span></a>
+    <a href="#proximo"><b>08</b><span>Próximo passo</span></a>
+  </nav>
+
+  <!-- 01 -->
+  <section class="sec" id="raio-x">
+    <div class="cab"><span class="num">01</span><div><span class="k">Raio-x do estoque</span><h2>Antes do desconto, <span class="leve">o diagnóstico.</span></h2></div></div>
+    <p class="lead">Desconto em tudo, para todo mundo, é a forma mais cara de resolver estoque parado. <strong>Primeiro descubra o que está parado, há quanto tempo e por quê.</strong> A idade decide o tamanho da ação.</p>
+    <div class="semaf">
+      <div class="sf s1 rv"><span class="luz"><i></i><i></i><i></i></span><span class="d">60–90<small>dias sem saída</small></span><b>Atenção</b><p>Ações na base de clientes, oferta segmentada e prêmio para o time. Ainda sem desconto alto.</p></div>
+      <div class="sf s2 rv"><span class="luz"><i></i><i></i><i></i></span><span class="d">90–180<small>dias sem saída</small></span><b>Alerta</b><p>Condição forte: lote fechado, kit, desconto escalonado, fornecedor e novos canais.</p></div>
+      <div class="sf s3 rv"><span class="luz"><i></i><i></i><i></i></span><span class="d">180+<small>dias sem saída</small></span><b>Queima</b><p>Preço de saída, ponta de estoque, transformar ou doar. Cada mês parado custa mais do que o desconto.</p></div>
+    </div>
+    <div class="raio">
+      <div class="card rv">
+        <h3>Por que encalhou?</h3>
+        <p>O motivo muda a ação. Marque os motivos que aparecem no seu estoque.</p>
+        <div class="motivos" id="motivos"></div>
+        <p class="big-q">Se o problema é procura, desconto não resolve. <span class="leve">Se é preço, desconto resolve rápido.</span></p>
+      </div>
+      <div class="card rv">
+        <h3>Checklist do raio-x</h3>
+        <p id="diag-n">0 de 0 feitos</p>
+        <ul class="chk" id="diag"></ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- faixa -->
+<section class="faixa ink" aria-label="A regra">
+  <div class="wrap-m">
+    <p class="grita">Estoque parado não é patrimônio. <span class="leve">É custo correndo todo mês.</span></p>
+    <p class="apoio">Dinheiro empatado, espaço ocupado, seguro, desvalorização. A pergunta certa não é "quanto eu perco se der desconto", é "quanto eu perco por mês se não fizer nada". A conta 1, na seção 03, responde.</p>
+    <div class="tres-i" aria-hidden="true"><div class="I"></div><div class="I"></div><div class="I"></div></div>
+  </div>
+</section>
+
+<div class="wrap-m">
+  <!-- 02 -->
+  <section class="sec" id="frentes">
+    <div class="cab"><span class="num">02</span><div><span class="k">As frentes de ação</span><h2 id="fr-tit">Do mais barato <span class="leve">ao último recurso.</span></h2></div></div>
+    <p class="lead">Comece pela primeira frente e desça só quando precisar. <strong>Toque em "Incluir no meu plano"</strong> nas ações que fazem sentido para você: elas vão para o seu planejamento, na seção 05.</p>
+    <div class="frentes" id="lista-fr"></div>
+  </section>
+
+  <!-- 03 -->
+  <section class="sec" id="calculadoras">
+    <div class="cab"><span class="num">03</span><div><span class="k">Calculadoras</span><h2>Coloque número <span class="leve">antes de decidir.</span></h2></div></div>
+    <p class="lead">Os campos já vêm com um exemplo do seu segmento. <strong>Troque pelos seus números</strong>: as três contas ficam salvas no seu aparelho.</p>
+    <div class="calcs">
+
+      <div>
+        <div class="calc-h"><b>Conta 1</b><h3>Quanto custa deixar parado?</h3></div>
+        <div class="calc">
+          <div class="ent">
+            <label style="grid-column:1/-1">Valor do estoque parado (a custo)<small>Some o custo de tudo que está há mais de 60 dias sem saída</small><input type="number" inputmode="decimal" min="0" step="1000" data-c="valor"></label>
+            <label>Custo do dinheiro<small>% ao mês (juros ou o que o dinheiro renderia)</small><input type="number" inputmode="decimal" min="0" step="0.1" data-c="cap"></label>
+            <label>Armazenagem e seguro<small>% ao mês sobre o valor</small><input type="number" inputmode="decimal" min="0" step="0.1" data-c="arm"></label>
+            <label style="grid-column:1/-1">Desvalorização<small id="desv-dica">% ao mês: obsolescência, validade, coleção que passa</small><input type="number" inputmode="decimal" min="0" step="0.1" data-c="desv"></label>
+          </div>
+          <div class="sai">
+            <div class="lin">
+              <div><small>Custo por mês</small><output class="mag" id="c1-mes">R$ 0</output></div>
+              <div><small>Por dia</small><output id="c1-dia">R$ 0</output></div>
+            </div>
+            <div class="lin">
+              <div><small>Em 6 meses</small><output class="mag" id="c1-6">R$ 0</output></div>
+              <div><small>Em 12 meses</small><output class="mag" id="c1-12">R$ 0</output></div>
+            </div>
+            <div class="donut-w"><svg viewBox="0 0 42 42" id="c1-donut" role="img" aria-label="Composição do custo mensal"></svg><div class="leg" id="c1-leg"></div></div>
+            <p class="v" id="c1-v"></p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="calc-h"><b>Conta 2</b><h3>Dar desconto agora ou segurar?</h3></div>
+        <div class="calc">
+          <div class="ent">
+            <label>Preço de venda<small id="c2-u1">por unidade</small><input type="number" inputmode="decimal" min="0" step="0.1" data-c="preco"></label>
+            <label>Custo<small id="c2-u2">por unidade</small><input type="number" inputmode="decimal" min="0" step="0.1" data-c="custo"></label>
+            <label>Quantidade parada<small id="c2-u3">unidades</small><input type="number" inputmode="numeric" min="0" step="1" data-c="qtd"></label>
+            <label>Desconto que você daria<small>% sobre o preço</small><input type="number" inputmode="decimal" min="0" max="95" step="1" data-c="desc"></label>
+            <label style="grid-column:1/-1">Meses para vender sem desconto<small>No ritmo atual, quanto tempo esse estoque levaria para sair? O custo de segurar vem da conta 1.</small><input type="number" inputmode="numeric" min="0" max="60" step="1" data-c="meses"></label>
+          </div>
+          <div class="sai">
+            <div class="cmp" id="c2-cmp">
+              <div><small>Lucro vendendo agora, com desconto</small><div class="tr"><i id="c2-b1" style="background:var(--verde)"></i><span id="c2-l1">R$ 0</span></div></div>
+              <div><small>Lucro segurando, descontado o custo de esperar</small><div class="tr"><i id="c2-b2" style="background:#8f98ff"></i><span id="c2-l2">R$ 0</span></div></div>
+            </div>
+            <div class="lin">
+              <div><small>Caixa que entra agora</small><output class="verde" id="c2-cx">R$ 0</output></div>
+              <div><small>Desconto de empate</small><output id="c2-emp">0%</output></div>
+            </div>
+            <div class="lin">
+              <div><small>Desconto máximo sem prejuízo</small><output id="c2-max">0%</output></div>
+              <div><small>Margem por unidade com desconto</small><output id="c2-mg">R$ 0</output></div>
+            </div>
+            <p class="v" id="c2-v"></p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="calc-h"><b>Conta 3</b><h3>Qual é a meta de giro?</h3></div>
+        <div class="calc">
+          <div class="ent">
+            <label style="grid-column:1/-1">Valor parado a preço de venda<small>Quanto esse estoque vale na sua tabela</small><input type="number" inputmode="decimal" min="0" step="1000" data-c="venda"></label>
+            <label>Quanto quer liberar<small>% do estoque parado</small><input type="number" inputmode="decimal" min="0" max="100" step="5" data-c="pct"></label>
+            <label>Em quantas semanas<small>Prazo da campanha</small><input type="number" inputmode="numeric" min="1" max="52" step="1" data-c="sem"></label>
+            <label>Ticket médio por pedido<small>Valor médio de um pedido com o item parado</small><input type="number" inputmode="decimal" min="0" step="10" data-c="ticket"></label>
+            <label>Dias de venda por semana<small>Dias úteis de atendimento</small><input type="number" inputmode="numeric" min="1" max="7" step="1" data-c="dias"></label>
+          </div>
+          <div class="sai">
+            <div><small>Meta total de caixa</small><output class="verde" id="c3-tot">R$ 0</output></div>
+            <div class="lin">
+              <div><small>Por semana</small><output id="c3-sem">R$ 0</output></div>
+              <div><small>Por dia</small><output id="c3-dia">R$ 0</output></div>
+            </div>
+            <div class="lin">
+              <div><small>Pedidos por semana</small><output id="c3-ps">0</output></div>
+              <div><small>Pedidos por dia</small><output class="verde" id="c3-pd">0</output></div>
+            </div>
+            <p class="v" id="c3-v"></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="sec" id="plano">
+    <div class="cab"><span class="num">04</span><div><span class="k">Plano de 30 dias</span><h2>Uma semana <span class="leve">de cada vez.</span></h2></div></div>
+    <p class="lead">Um roteiro de quatro semanas, do raio-x à queima final. Marque o que for feito: o progresso fica salvo no seu aparelho.</p>
+    <div class="placar-geral"><div><small>Feito</small><b id="pg-n">0%</b></div><div class="prog-b"><i id="pg-b"></i></div><button type="button" id="pg-zera">Recomeçar</button></div>
+    <div class="etapas" id="etapas"></div>
+  </section>
+
+  <!-- 05 -->
+  <section class="sec" id="planejamento">
+    <div class="cab"><span class="num">05</span><div><span class="k">Seu planejamento</span><h2>Quem faz o quê, <span class="leve">e a partir de quando.</span></h2></div></div>
+    <p class="lead">As ações que você incluiu na seção 02 aparecem aqui. <strong>Defina o responsável e a data de início</strong> e leve para a reunião com o time: dá para copiar para o WhatsApp ou imprimir.</p>
+    <div class="plan-meta" id="plan-meta"></div>
+    <div id="plan-box"></div>
+    <div class="plan-acs">
+      <button class="btn verde" type="button" id="plan-cop"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Copiar planejamento</button>
+      <button class="btn" type="button" id="imprimir"><i class="ic" style="--i:var(--ic-download)"></i>Imprimir ou salvar em PDF</button>
+      <a class="btn" href="#frentes">Escolher mais ações</a>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="sec" id="mensagens">
+    <div class="cab"><span class="num">06</span><div><span class="k">Mensagens prontas</span><h2>Copie, ajuste <span class="leve">e mande hoje.</span></h2></div></div>
+    <p class="lead">Troque o que está entre colchetes. Toda mensagem tem condição e prazo: oferta sem prazo vira "depois eu vejo".</p>
+    <div class="msgs" id="msgs"></div>
+  </section>
+</div>
+
+<!-- 07 -->
+<section class="faixa marinho" id="prevencao" aria-labelledby="prev-t">
+  <div class="wrap-m">
+    <p class="grita" id="prev-t">Resolver uma vez é bom. <span class="leve">Não encalhar de novo é melhor.</span></p>
+    <p class="apoio">As regras que fecham a torneira do estoque parado no seu segmento.</p>
+    <ul class="prev" id="prev"></ul>
+    <div class="tres-i" aria-hidden="true"><div class="I"></div><div class="I"></div><div class="I"></div></div>
+  </div>
+</section>
+
+<div class="wrap-m">
+  <section class="alda rv" aria-labelledby="alda-t" style="margin-top:clamp(80px,11vw,150px)">
+    <div class="alda-cab">
+      <span class="alda-selo">Para quem leu este material</span>
+      <img class="alda-logo" src="/diagnostico/relatorio/alda-logo.png" alt="Alda CRM" width="520" height="203">
+      <h2 id="alda-t">Saiba quem comprou o quê e ofereça o estoque certo para a pessoa certa</h2>
+      <p>Uma demonstração do Alda.CRM montada com o seu funil de vendas, com a implantação acompanhada pela Unique.</p>
+      <p class="alda-assina">Implantado pela Unique Consultoria Comercial</p>
+      <div class="alda-acts">
+        <a class="btn alda-btn" href="https://wa.me/5511920781458?text=Ol%C3%A1%21%20Li%20o%20material%20Estoque%20parado%20da%20Unique%20e%20quero%20conhecer%20o%20Alda.CRM." target="_blank" rel="noopener">Quero conhecer o Alda.CRM</a>
+        <a class="btn alda-link" href="https://aldacrm.com" target="_blank" rel="noopener">Ver o site</a>
+      </div>
+    </div>
+    <div class="alda-lista">
+      <span class="alda-eyebrow">Na queima de estoque, o Alda ajuda em</span>
+      <ul>
+        <li><span class="alda-ic"><svg viewBox="0 0 24 24"><path d="M4 5h16l-6 8v6l-4 2v-8z"/></svg></span><div><strong>Lista por perfil de compra</strong><span>Cada cliente com etiqueta do que compra, para a oferta ir só para quem interessa.</span></div></li>
+        <li><span class="alda-ic"><svg viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-7z"/></svg></span><div><strong>Disparo segmentado no WhatsApp</strong><span>A lista de oportunidades chega no lote certo, sem mandar para todo mundo.</span></div></li>
+        <li><span class="alda-ic"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 4v4h-4M20 12a8 8 0 0 1-14 5.3M4 20v-4h4"/></svg></span><div><strong>Follow-up com data</strong><span>Quem pediu para pensar recebe o retorno antes de a condição vencer.</span></div></li>
+        <li><span class="alda-ic"><svg viewBox="0 0 24 24"><path d="M5 18v-6a7 7 0 0 1 14 0v6"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/></svg></span><div><strong>Supervisão do time</strong><span>Veja se a oportunidade está sendo oferecida em cada atendimento.</span></div></li>
+      </ul>
+    </div>
+    <img class="alda-pato" src="/diagnostico/relatorio/alda-pato.png" alt="" aria-hidden="true" width="134" height="238">
+    <span class="alda-caco" aria-hidden="true"></span>
+  </section>
+</div>
+
+</div><!-- /fechado -->
+
+<div class="wrap-m" id="proximo">
+  <div class="diag">
+    <div class="txt">
+      <span class="spaced">Próximo passo</span>
+      <h2>Estoque parado é sintoma. <span class="leve">Qual é o score do seu comercial?</span></h2>
+      <p>Faça o diagnóstico. Em 10 a 15 minutos você responde sobre os 4 pilares do seu comercial e recebe um relatório com o score, os gargalos e um plano de ação.</p>
+      <div class="ctas"><a class="btn verde" href="/diagnostico/">Faça seu diagnóstico comercial <i class="ic" style="--i:var(--ic-seta)"></i></a>
+      <a class="btn" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Li%20o%20material%20Estoque%20parado%20e%20quero%20conversar%20sobre%20o%20comercial%20da%20minha%20empresa." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Falar com o Carlos</a></div>
+    </div>
+    <figure><img src="/assets/fotos/palco.jpg" alt="Carlos Ribeiro em palestra, com microfone" width="1280" height="853" loading="lazy"></figure>
+  </div>
+</div>
+
+<a class="contador" id="contador" href="#planejamento">No seu plano <b id="cont-n">0</b></a>
+</main>
+<script>
+/* ================= conteúdo das três trilhas ================= */
+var TRILHAS={
+industria:{
+  nome:'Indústria', de:'da indústria', un:'unidade', uns:'unidades',
+  calc:{valor:250000,cap:2,arm:1,desv:1,preco:120,custo:70,qtd:2000,desc:15,meses:8,venda:420000,pct:60,sem:6,ticket:8000,dias:5},
+  desvDica:'% ao mês: obsolescência técnica, validade, linha que sai de catálogo',
+  motivos:['Previsão de vendas errada','Pedido cancelado','Linha descontinuada','Lote mínimo de produção','Defeito leve ou fora de padrão','Preço acima do mercado','Matéria-prima comprada a mais'],
+  diag:[
+    'Separar o estoque em três montes: produto acabado, matéria-prima e embalagem',
+    'Listar cada item com quantidade, custo unitário e data da última saída',
+    'Classificar por idade: 60, 90, 180 e mais de 365 dias sem saída',
+    'Anotar o motivo do encalhe de cada item',
+    'Checar validade, obsolescência técnica e se o item ainda tem ficha técnica ativa',
+    'Definir o preço mínimo de cada item e quem pode autorizar abaixo dele',
+    'Levantar quem comprou cada item nos últimos 24 meses: clientes, distribuidores e representantes'
+  ],
+  frentes:[
+    {n:'Base de clientes e representantes',cor:'verde',a:[
+      {t:'Oferta para quem já comprou',c:'Puxe do faturamento quem comprou o item (ou a família dele) nos últimos 24 meses e ofereça primeiro a essas empresas, com condição e prazo.',q:'Sempre. É a frente mais barata e mais rápida.'},
+      {t:'Pedido casado',c:'Condição especial no item de giro para quem levar junto o item parado: prazo maior ou frete pago no pedido que inclui o lote.',q:'Clientes que compram outros itens da linha com frequência.'},
+      {t:'Campanha para representantes',c:'Prêmio por unidade do item parado vendida, além da comissão normal, com ranking semanal e prazo de 30 dias.',q:'Quando a venda passa por representantes ou time externo.'},
+      {t:'Pedido programado com preço travado',c:'O cliente fecha o lote agora com preço congelado, e a entrega e o faturamento saem em parcelas ao longo dos meses.',q:'Clientes grandes que compram o item de forma recorrente.'},
+      {t:'Bonificação em mercadoria',c:'Acima de um pedido mínimo, o cliente recebe unidades do item parado. Alinhe com o contador como emitir a bonificação.',q:'Itens de custo baixo que ajudam a fechar pedidos maiores.'}
+    ]},
+    {n:'Preço e condição',cor:'marinho',a:[
+      {t:'Tabela de lote fechado',c:'Preço por palete ou pelo lote inteiro, abaixo do unitário. Quem leva tudo resolve o seu problema de uma vez.',q:'Itens com volume alto e poucos compradores.'},
+      {t:'Desconto progressivo por volume',c:'Faixas claras: 5% a partir de X unidades, 10% a partir de Y, 15% no lote inteiro.',q:'Quando há vários compradores possíveis.'},
+      {t:'Prazo em vez de desconto',c:'Ofereça um prazo maior para pagar e mantenha o preço. Calcule o custo financeiro antes de oferecer.',q:'Clientes que sentem o caixa e pagam em dia.'},
+      {t:'Frete pago como condição',c:'Frete por conta da fábrica no pedido que inclui o item parado, com data para acabar.',q:'Clientes distantes, em que o frete pesa na decisão.'}
+    ]},
+    {n:'Novos canais',cor:'magenta',a:[
+      {t:'Distribuidores fora da sua região',c:'Liste distribuidores e atacadistas de outras regiões, que não concorrem com seus clientes atuais, e ofereça o lote.',q:'Quando a sua base já está abastecida do item.'},
+      {t:'Loja de fábrica e venda a funcionários',c:'Abra um ponto ou um dia de venda direta com preço de fábrica, inclusive para funcionários e famílias.',q:'Produtos que o consumidor final usa.'},
+      {t:'Venda corporativa',c:'Ofereça o produto para empresas usarem como brinde, kit de fim de ano ou insumo.',q:'Produtos com apelo de presente ou de uso em empresa.'},
+      {t:'Marketplace B2B',c:'Anuncie o lote em plataformas de venda entre empresas, com quantidade mínima por pedido.',q:'Itens padronizados, fáceis de descrever.'}
+    ]},
+    {n:'Transformar o produto',cor:'verde',a:[
+      {t:'Novo kit ou nova embalagem',c:'Junte o item parado com um item de giro em um kit, ou mude a embalagem para outra apresentação.',q:'Quando o produto é bom, mas a apresentação não vende.'},
+      {t:'Retrabalho para outra aplicação',c:'Avalie com a produção se o item pode ser adaptado para outro produto que tem saída.',q:'Semiacabados e componentes.'},
+      {t:'Matéria-prima no produto de giro',c:'Reprograme a produção para consumir a matéria-prima parada nos itens que mais vendem.',q:'Matéria-prima compatível com a linha principal.'},
+      {t:'Devolução ou troca com o fornecedor',c:'Negocie devolver a matéria-prima ou a embalagem, ou trocar por outro item, com abatimento no próximo pedido.',q:'Itens que ainda estão na linha do fornecedor.'},
+      {t:'Segunda linha com outra marca',c:'Venda o item com defeito leve ou fora de padrão como segunda linha, sem canibalizar a marca principal.',q:'Itens com pequena falha estética.'}
+    ]},
+    {n:'Último recurso',cor:'magenta',a:[
+      {t:'Comprador de ponta de estoque',c:'Venda o lote inteiro para quem compra estoque parado. O preço é baixo, mas o caixa entra na hora.',q:'Itens com mais de 365 dias e sem comprador na base.'},
+      {t:'Reciclagem e recuperação de material',c:'Recupere o valor do material (metal, plástico, papel) quando o produto não tem mais venda.',q:'Produtos obsoletos.'},
+      {t:'Doação',c:'Doe para instituições e gere imagem positiva. Alinhe a parte fiscal com o contador antes.',q:'Quando manter custa mais do que doar.'}
+    ]}
+  ],
+  plano:[
+    ['Semana 1','Raio-x','Diagnóstico e preço mínimo',['Fazer a lista completa do estoque parado, com idade e motivo','Definir o preço mínimo e quem autoriza desconto','Puxar quem comprou cada item nos últimos 24 meses','Escolher os 10 itens de maior valor parado para começar','Definir a meta em R$ de caixa a liberar (conta 3)']],
+    ['Semana 2','Base','Clientes e representantes',['Lançar a campanha para representantes com prêmio por unidade','Ofertar para quem já comprou, com condição e prazo','Montar a tabela de lote fechado e de volume','Propor pedido programado para os 5 maiores clientes']],
+    ['Semana 3','Expansão','Novos canais e transformação',['Listar 20 distribuidores fora da região e fazer o primeiro contato','Avaliar kit, reembalagem ou retrabalho com a produção','Negociar devolução ou troca de matéria-prima com os fornecedores','Organizar a loja de fábrica ou o dia de venda a funcionários']],
+    ['Semana 4','Queima e regra','Último recurso e prevenção',['Revisar o que vendeu e baixar o preço do que não saiu','Ofertar o que sobrou para compradores de ponta de estoque','Criar a reunião mensal de vendas e produção','Instituir o alerta de 90 dias sem saída']]
+  ],
+  msgs:[
+    {p:'Cliente que já comprou o item',t:'Oi, [nome], tudo bem? Separei uma condição para você: o [produto] que vocês já trabalham está com [condição] para pedidos fechados até [data]. Tenho [quantidade] unidades disponíveis. Quer que eu reserve uma parte para você?'},
+    {p:'Representantes',t:'Time, campanha da semana: cada unidade de [produto] vendida até [data] vale R$ [valor] de prêmio, além da comissão normal. O ranking sai toda sexta. Quem fechar o lote inteiro leva [prêmio extra].'},
+    {p:'Distribuidor novo',t:'Olá, [nome]. Sou [seu nome], da [empresa]. Temos um lote de [quantidade] [produto] com preço de fábrica para quem levar o lote fechado, válido até [data]. Posso te mandar a ficha técnica e a condição?'},
+    {p:'Pedido programado',t:'[nome], para garantir o seu preço dos próximos meses: você fecha agora [quantidade] de [produto] com preço travado, e a gente fatura e entrega em [número] parcelas, conforme a sua necessidade. A condição vale até [data]. Faz sentido para o seu planejamento?'}
+  ],
+  prev:['Reunião mensal de vendas e produção: previsão de vendas antes de programar o lote','Produzir sob pedido os itens de curva C','Alerta automático para item com 90 dias sem saída','Revisar o mix a cada semestre e cortar o que não tem margem nem giro']
+},
+atacado:{
+  nome:'Atacado', de:'do atacado', un:'caixa', uns:'caixas',
+  calc:{valor:180000,cap:2,arm:1,desv:1.5,preco:90,custo:62,qtd:800,desc:12,meses:6,venda:240000,pct:70,sem:4,ticket:1500,dias:5},
+  desvDica:'% ao mês: validade, avaria, item que sai de linha no fornecedor',
+  motivos:['Compra de oportunidade do fornecedor','Item curva C','Validade chegando','Preço acima do mercado','Produto novo que o cliente não conhece','Caixa master grande demais','Concorrente vendendo mais barato'],
+  diag:[
+    'Tirar a curva ABC por item e por fornecedor',
+    'Calcular a cobertura de cada item: quantos dias o estoque dura no ritmo atual de venda',
+    'Marcar os itens sem saída há 60, 90 e 180 dias',
+    'Separar o que foi compra de oportunidade (promoção do fornecedor) do que é compra de rotina',
+    'Checar a validade e os lotes que vencem nos próximos 90 dias',
+    'Comparar o seu preço com o do mercado: o item parou por preço ou por falta de procura?',
+    'Definir o preço mínimo por item e a alçada de desconto de cada vendedor'
+  ],
+  frentes:[
+    {n:'Base de clientes',cor:'verde',a:[
+      {t:'Disparo segmentado por perfil de compra',c:'Ofereça cada item só para quem compra aquela categoria. O mercadinho recebe uma lista, a distribuidora recebe outra.',q:'Sempre. Lista genérica para todo mundo queima a oferta.'},
+      {t:'Lista de oportunidades da semana',c:'Toda segunda, uma lista curta (5 a 10 itens) com foto e preço por caixa no WhatsApp e no status dos vendedores.',q:'Rotina fixa, para criar o hábito no cliente.'},
+      {t:'Mix de oportunidade no pedido',c:'Pedido acima de R$ X com pelo menos uma caixa da lista de oportunidades ganha condição: frete, prazo ou desconto no total.',q:'Clientes que já compram toda semana.'},
+      {t:'Caixa mista',c:'Monte caixas com itens parados e itens de giro misturados, com preço fechado.',q:'Clientes menores, que não levam a caixa inteira de um item.'},
+      {t:'Reativação de inativos',c:'Use o item parado como motivo para voltar a falar com quem parou de comprar há 60 ou 90 dias.',q:'Quando a base tem muitos clientes inativos.'}
+    ]},
+    {n:'Preço e condição',cor:'marinho',a:[
+      {t:'Preço por caixa fechada e por lote',c:'Preço menor na caixa master e menor ainda no lote inteiro do item.',q:'Itens com muitas caixas paradas.'},
+      {t:'Desconto escalonado no tempo',c:'10% nesta semana, 20% na próxima, 30% na seguinte. Comunique as datas desde o começo.',q:'Para criar urgência sem queimar a margem de cara.'},
+      {t:'Frete grátis com a oportunidade',c:'Libere o frete no pedido que inclui itens da lista, acima de um valor mínimo.',q:'Regiões em que o frete trava o pedido.'},
+      {t:'Leve X, pague Y',c:'Leve 10 caixas e pague 9, só nos itens parados.',q:'Itens de giro médio com estoque alto.'}
+    ]},
+    {n:'Fornecedor',cor:'magenta',a:[
+      {t:'Devolução ou troca',c:'Negocie devolver o item ou trocar por outro de giro, com abatimento na próxima compra.',q:'Itens comprados há pouco tempo e ainda em linha.'},
+      {t:'Verba de sell-out',c:'Peça ao fornecedor que banque parte do desconto (verba, bonificação ou preço de reposição menor) para girar o produto.',q:'Fornecedores com quem você tem volume.'},
+      {t:'Visita junto com o representante',c:'Leve o representante do fornecedor para visitar seus clientes ao lado do seu vendedor e apresentar o produto.',q:'Produtos novos que o cliente ainda não conhece.'}
+    ]},
+    {n:'Novos canais',cor:'verde',a:[
+      {t:'Clientes de outras regiões',c:'Prospecte varejistas e revendas fora da sua área de atuação para escoar o lote.',q:'Quando a base atual já tem o item na prateleira.'},
+      {t:'Marketplace',c:'Anuncie em caixa fechada ou em kits, com um preço que cubra as taxas e o frete.',q:'Itens fáceis de enviar e de descrever.'},
+      {t:'Dia do Lote no balcão',c:'Um dia de portas abertas com lotes a preço especial para clientes convidados, com hora para acabar.',q:'Atacados com loja ou balcão.'},
+      {t:'Comprador de ponta de estoque',c:'Venda o que sobrou em lote inteiro para liquidadores. O caixa entra na hora, com preço baixo.',q:'Itens com mais de 180 dias ou validade muito próxima.'}
+    ]},
+    {n:'Time de vendas',cor:'marinho',a:[
+      {t:'Prêmio por item da lista',c:'Valor fixo por caixa da lista de oportunidades vendida, além da comissão normal.',q:'Sempre que houver lista de oportunidades.'},
+      {t:'Meta diária de oportunidade',c:'Cada vendedor oferece a lista em todo pedido do dia. Ranking diário no grupo do time.',q:'Times internos e de televendas.'},
+      {t:'Oferta no fechamento',c:'No fim de todo pedido, o vendedor oferece um item da lista: "Fechou? Tenho essa oportunidade aqui por R$ X a caixa."',q:'Sempre. Custa uma frase.'},
+      {t:'Treino relâmpago do produto',c:'Dez minutos na reunião da manhã: para que serve o item, para quem oferecer e como responder a objeção mais comum.',q:'Itens que o time não sabe vender ou esquece de oferecer.'}
+    ]}
+  ],
+  plano:[
+    ['Semana 1','Raio-x','Curva, cobertura e preço mínimo',['Tirar a curva ABC e a cobertura de cada item','Separar os itens parados por idade e por validade','Definir o preço mínimo e a alçada de desconto','Montar a primeira lista de oportunidades (5 a 10 itens)','Definir a meta em R$ a liberar no mês (conta 3)']],
+    ['Semana 2','Base','Disparo segmentado e time',['Disparar a lista para cada perfil de cliente','Lançar o prêmio por caixa da lista para os vendedores','Criar a regra do mix de oportunidade no pedido','Ligar para os inativos com a oportunidade']],
+    ['Semana 3','Fornecedor e canais','Negociação e expansão',['Negociar devolução, troca ou verba com os 3 fornecedores de maior estoque parado','Prospectar 20 clientes fora da região','Anunciar os lotes em marketplace','Marcar o Dia do Lote no balcão']],
+    ['Semana 4','Queima e regra','Liquidação e prevenção',['Baixar o preço do que não saiu, de forma escalonada','Ofertar o que sobrou para compradores de ponta de estoque','Criar o teto de cobertura por curva para as próximas compras','Incluir cláusula de troca nas negociações com fornecedores']]
+  ],
+  msgs:[
+    {p:'Lista de oportunidades',t:'Bom dia, [nome]! Saiu a lista de oportunidades da semana, só para clientes: [item 1] por R$ [valor] a caixa e [item 2] por R$ [valor] a caixa. Vale até [dia] ou enquanto durar o estoque. Separo para você?'},
+    {p:'Cliente inativo',t:'Oi, [nome], faz um tempo que a gente não conversa. Tenho uma condição boa em [produto], que vocês já trabalharam: [condição], até [data]. Quer que eu mande a lista completa?'},
+    {p:'Fornecedor',t:'[nome], o [produto] não teve o giro esperado aqui: temos [quantidade] caixas paradas. Para continuar com a linha, preciso de uma ajuda: troca por [outro item], devolução com abatimento ou verba para uma ação de venda. O que conseguimos fazer?'},
+    {p:'Oferta no fechamento',t:'Pedido fechado! Antes de eu enviar: estou com [produto] em oportunidade, R$ [valor] a caixa, só esta semana. Coloco uma caixa para você testar?'}
+  ],
+  prev:['Comprar pela cobertura (dias de estoque), não só pela promoção do fornecedor','Teto de cobertura por curva: por exemplo, 30 dias para itens A, 45 para B e 60 para C','Revisão semanal dos itens sem saída há 60 dias','Cláusula de troca ou devolução em toda negociação de compra']
+},
+confeccao:{
+  nome:'Confecção', de:'da confecção', un:'peça', uns:'peças',
+  calc:{valor:80000,cap:2,arm:.5,desv:4,preco:89.9,custo:38,qtd:600,desc:15,meses:6,venda:180000,pct:70,sem:4,ticket:1200,dias:6},
+  desvDica:'% ao mês: coleção que passa, estação, tendência que muda',
+  motivos:['Grade quebrada','Coleção ou estação passada','Modelagem que não vestiu bem','Cor ou estampa que não saiu','Foto ou exposição fraca','Preço acima do público','Segunda linha (defeito leve)','Tecido comprado a mais'],
+  diag:[
+    'Separar o estoque por coleção e estação',
+    'Mapear a grade de cada modelo: quais tamanhos e cores sobraram',
+    'Classificar por idade: fim de coleção, 90 dias, 180 dias e mais',
+    'Separar a segunda linha (defeito leve) do estoque bom',
+    'Listar tecido e aviamento parados, com metragem e custo',
+    'Descobrir o motivo de cada modelo encalhado: modelagem, preço, foto, cor ou tamanho',
+    'Definir o preço mínimo por peça (custo + margem mínima)'
+  ],
+  frentes:[
+    {n:'Lojistas e clientes',cor:'verde',a:[
+      {t:'Lista por tamanho e perfil',c:'Ofereça a sobra para quem vende aquele tamanho: G e GG para lojistas de plus size, P para quem atende o público jovem.',q:'Sempre. É o que resolve a peça fora de grade.'},
+      {t:'Grade montada',c:'Monte grades completas misturando modelos da mesma família (P, M, G e GG em cores ou estampas diferentes) e venda a grade fechada.',q:'Quando sobrou um tamanho de cada modelo.'},
+      {t:'Kit sortido por lote',c:'Pacotes de 10, 20 ou 50 peças sortidas por um valor fechado para sacoleiras e revendedoras.',q:'Peças de coleção passada com preço baixo.'},
+      {t:'Bonificação na coleção nova',c:'O lojista que comprar a coleção nova acima de R$ X leva peças do outlet como bônus ou por um valor simbólico.',q:'Lançamento de coleção.'},
+      {t:'Pré-venda para clientes fiéis',c:'Os lojistas que mais compram têm acesso à queima 48 horas antes de todo mundo.',q:'Antes de um bazar ou de uma queima.'}
+    ]},
+    {n:'Preço e oferta',cor:'marinho',a:[
+      {t:'Desconto escalonado',c:'20% na semana 1, 40% na semana 2 e 60% na semana 3, com as datas comunicadas desde o começo.',q:'Fim de coleção.'},
+      {t:'Preço único por arara',c:'Uma arara ou um lote com tudo a R$ X. Fácil de comunicar e de vender.',q:'Peças variadas de valor parecido.'},
+      {t:'Compre a nova, leve a outlet',c:'Na compra de X peças da coleção nova, o cliente leva peças do outlet por R$ Y.',q:'Para girar o parado sem baixar o preço da coleção nova.'},
+      {t:'Prêmio para o time',c:'Valor fixo por peça parada vendida, além da comissão, com ranking semanal entre as vendedoras.',q:'Durante toda a queima.'}
+    ]},
+    {n:'Evento e conteúdo',cor:'magenta',a:[
+      {t:'Bazar ou queima de fábrica',c:'Um evento com data, nome e tema (Bazar Achados, Queima de Coleção), divulgado com 15 dias de antecedência.',q:'Volume grande de peças variadas.'},
+      {t:'Dia do tamanho',c:'Um dia para cada tamanho: Dia do P, Dia do GG. Transforma o problema da grade em campanha.',q:'Muitas peças fora de grade.'},
+      {t:'Live para lojistas',c:'Provador ao vivo no Instagram, com reservas pelo direct ou pelo WhatsApp, só para lojistas cadastrados.',q:'Base de lojistas grande e espalhada.'},
+      {t:'Catálogo de oportunidades no WhatsApp',c:'Fotos bem feitas, grade disponível e preço, enviados para a lista de transmissão toda semana.',q:'Rotina fixa durante a queima.'}
+    ]},
+    {n:'Transformar',cor:'verde',a:[
+      {t:'Customizar e reaproveitar',c:'Tingir, bordar, estampar ou recortar a peça para virar um produto novo.',q:'Peças de qualidade que encalharam por cor ou modelo.'},
+      {t:'Tecido parado vira básico',c:'Use o tecido parado em peças básicas, que vendem o ano todo.',q:'Tecido de qualidade e metragem alta.'},
+      {t:'Vender tecido e aviamento',c:'Ofereça tecido, aviamento e retalho para outras confecções, facções e ateliês.',q:'Metragem que você não vai usar.'},
+      {t:'Uniforme e brinde corporativo',c:'Ofereça o tecido ou as peças lisas para empresas, como uniforme ou brinde bordado.',q:'Peças lisas e tecidos neutros.'}
+    ]},
+    {n:'Canais e último recurso',cor:'magenta',a:[
+      {t:'Outlet ou loja de fábrica',c:'Um espaço fixo, ou dias fixos, para o consumidor final com preço de fábrica.',q:'Sobra de coleção recorrente.'},
+      {t:'Marketplace e brechó online',c:'Anuncie peças avulsas em marketplaces e plataformas de brechó, com fotos padronizadas.',q:'Peças de marca com boa foto.'},
+      {t:'Venda em lote para ponta de estoque',c:'Venda o que sobrou por quilo ou por lote para compradores de ponta de estoque. O caixa entra na hora.',q:'Peças com mais de 180 dias.'},
+      {t:'Doação',c:'Doe para instituições e gere imagem positiva. Alinhe a parte fiscal com o contador antes.',q:'Segunda linha sem venda.'}
+    ]}
+  ],
+  plano:[
+    ['Semana 1','Raio-x','Grade, coleção e preço mínimo',['Mapear a grade de cada modelo parado','Separar segunda linha, tecido e aviamento','Definir o preço mínimo por peça','Separar os lojistas por tamanho e perfil','Definir a meta em R$ a liberar no mês (conta 3)']],
+    ['Semana 2','Base','Lojistas e grade montada',['Montar as grades completas com modelos da mesma família','Enviar a sobra para cada lojista conforme o tamanho que ele vende','Lançar a pré-venda para os clientes fiéis','Criar o prêmio por peça parada vendida para o time']],
+    ['Semana 3','Evento','Bazar, live e conteúdo',['Fazer a live para lojistas ou o Dia do Tamanho','Realizar o bazar ou a queima','Enviar o catálogo de oportunidades no WhatsApp','Ofertar tecido e aviamento para outras confecções']],
+    ['Semana 4','Queima e regra','Liquidação e prevenção',['Queima final e kits sortidos para sacoleiras','Vender o que sobrou em lote para ponta de estoque','Planejar a grade da próxima coleção pela curva de tamanhos','Colocar a liquidação no calendário da coleção']]
+  ],
+  msgs:[
+    {p:'Lojista, por tamanho',t:'Oi, [nome]! Separei peças em [tamanho], que é o que mais sai na sua loja: [modelos]. Estão com [condição] até [data]. Mando as fotos?'},
+    {p:'Grade montada',t:'[nome], montei grades completas (do P ao GG) com modelos da [coleção], por R$ [valor] a grade. São [quantidade] grades no total, até [data]. Quer reservar quantas?'},
+    {p:'Sacoleira e revendedora',t:'Oi, [nome]! Saiu o kit sortido: [quantidade] peças por R$ [valor], dá para revender com boa margem. Tenho [número] kits, até [data]. Separo um para você?'},
+    {p:'Convite VIP para a queima',t:'[nome], você está na lista VIP da nossa queima de coleção: dia [data], das [hora] às [hora]. Quem é VIP compra 48 horas antes, a partir de [data]. Posso confirmar o seu acesso?'}
+  ],
+  prev:['Grade planejada pela curva de tamanhos de cada cliente e região','Lote piloto menor e reposição rápida do que vender','Liquidação já prevista no calendário de cada coleção','Regra dos 90 dias: modelo parado entra sozinho na esteira de ações']
+}
+};
+</script>
+<script>
+(function(){
+  var MAT='estoque-parado', K='ua_mat_'+MAT, KT='ua_est_trilha';
+  var ls={get:function(k){try{return JSON.parse(localStorage.getItem(k)||'null');}catch(e){return null;}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+  var $=function(s,el){return (el||document).querySelector(s);}, $$=function(s,el){return [].slice.call((el||document).querySelectorAll(s));};
+  var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+  var brl=function(v){return (isFinite(v)?v:0).toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});};
+  var num=function(v,d){return (isFinite(v)?v:0).toLocaleString('pt-BR',{maximumFractionDigits:d||0});};
+  var pct=function(v){return (isFinite(v)?v:0).toLocaleString('pt-BR',{maximumFractionDigits:1})+'%';};
+  var reduz=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- capa: a prateleira ---------- */
+  (function(){
+    var p=$('#prat'); if(!p) return;
+    var ROT=['90d','P','GG','lote','2ª','MP','180d','cx','C','G'], N=30, VAL=7400, cx=[];
+    for(var i=0;i<N;i++){ var d=document.createElement('div'); d.className='cx'; d.textContent=ROT[i%ROT.length]; p.appendChild(d); cx.push(d); }
+    var par=N*VAL, lib=0, vp=$('#v-par'), vl=$('#v-lib');
+    var pinta=function(){ vp.textContent=brl(par); vl.textContent=brl(lib); };
+    pinta();
+    if(reduz){ [3,8,14,21,26].forEach(function(i){cx[i].classList.add('gira');}); return; }
+    var livres=function(){ return cx.filter(function(c){return !c.classList.contains('gira')&&!c.classList.contains('sai')&&!c.classList.contains('vazio');}); };
+    setInterval(function(){
+      if(document.hidden) return;
+      var l=livres();
+      if(l.length<6){ // recomeça o ciclo
+        cx.forEach(function(c,i){ setTimeout(function(){ c.className='cx'; },i*25); }); par=N*VAL; lib=0; setTimeout(pinta,N*25); return;
+      }
+      var c=l[Math.floor(Math.random()*l.length)];
+      c.classList.add('gira');
+      setTimeout(function(){ c.classList.add('sai'); par-=VAL; lib+=VAL; pinta(); },700);
+      setTimeout(function(){ c.classList.remove('gira','sai'); c.classList.add('vazio'); },1150);
+    },900);
+  })();
+
+  /* ---------- revelar ao rolar ---------- */
+  var io='IntersectionObserver' in window ? new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}});},{threshold:.12}) : null;
+  var observa=function(root){ $$('.rv:not(.vis)',root).forEach(function(el){ if(io) io.observe(el); else el.classList.add('vis'); }); };
+  observa(document);
+
+  /* ---------- trilha escolhida ---------- */
+  var q=(location.search.match(/[?&]s=(industria|atacado|confeccao)/)||[])[1] || (location.hash.match(/^#(industria|atacado|confeccao)$/)||[])[1];
+  var T=q||ls.get(KT)||null;
+
+  function marcaSel(t){
+    $$('.sg').forEach(function(b){ b.setAttribute('aria-pressed',b.dataset.s===t?'true':'false'); });
+    $$('.trilha .pls button').forEach(function(b){ b.setAttribute('aria-pressed',b.dataset.t===t?'true':'false'); });
+    $$('.seg-f input').forEach(function(r){ r.checked=(r.value===t); });
+    $('#g-seg').textContent=t?TRILHAS[t].de+'.':'do seu segmento.';
+  }
+  function escolhe(t,rola){
+    T=t; ls.set(KT,t); marcaSel(t); render();
+    if(rola){ var alvo=document.body.classList.contains('liberado')?$('#raio-x'):$('#liberar'); if(alvo) alvo.scrollIntoView({behavior:reduz?'auto':'smooth',block:'start'}); }
+  }
+  $$('.sg').forEach(function(b){ b.addEventListener('click',function(){ escolhe(b.dataset.s,true); }); });
+  $$('.trilha .pls button').forEach(function(b){ b.addEventListener('click',function(){ escolhe(b.dataset.t,false); }); });
+  $$('.seg-f input').forEach(function(r){ r.addEventListener('change',function(){ if(r.checked){ T=r.value; ls.set(KT,T); marcaSel(T); render(); } }); });
+
+  /* ---------- render da trilha ---------- */
+  var KS=function(n){ return 'ua_est_'+n+'_'+T; };
+  function render(){
+    if(!T) return;
+    var D=TRILHAS[T];
+    $('#t-nome').textContent=D.nome;
+
+    // motivos
+    var mot=ls.get(KS('mot'))||{};
+    $('#motivos').innerHTML=D.motivos.map(function(m,i){ return '<button type="button" class="copia" data-m="'+i+'" aria-pressed="'+(mot[i]?'true':'false')+'" style="'+(mot[i]?'background:var(--fg);color:var(--bg);border-color:var(--fg)':'')+'">'+esc(m)+'</button>'; }).join('');
+
+    // raio-x
+    var dg=ls.get(KS('diag'))||{};
+    $('#diag').innerHTML=D.diag.map(function(x,i){ return '<li><label><input type="checkbox" data-d="'+i+'"'+(dg[i]?' checked':'')+'><span>'+esc(x)+'</span></label></li>'; }).join('');
+    contaDiag();
+
+    // frentes
+    var sel=ls.get(KS('acoes'))||{};
+    $('#lista-fr').innerHTML=D.frentes.map(function(f,fi){
+      return '<div class="fr"><div class="fr-h"><span class="n">'+String(fi+1).padStart(2,'0')+'</span><h3>'+esc(f.n)+'</h3><span class="bar '+f.cor+'"></span></div><div class="acoes">'+
+        f.a.map(function(a,ai){ var id=fi+'-'+ai, on=!!sel[id];
+          return '<article class="ac rv'+(on?' no-plano':'')+'" data-id="'+id+'"><h4>'+esc(a.t)+'</h4><p>'+esc(a.c)+'</p><div class="q"><b>Quando usar</b>'+esc(a.q)+'</div><button type="button" aria-pressed="'+on+'">'+(on?'No meu plano':'Incluir no meu plano')+'</button></article>'; }).join('')+
+        '</div></div>';
+    }).join('');
+
+    // calculadoras
+    var cv=ls.get(KS('calc'))||{};
+    $$('[data-c]').forEach(function(inp){ var k=inp.dataset.c; inp.value=(cv[k]!=null?cv[k]:D.calc[k]); });
+    $('#desv-dica').textContent=D.desvDica;
+    $('#c2-u1').textContent='por '+D.un; $('#c2-u2').textContent='por '+D.un; $('#c2-u3').textContent=D.uns;
+    calcula();
+
+    // plano de 30 dias
+    var pl=ls.get(KS('plano'))||{};
+    $('#etapas').innerHTML=D.plano.map(function(s,si){
+      return '<div class="etp rv" data-s="'+si+'"><div class="h"><time>'+esc(s[0])+'</time><b>'+esc(s[1])+'</b><small>'+esc(s[2])+'</small><div class="mini"><i></i></div><span class="mini-n"></span></div><ul class="chk">'+
+        s[3].map(function(x,xi){ var id=si+'-'+xi; return '<li><label><input type="checkbox" data-p="'+id+'"'+(pl[id]?' checked':'')+'><span>'+esc(x)+'</span></label></li>'; }).join('')+'</ul></div>';
+    }).join('');
+    contaPlano();
+
+    // mensagens
+    $('#msgs').innerHTML=D.msgs.map(function(m){ return '<div class="card rv"><h3>Mensagem<small>'+esc(m.p)+'</small></h3><blockquote>'+esc(m.t)+'</blockquote><button class="copia" type="button" data-copia>Copiar mensagem</button></div>'; }).join('');
+
+    // prevenção
+    $('#prev').innerHTML=D.prev.map(function(x,i){ return '<li><span>'+String(i+1).padStart(2,'0')+'</span>'+esc(x)+'</li>'; }).join('');
+
+    planejamento();
+    observa(document);
+  }
+
+  /* ---------- eventos delegados ---------- */
+  document.addEventListener('click',function(e){
+    var m=e.target.closest('[data-m]');
+    if(m&&T){ var o=ls.get(KS('mot'))||{}; o[m.dataset.m]=!o[m.dataset.m]; ls.set(KS('mot'),o); var on=!!o[m.dataset.m]; m.setAttribute('aria-pressed',on); m.style.cssText=on?'background:var(--fg);color:var(--bg);border-color:var(--fg)':''; return; }
+    var b=e.target.closest('.ac button');
+    if(b&&T){ var card=b.closest('.ac'), id=card.dataset.id, s=ls.get(KS('acoes'))||{};
+      if(s[id]) delete s[id]; else s[id]={r:'',d:'',t:Date.now()};
+      ls.set(KS('acoes'),s); var on=!!s[id]; b.setAttribute('aria-pressed',on); b.textContent=on?'No meu plano':'Incluir no meu plano'; card.classList.toggle('no-plano',on); planejamento(); return; }
+    var x=e.target.closest('.pl .x');
+    if(x&&T){ var s2=ls.get(KS('acoes'))||{}; delete s2[x.dataset.id]; ls.set(KS('acoes'),s2); var c=$('.ac[data-id="'+x.dataset.id+'"]'); if(c){ c.classList.remove('no-plano'); var bb=$('button',c); bb.setAttribute('aria-pressed','false'); bb.textContent='Incluir no meu plano'; } planejamento(); return; }
+    var cp=e.target.closest('[data-copia]');
+    if(cp){ copia(cp.parentNode.querySelector('blockquote').textContent.trim(),cp); }
+  });
+  document.addEventListener('change',function(e){
+    var t=e.target; if(!T) return;
+    if(t.dataset.d!=null){ var o=ls.get(KS('diag'))||{}; o[t.dataset.d]=t.checked; ls.set(KS('diag'),o); contaDiag(); }
+    if(t.dataset.p!=null){ var p=ls.get(KS('plano'))||{}; p[t.dataset.p]=t.checked; ls.set(KS('plano'),p); contaPlano(); }
+  });
+  document.addEventListener('input',function(e){
+    var t=e.target; if(!T) return;
+    if(t.dataset.c!=null){ var cv=ls.get(KS('calc'))||{}; cv[t.dataset.c]=t.value===''?null:Number(t.value); ls.set(KS('calc'),cv); calcula(); }
+    if(t.dataset.pr!=null||t.dataset.pd!=null){ var s=ls.get(KS('acoes'))||{}, id=t.dataset.pr||t.dataset.pd; if(s[id]){ if(t.dataset.pr!=null) s[id].r=t.value; else s[id].d=t.value; ls.set(KS('acoes'),s); } }
+  });
+
+  function contaDiag(){ var a=$$('#diag input'), n=a.filter(function(i){return i.checked;}).length; $('#diag-n').textContent=n+' de '+a.length+' feitos'+(n===a.length&&n?' · raio-x pronto':''); }
+  function contaPlano(){
+    var tot=0, ok=0;
+    $$('#etapas .etp').forEach(function(et){ var a=$$('input',et), k=a.filter(function(i){return i.checked;}).length; tot+=a.length; ok+=k;
+      $('.mini i',et).style.width=(a.length?k/a.length*100:0)+'%'; $('.mini-n',et).textContent=k+' de '+a.length; et.classList.toggle('feito',k===a.length&&k>0); });
+    var p=tot?Math.round(ok/tot*100):0; $('#pg-n').textContent=p+'%'; $('#pg-b').style.width=p+'%';
+  }
+  $('#pg-zera').addEventListener('click',function(){ if(!T) return; if(!confirm('Desmarcar todo o plano de 30 dias desta trilha?')) return; ls.set(KS('plano'),{}); $$('#etapas input').forEach(function(i){i.checked=false;}); contaPlano(); });
+
+  /* ---------- calculadoras ---------- */
+  var V=function(k){ var i=$('[data-c="'+k+'"]'), n=parseFloat(String(i&&i.value||'').replace(',','.')); return isFinite(n)&&n>=0?n:0; };
+  var META={};
+  function donut(parts){
+    var tot=parts.reduce(function(s,p){return s+p[1];},0)||1, off=25, out='<circle cx="21" cy="21" r="15.9" fill="none" stroke="#26262a" stroke-width="6"/>';
+    parts.forEach(function(p){ var f=p[1]/tot*100; if(f<=0) return; out+='<circle cx="21" cy="21" r="15.9" fill="none" stroke="'+p[2]+'" stroke-width="6" stroke-dasharray="'+f+' '+(100-f)+'" stroke-dashoffset="'+off+'"/>'; off-=f; });
+    return out;
+  }
+  function calcula(){
+    if(!T) return; var D=TRILHAS[T];
+    // conta 1
+    var val=V('valor'), cap=V('cap')/100, arm=V('arm')/100, des=V('desv')/100, taxa=cap+arm+des, mes=val*taxa;
+    $('#c1-mes').textContent=brl(mes); $('#c1-dia').textContent=brl(mes/30);
+    var c6=val*(1-Math.pow(1-des,6))+val*(cap+arm)*6, c12=val*(1-Math.pow(1-des,12))+val*(cap+arm)*12;
+    $('#c1-6').textContent=brl(c6); $('#c1-12').textContent=brl(c12);
+    var parts=[['Dinheiro parado',val*cap,'#8f98ff'],['Armazenagem e seguro',val*arm,'#f5f5f5'],['Desvalorização',val*des,'#ff4d8f']];
+    $('#c1-donut').innerHTML=donut(parts);
+    $('#c1-leg').innerHTML=parts.map(function(p){return '<div><i style="background:'+p[2]+'"></i>'+p[0]+'<b>'+brl(p[1])+'</b></div>';}).join('');
+    $('#c1-v').innerHTML=val? 'Em 6 meses parado, esse estoque consome <b>'+brl(c6)+'</b>, ou <b>'+pct(c6/val*100)+'</b> do valor. É o tamanho do desconto que você já está dando, sem vender nada.' : 'Informe o valor do estoque parado.';
+    // conta 2
+    var pr=V('preco'), cu=V('custo'), q=V('qtd'), dc=Math.min(V('desc'),95)/100, me=V('meses');
+    var agora=q*(pr*(1-dc)-cu), esperar=q*(pr-cu)-q*cu*(1-Math.pow(1-des,me))-q*cu*(cap+arm)*me;
+    var mx=Math.max(Math.abs(agora),Math.abs(esperar),1);
+    $('#c2-b1').style.width=Math.max(0,agora)/mx*100+'%'; $('#c2-b2').style.width=Math.max(0,esperar)/mx*100+'%';
+    $('#c2-l1').textContent=brl(agora); $('#c2-l2').textContent=brl(esperar);
+    $('#c2-cx').textContent=brl(q*pr*(1-dc));
+    var custoEsp=cu*(1-Math.pow(1-des,me))+cu*(cap+arm)*me, emp=pr?custoEsp/pr*100:0, mxd=pr?(1-cu/pr)*100:0;
+    $('#c2-emp').textContent=pct(emp); $('#c2-max').textContent=pct(Math.max(0,mxd)); $('#c2-mg').textContent=(pr*(1-dc)-cu).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+    var v2;
+    if(!pr||!q) v2='Preencha preço, custo e quantidade.';
+    else if(pr*(1-dc)<cu) v2='Com <b>'+pct(dc*100)+'</b> de desconto você vende abaixo do custo. Só faz sentido se o item já está na zona de queima e o caixa vale mais do que a margem.';
+    else if(agora>=esperar) v2='<b>Vender agora compensa.</b> Com '+pct(dc*100)+' de desconto o lucro é maior do que esperar '+num(me)+' meses, e o caixa entra hoje. Qualquer desconto até <b>'+pct(emp)+'</b> empata com segurar.';
+    else v2='<b>Segurar daria mais lucro</b> do que '+pct(dc*100)+' de desconto, mas só se o item sair mesmo pelo preço cheio em '+num(me)+' meses. O desconto de empate é <b>'+pct(emp)+'</b>. Comece pelas frentes que não mexem no preço.';
+    $('#c2-v').innerHTML=v2;
+    // conta 3
+    var vd=V('venda'), pc=Math.min(V('pct'),100)/100, sm=Math.max(V('sem'),1), tk=V('ticket'), dd=Math.max(Math.min(V('dias'),7),1);
+    var tot=vd*pc, ps=tot/sm, pdia=ps/dd, nps=tk?ps/tk:0, npd=tk?pdia/tk:0;
+    $('#c3-tot').textContent=brl(tot); $('#c3-sem').textContent=brl(ps); $('#c3-dia').textContent=brl(pdia);
+    $('#c3-ps').textContent=num(Math.ceil(nps)); $('#c3-pd').textContent=num(Math.ceil(npd*10)/10,1);
+    $('#c3-v').innerHTML=tk? 'Para liberar <b>'+brl(tot)+'</b> em '+num(sm)+' semanas, o time precisa fechar cerca de <b>'+num(Math.ceil(npd*10)/10,1)+' pedido(s) por dia</b> com o item parado. Divida pelo número de vendedores e vira a meta diária de cada um.' : 'Informe o ticket médio para ver quantos pedidos por dia.';
+    META={tot:tot,sem:sm,pd:npd,mes:mes};
+    planMeta();
+  }
+
+  /* ---------- meu planejamento ---------- */
+  function planMeta(){
+    if(!T) return;
+    var s=ls.get(KS('acoes'))||{}, n=Object.keys(s).length;
+    $('#plan-meta').innerHTML='<div><small>Meta de caixa</small><b>'+brl(META.tot||0)+'</b></div><div><small>Prazo</small><b>'+num(META.sem||0)+' semanas</b></div><div><small>Ações no plano</small><b>'+n+'</b></div>';
+  }
+  function acaoPorId(id){ var p=id.split('-'), f=TRILHAS[T].frentes[+p[0]]; return f&&f.a[+p[1]]?{a:f.a[+p[1]],f:f}:null; }
+  function planejamento(){
+    if(!T) return;
+    var s=ls.get(KS('acoes'))||{}, ids=Object.keys(s).filter(acaoPorId).sort(function(a,b){var x=a.split('-'),y=b.split('-');return (x[0]-y[0])||(x[1]-y[1]);});
+    $('#cont-n').textContent=ids.length; $('#contador').classList.toggle('on',ids.length>0);
+    planMeta();
+    if(!ids.length){ $('#plan-box').innerHTML='<div class="plan-v"><b>Seu plano ainda está vazio</b>Volte à seção 02 e toque em "Incluir no meu plano" nas ações que vai usar.</div>'; return; }
+    $('#plan-box').innerHTML='<div class="plan-l">'+ids.map(function(id,i){ var o=acaoPorId(id), v=s[id];
+      return '<div class="pl"><span class="i">'+(i+1)+'</span><div><b>'+esc(o.a.t)+'</b><small>'+esc(o.f.n)+'</small></div>'+
+        '<input class="r" data-pr="'+id+'" placeholder="Responsável" aria-label="Responsável por '+esc(o.a.t)+'" value="'+esc(v.r||'')+'" maxlength="40">'+
+        '<input class="d" type="date" data-pd="'+id+'" aria-label="Início de '+esc(o.a.t)+'" value="'+esc(v.d||'')+'">'+
+        '<button class="x" type="button" data-id="'+id+'" aria-label="Tirar do plano">✕</button></div>'; }).join('')+'</div>';
+  }
+  function textoPlano(){
+    var D=TRILHAS[T], s=ls.get(KS('acoes'))||{}, ids=Object.keys(s).filter(acaoPorId).sort(function(a,b){var x=a.split('-'),y=b.split('-');return (x[0]-y[0])||(x[1]-y[1]);});
+    var fd=function(d){ if(!d) return 'sem data'; var p=d.split('-'); return p[2]+'/'+p[1]; };
+    var t='*Planejamento · Estoque parado · '+D.nome+'*\n';
+    if(META.tot) t+='Meta: '+brl(META.tot)+' em '+num(META.sem)+' semanas (cerca de '+num(Math.ceil(META.pd*10)/10,1)+' pedido(s) por dia)\n';
+    if(META.mes) t+='Custo de deixar parado: '+brl(META.mes)+' por mês\n';
+    t+='\n*Ações*\n'+(ids.length?ids.map(function(id,i){ var o=acaoPorId(id), v=s[id]; return (i+1)+'. '+o.a.t+' · '+(v.r||'sem responsável')+' · início '+fd(v.d); }).join('\n'):'(nenhuma ação escolhida ainda)');
+    var pl=ls.get(KS('plano'))||{}, pend=[];
+    D.plano.forEach(function(w,wi){ w[3].forEach(function(x,xi){ if(!pl[wi+'-'+xi]) pend.push(w[0]+': '+x); }); });
+    if(pend.length) t+='\n\n*Plano de 30 dias · pendente*\n'+pend.map(function(x){return '- '+x;}).join('\n');
+    return t+'\n\nMaterial: https://sejaunique.vercel.app/estoque-parado/?s='+T;
+  }
+  function copia(t,b){ var old=b.innerHTML, ok=function(){ b.textContent='Copiado!'; setTimeout(function(){ b.innerHTML=old; },1600); };
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok,function(){}); else { var a=document.createElement('textarea'); a.value=t; document.body.appendChild(a); a.select(); try{document.execCommand('copy');ok();}catch(e){} a.remove(); } }
+  $('#plan-cop').addEventListener('click',function(){ if(T) copia(textoPlano(),this); });
+  $('#imprimir').addEventListener('click',function(){ window.print(); });
+
+  /* ---------- liberação ---------- */
+  function libera(d,novo){
+    document.body.classList.add('liberado');
+    var pn=(d&&d.nome||'').split(' ')[0];
+    if(novo){
+      $('#ok-t').textContent=(pn?pn+', as':'As')+' estratégias '+(T?TRILHAS[T].de+' ':'')+'estão liberadas!';
+      $('#ok-p').textContent=(d.nl==='ja'?'Você já estava na newsletter Unique: continua recebendo':'E você já está na newsletter Unique: vai receber')+' cada post novo do blog direto no seu e-mail.';
+    } else {
+      $('#ok-t').textContent='Bem-vindo de volta'+(pn?', '+pn:'')+'!';
+      $('#ok-p').textContent='O seu plano e as suas contas continuam de onde você parou.';
+    }
+    if(!T){ T='industria'; }
+    marcaSel(T); render();
+  }
+  var salvo=ls.get(K);
+  if(T) marcaSel(T);
+  if(salvo) libera(salvo,false);
+
+  var f=$('#f-lib'), msg=$('.msg',f), bt=$('button[type=submit]',f);
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var sg=(f.querySelector('input[name=segmento]:checked')||{}).value;
+    var d={nome:f.nome.value.trim(),empresa:f.empresa.value.trim(),whatsapp:f.whatsapp.value.trim(),email:f.email.value.trim()};
+    if(!sg){msg.textContent='Escolha o seu segmento.';$('.seg-f input').focus();return;}
+    if(d.nome.length<2){msg.textContent='Informe o seu nome.';f.nome.focus();return;}
+    if(d.empresa.length<2){msg.textContent='Informe o nome da empresa.';f.empresa.focus();return;}
+    if(d.whatsapp.replace(/\D/g,'').length<10){msg.textContent='Confira o seu WhatsApp com DDD.';f.whatsapp.focus();return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)){msg.textContent='Confira o seu e-mail.';f.email.focus();return;}
+    if(!f.aceite.checked){msg.textContent='Para liberar, marque que concorda em receber os conteúdos e com a LGPD.';f.aceite.focus();return;}
+    bt.disabled=true; msg.textContent='';
+    fetch('/api/material',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({a:'liberar',material:MAT,segmento:sg,nome:d.nome,empresa:d.empresa,whatsapp:d.whatsapp,email:d.email,aceite:true,site:f.site.value})})
+      .then(function(r){return r.json().catch(function(){return {};});})
+      .then(function(r){
+        if(!r||!r.ok){bt.disabled=false;msg.textContent=(r&&r.erro)||'Não deu certo agora. Tente de novo em instantes.';return;}
+        T=sg; ls.set(KT,sg);
+        var v={nome:d.nome,empresa:d.empresa,nl:r.newsletter,data:new Date().toISOString()};
+        ls.set(K,v); libera(v,true);
+        var ok=$('.ok'); if(ok&&ok.scrollIntoView) ok.scrollIntoView({behavior:'smooth',block:'center'});
+      })
+      .catch(function(){bt.disabled=false;msg.textContent='Sem conexão. Tente de novo.';});
+  });
+
+  /* ---------- visualização ADM ---------- */
+  var NOMES={industria:'Indústria',atacado:'Atacado',confeccao:'Confecção'};
+  function dt(x){ try{return new Date(x).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}catch(e){return '';} }
+  fetch('/api/material?a=adm&material='+MAT,{credentials:'same-origin',cache:'no-store'}).then(function(r){return r.json();}).then(function(r){
+    if(!r||!r.admin) return;
+    document.body.classList.add('modo-adm','liberado'); if(!T){T='industria';} marcaSel(T); render();
+    var cont={industria:0,atacado:0,confeccao:0}; (r.ultimos||[]).forEach(function(x){ if(cont[x.segmento]!=null) cont[x.segmento]++; });
+    var visitante=false, el=document.createElement('section'); el.className='admbar'; el.setAttribute('aria-label','Visualização ADM');
+    var linhas=(r.ultimos||[]).map(function(x){ var w=String(x.whatsapp||'').replace(/\D/g,''); if(w.length>=10&&w.length<=11) w='55'+w;
+      return '<tr><td>'+dt(x.data)+'</td><td>'+esc(NOMES[x.segmento]||'')+'</td><td>'+esc(x.nome)+'</td><td><a href="/area/admin/#empresas/'+encodeURIComponent(x.slug||'')+'">'+esc(x.empresa)+'</a></td><td>'+(w?'<a href="https://wa.me/'+w+'" target="_blank" rel="noopener">'+esc(x.whatsapp)+'</a>':'')+'</td><td>'+esc(x.email)+'</td></tr>'; }).join('');
+    el.innerHTML='<div class="wrap"><div><span class="sel"><i></i>Visualização ADM</span><p class="tx">Você vê o material completo porque está logado no workspace. O visitante precisa se cadastrar.</p></div>'+
+      '<div class="num2"><div><b>'+(r.total||0)+'</b><small>cadastros</small></div><div><b>'+(r.hoje||0)+'</b><small>hoje</small></div><div><b>'+cont.industria+'·'+cont.atacado+'·'+cont.confeccao+'</b><small>ind · atac · conf</small></div></div>'+
+      '<div class="acs"><button class="btn sm verde" type="button" data-adm="lista">Ver cadastros</button><button class="btn sm" type="button" data-adm="vis">Ver como visitante</button><a class="btn sm" href="/area/admin/#crm">Abrir CRM</a></div></div>'+
+      '<div class="wrap lista">'+(linhas?'<div class="rolar"><table><thead><tr><th>Quando</th><th>Segmento</th><th>Nome</th><th>Empresa</th><th>WhatsApp</th><th>E-mail</th></tr></thead><tbody>'+linhas+'</tbody></table></div>':'<p class="vazio">Nenhum cadastro ainda.</p>')+'</div>';
+    var main=document.querySelector('main'); main.insertBefore(el,main.firstChild);
+    el.addEventListener('click',function(e){ var b=e.target.closest('[data-adm]'); if(!b) return;
+      if(b.dataset.adm==='lista'){ var a=el.classList.toggle('aberta'); b.textContent=a?'Fechar cadastros':'Ver cadastros'; }
+      if(b.dataset.adm==='vis'){ visitante=!visitante; document.body.classList.toggle('liberado',!visitante); b.textContent=visitante?'Ver como ADM':'Ver como visitante'; }
+    });
+  }).catch(function(){});
+})();
+</script>
+</body>
+</html>

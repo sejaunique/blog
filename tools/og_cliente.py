@@ -62,6 +62,9 @@ EXTRAS = [
     {"arquivo": "orcamentos-parados.jpg", "rotulo": "Manual · Fechamento do mês", "pill": "Material gratuito",
      "titulo": "Orçamentos parados", "chamada": "Orçamento parado não se resolve com desconto", "grifo": "desconto",
      "descricao": "Supervisão, cliente x lead, oferta com condicional, calendário comercial, bonificação e CRM. Com checklist de 7 dias."},
+    {"arquivo": "estoque-parado.jpg", "rotulo": "Material · Estratégias por segmento", "pill": "Material gratuito",
+     "titulo": "Estoque parado", "chamada": "Estoque parado é dinheiro dormindo", "grifo": "dinheiro dormindo",
+     "descricao": "Raio-x, ações por frente, plano de 30 dias, calculadoras e mensagens prontas para indústria, atacado e confecção."},
 ]
 
 def chamada_html(p):

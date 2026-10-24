@@ -36,6 +36,14 @@ const MATERIAIS = {
     url: '/orcamentos-parados/',
     tag: 'Aula CRM',
     aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
+  },
+  'estoque-parado': {
+    titulo: 'Estoque parado · Estratégias por segmento',
+    descricao: 'Raio-x do estoque, ações por frente, plano de 30 dias, calculadoras (custo de segurar, desconto e meta de giro) e mensagens prontas para indústria, atacado e confecção.',
+    url: '/estoque-parado/',
+    tag: 'Estoque Parado',
+    segmentos: { industria: 'Indústria', atacado: 'Atacado', confeccao: 'Confecção' },
+    aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
   }
 };
 
@@ -69,7 +77,7 @@ module.exports = async (req, res) => {
       return res.json({
         ok: true, admin: true, total: leads.length,
         hoje: leads.filter(x => new Date(x.data).toLocaleDateString('sv-SE', { timeZone: 'America/Sao_Paulo' }) === hoje).length,
-        ultimos: leads.slice(0, 30).map(x => ({ nome: x.nome, empresa: x.empresa, slug: x.slug, whatsapp: x.whatsapp, email: x.email, data: x.data }))
+        ultimos: leads.slice(0, 30).map(x => ({ nome: x.nome, empresa: x.empresa, slug: x.slug, whatsapp: x.whatsapp, email: x.email, data: x.data, segmento: x.segmento || '' }))
       });
     } catch (e) { return res.json({ ok: true, admin: false }); }
   }
@@ -88,6 +96,9 @@ module.exports = async (req, res) => {
     if (!EMAIL.test(email)) return res.status(400).json({ ok: false, erro: 'Confira o seu e-mail.' });
     if (whatsapp.replace(/\D/g, '').length < 10) return res.status(400).json({ ok: false, erro: 'Confira o seu WhatsApp com DDD.' });
     if (empresa.length < 2) return res.status(400).json({ ok: false, erro: 'Informe o nome da empresa.' });
+    // segmento (materiais com trilhas, ex.: estoque-parado): só aceita os da lista do material
+    const segmento = m.segmentos && Object.prototype.hasOwnProperty.call(m.segmentos, b.segmento) ? b.segmento : '';
+    if (m.segmentos && !segmento) return res.status(400).json({ ok: false, erro: 'Escolha o seu segmento.' });
     if (m.aceite && b.aceite !== true) return res.status(400).json({ ok: false, erro: 'Para liberar, marque que concorda em receber os conteúdos e com a LGPD.' });
 
     const ip = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'x';
@@ -101,7 +112,7 @@ module.exports = async (req, res) => {
 
     // 1. registro do cadastro
     const cmds = [
-      ['LPUSH', 'mat:leads', JSON.stringify({ material: b.material, nome, empresa, slug, whatsapp, email, data: agora, consentimento })],
+      ['LPUSH', 'mat:leads', JSON.stringify({ material: b.material, segmento: segmento || undefined, nome, empresa, slug, whatsapp, email, data: agora, consentimento })],
       ['LTRIM', 'mat:leads', 0, 1999]
     ];
 
@@ -127,7 +138,7 @@ module.exports = async (req, res) => {
     await redis([['HSET', 'news:assinantes', email, JSON.stringify(ass)], ['SREM', 'news:saiu', email]]);
 
     // 5. aviso no app
-    await notifica(redis, { titulo: 'Material baixado: ' + m.titulo.split(' · ')[0], texto: empresa + ' · ' + nome + (empresaNova ? ' (lead novo)' : ''), url: '/area/admin/#empresas/' + slug });
+    await notifica(redis, { titulo: 'Material baixado: ' + m.titulo.split(' · ')[0], texto: empresa + ' · ' + nome + (segmento ? ' · ' + m.segmentos[segmento] : '') + (empresaNova ? ' (lead novo)' : ''), url: '/area/admin/#empresas/' + slug });
 
     return res.json({ ok: true, newsletter: atual ? 'ja' : 'nova' });
   } catch (e) {

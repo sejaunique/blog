@@ -247,6 +247,28 @@
 .nc .f-ramo .f-no{min-width:0;width:100%;margin-bottom:0}.nc .f-ramo .f-no::after,.nc .f-ramo .f-no::before{display:none}
 .nc .f-ramo.sim .f-no{border-color:#00c853}.nc .f-ramo.nao .f-no{border-color:#c8044f}
 @media(max-width:640px){.nc .f-no{min-width:0;width:100%}.nc .f-ramos{grid-template-columns:1fr}}
+
+/* tema, técnica, leitura, entenda a fundo */
+.nc .ia-tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 1.2em}
+.nc .ia-tags span{font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;border:1.5px solid var(--fg,#0b0b0c);border-radius:999px;padding:4px 11px}
+.nc .ia-tags span:first-child{background:var(--fg,#0b0b0c);color:var(--bg,#fff)}
+.nc .ia-tecnica{position:relative;border:2px solid #1e2357;border-radius:24px;padding:24px 26px 22px 92px;margin:2em 0;background:linear-gradient(135deg,rgba(30,35,87,.06),transparent 60%)}
+.nc .ia-tecnica::before{content:"\2726";position:absolute;left:24px;top:24px;width:48px;height:48px;border-radius:14px;background:#1e2357;color:#00e676;display:grid;place-items:center;font-size:22px}
+.nc .ia-tecnica>small{display:block;font-size:.68rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted,#5e5e66)}
+.nc .ia-tecnica h4{margin:.2em 0 .4em;font-size:1.35rem;letter-spacing:-.02em}
+.nc .ia-tecnica p{margin:.5em 0 0;line-height:1.6}
+.nc .ia-leitura{margin:2em 0;display:grid;gap:10px}
+.nc .ia-leitura>small{font-size:.68rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted,#5e5e66)}
+.nc a.ia-post{display:grid;grid-template-columns:44px 1fr auto;gap:4px 14px;align-items:center;text-decoration:none;color:inherit;border:1px solid var(--line,#e4e4e7);border-radius:18px;padding:16px 18px;transition:border-color .15s,transform .15s}
+.nc a.ia-post::before{content:"";grid-row:1/3;width:44px;height:44px;border-radius:12px;background:#00e676 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 19.5V5a2 2 0 0 1 2-2h12v16H6.5A2.5 2.5 0 0 0 4 21.5zM8 7h6'/%3E%3C/svg%3E") center/22px no-repeat}
+.nc a.ia-post::after{content:"Ler \2192";grid-column:3;grid-row:1/3;font-size:.8rem;font-weight:800;white-space:nowrap}
+.nc a.ia-post b{font-size:1.02rem;line-height:1.3}.nc a.ia-post span{font-size:.9rem;color:var(--muted,#5e5e66);line-height:1.45}
+.nc a.ia-post:hover{border-color:var(--fg,#0b0b0c);transform:translateY(-1px)}
+.nc .ia-fundo{margin:3.2em 0 1.4em;padding:30px 0 0;border-top:3px solid var(--fg,#0b0b0c);position:relative}
+.nc .ia-fundo>small{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;background:#00e676;color:#000;border-radius:999px;padding:4px 11px}
+.nc .ia-fundo h3{margin:.4em 0 .2em;font-size:clamp(1.7rem,4vw,2.3rem);letter-spacing:-.03em}
+.nc .ia-fundo p{margin:0;color:var(--muted,#5e5e66)}
+@media(max-width:620px){.nc .ia-tecnica{padding:84px 20px 20px}.nc a.ia-post{grid-template-columns:40px 1fr}.nc a.ia-post::after{display:none}}
 </style>
 </head>
 <body class="leitura" data-casco="area">

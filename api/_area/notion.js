@@ -343,7 +343,7 @@ async function processaIA(redis) {
   const [ids] = await redis([['SMEMBERS', 'area:ia:fila']]);
   if (!ids || !ids.length) return { ok: true, fila: 0 };
   if (!IA.ligada()) { await redis([['SET', 'area:ia:estado', JSON.stringify({ erro: 'Falta a chave da IA (ANTHROPIC_API_KEY) na Vercel.', em: agora() })]]); return { ok: false, fila: ids.length, erro: 'sem chave' }; }
-  const [trava] = await redis([['SET', 'area:ia:trava', '1', 'NX', 'EX', 75]]);
+  const [trava] = await redis([['SET', 'area:ia:trava', '1', 'NX', 'EX', 290]]);
   if (trava !== 'OK') return { ok: true, fila: ids.length, ocupado: true };
   const ent = ids[0];
   let titulo = '', pageId = '';

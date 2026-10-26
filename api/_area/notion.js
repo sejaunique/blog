@@ -35,7 +35,14 @@ async function api(metodo, caminho, corpo) {
     });
     if (r.status === 429 || r.status >= 500) { await dorme(Math.min(8, +r.headers.get('retry-after') || (t + 1)) * 1000); continue; }
     const j = await r.json().catch(() => ({}));
-    if (!r.ok) { const e = new Error(j.message || ('Notion ' + r.status)); e.status = r.status; e.code = j.code; throw e; }
+    if (!r.ok) {
+      let msg = j.message || ('Notion ' + r.status);
+      if (j.code === 'restricted_resource' || r.status === 403) {
+        const falta = metodo === 'PATCH' ? 'Atualizar conteúdo' : (metodo === 'POST' && caminho === 'pages') ? 'Inserir conteúdo' : /^users/.test(caminho) ? 'Ler informações do usuário' : 'Ler conteúdo';
+        msg = 'a integração "Painel Unique" está sem a permissão "' + falta + '". Em notion.so/profile/integrations → Painel Unique → Recursos, marque Ler, Atualizar e Inserir conteúdo e salve.';
+      }
+      const e = new Error(msg); e.status = r.status; e.code = j.code; throw e;
+    }
     return j;
   }
   throw new Error('O Notion está ocupado. Tente de novo em instantes.');

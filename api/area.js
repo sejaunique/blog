@@ -436,12 +436,12 @@ module.exports = async (req, res) => {
         }
         const [lH, rH, nH] = await redis([['HGETALL', 'area:leit:' + slug], ['HGETALL', 'area:reun:' + slug], ['HGETALL', 'area:anot:' + slug]]);
         const notas = {}; lerPares(nH).forEach(([k, v]) => { notas[k] = json(v); });
-        c.acoes.forEach(a => { if (notas[a.id]) a.nota = notas[a.id]; a.rica = !!(a.nConteudo || String(a.detalhe || '').trim().length > 40 || (a.anexos || []).length); });
+        c.acoes.forEach(a => { if (notas[a.id]) a.nota = notas[a.id]; a.rica = !!(a.nIA || a.nConteudo || String(a.detalhe || '').trim().length > 40 || (a.anexos || []).length); });
         const reunioes = lerPares(rH).map(([, v]) => json(v)).filter(Boolean).sort((a, b) => String(b.data).localeCompare(String(a.data)));
         const leituras = lerPares(lH).map(([, v]) => json(v)).filter(Boolean).filter(l => s.admin || l.pessoa === s.email || l.pessoa === '*')
           .map(l => (!s.admin && l.pessoa === '*') ? Object.assign({}, l, { lido: (l.lidoPor || {})[s.email] || '', todos: true }) : l)
           .sort((a, b) => String(a.criado).localeCompare(String(b.criado)));
-        return res.json({ ok: true, empresa: { slug, nome: e.nome }, itens: c.itens, acoes: c.acoes, leituras, reunioes, admin: !!s.admin, eu: s.admin ? '' : s.email });
+        return res.json({ ok: true, empresa: { slug, nome: e.nome }, itens: c.itens, acoes: c.acoes, leituras, reunioes, iaFila: (await redis([['SCARD', 'area:ia:fila']]))[0] || 0, admin: !!s.admin, eu: s.admin ? '' : s.email });
       }
 
       if (q.a === 'arquivo') {
@@ -511,9 +511,10 @@ module.exports = async (req, res) => {
         const a = (c.acoes || []).find(x => x.id === String(q.id || ''));
         if (!a) return res.status(404).json({ ok: false });
         let html = '', erro = '';
-        if (a.notion && NOTION.ligado()) { try { html = await NOTION.conteudoTarefa(redis, a.notion, a.nEd || ''); } catch (e) { erro = 'Não consegui abrir a explicação agora.'; } }
+        let ia = false;
+        if (a.notion && NOTION.ligado()) { try { const pi = await NOTION.paginaIA(redis, a.notion); if (pi) { html = pi.html; ia = true; } else html = await NOTION.conteudoTarefa(redis, a.notion, a.nEd || ''); } catch (e) { erro = 'Não consegui abrir a explicação agora.'; } }
         const [nv] = await redis([['HGET', 'area:anot:' + slug, a.id]]);
-        return res.json({ ok: true, html, erro, nota: json(nv) });
+        return res.json({ ok: true, html, ia, erro, nota: json(nv) });
       }
       if (q.a === 'admin-reunioes') {
         if (!s.admin) return res.status(403).json({ ok: false });
@@ -690,6 +691,9 @@ module.exports = async (req, res) => {
 
     const s = await sessao(req);
     if (!s) return res.status(401).json({ ok: false, erro: 'Entre na sua conta.' });
+
+    // processa a fila de páginas com IA (uma por chamada; qualquer pessoa logada pode disparar)
+    if (b.a === 'notion-ia') return res.json(await NOTION.processaIA(redis));
 
     // bloco de anotações do cliente em cada tarefa (fica no painel; a Unique vê no admin)
     if (b.a === 'acao-nota') {

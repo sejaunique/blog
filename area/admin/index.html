@@ -782,9 +782,12 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
   var VIVAS={painel:1,crm:1,notificacoes:1,diagnosticos:1};
   // Notion: depois de carregar, traz em segundo plano o que mudou lá (no máximo 1 vez por minuto)
   var NS={}, NPUXA=0, NPLANO=null;
+  function geraIA(n){ // páginas com IA marcadas no Notion: uma por vez
+    post({a:'notion-ia'}).then(function(r){ if(r&&r.feita) toast('Página com IA pronta: '+r.feita); if(r&&r.ok&&r.fila>0&&n>1&&!r.ocupado) geraIA(n-1); if(r&&r.feita) get('?a=admin-notion').then(function(x){ NS=x||NS; }); }).catch(function(){});
+  }
   function puxaNotion(forca){
     if(!NS.carga||!NS.token) return; if(!forca&&Date.now()-NPUXA<60000) return; NPUXA=Date.now();
-    post({a:'admin-notion-puxar'}).then(function(r){ if(r&&r.ok&&r.total){ carrega().then(function(){ if(!document.querySelector('.pop,.nv-peek,.crop-veu')&&!document.querySelector('#vista form :focus')) desenha(); }); } });
+    post({a:'admin-notion-puxar'}).then(function(r){ if(r&&r.ia) geraIA(3); if(r&&r.ok&&r.total){ carrega().then(function(){ if(!document.querySelector('.pop,.nv-peek,.crop-veu')&&!document.querySelector('#vista form :focus')) desenha(); }); } });
   }
   function atualiza(){ var v=VISTA; if(VIVAS[v]) carrega().then(function(){ if(VISTA===v&&!document.querySelector('.pop')) desenha(); }); }
   document.addEventListener('keydown',function(ev){ if(ev.key==='Escape'&&document.querySelector('.nv-peek')) nvFecha(); });
@@ -2022,6 +2025,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
       (!on?'<p class="muted" style="font-size:.84rem">Falta a variável NOTION_TOKEN na Vercel.</p>':
       feita?'<p style="font-size:.86rem;margin:0 0 10px">Empresas, contatos e negócios estão ligados ao Notion. O que você muda aqui vai na hora para lá; o que muda lá aparece aqui em até 1 minuto (sempre que o workspace é aberto) e numa conferência completa todo dia.</p>'+
         (NS.erroReunioes?'<p class="nt-erro" style="font-size:.82rem">Reuniões: conecte a integração também à base (EMP) Reuniões e Compromissos no Notion (••• → Conexões). '+esc(NS.erroReunioes)+'</p>':'<p class="muted" style="font-size:.8rem;margin:0 0 6px">Reuniões da base (EMP) Reuniões e Compromissos com "Lead ou Cliente" preenchido aparecem na área do cliente, com gravação, Drive e transcrição.</p>')+
+        (function(I){ I=I||{}; return I.chave?(I.erro?'<p class="nt-erro" style="font-size:.82rem">Página com IA: '+esc(I.erro)+'</p>':'<p class="muted" style="font-size:.8rem;margin:0 0 6px">Página com IA ligada. Na tarefa do Notion, marque "Página com IA" = Gerar'+(I.fila?' · <b>'+I.fila+' na fila</b>':'')+(I.ultima?' · última: '+esc(I.ultima):'')+'.</p>'):'<p class="muted" style="font-size:.8rem;margin:0 0 6px">Página com IA: falta colocar a chave ANTHROPIC_API_KEY na Vercel.'+(I.fila?' <b>'+I.fila+' tarefa(s) esperando.</b>':'')+'</p>'; })(NS.ia)+
         '<p class="muted" style="font-size:.8rem;margin:0 0 12px">Carga inicial em '+dt(String(NS.carga).slice(0,10))+' · última sincronização '+(NS.ultimo?new Date(NS.ultimo).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}):'—')+(NS.fila?' · <b style="color:var(--erro)">'+NS.fila+' envio(s) aguardando nova tentativa</b>':'')+(NS.links?' · '+NS.links+' links "Painel" a preencher no Notion':'')+'</p>'+
         '<div class="bts" style="display:flex;gap:8px;flex-wrap:wrap"><button class="pill" id="nt-puxa">Sincronizar agora</button><button class="pill" id="nt-tudo">Conferência completa</button><a class="pill" href="https://www.notion.so/20e94b57fed881a08c1eeb85fbb99700" target="_blank" rel="noopener">Abrir Empresas no Notion ↗</a></div>':
       (soTarefas?'<p style="font-size:.86rem;margin:0 0 12px"><b>Nova parte: tarefas do plano de ação.</b> Empresas, contatos e negócios já estão sincronizados. Agora as tarefas da base (EMP) Tarefas marcadas como Cliente ou Lead entram no plano de ação, e as ações do painel vão para o Notion. Veja antes o que vai acontecer.</p>':'<p style="font-size:.86rem;margin:0 0 12px">Antes de ligar, veja o que vai acontecer com as empresas, contatos e negócios dos dois lados.</p>')+'<button class="pill solid" id="nt-plano">Ver o que vai acontecer</button>')+plano+'</section>';

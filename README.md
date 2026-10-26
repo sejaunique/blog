@@ -145,3 +145,10 @@ Mesma conexão do Google Agenda, com a permissão do Drive (app Interno da sejau
 - Contatos sem e-mail no Notion entram com um e-mail interno `n<id>@contato.notion` (nunca exibido, sem acesso à área). Ao preencher o e-mail no Notion, o contato passa a usar o e-mail real.
 - Etapas de negócio = Etapa Funil do Notion. O Kanban de empresas acompanha o lead editado por último; mover a empresa no Kanban atualiza a Etapa Funil.
 - Campos só do Carlos (CPF, bebida, comida, presente, hobbie, "da onde") ficam no admin e no Notion; nunca vão para a área do cliente.
+
+### Página da tarefa com IA
+Na (EMP) Tarefas, a coluna **Página com IA** = `Gerar` faz o painel ler o conteúdo da página, pedir à IA (Claude, via API da Anthropic) um HTML no visual da Unique e mostrar essa página para o cliente. O status volta para o Notion: `Gerando` → `Pronta` (ou `Erro`, com o motivo no cartão Notion do admin). Para refazer, marque `Gerar` de novo.
+- Precisa da variável `ANTHROPIC_API_KEY` na Vercel (opcional: `ANTHROPIC_MODEL`, padrão `claude-sonnet-5-5`).
+- A geração roda quando o workspace está aberto (em até 1 min) ou quando o cliente abre a área dele. Uma página por vez.
+- O HTML da IA passa por uma lista de permissões (`api/_area/ia.js` → `limpa`): sem scripts, estilos ou eventos. Imagens e vídeos do Notion entram pelos marcadores `data-midia`.
+- Se a IA falhar, a página anterior continua no ar.

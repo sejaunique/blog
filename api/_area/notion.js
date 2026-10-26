@@ -12,6 +12,7 @@
 const CAMPOS = require('./campos.js');
 
 const NV = '2022-06-28';
+const IA = require('./ia.js');
 const DB_REUN = '25394b57fed881328544ce6e755832a4'; // (EMP) Reuniões e Compromissos: só leitura, Notion -> painel
 const DB = { emp: '20e94b57fed881a08c1eeb85fbb99700', pessoa: '25394b57fed88154bb5df25b63ac14e5', lead: '25394b57fed881e09ac8ef513a9a4e3f', tarefa: '25394b57fed8813ba22fe58b9619f4ac' };
 const SITE = 'https://sejaunique.vercel.app';
@@ -227,7 +228,7 @@ function deTarefa(p) {
     anexos: arqs.filter(f => f.type === 'external' && f.external && /^https:/.test(f.external.url)).map(f => ({ nome: f.name || 'Anexo', link: f.external.url }))
   };
   const resp = ler(pr, 'Responsável') || [];
-  return { id: idc(p.id), ed: p.last_edited_time, para: ler(pr, 'Tarefa para') || '', empresas: ler(pr, 'Empresa') || [], lead: (ler(pr, 'Lead') || [])[0] || '', pessoas: ler(pr, 'Responsável (cliente)') || [], responsavel: resp[0] || '', temArquivo: arqs.some(f => f.type !== 'external'), a };
+  return { id: idc(p.id), ed: p.last_edited_time, ia: ler(pr, 'Página com IA') || '', para: ler(pr, 'Tarefa para') || '', empresas: ler(pr, 'Empresa') || [], lead: (ler(pr, 'Lead') || [])[0] || '', pessoas: ler(pr, 'Responsável (cliente)') || [], responsavel: resp[0] || '', temArquivo: arqs.some(f => f.type !== 'external'), a };
 }
 const absUrl = u => !u ? '' : /^https?:\/\//.test(u) ? u : SITE + (u.charAt(0) === '/' ? '' : '/') + u;
 function propsTarefa(a, slug, op) {
@@ -331,6 +332,74 @@ async function conteudoTarefa(redis, pageId, ed) {
   const html = await htmlBlocos(await filhos(pageId), 1);
   await redis([['SET', k, JSON.stringify({ ed, html, ate: Date.now() + 45 * 60000 }), 'EX', 86400]]);
   return html;
+}
+
+// ---------- página da tarefa feita pela IA ("Página com IA" = Gerar no Notion) ----------
+const propIA = (pageId, v) => api('PATCH', 'pages/' + pageId, { properties: { 'Página com IA': { select: { name: v } } } }).catch(() => null);
+async function processaIA(redis) {
+  const [ids] = await redis([['SMEMBERS', 'area:ia:fila']]);
+  if (!ids || !ids.length) return { ok: true, fila: 0 };
+  if (!IA.ligada()) { await redis([['SET', 'area:ia:estado', JSON.stringify({ erro: 'Falta a chave da IA (ANTHROPIC_API_KEY) na Vercel.', em: agora() })]]); return { ok: false, fila: ids.length, erro: 'sem chave' }; }
+  const [trava] = await redis([['SET', 'area:ia:trava', '1', 'NX', 'EX', 75]]);
+  if (trava !== 'OK') return { ok: true, fila: ids.length, ocupado: true };
+  const pageId = ids[0];
+  let titulo = '';
+  try {
+    const [v] = await redis([['HGET', 'area:nmap', pageId]]);
+    if (!v || v.indexOf('a|') !== 0) { await redis([['SREM', 'area:ia:fila', pageId]]); return { ok: true, fila: ids.length - 1 }; }
+    const [, sl, aid] = v.split('|');
+    const [av, ev] = await redis([['HGET', 'area:acoes:' + sl, aid], ['GET', 'area:emp:' + sl]]);
+    const a = json(av);
+    if (!a) { await redis([['SREM', 'area:ia:fila', pageId]]); return { ok: true, fila: ids.length - 1 }; }
+    titulo = a.titulo;
+    await propIA(pageId, 'Gerando');
+    const midia = [];
+    const linhas = await IA.paraTexto(filhos, await filhos(pageId), 1, midia);
+    const texto = [a.detalhe ? 'Descrição: ' + a.detalhe : ''].concat(linhas).join('\n').trim();
+    if (!texto) throw new Error('A página "' + a.titulo + '" está vazia no Notion.');
+    const html = await IA.gera({ titulo: a.titulo, tipo: TIPO_PARA[a.tipo], empresa: (json(ev) || {}).nome, texto });
+    const em = agora();
+    const [av2] = await redis([['HGET', 'area:acoes:' + sl, aid]]);
+    const a2 = json(av2) || a; a2.nIA = em;
+    await redis([['SET', 'area:nhtml:' + pageId, JSON.stringify({ html, midia, em, modelo: IA.MODELO() })], ['HSET', 'area:acoes:' + sl, aid, JSON.stringify(a2)], ['SREM', 'area:ia:fila', pageId],
+      ['SET', 'area:ia:estado', JSON.stringify({ erro: '', ultima: a.titulo, em })]]);
+    await propIA(pageId, 'Pronta');
+    return { ok: true, fila: ids.length - 1, feita: a.titulo };
+  } catch (e) {
+    await redis([['SREM', 'area:ia:fila', pageId], ['SET', 'area:ia:estado', JSON.stringify({ erro: (titulo ? titulo + ': ' : '') + String(e.message || e).slice(0, 300), em: agora() })]]);
+    await propIA(pageId, 'Erro');
+    return { ok: false, fila: ids.length - 1, erro: String(e.message || e) };
+  } finally { await redis([['DEL', 'area:ia:trava']]); }
+}
+function midiaHtml(m, url) {
+  if (!url) return '';
+  const leg = m.legenda ? '<figcaption>' + escH(m.legenda) + '</figcaption>' : '';
+  if (m.tipo === 'image') return '<figure><img src="' + escH(url) + '" alt="" loading="lazy">' + leg + '</figure>';
+  const y = ytId(url);
+  if (y) return '<div class="nc-video"><iframe src="https://www.youtube-nocookie.com/embed/' + y + '" allowfullscreen loading="lazy" title="Vídeo"></iframe></div>';
+  if (m.tipo === 'video' && !m.externo) return '<video src="' + escH(url) + '" controls preload="metadata"></video>';
+  return '<p><a class="nc-link" href="' + escH(url) + '" target="_blank" rel="noopener">' + (m.tipo === 'file' || m.tipo === 'pdf' ? '📎 ' : '') + escH(m.legenda || url.replace(/^https:\/\/(www\.)?/, '').slice(0, 60)) + ' ↗</a></p>';
+}
+async function paginaIA(redis, pageId) {
+  const [v] = await redis([['GET', 'area:nhtml:' + pageId]]);
+  const o = json(v);
+  if (!o) return null;
+  let html = o.html, sobra = '';
+  const M = o.midia || [];
+  for (let i = 0; i < M.length; i++) {
+    const m = M[i];
+    let url = m.url;
+    if (!m.externo) {
+      const k = 'area:nmid:' + m.bloco;
+      const [c] = await redis([['GET', k]]);
+      const cc = json(c);
+      if (cc && cc.ate > Date.now()) url = cc.url;
+      else { try { const b = await api('GET', 'blocks/' + m.bloco); url = ((b[b.type] || {}).file || {}).url || ''; await redis([['SET', k, JSON.stringify({ url, ate: Date.now() + 45 * 60000 }), 'EX', 3600]]); } catch (e) { url = ''; } }
+    }
+    const tag = '<div data-midia="' + (i + 1) + '"></div>';
+    if (html.indexOf(tag) >= 0) html = html.split(tag).join(midiaHtml(m, url)); else sobra += midiaHtml(m, url);
+  }
+  return { html: html.replace(/<div data-midia="\d+"><\/div>/g, '') + sobra, em: o.em };
 }
 
 // ---------- Reuniões (EMP) -> página de reuniões do cliente (só leitura) ----------
@@ -714,7 +783,7 @@ async function puxa(redis, op) {
   });
   if (cmds.length || mapa.length) await redis(cmds.splice(0).concat(mapa.length ? [['HSET', 'area:nmap'].concat(mapa.splice(0))] : []));
   // tarefas -> ações do plano
-  const tiradas = [], escrever = [];
+  const tiradas = [], escrever = [], filaIA = [];
   T.map(deTarefa).forEach(n => {
     const lig = nmap[n.id];
     let velho = null, vs = '';
@@ -723,6 +792,7 @@ async function puxa(redis, op) {
     const leadV = nmap[n.lead];
     const sl = n.empresas.map(slugDe).filter(Boolean)[0] || (leadV && leadV.indexOf('n|') === 0 ? leadV.split('|')[1] : '');
     if (!sl) return;
+    if (n.ia === 'Gerar') filaIA.push(n.id);
     if (velho && velho.nEd && n.ed < velho.nEd) return;
     const pv = n.pessoas.map(id => nmap[id]).filter(v => v && v.indexOf('p|' + sl + '|') === 0)[0];
     const novo = Object.assign({}, n.a, { pessoa: pv ? pv.split('|')[2] : '' });
@@ -748,6 +818,7 @@ async function puxa(redis, op) {
   }
   escrever.forEach(x => cmds.push(['HSET', 'area:acoes:' + x.sl, x.a.id, JSON.stringify(x.a)]));
   if (tiradas.length) cmds.push(['HDEL', 'area:nmap'].concat(tiradas));
+  if (filaIA.length) cmds.push(['SADD', 'area:ia:fila'].concat(filaIA));
   if (cmds.length || mapa.length) await redis(cmds.splice(0).concat(mapa.length ? [['HSET', 'area:nmap'].concat(mapa.splice(0))] : []));
   if (Object.keys(tocadas).length) await etapasDasEmpresas(redis, Object.keys(tocadas));
   if (op.tudo) await arquivados(redis, E, P, L, est.cargaTarefas ? T : null);
@@ -761,7 +832,8 @@ async function puxa(redis, op) {
   } catch (e) { est.erroReunioes = String(e.message || e).slice(0, 300); }
   await redis([['SET', 'area:notion:estado', JSON.stringify(Object.assign(est, { ultimo: inicio, erro: '' }))]]);
   await pendencias(redis);
-  return { ok: true, mud, total: mud.empresas + mud.pessoas + mud.negocios + mud.acoes + mud.reunioes };
+  const [nIa] = await redis([['SCARD', 'area:ia:fila']]);
+  return { ok: true, mud, total: mud.empresas + mud.pessoas + mud.negocios + mud.acoes + mud.reunioes, ia: nIa || 0 };
 }
 
 // sincronização completa: o que sumiu do Notion (arquivado/apagado) some do painel
@@ -924,8 +996,8 @@ async function diagnostico(redis, slug, email, empresaNome) {
 }
 
 async function estado(redis) {
-  const [e, f, pl] = await redis([['GET', 'area:notion:estado'], ['LLEN', 'area:notion:fila'], ['LLEN', 'area:notion:painel']]);
-  return Object.assign({ token: ligado(), fila: f || 0, links: pl || 0 }, json(e) || {});
+  const [e, f, pl, ie, ifl] = await redis([['GET', 'area:notion:estado'], ['LLEN', 'area:notion:fila'], ['LLEN', 'area:notion:painel'], ['GET', 'area:ia:estado'], ['SCARD', 'area:ia:fila']]);
+  return Object.assign({ token: ligado(), fila: f || 0, links: pl || 0, ia: Object.assign({ chave: IA.ligada(), fila: ifl || 0 }, json(ie) || {}) }, json(e) || {});
 }
 
-module.exports = { conteudoTarefa, ligado, verifica, plano, aplica, puxa, envia, estado, diagnostico, ehInterno, emailInterno, DB, DB_REUN, _t: { deReuniao, deEmp, dePessoa, deLead, deTarefa, propsEmp, propsPessoa, propsLead, propsTarefa, juntaEnd, separaEnd } };
+module.exports = { processaIA, paginaIA, conteudoTarefa, ligado, verifica, plano, aplica, puxa, envia, estado, diagnostico, ehInterno, emailInterno, DB, DB_REUN, _t: { deReuniao, deEmp, dePessoa, deLead, deTarefa, propsEmp, propsPessoa, propsLead, propsTarefa, juntaEnd, separaEnd } };

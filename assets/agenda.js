@@ -37,7 +37,7 @@
   '.ag-it .ag-tag.reuniao{background:#fde4ee;color:#b0043f}.ag-it .ag-tag.atr{background:#e0055e;color:#fff}'+
   '.ag-vz{padding:40px 10px;text-align:center;color:var(--ag-m);font-size:.9rem}'+
   '.ag-semdata{margin-top:14px;border:1px dashed var(--ag-l);border-radius:12px;padding:12px}.ag-semdata b{font-size:.8rem}.ag-semdata div{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.ag-semdata .ag-ch{max-width:280px}'+
-  '@media(max-width:760px){.ag-mes .ag-d{min-height:64px}.ag-mes .ag-ch{font-size:0;padding:0;height:6px;border-radius:3px;border-left-width:0}.ag-mes .ag-ch.entrega{background:#1e2357}.ag-mes .ag-ch.reuniao,.ag-mes .ag-ch.atr{background:#e0055e}.ag-mes .ag-ch.pedida{background:#b9b9c4}.ag-sem{grid-template-columns:1fr}.ag-sem>div{min-height:0;border-right:0;border-bottom:1px solid var(--ag-l)}.ag-modo{margin-left:0}.ag-h .ag-tit{min-width:0;flex:1}}';
+  '@media(max-width:760px){.ag-h .ag-tit{min-width:0;flex:0 0 100%!important;order:-1;text-align:left}.ag-mes .ag-d{min-height:64px}.ag-mes .ag-ch{font-size:0;padding:0;height:6px;border-radius:3px;border-left-width:0}.ag-mes .ag-ch.entrega{background:#1e2357}.ag-mes .ag-ch.reuniao,.ag-mes .ag-ch.atr{background:#e0055e}.ag-mes .ag-ch.pedida{background:#b9b9c4}.ag-sem{grid-template-columns:1fr}.ag-sem>div{min-height:0;border-right:0;border-bottom:1px solid var(--ag-l)}.ag-modo{margin-left:0}.ag-h .ag-tit{min-width:0;flex:1}}';
   var st=document.createElement('style'); st.textContent=css; document.head.appendChild(st);
 
   var DOW=['seg','ter','qua','qui','sex','sáb','dom'], MES=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];

@@ -77,4 +77,22 @@ async function envia(redis, pasta, nome, tipo, dados) {
   return r.ok && j.id ? j : null;
 }
 
-module.exports = { pronto, raiz, pastaEmpresa, lista, envia };
+// arquivos do Drive compartilhados entre o Carlos e cada e-mail (dono, editor ou leitor); devolve {fileId: {arquivo, emails:[...]}}
+const CAMPOS_ARQ = 'files(id,name,mimeType,modifiedTime,size,iconLink,webViewLink,thumbnailLink,lastModifyingUser(displayName,emailAddress),owners(emailAddress))';
+async function compartilhados(redis, emails) {
+  const out = {};
+  const um = async m => {
+    const e = String(m).replace(/'/g, '');
+    const q = new URLSearchParams({ q: "('" + e + "' in owners or '" + e + "' in writers or '" + e + "' in readers) and trashed=false", orderBy: 'modifiedTime desc', pageSize: '60', fields: CAMPOS_ARQ, includeItemsFromAllDrives: 'true', supportsAllDrives: 'true', corpora: 'allDrives' });
+    const r = await G.g(redis, 'GET', D + '?' + q);
+    if (!r.ok) return;
+    (r.files || []).forEach(f => {
+      const a = out[f.id] || (out[f.id] = { arq: { id: f.id, nome: f.name, tipo: f.mimeType, pasta: f.mimeType === PASTA, data: f.modifiedTime, tamanho: +f.size || 0, icone: f.iconLink || '', link: f.webViewLink, miniatura: f.thumbnailLink || '', por: f.lastModifyingUser ? (f.lastModifyingUser.displayName || f.lastModifyingUser.emailAddress || '') : '' }, emails: [] });
+      if (a.emails.indexOf(m) < 0) a.emails.push(m);
+    });
+  };
+  await Promise.all((emails || []).slice(0, 25).map(um));
+  return out;
+}
+
+module.exports = { pronto, raiz, pastaEmpresa, lista, envia, compartilhados };

@@ -16,6 +16,7 @@
 <script src="/assets/interacao.js" defer></script>
 <script src="/assets/rico.js" defer></script>
 <script src="/assets/acoes-vis.js" defer></script>
+<script src="/assets/arquivos.js" defer></script>
 <script src="/assets/agenda.js" defer></script>
 <style>
 [hidden]{display:none!important}
@@ -236,6 +237,7 @@
 .fp-av{display:inline-flex;align-items:center;gap:8px}
 .pv-modo{display:flex;gap:2px;background:var(--fg);border-radius:999px;padding:4px}.pv-modo button{font:inherit;font-size:.78rem;font-weight:600;border:0;background:none;color:var(--bg);border-radius:999px;padding:7px 14px;cursor:pointer}.pv-modo button[aria-pressed="true"]{background:var(--bg);color:var(--fg)}
 .pv-st{font-size:.72rem;font-weight:700;border-radius:999px;padding:3px 10px;background:var(--soft)}.pv-st.fazendo{background:#fff3d6;color:#8a5a00}.pv-st.feito{background:#d8f8e6;color:#06603a}
+#arqs{display:block;margin-top:18px}#arqs .uf-l{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
 .fp-soc{max-width:var(--read);margin:56px auto 0;padding-top:40px;border-top:1px solid var(--line)}
 .fp-soc h3{font-size:1.25rem;font-weight:500;letter-spacing:-.01em;margin:0}
 /* Golden Circle */
@@ -468,10 +470,10 @@
   function arquivos(){
     var emp=DADOS.empresa.slug;
     api({get:'?a=arquivos'+(DADOS.admin?'&e='+encodeURIComponent(emp):'')}).then(function(r){
-      var sec=document.getElementById('sec-arq'); if(!r||!r.ok||!r.drive){ sec.hidden=true; return; } sec.hidden=false;
-      document.getElementById('arq-pasta').href=r.pasta.link;
-      var L=r.arquivos||[];
-      document.getElementById('arqs').innerHTML=L.length?L.map(function(f){ return '<a class="arq-i" href="'+esc(f.link)+'" target="_blank" rel="noopener">'+(f.icone?'<img src="'+esc(f.icone)+'" alt="">':'')+'<span><b>'+esc(f.nome)+'</b><small>'+new Date(f.data).toLocaleDateString('pt-BR')+(f.por?' · '+esc(f.por):'')+'</small></span></a>'; }).join(''):'<p class="muted">A pasta ainda está vazia.</p>';
+      var sec=document.getElementById('sec-arq'); if(!r||!r.ok||(!r.drive&&!(r.arquivos||[]).length)){ sec.hidden=true; return; } sec.hidden=false;
+      var pb=document.getElementById('arq-pasta'); if(r.drive){ pb.hidden=false; pb.href=r.pasta.link; } else pb.hidden=true;
+      document.querySelector('#sec-arq .arq-env').hidden=!r.drive;
+      if(window.UniqueArquivos) UniqueArquivos.lista(document.getElementById('arqs'),r.arquivos||[],{quem:function(m){ return m===DADOS.eu?'você':pesInfo(m).nome.split(' ')[0]; }});
       var inp=document.getElementById('arq-in');
       inp.onchange=function(){ var fs=[].slice.call(inp.files).filter(function(f){return f.size<=4.3*1024*1024;}); if(fs.length<inp.files.length) alert('Arquivos acima de 4 MB: envie pela pasta do Google Drive.'); inp.value=''; if(!fs.length) return;
         var lb=document.querySelector('#sec-arq .arq-env span'); lb.textContent='Enviando…';

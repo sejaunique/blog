@@ -494,13 +494,34 @@ module.exports = async (req, res) => {
       if (q.a === 'arquivos') {
         const slug = s.admin ? slugify(q.e) : s.slug;
         if (!(await empresa(slug))) return res.status(404).json({ ok: false });
+        const [fixH, ocH] = await redis([['HGETALL', 'area:arq-fix:' + slug], ['SMEMBERS', 'area:arq-oculto:' + slug]]);
+        const ocultos = ocH || [];
+        // links fixados pelo Carlos (Canva, Notion, Docs...) — todos da empresa veem
+        const fixos = lerPares(fixH).map(([id, v]) => Object.assign({ id, origem: 'fixo', quem: [] }, json(v) || {})).filter(x => x.link);
         const DR = require('./_area/drive.js');
         const p = await DR.pronto(redis);
-        if (!p.ok) return res.json({ ok: true, drive: false, falta: p.falta });
+        if (!p.ok) return res.json({ ok: true, drive: false, falta: p.falta, arquivos: fixos });
         const pasta = await DR.pastaEmpresa(redis, slug, (CATALOGO[slug] || {}).nome);
-        if (!pasta) return res.json({ ok: true, drive: false, falta: 'erro' });
-        const arquivos = await DR.lista(redis, pasta.id);
-        return res.json({ ok: true, drive: true, pasta: { link: pasta.link }, arquivos: arquivos || [] });
+        if (!pasta) return res.json({ ok: true, drive: false, falta: 'erro', arquivos: fixos });
+        // pasta da empresa + o que está compartilhado entre o Carlos e cada contato (guardado por 10 min)
+        const [cache] = await redis([['GET', 'area:gdrive:' + slug]]);
+        let comp = json(cache);
+        if (!comp || q.novo) {
+          const [ems] = await redis([['SMEMBERS', 'area:users:' + slug]]);
+          comp = await DR.compartilhados(redis, (ems || []).filter(m => !NOTION.ehInterno(m)));
+          await redis([['SET', 'area:gdrive:' + slug, JSON.stringify(comp), 'EX', 600]]);
+        }
+        const daPasta = (await DR.lista(redis, pasta.id)) || [];
+        const vistos = {};
+        let arquivos = daPasta.map(a => { vistos[a.id] = 1; return Object.assign(a, { origem: 'pasta', quem: [] }); });
+        Object.keys(comp || {}).forEach(id => { if (vistos[id] || id === pasta.id) return; arquivos.push(Object.assign({}, comp[id].arq, { origem: 'compart', quem: comp[id].emails })); });
+        arquivos = arquivos.concat(fixos);
+        if (!s.admin) {
+          const papel = await papelSessao(s);
+          arquivos = arquivos.filter(a => ocultos.indexOf(a.id) < 0 && (a.origem !== 'compart' || papel === 'adm' || a.quem.indexOf(s.email) >= 0));
+        } else arquivos.forEach(a => { a.oculto = ocultos.indexOf(a.id) >= 0; });
+        arquivos.sort((a, b) => (b.pasta ? 1 : 0) - (a.pasta ? 1 : 0) || String(b.data || '').localeCompare(String(a.data || '')));
+        return res.json({ ok: true, drive: true, pasta: { link: pasta.link }, arquivos });
       }
       if (q.a === 'conteudo') {
         const slug = s.admin ? slugify(q.e) : s.slug;
@@ -949,6 +970,21 @@ module.exports = async (req, res) => {
       return res.json({ ok: true, slug: sl });
     }
 
+    if (b.a === 'admin-arq-oculto') {
+      const id = String(b.id || '').replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 80);
+      if (!id) return res.status(400).json({ ok: false });
+      await redis([[b.oculto ? 'SADD' : 'SREM', 'area:arq-oculto:' + slug, id]]);
+      return res.json({ ok: true });
+    }
+    if (b.a === 'admin-arq-fixa') {
+      if (b.tira) { await redis([['HDEL', 'area:arq-fix:' + slug, String(b.id || '')]]); return res.json({ ok: true }); }
+      let link = limpo(b.link, 600); if (link && !/^https?:\/\//i.test(link)) link = 'https://' + link;
+      if (!/^https:\/\/[^\s"<>]+$/i.test(link)) return res.status(400).json({ ok: false, erro: 'Cole um link válido (https://…).' });
+      const id = 'fx' + novoId();
+      const nome = limpo(b.nome, 160) || link.replace(/^https?:\/\/(www\.)?/, '').slice(0, 60);
+      await redis([['HSET', 'area:arq-fix:' + slug, id, JSON.stringify({ nome, link, data: new Date().toISOString(), tipo: 'link', por: 'Carlos · Unique' })]]);
+      return res.json({ ok: true, id });
+    }
     if (b.a === 'admin-papel') {
       const email = limpo(b.email, 120).toLowerCase();
       if (PAPEIS.indexOf(b.papel) < 0) return res.status(400).json({ ok: false });

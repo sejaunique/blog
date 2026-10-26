@@ -6,6 +6,7 @@
 <script src="/assets/interacao.js" defer></script>
 <script src="/assets/rico.js" defer></script>
 <script src="/assets/acoes-vis.js" defer></script>
+<script src="/assets/arquivos.js" defer></script>
 <script src="/assets/agenda.js" defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>if(Math.min(screen.width,innerWidth)<900&&!/[?&]desk=1/.test(location.search))location.replace('/area/admin/app/'+location.hash);</script>
@@ -867,6 +868,7 @@ body{background:var(--ws-bg)}
 .ea-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.ea-modo button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
 .ct-nums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:4px 0 18px}.ct-num{font:inherit;text-align:left;border:1px solid var(--ws-line,#e4e4e7);background:var(--bg,#fff);border-radius:14px;padding:12px 14px;cursor:pointer;color:var(--fg)}.ct-num:hover{border-color:var(--fg)}.ct-num b{display:block;font-size:1.5rem;letter-spacing:-.03em;line-height:1.1}.ct-num span{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}.ct-num.am b{color:#d97706}.ct-num.vd b{color:#00a854}.ct-num.vm b{color:#e0055e}.ct-num.atr{border-color:#e0055e}.ct-num.atr b,.ct-num.atr span{color:#e0055e}
 .nv-st-p{font-size:.72rem;font-weight:700;border-radius:999px;padding:3px 10px;background:var(--soft,#f4f4f5)}.nv-st-p.am{background:#fff3d6;color:#8a5a00}.nv-st-p.vd{background:#d8f8e6;color:#06603a}.nv-st-p.vm{background:#ffe0ec;color:#a3043f}
+.arq-uf{margin:10px 0}.arq-fix{display:flex;gap:6px;margin:8px 0}.arq-fix input{flex:1;min-width:0;font:inherit;font-size:.8rem;border:1px solid var(--ws-line,#e4e4e7);border-radius:999px;padding:7px 12px;background:var(--bg);color:var(--fg)}
 .nv-soc{max-width:880px;margin:-56px auto 0;padding:0 28px 100px;width:100%;box-sizing:border-box;flex-shrink:0}
 .nv-soc h3{font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:0 0 4px}
 .nv-soc .social{margin-top:10px}
@@ -1433,11 +1435,17 @@ body{background:var(--ws-bg)}
   function blocoArquivos(box,slug){
     function desenhaA(r){
       if(!r){ box.innerHTML='<div class="arq-h"><b>Arquivos</b></div><p class="ct-b-vazio">Carregando…</p>'; return; }
-      if(!r.drive){ box.innerHTML='<div class="arq-h"><b>Arquivos</b></div><p class="arq-msg">'+(r.falta==='conectar'?'Conecte o Google para criar a pasta de cada empresa no seu Drive.':r.falta==='permissao'?'Falta autorizar o Google Drive. Clique abaixo e permita o acesso (uma vez só).':'Não consegui abrir a pasta agora.')+'</p><a class="pill solid" href="/api/agenda?a=conectar">'+ic('pasta')+'Ligar pasta no Google Drive</a>'; return; }
+      var semDrive=r.drive?'':'<p class="arq-msg">'+(r.falta==='conectar'?'Conecte o Google para criar a pasta de cada empresa no seu Drive.':r.falta==='permissao'?'Falta autorizar o Google Drive. Clique abaixo e permita o acesso (uma vez só).':'Não consegui abrir a pasta agora.')+'</p><a class="pill solid" href="/api/agenda?a=conectar">'+ic('pasta')+'Ligar pasta no Google Drive</a>';
       var L=r.arquivos||[];
-      box.innerHTML='<div class="arq-h"><b>Arquivos</b><a class="ct-link" href="'+esc(r.pasta.link)+'" target="_blank" rel="noopener">Abrir pasta no Drive ↗</a></div>'+
-        (L.length?'<div class="arq-l">'+L.slice(0,12).map(function(f){ return '<a class="arq-i" href="'+esc(f.link)+'" target="_blank" rel="noopener">'+(f.icone?'<img src="'+esc(f.icone)+'" alt="">':ic(f.pasta?'pasta':'doc'))+'<span><b>'+esc(f.nome)+'</b><small>'+dt(f.data,1)+(f.tamanho?' · '+tamanho(f.tamanho):'')+(f.por?' · '+esc(f.por):'')+'</small></span></a>'; }).join('')+(L.length>12?'<a class="ct-link" href="'+esc(r.pasta.link)+'" target="_blank" rel="noopener">+'+(L.length-12)+' na pasta ↗</a>':'')+'</div>':'<p class="ct-b-vazio">Pasta vazia. Envie o primeiro arquivo.</p>')+
-        '<label class="arq-env">'+ic('upload')+'<span>Enviar arquivo</span><input type="file" hidden multiple></label><small class="arq-dica">Até 4 MB por aqui. Maiores: "Abrir pasta no Drive" e arraste lá.</small>';
+      box.innerHTML='<div class="arq-h"><b>Pasta compartilhada</b>'+(r.drive?'<a class="ct-link" href="'+esc(r.pasta.link)+'" target="_blank" rel="noopener">Abrir no Drive ↗</a>':'')+'</div>'+semDrive+'<div class="arq-uf"></div>'+
+        '<form class="arq-fix"><input name="link" placeholder="Fixar um link (Canva, Notion, Docs…)" aria-label="Link para fixar"><button class="pill">Fixar</button></form>'+
+        (r.drive?'<label class="arq-env">'+ic('upload')+'<span>Enviar arquivo</span><input type="file" hidden multiple></label><small class="arq-dica">Aparecem aqui a pasta da empresa e os arquivos do seu Drive compartilhados com os contatos. Até 4 MB por envio.</small>':'');
+      var e0=emp(slug);
+      if(window.UniqueArquivos) UniqueArquivos.lista(box.querySelector('.arq-uf'),L,{admin:true,max:12,quem:function(m){ var u=e0&&(e0.usuarios||[]).filter(function(x){return x.email===m;})[0]; return u?u.nome.split(' ')[0]:m; },
+        aoOcultar:function(a,oc){ post({a:'admin-arq-oculto',slug:slug,id:a.id,oculto:oc}).then(function(x){ toast(x.ok?(oc?'Escondido do cliente.':'Visível de novo.'):'Erro.'); delete ARQS[slug]; }); },
+        aoTirarFixo:function(a){ post({a:'admin-arq-fixa',slug:slug,id:a.id,tira:true}).then(function(){ toast('Link tirado.'); delete ARQS[slug]; }); }});
+      box.querySelector('.arq-fix').onsubmit=function(ev){ ev.preventDefault(); var f=this; post({a:'admin-arq-fixa',slug:slug,link:f.link.value}).then(function(x){ if(!x.ok){ toast(x.erro||'Erro.'); return; } toast('Link fixado na pasta do cliente.'); delete ARQS[slug]; carregaA(); }); };
+      if(!r.drive) return;
       var inp=box.querySelector('input[type=file]');
       inp.onchange=function(){ var fs=[].slice.call(inp.files); inp.value=''; if(!fs.length) return;
         var grandes=fs.filter(function(f){return f.size>4.3*1024*1024;}); if(grandes.length){ toast('"'+grandes[0].name+'" passa de 4 MB: envie pela pasta do Drive.'); fs=fs.filter(function(f){return f.size<=4.3*1024*1024;}); if(!fs.length) return; }

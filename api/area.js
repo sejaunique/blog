@@ -294,7 +294,7 @@ function normAcao(a) {
   if (!Array.isArray(a.responsaveis)) a.responsaveis = a.pessoa ? [a.pessoa] : [];
   if (!Array.isArray(a.observadores)) a.observadores = [];
   a.pessoa = a.responsaveis.filter(x => x !== 'unique')[0] || '';
-  if (a.inicio) a.inicio = String(a.inicio).slice(0, 10);
+  if (a.inicio && a.tipo !== 'reuniao') a.inicio = String(a.inicio).slice(0, 10); // reunião guarda a hora (Google Agenda)
   return a;
 }
 function limpaAcao(a) {
@@ -309,7 +309,7 @@ function limpaAcao(a) {
     observadores: listaPessoas(a.observadores, false),
     responsavel: limpo(a.responsavel, 80),
     prazo: /^\d{4}-\d{2}-\d{2}$/.test(a.prazo || '') ? a.prazo : '',
-    inicio: /^\d{4}-\d{2}-\d{2}/.test(a.inicio || '') ? String(a.inicio).slice(0, 10) : '',
+    inicio: /^\d{4}-\d{2}-\d{2}/.test(a.inicio || '') ? String(a.inicio).slice(0, a.tipo === 'reuniao' && /T\d{2}:\d{2}/.test(a.inicio) ? 16 : 10) : '',
     dono: a.dono === 'cliente' || a.dono === 'ambos' ? a.dono : 'unique',
     pessoa: resp.filter(x => x !== 'unique')[0] || '',
     tipo: ['acao', 'post', 'video', 'reuniao', 'material', 'tecnica', 'isca'].indexOf(a.tipo) >= 0 ? a.tipo : 'acao',
@@ -604,6 +604,17 @@ module.exports = async (req, res) => {
         } catch (e) { erro = 'Não consegui abrir a explicação agora.'; }
         const [nv] = await redis([['HGET', 'area:anot:' + slug, a.id]]);
         return res.json({ ok: true, html, ia, erro, nota: json(nv) });
+      }
+      // página da reunião: resumo/anotações da página no Notion (só ADM da empresa)
+      if (q.a === 'reuniao-conteudo') {
+        const slug = s.admin ? slugify(q.e) : s.slug, id = String(q.id || '').replace(/[^a-f0-9]/g, '');
+        if ((await papelSessao(s)) !== 'adm') return res.status(403).json({ ok: false });
+        const [v] = await redis([['HGET', 'area:reun:' + slug, id]]);
+        const r = json(v);
+        if (!r) return res.status(404).json({ ok: false });
+        let html = '';
+        try { if (NOTION.ligado()) html = await NOTION.conteudoTarefa(redis, id, r.ed || ''); } catch (e) { html = ''; }
+        return res.json({ ok: true, html });
       }
       if (q.a === 'admin-reunioes') {
         if (!s.admin) return res.status(403).json({ ok: false });

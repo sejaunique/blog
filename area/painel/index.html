@@ -66,6 +66,14 @@
 .acao select.st-fazendo{border-color:var(--alerta);color:var(--alerta)}
 .acao select.st-feito{border-color:var(--ok);color:var(--ok)}
 .leit{display:grid;gap:10px;margin-top:18px}
+.cap-g{box-shadow:inset 0 -.16em 0 #00e676}
+.cap-tag{display:inline-block;vertical-align:middle;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--ink-line,#333);color:var(--ink-muted);border-radius:999px;padding:5px 12px;margin-left:8px}
+.prox{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px;margin-top:32px;border:1px solid var(--ink-line,#333);border-radius:var(--r);padding:16px 20px;background:rgba(255,255,255,.04)}
+.prox-ic{color:#00e676;font-size:.8rem;animation:pisca 1.6s infinite}@keyframes pisca{50%{opacity:.25}}
+.prox-t{flex:1;min-width:200px}.prox-t small{display:block;font-size:.66rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#00e676}.prox-t b{font-size:1.1rem;font-weight:600}
+.prox-bt{display:flex;flex-wrap:wrap;gap:8px}.prox .btn{color:var(--ink-fg)}.prox .btn.verde{background:#00e676;color:#000;border-color:#00e676}
+.reun-i{cursor:pointer;transition:border-color .15s}.reun-i:hover{border-color:var(--fg)}.reun-ab{font-size:.78rem;font-weight:700;align-self:center;margin-left:4px}
+.rn-bts{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}.rn-desc{white-space:pre-wrap;font-size:1.02rem}
 .reun{display:grid;gap:10px;margin-top:6px}
 .reun-i{display:grid;grid-template-columns:70px minmax(0,1fr) auto;gap:18px;align-items:center;border:1px solid var(--line);border-radius:var(--r);padding:16px 20px;background:var(--bg)}
 .reun-d{text-align:center;line-height:1.05}.reun-d b{display:block;font-size:1.7rem;font-weight:600;letter-spacing:-.03em}.reun-d small{font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
@@ -285,13 +293,14 @@
       <div>
         <span class="spaced" id="cap-emp">Área do cliente</span>
         <h1 id="cap-ola">Carregando…</h1>
-        <p>Entregas, plano de ações e materiais da consultoria Unique para a sua empresa.</p>
+        <p id="cap-sub">Entregas, plano de ações e materiais da consultoria Unique para a sua empresa.</p>
       </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
         <a class="btn sm" id="b-admin" href="/area/admin/" hidden>Voltar ao admin</a>
         <button class="btn sm" type="button" id="b-sair">Sair</button>
       </div>
     </div>
+    <div class="prox" id="prox" hidden></div>
     <div class="resumo">
       <div><b id="n-entregas">–</b><span>Entregas</span></div>
       <div><b id="n-acoes">–</b><span>Ações no plano</span></div>
@@ -328,7 +337,7 @@
 
     <section class="bloco" aria-labelledby="h-reun" id="sec-reun" hidden>
       <div class="bloco-head">
-        <div><span class="spaced">Reuniões</span><h2 id="h-reun">Nossas <span style="font-weight:200;font-style:italic">conversas</span></h2></div>
+        <div><span class="spaced">Reuniões · só ADM</span><h2 id="h-reun">Nossas <span style="font-weight:200;font-style:italic">reuniões</span></h2></div>
       </div>
       <div class="reun" id="reun"></div>
     </section>
@@ -377,14 +386,15 @@
       if(!emp){ location.replace('/area/admin/'); return; }
       document.getElementById('b-admin').hidden=false;
     }
-    var nome=eu.admin?'Visão do cliente':('Olá, '+String(eu.nome||'').split(' ')[0]+'.');
-    document.getElementById('cap-ola').innerHTML=esc(nome);
+    document.getElementById('cap-ola').textContent='Olá.';
     return api({get:'?a=conteudo'+(eu.admin?'&e='+encodeURIComponent(emp):'')}).then(function(d){
       if(!d.ok) throw 0;
       DADOS=d;
       document.getElementById('cap-emp').textContent='Área do cliente · '+d.empresa.nome;
+      cabecalho(d);
       document.title=d.empresa.nome+' · Unique';
       montaFiltros(); desenha(); plano(); calendario(); reunioes(); leitura(); arquivos();
+      var hr=location.hash.match(/^#reuniao-(.+)$/); if(hr) abreReuniao(decodeURIComponent(hr[1]),true);
       if(d.iaFila) api({body:{a:'notion-ia'}}).catch(function(){});
     });
   }).catch(function(e){ if(e!==0) document.getElementById('cap-ola').textContent='Não foi possível carregar. Atualize a página.'; });
@@ -473,14 +483,74 @@
     el.onchange=function(ev){ var c=ev.target; if(!c.dataset.l) return; c.disabled=true;
       api({body:{a:'leitura-lido',slug:DADOS.empresa.slug,id:c.dataset.l,lido:c.checked}}).then(function(r){ c.disabled=false; if(!r.ok) return; var l=L.filter(function(x){return x.id===c.dataset.l;})[0]; if(l) l.lido=r.leitura.lido; leitura(); }); };
   }
+  // cabeçalho: bom dia/boa tarde/boa noite com o nome, frase do dia e a próxima reunião (só ADM)
+  function horaSP(){ try{ return +new Intl.DateTimeFormat('pt-BR',{hour:'numeric',hour12:false,timeZone:'America/Sao_Paulo'}).format(new Date()); }catch(x){ return new Date().getHours(); } }
+  function hojeSP(){ try{ return new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo'}).format(new Date()); }catch(x){ return new Date().toISOString().slice(0,10); } }
+  function cabecalho(d){
+    var h=horaSP(), sd=h<5?'Boa noite':h<12?'Bom dia':h<18?'Boa tarde':'Boa noite', pn=String(d.nome||'').trim().split(' ')[0];
+    document.getElementById('cap-ola').innerHTML=esc(sd)+(pn?', <span class="cap-g">'+esc(pn)+'</span>':'')+'.'+(d.admin?' <span class="cap-tag">vendo como cliente · ADM</span>':'');
+    var hoje=hojeSP(), sem=new Date(Date.now()+7*864e5).toISOString().slice(0,10);
+    var minhas=(d.acoes||[]).filter(function(a){ return a.status!=='feito'&&a.status!=='cancelado'&&a.status!=='arquivado'&&(d.admin||!(a.responsaveis||[]).length||(a.responsaveis||[]).indexOf(d.eu)>=0); });
+    var atr=minhas.filter(function(a){return a.prazo&&a.prazo<hoje;}).length, semana=minhas.filter(function(a){return a.prazo&&a.prazo>=hoje&&a.prazo<=sem;}).length;
+    var f=atr?(atr===1?'1 tarefa atrasada':atr+' tarefas atrasadas')+(semana?' e '+semana+' para esta semana.':'. Bora colocar em dia?'):semana?'Você tem '+semana+(semana===1?' tarefa':' tarefas')+' para esta semana.':'Tudo em dia por aqui.';
+    document.getElementById('cap-sub').textContent=f;
+    proxima(d);
+  }
+  function quandoTxt(iso){ var hoje=hojeSP(), dia=iso.slice(0,10), hora=iso.length>10?iso.slice(11,16).replace(':00','h').replace(':','h'):'', amanha=new Date(Date.parse(hoje+'T12:00:00Z')+864e5).toISOString().slice(0,10);
+    if(dia===hoje){ var mins=Math.round((Date.parse(iso+(iso.length>10?':00-03:00':'T12:00:00-03:00'))-Date.now())/60000); return 'hoje'+(hora?' às '+hora:'')+(mins>0&&mins<180?' · em '+(mins<60?mins+' min':Math.round(mins/60)+(Math.round(mins/60)===1?' hora':' horas')):''); }
+    if(dia===amanha) return 'amanhã'+(hora?' às '+hora:'');
+    var d=new Date(dia+'T12:00:00'); return ['dom','seg','ter','qua','qui','sex','sáb'][d.getDay()]+', '+(+dia.slice(8,10))+' de '+MESES[+dia.slice(5,7)-1]+(hora?' · '+hora:''); }
+  function gcal(t,iso){ var z=function(x){return x.replace(/[-:]/g,'');}; var ini=iso.length>10?iso:iso+'T09:00', a=new Date(ini+':00-03:00'), b=new Date(a.getTime()+3600000); var f=function(x){ return x.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,''); };
+    return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(t)+'&dates='+f(a)+'/'+f(b); }
+  function proxima(d){
+    var el=document.getElementById('prox'); if(!el) return;
+    if(d.papel!=='adm'){ el.hidden=true; return; }
+    var agora=new Date(Date.now()-3*3600000).toISOString().slice(0,16), L=[];
+    (d.reunioes||[]).forEach(function(r){ if(r.data&&(r.data.length>10?r.data:r.data+'T23:59')>=agora) L.push({id:r.id,nome:r.nome,data:r.data,link:r.link,r:1}); });
+    (d.acoes||[]).forEach(function(a){ var q=a.tipo==='reuniao'?(a.inicio||a.prazo):''; if(q&&(q.length>10?q:q+'T23:59')>=agora&&a.status!=='cancelado'&&a.status!=='arquivado') L.push({id:a.id,nome:a.titulo,data:q,link:a.link,acao:1}); });
+    L.sort(function(a,b){return String(a.data).localeCompare(String(b.data));});
+    var r=L[0]; if(!r){ el.hidden=true; return; }
+    var hoje=r.data.slice(0,10)===hojeSP();
+    el.hidden=false;
+    el.innerHTML='<span class="prox-ic" aria-hidden="true">●</span><div class="prox-t"><small>Próxima reunião · '+esc(quandoTxt(r.data))+'</small><b>'+esc(r.nome)+'</b></div><div class="prox-bt">'+
+      (hoje&&r.link?'<a class="btn sm verde" href="'+esc(r.link)+'" target="_blank" rel="noopener">Entrar na reunião</a>':'')+
+      '<a class="btn sm" href="'+esc(gcal(r.nome,r.data))+'" target="_blank" rel="noopener">Adicionar à agenda</a>'+(r.r?'<button type="button" class="btn sm" data-rn="'+esc(r.id)+'">Detalhes</button>':'')+'</div>';
+    el.onclick=function(ev){ var b=ev.target.closest('[data-rn]'); if(b) abreReuniao(b.dataset.rn); };
+  }
+  // página da reunião (#reuniao-<id>): gravação, Drive, transcrição e o resumo do Notion
+  var FREUN=null;
+  function abreReuniao(id,semRota){
+    var r=(DADOS.reunioes||[]).filter(function(x){return x.id===id;})[0]; if(!r) return;
+    if(!FREUN){ FREUN=document.createElement('div'); FREUN.className='folha'; document.body.appendChild(FREUN);
+      FREUN.addEventListener('click',function(ev){ if(ev.target.closest('[data-fecha]')) fechaReuniao(); });
+      document.addEventListener('keydown',function(ev){ if(ev.key==='Escape'&&FREUN.classList.contains('on')) fechaReuniao(); });
+      window.addEventListener('hashchange',function(){ var m=location.hash.match(/^#reuniao-(.+)$/); if(m){ if(!(FREUN.classList.contains('on')&&FREUN.dataset.id===m[1])) abreReuniao(decodeURIComponent(m[1]),true); } else if(FREUN.classList.contains('on')){ FREUN.dataset.empurrou=''; fechaReuniao(true); } }); }
+    var d=String(r.data||''), lk=function(u,t,c){ return u?'<a class="'+(c?'fp-bt solid':'fp-bt')+'" href="'+esc(u)+'" target="_blank" rel="noopener">'+t+'</a>':''; };
+    var met=function(a,b){ return b?'<div><b>'+a+'</b><span>'+esc(b)+'</span></div>':''; };
+    FREUN.innerHTML='<div class="fp"><div class="fp-top"><div class="wrap"><button type="button" class="fp-volta" data-fecha>← <span>Reuniões</span></button><span></span><button type="button" class="fp-x" data-fecha aria-label="Fechar">×</button></div></div>'+
+      '<article class="wrap"><header class="fp-head"><span class="fp-tag">Reunião'+(r.realizado?' · realizada':'')+'</span><h1>'+esc(r.nome)+'</h1>'+
+      '<p class="fp-sub">'+esc(DADOS.empresa.nome)+(d?' · '+data(d)+(d.length>10?' às '+d.slice(11,16):''):'')+'</p>'+
+      '<div class="fp-meta">'+met('Tipo',r.tipo)+met('Tema',r.tema)+met('Status',r.status)+met('Participantes',r.participantes)+'</div></header>'+
+      '<div class="fp-corpo"><div class="rn-bts">'+lk(r.gravacao,'▶ Assistir à gravação',1)+lk(r.drive,'Arquivos no Drive')+lk(r.transcricao,'Transcrição')+lk(r.link,'Link da reunião')+'</div>'+
+      (r.descricao?'<p class="rn-desc">'+esc(r.descricao)+'</p>':'')+
+      '<div class="nc" id="rn-cont"><div class="fp-carr"><i></i><i></i><i></i></div></div></div><div style="height:80px"></div></article></div>';
+    FREUN.dataset.id=id; FREUN.classList.add('on'); FREUN.scrollTop=0; document.body.style.overflow='hidden';
+    try{ if(!semRota&&location.hash!=='#reuniao-'+id){ history.pushState(null,'','#reuniao-'+id); FREUN.dataset.empurrou='1'; } }catch(x){}
+    api({get:'?a=reuniao-conteudo&id='+encodeURIComponent(id)+(DADOS.admin?'&e='+encodeURIComponent(DADOS.empresa.slug):'')}).then(function(x){ var c=document.getElementById('rn-cont'); if(!c) return; c.innerHTML=x&&x.html?'<h3>Resumo e anotações</h3>'+x.html:''; }).catch(function(){ var c=document.getElementById('rn-cont'); if(c) c.innerHTML=''; });
+  }
+  function fechaReuniao(semRota){ if(!FREUN) return; FREUN.classList.remove('on'); document.body.style.overflow='';
+    if(semRota||!/^#reuniao-/.test(location.hash)) return;
+    if(FREUN.dataset.empurrou==='1'){ FREUN.dataset.empurrou=''; history.back(); } else try{ history.replaceState(null,'',location.pathname+location.search); }catch(x){} }
   function reunioes(){
     var L=DADOS.reunioes||[], sec=document.getElementById('sec-reun'), el=document.getElementById('reun');
     sec.hidden=!L.length; if(!L.length) return;
     var lk=function(u,t,c){ return u?'<a'+(c?' class="pri"':'')+' href="'+esc(u)+'" target="_blank" rel="noopener">'+t+'</a>':''; };
     el.innerHTML=L.map(function(r){ var d=String(r.data||'');
-      return '<div class="reun-i"><div class="reun-d">'+(d?'<b>'+(+d.slice(8,10))+'</b><small>'+MESES[+d.slice(5,7)-1]+' '+d.slice(0,4)+'</small>':'<small>Sem data</small>')+'</div>'+
+      return '<div class="reun-i" data-rn="'+esc(r.id)+'" role="button" tabindex="0"><div class="reun-d">'+(d?'<b>'+(+d.slice(8,10))+'</b><small>'+MESES[+d.slice(5,7)-1]+' '+d.slice(0,4)+'</small>':'<small>Sem data</small>')+'</div>'+
         '<div><h3>'+esc(r.nome)+'</h3><p>'+[d.length>10?d.slice(11,16):'',r.tipo,r.participantes].filter(Boolean).map(esc).join(' · ')+'</p>'+(r.descricao?'<p style="margin-top:6px">'+esc(r.descricao)+'</p>':'')+'</div>'+
-        '<div class="reun-bt">'+lk(r.gravacao,'▶ Assistir gravação',1)+lk(r.drive,'Arquivos no Drive')+lk(r.transcricao,'Transcrição')+lk(r.link,'Abrir link')+'</div></div>'; }).join('');
+        '<div class="reun-bt">'+lk(r.gravacao,'▶ Assistir gravação',1)+lk(r.drive,'Arquivos no Drive')+lk(r.transcricao,'Transcrição')+'<span class="reun-ab">Abrir →</span></div></div>'; }).join('');
+    el.onclick=function(ev){ if(ev.target.closest('a')) return; var b=ev.target.closest('[data-rn]'); if(b) abreReuniao(b.dataset.rn); };
+    el.onkeydown=function(ev){ if(ev.key==='Enter'){ var b=ev.target.closest('[data-rn]'); if(b) abreReuniao(b.dataset.rn); } };
   }
   var CALM=new Date().toISOString().slice(0,7);
   function calendario(){

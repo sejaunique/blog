@@ -225,7 +225,7 @@ function deTarefa(p) {
     titulo: ler(pr, 'Atividade') || 'Sem título', detalhe: ler(pr, 'Descrição') || '',
     prioridade: ler(pr, 'Prioridade') || '', link: ler(pr, 'Link') || '',
     status: ST_DE[ler(pr, 'Status ')] || 'a_fazer', dono: DONO_DE[ler(pr, 'Quem faz')] || 'unique', tipo: TIPO_DE[ler(pr, 'Tipo')] || 'acao',
-    inicio: dt && dt.end ? ini : '', prazo: dt ? String(dt.end || dt.start).slice(0, 10) : '', criado: String(p.created_time || '').slice(0, 10),
+    inicio: dt && (dt.end || (TIPO_DE[ler(pr, 'Tipo')] === 'reuniao' && ini.length > 10)) ? ini : '', prazo: dt ? String(dt.end || dt.start).slice(0, 10) : '', criado: String(p.created_time || '').slice(0, 10),
     anexos: arqs.filter(f => f.type === 'external' && f.external && /^https:/.test(f.external.url)).map(f => ({ nome: f.name || 'Anexo', link: f.external.url }))
   };
   const resp = ler(pr, 'Responsável') || [];
@@ -236,7 +236,9 @@ const absUrl = u => !u ? '' : /^https?:\/\//.test(u) ? u : SITE + (u.charAt(0) =
 function propsTarefa(a, slug, op) {
   op = op || {};
   const ini = String(a.inicio || '').slice(0, 10), pz = a.prazo || '';
-  const data = pz && ini && ini < pz ? { start: ini, end: pz } : (pz || a.inicio) ? { start: pz || a.inicio } : null;
+  // reunião com hora: vai com o horário de Brasília; o resto vai só com o dia
+  const data = a.tipo === 'reuniao' && /T\d{2}:\d{2}/.test(a.inicio || '') ? { start: String(a.inicio).slice(0, 16) + ':00-03:00' }
+    : pz && ini && ini < pz ? { start: ini, end: pz } : (pz || a.inicio) ? { start: pz || String(a.inicio).slice(0, 10) } : null;
   const o = {
     Atividade: W.title(a.titulo), 'Descrição': a.detalheHtml ? { rich_text: RICO.paraNotion(a.detalheHtml) } : W.text(a.detalhe), Prioridade: W.sel(a.prioridade), Link: W.url(absUrl(a.link)),
     'Status ': { status: { name: ST_PARA[a.status] || 'A fazer' } }, 'Quem faz': W.sel(DONO_PARA[a.dono] || 'Unique'), Tipo: W.sel(TIPO_PARA[a.tipo] || 'Ação'),

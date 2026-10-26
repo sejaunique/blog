@@ -2207,7 +2207,7 @@ body{background:var(--ws-bg)}
         .then(function(){ lb.textContent='Enviar arquivo'; if(novos.length){ if(i.slug) delete ARQS[i.slug]; anexa(novos); } }); };
     p.onchange=function(ev){ var c=ev.target;
       if(c.dataset.pp){ var o={}; o[c.dataset.pp]=c.value; nvMuda(i,o); return; }
-      if(c.dataset.g){ var v=c.value.trim(); if(c.dataset.g==='titulo'&&!v){ c.value=i.titulo; return; } if(c.dataset.g==='link'&&v&&!/^https:\/\//i.test(v)){ v='https://'+v.replace(/^https?:\/\//i,''); }
+      if(c.dataset.g){ var v=c.value.trim(); if(c.dataset.g==='titulo'&&!v){ c.value=i.titulo; return; } if(c.dataset.g==='link'&&v&&!/^https:\/\//i.test(v)){ v='https://'+v.replace(/^https?:\/\//i,''); } if(c.dataset.g==='inicio'&&v&&i.tipo==='reuniao'&&String(i.inicio||'').length>10) v+=String(i.inicio).slice(10);
         var m={}; m[c.dataset.g]=v;
         nvGlobal(i,m,c.dataset.g!=='detalhe'); return; }
       var sl=c.dataset.andSt||c.dataset.andPz; if(sl){ var b={a:'acao-status',slug:sl,id:l.id}; if(c.dataset.andSt) b.status=c.value; else { b.prazo=c.value; b.status=((l.and||{})[sl]||{}).status||'a_fazer'; }

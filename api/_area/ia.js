@@ -47,7 +47,7 @@ Abra com <div class="ia-fundo"><small>Versão completa</small><h3>Entenda a fund
 Use também, quando ajudar: <div class="ia-destaque"><b>…</b><p>…</p></div>, <div class="ia-cards"><div class="ia-card"><h5>…</h5><p>…</p></div>…</div>, <div class="ia-numeros"><div><b>número</b><span>legenda</span></div>…</div> (só com números do original), <div class="ia-alerta"><b>Atenção</b><p>…</p></div>, <blockquote class="ia-citacao">…</blockquote>, <details><summary>…</summary>…</details> para exemplos longos, e <span class="grifo">…</span> em 1–3 palavras-chave da página inteira.`;
 
 // ---------- posts do blog para a IA sugerir leitura ----------
-const SITE = 'https://sejaunique.vercel.app';
+const SITE = 'https://sejaunique.com';
 let cachePosts = null, cachePostsEm = 0;
 async function postsBlog() {
   if (cachePosts && Date.now() - cachePostsEm < 30 * 60 * 1000) return cachePosts;

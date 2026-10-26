@@ -4,7 +4,7 @@ Rode sempre que publicar ou editar um post:  python3 tools/gerar_paginas.py
 """
 import json, os, re, shutil, subprocess, html
 
-SITE = "https://sejaunique.vercel.app"
+SITE = "https://sejaunique.com"
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BLOG = os.path.join(RAIZ, "blog")
 

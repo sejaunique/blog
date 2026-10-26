@@ -570,8 +570,9 @@
         '<section class="fp-soc"><h3>Curtir, comentar e compartilhar</h3><div id="fp-soc"></div></section>'+
         (outras.length?'<section class="fp-mais"><h3>Próximas tarefas</h3><div class="tg">'+outras.map(cartaoTarefa).join('')+'</div></section>':'<div style="height:80px"></div>')+
       '</article></div>';
-    FOLHA.classList.add('on'); FOLHA.scrollTop=0; document.body.style.overflow='hidden';
-    try{ history.replaceState(null,'','#tarefa-'+a.id); }catch(x){}
+    FOLHA.classList.add('on'); FOLHA.dataset.id=a.id; FOLHA.scrollTop=0; document.body.style.overflow='hidden';
+    // cada tarefa tem o seu link (#tarefa-<id>) e o voltar do navegador fecha a tarefa
+    try{ if(location.hash!=='#tarefa-'+a.id){ if(/^#tarefa-/.test(location.hash)) history.replaceState(null,'','#tarefa-'+a.id); else { history.pushState(null,'','#tarefa-'+a.id); FOLHA.dataset.empurrou='1'; } } }catch(x){}
     var poeSt=function(st){ mudaStatus(a,st,function(){ FOLHA.querySelectorAll('.fp-st [data-st]').forEach(function(x){ x.setAttribute('aria-pressed',x.dataset.st===a.status); }); var t=document.getElementById('fp-cta-t'); if(t){ t.innerHTML=ctaTexto(a); t.nextElementSibling.innerHTML=ctaBotoes(a); } }); };
     FOLHA.querySelector('.fp-st').onclick=function(ev){ var b=ev.target.closest('[data-st]'); if(b&&b.dataset.st!==a.status) poeSt(b.dataset.st); };
     FOLHA.querySelector('.fp-cta').onclick=function(ev){ var b=ev.target.closest('[data-st]'); if(b) poeSt(b.dataset.st); };
@@ -590,7 +591,12 @@
   }
   function ctaTexto(a){ return a.status==='feito'?'Tarefa concluída. 🎉<small>Se precisar, você pode reabrir.</small>':a.status==='fazendo'?'Terminou essa tarefa?<small>Marque como feita e a Unique fica sabendo na hora.</small>':'Pronto para começar?<small>Mude o status para a Unique acompanhar.</small>'; }
   function ctaBotoes(a){ return a.status==='feito'?'<button type="button" class="fp-bt" data-st="fazendo">Reabrir</button>':(a.status!=='fazendo'?'<button type="button" class="fp-bt" data-st="fazendo">Comecei</button>':'')+'<button type="button" class="fp-bt solid" data-st="feito">✓ Marcar como feita</button>'; }
-  function fechaTarefa(){ var ta=document.getElementById('fp-nota'); if(ta&&ta.onblur) ta.onblur(); FOLHA.classList.remove('on'); document.body.style.overflow=''; try{ history.replaceState(null,'',location.pathname+location.search); }catch(x){} }
+  function fechaTarefa(semRota){ var ta=document.getElementById('fp-nota'); if(ta&&ta.onblur) ta.onblur(); FOLHA.classList.remove('on'); document.body.style.overflow='';
+    if(semRota||!/^#tarefa-/.test(location.hash)) return;
+    if(FOLHA.dataset.empurrou==='1'){ FOLHA.dataset.empurrou=''; history.back(); } else try{ history.replaceState(null,'',location.pathname+location.search); }catch(x){} }
+  window.addEventListener('hashchange',function(){ var h=location.hash.match(/^#tarefa-(.+)$/);
+    if(h){ if(acao(h[1])&&!(FOLHA&&FOLHA.classList.contains('on')&&FOLHA.dataset.id===h[1])) abreTarefa(h[1]); }
+    else if(FOLHA&&FOLHA.classList.contains('on')){ FOLHA.dataset.empurrou=''; fechaTarefa(true); } });
   function textoSimples(t){ t=String(t||'').trim(); if(!t) return '<p class="fp-vz">A Unique ainda não escreveu a explicação desta tarefa.</p>';
     return t.split(/\n{2,}/).map(function(p){ return '<p>'+esc(p).replace(/\n/g,'<br>').replace(/(https:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>')+'</p>'; }).join(''); }
   function quandoFoi(iso){ if(!iso) return ''; var d=new Date(iso), h=new Date(); return d.toDateString()===h.toDateString()?'hoje às '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}):'em '+d.toLocaleDateString('pt-BR',{day:'numeric',month:'short'}); }

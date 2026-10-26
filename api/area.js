@@ -144,7 +144,7 @@ async function empresa(slug) {
   return null;
 }
 
-const SITE = 'https://sejaunique.vercel.app';
+const SITE = 'https://sejaunique.com';
 const ID_OK = /^[a-z0-9-]{2,40}$/;
 // pasta da página em /clientes/<slug>/<pasta>/ (só essas podem ficar públicas)
 function pastaDe(slug, item) {
@@ -172,8 +172,21 @@ function membro(s, slug) { return !!s && (s.admin || s.slug === slug); }
 const ACAO_ID = /^[a-z0-9_-]{3,60}$/i;
 async function acaoDe(slug, id) { const c = await conteudo(slug); return (c.acoes || []).find(x => x.id === id) || null; }
 const urlAcaoPublica = t => SITE + '/compartilhado/?t=' + t;
+// papéis de quem é da empresa: ADM (vê tudo), Gestor (vê reuniões e páginas restritas a gestores) e Usuário (o plano do dia a dia)
+const PAPEIS = ['adm', 'gestor', 'usuario'];
+const NIVEL = { usuario: 0, gestor: 1, adm: 2 };
+const PRECISA = { todos: 0, gestor: 1, adm: 2 };
+const papelDe = u => PAPEIS.indexOf((u || {}).papel) >= 0 ? u.papel : 'adm'; // quem já tinha acesso antes dos papéis continua vendo tudo
+const visivelOk = v => v === 'gestor' || v === 'adm' ? v : 'todos';
+async function papelSessao(s) {
+  if (!s) return '';
+  if (s.admin) return 'adm';
+  const [v] = await redis([['GET', 'area:user:' + s.slug + ':' + s.email]]);
+  return papelDe(json(v));
+}
+const podeVer = (papel, x) => (NIVEL[papel] || 0) >= (PRECISA[visivelOk((x || {}).visivel)] || 0);
 
-function usuarioPublico(u) { return { semEmail: NOTION.ehInterno(u.email), notion: u.notion || '', email: u.email, nome: u.nome, whatsapp: u.whatsapp, status: u.status, criado: u.criado, ultimo: u.ultimo || '', origem: u.origem || '', crm: u.crm || {}, editado: u.editado || '', foto: u.foto || '', fotoOrigem: u.fotoOrigem || '' }; }
+function usuarioPublico(u) { return { papel: papelDe(u), semEmail: NOTION.ehInterno(u.email), notion: u.notion || '', email: u.email, nome: u.nome, whatsapp: u.whatsapp, status: u.status, criado: u.criado, ultimo: u.ultimo || '', origem: u.origem || '', crm: u.crm || {}, editado: u.editado || '', foto: u.foto || '', fotoOrigem: u.fotoOrigem || '' }; }
 
 // Ações do catálogo entram no plano da empresa uma única vez (area:acoes-cat:<slug> lembra quais já entraram),
 // então o status do cliente e as edições/exclusões do admin valem normalmente depois.
@@ -254,6 +267,7 @@ function limpaItem(i) {
     texto: limpo(i.texto, 20000),
     arquivo: i.arquivo && /^https:\/\/[a-z0-9.-]+\.blob\.vercel-storage\.com\//.test(i.arquivo.url || '') ? { url: i.arquivo.url, nome: limpo(i.arquivo.nome, 160), tamanho: +i.arquivo.tamanho || 0 } : undefined,
     publicado: i.publicado !== false,
+    visivel: visivelOk(i.visivel),
     criado: limpo(i.criado, 30) || new Date().toISOString()
   };
 }
@@ -272,6 +286,7 @@ function limpaAcao(a) {
     prioridade: ['URGENTE', 'P1', 'P2', 'P3'].indexOf(a.prioridade) >= 0 ? a.prioridade : '',
     link: (/^https:\/\//i.test(a.link || '') || /^\/[^/]/.test(a.link || '')) ? limpo(a.link, 600) : '',
     status: STATUS_ACAO.indexOf(a.status) >= 0 ? a.status : 'a_fazer',
+    visivel: visivelOk(a.visivel),
     anexos: (Array.isArray(a.anexos) ? a.anexos : []).map(x => ({ nome: limpo((x || {}).nome, 160), link: /^https:\/\//i.test((x || {}).link || '') ? limpo(x.link, 600) : '' })).filter(x => x.link).slice(0, 20),
     criado: limpo(a.criado, 30) || new Date().toISOString()
   };
@@ -326,7 +341,7 @@ module.exports = async (req, res) => {
         if (!ACAO_ID.test(id)) return res.status(400).json({ ok: false });
         if (!membro(s, slug)) return res.status(401).json({ ok: false, erro: 'Entre na sua conta.' });
         const a = await acaoDe(slug, id);
-        if (!a) return res.status(404).json({ ok: false });
+        if (!a || !podeVer(await papelSessao(s), a)) return res.status(404).json({ ok: false });
         const quem = s.admin ? 'unique' : s.email, k = slug + ':a:' + id;
         const [tok, n, curti, lst] = await redis([['HGET', 'area:acpub:' + slug, id], ['SCARD', 'area:curt:' + k], ['SISMEMBER', 'area:curt:' + k, quem], ['LRANGE', 'area:com:' + k, 0, 199]]);
         const comentarios = (lst || []).map(json).filter(Boolean).map(c => ({ cid: c.cid, nome: c.nome, texto: c.texto, data: c.data, unique: !!c.unique, meu: s.admin || c.email === s.email }));
@@ -360,6 +375,7 @@ module.exports = async (req, res) => {
         if (!ID_OK.test(id)) return res.status(400).json({ ok: false });
         const it = await itemPorId(slug, id);
         if (!it || (!it.publicado && !(s && s.admin))) return res.status(404).json({ ok: false });
+        if (s && !s.admin && s.slug === slug && !podeVer(await papelSessao(s), it)) return res.status(404).json({ ok: false });
         const pasta = pastaDe(slug, it);
         id = it.id;
         const quem = s ? (s.admin ? 'unique' : s.email) : '';
@@ -461,7 +477,8 @@ module.exports = async (req, res) => {
         const e = await empresa(slug);
         if (!e) return res.status(404).json({ ok: false, erro: 'Empresa não encontrada.' });
         const c = await conteudo(slug);
-        if (!s.admin) c.itens = c.itens.filter(i => i.publicado);
+        const papel = await papelSessao(s);
+        if (!s.admin) { c.itens = c.itens.filter(i => i.publicado && podeVer(papel, i)); c.acoes = c.acoes.filter(a => podeVer(papel, a)); }
         c.itens.forEach(i => {
           if (!i.arquivo) return;
           i.baixar = '/api/area?a=arquivo&e=' + slug + '&id=' + i.id;
@@ -475,11 +492,11 @@ module.exports = async (req, res) => {
         const [lH, rH, nH] = await redis([['HGETALL', 'area:leit:' + slug], ['HGETALL', 'area:reun:' + slug], ['HGETALL', 'area:anot:' + slug]]);
         const notas = {}; lerPares(nH).forEach(([k, v]) => { notas[k] = json(v); });
         c.acoes.forEach(a => { if (notas[a.id]) a.nota = notas[a.id]; a.rica = !!(a.nIA || a.nConteudo || String(a.detalhe || '').trim().length > 40 || (a.anexos || []).length); });
-        const reunioes = lerPares(rH).map(([, v]) => json(v)).filter(Boolean).sort((a, b) => String(b.data).localeCompare(String(a.data)));
+        const reunioes = (NIVEL[papel] || 0) >= 1 ? lerPares(rH).map(([, v]) => json(v)).filter(Boolean).sort((a, b) => String(b.data).localeCompare(String(a.data))) : [];
         const leituras = lerPares(lH).map(([, v]) => json(v)).filter(Boolean).filter(l => s.admin || l.pessoa === s.email || l.pessoa === '*')
           .map(l => (!s.admin && l.pessoa === '*') ? Object.assign({}, l, { lido: (l.lidoPor || {})[s.email] || '', todos: true }) : l)
           .sort((a, b) => String(a.criado).localeCompare(String(b.criado)));
-        return res.json({ ok: true, empresa: { slug, nome: e.nome }, itens: c.itens, acoes: c.acoes, leituras, reunioes, iaFila: (await redis([['SCARD', 'area:ia:fila']]))[0] || 0, admin: !!s.admin, eu: s.admin ? '' : s.email });
+        return res.json({ ok: true, empresa: { slug, nome: e.nome }, itens: c.itens, acoes: c.acoes, leituras, reunioes, iaFila: (await redis([['SCARD', 'area:ia:fila']]))[0] || 0, admin: !!s.admin, eu: s.admin ? '' : s.email, papel });
       }
 
       if (q.a === 'arquivo') {
@@ -487,7 +504,7 @@ module.exports = async (req, res) => {
         if (!s.admin && s.slug !== slug) return res.status(403).json({ ok: false });
         const [v] = await redis([['HGET', 'area:itens:' + slug, String(q.id || '')]]);
         const it = json(v);
-        if (!it || !it.arquivo || (!s.admin && !it.publicado)) return res.status(404).json({ ok: false });
+        if (!it || !it.arquivo || (!s.admin && (!it.publicado || !podeVer(await papelSessao(s), it)))) return res.status(404).json({ ok: false });
         res.setHeader('Location', it.arquivo.url);
         return res.status(302).end();
       }
@@ -547,7 +564,7 @@ module.exports = async (req, res) => {
         const slug = s.admin ? slugify(q.e) : s.slug;
         const c = await conteudo(slug);
         const a = (c.acoes || []).find(x => x.id === String(q.id || ''));
-        if (!a) return res.status(404).json({ ok: false });
+        if (!a || !podeVer(await papelSessao(s), a)) return res.status(404).json({ ok: false });
         let html = '', erro = '';
         let ia = false;
         try {
@@ -671,7 +688,7 @@ module.exports = async (req, res) => {
       }
       if (existe) return res.status(409).json({ ok: false, erro: 'Já existe um pedido com esse e-mail nessa empresa. Se esqueceu a senha, fale com a Unique.' });
       const sal = crypto.randomBytes(16).toString('hex');
-      const u = { email, nome, whatsapp, slug, empresaNome, status: 'pendente', sal, hash: hashSenha(senha, sal), criado: new Date().toISOString() };
+      const u = { email, nome, whatsapp, slug, empresaNome, papel: 'usuario', status: 'pendente', sal, hash: hashSenha(senha, sal), criado: new Date().toISOString() };
       await redis([
         ['SET', 'area:user:' + slug + ':' + email, JSON.stringify(u)],
         ['SADD', 'area:users:' + slug, email],
@@ -759,6 +776,7 @@ module.exports = async (req, res) => {
       const slug = s.admin ? slugify(b.slug) : s.slug;
       const id = String(b.id || '').slice(0, 40);
       if (!slug || !/^[a-z0-9_-]{3,40}$/i.test(id)) return res.status(400).json({ ok: false });
+      if (!s.admin) { const av = await acaoDe(slug, id); if (!av || !podeVer(await papelSessao(s), av)) return res.status(404).json({ ok: false }); }
       const texto = String(b.texto || '').slice(0, 8000);
       const nota = { texto, por: s.admin ? 'Unique' : (s.nome || s.email), em: new Date().toISOString() };
       await redis([texto.trim() ? ['HSET', 'area:anot:' + slug, id, JSON.stringify(nota)] : ['HDEL', 'area:anot:' + slug, id]]);
@@ -767,6 +785,7 @@ module.exports = async (req, res) => {
 
     if (b.a === 'acao-status') {
       const slug = s.admin ? slugify(b.slug) : s.slug;
+      if (!s.admin) { const av = await acaoDe(slug, String(b.id || '')); if (!av || !podeVer(await papelSessao(s), av)) return res.status(404).json({ ok: false }); }
       if (b.status !== undefined && STATUS_ACAO.indexOf(b.status) < 0) return res.status(400).json({ ok: false });
       const TIPOS_ACAO = ['acao', 'post', 'video', 'reuniao', 'material', 'tecnica', 'isca'];
       const extra = o => { if (b.dono === 'unique' || b.dono === 'cliente' || b.dono === 'ambos') o.dono = b.dono; if (TIPOS_ACAO.indexOf(b.tipo) >= 0) o.tipo = b.tipo; if (b.pessoa !== undefined) o.pessoa = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(b.pessoa || '') ? String(b.pessoa).toLowerCase().slice(0, 120) : ''; return o; };
@@ -814,7 +833,7 @@ module.exports = async (req, res) => {
       const slug = s.admin ? slugify(b.slug) : s.slug, ehAcao = b.t === 'acao';
       if (!membro(s, slugify(b.slug)) || !(ehAcao ? ACAO_ID : ID_OK).test(String(b.id || ''))) return res.status(403).json({ ok: false });
       const it = ehAcao ? await acaoDe(slug, String(b.id)) : await itemPorId(slug, String(b.id));
-      if (!it) return res.status(404).json({ ok: false });
+      if (!it || !podeVer(await papelSessao(s), it)) return res.status(404).json({ ok: false });
       const id = it.id;
       const quem = s.admin ? 'unique' : s.email;
       const k = slug + ':' + (ehAcao ? 'a:' : '') + id;
@@ -885,6 +904,16 @@ module.exports = async (req, res) => {
       return res.json({ ok: true, slug: sl });
     }
 
+    if (b.a === 'admin-papel') {
+      const email = limpo(b.email, 120).toLowerCase();
+      if (PAPEIS.indexOf(b.papel) < 0) return res.status(400).json({ ok: false });
+      const [v] = await redis([['GET', 'area:user:' + slug + ':' + email]]);
+      const u = json(v);
+      if (!u) return res.status(404).json({ ok: false });
+      u.papel = b.papel;
+      await redis([['SET', 'area:user:' + slug + ':' + email, JSON.stringify(u)]]);
+      return res.json({ ok: true, pessoa: usuarioPublico(u) });
+    }
     if (b.a === 'admin-usuario') {
       const email = limpo(b.email, 120).toLowerCase();
       if (STATUS_USER.indexOf(b.status) < 0) return res.status(400).json({ ok: false });
@@ -1052,7 +1081,7 @@ module.exports = async (req, res) => {
       const email = limpo(b.email, 120).toLowerCase(), nome = limpo(b.nome, 80);
       if (!nome || !emailOk(email)) return res.status(400).json({ ok: false, erro: 'Informe nome e um e-mail válido.' });
       const e = await empresa(slug);
-      const [ok] = await redis([['SET', 'area:user:' + slug + ':' + email, JSON.stringify({ email, nome, whatsapp: limpo(b.whatsapp, 30), slug, empresaNome: e.nome, status: 'convite', criado: new Date().toISOString(), origem: 'admin', crm: CAMPOS.limpa(CAMPOS.pessoa, b.dados) }), 'NX'], ['SADD', 'area:users:' + slug, email]]);
+      const [ok] = await redis([['SET', 'area:user:' + slug + ':' + email, JSON.stringify({ email, nome, whatsapp: limpo(b.whatsapp, 30), slug, empresaNome: e.nome, papel: PAPEIS.indexOf(b.papel) >= 0 ? b.papel : 'usuario', status: 'convite', criado: new Date().toISOString(), origem: 'admin', crm: CAMPOS.limpa(CAMPOS.pessoa, b.dados) }), 'NX'], ['SADD', 'area:users:' + slug, email]]);
       if (!ok) return res.status(409).json({ ok: false, erro: 'Essa pessoa já está vinculada à empresa.' });
       await NOTION.envia(redis, 'pessoa', slug, email);
       return res.json({ ok: true });
@@ -1137,6 +1166,7 @@ module.exports = async (req, res) => {
       const nome = limpo(b.nome, 80), wa = b.whatsapp !== undefined ? limpo(b.whatsapp, 30) : u.whatsapp;
       if (nome) u.nome = nome;
       u.whatsapp = wa;
+      if (PAPEIS.indexOf(b.papel) >= 0) u.papel = b.papel;
       const crm = CAMPOS.limpa(CAMPOS.pessoa, b.dados);
       if (crm.__erros) return res.status(400).json({ ok: false, erro: crm.__erros.join(' ') });
       u.crm = crm;
@@ -1194,7 +1224,8 @@ module.exports = async (req, res) => {
       const it = limpaItem(b.item || {});
       if (!it.titulo) return res.status(400).json({ ok: false, erro: 'Dê um título para a entrega.' });
       if (it.tipo !== 'conteudo' && !it.url && !it.arquivo) return res.status(400).json({ ok: false, erro: 'Informe o link ou envie o arquivo.' });
-      await redis([['HSET', 'area:itens:' + slug, it.id, JSON.stringify(it)]]);
+      const pastaR = pastaDe(slug, it);
+      await redis([['HSET', 'area:itens:' + slug, it.id, JSON.stringify(it)]].concat(pastaR ? [it.visivel === 'todos' ? ['HDEL', 'area:restrito:' + slug, pastaR] : ['HSET', 'area:restrito:' + slug, pastaR, it.visivel]] : []));
       return res.json({ ok: true, item: it });
     }
     if (b.a === 'admin-item-del') {

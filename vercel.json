@@ -16,5 +16,18 @@
     "api/area.js": {
       "maxDuration": 300
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/:path((?!api/).*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "(sejaunique|canivete-de-vendas)\\.vercel\\.app"
+        }
+      ],
+      "destination": "https://sejaunique.com/:path",
+      "permanent": false
+    }
+  ]
 }

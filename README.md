@@ -15,7 +15,7 @@ Cada envio para a branch `main` é publicado automaticamente na Vercel.
 
 Depois de publicar ou editar um post, rode `python3 tools/gerar_paginas.py`.
 Ele cria `blog/<slug>/`, com a capa do post como imagem da prévia.
-O link para compartilhar um post é `https://sejaunique.vercel.app/blog/<slug>/`.
+O link para compartilhar um post é `https://sejaunique.com/blog/<slug>/`.
 
 ## Instagram (carrossel ou post único)
 
@@ -28,7 +28,7 @@ Gerador atual: `tools/carrossel.py`, na pegada do bloco do Alda.CRM no relatóri
 
 1. Escreva `instagram/<slug>/slides.json` (tipos: capa, lista, piramide, frase, versus, passos, numero, cta; marcações no texto: `==grifo==`, `++verde++`, `--magenta--`, `//itálico fino//`, `**negrito**`).
 2. `python3 tools/carrossel.py <slug>` gera as imagens 1080x1350 e a `legenda.txt`.
-3. `python3 tools/instagram_pagina.py` atualiza a página https://sejaunique.vercel.app/instagram/.
+3. `python3 tools/instagram_pagina.py` atualiza a página https://sejaunique.com/instagram/.
 
 **Variar o layout:** o Carlos pediu (23/10) para não repetir sempre o mesmo layout. Alterne os geradores e crie novos quando fizer sentido:
 - `tools/carrossel.py`: claro, cards brancos (modelo Dra. Laura).
@@ -39,7 +39,7 @@ Modelo APROVADO pelo Carlos em 11/10: carrossel da Dra. Laura Scher (maslow-e-o-
 
 ## Diagnóstico de Maturidade Comercial
 
-- `diagnostico/index.html`: formulário por etapas (https://sejaunique.vercel.app/diagnostico/). As perguntas ficam no array `ETAPAS`, no topo do script.
+- `diagnostico/index.html`: formulário por etapas (https://sejaunique.com/diagnostico/). As perguntas ficam no array `ETAPAS`, no topo do script.
 - `api/diagnostico.js`: guarda cada diagnóstico no mesmo Redis do blog (lista `diag:lista`).
 - `diagnostico/painel/`: painel interno com a lista de respostas e botão de copiar. Precisa da variável `DIAG_SENHA` na Vercel (é a senha do painel).
 - Etapas 9 a 12 avaliam os 4 pilares comerciais (prospecção, recuperação, fidelização e nutrição) com Sim / Em parte / Não. O envio já inclui o score de cada pilar (Sim = 20, Em parte = 10, Não = 0; até 100) e o score geral, que aparecem no painel.
@@ -110,15 +110,15 @@ Menu lateral com: Painel (controle e gestão), CRM (Kanban), Notificações (apr
 Mesma conexão do Google Agenda, com a permissão do Drive (app Interno da sejaunique.com). Cada empresa ganha a pasta "Unique · <Empresa>" dentro de "Clientes Unique" no Drive do Carlos (`api/_area/drive.js`), compartilhada como editor com os e-mails dos contatos, sem e-mail de aviso. O bloco Arquivos aparece no contato, na empresa e na área do cliente (lista, abrir pasta, enviar até ~4 MB pelo site; maiores direto no Drive). Se a conexão for anterior ao Drive, o bloco mostra "Ligar pasta no Google Drive" (reconecta e pede a permissão).
 
 ## Materiais ricos (isca de lead)
-- `comercial-atleta/`: material de apoio da palestra Comercial Atleta (https://sejaunique.vercel.app/comercial-atleta/). Mostra o Método CRM e os 4 pilares abertos; o resto (checklist diário, semana e mês, placar, conta do reativo, mensagens-base, tracker de 30 dias) libera depois do cadastro (nome, empresa, WhatsApp, e-mail). As marcações do visitante ficam salvas no aparelho dele. Tem os banners do diagnóstico e do Alda.CRM.
+- `comercial-atleta/`: material de apoio da palestra Comercial Atleta (https://sejaunique.com/comercial-atleta/). Mostra o Método CRM e os 4 pilares abertos; o resto (checklist diário, semana e mês, placar, conta do reativo, mensagens-base, tracker de 30 dias) libera depois do cadastro (nome, empresa, WhatsApp, e-mail). As marcações do visitante ficam salvas no aparelho dele. Tem os banners do diagnóstico e do Alda.CRM.
 - `comercial-atleta/comercial-atleta.docx`: versão Word para impressão (botão na página). A página também imprime ou salva em PDF.
 - `api/material.js`: recebe o cadastro. Guarda em `mat:leads`, cria a empresa como **lead** no CRM com a etiqueta **Palestra** (sem mexer em quem já existe), publica o material como entrega, inscreve na newsletter (origem `comercial-atleta`) e avisa no app. Novo material: acrescente em `MATERIAIS` no topo do arquivo (com `segmentos` quando o material tiver trilhas).
 - Visualização ADM: logado no workspace (`/area/admin/`), a página abre o material completo sem cadastro, com uma barra no topo (total de cadastros, cadastros de hoje, lista dos últimos com link para a empresa no CRM e para o WhatsApp, e o botão "Ver como visitante"). Vem de `GET /api/material?a=adm&material=<id>`, que só responde para a sessão de admin.
 - Capa de compartilhamento: `assets/og/comercial-atleta.jpg` (entrada em `EXTRAS` de `tools/og_cliente.py`).
-- `orcamentos-parados/`: manual "Orçamentos parados · fechamento do mês" (https://sejaunique.vercel.app/orcamentos-parados/). Exclusivo para cadastrados: antes do cadastro só aparecem a capa, o sumário e o formulário. O cadastro (nome, empresa, WhatsApp, e-mail) exige o aceite de receber blog e anúncios e da LGPD; o aceite fica gravado (`consentimento`: texto, data, IP) no lead em `mat:leads` e no assinante da newsletter. Depois abrem os 3 casos (prints borrados e áudios em `orcamentos-parados/midia/`), o conteúdo, a oferta do Alda.CRM e o kit (plano de 7 dias, auditoria de 30 conversas, calculadora, gerador de oferta, mensagens).
+- `orcamentos-parados/`: manual "Orçamentos parados · fechamento do mês" (https://sejaunique.com/orcamentos-parados/). Exclusivo para cadastrados: antes do cadastro só aparecem a capa, o sumário e o formulário. O cadastro (nome, empresa, WhatsApp, e-mail) exige o aceite de receber blog e anúncios e da LGPD; o aceite fica gravado (`consentimento`: texto, data, IP) no lead em `mat:leads` e no assinante da newsletter. Depois abrem os 3 casos (prints borrados e áudios em `orcamentos-parados/midia/`), o conteúdo, a oferta do Alda.CRM e o kit (plano de 7 dias, auditoria de 30 conversas, calculadora, gerador de oferta, mensagens).
 - Capa: foto da multidão (CHUTTERSNAP / Unsplash, `orcamentos-parados/midia/multidao.jpg`) com lupa interativa que procura o cliente; layout grande, com faixas de cor por seção.
 - `privacidade/`: Política de Privacidade (LGPD) linkada no aceite. Lead entra no CRM com a etiqueta **Aula CRM**.
-- `estoque-parado/`: material "Estoque parado é dinheiro dormindo" (https://sejaunique.vercel.app/estoque-parado/), com 3 trilhas: Indústria, Atacado e Confecção. A pessoa escolhe o segmento nos cartões (ou pelo link `?s=industria|atacado|confeccao`) e o cadastro exige segmento + aceite LGPD. Liberado: raio-x (semáforo por idade, motivos, checklist), frentes de ação com o botão "Incluir no meu plano", 3 calculadoras (custo de deixar parado, desconto agora x segurar, meta de giro), plano de 30 dias com progresso, "Seu planejamento" (responsável e data, copiar para WhatsApp, imprimir), mensagens prontas e prevenção. Todo o conteúdo das trilhas fica no objeto `TRILHAS`, no primeiro `<script>` da página. Marcações e contas ficam salvas no aparelho, por trilha. O segmento vai junto no cadastro (`segmento` em `mat:leads`, no aviso do app e na barra ADM). Lead entra no CRM com a etiqueta **Estoque Parado**. Capa: `assets/og/estoque-parado.jpg`.
+- `estoque-parado/`: material "Estoque parado é dinheiro dormindo" (https://sejaunique.com/estoque-parado/), com 3 trilhas: Indústria, Atacado e Confecção. A pessoa escolhe o segmento nos cartões (ou pelo link `?s=industria|atacado|confeccao`) e o cadastro exige segmento + aceite LGPD. Liberado: raio-x (semáforo por idade, motivos, checklist), frentes de ação com o botão "Incluir no meu plano", 3 calculadoras (custo de deixar parado, desconto agora x segurar, meta de giro), plano de 30 dias com progresso, "Seu planejamento" (responsável e data, copiar para WhatsApp, imprimir), mensagens prontas e prevenção. Todo o conteúdo das trilhas fica no objeto `TRILHAS`, no primeiro `<script>` da página. Marcações e contas ficam salvas no aparelho, por trilha. O segmento vai junto no cadastro (`segmento` em `mat:leads`, no aviso do app e na barra ADM). Lead entra no CRM com a etiqueta **Estoque Parado**. Capa: `assets/og/estoque-parado.jpg`.
 - `api/_area/biblioteca.js`: ações compartilhadas que entram sozinhas (uma única vez) na biblioteca de Ações do workspace. Já tem a ação do manual Orçamentos parados, sem cliente marcado.
 
 ## Newsletter do blog
@@ -130,7 +130,7 @@ Mesma conexão do Google Agenda, com a permissão do Drive (app Interno da sejau
 
 ## Eventos ao vivo (treinamentos, workshops, palestras)
 
-- `evento/index.html`: página única de inscrição (https://sejaunique.vercel.app/evento/?e=<slug>). Sem `?e=` abre o evento marcado como ativo.
+- `evento/index.html`: página única de inscrição (https://sejaunique.com/evento/?e=<slug>). Sem `?e=` abre o evento marcado como ativo.
 - `api/_eventos.js`: **é aqui que se troca o evento**: tipo (etiqueta do banner), título, subtítulo, data, hora, cor, imagem opcional do banner, lista "o que você vai levar", `ativo` (false fecha as inscrições) e o link do Meet.
 - `api/evento.js`: grava a inscrição (`ev:insc:<slug>`), cria o lead no CRM com a etiqueta do evento, inscreve na newsletter, avisa no app e devolve o link do Meet. O link nunca aparece no código da página: só sai do servidor depois do cadastro. Se o link ainda estiver vazio, a pessoa fica confirmada e o link aparece sozinho quando ela volta à página.
 - Logado no workspace, o Carlos vê na página uma barra com o total de inscritos e o botão "Baixar planilha" (`/api/evento?a=csv&e=<slug>`).
@@ -152,3 +152,19 @@ Na (EMP) Tarefas, a coluna **Página com IA** = `Gerar` faz o painel ler o conte
 - A geração roda quando o workspace está aberto (em até 1 min) ou quando o cliente abre a área dele. Uma página por vez.
 - O HTML da IA passa por uma lista de permissões (`api/_area/ia.js` → `limpa`): sem scripts, estilos ou eventos. Imagens e vídeos do Notion entram pelos marcadores `data-midia`.
 - Se a IA falhar, a página anterior continua no ar.
+
+## Papéis na empresa e "Quem vê"
+
+Cada pessoa de uma empresa tem um papel (Empresas → Pessoas, ou na ficha do contato):
+
+- **ADM**: vê tudo, inclusive reuniões (gravação, Drive, transcrição) e o que estiver marcado "Só ADMs".
+- **Gestor**: vê o plano, as reuniões e o que estiver marcado "Gestores e ADMs".
+- **Usuário**: vê o plano de ações e as entregas abertas a todos. Não vê reuniões.
+
+Quem já tinha acesso antes dos papéis ficou como ADM. Pessoas novas entram como Usuário (dá para escolher na hora de vincular).
+Cada ação e cada entrega tem o campo **Quem vê** (Todos da empresa / Gestores e ADMs / Só ADMs). A trava vale no painel, nos links diretos e nas páginas /clientes/.
+
+## Links
+
+Tudo tem link próprio e o voltar do navegador funciona: `#acoes/<ação>`, `#reunioes/<id>`, `#empresas/<slug>`, `#contatos/<pessoa>` no admin e `#tarefa-<id>` no painel do cliente.
+O domínio oficial é **sejaunique.com**: os endereços *.vercel.app redirecionam para ele (menos /api/).

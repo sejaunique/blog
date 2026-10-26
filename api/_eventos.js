@@ -4,7 +4,7 @@
    e só é entregue para quem termina o cadastro.
 
    Para um evento novo: copie um bloco, troque o "slug" e os textos, e marque "ativo: true".
-   Link para divulgar:  https://sejaunique.vercel.app/evento/?e=<slug>
+   Link para divulgar:  https://sejaunique.com/evento/?e=<slug>
    (sem ?e= a página abre o evento marcado como ativo)
 */
 module.exports = [

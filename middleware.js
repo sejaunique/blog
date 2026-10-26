@@ -63,14 +63,24 @@ export default async function middleware(req) {
 
   const t = cookie(req, 'ua_sess');
   const temSessao = /^[a-f0-9]{48}$/.test(t);
-  let s = null, publico = false;
+  let s = null, publico = false, restrito = '';
   try {
-    const [sv, pv] = await redis([
+    const [sv, pv, rv] = await redis([
       ['GET', 'area:sess:' + (temSessao ? t : '-')],
-      ['HGET', 'area:publico:' + slug, pasta || '-']
+      ['HGET', 'area:publico:' + slug, pasta || '-'],
+      ['HGET', 'area:restrito:' + slug, pasta || '-']
     ]);
     s = sv ? JSON.parse(sv) : null;
     publico = pv === '1';
+    restrito = rv || '';
+    // página restrita a gestores ou ADMs da empresa: confere o papel da pessoa logada
+    if (!publico && restrito && s && !s.admin && s.slug === slug) {
+      const [uv] = await redis([['GET', 'area:user:' + slug + ':' + s.email]]);
+      const u = uv ? JSON.parse(uv) : {};
+      const papel = ['adm', 'gestor', 'usuario'].indexOf(u.papel) >= 0 ? u.papel : 'adm';
+      const nivel = { usuario: 0, gestor: 1, adm: 2 }[papel], precisa = restrito === 'adm' ? 2 : 1;
+      if (nivel < precisa) return vai(req.url, '/area/painel/?negado=1');
+    }
   } catch (e) { s = null; }
 
   if (publico) return segue();

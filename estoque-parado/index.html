@@ -10,13 +10,13 @@
 <meta property="og:site_name" content="Unique Consultoria">
 <meta property="og:title" content="Estoque parado é dinheiro dormindo · Estratégias por segmento">
 <meta property="og:description" content="Indústria, atacado ou confecção: raio-x do estoque, ações por frente, plano de 30 dias, calculadoras e mensagens prontas.">
-<meta property="og:url" content="https://sejaunique.vercel.app/estoque-parado/">
-<meta property="og:image" content="https://sejaunique.vercel.app/assets/og/estoque-parado.jpg">
+<meta property="og:url" content="https://sejaunique.com/estoque-parado/">
+<meta property="og:image" content="https://sejaunique.com/assets/og/estoque-parado.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://sejaunique.vercel.app/assets/og/estoque-parado.jpg">
+<meta name="twitter:image" content="https://sejaunique.com/assets/og/estoque-parado.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@400;600;700&display=swap">
@@ -1428,7 +1428,7 @@ confeccao:{
     var pl=ls.get(KS('plano'))||{}, pend=[];
     D.plano.forEach(function(w,wi){ w[3].forEach(function(x,xi){ if(!pl[wi+'-'+xi]) pend.push(w[0]+': '+x); }); });
     if(pend.length) t+='\n\n*Plano de 30 dias · pendente*\n'+pend.map(function(x){return '- '+x;}).join('\n');
-    return t+'\n\nMaterial: https://sejaunique.vercel.app/estoque-parado/?s='+T;
+    return t+'\n\nMaterial: https://sejaunique.com/estoque-parado/?s='+T;
   }
   function copia(t,b){ var old=b.innerHTML, ok=function(){ b.textContent='Copiado!'; setTimeout(function(){ b.innerHTML=old; },1600); };
     if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok,function(){}); else { var a=document.createElement('textarea'); a.value=t; document.body.appendChild(a); a.select(); try{document.execCommand('copy');ok();}catch(e){} a.remove(); } }

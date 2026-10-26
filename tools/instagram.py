@@ -172,7 +172,7 @@ def slide_html(sl, i, n, tema="classico"):
         corpo = ('<div class="s escuro cta"><div class="meio"><div class="logo">%s</div><h2>%s</h2><p>%s</p>'
                  '<span class="url">%s</span></div>%s</div>') % (
             LOGO, inline(sl.get("titulo", "Leia o post completo")), inline(sl.get("texto", "")),
-            html.escape(sl.get("url", "sejaunique.vercel.app/blog")), rodape(i, n, True))
+            html.escape(sl.get("url", "sejaunique.com/blog")), rodape(i, n, True))
     else:
         raise ValueError("tipo desconhecido: " + t)
     corpo = corpo.replace('<div class="meio">', '<div class="meio"><div class="num">%02d</div>' % i, 1)

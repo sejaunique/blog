@@ -15,7 +15,7 @@ const NV = '2022-06-28';
 const IA = require('./ia.js');
 const DB_REUN = '25394b57fed881328544ce6e755832a4'; // (EMP) Reuniões e Compromissos: só leitura, Notion -> painel
 const DB = { emp: '20e94b57fed881a08c1eeb85fbb99700', pessoa: '25394b57fed88154bb5df25b63ac14e5', lead: '25394b57fed881e09ac8ef513a9a4e3f', tarefa: '25394b57fed8813ba22fe58b9619f4ac' };
-const SITE = 'https://sejaunique.vercel.app';
+const SITE = 'https://sejaunique.com';
 const ligado = () => !!process.env.NOTION_TOKEN;
 const json = s => { try { return s ? JSON.parse(s) : null; } catch (e) { return null; } };
 const idc = id => String(id || '').replace(/-/g, '');

@@ -5,7 +5,7 @@
 // Credenciais: GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET na Vercel ou, se não houver, as que o Carlos salvar no admin
 // (area:google:app). O acesso autorizado fica em area:google:conta {refresh, email}. Vínculos: area:gcal (id da ação -> id do evento).
 
-const SITE = 'https://sejaunique.vercel.app';
+const SITE = 'https://sejaunique.com';
 const VOLTA = SITE + '/api/agenda?a=volta';
 const ESCOPO = 'https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/userinfo.email openid';
 const API = 'https://www.googleapis.com/calendar/v3/calendars/primary/events';

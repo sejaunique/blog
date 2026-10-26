@@ -57,7 +57,7 @@ def brutal(sl, i, n, mk):
     elif t == "chat":
         body = top + '<h2 style="font-size:70px">%s</h2>%s' % (inline(sl.get("titulo", "")), chat_html(sl))
     elif t == "cta":
-        body = top + '<h2 style="margin-top:200px">%s</h2><div class="box" style="box-shadow:16px 16px 0 #00e676"><p>%s<br><b>%s</b></p></div>' % (inline(sl.get("titulo", "")), inline(sl.get("texto", "")), html.escape(sl.get("url", "sejaunique.vercel.app/blog")))
+        body = top + '<h2 style="margin-top:200px">%s</h2><div class="box" style="box-shadow:16px 16px 0 #00e676"><p>%s<br><b>%s</b></p></div>' % (inline(sl.get("titulo", "")), inline(sl.get("texto", "")), html.escape(sl.get("url", "sejaunique.com/blog")))
     return BRUTAL, '<div class="s%s">%s%s</div>' % (" inv" if inv else "", body, rod)
 
 # ---------------------------------------------------------------- MINIMAL
@@ -98,7 +98,7 @@ def minimal(sl, i, n, mk):
     elif t == "chat":
         body = '<h2>%s</h2>%s' % (inline(sl.get("titulo", "")), chat_html(sl))
     elif t == "cta":
-        body = '<div style="margin-bottom:60px;opacity:.9">%s</div><h1 style="font-size:64px">%s</h1><p style="margin-top:30px">%s<br>%s</p>' % (mk["LOGO"].replace("<svg ", '<svg style="height:30px;width:auto" ', 1), inline(sl.get("titulo", "")), inline(sl.get("texto", "")), html.escape(sl.get("url", "sejaunique.vercel.app/blog")))
+        body = '<div style="margin-bottom:60px;opacity:.9">%s</div><h1 style="font-size:64px">%s</h1><p style="margin-top:30px">%s<br>%s</p>' % (mk["LOGO"].replace("<svg ", '<svg style="height:30px;width:auto" ', 1), inline(sl.get("titulo", "")), inline(sl.get("texto", "")), html.escape(sl.get("url", "sejaunique.com/blog")))
     return MINIMAL, '<div class="s%s">%s%s%s</div>' % (" inv" if inv else "", head, body, rod)
 
 # ---------------------------------------------------------------- REVISTA
@@ -142,7 +142,7 @@ def revista(sl, i, n, mk):
     elif t == "chat":
         body = cab + '<h2>%s</h2>%s' % (inline(sl.get("titulo", "")), chat_html(sl))
     elif t == "cta":
-        body = cab + '<h2 style="margin-top:300px">%s</h2><p>%s<br><i>%s</i></p>' % (inline(sl.get("titulo", "")), inline(sl.get("texto", "")), html.escape(sl.get("url", "sejaunique.vercel.app/blog")))
+        body = cab + '<h2 style="margin-top:300px">%s</h2><p>%s<br><i>%s</i></p>' % (inline(sl.get("titulo", "")), inline(sl.get("texto", "")), html.escape(sl.get("url", "sejaunique.com/blog")))
     return REVISTA, '<div class="s%s"><div class="pagina">%s</div>%s</div>' % (" inv" if inv else "", body, rod)
 
 # ---------------------------------------------------------------- CHAT (WhatsApp)
@@ -195,7 +195,7 @@ def chatstyle(sl, i, n, mk):
     elif t == "frase":
         body = bar + '<div class="area" style="margin-top:200px"><div class="m voce" data-h="09:41" style="font-size:54px;font-weight:700;max-width:960px">%s</div></div>' % inline(sl["texto"])
     elif t == "cta":
-        body = bar + '<div class="area" style="margin-top:120px"><div class="m cliente" data-h="09:50">%s</div><div class="m voce" data-h="09:51">%s<br><span class="g">%s</span></div></div>' % (inline(sl.get("titulo", "")), inline(sl.get("texto", "")), html.escape(sl.get("url", "sejaunique.vercel.app/blog")))
+        body = bar + '<div class="area" style="margin-top:120px"><div class="m cliente" data-h="09:50">%s</div><div class="m voce" data-h="09:51">%s<br><span class="g">%s</span></div></div>' % (inline(sl.get("titulo", "")), inline(sl.get("texto", "")), html.escape(sl.get("url", "sejaunique.com/blog")))
     else:
         body = bar + '<div style="margin:60px;height:700px;border-radius:30px;overflow:hidden">%s</div><div class="titulo">%s</div>' % (img(sl, mk), inline(sl.get("titulo", "")))
     return CHAT, '<div class="s">%s%s</div>' % (body, rod)
@@ -237,7 +237,7 @@ def postit(sl, i, n, mk):
     elif t in ("foto", "fotofundo"):
         body = '<div class="foto" style="left:140px;top:110px;width:800px;height:760px;transform:rotate(-3deg)">%s</div><div class="p" style="left:110px;right:130px;top:820px;transform:rotate(2deg)"><h2>%s</h2>%s</div>' % (img(sl, mk), inline(sl.get("titulo", "")), inline(sl.get("texto", "")))
     elif t == "cta":
-        body = '<div class="p b" style="left:120px;right:120px;top:360px;transform:rotate(-2deg)"><h2>%s</h2>%s<br><b>%s</b></div>' % (inline(sl.get("titulo", "")), inline(sl.get("texto", "")), html.escape(sl.get("url", "sejaunique.vercel.app/blog")))
+        body = '<div class="p b" style="left:120px;right:120px;top:360px;transform:rotate(-2deg)"><h2>%s</h2>%s<br><b>%s</b></div>' % (inline(sl.get("titulo", "")), inline(sl.get("texto", "")), html.escape(sl.get("url", "sejaunique.com/blog")))
     else:
         body = '<div class="p b" style="left:90px;right:90px;top:200px"><h2>%s</h2></div>' % inline(sl.get("titulo", ""))
     return POSTIT, '<div class="s">%s%s</div>' % (body, rod)
@@ -350,7 +350,7 @@ def impacto(sl, i, n, mk):
         return body
     if lay == "fim":
         body = (_ph(mk, foto, pos) + '<div class="sh"></div>' if foto else '<div class="grid" style="opacity:.6"></div>') + _hd(mk)
-        body += '<div style="position:absolute;left:70px;right:70px;bottom:190px;text-align:center"><div class="A" style="font-size:110px">%s</div><div class="sub" style="margin-top:22px">%s</div><div style="margin:34px auto 0;display:inline-block;background:#00e676;color:#0a0a0a;font-weight:800;font-size:30px;padding:16px 34px;border-radius:999px">%s</div></div><div class="frame"></div>' % (tit, inline(sl.get("texto", "")), html.escape(sl.get("url", "sejaunique.vercel.app/blog")))
+        body += '<div style="position:absolute;left:70px;right:70px;bottom:190px;text-align:center"><div class="A" style="font-size:110px">%s</div><div class="sub" style="margin-top:22px">%s</div><div style="margin:34px auto 0;display:inline-block;background:#00e676;color:#0a0a0a;font-weight:800;font-size:30px;padding:16px 34px;border-radius:999px">%s</div></div><div class="frame"></div>' % (tit, inline(sl.get("texto", "")), html.escape(sl.get("url", "sejaunique.com/blog")))
         return '<div class="s">%s</div>' % body
     return '<div class="s"></div>'
 
@@ -402,7 +402,7 @@ def duotone(sl, i, n, mk):
     elif t == "frase":
         body = fundo + fr + '<div class="sq" style="left:54px;top:470px;width:16px;height:300px"></div><div style="position:absolute;left:110px;right:80px;top:450px"><div class="sr" style="font-size:%dpx;line-height:1.1">%s</div><div class="m" style="position:relative;margin-top:40px;font-size:22px;letter-spacing:.2em;text-transform:uppercase">— Carlos Ribeiro</div></div>' % (sl.get("tam", 84), inline(sl.get("texto", "")))
     else:  # cta
-        body = fundo + fr + '<div style="position:absolute;left:54px;right:54px;top:470px;text-align:left"><div class="sr" style="font-size:60px">%s</div><div class="sb" style="font-size:118px;margin-top:10px">%s</div><div style="margin-top:50px;display:inline-flex;align-items:center;gap:18px;border:1px solid #eafff3;border-radius:999px;padding:18px 34px;font-size:30px;font-weight:700">%s <span style="display:inline-block;width:22px;height:22px;border-radius:50%%;background:#00e676"></span></div></div>' % (html.escape(sl.get("pre", "")), tit, html.escape(sl.get("url", "sejaunique.vercel.app/blog")))
+        body = fundo + fr + '<div style="position:absolute;left:54px;right:54px;top:470px;text-align:left"><div class="sr" style="font-size:60px">%s</div><div class="sb" style="font-size:118px;margin-top:10px">%s</div><div style="margin-top:50px;display:inline-flex;align-items:center;gap:18px;border:1px solid #eafff3;border-radius:999px;padding:18px 34px;font-size:30px;font-weight:700">%s <span style="display:inline-block;width:22px;height:22px;border-radius:50%%;background:#00e676"></span></div></div>' % (html.escape(sl.get("pre", "")), tit, html.escape(sl.get("url", "sejaunique.com/blog")))
     return DUO, '<div class="s">%s</div>' % body
 
 ESTILOS["duotone"] = duotone

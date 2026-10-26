@@ -16,7 +16,7 @@ const vm = require('vm');
 const G = require('./_area/google.js');
 const URL_DB = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
-const SITE = 'https://sejaunique.vercel.app';
+const SITE = 'https://sejaunique.com';
 const POR_VEZ = 25;           // e-mails por chamada (cada chamada continua de onde parou)
 const JANELA_DIAS = 10;       // só envia posts com data recente (segurança contra reenvio de posts antigos)
 

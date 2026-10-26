@@ -10,7 +10,7 @@ RAIZ = pathlib.Path(__file__).resolve().parent.parent
 MOLDE = (RAIZ / 'cases/infindo/index.html').read_text()
 HEAD = MOLDE.split('<body')[0]
 SCRIPT = MOLDE[MOLDE.rindex('<script>'):]
-SITE = 'https://sejaunique.vercel.app'
+SITE = 'https://sejaunique.com'
 
 LOGO = {'boldz': 'boldz', 'casa-lis': 'casa-lis', 'clara-construtora': 'clara-construtora',
         'dra-laura-scher': 'dra-laura-scher', 'cical': 'grupo-cical', 'ido': 'ido-odontologia',

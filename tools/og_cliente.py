@@ -11,7 +11,7 @@ A capa fica em /assets (aberta), porque o WhatsApp precisa baixá-la mesmo com a
 import html, json, os, re, subprocess
 from playwright.sync_api import sync_playwright
 
-SITE = "https://sejaunique.vercel.app"
+SITE = "https://sejaunique.com"
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 import base64
 FONTE = "data:font/ttf;base64," + base64.b64encode(open(os.path.join(RAIZ, "tools", "fonts", "Montserrat[wght].ttf"), "rb").read()).decode()
@@ -46,7 +46,7 @@ h1{{font-size:{tam}px;line-height:1.02;font-weight:700;letter-spacing:-.035em}}
 <div class="mk"><span>{mark}</span><span>{mark}</span><span>{mark}</span></div>
 <div class="topo"><div class="logo">{logo}</div><div class="pill">{pill}</div></div>
 <div class="meio"><div class="lbl">{empresa}</div><h1>{chamada}</h1></div>
-<div class="pe"><p>{desc}</p><span>sejaunique.vercel.app</span></div>
+<div class="pe"><p>{desc}</p><span>sejaunique.com</span></div>
 </body></html>"""
 
 EXTRAS = [

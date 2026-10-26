@@ -1102,6 +1102,7 @@ body{background:var(--ws-bg)}
     var h=location.hash.slice(1).split('/'); VISTA=h[0]||'painel'; EMP=VISTA==='acoes'||VISTA==='reunioes'?'':(h[1]||''); if(VISTA==='contatos'){ CT.sel=decodeURIComponent(h[1]||''); EMP=''; }
     carrega().then(desenha).then(rotaAtual);
   }
+  if(!window.MATS) fetch('/api/material?a=lista').then(function(r){return r.json();}).then(function(r){ window.MATS=(r&&r.materiais)||[]; }).catch(function(){ window.MATS=[]; });
   function carrega(){
     return Promise.all([get('?a=admin-resumo'),get('?a=admin-acoes'),get('?a=admin-propostas'),get('?a=admin-diagnosticos'),get('?a=admin-meta'),get('?a=admin-notion'),get('?a=admin-reunioes').catch(function(){return {};})]).then(function(x){
       META=x[4]||null; NS=x[5]||{}; REUN=(x[6]&&x[6].reunioes)||[]; puxaNotion();
@@ -1663,11 +1664,13 @@ body{background:var(--ws-bg)}
         if(b.hasAttribute('data-addleit')){ var lf=$('ct-leitf'); if(lf.innerHTML){ lf.innerHTML=''; return; }
           var ja={}; LE.forEach(function(l){ ja[l.post]=1; });
           var PO=(window.POSTS||[]).filter(function(p){return !ja[p.slug];}).sort(function(a,b){return a.data<b.data?1:-1;});
-          lf.innerHTML='<form class="ct-leitform"><label class="ct-todos"><input type="checkbox" name="todos"> Para a empresa toda ('+esc(e.nome)+')</label><input class="ct-lq" placeholder="Buscar post do blog"><div class="ct-leit-op">'+(PO.length?PO.map(function(p){ var t=String(p.titulo).replace(/==/g,''); return '<label data-t="'+esc(semAcento(t))+'"><input type="checkbox" value="'+esc(p.slug)+'" data-tit="'+esc(t)+'"><span>'+esc(t)+'<small>'+dt(p.data)+'</small></span></label>'; }).join(''):'<p class="ct-b-vazio">Todos os posts já estão na lista.</p>')+'</div><div style="display:flex;gap:8px"><button class="pill solid">Delegar leitura</button><button type="button" class="pill" data-lx>Cancelar</button></div></form>';
+          // materiais (iscas, aulas, palestras) também entram na lista; quem está logado abre sem cadastro
+          (window.MATS||[]).forEach(function(m){ if(!ja['mat-'+m.id]) PO.unshift({slug:'mat:'+m.id,titulo:m.titulo,data:'',mat:m}); });
+          lf.innerHTML='<form class="ct-leitform"><label class="ct-todos"><input type="checkbox" name="todos"> Para a empresa toda ('+esc(e.nome)+')</label><input class="ct-lq" placeholder="Buscar post ou material"><div class="ct-leit-op">'+(PO.length?PO.map(function(p){ var t=String(p.titulo).replace(/==/g,''); return '<label data-t="'+esc(semAcento(t))+'"><input type="checkbox" value="'+esc(p.slug)+'" data-tit="'+esc(t)+'"'+(p.mat?' data-url="'+esc(p.mat.url)+'"':'')+'><span>'+esc(t)+'<small>'+(p.mat?esc(p.mat.tag||'Material')+' · abre sem cadastro':dt(p.data))+'</small></span></label>'; }).join(''):'<p class="ct-b-vazio">Todos os posts já estão na lista.</p>')+'</div><div style="display:flex;gap:8px"><button class="pill solid">Delegar leitura</button><button type="button" class="pill" data-lx>Cancelar</button></div></form>';
           var fm=lf.querySelector('form');
           fm.querySelector('.ct-lq').oninput=function(){ var q=semAcento(this.value); fm.querySelectorAll('.ct-leit-op label').forEach(function(z){ z.hidden=q&&z.dataset.t.indexOf(q)<0; }); };
           fm.querySelector('[data-lx]').onclick=function(){ lf.innerHTML=''; };
-          fm.onsubmit=function(evv){ evv.preventDefault(); var ps=[].map.call(fm.querySelectorAll('.ct-leit-op :checked'),function(c){return {slug:c.value,titulo:c.dataset.tit};}); if(!ps.length){ toast('Marque ao menos um post.'); return; }
+          fm.onsubmit=function(evv){ evv.preventDefault(); var ps=[].map.call(fm.querySelectorAll('.ct-leit-op :checked'),function(c){return c.dataset.url?{mat:c.value.slice(4),url:c.dataset.url,titulo:c.dataset.tit}:{slug:c.value,titulo:c.dataset.tit};}); if(!ps.length){ toast('Marque ao menos um post.'); return; }
             post({a:'admin-leitura',slug:e.slug,email:fm.elements.todos.checked?'*':u.email,posts:ps}).then(function(r){ if(!r.ok){ toast(r.erro||'Erro.'); return; } CONTS[e.slug].leituras=(CONTS[e.slug].leituras||[]).concat(r.novos); toast(r.novos.length+' leitura(s) delegada(s) a '+u.nome.split(' ')[0]+'.'); direita(); }); };
           return; }
         if(b.hasAttribute('data-delegar')){ var f=$('ct-delf'); if(f.innerHTML){ f.innerHTML=''; return; }

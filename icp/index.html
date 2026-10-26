@@ -230,7 +230,7 @@ body.liberado .gate{display:none}body.liberado #conteudo{display:block}body.libe
     $('#ok-p').textContent=novo?'Suas respostas ficam salvas neste aparelho. E você recebe cada post novo do blog no seu e-mail.':'Suas respostas continuam de onde você parou.';
   }
   var salvo=ls.get(K); if(salvo) libera(salvo,false);
-  fetch('/api/material?a=adm&material='+MAT,{credentials:'same-origin',cache:'no-store'}).then(function(r){return r.json();}).then(function(r){ if(r&&r.admin) libera({nome:'Carlos'},false); }).catch(function(){});
+  fetch('/api/material?a=adm&material='+MAT,{credentials:'same-origin',cache:'no-store'}).then(function(r){return r.json();}).then(function(r){ if(r&&r.admin) libera({nome:'Carlos'},false); else if(r&&r.cliente) libera({nome:r.nome||''},false); }).catch(function(){});
 
   var f=$('#f-lib'), msg=$('.msg',f), bt=$('button',f);
   f.addEventListener('submit',function(e){

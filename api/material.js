@@ -70,6 +70,19 @@ module.exports = async (req, res) => {
       if (!c || !MATERIAIS[mt]) return res.json({ ok: true, admin: false });
       const [s] = await redis([['GET', 'area:sess:' + c[1]]]);
       const v = json(s);
+      // cliente logado na área do cliente: abre sem cadastro e, na 1ª vez, vira uma ação "Aplicar: …" em andamento no plano da empresa
+      if (v && !v.admin && v.slug && v.email) {
+        const m = MATERIAIS[mt], chave = 'mat:acao:' + v.slug + ':' + mt + ':' + v.email;
+        const [nova] = await redis([['SET', chave, '1', 'NX']]);
+        if (nova === 'OK') {
+          const agora = new Date().toISOString(), id = crypto.randomBytes(6).toString('hex');
+          const acao = { id, titulo: 'Aplicar: ' + m.titulo, detalhe: m.descricao, detalheHtml: '', link: m.url, tipo: 'isca', dono: 'cliente', status: 'fazendo', prioridade: '', prazo: '', inicio: agora.slice(0, 10), responsaveis: [v.email], observadores: [], pessoa: v.email, anexos: [], criado: agora, atualizado: agora, por: v.nome || v.email, origem: 'isca' };
+          await redis([['HSET', 'area:acoes:' + v.slug, id, JSON.stringify(acao)]]);
+          try { await notifica(redis, { titulo: 'Material aplicado pelo cliente', texto: (v.nome || v.email) + ' abriu "' + m.titulo + '" e virou ação em andamento.', url: '/area/admin/#acoes' }); } catch (e) { /* aviso é opcional */ }
+          try { await require('./_area/notion.js').envia(redis, 'acao', v.slug, id); } catch (e) { /* Notion é opcional */ }
+        }
+        return res.json({ ok: true, admin: false, cliente: true, nome: String(v.nome || '').split(' ')[0] });
+      }
       if (!(v && v.admin)) return res.json({ ok: true, admin: false });
       const [lst] = await redis([['LRANGE', 'mat:leads', 0, 1999]]);
       const leads = (lst || []).map(json).filter(x => x && x.material === mt);
@@ -82,6 +95,10 @@ module.exports = async (req, res) => {
     } catch (e) { return res.json({ ok: true, admin: false }); }
   }
 
+  if (req.method === 'GET' && (req.query || {}).a === 'lista') {
+    res.setHeader('Cache-Control', 'public, max-age=300');
+    return res.json({ ok: true, materiais: Object.keys(MATERIAIS).map(k => ({ id: k, titulo: MATERIAIS[k].titulo, descricao: MATERIAIS[k].descricao, url: MATERIAIS[k].url, tag: MATERIAIS[k].tag })) });
+  }
   if (req.method !== 'POST') return res.status(405).json({ ok: false });
   try {
     const b = corpo(req);

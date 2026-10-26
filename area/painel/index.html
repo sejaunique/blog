@@ -238,6 +238,9 @@
 .pv-modo{display:flex;gap:2px;background:var(--fg);border-radius:999px;padding:4px}.pv-modo button{font:inherit;font-size:.78rem;font-weight:600;border:0;background:none;color:var(--bg);border-radius:999px;padding:7px 14px;cursor:pointer}.pv-modo button[aria-pressed="true"]{background:var(--bg);color:var(--fg)}
 .pv-st{font-size:.72rem;font-weight:700;border-radius:999px;padding:3px 10px;background:var(--soft)}.pv-st.fazendo{background:#fff3d6;color:#8a5a00}.pv-st.feito{background:#d8f8e6;color:#06603a}
 #arqs{display:block;margin-top:18px}#arqs .uf-l{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.lt{border:1.5px solid #2c3384;border-radius:24px;padding:18px;display:grid;gap:12px;background:var(--bg)}[data-theme="dark"] .lt{border-color:#5a62c9}
+.lt-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.lt-h b{display:block;font-size:1.15rem;letter-spacing:-.01em}.lt-h small{display:block;font-size:.78rem;color:var(--muted);font-style:italic;margin-top:2px}.lt-h span{font-size:.8rem;font-weight:800;border-radius:999px;padding:5px 11px;background:#1e2357;color:#fff}
+.lt-l{display:grid;gap:8px}.lt-i{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start;background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:12px 14px;cursor:pointer}.lt-i input{width:19px;height:19px;margin:1px 0 0;accent-color:#078a46;cursor:pointer}.lt-i a{font-size:.95rem;font-weight:600;color:var(--fg);text-decoration:none;line-height:1.35}.lt-i a:hover{text-decoration:underline}.lt-i small{display:block;font-size:.74rem;color:var(--muted);margin-top:3px}.lt-i small em{font-style:normal;color:#078a46;font-weight:700}.lt-i.ok a{text-decoration:line-through;opacity:.6}
 .fp-soc{max-width:var(--read);margin:56px auto 0;padding-top:40px;border-top:1px solid var(--line)}
 .fp-soc h3{font-size:1.25rem;font-weight:500;letter-spacing:-.01em;margin:0}
 /* Golden Circle */
@@ -485,8 +488,11 @@
     var L=DADOS.leituras||[], sec=document.getElementById('sec-leit'), el=document.getElementById('leit');
     sec.hidden=!L.length; if(!L.length) return;
     var n=L.filter(function(l){return l.lido;}).length;
-    el.innerHTML='<p class="leit-n">'+n+' de '+L.length+' lidas</p>'+L.map(function(l){
-      return '<label class="leit-i'+(l.lido?' ok':'')+'"><input type="checkbox" data-l="'+esc(l.id)+'"'+(l.lido?' checked':'')+'><span><a href="'+esc(l.url)+'" target="_blank" rel="noopener">'+esc(l.titulo)+' ↗</a><small>'+(l.lido?'Lido':'Para ler')+'</small></span></label>'; }).join('');
+    var quando=function(d){ try{ return new Date(d).toLocaleDateString('pt-BR',{day:'numeric',month:'short'}).replace('.',''); }catch(x){ return ''; } };
+    // mesmo formato do admin: cartão "Adquirir Consciência · Lista de Leitura" com o placar e os itens para marcar
+    el.innerHTML='<div class="lt"><div class="lt-h"><div><b>Adquirir Consciência</b><small>Lista de Leitura</small></div><span>'+n+'/'+L.length+'</span></div><div class="lt-l">'+L.map(function(l){
+      var mat=l.tipo==='material'||/^mat-/.test(l.post||'');
+      return '<label class="lt-i'+(l.lido?' ok':'')+'"><input type="checkbox" data-l="'+esc(l.id)+'"'+(l.lido?' checked':'')+' aria-label="Marcar como lido"><span><a href="'+esc(l.url)+'" target="_blank" rel="noopener">'+esc(l.titulo)+' ↗</a><small>'+(mat?'<em>Material · abre direto, sem cadastro</em> · ':'')+(l.lido?'Lido em '+quando(l.lido):'Indicado em '+quando(l.criado))+(l.todos?' · para a empresa toda':'')+'</small></span></label>'; }).join('')+'</div></div>';
     el.onchange=function(ev){ var c=ev.target; if(!c.dataset.l) return; c.disabled=true;
       api({body:{a:'leitura-lido',slug:DADOS.empresa.slug,id:c.dataset.l,lido:c.checked}}).then(function(r){ c.disabled=false; if(!r.ok) return; var l=L.filter(function(x){return x.id===c.dataset.l;})[0]; if(l) l.lido=r.leitura.lido; leitura(); }); };
   }

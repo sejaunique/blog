@@ -1188,14 +1188,17 @@ module.exports = async (req, res) => {
     if (b.a === 'admin-leitura') {
       const email = b.email === '*' ? '*' : limpo(b.email, 120).toLowerCase();
       const posts = (Array.isArray(b.posts) ? b.posts : []).slice(0, 40);
-      if ((email !== '*' && !emailOk(email)) || !posts.length) return res.status(400).json({ ok: false, erro: 'Escolha ao menos um post.' });
+      if ((email !== '*' && !emailOk(email)) || !posts.length) return res.status(400).json({ ok: false, erro: 'Escolha ao menos um post ou material.' });
       const [lH] = await redis([['HGETALL', 'area:leit:' + slug]]);
       const ja = {}; lerPares(lH).forEach(([, v]) => { const l = json(v); if (l) ja[l.pessoa + '|' + l.post] = 1; });
       const cmds = [], novos = [];
       posts.forEach(p => {
-        const post = String(p.slug || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 120);
+        // post do blog ou material (isca, aula, palestra, ferramenta do site): o material abre sem cadastro para quem está logado
+        const mat = p.mat ? String(p.mat).toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 80) : '';
+        const post = mat ? 'mat-' + mat : String(p.slug || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 120);
         if (!post || ja[email + '|' + post]) return;
-        const l = { id: novoId(), post, titulo: limpo(String(p.titulo || '').replace(/==/g, ''), 200), url: '/blog/#' + post, pessoa: email, criado: new Date().toISOString(), lido: '' };
+        const url = mat ? (/^\/[a-z0-9\/_#?=&.-]*$/i.test(p.url || '') ? p.url : '/' + mat + '/') : '/blog/#' + post;
+        const l = { id: novoId(), post, tipo: mat ? 'material' : 'post', titulo: limpo(String(p.titulo || '').replace(/==/g, ''), 200), url, pessoa: email, criado: new Date().toISOString(), lido: '' };
         cmds.push(['HSET', 'area:leit:' + slug, l.id, JSON.stringify(l)]); novos.push(l); ja[email + '|' + post] = 1;
       });
       if (cmds.length) await redis(cmds);

@@ -1481,6 +1481,7 @@ confeccao:{
   var NOMES={industria:'Indústria',atacado:'Atacado',confeccao:'Confecção'};
   function dt(x){ try{return new Date(x).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}catch(e){return '';} }
   fetch('/api/material?a=adm&material='+MAT,{credentials:'same-origin',cache:'no-store'}).then(function(r){return r.json();}).then(function(r){
+    if(r&&r.cliente){ document.body.classList.add('liberado'); if(!T){T='industria';} marcaSel(T); render(); return; }
     if(!r||!r.admin) return;
     document.body.classList.add('modo-adm','liberado'); if(!T){T='industria';} marcaSel(T); render();
     var cont={industria:0,atacado:0,confeccao:0}; (r.ultimos||[]).forEach(function(x){ if(cont[x.segmento]!=null) cont[x.segmento]++; });

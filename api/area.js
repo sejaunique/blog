@@ -179,6 +179,9 @@ async function vitoriasDe(slug) {
   return L;
 }
 async function vitDe(slug, id) { const [v] = await redis([['HGET', 'area:vit:' + slug, String(id || '')]]); return json(v); }
+// assistente com IA do admin (api/_area/chat.js)
+let chatInst = null;
+const CHAT = () => chatInst || (chatInst = require('./_area/chat.js').cria({ redis, lerPares, conteudo, empresa, pessoasDe, vitoriasDe, CATALOGO, NOTION, SITE }));
 // quem é da empresa (nome e foto), para mostrar responsáveis e observadores
 async function pessoasDe(slug) {
   const [ems] = await redis([['SMEMBERS', 'area:users:' + slug]]);
@@ -677,6 +680,12 @@ module.exports = async (req, res) => {
         res.setHeader('Content-Type', mm[1]); res.setHeader('Cache-Control', 'private, max-age=31536000, immutable');
         return res.end(Buffer.from(mm[2], 'base64'));
       }
+      if (q.a === 'admin-chat-lista' || q.a === 'admin-chat-conv') {
+        if (!s.admin) return res.status(403).json({ ok: false });
+        if (q.a === 'admin-chat-lista') return res.json({ ok: true, conversas: await CHAT().lista(), chave: !!process.env.ANTHROPIC_API_KEY });
+        const c = await CHAT().conversa(String(q.id || '').replace(/[^a-f0-9]/g, ''));
+        return c ? res.json(Object.assign({ ok: true }, c)) : res.status(404).json({ ok: false });
+      }
       if (q.a === 'admin-reunioes') {
         if (!s.admin) return res.status(403).json({ ok: false });
         const [sl] = await redis([['SMEMBERS', 'area:reun:slugs']]);
@@ -1052,6 +1061,20 @@ module.exports = async (req, res) => {
       return res.json({ ok: true, slug: sl });
     }
 
+    if (b.a === 'admin-chat') {
+      try { return res.json(await CHAT().turno(String(b.conv || ''), String(b.texto || ''), Array.isArray(b.anexos) ? b.anexos : [])); }
+      catch (e) { return res.json({ ok: false, erro: String(e.message || e).slice(0, 300) }); }
+    }
+    if (b.a === 'admin-chat-decide') {
+      // executa o cartão confirmado chamando a própria rota do admin (mesmas validações e mesma ida para o Notion)
+      const chama = async corpoInterno => {
+        let saida = null;
+        const falsa = { statusCode: 200, setHeader() { return this; }, status(c) { this.statusCode = c; return this; }, json(o) { saida = o; return this; }, end() { return this; } };
+        await module.exports({ method: 'POST', headers: req.headers, query: {}, body: corpoInterno }, falsa);
+        return saida || { ok: false };
+      };
+      return res.json(await CHAT().decide(String(b.id || '').replace(/[^a-f0-9]/g, ''), !!b.ok, chama));
+    }
     if (b.a === 'admin-arq-oculto') {
       const id = String(b.id || '').replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 80);
       if (!id) return res.status(400).json({ ok: false });

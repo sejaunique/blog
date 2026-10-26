@@ -168,3 +168,11 @@ Cada ação e cada entrega tem o campo **Quem vê** (Todos da empresa / Gestores
 
 Tudo tem link próprio e o voltar do navegador funciona: `#acoes/<ação>`, `#reunioes/<id>`, `#empresas/<slug>`, `#contatos/<pessoa>` no admin e `#tarefa-<id>` no painel do cliente.
 O domínio oficial é **sejaunique.com**: os endereços *.vercel.app redirecionam para ele (menos /api/).
+
+## Assistente com IA (admin)
+
+Botão ✦ no canto de qualquer tela do admin (atalho Ctrl+J) e a página **Hoje → Assistente** em tela cheia.
+- Consulta empresas, pessoas e papéis, ações, reuniões (com o conteúdo da página no Notion), negócios, vitórias e leituras (`api/_area/chat.js`).
+- Para criar ou mudar algo (ação, papel, reunião, leitura, vitória), mostra um cartão; só executa quando o Carlos clica em Confirmar, reaproveitando as rotas do admin (mesmas validações e ida para o Notion).
+- Anexos: imagens (também colar/arrastar), PDF e CSV/TXT. Microfone: ditado em português no navegador.
+- Usa a mesma ANTHROPIC_API_KEY das páginas com IA. Conversas ficam 30 dias.

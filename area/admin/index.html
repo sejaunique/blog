@@ -8,6 +8,7 @@
 <script src="/assets/acoes-vis.js" defer></script>
 <script src="/assets/arquivos.js" defer></script>
 <script src="/assets/vitorias.js" defer></script>
+<script src="/assets/chat.js" defer></script>
 <script src="/assets/agenda.js" defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>if(Math.min(screen.width,innerWidth)<900&&!/[?&]desk=1/.test(location.search))location.replace('/area/admin/app/'+location.hash);</script>
@@ -1101,6 +1102,7 @@ body{background:var(--ws-bg)}
   if(/[?&]google=erro/.test(location.search)) setTimeout(function(){ toast('Não foi possível conectar o Google Agenda. Tente de novo.'); },800);
   function inicia(){
     $('ws').hidden=false; montaNav();
+    if(window.UniqueChat){ UniqueChat.botao(); UniqueChat.aoMudar=function(){ carrega().then(desenha); }; }
     var ABERTO=false; try{ ABERTO=localStorage.getItem('side-aberto')==='1'; }catch(x){}
     $('side').innerHTML='<div class="s-topo"><button type="button" class="s-alterna" data-alterna aria-label="Expandir ou recolher o menu">'+ic('menu')+'</button><span class="s-marca">UNIQUE</span></div>'+MENU.map(function(m){ return m==='-'?'<hr>':'<button type="button" data-v="'+m[0]+'" data-nome="'+m[1]+'" aria-label="'+m[1]+'">'+ic(m[2])+'<span class="s-nome">'+m[1]+'</span>'+(m[0]==='notificacoes'?'<span class="dot" id="side-dot" hidden></span>':'')+'</button>'; }).join('');
     function lado(v){ ABERTO=v; $('side').classList.toggle('aberto',v); document.body.classList.toggle('side-aberto',v&&window.innerWidth>900); try{ localStorage.setItem('side-aberto',v?'1':'0'); }catch(x){} }
@@ -1150,7 +1152,7 @@ body{background:var(--ws-bg)}
   function mailV(u){ return u&&!u.semEmail&&!/@contato\.notion$/.test(u.email||'')?u.email:''; }
   /* ---------- navegação: 6 áreas, cada uma com abas ---------- */
   var GRUPOS=[
-    ['hoje','Hoje',[['painel','Hoje'],['notificacoes','Notificações']]],
+    ['hoje','Hoje',[['painel','Hoje'],['assistente','Assistente'],['notificacoes','Notificações']]],
     ['vendas','Vendas',[['crm','Funil de vendas'],['propostas','Propostas'],['diagnosticos','Diagnósticos']]],
     ['clientes','Clientes',[['empresas','Empresas'],['contatos','Contatos'],['resultados','Resultados']]],
     ['entregas','Entregas',[['acoes','Ações e tarefas'],['reunioes','Reuniões']]],
@@ -1207,7 +1209,7 @@ body{background:var(--ws-bg)}
     document.addEventListener('keydown',function(ev){ if((ev.metaKey||ev.ctrlKey)&&ev.key.toLowerCase()==='k'){ ev.preventDefault(); inp.focus(); inp.select(); } });
   })();
   function desenha(){
-    var f={painel:vPainel,crm:vCrm,notificacoes:vNotif,empresas:vEmpresas,contatos:vContatos,acoes:vAcoes,propostas:vPropostas,diagnosticos:vDiag,postagens:vPosts,newsletter:vNews,videoaulas:vVideos,reunioes:vReunioes,site:vSite,alda:vAlda,resultados:vResultados}[VISTA]||vPainel;
+    var f={painel:vPainel,crm:vCrm,notificacoes:vNotif,empresas:vEmpresas,contatos:vContatos,acoes:vAcoes,propostas:vPropostas,diagnosticos:vDiag,postagens:vPosts,newsletter:vNews,videoaulas:vVideos,reunioes:vReunioes,site:vSite,alda:vAlda,resultados:vResultados,assistente:vAssistente}[VISTA]||vPainel;
     f();
   }
 
@@ -1912,6 +1914,12 @@ body{background:var(--ws-bg)}
     return '<details class="ct-arqv"><summary>Arquivadas ('+A.length+')</summary>'+A.map(function(a){ return '<div class="ct-arqv-i"><div><p>'+esc(a.titulo)+'</p><small>'+(TIPO[a.tipo]||'Ação')+(a.prazo?' · '+dt(a.prazo):'')+(a.atualizado?' · arquivada '+dt(a.atualizado):'')+'</small></div><button class="pill" data-desarq="'+esc(a.id)+'">Desarquivar</button></div>'; }).join('')+'</details>'; }
   /* ---------- PÁGINA DA EMPRESA (mesmo layout da página do contato) ---------- */
   var EMPTAB='resumo', m0=null;
+  /* ---------- ASSISTENTE COM IA (tela cheia) ---------- */
+  function vAssistente(){
+    cabecalho('Assistente','com IA',[]);
+    $('vista').innerHTML='<div id="uc-cheio"></div><p class="muted" style="font-size:.78rem;margin:10px 4px 0">Ele consulta empresas, pessoas, ações, reuniões (com o conteúdo do Notion), vitórias e leituras. Para criar ou mudar algo, mostra um cartão e só faz quando você confirmar. Atalho: Ctrl+J abre o assistente em qualquer tela.</p>';
+    if(window.UniqueChat) UniqueChat.montar($('uc-cheio'),{cheio:true});
+  }
   /* ---------- RESULTADOS: mural de vitórias de todos os clientes ---------- */
   function vResultados(){
     cabecalho('Resultados','vitórias dos clientes',[]);

@@ -5,6 +5,7 @@
 <script src="/assets/tema.js"></script>
 <script src="/assets/interacao.js" defer></script>
 <script src="/assets/rico.js" defer></script>
+<script src="/assets/agenda.js" defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>if(Math.min(screen.width,innerWidth)<900&&!/[?&]desk=1/.test(location.search))location.replace('/area/admin/app/'+location.hash);</script>
 <title>Workspace · Unique</title>
@@ -2027,23 +2028,20 @@ body{background:var(--ws-bg)}
       box.ondrop=function(ev){ var c=ev.target.closest('.nv-col'); if(!c||!ARR) return; ev.preventDefault(); var i=nvItem(ARR); ARR=''; if(i&&i.status!==c.dataset.col) nvMuda(i,{status:c.dataset.col}); else nvArea(); };
     }
     if(AV.view==='calendario'){
-      var ym=AV.mes.split('-'), y=+ym[0], m=+ym[1]-1, ini=new Date(y,m,1), dow=(ini.getDay()+6)%7, dias=new Date(y,m+1,0).getDate(), cel=[];
-      for(var k=0;k<dow;k++) cel.push(null); for(var dd=1;dd<=dias;dd++) cel.push(y+'-'+String(m+1).padStart(2,'0')+'-'+String(dd).padStart(2,'0')); while(cel.length%7) cel.push(null);
-      var porDia={}, put=function(d,o){ (porDia[d]=porDia[d]||[]).push(o); };
-      L.forEach(function(i){ if(i.prazo) put(i.prazo,{t:'e',i:i}); var pd=String(i.inicio||'').slice(0,10); if(pd&&pd!==i.prazo&&i.tipo!=='reuniao') put(pd,{t:'p',i:i}); });
-      if(!AV.tipo||AV.tipo==='reuniao') REUN.forEach(function(r){ if(!r.data||(AV.cli&&r.slug!==AV.cli)) return; if(AV.q&&semAcento(r.nome+' '+nomeEmp(r.slug)).indexOf(semAcento(AV.q))<0) return; put(r.data.slice(0,10),{t:'r',r:r}); }); var semData=L.filter(function(i){return !i.prazo&&!fechado(i.status);});
-      var cor={a_fazer:'cz',fazendo:'am',feito:'vd',cancelado:'vm'};
-      box.innerHTML='<div class="nv-cal-h"><button class="pill" data-mes="-1">‹</button><b>'+(function(t){ return t.charAt(0).toUpperCase()+t.slice(1); })(ini.toLocaleDateString('pt-BR',{month:'long'}))+' '+y+'</b><button class="pill" data-mes="1">›</button><button class="pill" data-mes="0">Hoje</button></div>'+
-        '<div class="nv-leg"><span><i class="nv-ch cz"></i>Entrega</span><span><i class="nv-ch pd"></i>Pedida</span><span><i class="nv-ch rn"></i>Reunião</span></div><div class="nv-cal">'+['seg','ter','qua','qui','sex','sáb','dom'].map(function(d){return '<div class="nv-dow">'+d+'</div>';}).join('')+cel.map(function(d){ if(!d) return '<div class="nv-dia fora"></div>'; var I2=(porDia[d]||[]).sort(function(a,b){ return (a.t==='r'?0:a.t==='e'?1:2)-(b.t==='r'?0:b.t==='e'?1:2); });
-          return '<div class="nv-dia'+(d===h?' hoje':'')+'" data-dia="'+d+'"><span class="nv-num">'+(+d.slice(8))+'</span>'+I2.slice(0,4).map(function(o){
-            if(o.t==='r') return '<div class="nv-ch rn" data-rn="'+esc(o.r.id)+'" title="'+esc('Reunião · '+o.r.nome+' · '+nomeEmp(o.r.slug))+'">'+(o.r.data.length>10?esc(o.r.data.slice(11,16))+' ':'')+esc(o.r.nome)+'</div>';
-            var i=o.i; if(o.t==='p') return '<div class="nv-ch pd" data-i="'+esc(i.k)+'" title="'+esc('Pedida: '+i.titulo+' · '+nomeEmp(i.slug))+'">↳ '+esc(i.titulo)+'</div>';
-            return '<div class="nv-ch '+cor[i.status]+(i.prazo<h&&!fechado(i.status)?' atr':'')+'" draggable="true" data-i="'+esc(i.k)+'" title="'+esc('Entrega: '+i.titulo+' · '+nomeEmp(i.slug))+'">'+esc(i.titulo)+'</div>'; }).join('')+(I2.length>4?'<button class="nv-mais" data-dia-ver="'+d+'">+'+(I2.length-4)+'</button>':'')+'</div>'; }).join('')+'</div>'+
-        (semData.length?'<div class="nv-sem"><b>Sem data de entrega</b><span class="muted" style="font-size:.74rem"> · arraste para um dia</span><div>'+semData.map(function(i){ return '<div class="nv-ch cz" draggable="true" data-i="'+esc(i.k)+'">'+esc(i.titulo)+' · '+esc(nomeEmp(i.slug))+'</div>'; }).join('')+'</div></div>':'');
-      var ARR2='';
-      box.ondragstart=function(ev){ var c=ev.target.closest('.nv-ch'); if(!c) return; ARR2=c.dataset.i; try{ ev.dataTransfer.setData('text/plain',ARR2); }catch(x){} };
-      box.ondragover=function(ev){ var c=ev.target.closest('.nv-dia[data-dia]'); if(!c||!ARR2) return; ev.preventDefault(); box.querySelectorAll('.nv-dia.sobre').forEach(function(x){ if(x!==c) x.classList.remove('sobre'); }); c.classList.add('sobre'); };
-      box.ondrop=function(ev){ var c=ev.target.closest('.nv-dia[data-dia]'); if(!c||!ARR2) return; ev.preventDefault(); var i=nvItem(ARR2); ARR2=''; if(i&&i.prazo!==c.dataset.dia) nvMuda(i,{prazo:c.dataset.dia}); else nvArea(); };
+      // calendário compartilhado (assets/agenda.js): Dia, Semana e Mês, igual ao da área do cliente
+      var EVs=[], SDs=[];
+      L.forEach(function(i){
+        var reu=i.tipo==='reuniao', ini=String(i.inicio||'');
+        if(reu&&ini) EVs.push({id:i.k,dia:ini.slice(0,10),hora:ini.length>10?ini.slice(11,16):'',titulo:i.titulo,sub:nomeEmp(i.slug),tipo:'reuniao',status:i.status,arrastavel:false});
+        else if(i.prazo) EVs.push({id:i.k,dia:i.prazo,titulo:i.titulo,sub:nomeEmp(i.slug),tipo:'entrega',status:i.status,atrasada:i.prazo<h&&!fechado(i.status),arrastavel:true});
+        var pd=ini.slice(0,10); if(pd&&pd!==i.prazo&&!reu) EVs.push({id:i.k+'#p',dia:pd,titulo:i.titulo,sub:nomeEmp(i.slug),tipo:'pedida'});
+        if(!i.prazo&&!reu&&!fechado(i.status)) SDs.push({id:i.k,titulo:i.titulo,sub:nomeEmp(i.slug)});
+      });
+      if(!AV.tipo||AV.tipo==='reuniao') REUN.forEach(function(r){ if(!r.data||(AV.cli&&r.slug!==AV.cli)) return; if(AV.q&&semAcento(r.nome+' '+nomeEmp(r.slug)).indexOf(semAcento(AV.q))<0) return; EVs.push({id:'rn:'+r.id,dia:r.data.slice(0,10),hora:r.data.length>10?r.data.slice(11,16):'',titulo:r.nome,sub:nomeEmp(r.slug),tipo:'reuniao'}); });
+      box.innerHTML='<div id="nv-agenda"></div>';
+      if(window.UniqueCal) window.UniqueCal.montar($('nv-agenda'),{chave:'cal-admin',eventos:EVs,semData:SDs,
+        aoClicar:function(e){ var id=String(e.id); if(id.indexOf('rn:')===0){ var RR=REUN.filter(function(x){return x.id===id.slice(3);})[0]; if(RR) abreReuniao(RR); return; } var n=nvItem(id.replace(/#p$/,'')); if(n) nvPeek(n); },
+        aoMover:function(id,dia){ var n=nvItem(id); if(n) nvMuda(n,{prazo:dia}); }});
     }
     box.onclick=function(ev){
       var mb=ev.target.closest('[data-mes]'); if(mb){ var v=+mb.dataset.mes; if(!v) AV.mes=hoje().slice(0,7); else { var dd=new Date(AV.mes+'-15T12:00'); dd.setMonth(dd.getMonth()+v); AV.mes=dd.toISOString().slice(0,7); } nvArea(); return; }

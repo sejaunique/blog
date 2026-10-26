@@ -508,7 +508,7 @@ module.exports = async (req, res) => {
         if (!e) return res.status(404).json({ ok: false, erro: 'Empresa não encontrada.' });
         const c = await conteudo(slug);
         const papel = await papelSessao(s);
-        if (!s.admin) { c.itens = c.itens.filter(i => i.publicado && podeVer(papel, i, s.email)); c.acoes = c.acoes.filter(a => podeVer(papel, a, s.email)); }
+        if (!s.admin) { c.itens = c.itens.filter(i => i.publicado && podeVer(papel, i, s.email)); c.acoes = c.acoes.filter(a => podeVer(papel, a, s.email) && (a.tipo !== 'reuniao' || papel === 'adm')); }
         c.itens.forEach(i => {
           if (!i.arquivo) return;
           i.baixar = '/api/area?a=arquivo&e=' + slug + '&id=' + i.id;

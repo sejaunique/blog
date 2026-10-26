@@ -17,6 +17,7 @@
 <script src="/assets/rico.js" defer></script>
 <script src="/assets/acoes-vis.js" defer></script>
 <script src="/assets/arquivos.js" defer></script>
+<script src="/assets/vitorias.js" defer></script>
 <script src="/assets/agenda.js" defer></script>
 <style>
 [hidden]{display:none!important}
@@ -352,6 +353,14 @@
       <div class="reun" id="reun"></div>
     </section>
 
+    <section class="bloco" aria-labelledby="h-vit" id="sec-vit">
+      <div class="bloco-head">
+        <div><span class="spaced">Resultados</span><h2 id="h-vit">Nossas <span style="font-weight:200;font-style:italic">vitórias</span></h2></div>
+        <p class="muted" style="margin:0;max-width:42ch;font-size:.88rem">Toda conquista conta. Poste aqui as pequenas e grandes vitórias do time, assinadas por quem viveu.</p>
+      </div>
+      <div id="vit"></div>
+    </section>
+
     <section class="bloco" aria-labelledby="h-leit" id="sec-leit" hidden>
       <div class="bloco-head">
         <div><span class="spaced">Lista de leitura</span><h2 id="h-leit">Adquirir <span style="font-weight:200;font-style:italic">consciência</span></h2></div>
@@ -403,7 +412,7 @@
       document.getElementById('cap-emp').textContent='Área do cliente · '+d.empresa.nome;
       cabecalho(d);
       document.title=d.empresa.nome+' · Unique';
-      montaFiltros(); desenha(); plano(); calendario(); reunioes(); leitura(); arquivos();
+      montaFiltros(); desenha(); plano(); calendario(); reunioes(); leitura(); arquivos(); resultados();
       var hr=location.hash.match(/^#reuniao-(.+)$/); if(hr) abreReuniao(decodeURIComponent(hr[1]),true);
       if(d.iaFila) api({body:{a:'notion-ia'}}).catch(function(){});
     });
@@ -484,6 +493,8 @@
           .then(function(){ lb.textContent='Enviar arquivo para a Unique'; arquivos(); }); };
     });
   }
+  function resultados(){ var el=document.getElementById('vit'); if(!el||!window.UniqueVitorias) return;
+    UniqueVitorias.mural(el,{slug:DADOS.empresa.slug,admin:false,pessoas:DADOS.pessoas||[],acoes:(DADOS.acoes||[]).filter(function(a){return a.status!=='arquivado';}).map(function(a){return {id:a.id,titulo:a.titulo};})}); }
   function leitura(){
     var L=DADOS.leituras||[], sec=document.getElementById('sec-leit'), el=document.getElementById('leit');
     sec.hidden=!L.length; if(!L.length) return;

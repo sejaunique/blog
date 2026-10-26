@@ -169,6 +169,16 @@ async function itemPorId(slug, id) {
   return vals.map(json).find(x => x && pastaDe(slug, x) === id) || null;
 }
 function membro(s, slug) { return !!s && (s.admin || s.slug === slug); }
+// mural de vitórias (Resultados): area:vit:<slug> hash id -> vitória; foto em area:vitfoto:<slug>:<id>
+async function vitoriasDe(slug) {
+  const [h] = await redis([['HGETALL', 'area:vit:' + slug]]);
+  const L = lerPares(h).map(([, v]) => json(v)).filter(Boolean).sort((a, b) => String(b.data).localeCompare(String(a.data)));
+  if (!L.length) return L;
+  const r = await redis(L.flatMap(v => [['SCARD', 'area:curt:' + slug + ':v:' + v.id], ['LLEN', 'area:com:' + slug + ':v:' + v.id]]));
+  L.forEach((v, i) => { v.curtidas = r[i * 2] || 0; v.comentarios = r[i * 2 + 1] || 0; v.slug = slug; });
+  return L;
+}
+async function vitDe(slug, id) { const [v] = await redis([['HGET', 'area:vit:' + slug, String(id || '')]]); return json(v); }
 // quem é da empresa (nome e foto), para mostrar responsáveis e observadores
 async function pessoasDe(slug) {
   const [ems] = await redis([['SMEMBERS', 'area:users:' + slug]]);
@@ -366,6 +376,16 @@ module.exports = async (req, res) => {
         return res.json({ ok: true, titulo: it.titulo, descricao: it.descricao || '', capa: capaDe(slug, it), empresa: e.nome, publico: it.publico, url: SITE + it.url });
       }
 
+      if (q.a === 'social' && q.t === 'vit') {
+        const slug = slugify(q.e), id = String(q.id || '');
+        if (!membro(s, slug)) return res.status(401).json({ ok: false, erro: 'Entre na sua conta.' });
+        const v = await vitDe(slug, id);
+        if (!v) return res.status(404).json({ ok: false });
+        const quem = s.admin ? 'unique' : s.email, k = slug + ':v:' + id;
+        const [n, curti, lst] = await redis([['SCARD', 'area:curt:' + k], ['SISMEMBER', 'area:curt:' + k, quem], ['LRANGE', 'area:com:' + k, 0, 199]]);
+        const comentarios = (lst || []).map(json).filter(Boolean).map(c => ({ cid: c.cid, nome: c.nome, texto: c.texto, data: c.data, unique: !!c.unique, meu: s.admin || c.email === s.email }));
+        return res.json({ ok: true, logado: true, vit: true, admin: !!s.admin, curtidas: n || 0, curti: !!curti, comentarios, titulo: v.titulo });
+      }
       if (q.a === 'social' && q.t === 'acao') {
         const slug = slugify(q.e), id = String(q.id || '');
         if (!ACAO_ID.test(id)) return res.status(400).json({ ok: false });
@@ -637,6 +657,26 @@ module.exports = async (req, res) => {
         try { if (NOTION.ligado()) html = await NOTION.conteudoTarefa(redis, id, r.ed || ''); } catch (e) { html = ''; }
         return res.json({ ok: true, html });
       }
+      if (q.a === 'vitorias') {
+        if (s.admin && q.todas) {
+          const [sl] = await redis([['SMEMBERS', 'area:emps']]);
+          const tudo = [];
+          for (const x of (sl || [])) (await vitoriasDe(x)).forEach(v => tudo.push(v));
+          tudo.sort((a, b) => String(b.data).localeCompare(String(a.data)));
+          return res.json({ ok: true, vitorias: tudo.slice(0, 300) });
+        }
+        const slug = s.admin ? slugify(q.e) : s.slug;
+        return res.json({ ok: true, vitorias: await vitoriasDe(slug), papel: await papelSessao(s), eu: s.admin ? 'unique' : s.email });
+      }
+      if (q.a === 'vitfoto') {
+        const slug = slugify(q.e), id = String(q.id || '').replace(/[^a-z0-9]/g, '');
+        if (!membro(s, slug)) return res.status(404).end();
+        const [v] = await redis([['GET', 'area:vitfoto:' + slug + ':' + id]]);
+        const mm = String(v || '').match(/^data:(image\/[a-z+]+);base64,(.+)$/);
+        if (!mm) return res.status(404).end();
+        res.setHeader('Content-Type', mm[1]); res.setHeader('Cache-Control', 'private, max-age=31536000, immutable');
+        return res.end(Buffer.from(mm[2], 'base64'));
+      }
       if (q.a === 'admin-reunioes') {
         if (!s.admin) return res.status(403).json({ ok: false });
         const [sl] = await redis([['SMEMBERS', 'area:reun:slugs']]);
@@ -833,6 +873,47 @@ module.exports = async (req, res) => {
       return res.json({ ok: true, adicionadas: uniq.length, fila: n || 0, chave: !!process.env.ANTHROPIC_API_KEY });
     }
 
+    // Resultados: vitórias postadas pelo cliente (assinadas) ou pela Unique
+    if (b.a === 'vitoria') {
+      const slug = s.admin ? slugify(b.slug) : s.slug;
+      if (!(await empresa(slug))) return res.status(404).json({ ok: false });
+      const titulo = limpo(b.titulo, 160);
+      if (titulo.length < 3) return res.status(400).json({ ok: false, erro: 'Conte a vitória num título curto.' });
+      if (!s.admin && await limite('vit:' + s.email, 30, 3600)) return res.status(429).json({ ok: false, erro: 'Muitas vitórias seguidas. Espere um pouco.' });
+      const id = novoId();
+      let cargo = '';
+      if (!s.admin) { const [uv] = await redis([['GET', 'area:user:' + slug + ':' + s.email]]); cargo = ((json(uv) || {}).crm || {}).cargo || ''; if (Array.isArray(cargo)) cargo = cargo.join(', '); }
+      const v = { id, titulo, texto: limpo(b.texto, 3000), numero: limpo(b.numero, 40), acao: String(b.acao || '').slice(0, 60), autor: s.admin ? 'unique' : s.email, nome: s.admin ? 'Carlos · Unique' : (s.nome || s.email), cargo: limpo(cargo, 80), data: new Date().toISOString(), caso: '', foto: '' };
+      const cmds = [];
+      if (b.foto && /^data:image\/(jpeg|png|webp);base64,/.test(b.foto) && String(b.foto).length < 2400000) { v.foto = String(Date.now()); cmds.push(['SET', 'area:vitfoto:' + slug + ':' + id, b.foto]); }
+      cmds.push(['HSET', 'area:vit:' + slug, id, JSON.stringify(v)]);
+      await redis(cmds);
+      if (!s.admin) await notifica(redis, { titulo: '🏆 Vitória de ' + v.nome, texto: titulo + (v.numero ? ' · ' + v.numero : ''), url: '/area/admin/#resultados' });
+      return res.json({ ok: true, vitoria: v });
+    }
+    if (b.a === 'vitoria-del' || b.a === 'vitoria-case' || b.a === 'vitoria-case-resp') {
+      const slug = s.admin ? slugify(b.slug) : s.slug;
+      const v = await vitDe(slug, b.id);
+      if (!v) return res.status(404).json({ ok: false });
+      if (b.a === 'vitoria-del') {
+        if (!s.admin && v.autor !== s.email) return res.status(403).json({ ok: false });
+        await redis([['HDEL', 'area:vit:' + slug, v.id], ['DEL', 'area:vitfoto:' + slug + ':' + v.id, 'area:curt:' + slug + ':v:' + v.id, 'area:com:' + slug + ':v:' + v.id]]);
+        return res.json({ ok: true });
+      }
+      if (b.a === 'vitoria-case') {
+        if (!s.admin) return res.status(403).json({ ok: false });
+        v.caso = 'pedido'; v.casoEm = new Date().toISOString();
+      } else {
+        // quem autoriza: quem escreveu ou um ADM da empresa
+        if (s.admin) return res.status(403).json({ ok: false, erro: 'Quem autoriza é o cliente.' });
+        if (v.autor !== s.email && (await papelSessao(s)) !== 'adm') return res.status(403).json({ ok: false, erro: 'Só quem escreveu ou um ADM da empresa autoriza.' });
+        v.caso = b.autoriza ? 'autorizado' : 'recusado'; v.casoPor = s.nome || s.email; v.casoEm = new Date().toISOString();
+        await notifica(redis, { titulo: b.autoriza ? 'Case autorizado ✓' : 'Case não autorizado', texto: v.titulo + ' · ' + v.casoPor, url: '/area/admin/#resultados' });
+      }
+      await redis([['HSET', 'area:vit:' + slug, v.id, JSON.stringify(v)]]);
+      return res.json({ ok: true, vitoria: v });
+    }
+
     // bloco de anotações do cliente em cada tarefa (fica no painel; a Unique vê no admin)
     if (b.a === 'acao-nota') {
       const slug = s.admin ? slugify(b.slug) : s.slug;
@@ -896,13 +977,14 @@ module.exports = async (req, res) => {
     }
 
     if (b.a === 'curtir' || b.a === 'comentar' || b.a === 'comentar-del' || b.a === 'publico') {
-      const slug = s.admin ? slugify(b.slug) : s.slug, ehAcao = b.t === 'acao';
-      if (!membro(s, slugify(b.slug)) || !(ehAcao ? ACAO_ID : ID_OK).test(String(b.id || ''))) return res.status(403).json({ ok: false });
-      const it = ehAcao ? await acaoDe(slug, String(b.id)) : await itemPorId(slug, String(b.id));
+      const slug = s.admin ? slugify(b.slug) : s.slug, ehAcao = b.t === 'acao', ehVit = b.t === 'vit';
+      if (ehVit && b.a === 'publico') return res.status(400).json({ ok: false });
+      if (!membro(s, slugify(b.slug)) || !(ehAcao || ehVit ? ACAO_ID : ID_OK).test(String(b.id || ''))) return res.status(403).json({ ok: false });
+      const it = ehAcao ? await acaoDe(slug, String(b.id)) : ehVit ? await vitDe(slug, b.id) : await itemPorId(slug, String(b.id));
       if (!it || !podeVer(await papelSessao(s), it, s.email)) return res.status(404).json({ ok: false });
       const id = it.id;
       const quem = s.admin ? 'unique' : s.email;
-      const k = slug + ':' + (ehAcao ? 'a:' : '') + id;
+      const k = slug + ':' + (ehAcao ? 'a:' : ehVit ? 'v:' : '') + id;
       const kc = 'area:curt:' + k, kl = 'area:com:' + k;
       if (ehAcao && b.a === 'publico') {
         const [tok] = await redis([['HGET', 'area:acpub:' + slug, id]]);

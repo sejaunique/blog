@@ -66,6 +66,25 @@ async function projetoLeads() {
   try { const L = await todas(DB.projeto); const m = {}; L.forEach(p => { m[idc(p.id)] = (ler(p.properties, 'Lead') || []).map(idc); }); return m; }
   catch (e) { return {}; }
 }
+// projeto que não está na base de Projetos (ex.: página criada dentro da página do Lead): sobe pelos "pais" até achar um lead/empresa conhecido
+async function sobePais(redis, ids, conhecido, projLead) {
+  const falta = Array.from(new Set(ids.map(idc))).filter(id => id && !projLead[id]);
+  if (!falta.length) return;
+  const cache = await redis(falta.map(id => ['GET', 'area:notion:pai:' + id]));
+  for (let i = 0; i < falta.length; i++) {
+    const id = falta[i];
+    if (cache[i] !== null && cache[i] !== undefined) { projLead[id] = cache[i] ? [cache[i]] : []; continue; }
+    let atual = id, achou = '';
+    for (let k = 0; k < 4 && atual && !achou; k++) {
+      let p; try { p = await api('GET', 'pages/' + atual); } catch (e) { break; }
+      const pai = p && p.parent ? idc(p.parent.page_id || '') : '';
+      if (!pai) break;
+      if (conhecido(pai)) achou = pai; else atual = pai;
+    }
+    projLead[id] = achou ? [achou] : [];
+    await redis([['SET', 'area:notion:pai:' + id, achou, 'EX', 7 * 86400]]);
+  }
+}
 // empresa (slug) de uma tarefa: Empresa > Lead > Projeto (lead do projeto) > Atividade Principal
 function slugTarefa(n, porEmp, porLead, projLead, porTarefa, visto) {
   let sl = n.empresas.map(porEmp).filter(Boolean)[0] || porLead(n.lead);
@@ -560,7 +579,8 @@ async function monta(redis, catalogo) {
   const leadSlug = {}; plano.negocios.forEach(x => { if (x.id) leadSlug[x.id] = x.slug; });
   const usadoA = {};
   const TT = T.map(deTarefa), TPor = {}; TT.forEach(x => { TPor[x.id] = x; });
-  const slT = (n, visto) => slugTarefa(n, id => ligSlug[idc(id)] || ligSlug[id], id => leadSlug[idc(id)] || leadSlug[id], PJ, (pid, v) => TPor[idc(pid)] ? slT(TPor[idc(pid)], v) : '', visto);
+  await sobePais(redis, [].concat(...TT.filter(n => !n.empresas.length && !n.lead).map(n => n.projetos || [])), id => !!(ligSlug[id] || leadSlug[id]), PJ);
+  const slT = (n, visto) => slugTarefa(n, id => ligSlug[idc(id)] || ligSlug[id], id => leadSlug[idc(id)] || leadSlug[id] || ligSlug[idc(id)], PJ, (pid, v) => TPor[idc(pid)] ? slT(TPor[idc(pid)], v) : '', visto);
   TT.filter(n => PARA_CLIENTE.indexOf(n.para) >= 0).forEach(n => {
     const sl = slT(n);
     if (!sl) { plano.semEmpresa.push({ tipo: 'tarefa', nome: n.a.titulo }); return; }
@@ -818,7 +838,8 @@ async function puxa(redis, op) {
   const tiradas = [], escrever = [], filaIA = [];
   let [carlosNotion] = await redis([['GET', 'area:notion:carlos']]);
   const TT = T.map(deTarefa), TPor = {}; TT.forEach(x => { TPor[x.id] = x; });
-  const leadDe = id => { const v = nmap[idc(id)] || nmap[id]; return v && v.indexOf('n|') === 0 ? v.split('|')[1] : ''; };
+  const leadDe = id => { const v = nmap[idc(id)] || nmap[id]; return v && (v.indexOf('n|') === 0 || v.indexOf('e|') === 0) ? v.split('|')[1] : ''; };
+  await sobePais(redis, [].concat(...TT.filter(n => !n.empresas.length && !n.lead).map(n => n.projetos || [])), id => !!leadDe(id), PJ);
   const slT = (n, visto) => slugTarefa(n, slugDe, leadDe, PJ, (pid, v) => { if (TPor[idc(pid)]) return slT(TPor[idc(pid)], v); const w = nmap[idc(pid)]; return w && w.indexOf('a|') === 0 ? w.split('|')[1] : ''; }, visto);
   TT.forEach(n => {
     const lig = nmap[n.id];

@@ -1007,6 +1007,32 @@ async function envia(redis, tipo, slug, chave, repetindo) {
   return null;
 }
 
+
+// juntar empresas duplicadas: a principal fica com tudo; as outras são arquivadas no Notion
+// mov = { arquivar: [ids de empresa/contato duplicados], pessoas: [emails], negs: [ids], acoes: [ids] }
+async function junta(redis, slug, mov) {
+  if (!ligado()) return { ok: false, erros: [] };
+  const erros = [];
+  const tenta = async (rot, f) => { try { await f(); } catch (err) { erros.push(rot + ': ' + String(err.message).slice(0, 120)); } };
+  const [ev] = await redis([['GET', 'area:emp:' + slug]]);
+  const e = json(ev);
+  if (!e || !e.notion) return { ok: false, erros: ['empresa principal sem página no Notion'] };
+  await tenta('empresa', async () => { const p = await atualiza(e.notion, propsEmp(e)); e.nEd = p.last_edited_time; await redis([['SET', 'area:emp:' + slug, JSON.stringify(e)]]); });
+  for (const m of mov.pessoas || []) await tenta('contato ' + m, async () => {
+    const k = 'area:user:' + slug + ':' + m; const [uv] = await redis([['GET', k]]); const u = json(uv);
+    if (u && u.notion) { u.slug = slug; const p = await atualiza(u.notion, propsPessoa(u, e.notion)); u.nEd = p.last_edited_time; await redis([['SET', k, JSON.stringify(u)]]); }
+  });
+  for (const id of mov.negs || []) await tenta('negócio', async () => {
+    const [gv] = await redis([['HGET', 'area:neg:' + slug, id]]); const g = json(gv);
+    if (g && g.notion) { g.slug = slug; const p = await atualiza(g.notion, propsLead(g, e.notion, null)); g.nEd = p.last_edited_time; await redis([['HSET', 'area:neg:' + slug, id, JSON.stringify(g)]]); }
+  });
+  for (const id of mov.acoes || []) await tenta('ação', async () => {
+    const [av] = await redis([['HGET', 'area:acoes:' + slug, id]]); const a = json(av);
+    if (a && a.notion) await atualiza(a.notion, { Empresa: W.rel([e.notion]) });
+  });
+  for (const id of mov.arquivar || []) await tenta('arquivar', async () => { await api('PATCH', 'pages/' + id, { archived: true }); await redis([['HDEL', 'area:nmap', id]]); });
+  return { ok: !erros.length, erros };
+}
 // diagnóstico respondido no site: empresa, contato e um lead "Cadastrado" com canal Diagnóstico
 async function diagnostico(redis, slug, email, empresaNome) {
   if (!ligado()) return;
@@ -1027,4 +1053,4 @@ async function estado(redis) {
   return Object.assign({ token: ligado(), fila: f || 0, links: pl || 0, ia: Object.assign({ chave: IA.ligada(), fila: ifl || 0 }, json(ie) || {}) }, json(e) || {});
 }
 
-module.exports = { chaveIAde, processaIA, paginaIA, conteudoTarefa, ligado, verifica, plano, aplica, puxa, envia, estado, diagnostico, ehInterno, emailInterno, DB, DB_REUN, _t: { deReuniao, deEmp, dePessoa, deLead, deTarefa, propsEmp, propsPessoa, propsLead, propsTarefa, juntaEnd, separaEnd } };
+module.exports = { junta, chaveIAde, processaIA, paginaIA, conteudoTarefa, ligado, verifica, plano, aplica, puxa, envia, estado, diagnostico, ehInterno, emailInterno, DB, DB_REUN, _t: { deReuniao, deEmp, dePessoa, deLead, deTarefa, propsEmp, propsPessoa, propsLead, propsTarefa, juntaEnd, separaEnd } };

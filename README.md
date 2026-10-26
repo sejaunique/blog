@@ -183,3 +183,9 @@ Botão ✦ no canto de qualquer tela do admin (atalho Ctrl+J) e a página **Hoje
 - Assinatura pelo Gov.br (assinador.iti.br). Não existe API para empresa privada, então cada parte assina o PDF e sobe o arquivo na página. O cliente assina primeiro e a Unique assina por último, no mesmo PDF. O arquivo vai para a pasta da empresa no Drive (ou para o Vercel Blob).
 - Quando o cliente assina, a proposta vira “aceita” e a empresa vira cliente. As notificações saem nos dois passos. As assinaturas podem ser conferidas em validar.iti.gov.br.
 - Redis: `area:contratos` (hash), `area:ctr:<token>`, `area:contrato:modelo`, `area:contrato:unique`.
+
+## Juntar empresas repetidas
+- Na ficha da empresa: botão “Juntar com outra empresa”, e um aviso automático quando há nome parecido, mesmo CNPJ ou mesmo e-mail de contato. Na lista existe o filtro “Parecem repetidas”.
+- A empresa aberta fica como principal e recebe tudo das outras: contatos (o mesmo e-mail vira um contato só), negócios, ações, entregas, leituras, resultados, reuniões, anotações, comentários, propostas, contratos e liberações do Canivete. Os dados vazios da principal são completados com os das outras.
+- No Notion, contatos, negócios e tarefas passam a apontar para a página da principal. As páginas repetidas (empresas e contatos) são arquivadas.
+- As outras empresas ficam arquivadas e viram apelido da principal (`area:alias:<slug>`), então login e sessões antigos continuam funcionando.

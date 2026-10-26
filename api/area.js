@@ -68,6 +68,7 @@ const NOTION = require('./_area/notion.js');
 const RICO = require('./_area/rico.js');
 const CANIVETE = require('./_area/canivete.js');
 const CONTRATO = require('./_area/contrato.js');
+const JUNTAR = require('./_area/juntar.js');
 
 const URL_DB = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -131,6 +132,10 @@ async function sessao(req) {
   if (!t || !/^[a-f0-9]{48}$/.test(t)) return null;
   const [s] = await redis([['GET', 'area:sess:' + t]]);
   const v = json(s);
+  if (v && !v.admin && v.slug) { // empresa juntada a outra: a sessão passa para a principal
+    const [al] = await redis([['GET', 'area:alias:' + v.slug]]);
+    if (al) { v.slug = al; await redis([['SET', 'area:sess:' + t, JSON.stringify(v), 'KEEPTTL']]); }
+  }
   return v ? Object.assign(v, { token: t }) : null;
 }
 async function abreSessao(res, dados) {
@@ -223,6 +228,8 @@ async function assinaContrato(c, quem, a) {
   } else if (c.status === 'assinado') await notifica(redis, { titulo: 'Contrato concluído', texto: 'O contrato da ' + c.empresa + ' está assinado pelas duas partes.', url: '/area/admin/#contratos' });
   return c;
 }
+let juntaInst = null;
+const JUNTA = () => juntaInst || (juntaInst = JUNTAR.cria({ redis, lerPares, NOTION, json, slugify }));
 // ações do plano também têm curtir, comentar e link público (para quem não tem login)
 const ACAO_ID = /^[a-z0-9_-]{3,60}$/i;
 async function acaoDe(slug, id) { const c = await conteudo(slug); return (c.acoes || []).find(x => x.id === id) || null; }
@@ -526,6 +533,11 @@ module.exports = async (req, res) => {
         return res.json({ ok: true, notif: (l || []).map(json).filter(Boolean).map(n => Object.assign(n, { lido: (lid || []).indexOf(n.id) >= 0 })) });
       }
 
+      if (q.a === 'admin-juntar-previa') {
+        if (!s.admin) return res.status(403).json({ ok: false });
+        const outras = String(q.o || '').split(',').map(slugify).filter(Boolean).slice(0, 10);
+        return res.json({ ok: true, empresas: await JUNTA().previa(slugify(q.p), outras) });
+      }
       if (q.a === 'admin-contratos') {
         if (!s.admin) return res.status(403).json({ ok: false });
         const [h, m, u] = await redis([['HGETALL', 'area:contratos'], ['GET', 'area:contrato:modelo'], ['GET', 'area:contrato:unique']]);
@@ -894,7 +906,8 @@ module.exports = async (req, res) => {
     }
 
     if (b.a === 'entrar') {
-      const slug = slugify(b.empresa), email = limpo(b.email, 120).toLowerCase(), senha = String(b.senha || '');
+      let slug = slugify(b.empresa); const email = limpo(b.email, 120).toLowerCase(), senha = String(b.senha || '');
+      { const [al] = await redis([['GET', 'area:alias:' + slug]]); if (al) slug = al; } // empresa juntada a outra
       if (await limite('login:' + ip, 20, 900) || await limite('login:' + slug + ':' + email, 8, 900))
         return res.status(429).json({ ok: false, erro: 'Muitas tentativas. Espere 15 minutos.' });
       const [v] = await redis([['GET', 'area:user:' + slug + ':' + email]]);
@@ -1325,6 +1338,12 @@ module.exports = async (req, res) => {
       return res.json({ ok: true });
     }
 
+    if (b.a === 'admin-juntar') {
+      try {
+        const r = await JUNTA().junta(b.principal, Array.isArray(b.outras) ? b.outras.slice(0, 10) : [], limpo(b.nome, 80));
+        return res.json(r);
+      } catch (err) { return res.status(400).json({ ok: false, erro: err.message }); }
+    }
     if (b.a === 'admin-contrato-modelo') {
       const cmds = [];
       if (b.modelo != null) cmds.push(String(b.modelo).trim() ? ['SET', 'area:contrato:modelo', RICO.limpa(String(b.modelo).slice(0, 60000))] : ['DEL', 'area:contrato:modelo']);

@@ -1,8 +1,20 @@
 {
   "crons": [
-    { "path": "/api/newsletter?a=verificar", "schedule": "0 12 * * *" }
+    {
+      "path": "/api/newsletter?a=verificar",
+      "schedule": "0 12 * * *"
+    },
+    {
+      "path": "/api/area?a=notion-cron",
+      "schedule": "0 9 * * *"
+    }
   ],
   "functions": {
-    "api/newsletter.js": { "maxDuration": 60 }
+    "api/newsletter.js": {
+      "maxDuration": 60
+    },
+    "api/area.js": {
+      "maxDuration": 60
+    }
   }
 }

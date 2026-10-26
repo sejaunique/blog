@@ -134,3 +134,14 @@ Mesma conexão do Google Agenda, com a permissão do Drive (app Interno da sejau
 - `api/_eventos.js`: **é aqui que se troca o evento**: tipo (etiqueta do banner), título, subtítulo, data, hora, cor, imagem opcional do banner, lista "o que você vai levar", `ativo` (false fecha as inscrições) e o link do Meet.
 - `api/evento.js`: grava a inscrição (`ev:insc:<slug>`), cria o lead no CRM com a etiqueta do evento, inscreve na newsletter, avisa no app e devolve o link do Meet. O link nunca aparece no código da página: só sai do servidor depois do cadastro. Se o link ainda estiver vazio, a pessoa fica confirmada e o link aparece sozinho quando ela volta à página.
 - Logado no workspace, o Carlos vê na página uma barra com o total de inscritos e o botão "Baixar planilha" (`/api/evento?a=csv&e=<slug>`).
+
+
+## Notion como base do CRM (Fase 1: Empresa, Contato e Lead)
+
+- Integração interna do Notion com o token em `NOTION_TOKEN` (Vercel). Bases ligadas: (EMP) Empresa, (EMP) Contato e (EMP) Leads — cada uma precisa estar conectada à integração (••• → Conexões).
+- Código: `api/_area/notion.js`. Empresa ↔ `area:emp:<slug>`, Contato ↔ `area:user:<slug>:<email>`, Lead ↔ negócio em `area:neg:<slug>`. Índice `area:nmap` (id da página → registro).
+- Carga inicial pelo workspace (Site → Notion): "Ver o que vai acontecer" mostra o plano sem gravar; "Aplicar" junta por CNPJ/nome (empresa), e-mail/nome (contato) e nome (negócio). Vale o Notion; o que só o painel tem completa o Notion.
+- Depois da carga: toda gravação no painel vai na hora para o Notion (falhas ficam em `area:notion:fila` e são repetidas); o workspace puxa o que mudou no Notion ao abrir (no máximo 1x/min) e o cron diário (`/api/area?a=notion-cron`) faz a conferência completa (arquivados no Notion somem do painel).
+- Contatos sem e-mail no Notion entram com um e-mail interno `n<id>@contato.notion` (nunca exibido, sem acesso à área). Ao preencher o e-mail no Notion, o contato passa a usar o e-mail real.
+- Etapas de negócio = Etapa Funil do Notion. O Kanban de empresas acompanha o lead editado por último; mover a empresa no Kanban atualiza a Etapa Funil.
+- Campos só do Carlos (CPF, bebida, comida, presente, hobbie, "da onde") ficam no admin e no Notion; nunca vão para a área do cliente.

@@ -22,7 +22,12 @@ const empresa = [
   { k: 'abertura', r: 'Data de abertura', t: 'data', g: 'Identificação' },
   { k: 'cnae', r: 'Atividade principal (CNAE)', t: 'txt', g: 'Identificação' },
   { k: 'segmento', r: 'Segmento', t: 'sel', op: SEGMENTOS, g: 'Identificação', alias: SEG_ALIAS },
-  { k: 'porte', r: 'Porte da empresa', t: 'sel', op: ['Pequena', 'Média', 'Grande'], g: 'Identificação' },
+  { k: 'fantasia', r: 'Nome fantasia', t: 'txt', g: 'Identificação' },
+  { k: 'natureza', r: 'Natureza jurídica', t: 'sel', op: ['Empresário Individual (EI)', 'Sociedade Limitada (LTDA)', 'Sociedade Limitada Unipessoal (SLU)', 'Sociedade Anônima Fechada', 'Sociedade Anônima Aberta', 'Sociedade Simples', 'EIRELI (antiga)', 'Cooperativa', 'Associação', 'Outra'], livre: true, g: 'Identificação' },
+  { k: 'porte', r: 'Porte da empresa', t: 'sel', op: ['Microempresa (ME)', 'Empresa de Pequeno Porte (EPP)', 'Demais'], alias: { 'Pequena': 'Empresa de Pequeno Porte (EPP)', 'Média': 'Demais', 'Grande': 'Demais' }, g: 'Identificação' },
+  { k: 'simples', r: 'Simples / MEI', t: 'sel', op: ['Não optante', 'Optante pelo Simples Nacional', 'MEI', 'Não / Não'], livre: true, g: 'Identificação' },
+  { k: 'capital', r: 'Capital social', t: 'moeda', g: 'Identificação' },
+  { k: 'socios', r: 'Sócios', t: 'longo', g: 'Identificação' },
   { k: 'tempo', r: 'Tempo de mercado', t: 'sel', op: TEMPO, g: 'Identificação' },
   { k: 'faturamento', r: 'Faturamento mensal', t: 'sel', op: FATURAMENTO, g: 'Identificação' },
   { k: 'colaboradores', r: 'Colaboradores', t: 'sel', op: COLAB, g: 'Identificação' },
@@ -31,6 +36,8 @@ const empresa = [
   { k: 'grupo', r: 'Grupo estratégico', t: 'sel', op: ['G1', 'G2', 'G3', 'G4', 'G5'], g: 'Gestão' },
   { k: 'frequencia', r: 'Frequência', t: 'sel', op: ['Anual', 'Semestral', 'Trimestral', 'Bimestral', 'Mensal', 'Quinzenal', 'Semanal'], g: 'Gestão' },
   { k: 'statusCliente', r: 'Status do cliente', t: 'sel', op: ['Cliente satisfeito', 'Cliente insatisfeito'], g: 'Gestão' },
+  { k: 'rating', r: 'Rating', t: 'sel', op: ['⭐', '⭐⭐', '⭐⭐⭐', '⭐⭐⭐⭐', '⭐⭐⭐⭐⭐'], g: 'Gestão' },
+  { k: 'resumo', r: 'Resumo da empresa', t: 'longo', g: 'Gestão' },
   { k: 'telefone', r: 'Telefone', t: 'tel', mask: 'tel', g: 'Contato' },
   { k: 'email', r: 'E-mail', t: 'email', g: 'Contato' },
   { k: 'site', r: 'Site', t: 'url', mask: 'site', g: 'Contato' },
@@ -49,7 +56,10 @@ const empresa = [
 const pessoa = [
   { k: 'responsavel', r: 'Responsável', t: 'sel', op: RESP, livre: true },
   { k: 'tipoContato', r: 'Tipo de contato', t: 'sel', op: ['Lead', 'Lead qualificado', 'Cliente', 'Fornecedor', 'Colaborador', 'Transportadora', 'Motorista', 'Candidatos emprego', 'Prestadores de serviço', 'Representantes', 'Terceirizados', 'Indicadores', 'SPAM', 'Outros'] },
-  { k: 'cargo', r: 'Cargo', t: 'sel', op: ['Dono / Proprietário', 'Sócio', 'CEO / Diretor', 'Gerente', 'Coordenador', 'Supervisor', 'Comprador', 'Analista', 'Assistente', 'Financeiro', 'Contador', 'Administrativo', 'Vendedor', 'Representante Comercial', 'Consultor', 'Técnico', 'Engenheiro', 'Operacional', 'Recepcionista', 'Secretária'] },
+  { k: 'cargo', r: 'Cargo', t: 'multi', livre: true, op: ['Proprietário', 'Sócio', 'Braço Direito', 'Diretor', 'Diretor Financeiro', 'Diretor Produção', 'Gerente', 'Gerente de Marketing', 'Coordenador', 'Supervisor', 'Comercial', 'Vendedor', 'Consultor', 'Atendimento', 'Comprador', 'Cotação', 'Financeiro', 'Administrativo', 'Auxiliar', 'Recepcão', 'Redes Sociais', 'Designer', 'Fotografo', 'Videomaker', 'Desenvolvedor TI', 'Prestador de Serviço', 'Estagiário', 'Barbeiro', 'Analista', 'Assistente', 'Contador', 'Técnico', 'Engenheiro', 'Operacional'],
+    alias: { 'Dono / Proprietário': 'Proprietário', 'CEO / Diretor': 'Diretor', 'Representante Comercial': 'Comercial', 'Recepcionista': 'Recepcão', 'Secretária': 'Administrativo' } },
+  { k: 'ativa', r: 'Ativa na empresa?', t: 'sel', op: ['Sim', 'Não'] },
+  { k: 'telComercial', r: 'Telefone comercial', t: 'tel', mask: 'tel' },
   { k: 'influencia', r: 'Grau de influência', t: 'sel', op: ['Decisor', 'Influenciador', 'Operacional', 'Bloqueador'] },
   { k: 'instagram', r: 'Instagram', t: 'txt', mask: 'insta' },
   { k: 'cpf', r: 'CPF', t: 'txt', mask: 'cpf' },
@@ -64,18 +74,30 @@ const pessoa = [
   { k: 'cidade', r: 'Cidade', t: 'cidade' },
   { k: 'avaliouGoogle', r: 'Avaliou no Google', t: 'sel', op: ['Ainda não', 'Sim', 'Não'] },
   { k: 'pedimosIndicacao', r: 'Pedimos indicação', t: 'sel', op: ['Ainda não', 'Sim', 'Não'] },
-  { k: 'indicacoes', r: 'Indicações', t: 'longo' }
+  { k: 'indicacoes', r: 'Indicações', t: 'longo' },
+  // só para o Carlos (nunca vão para a área do cliente)
+  { k: 'daOnde', r: 'Da onde', t: 'txt', priv: true },
+  { k: 'hobbie', r: 'Hobbie', t: 'txt', priv: true },
+  { k: 'bebida', r: 'Bebida', t: 'txt', priv: true },
+  { k: 'comida', r: 'Comida', t: 'sel', op: ['Doce', 'Salgado'], priv: true },
+  { k: 'presente', r: 'Presente', t: 'multi', op: ['Utilidade', 'Emocional', 'Tecnológico'], livre: true, priv: true }
 ];
 
-const ETAPAS_NEG = ['Lead', 'Qualificação', 'Orçamento enviado', 'Negociação', 'Objeção', 'Aguardando', 'Perdido', 'Vendido', 'Sucesso', 'Lixo', 'SAC'];
+// mesmas etapas do funil de Leads do Notion
+const ETAPAS_NEG = ['Cadastrado', 'Qualificação', 'Orçamento', 'Negociação', 'Objeção', 'Perdido', 'Fazer Contrato', 'Sucesso: Ativo', 'Sucesso: Inativo'];
+const ETAPA_ANTIGA = { 'Lead': 'Cadastrado', 'Orçamento enviado': 'Orçamento', 'Aguardando': 'Negociação', 'Vendido': 'Fazer Contrato', 'Sucesso': 'Sucesso: Ativo', 'Lixo': 'Perdido', 'SAC': 'Sucesso: Ativo' };
+const CANAIS = ['Isca', 'Diagnóstico', 'Indicação', 'Google', 'Instagram', 'Facebook', 'LinkedIn', 'Site', 'WhatsApp', 'Prospecção ativa', 'Amizade', 'Parceria', 'Legendários', 'Familia', 'Evento', 'Base de Cliente', 'TêxtilClub'];
+const CANAL_ANTIGO = { 'Base de clientes': 'Base de Cliente', 'Blog': 'Site', 'Chat do site': 'Site', 'E-mail marketing': 'Site', 'Feira': 'Evento', 'Formulário': 'Site', 'Google (orgânico)': 'Google', 'Google Ads': 'Google', 'Instagram (orgânico)': 'Instagram', 'Landing page': 'Site', 'LinkedIn (orgânico)': 'LinkedIn', 'LinkedIn Ads': 'LinkedIn', 'Meta Ads': 'Facebook', 'Parcerias': 'Parceria', 'QR Code': 'Site', 'Remarketing': 'Google', 'TikTok (orgânico)': 'Site', 'TikTok Ads': 'Site', 'YouTube Ads': 'Google', 'Ligação recebida': 'WhatsApp', 'Loja física': 'Base de Cliente', 'Marketplace': 'Site', 'Rádio / TV': 'Evento', 'Representante comercial': 'Parceria', 'SMS': 'WhatsApp' };
 const negocio = [
   { k: 'nome', r: 'Nome do negócio', t: 'txt', obrig: true },
   { k: 'responsavel', r: 'Responsável', t: 'sel', op: RESP, livre: true },
   { k: 'valor', r: 'Valor', t: 'moeda' },
-  { k: 'etapa', r: 'Etapa', t: 'sel', op: ETAPAS_NEG },
+  { k: 'etapa', r: 'Etapa do funil', t: 'sel', op: ETAPAS_NEG, alias: ETAPA_ANTIGA },
+  { k: 'tipoContato', r: 'Tipo de contato', t: 'sel', op: ['Lead', 'Lead Qualificado', 'Cliente'] },
+  { k: 'produtos', r: 'Serviço / Produto', t: 'multi', livre: true, op: ['AldaCRM', 'TêxtilClub Imersão', 'TêxtilClub Mentoria', 'TêxtilClub Mentoria Advisor', 'TêxtilClub Mentoria Elite', 'Unique Consulting', 'Unique Service', 'Unique Talk', 'Unique WorkShop'] },
   { k: 'probabilidade', r: 'Probabilidade', t: 'pct' },
   { k: 'contatos', r: 'Contatos', t: 'contatos' },
-  { k: 'origem', r: 'Origem', t: 'sel', op: ['Base de clientes', 'Blog', 'Chat do site', 'Diagnóstico', 'E-mail marketing', 'Evento', 'Feira', 'Formulário', 'Google (orgânico)', 'Google Ads', 'Indicação', 'Instagram (orgânico)', 'Landing page', 'Ligação recebida', 'LinkedIn (orgânico)', 'LinkedIn Ads', 'Loja física', 'Marketplace', 'Meta Ads', 'Parcerias', 'Prospecção ativa', 'QR Code', 'Rádio / TV', 'Remarketing', 'Representante comercial', 'SMS', 'TikTok (orgânico)', 'TikTok Ads', 'WhatsApp', 'YouTube Ads'] },
+  { k: 'origem', r: 'Canal de origem', t: 'multi', livre: true, op: CANAIS, alias: CANAL_ANTIGO },
   { k: 'campanhas', r: 'Campanha ofertada', t: 'multi', op: CAMPANHAS },
   { k: 'fechouPela', r: 'Fechou pela', t: 'sel', op: CAMPANHAS },
   { k: 'ultimoContato', r: 'Último contato em', t: 'data' },
@@ -126,7 +148,8 @@ function limpa(defs, entrada) {
     if (v === undefined || v === null || v === '') return;
     if (c.t === 'multi' || c.t === 'contatos') {
       if (!Array.isArray(v)) v = [v];
-      v = v.map(x => String(x).trim().slice(0, 120)).filter(x => x && (c.t === 'contatos' || c.op.indexOf(x) >= 0)).slice(0, 30);
+      v = v.map(x => String(x).trim().slice(0, 120)).map(x => (c.alias && c.alias[x]) || x).filter(x => x && (c.t === 'contatos' || c.livre || c.op.indexOf(x) >= 0)).slice(0, 30);
+      v = v.filter((x, i) => v.indexOf(x) === i);
       if (v.length) d[c.k] = v;
       return;
     }
@@ -151,4 +174,4 @@ function limpa(defs, entrada) {
   return d;
 }
 
-module.exports = { empresa, pessoa, negocio, ETAPAS_NEG, SEGMENTOS, TEMPO, limpa, so, cnpjOk, defs: { empresa, pessoa, negocio } };
+module.exports = { empresa, pessoa, negocio, ETAPAS_NEG, CANAIS, SEGMENTOS, TEMPO, limpa, so, cnpjOk, defs: { empresa, pessoa, negocio } };

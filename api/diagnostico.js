@@ -199,7 +199,10 @@ module.exports = async (req, res) => {
     if (item.data !== undefined && b.data_original && dataValida(b.data_original)) item.origem = 'formulario-antigo';
     await redis([['LPUSH', LISTA, JSON.stringify(item)], ['SET', 'diag:r:' + item.token, JSON.stringify(item)]]);
     // já entra como lead na Área do Cliente (sem avisar ninguém)
-    try { await criaLead(redis, item); } catch (e) { /* o diagnóstico já foi salvo */ }
+    let slugLead = null;
+    try { slugLead = await criaLead(redis, item); } catch (e) { /* o diagnóstico já foi salvo */ }
+    // com o Notion ligado, empresa, contato e lead vão para lá também
+    if (slugLead) { try { await require('./_area/notion.js').diagnostico(redis, slugLead, String(item.email || '').trim().toLowerCase(), item.empresa); } catch (e) {} }
     // com a Meta conectada, o Instagram do diagnóstico já vira a foto da empresa
     try {
       const ig = String((item.respostas || []).filter(r => r.id === 'instagram').map(r => r.resposta)[0] || '').trim();

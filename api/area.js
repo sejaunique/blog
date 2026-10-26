@@ -64,6 +64,7 @@ const { notifica, chaves } = require('./_area/push.js');
 const GOOGLE = require('./_area/google.js');
 const CAMPOS = require('./_area/campos.js');
 const CONSULTA = require('./_area/consulta.js');
+const NOTION = require('./_area/notion.js');
 
 const URL_DB = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -168,7 +169,7 @@ async function itemPorId(slug, id) {
 }
 function membro(s, slug) { return !!s && (s.admin || s.slug === slug); }
 
-function usuarioPublico(u) { return { email: u.email, nome: u.nome, whatsapp: u.whatsapp, status: u.status, criado: u.criado, ultimo: u.ultimo || '', origem: u.origem || '', crm: u.crm || {}, editado: u.editado || '', foto: u.foto || '', fotoOrigem: u.fotoOrigem || '' }; }
+function usuarioPublico(u) { return { semEmail: NOTION.ehInterno(u.email), notion: u.notion || '', email: u.email, nome: u.nome, whatsapp: u.whatsapp, status: u.status, criado: u.criado, ultimo: u.ultimo || '', origem: u.origem || '', crm: u.crm || {}, editado: u.editado || '', foto: u.foto || '', fotoOrigem: u.fotoOrigem || '' }; }
 
 // Ações do catálogo entram no plano da empresa uma única vez (area:acoes-cat:<slug> lembra quais já entraram),
 // então o status do cliente e as edições/exclusões do admin valem normalmente depois.
@@ -286,6 +287,12 @@ module.exports = async (req, res) => {
 
   try {
     // ---------- leituras ----------
+    if (req.method === 'GET' && q.a === 'notion-cron') {
+      const auth = String(req.headers.authorization || '');
+      const okCron = /vercel-cron/i.test(String(req.headers['user-agent'] || '')) || (process.env.CRON_SECRET && auth === 'Bearer ' + process.env.CRON_SECRET);
+      if (!okCron) return res.status(403).json({ ok: false });
+      try { return res.json(await NOTION.puxa(redis, { tudo: true })); } catch (e) { return res.json({ ok: false, erro: e.message }); }
+    }
     if (req.method === 'GET') {
       const s = await sessao(req);
 
@@ -482,17 +489,29 @@ module.exports = async (req, res) => {
         return res.json(r);
       }
 
+      if (q.a === 'admin-notion' || q.a === 'admin-notion-plano') {
+        if (!s.admin) return res.status(403).json({ ok: false });
+        if (q.a === 'admin-notion') return res.json(Object.assign({ ok: true }, await NOTION.estado(redis)));
+        try { return res.json(await NOTION.plano(redis, CATALOGO)); } catch (e) { return res.json({ ok: false, erro: 'Notion: ' + e.message }); }
+      }
       if (q.a === 'admin-resumo') {
         if (!s.admin) return res.status(403).json({ ok: false });
         const [slugsDb, pend] = await redis([['SMEMBERS', 'area:emps'], ['SMEMBERS', 'area:pendentes']]);
         const slugs = Array.from(new Set((slugsDb || []).concat(Object.keys(CATALOGO)))).sort();
         const empresas = [];
-        for (const slug of slugs) {
-          const [e, emails, negH] = await redis([['GET', 'area:emp:' + slug], ['SMEMBERS', 'area:users:' + slug], ['HGETALL', 'area:neg:' + slug]]);
-          const users = emails && emails.length ? await redis(emails.map(m => ['GET', 'area:user:' + slug + ':' + m])) : [];
-          const ev = json(e) || { slug, nome: (CATALOGO[slug] || {}).nome || slug };
-          empresas.push({ slug, nome: ev.nome, num: ev.num || 0, foto: ev.foto || '', fotoOrigem: ev.fotoOrigem || '', dados: ev.dados || {}, editado: ev.editado || '', negocios: lerPares(negH).map(([, v]) => json(v)).filter(Boolean).sort((a, b) => String(b.criado).localeCompare(String(a.criado))), etapa: ETAPAS.indexOf(ev.etapa) >= 0 ? ev.etapa : (ev.origem === 'diagnostico' ? 'lead' : 'cliente'), tags: ev.tags || [], origem: ev.origem || '', criado: ev.criado || '', usuarios: users.map(json).filter(Boolean).map(usuarioPublico) });
-        }
+        // tudo em lote (com o Notion são centenas de empresas)
+        const base = slugs.length ? await redis(slugs.flatMap(sl => [['GET', 'area:emp:' + sl], ['SMEMBERS', 'area:users:' + sl], ['HGETALL', 'area:neg:' + sl]])) : [];
+        const pedU = [];
+        slugs.forEach((sl, i) => (base[i * 3 + 1] || []).forEach(m => pedU.push([sl, m])));
+        const todosU = pedU.length ? await redis(pedU.map(([sl, m]) => ['GET', 'area:user:' + sl + ':' + m])) : [];
+        const porSlug = {};
+        pedU.forEach(([sl], i) => { const u = json(todosU[i]); if (u && !u.arquivada) (porSlug[sl] = porSlug[sl] || []).push(usuarioPublico(u)); });
+        slugs.forEach((slug, i) => {
+          const ev = json(base[i * 3]) || { slug, nome: (CATALOGO[slug] || {}).nome || slug };
+          if (ev.arquivada) return;
+          const negocios = lerPares(base[i * 3 + 2]).map(([, v]) => json(v)).filter(Boolean).map(n => Object.assign(n, { dados: Object.assign({}, n.dados, CAMPOS.limpa(CAMPOS.negocio, n.dados || {})) })).sort((a, b) => String(b.criado).localeCompare(String(a.criado)));
+          empresas.push({ slug, nome: ev.nome, num: ev.num || 0, notion: ev.notion || '', foto: ev.foto || '', fotoOrigem: ev.fotoOrigem || '', dados: ev.dados || {}, editado: ev.editado || '', negocios, etapa: ETAPAS.indexOf(ev.etapa) >= 0 ? ev.etapa : (ev.origem === 'diagnostico' ? 'lead' : 'cliente'), tags: ev.tags || [], origem: ev.origem || '', criado: ev.criado || '', usuarios: porSlug[slug] || [] });
+        });
         const [dH, mH] = await redis([['HGETALL', 'area:diag'], ['HGETALL', 'area:modelos']]);
         const dg = {};
         lerPares(dH).forEach(([k, v]) => { dg[k] = json(v); });
@@ -735,10 +754,18 @@ module.exports = async (req, res) => {
     if (b.a === 'admin-meta-conecta') return res.json(await require('./_area/meta.js').conecta(redis, b));
     if (b.a === 'admin-meta-sair') { await redis([['DEL', 'area:meta']]); return res.json({ ok: true }); }
 
+    if (b.a === 'admin-notion-aplicar') {
+      try { return res.json(await NOTION.aplica(redis, CATALOGO)); } catch (e) { return res.json({ ok: false, erro: 'Notion: ' + e.message }); }
+    }
+    if (b.a === 'admin-notion-puxar') {
+      try { return res.json(await NOTION.puxa(redis, { tudo: !!b.tudo })); } catch (e) { await redis([['SET', 'area:notion:erro', String(e.message).slice(0, 300), 'EX', 86400]]); return res.json({ ok: false, erro: 'Notion: ' + e.message }); }
+    }
+
     if (b.a === 'admin-empresa') {
       const nome = limpo(b.nome, 80), sl = slugify(nome);
       if (sl.length < 2) return res.status(400).json({ ok: false, erro: 'Nome inválido.' });
       await redis([['SET', 'area:emp:' + sl, JSON.stringify({ slug: sl, nome, criado: new Date().toISOString() }), 'NX'], ['SADD', 'area:emps', sl]]);
+      await NOTION.envia(redis, 'emp', sl);
       return res.json({ ok: true, slug: sl });
     }
 
@@ -901,6 +928,7 @@ module.exports = async (req, res) => {
       if (Array.isArray(b.tags)) e.tags = b.tags.filter(t => TAGS.indexOf(t) >= 0);
       e.atualizado = new Date().toISOString();
       await redis([['SET', 'area:emp:' + slug, JSON.stringify(e)], ['SADD', 'area:emps', slug]]);
+      if (b.etapa !== undefined) await NOTION.envia(redis, 'etapa', slug);
       return res.json({ ok: true, etapa: e.etapa, tags: e.tags || [] });
     }
 
@@ -910,6 +938,7 @@ module.exports = async (req, res) => {
       const e = await empresa(slug);
       const [ok] = await redis([['SET', 'area:user:' + slug + ':' + email, JSON.stringify({ email, nome, whatsapp: limpo(b.whatsapp, 30), slug, empresaNome: e.nome, status: 'convite', criado: new Date().toISOString(), origem: 'admin', crm: CAMPOS.limpa(CAMPOS.pessoa, b.dados) }), 'NX'], ['SADD', 'area:users:' + slug, email]]);
       if (!ok) return res.status(409).json({ ok: false, erro: 'Essa pessoa já está vinculada à empresa.' });
+      await NOTION.envia(redis, 'pessoa', slug, email);
       return res.json({ ok: true });
     }
 
@@ -924,6 +953,7 @@ module.exports = async (req, res) => {
       const nome = limpo(b.nome, 80);
       if (nome) e.nome = nome;
       await redis([['SET', 'area:emp:' + slug, JSON.stringify(e)], ['SADD', 'area:emps', slug]]);
+      await NOTION.envia(redis, 'emp', slug);
       return res.json({ ok: true, dados: d, nome: e.nome, num: e.num });
     }
 
@@ -997,6 +1027,7 @@ module.exports = async (req, res) => {
       if (!u.num) { const [n] = await redis([['INCR', 'area:seq:pessoa']]); u.num = n; }
       u.editado = new Date().toISOString();
       await redis([['SET', k, JSON.stringify(u)]]);
+      await NOTION.envia(redis, 'pessoa', slug, email);
       return res.json({ ok: true, pessoa: usuarioPublico(u) });
     }
 
@@ -1005,7 +1036,7 @@ module.exports = async (req, res) => {
       const d = CAMPOS.limpa(CAMPOS.negocio, b.dados);
       if (d.__erros) return res.status(400).json({ ok: false, erro: d.__erros.join(' ') });
       if (!d.nome) return res.status(400).json({ ok: false, erro: 'Dê um nome ao negócio.' });
-      if (!d.etapa) d.etapa = 'Lead';
+      if (!d.etapa) d.etapa = CAMPOS.ETAPAS_NEG[0];
       const id = /^[a-z0-9]{4,20}$/.test(b.id || '') ? b.id : '';
       const [v] = id ? await redis([['HGET', 'area:neg:' + slug, id]]) : [null];
       const velho = json(v);
@@ -1020,15 +1051,22 @@ module.exports = async (req, res) => {
       }
       n.dados = d; n.atualizado = agora;
       await redis([['HSET', 'area:neg:' + slug, n.id, JSON.stringify(n)], ['SADD', 'area:emps', slug]]);
-      return res.json({ ok: true, negocio: n });
+      await NOTION.envia(redis, 'neg', slug, n.id);
+      const [nv] = await redis([['HGET', 'area:neg:' + slug, n.id]]);
+      return res.json({ ok: true, negocio: json(nv) || n });
     }
     if (b.a === 'admin-negocio-del') {
+      const [gv] = await redis([['HGET', 'area:neg:' + slug, String(b.id || '')]]);
+      const g = json(gv);
+      if (g) await redis([['HSET', 'area:neg-arq:' + slug, g.id, gv]]);
       await redis([['HDEL', 'area:neg:' + slug, String(b.id || '')]]);
+      if (g && g.notion) await NOTION.envia(redis, 'neg-del', slug, g.notion);
       return res.json({ ok: true });
     }
 
     if (b.a === 'admin-convite') {
       const email = limpo(b.email, 120).toLowerCase();
+      if (NOTION.ehInterno(email)) return res.status(400).json({ ok: false, erro: 'Esse contato não tem e-mail. Preencha o e-mail (no painel ou no Notion) para gerar o acesso.' });
       const [v] = await redis([['GET', 'area:user:' + slug + ':' + email]]);
       if (!json(v)) return res.status(404).json({ ok: false, erro: 'Pessoa não encontrada.' });
       const t = crypto.randomBytes(20).toString('hex');

@@ -228,12 +228,13 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
 
   var ETAPA={lead:['Lead','var(--a-sub)'],qualificado:['Lead qualificado','#f0a020'],cliente:['Cliente','var(--verde-txt)'],finalizado:['Finalizado','var(--marinho-txt)']};
   var ST={a_fazer:'A fazer',fazendo:'Em andamento',feito:'Feito',cancelado:'Cancelado',arquivado:'Arquivado'};
+  function mailV(u){ return u&&!u.semEmail&&!/@contato\.notion$/.test(u.email||'')?u.email:''; }
   function fechado(st){ return st==='feito'||st==='arquivado'||st==='cancelado'; }
   var USTATUS={convite:'Sem acesso ainda',pendente:'Pediu acesso',ativo:'Com acesso',bloqueado:'Bloqueado',recusado:'Recusado'};
   var TIPO={acao:'Ação',post:'Post',video:'Videoaula',reuniao:'Reunião',material:'Material'};
   var PST={rascunho:'Rascunho',enviada:'Enviada',aceita:'Aceita',recusada:'Recusada'};
   var R=null, AC=null, PROPS=[], DIAGS=[], NOTIF=[], PILHA=[], ABA='inicio';
-  var F={crm:'lead',tag:'',avisos:'pede',acoes:'',cli:'',modo:'emp',neg:'Lead',lista:'emp',seg:'',tc:''};
+  var F={crm:'lead',tag:'',avisos:'pede',acoes:'',cli:'',modo:'emp',neg:'Cadastrado',lista:'emp',seg:'',tc:''};
   var $=function(id){return document.getElementById(id);};
   function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
   function ic(n){ return '<i class="ic" style="--i:var(--ic-'+n+')"></i>'; }
@@ -414,8 +415,8 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
     var modos='<div class="seg"><button data-modo="emp" aria-pressed="'+(F.modo==='emp')+'">Funil de empresas</button><button data-modo="neg" aria-pressed="'+(F.modo==='neg')+'">Negócios</button></div>';
     if(F.modo==='neg'){
       var NG=[]; (R.empresas||[]).forEach(function(e){ (e.negocios||[]).forEach(function(n){ NG.push([n,e]); }); });
-      var cn={}, vl={}; NG.forEach(function(x){ var k=x[0].dados.etapa||'Lead'; cn[k]=(cn[k]||0)+1; vl[k]=(vl[k]||0)+(+x[0].dados.valor||0); });
-      var LN=NG.filter(function(x){return (x[0].dados.etapa||'Lead')===F.neg;});
+      var cn={}, vl={}; NG.forEach(function(x){ var k=x[0].dados.etapa||(R.etapasNeg||[])[0]; cn[k]=(cn[k]||0)+1; vl[k]=(vl[k]||0)+(+x[0].dados.valor||0); });
+      var LN=NG.filter(function(x){return (x[0].dados.etapa||(R.etapasNeg||[])[0])===F.neg;});
       $('tela').innerHTML=modos+'<div class="seg">'+(R.etapasNeg||[]).map(function(k){return '<button data-ng="'+esc(k)+'" aria-pressed="'+(F.neg===k)+'">'+esc(k)+' <i>'+(cn[k]||0)+'</i></button>';}).join('')+'</div>'+
         (vl[F.neg]?'<p style="color:var(--a-sub);font-size:.84rem;margin:0 2px 10px">Total em '+esc(F.neg.toLowerCase())+': <b style="color:var(--fg)">'+brl(vl[F.neg])+'</b></p>':'')+
         '<div class="cartao">'+(LN.length?LN.map(function(x){return itemNeg(x[0],x[1],true);}).join(''):'<div class="vazio">Nenhum negócio em '+esc(F.neg.toLowerCase())+'.</div>')+'</div>';
@@ -573,7 +574,7 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
   }
   function folhaPessoa(e,u){
     var P=CD('pessoa'), cr=u.crm||{};
-    abreFolha('<h3>'+esc(u.nome)+'</h3><p style="color:var(--a-sub);font-size:.82rem;margin:-8px 0 14px">'+esc(u.email)+(u.editado?' · editado '+dt(u.editado,1):'')+'</p><div id="p-foto" style="display:flex;gap:12px;align-items:center;margin-bottom:14px">'+CF.avatar(u.nome,e.slug,u.email,u.foto,'av neu')+CF.fotoBotoes(!!u.foto)+'</div><form class="f"><label>Nome<input name="nome" value="'+esc(u.nome)+'" required></label><label>Telefone / WhatsApp<input name="whatsapp" inputmode="tel" data-mask="tel" placeholder="(00) 00000-0000" value="'+esc(u.whatsapp||'')+'"></label>'+formCampos(P,cr)+
+    abreFolha('<h3>'+esc(u.nome)+'</h3><p style="color:var(--a-sub);font-size:.82rem;margin:-8px 0 14px">'+esc(mailV(u))+(u.editado?' · editado '+dt(u.editado,1):'')+'</p><div id="p-foto" style="display:flex;gap:12px;align-items:center;margin-bottom:14px">'+CF.avatar(u.nome,e.slug,u.email,u.foto,'av neu')+CF.fotoBotoes(!!u.foto)+'</div><form class="f"><label>Nome<input name="nome" value="'+esc(u.nome)+'" required></label><label>Telefone / WhatsApp<input name="whatsapp" inputmode="tel" data-mask="tel" placeholder="(00) 00000-0000" value="'+esc(u.whatsapp||'')+'"></label>'+formCampos(P,cr)+
       '<button class="bt pri cheio">Salvar contato</button><button class="bt cheio" type="button" data-conv>'+(u.status==='convite'?'Liberar acesso':'Gerar link de senha')+'</button></form>',function(f){
       var fm=f.querySelector('form');
       CF.ligaFoto(f.querySelector('#p-foto'),{slug:e.slug,email:u.email,insta:function(){ return fm.elements.instagram.value||(u.crm||{}).instagram; },estado:function(){ return {foto:u.foto,origem:u.fotoOrigem}; },campo:fm.elements.instagram,
@@ -585,7 +586,7 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
           e.usuarios=e.usuarios.map(function(x){return x.email===r.pessoa.email?r.pessoa:x;}); fechaFolha(); toast('Contato salvo.'); desenha(); }); }; });
   }
   function folhaNegocio(e,n){
-    var C=CD('negocio'), d=n?n.dados||{}:{etapa:'Lead',responsavel:'Carlos Ribeiro',origem:e.origem==='diagnostico'?'Diagnóstico':'',contatos:e.usuarios.slice(0,1).map(function(u){return u.email;})};
+    var C=CD('negocio'), d=n?n.dados||{}:{etapa:(R.etapasNeg||[])[0],responsavel:'Carlos Ribeiro',origem:e.origem==='diagnostico'?['Diagnóstico']:[],contatos:e.usuarios.slice(0,1).map(function(u){return u.email;})};
     abreFolha('<h3>'+(n?esc(d.nome):'Novo negócio')+'</h3><p style="color:var(--a-sub);font-size:.82rem;margin:-8px 0 14px">'+esc(e.nome)+(n&&n.num?' · #'+n.num:'')+'</p><form class="f">'+formCampos(C,d,e.usuarios)+
       '<button class="bt pri cheio">Salvar negócio</button>'+(n?'<button class="bt per cheio" type="button" data-del>Excluir negócio</button>':'')+'</form>'+
       (n?'<div class="sec"><h2>Histórico</h2></div><div class="hist">'+(n.historico||[]).map(function(h){return '<div><b>'+dt(h.data,1)+'</b> · '+esc(h.texto)+'</div>';}).join('')+'<div>Criado '+dt(n.criado,1)+'</div></div>':''),function(f){
@@ -598,7 +599,7 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
   function salvaNeg(e,id,dados){ return post({a:'admin-negocio',slug:e.slug,id:id,dados:dados}).then(function(r){ if(!r.ok){toast(r.erro||'Erro.');return false;}
     var L=(e.negocios||[]).filter(function(x){return x.id!==r.negocio.id;}); L.unshift(r.negocio); L.sort(function(a,b){return String(b.criado).localeCompare(String(a.criado));}); e.negocios=L; toast('Negócio salvo.'); return true; }); }
   function itemNeg(n,e,comEmp){ var d=n.dados||{};
-    return '<button class="item" data-neg="'+esc(n.id)+'" data-ns="'+esc(e.slug)+'"><span class="av '+(d.etapa==='Vendido'||d.etapa==='Sucesso'?'ver':d.etapa==='Perdido'||d.etapa==='Lixo'?'neu':'pre')+'">'+ic('alvo')+'</span><span class="tx"><b>'+esc(d.nome)+'</b><small>'+(comEmp?esc(e.nome)+' · ':'')+esc(d.etapa||'Lead')+(d.valor?' · '+brl(d.valor):'')+(d.probabilidade!=null?' · '+d.probabilidade+'%':'')+(d.proximaAtividade?' · próx. '+dt(d.proximaAtividade):'')+'</small></span>'+ic('dir').replace('class="ic"','class="ic dir"')+'</button>'; }
+    return '<button class="item" data-neg="'+esc(n.id)+'" data-ns="'+esc(e.slug)+'"><span class="av '+(/^(Fazer Contrato|Sucesso)/.test(d.etapa||'')?'ver':/^(Perdido|Objeção)/.test(d.etapa||'')?'neu':'pre')+'">'+ic('alvo')+'</span><span class="tx"><b>'+esc(d.nome)+'</b><small>'+(comEmp?esc(e.nome)+' · ':'')+esc(d.etapa||'Lead')+(d.valor?' · '+brl(d.valor):'')+(d.probabilidade!=null?' · '+d.probabilidade+'%':'')+(d.proximaAtividade?' · próx. '+dt(d.proximaAtividade):'')+'</small></span>'+ic('dir').replace('class="ic"','class="ic dir"')+'</button>'; }
   var CONT={};
   function tEmpresa(p){
     var e=emp(p.s); if(!e){ volta(); return; }
@@ -616,7 +617,7 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
           return '<div class="item" style="cursor:default;padding:11px 14px"><span class="tx"><small style="margin:0">'+esc(c.r)+'</small><b style="white-space:normal;font-weight:500">'+(href?'<a href="'+esc(href)+'" target="_blank" style="color:inherit">'+esc(v)+'</a>':esc(v))+'</b></span><button class="ib" data-cp="'+esc(v)+'" aria-label="Copiar">'+ic('copiar')+'</button></div>'; }).join(''):'<div class="vazio">Nenhum dado preenchido. Toque em Editar.</div>')+'</div>'; })()+
       '<div class="sec"><h2>Pessoas</h2><button data-np>+ Vincular</button></div><div class="cartao">'+(e.usuarios.length?e.usuarios.map(function(x){
         var cr=x.crm||{};
-        return '<div class="item" style="cursor:default">'+CF.avatar(x.nome,e.slug,x.email,x.foto,'av neu')+'<button class="tx" data-pe="'+esc(x.email)+'" style="border:0;background:none;text-align:left;padding:0;cursor:pointer;color:inherit"><b>'+esc(x.nome)+'</b><small>'+([cr.cargo,cr.influencia].filter(Boolean).length?esc([cr.cargo,cr.influencia].filter(Boolean).join(' · '))+'<br>':'')+USTATUS[x.status]+(x.ultimo?' · entrou '+dt(x.ultimo,1):'')+'<br>'+esc(x.email)+'</small><small style="color:var(--marinho-txt);font-weight:600">Ver ficha ›</small></button><button class="bt peq '+(x.status==='convite'?'ver':'')+'" data-conv="'+esc(x.email)+'" data-wa="'+esc(x.whatsapp||'')+'" data-nome="'+esc(x.nome)+'">'+(x.status==='convite'?'Liberar':'Link')+'</button></div>'; }).join(''):'<div class="vazio">Ninguém vinculado.</div>')+'</div>'+
+        return '<div class="item" style="cursor:default">'+CF.avatar(x.nome,e.slug,x.email,x.foto,'av neu')+'<button class="tx" data-pe="'+esc(x.email)+'" style="border:0;background:none;text-align:left;padding:0;cursor:pointer;color:inherit"><b>'+esc(x.nome)+'</b><small>'+([cr.cargo,cr.influencia].filter(Boolean).length?esc([cr.cargo,cr.influencia].filter(Boolean).join(' · '))+'<br>':'')+USTATUS[x.status]+(x.ultimo?' · entrou '+dt(x.ultimo,1):'')+'<br>'+esc(mailV(x)||'sem e-mail')+'</small><small style="color:var(--marinho-txt);font-weight:600">Ver ficha ›</small></button><button class="bt peq '+(x.status==='convite'?'ver':'')+'" data-conv="'+esc(x.email)+'" data-wa="'+esc(x.whatsapp||'')+'" data-nome="'+esc(x.nome)+'">'+(x.status==='convite'?'Liberar':'Link')+'</button></div>'; }).join(''):'<div class="vazio">Ninguém vinculado.</div>')+'</div>'+
       '<div class="sec"><h2>Plano de ações</h2></div><div class="cartao" id="e-acoes"><div class="vazio">Carregando…</div></div>'+
       '<div class="sec"><h2>Entregas</h2><button data-ni>+ Nova</button></div><div class="cartao" id="e-itens"><div class="vazio">Carregando…</div></div>'+
       '<div style="margin:18px 0"><a class="bt cheio" target="_blank" href="/area/painel/?e='+esc(e.slug)+'">Ver como o cliente vê</a></div>';

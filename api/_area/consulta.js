@@ -55,7 +55,7 @@ function tempoDe(abertura) {
   return anos < 1 ? C.TEMPO[0] : anos < 3 ? C.TEMPO[1] : anos < 5 ? C.TEMPO[2] : anos < 10 ? C.TEMPO[3] : C.TEMPO[4];
 }
 const SIT = { ATIVA: 'Ativa', SUSPENSA: 'Suspensa', INAPTA: 'Inapta', BAIXADA: 'Baixada', NULA: 'Nula' };
-const PORTE = p => /MICRO|PEQUENO|ME\b|EPP/i.test(p || '') ? 'Pequena' : '';
+const PORTE = p => /MICRO|\bME\b/i.test(p || '') ? 'Microempresa (ME)' : /PEQUENO|EPP/i.test(p || '') ? 'Empresa de Pequeno Porte (EPP)' : /DEMAIS/i.test(p || '') ? 'Demais' : '';
 
 async function cnpj(redis, valor) {
   const n = C.so(valor);

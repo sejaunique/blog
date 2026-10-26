@@ -12,7 +12,8 @@
 const CAMPOS = require('./campos.js');
 
 const NV = '2022-06-28';
-const DB = { emp: '20e94b57fed881a08c1eeb85fbb99700', pessoa: '25394b57fed88154bb5df25b63ac14e5', lead: '25394b57fed881e09ac8ef513a9a4e3f' };
+const DB_REUN = '25394b57fed881328544ce6e755832a4'; // (EMP) Reuniões e Compromissos: só leitura, Notion -> painel
+const DB = { emp: '20e94b57fed881a08c1eeb85fbb99700', pessoa: '25394b57fed88154bb5df25b63ac14e5', lead: '25394b57fed881e09ac8ef513a9a4e3f', tarefa: '25394b57fed8813ba22fe58b9619f4ac' };
 const SITE = 'https://sejaunique.vercel.app';
 const ligado = () => !!process.env.NOTION_TOKEN;
 const json = s => { try { return s ? JSON.parse(s) : null; } catch (e) { return null; } };
@@ -206,6 +207,83 @@ function propsLead(n, empId, contatoIds) {
   return o;
 }
 
+// ---------- Tarefas (EMP) <-> ações do plano ----------
+const ST_DE = { 'Planejada': 'a_fazer', 'A fazer': 'a_fazer', 'Em Andamento': 'fazendo', 'Entregue': 'feito', 'Publicada': 'feito', 'Bloqueada': 'cancelado', 'Cancelada': 'cancelado' };
+const ST_PARA = { a_fazer: 'A fazer', fazendo: 'Em Andamento', feito: 'Entregue', cancelado: 'Cancelada', arquivado: 'Cancelada' };
+const DONO_DE = { 'Unique': 'unique', 'Cliente': 'cliente', 'Ambos': 'ambos' }, DONO_PARA = { unique: 'Unique', cliente: 'Cliente', ambos: 'Ambos' };
+const TIPO_DE = { 'Ação': 'acao', 'Técnica': 'tecnica', 'Isca': 'isca', 'Reunião': 'reuniao', 'Vídeo': 'video', 'Material': 'material', 'Post': 'post' };
+const TIPO_PARA = { acao: 'Ação', tecnica: 'Técnica', isca: 'Isca', reuniao: 'Reunião', video: 'Vídeo', material: 'Material', post: 'Post' };
+const PARA_CLIENTE = ['Cliente', 'Lead'];
+const CAMPOS_ACAO = ['titulo', 'detalhe', 'prioridade', 'link', 'status', 'dono', 'tipo', 'inicio', 'prazo', 'anexos'];
+function deTarefa(p) {
+  const pr = p.properties, dt = (pr['Data de Execução'] || {}).date;
+  const arqs = ((pr['Arquivos e mídia'] || {}).files || []);
+  const ini = dt && dt.start ? (dt.start.length > 10 ? dt.start.slice(0, 16) : dt.start.slice(0, 10)) : '';
+  const a = {
+    titulo: ler(pr, 'Atividade') || 'Sem título', detalhe: ler(pr, 'Descrição') || '',
+    prioridade: ler(pr, 'Prioridade') || '', link: ler(pr, 'Link') || '',
+    status: ST_DE[ler(pr, 'Status ')] || 'a_fazer', dono: DONO_DE[ler(pr, 'Quem faz')] || 'unique', tipo: TIPO_DE[ler(pr, 'Tipo')] || 'acao',
+    inicio: dt && dt.end ? ini : '', prazo: dt ? String(dt.end || dt.start).slice(0, 10) : '', criado: String(p.created_time || '').slice(0, 10),
+    anexos: arqs.filter(f => f.type === 'external' && f.external && /^https:/.test(f.external.url)).map(f => ({ nome: f.name || 'Anexo', link: f.external.url }))
+  };
+  const resp = ler(pr, 'Responsável') || [];
+  return { id: idc(p.id), ed: p.last_edited_time, para: ler(pr, 'Tarefa para') || '', empresas: ler(pr, 'Empresa') || [], lead: (ler(pr, 'Lead') || [])[0] || '', pessoas: ler(pr, 'Responsável (cliente)') || [], responsavel: resp[0] || '', temArquivo: arqs.some(f => f.type !== 'external'), a };
+}
+const absUrl = u => !u ? '' : /^https?:\/\//.test(u) ? u : SITE + (u.charAt(0) === '/' ? '' : '/') + u;
+function propsTarefa(a, slug, op) {
+  op = op || {};
+  const ini = String(a.inicio || '').slice(0, 10), pz = a.prazo || '';
+  const data = pz && ini && ini < pz ? { start: ini, end: pz } : (pz || a.inicio) ? { start: pz || a.inicio } : null;
+  const o = {
+    Atividade: W.title(a.titulo), 'Descrição': W.text(a.detalhe), Prioridade: W.sel(a.prioridade), Link: W.url(absUrl(a.link)),
+    'Status ': { status: { name: ST_PARA[a.status] || 'A fazer' } }, 'Quem faz': W.sel(DONO_PARA[a.dono] || 'Unique'), Tipo: W.sel(TIPO_PARA[a.tipo] || 'Ação'),
+    'Data de Execução': { date: data }, Painel: W.url(SITE + '/area/admin/#acoes'),
+    'Responsável (cliente)': W.rel(op.pessoaId ? [op.pessoaId] : [])
+  };
+  if (!a.nTemArquivo) o['Arquivos e mídia'] = { files: (a.anexos || []).filter(x => /^https:/.test(x.link || '')).map(x => ({ name: String(x.nome || 'Anexo').slice(0, 100), type: 'external', external: { url: x.link } })) };
+  if (op.empId) o.Empresa = W.rel([op.empId]);
+  if (op.novo) { o['Tarefa para'] = W.sel('Cliente'); if (op.leadId) o.Lead = W.rel([op.leadId]); }
+  return o;
+}
+const recorteAcao = a => { const o = {}; CAMPOS_ACAO.forEach(k => { o[k] = a[k] === undefined ? '' : a[k]; }); return o; };
+
+// ---------- Reuniões (EMP) -> página de reuniões do cliente (só leitura) ----------
+function deReuniao(p) {
+  const pr = p.properties, dt = (pr['Data'] || {}).date;
+  const u = k => { const v = ler(pr, k); return /^https?:\/\//.test(v || '') ? v : ''; };
+  return {
+    id: idc(p.id), ed: p.last_edited_time, leads: ler(pr, 'Lead ou Cliente') || [], interna: ler(pr, 'Tipo') === 'Interna',
+    r: {
+      id: idc(p.id), nome: ler(pr, 'Nome') || 'Reunião', data: dt && dt.start ? String(dt.start).slice(0, 16) : '', fim: dt && dt.end ? String(dt.end).slice(0, 16) : '',
+      tipo: ler(pr, 'Tipo') || '', tema: ler(pr, 'Tema') || '', status: ler(pr, 'Status') || '', realizado: !!(pr['Realizado'] || {}).checkbox,
+      gravacao: u('Link da Gravação '), drive: u('Link dos arquivos no Drive'), transcricao: u('Transcrição'), link: u('URL'),
+      descricao: ler(pr, 'Descrição') || '', participantes: ler(pr, 'Participantes') || '', notion: p.url || '', ed: p.last_edited_time
+    }
+  };
+}
+async function puxaReunioes(redis, filtro, nmap, tudo) {
+  const R = await todas(DB_REUN, filtro);
+  const cmds = [], mapa = [], tirar = [];
+  let n = 0;
+  R.map(deReuniao).forEach(x => {
+    const lig = nmap[x.id], vs = lig && lig.indexOf('r|') === 0 ? lig.slice(2) : '';
+    const sl = x.interna ? '' : x.leads.map(id => nmap[id]).filter(v => v && v.indexOf('n|') === 0).map(v => v.split('|')[1])[0] || '';
+    if (vs && vs !== sl) { cmds.push(['HDEL', 'area:reun:' + vs, x.id]); if (!sl) tirar.push(x.id); n++; }
+    if (!sl) return;
+    cmds.push(['HSET', 'area:reun:' + sl, x.id, JSON.stringify(x.r)], ['SADD', 'area:reun:slugs', sl]);
+    if (vs !== sl) mapa.push(x.id, 'r|' + sl);
+    n++;
+  });
+  if (tudo) { // o que foi arquivado/apagado no Notion sai do painel
+    const vivos = {}; R.forEach(p => { vivos[idc(p.id)] = 1; });
+    Object.keys(nmap).forEach(id => { const v = nmap[id]; if (v && v.indexOf('r|') === 0 && !vivos[id]) { cmds.push(['HDEL', 'area:reun:' + v.slice(2), id]); tirar.push(id); n++; } });
+  }
+  if (tirar.length) cmds.push(['HDEL', 'area:nmap'].concat(tirar));
+  if (mapa.length) cmds.push(['HSET', 'area:nmap'].concat(mapa));
+  if (cmds.length) await redis(cmds);
+  return n;
+}
+
 // etapa do Kanban de empresas <-> Etapa Funil do lead
 const ETAPA_DE = { 'Cadastrado': 'lead', 'Qualificação': 'qualificado', 'Orçamento': 'qualificado', 'Negociação': 'qualificado', 'Objeção': 'qualificado', 'Fazer Contrato': 'cliente', 'Sucesso: Ativo': 'cliente', 'Sucesso: Inativo': 'finalizado', 'Perdido': 'finalizado' };
 const ETAPA_PARA = { lead: 'Cadastrado', qualificado: 'Qualificação', cliente: 'Sucesso: Ativo', finalizado: 'Sucesso: Inativo' };
@@ -218,17 +296,14 @@ async function painel(redis, slugsExtras) {
   const pares = Array.isArray(mapH) ? mapH : [];
   for (let i = 0; i < pares.length; i += 2) nmap[pares[i]] = pares[i + 1];
   if (!Array.isArray(mapH) && mapH) Object.assign(nmap, mapH);
-  const r = slugs.length ? await redis(slugs.flatMap(s => [['GET', 'area:emp:' + s], ['SMEMBERS', 'area:users:' + s], ['HGETALL', 'area:neg:' + s]])) : [];
+  const r = slugs.length ? await redis(slugs.flatMap(s => [['GET', 'area:emp:' + s], ['SMEMBERS', 'area:users:' + s], ['HGETALL', 'area:neg:' + s], ['HGETALL', 'area:acoes:' + s]])) : [];
   const emps = {};
   const pedU = [];
+  const valores = h => { const hp = Array.isArray(h) ? h : Object.keys(h || {}).flatMap(k => [k, h[k]]); const o = []; for (let j = 0; j < hp.length; j += 2) { const n = json(hp[j + 1]); if (n) o.push(n); } return o; };
   slugs.forEach((s, i) => {
-    const e = json(r[i * 3]) || null;
-    const negs = [];
-    const h = r[i * 3 + 2];
-    const hp = Array.isArray(h) ? h : Object.keys(h || {}).flatMap(k => [k, h[k]]);
-    for (let j = 0; j < hp.length; j += 2) { const n = json(hp[j + 1]); if (n) negs.push(n); }
-    emps[s] = { slug: s, e, emails: r[i * 3 + 1] || [], negs, users: [] };
-    (r[i * 3 + 1] || []).forEach(m => pedU.push([s, m]));
+    const e = json(r[i * 4]) || null;
+    emps[s] = { slug: s, e, emails: r[i * 4 + 1] || [], negs: valores(r[i * 4 + 2]), acoes: valores(r[i * 4 + 3]), users: [] };
+    (r[i * 4 + 1] || []).forEach(m => pedU.push([s, m]));
   });
   const us = pedU.length ? await redis(pedU.map(([s, m]) => ['GET', 'area:user:' + s + ':' + m])) : [];
   pedU.forEach(([s, m], i) => { const u = json(us[i]); if (u) emps[s].users.push(u); });
@@ -246,7 +321,7 @@ function slugLivre(base, ocupados) {
 
 // ---------- plano da carga inicial (nada é gravado) ----------
 async function monta(redis, catalogo) {
-  const [E, P, L] = await Promise.all([todas(DB.emp), todas(DB.pessoa), todas(DB.lead)]);
+  const [E, P, L, T] = await Promise.all([todas(DB.emp), todas(DB.pessoa), todas(DB.lead), todas(DB.tarefa)]);
   const { emps, nmap } = await painel(redis, Object.keys(catalogo || {}));
   Object.keys(catalogo || {}).forEach(s => { if (!emps[s].e) emps[s].e = { slug: s, nome: catalogo[s].nome, catalogo: true }; });
   const ne = E.map(deEmp), np = P.map(dePessoa), nl = L.map(deLead);
@@ -254,7 +329,7 @@ async function monta(redis, catalogo) {
   const ligSlug = {};        // idNotion empresa -> slug
   const usado = {};          // slug já ligado
   Object.keys(nmap).forEach(id => { const v = nmap[id]; if (v.indexOf('e|') === 0) { ligSlug[id] = v.slice(2); usado[v.slice(2)] = 1; } });
-  const plano = { empresas: [], pessoas: [], negocios: [], semEmpresa: [] };
+  const plano = { empresas: [], pessoas: [], negocios: [], tarefas: [], semEmpresa: [] };
   // 1) empresas
   ne.forEach(n => {
     let slug = ligSlug[n.id], como = slug ? 'ligada' : '';
@@ -297,6 +372,19 @@ async function monta(redis, catalogo) {
     plano.negocios.push({ id: n.id, nome: n.bruto.nome, slug: sl, negId: x ? x.id : '', como: como || 'nova', n });
   });
   Object.keys(emps).forEach(s => emps[s].negs.forEach(g => { if (!(emps[s].e || {}).arquivada && !usadoN[g.id] && !g.notion) plano.negocios.push({ id: '', nome: (g.dados || {}).nome, slug: s, negId: g.id, como: 'paraNotion' }); }));
+  // 4) tarefas do plano de ação (só "Tarefa para" Cliente ou Lead)
+  const leadSlug = {}; plano.negocios.forEach(x => { if (x.id) leadSlug[x.id] = x.slug; });
+  const usadoA = {};
+  T.map(deTarefa).filter(n => PARA_CLIENTE.indexOf(n.para) >= 0).forEach(n => {
+    const sl = n.empresas.map(id => ligSlug[id]).filter(Boolean)[0] || leadSlug[n.lead];
+    if (!sl) { plano.semEmpresa.push({ tipo: 'tarefa', nome: n.a.titulo }); return; }
+    const acs = (emps[sl] || { acoes: [] }).acoes;
+    let x = acs.find(a => a.notion === n.id), como = x ? 'ligada' : '';
+    if (!x) { const nm = slugify(n.a.titulo); x = acs.find(a => !usadoA[a.id] && !a.notion && slugify(a.titulo) === nm); if (x) como = 'nome'; }
+    if (x) usadoA[x.id] = 1;
+    plano.tarefas.push({ id: n.id, nome: n.a.titulo, slug: sl, acaoId: x ? x.id : '', como: como || 'nova', n });
+  });
+  Object.keys(emps).forEach(s => (emps[s].acoes || []).forEach(a => { if (!(emps[s].e || {}).arquivada && !usadoA[a.id] && !a.notion && a.status !== 'arquivado') plano.tarefas.push({ id: '', nome: a.titulo, slug: s, acaoId: a.id, como: 'paraNotion' }); }));
   return { plano, emps, nmap };
 }
 
@@ -307,6 +395,7 @@ function resumo(plano) {
     empresas: { juntar: conta(plano.empresas, 'cnpj') + conta(plano.empresas, 'nome'), jaLigadas: conta(plano.empresas, 'ligada'), novasNoPainel: conta(plano.empresas, 'nova'), novasNoNotion: conta(plano.empresas, 'paraNotion'), listaJuntar: nomes(plano.empresas, ['cnpj', 'nome']), listaParaNotion: nomes(plano.empresas, ['paraNotion']) },
     pessoas: { juntar: conta(plano.pessoas, 'email') + conta(plano.pessoas, 'nome'), jaLigadas: conta(plano.pessoas, 'ligada'), novasNoPainel: conta(plano.pessoas, 'nova'), semEmail: plano.pessoas.filter(x => x.semEmail).length, novasNoNotion: conta(plano.pessoas, 'paraNotion'), listaParaNotion: nomes(plano.pessoas, ['paraNotion']) },
     negocios: { juntar: conta(plano.negocios, 'nome'), jaLigados: conta(plano.negocios, 'ligada'), novosNoPainel: conta(plano.negocios, 'nova'), novosNoNotion: conta(plano.negocios, 'paraNotion'), listaParaNotion: nomes(plano.negocios, ['paraNotion']) },
+    tarefas: { juntar: conta(plano.tarefas, 'nome'), jaLigadas: conta(plano.tarefas, 'ligada'), novasNoPainel: conta(plano.tarefas, 'nova'), novasNoNotion: conta(plano.tarefas, 'paraNotion'), listaParaNotion: nomes(plano.tarefas, ['paraNotion']), listaJuntar: nomes(plano.tarefas, ['nome']) },
     semEmpresa: plano.semEmpresa.slice(0, 200)
   };
 }
@@ -315,7 +404,7 @@ async function verifica() {
   if (!ligado()) return { ok: false, erro: 'Falta a variável NOTION_TOKEN na Vercel.' };
   const falta = [];
   for (const [k, id] of Object.entries(DB)) {
-    try { await api('GET', 'databases/' + id); } catch (e) { falta.push({ emp: '(EMP) Empresa', pessoa: '(EMP) Contato', lead: '(EMP) Leads' }[k]); }
+    try { await api('GET', 'databases/' + id); } catch (e) { falta.push({ emp: '(EMP) Empresa', pessoa: '(EMP) Contato', lead: '(EMP) Leads', tarefa: '(EMP) Tarefas' }[k]); }
   }
   return falta.length ? { ok: false, erro: 'Conecte a integração a: ' + falta.join(', ') + ' (no Notion: ••• → Conexões).', falta } : { ok: true };
 }
@@ -395,6 +484,7 @@ async function aplica(redis, catalogo) {
   await flush();
   // 3) negócios
   const idsPorNotion = {}; Object.keys(pesId).forEach(k => { idsPorNotion[pesId[k]] = k.split('|')[1]; });
+  const leadDe = {};
   for (const it of pl.negocios) {
     const negs = (emps[it.slug] || {}).negs || [];
     const atual = negs.find(g => g.id === it.negId);
@@ -403,6 +493,7 @@ async function aplica(redis, catalogo) {
       const cids = ((atual.dados || {}).contatos || []).map(m => pesId[it.slug + '|' + m]).filter(Boolean);
       const p = await cria(DB.lead, propsLead(Object.assign({ slug: it.slug }, atual), empId[it.slug], cids)); cont.notion++;
       cmds.push(['HSET', 'area:neg:' + it.slug, atual.id, JSON.stringify(Object.assign({}, atual, { notion: idc(p.id), nEd: p.last_edited_time, nContatos: cids }))]); mapa.push(idc(p.id), 'n|' + it.slug + '|' + atual.id);
+      leadDe[it.slug] = idc(p.id);
       continue;
     }
     const n = it.n;
@@ -415,13 +506,43 @@ async function aplica(redis, catalogo) {
       const p = await atualiza(n.id, propsLead(g, null, cids)); g.nEd = p.last_edited_time; cont.notion++;
     } else cmds.push(['RPUSH', 'area:notion:painel', n.id]);
     cmds.push(['HSET', 'area:neg:' + it.slug, g.id, JSON.stringify(g)], ['SADD', 'area:emps', it.slug]); mapa.push(n.id, 'n|' + it.slug + '|' + g.id);
+    if (!leadDe[it.slug]) leadDe[it.slug] = n.id;
     cont.negocios++;
     if (cmds.length > 200) await flush();
     if (Date.now() - t0 > 54000) { await flush(); return { ok: true, parcial: true, cont }; }
   }
   await flush();
+  // 4) tarefas <-> ações
+  const pesPorNotion = {}; Object.keys(pesId).forEach(k => { pesPorNotion[pesId[k]] = k; });
+  cont.tarefas = 0;
+  for (const it of pl.tarefas) {
+    const atual = ((emps[it.slug] || {}).acoes || []).find(a => a.id === it.acaoId);
+    if (it.como === 'paraNotion') {
+      if (!empId[it.slug] || !atual) continue;
+      const p = await cria(DB.tarefa, propsTarefa(atual, it.slug, { novo: true, empId: empId[it.slug], leadId: leadDe[it.slug], pessoaId: atual.pessoa ? pesId[it.slug + '|' + atual.pessoa] : '' })); cont.notion++;
+      cmds.push(['HSET', 'area:acoes:' + it.slug, atual.id, JSON.stringify(Object.assign({}, atual, { notion: idc(p.id), nEd: p.last_edited_time }))]); mapa.push(idc(p.id), 'a|' + it.slug + '|' + atual.id);
+      continue;
+    }
+    const n = it.n;
+    const pk = n.pessoas.map(id => pesPorNotion[id]).filter(k => k && k.indexOf(it.slug + '|') === 0)[0];
+    const daNotion = Object.assign({}, n.a, { pessoa: pk ? pk.split('|')[1] : '' });
+    const junto = mescla(atual ? recorteAcao(atual) : {}, daNotion);
+    if (atual && atual.pessoa && !junto.pessoa) junto.pessoa = atual.pessoa;
+    const a = Object.assign({ id: novoId(), criado: agora(), responsavel: n.responsavel }, atual || {}, junto, { notion: n.id, nEd: n.ed, nTemArquivo: n.temArquivo });
+    if (atual && atual.status === 'arquivado' && a.status === 'cancelado') a.status = 'arquivado';
+    if (!mesmo(recorteAcao(junto), recorteAcao(daNotion)) || (junto.pessoa || '') !== (daNotion.pessoa || '')) {
+      const p = await atualiza(n.id, propsTarefa(a, it.slug, { empId: n.empresas.length ? '' : empId[it.slug], pessoaId: a.pessoa ? pesId[it.slug + '|' + a.pessoa] : '' })); a.nEd = p.last_edited_time; cont.notion++;
+    }
+    cmds.push(['HSET', 'area:acoes:' + it.slug, a.id, JSON.stringify(a)]); mapa.push(n.id, 'a|' + it.slug + '|' + a.id);
+    cont.tarefas++;
+    if (cmds.length > 200) await flush();
+    if (Date.now() - t0 > 55000) { await flush(); return { ok: true, parcial: true, cont }; }
+  }
+  await flush();
   await etapasDasEmpresas(redis);
-  await redis([['SET', 'area:notion:estado', JSON.stringify({ carga: agora(), ultimo: agora(), erro: '' })]]);
+  const [estV] = await redis([['GET', 'area:notion:estado']]);
+  const estA = json(estV) || {};
+  await redis([['SET', 'area:notion:estado', JSON.stringify(Object.assign(estA, { carga: estA.carga || agora(), cargaTarefas: agora(), ultimo: agora(), erro: '' }))]]);
   return { ok: true, cont };
 }
 
@@ -450,10 +571,10 @@ async function puxa(redis, op) {
   const desde = op.tudo ? null : (est.ultimo ? new Date(new Date(est.ultimo).getTime() - 120000).toISOString() : null);
   const filtro = desde ? { timestamp: 'last_edited_time', last_edited_time: { on_or_after: desde } } : null;
   const inicio = agora();
-  const [E, P, L] = await Promise.all([todas(DB.emp, filtro), todas(DB.pessoa, filtro), todas(DB.lead, filtro)]);
+  const [E, P, L, T] = await Promise.all([todas(DB.emp, filtro), todas(DB.pessoa, filtro), todas(DB.lead, filtro), est.cargaTarefas ? todas(DB.tarefa, filtro) : Promise.resolve([])]);
   const { emps, nmap } = await painel(redis);
   const ocupados = {}; Object.keys(emps).forEach(s => { if (emps[s].e) ocupados[s] = 1; });
-  const cmds = [], mapa = [], mud = { empresas: 0, pessoas: 0, negocios: 0 };
+  const cmds = [], mapa = [], mud = { empresas: 0, pessoas: 0, negocios: 0, acoes: 0 };
   const slugDe = id => { const v = nmap[id]; return v && v.indexOf('e|') === 0 ? v.slice(2) : ''; };
   const tocadas = {};
   // empresas
@@ -506,16 +627,46 @@ async function puxa(redis, op) {
     mapa.push(n.id, 'n|' + sl + '|' + g.id); tocadas[sl] = 1; mud.negocios++;
   });
   if (cmds.length || mapa.length) await redis(cmds.splice(0).concat(mapa.length ? [['HSET', 'area:nmap'].concat(mapa.splice(0))] : []));
+  // tarefas -> ações do plano
+  const tiradas = [];
+  T.map(deTarefa).forEach(n => {
+    const lig = nmap[n.id];
+    let velho = null, vs = '';
+    if (lig && lig.indexOf('a|') === 0) { const pz = lig.split('|'); vs = pz[1]; velho = ((emps[vs] || {}).acoes || []).find(a => a.id === pz[2]) || null; }
+    if (PARA_CLIENTE.indexOf(n.para) < 0) { if (velho) { cmds.push(['HSET', 'area:acoes:' + vs, velho.id, JSON.stringify(Object.assign({}, velho, { status: 'arquivado', notion: '' }))]); tiradas.push(n.id); mud.acoes++; } return; }
+    const leadV = nmap[n.lead];
+    const sl = n.empresas.map(slugDe).filter(Boolean)[0] || (leadV && leadV.indexOf('n|') === 0 ? leadV.split('|')[1] : '');
+    if (!sl) return;
+    if (velho && velho.nEd && n.ed < velho.nEd) return;
+    const pv = n.pessoas.map(id => nmap[id]).filter(v => v && v.indexOf('p|' + sl + '|') === 0)[0];
+    const novo = Object.assign({}, n.a, { pessoa: pv ? pv.split('|')[2] : '' });
+    if (velho && velho.status === 'arquivado' && novo.status === 'cancelado') novo.status = 'arquivado';
+    if (velho && velho.nEd === n.ed && vs === sl && mesmo(recorteAcao(velho), recorteAcao(novo)) && (velho.pessoa || '') === novo.pessoa) return;
+    const a = Object.assign({ id: novoId(), criado: agora() }, velho || {}, novo, { responsavel: n.responsavel || (velho || {}).responsavel || '', notion: n.id, nEd: n.ed, nTemArquivo: n.temArquivo, atualizado: agora(), por: 'Notion' });
+    if (velho && vs !== sl) cmds.push(['HDEL', 'area:acoes:' + vs, velho.id]);
+    cmds.push(['HSET', 'area:acoes:' + sl, a.id, JSON.stringify(a)]);
+    mapa.push(n.id, 'a|' + sl + '|' + a.id); mud.acoes++;
+  });
+  if (tiradas.length) cmds.push(['HDEL', 'area:nmap'].concat(tiradas));
+  if (cmds.length || mapa.length) await redis(cmds.splice(0).concat(mapa.length ? [['HSET', 'area:nmap'].concat(mapa.splice(0))] : []));
   if (Object.keys(tocadas).length) await etapasDasEmpresas(redis, Object.keys(tocadas));
-  if (op.tudo) await arquivados(redis, E, P, L);
+  if (op.tudo) await arquivados(redis, E, P, L, est.cargaTarefas ? T : null);
+  mud.reunioes = 0;
+  try {
+    const [mH2] = await redis([['HGETALL', 'area:nmap']]);
+    const nm2 = {}; const pr2 = Array.isArray(mH2) ? mH2 : Object.keys(mH2 || {}).flatMap(k => [k, mH2[k]]);
+    for (let i = 0; i < pr2.length; i += 2) nm2[pr2[i]] = pr2[i + 1];
+    mud.reunioes = await puxaReunioes(redis, filtro, nm2, op.tudo);
+    est.erroReunioes = '';
+  } catch (e) { est.erroReunioes = String(e.message || e).slice(0, 300); }
   await redis([['SET', 'area:notion:estado', JSON.stringify(Object.assign(est, { ultimo: inicio, erro: '' }))]]);
   await pendencias(redis);
-  return { ok: true, mud, total: mud.empresas + mud.pessoas + mud.negocios };
+  return { ok: true, mud, total: mud.empresas + mud.pessoas + mud.negocios + mud.acoes + mud.reunioes };
 }
 
 // sincronização completa: o que sumiu do Notion (arquivado/apagado) some do painel
-async function arquivados(redis, E, P, L) {
-  const vivos = {}; E.concat(P, L).forEach(p => { vivos[idc(p.id)] = 1; });
+async function arquivados(redis, E, P, L, T) {
+  const vivos = {}; E.concat(P, L, T || []).forEach(p => { vivos[idc(p.id)] = 1; });
   const [mapH] = await redis([['HGETALL', 'area:nmap']]);
   const pares = Array.isArray(mapH) ? mapH : Object.keys(mapH || {}).flatMap(k => [k, mapH[k]]);
   const cmds = [];
@@ -523,6 +674,11 @@ async function arquivados(redis, E, P, L) {
     const id = pares[i], v = pares[i + 1];
     if (vivos[id]) continue;
     const pz = v.split('|');
+    if (pz[0] === 'r' || (pz[0] === 'a' && !T)) continue; // reuniões têm conferência própria
+    if (pz[0] === 'a') {
+      const [x] = await redis([['HGET', 'area:acoes:' + pz[1], pz[2]]]);
+      const o = json(x); if (o) { o.status = 'arquivado'; o.notion = ''; cmds.push(['HSET', 'area:acoes:' + pz[1], pz[2], JSON.stringify(o)]); }
+    }
     if (pz[0] === 'n') {
       const [g] = await redis([['HGET', 'area:neg:' + pz[1], pz[2]]]);
       if (g) cmds.push(['HSET', 'area:neg-arq:' + pz[1], pz[2], g], ['HDEL', 'area:neg:' + pz[1], pz[2]]);
@@ -549,7 +705,7 @@ async function pendencias(redis) {
   for (let i = 0; i < lst.length; i++) {
     const v = (mapH || [])[i]; if (!v) continue;
     const pz = v.split('|');
-    const url = SITE + '/area/admin/#' + (pz[0] === 'p' ? 'contatos/' : 'empresas/') + pz[1];
+    const url = SITE + '/area/admin/#' + (pz[0] === 'p' ? 'contatos/' : pz[0] === 'a' ? 'acoes' : 'empresas/') + (pz[0] === 'a' ? '' : pz[1]);
     try {
       const p = await atualiza(lst[i], { Painel: W.url(url) });
       await guardaEd(redis, v, p.last_edited_time);
@@ -562,6 +718,7 @@ async function guardaEd(redis, v, ed) {
   if (pz[0] === 'e') { const [x] = await redis([['GET', 'area:emp:' + pz[1]]]); const o = json(x); if (o) { o.nEd = ed; await redis([['SET', 'area:emp:' + pz[1], JSON.stringify(o)]]); } }
   if (pz[0] === 'p') { const k = 'area:user:' + pz[1] + ':' + pz[2]; const [x] = await redis([['GET', k]]); const o = json(x); if (o) { o.nEd = ed; await redis([['SET', k, JSON.stringify(o)]]); } }
   if (pz[0] === 'n') { const [x] = await redis([['HGET', 'area:neg:' + pz[1], pz[2]]]); const o = json(x); if (o) { o.nEd = ed; await redis([['HSET', 'area:neg:' + pz[1], pz[2], JSON.stringify(o)]]); } }
+  if (pz[0] === 'a') { const [x] = await redis([['HGET', 'area:acoes:' + pz[1], pz[2]]]); const o = json(x); if (o) { o.nEd = ed; await redis([['HSET', 'area:acoes:' + pz[1], pz[2], JSON.stringify(o)]]); } }
 }
 
 // ---------- enviar uma alteração do painel para o Notion ----------
@@ -614,6 +771,21 @@ async function envia(redis, tipo, slug, chave, repetindo) {
       await redis([['HSET', 'area:neg:' + slug, g.id, JSON.stringify(g)]].concat(novo ? [['HSET', 'area:nmap', g.notion, 'n|' + slug + '|' + g.id]] : []));
       return true;
     }
+    if (tipo === 'acao' || tipo === 'acao-del') {
+      if (!(json(est0) || {}).cargaTarefas) return null;
+      if (tipo === 'acao-del') { if (chave) { await api('PATCH', 'pages/' + chave, { archived: true }); await redis([['HDEL', 'area:nmap', chave]]); } return true; }
+      const [av, hN] = await redis([['HGET', 'area:acoes:' + slug, chave], ['HGETALL', 'area:neg:' + slug]]);
+      const a = json(av); if (!a) return null;
+      let pessoaId = '';
+      if (a.pessoa) { const [uv] = await redis([['GET', 'area:user:' + slug + ':' + a.pessoa]]); pessoaId = (json(uv) || {}).notion || ''; }
+      let leadId = '';
+      if (!a.notion) { const pares = Array.isArray(hN) ? hN : Object.keys(hN || {}).flatMap(k => [k, hN[k]]); const negs = []; for (let i = 0; i < pares.length; i += 2) { const g = json(pares[i + 1]); if (g && g.notion) negs.push(g); } const g = negs.sort((x, y) => String(y.nEd || '').localeCompare(String(x.nEd || '')))[0]; leadId = g ? g.notion : ''; }
+      const p = a.notion ? await atualiza(a.notion, propsTarefa(a, slug, { pessoaId })) : await cria(DB.tarefa, propsTarefa(a, slug, { novo: true, empId: e.notion, leadId, pessoaId }));
+      const novo = !a.notion;
+      a.notion = idc(p.id); a.nEd = p.last_edited_time;
+      await redis([['HSET', 'area:acoes:' + slug, a.id, JSON.stringify(a)]].concat(novo ? [['HSET', 'area:nmap', a.notion, 'a|' + slug + '|' + a.id]] : []));
+      return true;
+    }
     if (tipo === 'etapa') {
       const [h] = await redis([['HGETALL', 'area:neg:' + slug]]);
       const pares = Array.isArray(h) ? h : Object.keys(h || {}).flatMap(k => [k, h[k]]);
@@ -656,4 +828,4 @@ async function estado(redis) {
   return Object.assign({ token: ligado(), fila: f || 0, links: pl || 0 }, json(e) || {});
 }
 
-module.exports = { ligado, verifica, plano, aplica, puxa, envia, estado, diagnostico, ehInterno, emailInterno, DB, _t: { deEmp, dePessoa, deLead, propsEmp, propsPessoa, propsLead, juntaEnd, separaEnd } };
+module.exports = { ligado, verifica, plano, aplica, puxa, envia, estado, diagnostico, ehInterno, emailInterno, DB, DB_REUN, _t: { deReuniao, deEmp, dePessoa, deLead, deTarefa, propsEmp, propsPessoa, propsLead, propsTarefa, juntaEnd, separaEnd } };

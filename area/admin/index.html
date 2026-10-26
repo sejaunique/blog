@@ -535,6 +535,13 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
 .nv-ch{font-size:.7rem;font-weight:600;border-radius:6px;padding:3px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
 .nv-ch.cz{background:#e7e7ec;color:#333}.nv-ch.am{background:#ffe08a;color:#5a4300}.nv-ch.vd{background:color-mix(in srgb,var(--verde) 40%,#fff);color:#064d24;text-decoration:line-through}.nv-ch.vm{background:#fecaca;color:#8a1111;text-decoration:line-through}
 .nv-ch.atr{box-shadow:inset 3px 0 0 var(--erro)}
+.nv-ch.pd{background:none;border:1px dashed #b9b9c4;color:#666;font-weight:500}.nv-ch.rn{background:var(--marinho,#1e2357);color:#fff}
+.nv-leg{display:flex;gap:16px;flex-wrap:wrap;font-size:.74rem;color:var(--muted);margin:0 0 8px}.nv-leg span{display:flex;align-items:center;gap:6px}.nv-leg i.nv-ch{display:inline-block;width:14px;height:10px;padding:0;border:1px solid rgba(0,0,0,.12)}
+.modal-fundo{position:fixed;inset:0;z-index:90;background:rgba(5,8,25,.6);display:grid;place-items:center;padding:16px}.modal-fundo .modal{background:var(--bg,#fff);border:1px solid var(--ws-line);color:var(--fg,#111);border-radius:18px;padding:20px 22px;width:100%;max-height:86vh;overflow:auto}
+.rn-lst{display:grid;gap:10px}.rn-i{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:14px;align-items:center;border:1px solid var(--ws-line);border-radius:14px;padding:12px 14px}
+.rn-d{text-align:center;line-height:1.1}.rn-d b{display:block;font-size:1.3rem}.rn-d small{font-size:.66rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.rn-i h4{margin:0 0 3px;font-size:.95rem}.rn-i p{margin:0;font-size:.78rem;color:var(--muted)}.rn-bts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+@media(max-width:640px){.rn-i{grid-template-columns:52px minmax(0,1fr)}.rn-bts{grid-column:1/-1;justify-content:flex-start}}
 .nv-mais{font:inherit;font-size:.66rem;border:0;background:none;color:var(--muted);cursor:pointer;text-align:left}
 .nv-sem{margin-top:14px;display:grid;gap:8px}.nv-sem>div{display:flex;flex-wrap:wrap;gap:6px}
 .nv-peek{position:fixed;top:0;right:0;bottom:0;width:min(460px,100vw);z-index:60;background:var(--bg);border-left:1px solid var(--ws-line);box-shadow:-20px 0 50px rgba(0,0,0,.18);padding:16px 22px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;animation:nvIn .18s ease}
@@ -661,9 +668,9 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
   var ST={a_fazer:'A fazer',fazendo:'Em andamento',feito:'Feito',cancelado:'Cancelado',arquivado:'Arquivado'};
   function fechado(st){ return st==='feito'||st==='arquivado'||st==='cancelado'; }
   var USTATUS={convite:'Sem acesso ainda',pendente:'Pediu acesso',ativo:'Com acesso',bloqueado:'Bloqueado',recusado:'Recusado'};
-  var TIPO={acao:'Ação',post:'Post',video:'Videoaula',reuniao:'Reunião',material:'Material'};
+  var TIPO={acao:'Ação',tecnica:'Técnica',isca:'Isca',post:'Post',video:'Videoaula',reuniao:'Reunião',material:'Material'};
   var PST={rascunho:'Rascunho',enviada:'Enviada',aceita:'Aceita',recusada:'Recusada'};
-  var R=null, AC=null, PROPS=null, DIAGS=null, VISTA='painel', EMP='', FILTRO='', CALM=new Date(), BLOB=false;
+  var REUN=[], R=null, AC=null, PROPS=null, DIAGS=null, VISTA='painel', EMP='', FILTRO='', CALM=new Date(), BLOB=false;
   var $=function(id){return document.getElementById(id);};
   function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
   function ic(n){ return '<i class="ic" style="--i:var(--ic-'+n+')"></i>'; }
@@ -764,8 +771,8 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     carrega().then(desenha);
   }
   function carrega(){
-    return Promise.all([get('?a=admin-resumo'),get('?a=admin-acoes'),get('?a=admin-propostas'),get('?a=admin-diagnosticos'),get('?a=admin-meta'),get('?a=admin-notion')]).then(function(x){
-      META=x[4]||null; NS=x[5]||{}; puxaNotion();
+    return Promise.all([get('?a=admin-resumo'),get('?a=admin-acoes'),get('?a=admin-propostas'),get('?a=admin-diagnosticos'),get('?a=admin-meta'),get('?a=admin-notion'),get('?a=admin-reunioes').catch(function(){return {};})]).then(function(x){
+      META=x[4]||null; NS=x[5]||{}; REUN=(x[6]&&x[6].reunioes)||[]; puxaNotion();
       R=x[0]; AC=x[1]; PROPS=(x[2].propostas||[]); DIAGS=(x[3].diagnosticos||[]); BLOB=R.blob;
       var n=notifCount(); $('sino-dot').hidden=!n; var sd=$('side-dot'); if(sd) sd.hidden=!n;
       return gget('?a=status').then(function(st){ GS=st||{}; if(!GS.conectado){ GEV=[]; return; } return gget('?a=eventos').then(function(e){ GEV=(e&&e.eventos)||[]; }); });
@@ -1388,7 +1395,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     var TA=CONT.acoes||[], A=TA.filter(function(a){return a.status!=='arquivado';}), ARQV=TA.filter(function(a){return a.status==='arquivado';}), h=hoje();
     $('e-acoes').innerHTML=A.length?A.map(function(a){ var at=a.prazo&&a.prazo<h&&!fechado(a.status);
       return '<div class="li"><div><span class="tag" style="'+(at?'color:var(--erro)':'')+'">'+(TIPO[a.tipo]||'Ação')+' · '+(a.dono==='cliente'?'cliente faz':'Unique faz')+(a.prazo?' · entrega '+dt(a.prazo):'')+(a.compartilhada?' · compartilhada':'')+'</span><h4>'+esc(a.titulo)+'</h4>'+(a.detalhe?'<p>'+esc(a.detalhe)+'</p>':'')+(a.link?'<p><a href="'+esc(a.link)+'" target="_blank" rel="noopener">'+esc(a.link)+'</a></p>':'')+'</div>'+
-        '<div class="bts">'+'<select class="mini" data-tp="'+esc(a.id)+'">'+Object.keys(TIPO).map(function(x){return '<option value="'+x+'"'+(x===(a.tipo||'acao')?' selected':'')+'>'+TIPO[x]+'</option>';}).join('')+'</select>'+'<select class="mini" data-dn="'+esc(a.id)+'"><option value="unique">Unique faz</option><option value="cliente"'+((a.dono)==='cliente'?' selected':'')+'>Cliente faz</option></select>'+(e.usuarios.length?'<select class="mini" data-pp="'+esc(a.id)+'" title="Delegada a"><option value="">Sem pessoa</option>'+e.usuarios.map(function(u){return '<option value="'+esc(u.email)+'"'+(u.email===a.pessoa?' selected':'')+'>'+esc(u.nome)+'</option>';}).join('')+'</select>':'')+'<input type="date" class="mini" data-pz="'+esc(a.id)+'" value="'+esc(a.prazo||'')+'" title="Data de entrega deste cliente"><select class="mini" data-st="'+esc(a.id)+'">'+Object.keys(ST).map(function(k){return '<option value="'+k+'"'+(k===a.status?' selected':'')+'>'+ST[k]+'</option>';}).join('')+'</select></div></div>'; }).join(''):'<div class="vazio">Nenhuma ação para essa empresa. Marque a empresa em uma linha da tabela de ações.</div>';
+        '<div class="bts">'+'<select class="mini" data-tp="'+esc(a.id)+'">'+Object.keys(TIPO).map(function(x){return '<option value="'+x+'"'+(x===(a.tipo||'acao')?' selected':'')+'>'+TIPO[x]+'</option>';}).join('')+'</select>'+'<select class="mini" data-dn="'+esc(a.id)+'"><option value="unique">Unique faz</option><option value="cliente"'+((a.dono)==='cliente'?' selected':'')+'>Cliente faz</option><option value="ambos"'+((a.dono)==='ambos'?' selected':'')+'>Ambos fazem</option></select>'+(e.usuarios.length?'<select class="mini" data-pp="'+esc(a.id)+'" title="Delegada a"><option value="">Sem pessoa</option>'+e.usuarios.map(function(u){return '<option value="'+esc(u.email)+'"'+(u.email===a.pessoa?' selected':'')+'>'+esc(u.nome)+'</option>';}).join('')+'</select>':'')+'<input type="date" class="mini" data-pz="'+esc(a.id)+'" value="'+esc(a.prazo||'')+'" title="Data de entrega deste cliente"><select class="mini" data-st="'+esc(a.id)+'">'+Object.keys(ST).map(function(k){return '<option value="'+k+'"'+(k===a.status?' selected':'')+'>'+ST[k]+'</option>';}).join('')+'</select></div></div>'; }).join(''):'<div class="vazio">Nenhuma ação para essa empresa. Marque a empresa em uma linha da tabela de ações.</div>';
     if(ARQV.length) $('e-acoes').insertAdjacentHTML('beforeend',arqDetalhe(ARQV));
     $('e-acoes').onclick=function(ev){ var b=ev.target.closest('[data-desarq]'); if(!b) return; b.disabled=true; post({a:'acao-status',slug:e.slug,id:b.dataset.desarq,status:'a_fazer'}).then(function(r){ if(!r.ok){toast('Erro.');return;} toast('Ação desarquivada.'); get('?a=conteudo&e='+encodeURIComponent(e.slug)).then(function(d){ CONT=d; CONTS[e.slug]=d; acoesEmp(e); direitaEmp(e); }); }); };
     $('e-acoes').onchange=function(ev){ var t=ev.target, id=t.dataset.st||t.dataset.pz||t.dataset.tp||t.dataset.dn||t.dataset.pp; if(!id) return; var a=A.filter(function(x){return x.id===id;})[0];
@@ -1572,11 +1579,16 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     if(AV.view==='calendario'){
       var ym=AV.mes.split('-'), y=+ym[0], m=+ym[1]-1, ini=new Date(y,m,1), dow=(ini.getDay()+6)%7, dias=new Date(y,m+1,0).getDate(), cel=[];
       for(var k=0;k<dow;k++) cel.push(null); for(var dd=1;dd<=dias;dd++) cel.push(y+'-'+String(m+1).padStart(2,'0')+'-'+String(dd).padStart(2,'0')); while(cel.length%7) cel.push(null);
-      var porDia={}; L.forEach(function(i){ if(i.prazo) (porDia[i.prazo]=porDia[i.prazo]||[]).push(i); }); var semData=L.filter(function(i){return !i.prazo&&!fechado(i.status);});
+      var porDia={}, put=function(d,o){ (porDia[d]=porDia[d]||[]).push(o); };
+      L.forEach(function(i){ if(i.prazo) put(i.prazo,{t:'e',i:i}); var pd=String(i.inicio||'').slice(0,10); if(pd&&pd!==i.prazo&&i.tipo!=='reuniao') put(pd,{t:'p',i:i}); });
+      if(!AV.tipo||AV.tipo==='reuniao') REUN.forEach(function(r){ if(!r.data||(AV.cli&&r.slug!==AV.cli)) return; if(AV.q&&semAcento(r.nome+' '+nomeEmp(r.slug)).indexOf(semAcento(AV.q))<0) return; put(r.data.slice(0,10),{t:'r',r:r}); }); var semData=L.filter(function(i){return !i.prazo&&!fechado(i.status);});
       var cor={a_fazer:'cz',fazendo:'am',feito:'vd',cancelado:'vm'};
       box.innerHTML='<div class="nv-cal-h"><button class="pill" data-mes="-1">‹</button><b>'+(function(t){ return t.charAt(0).toUpperCase()+t.slice(1); })(ini.toLocaleDateString('pt-BR',{month:'long'}))+' '+y+'</b><button class="pill" data-mes="1">›</button><button class="pill" data-mes="0">Hoje</button></div>'+
-        '<div class="nv-cal">'+['seg','ter','qua','qui','sex','sáb','dom'].map(function(d){return '<div class="nv-dow">'+d+'</div>';}).join('')+cel.map(function(d){ if(!d) return '<div class="nv-dia fora"></div>'; var I2=porDia[d]||[];
-          return '<div class="nv-dia'+(d===h?' hoje':'')+'" data-dia="'+d+'"><span class="nv-num">'+(+d.slice(8))+'</span>'+I2.slice(0,4).map(function(i){ return '<div class="nv-ch '+cor[i.status]+(i.prazo<h&&!fechado(i.status)?' atr':'')+'" draggable="true" data-i="'+esc(i.k)+'" title="'+esc(i.titulo+' · '+nomeEmp(i.slug))+'">'+esc(i.titulo)+'</div>'; }).join('')+(I2.length>4?'<button class="nv-mais" data-dia-ver="'+d+'">+'+(I2.length-4)+'</button>':'')+'</div>'; }).join('')+'</div>'+
+        '<div class="nv-leg"><span><i class="nv-ch cz"></i>Entrega</span><span><i class="nv-ch pd"></i>Pedida</span><span><i class="nv-ch rn"></i>Reunião</span></div><div class="nv-cal">'+['seg','ter','qua','qui','sex','sáb','dom'].map(function(d){return '<div class="nv-dow">'+d+'</div>';}).join('')+cel.map(function(d){ if(!d) return '<div class="nv-dia fora"></div>'; var I2=(porDia[d]||[]).sort(function(a,b){ return (a.t==='r'?0:a.t==='e'?1:2)-(b.t==='r'?0:b.t==='e'?1:2); });
+          return '<div class="nv-dia'+(d===h?' hoje':'')+'" data-dia="'+d+'"><span class="nv-num">'+(+d.slice(8))+'</span>'+I2.slice(0,4).map(function(o){
+            if(o.t==='r') return '<div class="nv-ch rn" data-rn="'+esc(o.r.id)+'" title="'+esc('Reunião · '+o.r.nome+' · '+nomeEmp(o.r.slug))+'">'+(o.r.data.length>10?esc(o.r.data.slice(11,16))+' ':'')+esc(o.r.nome)+'</div>';
+            var i=o.i; if(o.t==='p') return '<div class="nv-ch pd" data-i="'+esc(i.k)+'" title="'+esc('Pedida: '+i.titulo+' · '+nomeEmp(i.slug))+'">↳ '+esc(i.titulo)+'</div>';
+            return '<div class="nv-ch '+cor[i.status]+(i.prazo<h&&!fechado(i.status)?' atr':'')+'" draggable="true" data-i="'+esc(i.k)+'" title="'+esc('Entrega: '+i.titulo+' · '+nomeEmp(i.slug))+'">'+esc(i.titulo)+'</div>'; }).join('')+(I2.length>4?'<button class="nv-mais" data-dia-ver="'+d+'">+'+(I2.length-4)+'</button>':'')+'</div>'; }).join('')+'</div>'+
         (semData.length?'<div class="nv-sem"><b>Sem data de entrega</b><span class="muted" style="font-size:.74rem"> · arraste para um dia</span><div>'+semData.map(function(i){ return '<div class="nv-ch cz" draggable="true" data-i="'+esc(i.k)+'">'+esc(i.titulo)+' · '+esc(nomeEmp(i.slug))+'</div>'; }).join('')+'</div></div>':'');
       var ARR2='';
       box.ondragstart=function(ev){ var c=ev.target.closest('.nv-ch'); if(!c) return; ARR2=c.dataset.i; try{ ev.dataTransfer.setData('text/plain',ARR2); }catch(x){} };
@@ -1586,6 +1598,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     box.onclick=function(ev){
       var mb=ev.target.closest('[data-mes]'); if(mb){ var v=+mb.dataset.mes; if(!v) AV.mes=hoje().slice(0,7); else { var dd=new Date(AV.mes+'-15T12:00'); dd.setMonth(dd.getMonth()+v); AV.mes=dd.toISOString().slice(0,7); } nvArea(); return; }
       var dv=ev.target.closest('[data-dia-ver]'); if(dv){ AV.view='lista'; AV.q=''; vAcoes(); return; }
+      var rn=ev.target.closest('[data-rn]'); if(rn){ var RR=REUN.filter(function(x){return x.id===rn.dataset.rn;})[0]; if(RR) abreReuniao(RR); return; }
       var r=ev.target.closest('[data-i]'); if(!r) return; var i=nvItem(r.dataset.i); if(!i) return;
       if(ev.target.closest('[data-ok]')){ nvMuda(i,{status:i.status==='feito'?'a_fazer':'feito'}); return; }
       nvPeek(i); };
@@ -1625,15 +1638,16 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
       '<div class="nv-props">'+
         linha(i.slug?'Cliente':'Clientes','<span class="nv-clis">'+nvChipEmp(i.slug)+'<button type="button" class="nv-maiscli" data-mcli>'+(i.slug?(cls.length>1||l.todos?'Editar clientes ('+(l.todos?'todos':cls.length)+')':'+ Outros clientes'):'Escolher clientes')+'</button></span>')+
         linha('Status','<select data-pp="status">'+NV_ST.map(function(s){return '<option value="'+s[0]+'"'+(s[0]===i.status?' selected':'')+'>'+s[1]+'</option>';}).join('')+'<option value="arquivado">Arquivar</option></select>')+
-        linha('Início','<input type="'+(reun?'datetime-local':'date')+'" data-g="inicio" value="'+esc(ini)+'">')+
+        linha(reun?'Data':'Passada em','<input type="'+(reun?'datetime-local':'date')+'" data-g="inicio" value="'+esc(ini||(reun?'':String(l.criado||'').slice(0,10)))+'">')+
         linha('Entrega','<input type="date" data-pp="prazo" value="'+esc(i.prazo)+'">'+(at?' <em class="nv-atr">atrasada</em>':''))+
         linha('Tipo','<select data-pp="tipo">'+Object.keys(TIPO).map(function(k){return '<option value="'+k+'"'+(k===i.tipo?' selected':'')+'>'+TIPO[k]+'</option>';}).join('')+'</select>')+
-        linha('Quem faz','<select data-pp="dono"><option value="unique">Unique</option><option value="cliente"'+(i.dono==='cliente'?' selected':'')+'>Cliente</option></select>')+
+        linha('Quem faz','<select data-pp="dono"><option value="unique">Unique</option><option value="cliente"'+(i.dono==='cliente'?' selected':'')+'>Cliente</option><option value="ambos"'+(i.dono==='ambos'?' selected':'')+'>Ambos</option></select>')+
+        linha('Prioridade','<select data-g="prioridade"><option value="">—</option>'+['URGENTE','P1','P2','P3'].map(function(x){return '<option'+(x===(l.prioridade||'')?' selected':'')+'>'+x+'</option>';}).join('')+'</select>')+
         (i.slug?linha('Pessoa','<select data-pp="pessoa"><option value="">Ninguém específico</option>'+(e.usuarios||[]).map(function(u){return '<option value="'+esc(u.email)+'"'+(u.email===i.pessoa?' selected':'')+'>'+esc(u.nome)+'</option>';}).join('')+'</select>'):'')+
         linha('Link','<span class="nv-lk"><input type="url" data-g="link" value="'+esc(i.link)+'" placeholder="https://… (post, vídeo, reunião)">'+(i.link?'<a href="'+esc(i.link)+'" target="_blank" rel="noopener" title="Abrir">↗</a>':'')+'</span>')+
         linha('Origem',i.fonte==='propria'?'Só desta empresa':'Compartilhada pela biblioteca')+
       '</div>'+
-      '<div class="nv-sec"><b>Descrição</b><textarea class="nv-desc" data-g="detalhe" rows="4" placeholder="Escreva o que precisa ser feito, o passo a passo, observações…">'+esc(i.detalhe)+'</textarea></div>'+
+      '<div class="nv-sec"><b>Descrição</b><textarea class="nv-desc" data-g="detalhe" rows="4" placeholder="Escreva o passo a passo, observações…">'+esc(i.detalhe)+'</textarea></div>'+
       '<div class="nv-sec"><b>Anexos'+(anx.length?' · '+anx.length:'')+'</b>'+
         (anx.length?'<div class="nv-anx">'+anx.map(function(a,n){ return '<div class="nv-anx-i"><a href="'+esc(a.link)+'" target="_blank" rel="noopener">'+ic('doc')+'<span>'+esc(a.nome||a.link)+'</span></a><button class="nv-anx-x" data-anx-del="'+n+'" title="Remover anexo">×</button></div>'; }).join('')+'</div>':'<p class="nv-vz">Nenhum anexo ainda.</p>')+
         '<div class="nv-anx-add"><label class="pill">'+ic('upload')+'<span>Enviar arquivo</span><input type="file" data-anx-up hidden multiple></label><input data-anx-link placeholder="ou cole um link (Drive, Docs, Canva…)"><button class="pill" data-anx-ok>Anexar</button></div>'+
@@ -1664,7 +1678,8 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     p.onchange=function(ev){ var c=ev.target;
       if(c.dataset.pp){ var o={}; o[c.dataset.pp]=c.value; nvMuda(i,o); return; }
       if(c.dataset.g){ var v=c.value.trim(); if(c.dataset.g==='titulo'&&!v){ c.value=i.titulo; return; } if(c.dataset.g==='link'&&v&&!/^https:\/\//i.test(v)){ v='https://'+v.replace(/^https?:\/\//i,''); }
-        var m={}; m[c.dataset.g]=v; nvGlobal(i,m,c.dataset.g!=='detalhe'); return; }
+        var m={}; m[c.dataset.g]=v;
+        nvGlobal(i,m,c.dataset.g!=='detalhe'); return; }
       var sl=c.dataset.andSt||c.dataset.andPz; if(sl){ var b={a:'acao-status',slug:sl,id:l.id}; if(c.dataset.andSt) b.status=c.value; else { b.prazo=c.value; b.status=((l.and||{})[sl]||{}).status||'a_fazer'; }
         post(b).then(function(r){ toast(r.ok?'Salvo.':'Não foi possível salvar.'); delete CONTS[sl]; recarregaAcoes().then(function(){ var n=nvItem(i.k); if(n) nvPeek(n); }); }); } };
   }
@@ -1677,7 +1692,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
         '<div class="nv-prop" data-pes hidden><span>Pessoa</span><div><select name="pessoa"></select></div></div>'+
         '<div class="nv-prop"><span>Entrega</span><div><input type="date" name="prazo"></div></div>'+
         '<div class="nv-prop"><span>Tipo</span><div><select name="tipo">'+Object.keys(TIPO).map(function(k){return '<option value="'+k+'">'+TIPO[k]+'</option>';}).join('')+'</select></div></div>'+
-        '<div class="nv-prop"><span>Quem faz</span><div><select name="dono"><option value="unique">Unique</option><option value="cliente">Cliente</option></select></div></div>'+
+        '<div class="nv-prop"><span>Quem faz</span><div><select name="dono"><option value="unique">Unique</option><option value="cliente">Cliente</option><option value="ambos">Ambos</option></select></div></div>'+
         '<div class="nv-prop"><span>Detalhe</span><div><input name="detalhe" placeholder="Opcional"></div></div>'+
       '</div><div class="lp-b"><button type="button" class="pill" data-x>Cancelar</button><button class="pill solid">Criar ação</button></div></form>';
     document.body.appendChild(veu);
@@ -1697,7 +1712,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
   function chave(l){ return l.fonte==='propria'?'p:'+l.slug+':'+l.id:l.fonte==='post'?'post:'+l.slug_post:'m:'+l.id; }
   function achar(k){ return linhas().filter(function(l){return chave(l)===k;})[0]; }
   function recarregaAcoes(){ return get('?a=admin-acoes').then(function(r){ AC=r; if(VISTA==='acoes'){ if(AV.view==='tabela') tabela(); else nvArea(); } else desenha(); }); }
-  function base(l){ return {id:l.fonte==='biblioteca'?l.id:'',titulo:l.titulo,detalhe:l.detalhe||'',responsavel:l.responsavel||'',prazo:l.prazo||'',inicio:l.inicio||'',dono:l.dono||'unique',tipo:l.tipo||'acao',link:l.link||'',anexos:l.anexos||[],criado:l.criado||'',destino:l.todos?'todos':l.clientes.slice()}; }
+  function base(l){ return {id:l.fonte==='biblioteca'?l.id:'',titulo:l.titulo,detalhe:l.detalhe||'',responsavel:l.responsavel||'',prazo:l.prazo||'',inicio:l.inicio||'',dono:l.dono||'unique',tipo:l.tipo||'acao',link:l.link||'',anexos:l.anexos||[],prioridade:l.prioridade||'',criado:l.criado||'',destino:l.todos?'todos':l.clientes.slice()}; }
   function salva(l,mud){
     var m=Object.assign(base(l),mud);
     if(l.fonte==='propria'&&!('destino' in mud)){ var a=Object.assign({},l,mud); delete a.fonte; delete a.clientes; delete a.and; delete a.destino; return post({a:'admin-acao',slug:l.slug,acao:a}).then(function(r){ toast(r.ok?'Salvo.':'Erro.'); return recarregaAcoes(); }); }
@@ -1928,6 +1943,8 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
       '<button class="pill solid">'+ic('mais')+(GS.conectado?'Criar no Google Agenda':'Criar e abrir no Google Agenda')+'</button></form></section>'+
       '<section class="card"><div class="card-h"><h2>Próximos compromissos</h2>'+(GS.conectado?'<span class="muted">do seu Google Agenda</span>':'')+'</div><div class="lst">'+(GS.conectado?(prox.length?prox.map(function(e){
         return '<div class="li"><div><span class="tag">'+(e.diaInteiro?dt(e.inicio):dt(e.inicio,1))+(e.unique?' · do workspace':'')+'</span><h4>'+esc(e.titulo)+'</h4>'+(e.convidados.length?'<p>'+esc(e.convidados.join(', '))+'</p>':'')+'</div><div class="bts">'+(e.meet?'<a class="pill verde" target="_blank" href="'+esc(e.meet)+'">Meet</a>':'')+'<a class="pill" target="_blank" href="'+esc(e.link)+'">'+ic('abrir')+'</a></div></div>'; }).join(''):'<div class="vazio">Nada na agenda nos próximos 60 dias.</div>'):'<div class="vazio">Conecte o Google Agenda para ver seus compromissos aqui.</div>')+'</div></section></div>';
+    $('vista').insertAdjacentHTML('beforeend','<section class="card" style="margin-top:18px"><div class="card-h"><h2>Reuniões com clientes</h2><span class="muted">da base (EMP) Reuniões e Compromissos do Notion</span></div>'+listaReunioes(REUN,true)+'</section>');
+    $('vista').querySelectorAll('[data-rn]').forEach(function(b){ b.onclick=function(){ var RR=REUN.filter(function(x){return x.id===b.dataset.rn;})[0]; if(RR) abreReuniao(RR); }; });
     if(window.innerWidth<1100) $('vista').querySelector('.grade').style.gridTemplateColumns='1fr';
     ligaGoogle();
     $('f-reu').onsubmit=function(ev){ ev.preventDefault(); var f=this, d=f.cli.value, e=d?emp(d):null, em=e?e.usuarios.map(function(u){return u.email;}):[];
@@ -1936,6 +1953,21 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
         if(r.google){ toast('Reunião criada no Google Agenda'+(f.convidar.checked&&em.length?' e convites enviados.':'.')); if(r.google.meet) try{navigator.clipboard.writeText(r.google.meet);}catch(x){} }
         else { toast('Reunião criada.'); agendaLink({titulo:m.titulo,detalhe:m.detalhe,inicio:m.inicio,slug:d,emails:em}); }
         carrega().then(desenha); }); };
+  }
+  function listaReunioes(L,comEmp){
+    if(!L.length) return '<div class="vazio">'+(NS.erroReunioes?'Ainda não consigo ler a base de reuniões: conecte a integração da Unique à (EMP) Reuniões e Compromissos no Notion (••• → Conexões).':'Nenhuma reunião ligada a um cliente ainda. No Notion, preencha "Lead ou Cliente" na reunião e ela aparece aqui e na área do cliente.')+'</div>';
+    var M=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+    return '<div class="rn-lst">'+L.map(function(r){ var d=String(r.data||''); var lk=function(u,t,cl){ return u?'<a class="pill'+(cl||'')+'" href="'+esc(u)+'" target="_blank" rel="noopener">'+t+'</a>':''; };
+      return '<div class="rn-i"><div class="rn-d">'+(d?'<b>'+(+d.slice(8,10))+'</b><small>'+M[+d.slice(5,7)-1]+' '+d.slice(2,4)+'</small>':'<small>sem data</small>')+'</div><div><h4>'+esc(r.nome)+'</h4><p>'+[comEmp?esc(nomeEmp(r.slug)):'',d.length>10?esc(d.slice(11,16)):'',esc(r.tipo||''),r.realizado||r.status==='Concluído'?'Realizada':esc(r.status||'')].filter(Boolean).join(' · ')+'</p></div>'+
+        '<div class="rn-bts">'+lk(r.gravacao,'▶ Gravação',' verde')+lk(r.drive,'Arquivos no Drive')+lk(r.transcricao,'Transcrição')+lk(r.link,'Link')+'<button class="pill" data-rn="'+esc(r.id)+'">Detalhes</button></div></div>'; }).join('')+'</div>';
+  }
+  function abreReuniao(r){
+    var lk=function(u,t){ return u?'<a class="pill" href="'+esc(u)+'" target="_blank" rel="noopener">'+t+' ↗</a>':''; };
+    var d=document.createElement('div'); d.className='modal-fundo'; d.innerHTML='<div class="modal" style="max-width:560px"><div class="card-h"><h2>'+esc(r.nome)+'</h2><button class="pill" data-x>×</button></div>'+
+      '<p class="muted" style="font-size:.84rem;margin:0 0 12px">'+[nomeEmp(r.slug),r.data?(r.data.length>10?dt(r.data,1):dt(r.data)):'',r.tipo,r.tema,r.status].filter(Boolean).map(esc).join(' · ')+'</p>'+
+      (r.participantes?'<p style="font-size:.86rem"><b>Participantes:</b> '+esc(r.participantes)+'</p>':'')+(r.descricao?'<p style="font-size:.86rem;white-space:pre-wrap">'+esc(r.descricao)+'</p>':'')+
+      '<div class="bts" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">'+lk(r.gravacao,'Gravação')+lk(r.drive,'Arquivos no Drive')+lk(r.transcricao,'Transcrição')+lk(r.link,'Link')+lk(r.notion,'Abrir no Notion')+'</div></div>';
+    document.body.appendChild(d); d.onclick=function(ev){ if(ev.target===d||ev.target.closest('[data-x]')) d.remove(); };
   }
   function listaTipo(tp,t1,t2,i,novo,ph){
     var L=linhas().filter(function(l){return l.tipo===tp;}).sort(function(a,b){return String(b.inicio||'').localeCompare(String(a.inicio||''));});
@@ -1971,13 +2003,15 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
   }
   /* ---------- NOTION: o coração do CRM ---------- */
   function cartaoNotion(){
-    var on=NS.token, feita=!!NS.carga, P=NPLANO;
+    var on=NS.token, feita=!!NS.carga&&!!NS.cargaTarefas, P=NPLANO, soTarefas=!!NS.carga&&!NS.cargaTarefas;
     var lista=function(t,L){ return L&&L.length?'<details class="nt-det"><summary>'+t+' ('+L.length+')</summary><p>'+L.map(esc).join(' · ')+'</p></details>':''; };
     var bloco=function(t,o,lin){ return '<div class="nt-b"><b>'+t+'</b>'+lin.filter(function(x){return x[1];}).map(function(x){return '<span>'+x[1]+' '+x[0]+'</span>';}).join('')+'</div>'; };
     var plano=P?(P.ok?'<div class="nt-plano"><p style="margin:0 0 10px;font-size:.86rem"><b>O que a carga inicial vai fazer</b> (nada foi gravado ainda):</p><div class="nt-g">'+
         bloco('Empresas',P.resumo.empresas,[['já ligadas',P.resumo.empresas.jaLigadas],['juntadas com as do painel',P.resumo.empresas.juntar],['novas no painel (vindas do Notion)',P.resumo.empresas.novasNoPainel],['novas no Notion (vindas do painel)',P.resumo.empresas.novasNoNotion]])+
         bloco('Contatos',P.resumo.pessoas,[['já ligados',P.resumo.pessoas.jaLigadas],['juntados',P.resumo.pessoas.juntar],['novos no painel',P.resumo.pessoas.novasNoPainel],['sem e-mail (entram sem acesso à área)',P.resumo.pessoas.semEmail],['novos no Notion',P.resumo.pessoas.novasNoNotion]])+
-        bloco('Negócios / Leads',P.resumo.negocios,[['já ligados',P.resumo.negocios.jaLigados],['juntados',P.resumo.negocios.juntar],['novos no painel',P.resumo.negocios.novosNoPainel],['novos no Notion',P.resumo.negocios.novosNoNotion]])+'</div>'+
+        bloco('Negócios / Leads',P.resumo.negocios,[['já ligados',P.resumo.negocios.jaLigados],['juntados',P.resumo.negocios.juntar],['novos no painel',P.resumo.negocios.novosNoPainel],['novos no Notion',P.resumo.negocios.novosNoNotion]])+
+        (P.resumo.tarefas?bloco('Tarefas → Plano de ação',P.resumo.tarefas,[['já ligadas',P.resumo.tarefas.jaLigadas],['juntadas com ações do painel',P.resumo.tarefas.juntar],['novas no painel',P.resumo.tarefas.novasNoPainel],['novas no Notion (ações do painel)',P.resumo.tarefas.novasNoNotion]]):'')+'</div>'+
+        lista('Tarefas que vou juntar com ações do painel',(P.resumo.tarefas||{}).listaJuntar)+lista('Ações do painel que vão para o Notion',(P.resumo.tarefas||{}).listaParaNotion)+
         lista('Empresas que vou juntar',P.resumo.empresas.listaJuntar)+lista('Empresas do painel que vão para o Notion',P.resumo.empresas.listaParaNotion)+lista('Contatos do painel que vão para o Notion',P.resumo.pessoas.listaParaNotion)+lista('Negócios do painel que vão para o Notion',P.resumo.negocios.listaParaNotion)+
         lista('Ficam de fora (sem empresa no Notion)',(P.resumo.semEmpresa||[]).map(function(x){return x.nome+' ('+x.tipo+')';}))+
         '<p class="muted" style="font-size:.78rem;margin:10px 0">Quando o mesmo registro existe dos dois lados, vale o que está no Notion; o que só o painel tem completa o Notion. Nada é apagado.</p>'+
@@ -1985,9 +2019,10 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
     return '<section class="card" id="notion" style="margin-top:18px"><div class="card-h"><h2>Notion · CRM sincronizado</h2>'+(!on?'<span class="selo s-neu">Sem token</span>':feita?'<span class="selo s-verde">Sincronizando</span>':'<span class="selo s-neu">Aguardando carga inicial</span>')+'</div>'+
       (!on?'<p class="muted" style="font-size:.84rem">Falta a variável NOTION_TOKEN na Vercel.</p>':
       feita?'<p style="font-size:.86rem;margin:0 0 10px">Empresas, contatos e negócios estão ligados ao Notion. O que você muda aqui vai na hora para lá; o que muda lá aparece aqui em até 1 minuto (sempre que o workspace é aberto) e numa conferência completa todo dia.</p>'+
+        (NS.erroReunioes?'<p class="nt-erro" style="font-size:.82rem">Reuniões: conecte a integração também à base (EMP) Reuniões e Compromissos no Notion (••• → Conexões). '+esc(NS.erroReunioes)+'</p>':'<p class="muted" style="font-size:.8rem;margin:0 0 6px">Reuniões da base (EMP) Reuniões e Compromissos com "Lead ou Cliente" preenchido aparecem na área do cliente, com gravação, Drive e transcrição.</p>')+
         '<p class="muted" style="font-size:.8rem;margin:0 0 12px">Carga inicial em '+dt(String(NS.carga).slice(0,10))+' · última sincronização '+(NS.ultimo?new Date(NS.ultimo).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}):'—')+(NS.fila?' · <b style="color:var(--erro)">'+NS.fila+' envio(s) aguardando nova tentativa</b>':'')+(NS.links?' · '+NS.links+' links "Painel" a preencher no Notion':'')+'</p>'+
         '<div class="bts" style="display:flex;gap:8px;flex-wrap:wrap"><button class="pill" id="nt-puxa">Sincronizar agora</button><button class="pill" id="nt-tudo">Conferência completa</button><a class="pill" href="https://www.notion.so/20e94b57fed881a08c1eeb85fbb99700" target="_blank" rel="noopener">Abrir Empresas no Notion ↗</a></div>':
-      '<p style="font-size:.86rem;margin:0 0 12px">Antes de ligar, veja o que vai acontecer com as empresas, contatos e negócios dos dois lados.</p><button class="pill solid" id="nt-plano">Ver o que vai acontecer</button>')+plano+'</section>';
+      (soTarefas?'<p style="font-size:.86rem;margin:0 0 12px"><b>Nova parte: tarefas do plano de ação.</b> Empresas, contatos e negócios já estão sincronizados. Agora as tarefas da base (EMP) Tarefas marcadas como Cliente ou Lead entram no plano de ação, e as ações do painel vão para o Notion. Veja antes o que vai acontecer.</p>':'<p style="font-size:.86rem;margin:0 0 12px">Antes de ligar, veja o que vai acontecer com as empresas, contatos e negócios dos dois lados.</p>')+'<button class="pill solid" id="nt-plano">Ver o que vai acontecer</button>')+plano+'</section>';
   }
   function ligaNotion(){
     var b=$('nt-plano'); if(b) b.onclick=function(){ b.disabled=true; b.textContent='Lendo o Notion…'; get('?a=admin-notion-plano').then(function(r){ NPLANO=r||{ok:false}; vSite(); var n=$('notion'); if(n) n.scrollIntoView({block:'start'}); }); };
@@ -1997,7 +2032,7 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
       (function vai1(){ post({a:'admin-notion-aplicar'}).then(function(r){
         if(!r||!r.ok){ a.disabled=false; a.textContent='Aplicar a carga inicial'; a.dataset.ok=''; toast((r&&r.erro)||'Não deu certo. Tente de novo.'); return; }
         if(r.parcial){ a.textContent='Continuando… ('+(r.cont.empresas+r.cont.pessoas+r.cont.negocios)+' registros até agora)'; vai1(); return; }
-        toast('Pronto: '+r.cont.empresas+' empresas, '+r.cont.pessoas+' contatos e '+r.cont.negocios+' negócios ligados ao Notion.');
+        toast('Pronto: '+r.cont.empresas+' empresas, '+r.cont.pessoas+' contatos, '+r.cont.negocios+' negócios e '+(r.cont.tarefas||0)+' tarefas ligados ao Notion.');
         NPLANO=null; carrega().then(vSite); }); })(); };
     var p=$('nt-puxa'); if(p) p.onclick=function(){ p.disabled=true; post({a:'admin-notion-puxar'}).then(function(r){ toast(r.ok?(r.total?r.total+' alteração(ões) trazida(s) do Notion.':'Tudo em dia.'):(r.erro||'Erro.')); carrega().then(vSite); }); };
     var t=$('nt-tudo'); if(t) t.onclick=function(){ t.disabled=true; t.textContent='Conferindo…'; post({a:'admin-notion-puxar',tudo:true}).then(function(r){ toast(r.ok?'Conferência completa feita.':(r.erro||'Erro.')); carrega().then(vSite); }); };

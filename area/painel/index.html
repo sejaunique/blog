@@ -65,6 +65,20 @@
 .acao select.st-fazendo{border-color:var(--alerta);color:var(--alerta)}
 .acao select.st-feito{border-color:var(--ok);color:var(--ok)}
 .leit{display:grid;gap:10px;margin-top:18px}
+.reun{display:grid;gap:10px;margin-top:6px}
+.reun-i{display:grid;grid-template-columns:70px minmax(0,1fr) auto;gap:18px;align-items:center;border:1px solid var(--line);border-radius:var(--r);padding:16px 20px;background:var(--bg)}
+.reun-d{text-align:center;line-height:1.05}.reun-d b{display:block;font-size:1.7rem;font-weight:600;letter-spacing:-.03em}.reun-d small{font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.reun-i h3{margin:0 0 4px;font-size:1.02rem}.reun-i p{margin:0;color:var(--muted);font-size:.84rem}
+.reun-bt{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}.reun-bt a{font-size:.74rem;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:7px 13px;color:var(--fg);text-decoration:none;white-space:nowrap}.reun-bt a:hover{border-color:var(--fg)}.reun-bt a.pri{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.cal-h{display:flex;align-items:center;gap:10px;margin-bottom:12px}.cal-h b{font-size:1rem;min-width:150px}.cal-h button{font:inherit;font-size:.8rem;font-weight:600;border:1px solid var(--line);background:none;color:var(--fg);border-radius:999px;padding:6px 12px;cursor:pointer}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.cal>div{border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-height:96px;padding:6px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.cal .dw{min-height:0;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:8px 6px}
+.cal .fora{background:var(--soft)}.cal .n{font-size:.74rem;color:var(--muted)}.cal .hoje .n{color:var(--fg);font-weight:700}
+.cal .ev{font-size:.68rem;font-weight:600;border-radius:6px;padding:3px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev.en{background:var(--soft);color:var(--fg);box-shadow:inset 0 0 0 1px var(--line)}.ev.en.ok{text-decoration:line-through;color:var(--muted)}.ev.en.atr{box-shadow:inset 3px 0 0 var(--erro)}.ev.pd{border:1px dashed var(--line);color:var(--muted);font-weight:500}.ev.rn{background:var(--fg);color:var(--bg)}
+.cal-leg{display:flex;gap:16px;flex-wrap:wrap;font-size:.74rem;color:var(--muted);margin-top:10px}.cal-leg span{display:flex;align-items:center;gap:6px}.cal-leg i{display:inline-block;width:14px;height:10px;border-radius:3px}
+@media(max-width:640px){.reun-i{grid-template-columns:52px minmax(0,1fr)}.reun-bt{grid-column:1/-1;justify-content:flex-start}.cal>div{min-height:64px;padding:3px}.cal .ev{font-size:0;height:6px;padding:0}}
 .arqs{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-top:18px}
 .arq-i{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:center;text-decoration:none;color:var(--fg);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
 .arq-i:hover{border-color:var(--fg)}.arq-i img{width:20px;height:20px}.arq-i span{min-width:0}
@@ -126,6 +140,20 @@
       <div class="plano" id="plano"></div>
     </section>
 
+    <section class="bloco" aria-labelledby="h-cal" id="sec-cal" hidden>
+      <div class="bloco-head">
+        <div><span class="spaced">Calendário</span><h2 id="h-cal">Entregas, pedidos <span style="font-weight:200;font-style:italic">e reuniões</span></h2></div>
+      </div>
+      <div id="cal"></div>
+    </section>
+
+    <section class="bloco" aria-labelledby="h-reun" id="sec-reun" hidden>
+      <div class="bloco-head">
+        <div><span class="spaced">Reuniões</span><h2 id="h-reun">Nossas <span style="font-weight:200;font-style:italic">conversas</span></h2></div>
+      </div>
+      <div class="reun" id="reun"></div>
+    </section>
+
     <section class="bloco" aria-labelledby="h-leit" id="sec-leit" hidden>
       <div class="bloco-head">
         <div><span class="spaced">Lista de leitura</span><h2 id="h-leit">Adquirir <span style="font-weight:200;font-style:italic">consciência</span></h2></div>
@@ -150,8 +178,8 @@
   var TIPOS={pagina:'Guia',relatorio:'Relatório',diagnostico:'Diagnóstico',video:'Vídeo',arquivo:'Arquivo',link:'Link',conteudo:'Conteúdo'};
   var FILTROS=[['todos','Tudo'],['relatorio','Relatórios'],['diagnostico','Diagnósticos'],['pagina','Guias'],['video','Vídeos'],['arquivo','Arquivos'],['link','Links'],['conteudo','Conteúdos']];
   var STATUS={a_fazer:'A fazer',fazendo:'Em andamento',feito:'Feito',cancelado:'Cancelado',arquivado:'Arquivado'};
-  var TIPO={acao:'Ação',post:'Post',video:'Videoaula',reuniao:'Reunião',material:'Material'};
-  var DONO={cliente:'Nós fazemos',unique:'Unique faz'};
+  var TIPO={acao:'Ação',tecnica:'Técnica',isca:'Isca',post:'Post',video:'Videoaula',reuniao:'Reunião',material:'Material'};
+  var DONO={cliente:'Nós fazemos',unique:'Unique faz',ambos:'Juntos'};
   function sel(id,campo,mapa,val,cls){ return '<select data-id="'+esc(id)+'" data-campo="'+campo+'" class="'+(cls||'')+'" aria-label="'+campo+'">'+Object.keys(mapa).map(function(k){return '<option value="'+k+'"'+(k===val?' selected':'')+'>'+mapa[k]+'</option>';}).join('')+'</select>'; }
   var MESES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
   var q=new URLSearchParams(location.search), emp=q.get('e')||'', filtro='todos', DADOS=null;
@@ -177,7 +205,7 @@
       DADOS=d;
       document.getElementById('cap-emp').textContent='Área do cliente · '+d.empresa.nome;
       document.title=d.empresa.nome+' · Unique';
-      montaFiltros(); desenha(); plano(); leitura(); arquivos();
+      montaFiltros(); desenha(); plano(); calendario(); reunioes(); leitura(); arquivos();
     });
   }).catch(function(e){ if(e!==0) document.getElementById('cap-ola').textContent='Não foi possível carregar. Atualize a página.'; });
 
@@ -265,6 +293,36 @@
     el.onchange=function(ev){ var c=ev.target; if(!c.dataset.l) return; c.disabled=true;
       api({body:{a:'leitura-lido',slug:DADOS.empresa.slug,id:c.dataset.l,lido:c.checked}}).then(function(r){ c.disabled=false; if(!r.ok) return; var l=L.filter(function(x){return x.id===c.dataset.l;})[0]; if(l) l.lido=r.leitura.lido; leitura(); }); };
   }
+  function reunioes(){
+    var L=DADOS.reunioes||[], sec=document.getElementById('sec-reun'), el=document.getElementById('reun');
+    sec.hidden=!L.length; if(!L.length) return;
+    var lk=function(u,t,c){ return u?'<a'+(c?' class="pri"':'')+' href="'+esc(u)+'" target="_blank" rel="noopener">'+t+'</a>':''; };
+    el.innerHTML=L.map(function(r){ var d=String(r.data||'');
+      return '<div class="reun-i"><div class="reun-d">'+(d?'<b>'+(+d.slice(8,10))+'</b><small>'+MESES[+d.slice(5,7)-1]+' '+d.slice(0,4)+'</small>':'<small>Sem data</small>')+'</div>'+
+        '<div><h3>'+esc(r.nome)+'</h3><p>'+[d.length>10?d.slice(11,16):'',r.tipo,r.participantes].filter(Boolean).map(esc).join(' · ')+'</p>'+(r.descricao?'<p style="margin-top:6px">'+esc(r.descricao)+'</p>':'')+'</div>'+
+        '<div class="reun-bt">'+lk(r.gravacao,'▶ Assistir gravação',1)+lk(r.drive,'Arquivos no Drive')+lk(r.transcricao,'Transcrição')+lk(r.link,'Abrir link')+'</div></div>'; }).join('');
+  }
+  var CALM=new Date().toISOString().slice(0,7);
+  function calendario(){
+    var A=(DADOS.acoes||[]).filter(function(a){return a.status!=='arquivado'&&a.status!=='cancelado';}), RN=DADOS.reunioes||[], sec=document.getElementById('sec-cal'), el=document.getElementById('cal');
+    var tem=A.some(function(a){return a.prazo||a.inicio;})||RN.some(function(r){return r.data;});
+    sec.hidden=!tem; if(!tem) return;
+    var hoje=new Date().toISOString().slice(0,10), porDia={}, put=function(d,h){ if(d) (porDia[d]=porDia[d]||[]).push(h); };
+    RN.forEach(function(r){ if(r.data) put(r.data.slice(0,10),'<div class="ev rn" title="'+esc('Reunião · '+r.nome)+'">'+(r.data.length>10?esc(r.data.slice(11,16))+' ':'')+esc(r.nome)+'</div>'); });
+    A.forEach(function(a){ var ok=a.status==='feito', atr=a.prazo&&a.prazo<hoje&&!ok;
+      if(a.prazo) put(a.prazo,'<div class="ev en'+(ok?' ok':'')+(atr?' atr':'')+'" title="'+esc('Entrega: '+a.titulo)+'">'+esc(a.titulo)+'</div>');
+      var pd=String(a.inicio||'').slice(0,10); if(pd&&pd!==a.prazo&&a.tipo!=='reuniao') put(pd,'<div class="ev pd" title="'+esc('Pedida: '+a.titulo)+'">↳ '+esc(a.titulo)+'</div>'); });
+    var ym=CALM.split('-'), y=+ym[0], m=+ym[1]-1, ini=new Date(y,m,1), dow=(ini.getDay()+6)%7, dias=new Date(y,m+1,0).getDate(), h='';
+    ['seg','ter','qua','qui','sex','sáb','dom'].forEach(function(d){ h+='<div class="dw">'+d+'</div>'; });
+    for(var k=0;k<dow;k++) h+='<div class="fora"></div>';
+    for(var dd=1;dd<=dias;dd++){ var d=y+'-'+String(m+1).padStart(2,'0')+'-'+String(dd).padStart(2,'0'), E=porDia[d]||[];
+      h+='<div class="'+(d===hoje?'hoje':'')+'"><span class="n">'+dd+'</span>'+E.slice(0,4).join('')+(E.length>4?'<span class="n">+'+(E.length-4)+'</span>':'')+'</div>'; }
+    while((dow+dias)%7){ h+='<div class="fora"></div>'; dias++; }
+    var nm=ini.toLocaleDateString('pt-BR',{month:'long'});
+    el.innerHTML='<div class="cal-h"><button data-m="-1" aria-label="Mês anterior">‹</button><b>'+nm.charAt(0).toUpperCase()+nm.slice(1)+' '+y+'</b><button data-m="1" aria-label="Próximo mês">›</button><button data-m="0">Hoje</button></div><div class="cal">'+h+'</div>'+
+      '<div class="cal-leg"><span><i style="background:var(--soft);border:1px solid var(--line)"></i>Entrega</span><span><i style="border:1px dashed var(--line)"></i>Pedida</span><span><i style="background:var(--fg)"></i>Reunião</span></div>';
+    el.onclick=function(ev){ var b=ev.target.closest('[data-m]'); if(!b) return; var v=+b.dataset.m; if(!v) CALM=hoje.slice(0,7); else { var x=new Date(CALM+'-15T12:00'); x.setMonth(x.getMonth()+v); CALM=x.toISOString().slice(0,7); } calendario(); };
+  }
   function plano(){
     var TODAS=DADOS.acoes, A=TODAS.filter(function(a){return a.status!=='arquivado';}), ARQ=TODAS.filter(function(a){return a.status==='arquivado';}), hoje=new Date().toISOString().slice(0,10), el=document.getElementById('plano');
     var feitas=A.filter(function(a){return a.status==='feito';}).length, VAL=A.filter(function(a){return a.status!=='cancelado';});
@@ -279,7 +337,7 @@
       return '<div class="acao '+(a.status==='feito'?'feito ':'')+(a.status==='cancelado'?'cancelado ':'')+(atrasada?'atrasada':'')+'"><div><h3>'+esc(a.titulo)+'</h3>'+(a.detalhe?'<p>'+esc(a.detalhe)+'</p>':'')+
         (a.link?'<p><a href="'+esc(a.link)+'" target="_blank" rel="noopener">'+({post:'Ler o post',video:'Assistir à videoaula',reuniao:'Abrir a reunião'}[a.tipo]||'Abrir o link')+' →</a></p>':'')+
         ((a.anexos||[]).length?'<p class="anexos">'+a.anexos.map(function(x){ return '<a href="'+esc(x.link)+'" target="_blank" rel="noopener">📎 '+esc(x.nome||'Anexo')+'</a>'; }).join(' ')+'</p>':'')+
-        '<div class="meta">'+(a.inicio?'<span>Início: '+data(String(a.inicio).slice(0,10))+'</span>':'')+(a.responsavel?'<span>Responsável: '+esc(a.responsavel)+'</span>':'')+(a.prazo?'<span class="prazo">Prazo: '+data(a.prazo)+(atrasada?' (atrasada)':'')+'</span>':'')+'</div></div>'+
+        '<div class="meta">'+((a.inicio||a.criado)&&a.tipo!=='reuniao'?'<span>Pedida em: '+data(String(a.inicio||a.criado).slice(0,10))+'</span>':a.inicio?'<span>Data: '+data(String(a.inicio).slice(0,10))+'</span>':'')+(a.responsavel?'<span>Responsável: '+esc(a.responsavel)+'</span>':'')+(a.prazo?'<span class="prazo">Entrega: '+data(a.prazo)+(atrasada?' (atrasada)':'')+'</span>':'')+'</div></div>'+
         '<div class="sels">'+sel(a.id,'status',STATUS,a.status,'st-'+a.status)+sel(a.id,'tipo',TIPO,a.tipo||'acao','mini')+sel(a.id,'dono',DONO,a.dono||'unique','mini')+'</div></div>';
     }).join('')+(ARQ.length?'<details class="arq"><summary>Materiais e avisos ('+ARQ.length+')</summary>'+ARQ.map(function(a){
       return '<div class="acao"><div><h3>'+esc(a.titulo)+'</h3>'+(a.detalhe?'<p>'+esc(a.detalhe)+'</p>':'')+
@@ -291,7 +349,7 @@
       var o={a:'acao-status',id:s.dataset.id,slug:DADOS.empresa.slug}; o[s.dataset.campo||'status']=s.value;
       api({body:o}).then(function(r){
         if(r.ok){ DADOS.acoes.forEach(function(a){ if(a.id===r.acao.id){ a.status=r.acao.status; if(r.acao.tipo) a.tipo=r.acao.tipo; if(r.acao.dono) a.dono=r.acao.dono; } }); }
-        plano();
+        plano(); calendario();
       });
     };
   }

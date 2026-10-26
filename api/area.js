@@ -261,9 +261,10 @@ function limpaAcao(a) {
     responsavel: limpo(a.responsavel, 80),
     prazo: /^\d{4}-\d{2}-\d{2}$/.test(a.prazo || '') ? a.prazo : '',
     inicio: /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2})?$/.test(a.inicio || '') ? a.inicio : '',
-    dono: a.dono === 'cliente' ? 'cliente' : 'unique',
+    dono: a.dono === 'cliente' || a.dono === 'ambos' ? a.dono : 'unique',
     pessoa: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(a.pessoa || '') ? String(a.pessoa).toLowerCase().slice(0, 120) : '',
-    tipo: ['acao', 'post', 'video', 'reuniao', 'material'].indexOf(a.tipo) >= 0 ? a.tipo : 'acao',
+    tipo: ['acao', 'post', 'video', 'reuniao', 'material', 'tecnica', 'isca'].indexOf(a.tipo) >= 0 ? a.tipo : 'acao',
+    prioridade: ['URGENTE', 'P1', 'P2', 'P3'].indexOf(a.prioridade) >= 0 ? a.prioridade : '',
     link: (/^https:\/\//i.test(a.link || '') || /^\/[^/]/.test(a.link || '')) ? limpo(a.link, 600) : '',
     status: STATUS_ACAO.indexOf(a.status) >= 0 ? a.status : 'a_fazer',
     anexos: (Array.isArray(a.anexos) ? a.anexos : []).map(x => ({ nome: limpo((x || {}).nome, 160), link: /^https:\/\//i.test((x || {}).link || '') ? limpo(x.link, 600) : '' })).filter(x => x.link).slice(0, 20),
@@ -427,11 +428,16 @@ module.exports = async (req, res) => {
           if (!s.admin) delete i.arquivo; // o cliente baixa pela API, que confere a empresa
         });
         // lista de leitura (posts do blog delegados a cada pessoa): o cliente vê só a dele
-        const [lH] = await redis([['HGETALL', 'area:leit:' + slug]]);
+        // reuniões vêm do Notion; para o link da reunião aparecer logo, o painel do cliente puxa o que mudou (no máximo a cada 5 min)
+        if (!s.admin && NOTION.ligado()) {
+          try { const [trava] = await redis([['SET', 'area:notion:trava-cli', '1', 'NX', 'EX', 300]]); if (trava === 'OK') await NOTION.puxa(redis); } catch (e) { /* segue com o que tem */ }
+        }
+        const [lH, rH] = await redis([['HGETALL', 'area:leit:' + slug], ['HGETALL', 'area:reun:' + slug]]);
+        const reunioes = lerPares(rH).map(([, v]) => json(v)).filter(Boolean).sort((a, b) => String(b.data).localeCompare(String(a.data)));
         const leituras = lerPares(lH).map(([, v]) => json(v)).filter(Boolean).filter(l => s.admin || l.pessoa === s.email || l.pessoa === '*')
           .map(l => (!s.admin && l.pessoa === '*') ? Object.assign({}, l, { lido: (l.lidoPor || {})[s.email] || '', todos: true }) : l)
           .sort((a, b) => String(a.criado).localeCompare(String(b.criado)));
-        return res.json({ ok: true, empresa: { slug, nome: e.nome }, itens: c.itens, acoes: c.acoes, leituras, admin: !!s.admin, eu: s.admin ? '' : s.email });
+        return res.json({ ok: true, empresa: { slug, nome: e.nome }, itens: c.itens, acoes: c.acoes, leituras, reunioes, admin: !!s.admin, eu: s.admin ? '' : s.email });
       }
 
       if (q.a === 'arquivo') {
@@ -493,6 +499,15 @@ module.exports = async (req, res) => {
         if (!s.admin) return res.status(403).json({ ok: false });
         if (q.a === 'admin-notion') return res.json(Object.assign({ ok: true }, await NOTION.estado(redis)));
         try { return res.json(await NOTION.plano(redis, CATALOGO)); } catch (e) { return res.json({ ok: false, erro: 'Notion: ' + e.message }); }
+      }
+      if (q.a === 'admin-reunioes') {
+        if (!s.admin) return res.status(403).json({ ok: false });
+        const [sl] = await redis([['SMEMBERS', 'area:reun:slugs']]);
+        const lst = (sl || []).length ? await redis(sl.map(x => ['HGETALL', 'area:reun:' + x])) : [];
+        const reunioes = [];
+        (sl || []).forEach((x, i) => lerPares(lst[i]).forEach(([, v]) => { const r = json(v); if (r) reunioes.push(Object.assign(r, { slug: x })); }));
+        reunioes.sort((a, b) => String(b.data).localeCompare(String(a.data)));
+        return res.json({ ok: true, reunioes });
       }
       if (q.a === 'admin-resumo') {
         if (!s.admin) return res.status(403).json({ ok: false });
@@ -664,8 +679,8 @@ module.exports = async (req, res) => {
     if (b.a === 'acao-status') {
       const slug = s.admin ? slugify(b.slug) : s.slug;
       if (b.status !== undefined && STATUS_ACAO.indexOf(b.status) < 0) return res.status(400).json({ ok: false });
-      const TIPOS_ACAO = ['acao', 'post', 'video', 'reuniao', 'material'];
-      const extra = o => { if (b.dono === 'unique' || b.dono === 'cliente') o.dono = b.dono; if (TIPOS_ACAO.indexOf(b.tipo) >= 0) o.tipo = b.tipo; if (b.pessoa !== undefined) o.pessoa = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(b.pessoa || '') ? String(b.pessoa).toLowerCase().slice(0, 120) : ''; return o; };
+      const TIPOS_ACAO = ['acao', 'post', 'video', 'reuniao', 'material', 'tecnica', 'isca'];
+      const extra = o => { if (b.dono === 'unique' || b.dono === 'cliente' || b.dono === 'ambos') o.dono = b.dono; if (TIPOS_ACAO.indexOf(b.tipo) >= 0) o.tipo = b.tipo; if (b.pessoa !== undefined) o.pessoa = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(b.pessoa || '') ? String(b.pessoa).toLowerCase().slice(0, 120) : ''; return o; };
       const [v, mv] = await redis([['HGET', 'area:acoes:' + slug, String(b.id || '')], ['HGET', 'area:modelos', String(b.id || '')]]);
       const a = json(v), m = json(mv);
       if (!a && valePara(m, slug)) {
@@ -685,6 +700,7 @@ module.exports = async (req, res) => {
       a.por = s.admin ? 'Unique' : s.nome;
       await redis([['HSET', 'area:acoes:' + slug, a.id, JSON.stringify(a)]]);
       if (!s.admin && b.status === 'feito') await notifica(redis, { titulo: 'Ação concluída', texto: s.nome + ' marcou como feita: ' + a.titulo, url: '/area/admin/#empresas/' + slug });
+      await NOTION.envia(redis, 'acao', slug, a.id);
       return res.json({ ok: true, acao: a });
     }
 
@@ -1088,11 +1104,19 @@ module.exports = async (req, res) => {
     if (b.a === 'admin-acao') {
       const a = limpaAcao(b.acao || {});
       if (!a.titulo) return res.status(400).json({ ok: false, erro: 'Dê um título para a ação.' });
+      const [ov] = await redis([['HGET', 'area:acoes:' + slug, a.id]]);
+      const velha = json(ov);
+      if (velha) ['notion', 'nEd', 'nTemArquivo', 'responsavel'].forEach(k => { if (velha[k] !== undefined && (k !== 'responsavel' || !a.responsavel)) a[k] = velha[k]; });
       await redis([['HSET', 'area:acoes:' + slug, a.id, JSON.stringify(a)]]);
-      return res.json({ ok: true, acao: a });
+      await NOTION.envia(redis, 'acao', slug, a.id);
+      const [nv] = await redis([['HGET', 'area:acoes:' + slug, a.id]]);
+      return res.json({ ok: true, acao: json(nv) || a });
     }
     if (b.a === 'admin-acao-del') {
+      const [dv] = await redis([['HGET', 'area:acoes:' + slug, String(b.id || '')]]);
+      const del = json(dv);
       await redis([['HDEL', 'area:acoes:' + slug, String(b.id || '')]]);
+      if (del && del.notion) await NOTION.envia(redis, 'acao-del', slug, del.notion);
       return res.json({ ok: true });
     }
 

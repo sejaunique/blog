@@ -162,3 +162,4 @@ module.exports = async (req, res) => {
     return res.status(500).json({ ok: false, erro: 'Não deu certo agora. Tente de novo em instantes.' });
   }
 };
+module.exports.MATERIAIS = MATERIAIS;

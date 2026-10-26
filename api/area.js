@@ -66,6 +66,7 @@ const CAMPOS = require('./_area/campos.js');
 const CONSULTA = require('./_area/consulta.js');
 const NOTION = require('./_area/notion.js');
 const RICO = require('./_area/rico.js');
+const CANIVETE = require('./_area/canivete.js');
 
 const URL_DB = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -680,6 +681,11 @@ module.exports = async (req, res) => {
         res.setHeader('Content-Type', mm[1]); res.setHeader('Cache-Control', 'private, max-age=31536000, immutable');
         return res.end(Buffer.from(mm[2], 'base64'));
       }
+      if (q.a === 'canivete') {
+        if (s.admin) return res.json({ ok: true, itens: await CANIVETE.lista(redis, SITE, true), nomes: CANIVETE.NOME });
+        const L = (await CANIVETE.lista(redis, SITE, false)).filter(i => CANIVETE.liberadoPara(i, s.slug)).map(i => ({ id: i.id, tipo: i.tipo, titulo: i.titulo, link: i.link, descricao: i.descricao, tags: i.tags, capa: i.capa, criado: i.criado }));
+        return res.json({ ok: true, itens: L, nomes: CANIVETE.NOME });
+      }
       if (q.a === 'admin-chat-lista' || q.a === 'admin-chat-conv') {
         if (!s.admin) return res.status(403).json({ ok: false });
         if (q.a === 'admin-chat-lista') return res.json({ ok: true, conversas: await CHAT().lista(), chave: !!process.env.ANTHROPIC_API_KEY });
@@ -1075,6 +1081,27 @@ module.exports = async (req, res) => {
       };
       return res.json(await CHAT().decide(String(b.id || '').replace(/[^a-f0-9]/g, ''), !!b.ok, chama));
     }
+    if (b.a === 'admin-canivete' || b.a === 'admin-canivete-lote' || b.a === 'admin-canivete-del' || b.a === 'admin-canivete-libera') {
+      if (b.a === 'admin-canivete-lote') {
+        const novos = CANIVETE.lote(b.texto).map(i => Object.assign(i, { destino: b.destino === 'todos' ? 'todos' : [] }));
+        if (!novos.length) return res.status(400).json({ ok: false, erro: 'Cole ao menos um link, um por linha.' });
+        await redis(novos.map(i => ['HSET', 'area:canivete', i.id, JSON.stringify(i)]));
+        return res.json({ ok: true, novos });
+      }
+      const [v] = b.id ? await redis([['HGET', 'area:canivete', String(b.id)]]) : [null];
+      const velho = json(v);
+      if (b.a === 'admin-canivete-del') { await redis([['HDEL', 'area:canivete', String(b.id || '')]]); return res.json({ ok: true }); }
+      if (b.a === 'admin-canivete-libera') {
+        if (!velho) return res.status(404).json({ ok: false });
+        velho.destino = b.destino === 'todos' ? 'todos' : (Array.isArray(b.destino) ? b.destino.map(slugify).filter(x => x.length >= 2) : []);
+        await redis([['HSET', 'area:canivete', velho.id, JSON.stringify(velho)]]);
+        return res.json({ ok: true, item: velho });
+      }
+      const it = CANIVETE.limpa(Object.assign({}, velho || {}, b.item || {}, { id: (velho || {}).id || (b.item || {}).id, origem: (velho || {}).origem, criado: (velho || {}).criado }));
+      if (!it.titulo || (!it.link)) return res.status(400).json({ ok: false, erro: 'Informe o título e o link.' });
+      await redis([['HSET', 'area:canivete', it.id, JSON.stringify(it)]]);
+      return res.json({ ok: true, item: it });
+    }
     if (b.a === 'admin-arq-oculto') {
       const id = String(b.id || '').replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 80);
       if (!id) return res.status(400).json({ ok: false });
@@ -1300,10 +1327,12 @@ module.exports = async (req, res) => {
       posts.forEach(p => {
         // post do blog ou material (isca, aula, palestra, ferramenta do site): o material abre sem cadastro para quem está logado
         const mat = p.mat ? String(p.mat).toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 80) : '';
-        const post = mat ? 'mat-' + mat : String(p.slug || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 120);
+        const cv = p.cv ? String(p.cv).toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 80) : '';
+        const post = mat ? 'mat-' + mat : cv ? 'cv-' + cv : String(p.slug || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 120);
         if (!post || ja[email + '|' + post]) return;
-        const url = mat ? (/^\/[a-z0-9\/_#?=&.-]*$/i.test(p.url || '') ? p.url : '/' + mat + '/') : '/blog/#' + post;
-        const l = { id: novoId(), post, tipo: mat ? 'material' : 'post', titulo: limpo(String(p.titulo || '').replace(/==/g, ''), 200), url, pessoa: email, criado: new Date().toISOString(), lido: '' };
+        const url = mat ? (/^\/[a-z0-9\/_#?=&.-]*$/i.test(p.url || '') ? p.url : '/' + mat + '/') : cv ? (/^(https:\/\/[^\s"<>]+|\/[^\s"<>]*)$/i.test(p.url || '') ? p.url : '') : '/blog/#' + post;
+        if (!url) return;
+        const l = { id: novoId(), post, tipo: mat || cv ? 'material' : 'post', titulo: limpo(String(p.titulo || '').replace(/==/g, ''), 200), url, pessoa: email, criado: new Date().toISOString(), lido: '' };
         cmds.push(['HSET', 'area:leit:' + slug, l.id, JSON.stringify(l)]); novos.push(l); ja[email + '|' + post] = 1;
       });
       if (cmds.length) await redis(cmds);

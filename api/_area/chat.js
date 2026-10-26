@@ -16,6 +16,7 @@ const FERRAMENTAS = [
   { name: 'listar_acoes', description: 'Ações do plano com filtros. Sem slug, busca em todas as empresas.', input_schema: { type: 'object', properties: { slug: { type: 'string' }, status: { type: 'string', enum: ['a_fazer', 'fazendo', 'feito', 'cancelado'] }, atrasadas: { type: 'boolean' }, responsavel: { type: 'string', description: 'e-mail da pessoa ou "unique" para o Carlos' }, entrega_de: { type: 'string', description: 'AAAA-MM-DD' }, entrega_ate: { type: 'string', description: 'AAAA-MM-DD' }, texto: { type: 'string', description: 'palavra no título ou na descrição' } } } },
   { name: 'ver_reuniao', description: 'Uma reunião (base de reuniões do Notion) com data, participantes, links de gravação/Drive/transcrição e o conteúdo da página no Notion (resumo/ata, quando houver). Use mais_recente para a última da empresa.', input_schema: { type: 'object', properties: { slug: { type: 'string' }, id: { type: 'string' }, mais_recente: { type: 'boolean' } } } },
   { name: 'pessoas_sem_acesso', description: 'Pessoas dos clientes que não entram na área do cliente há N dias (ou nunca entraram).', input_schema: { type: 'object', properties: { dias: { type: 'number' } }, required: ['dias'] } },
+  { name: 'canivete', description: 'Biblioteca Canivete de Vendas (palestras, aulas, tutoriais, iscas, ferramentas, posts): lista os conteúdos com link e para quem estão liberados.', input_schema: { type: 'object', properties: { tipo: { type: 'string' }, texto: { type: 'string' } } } },
   { name: 'buscar', description: 'Busca uma palavra em empresas, pessoas, ações, reuniões e vitórias.', input_schema: { type: 'object', properties: { texto: { type: 'string' } }, required: ['texto'] } },
   // ---------- mudanças (viram cartão para o Carlos confirmar) ----------
   { name: 'criar_acao', description: 'PROPÕE criar uma ação no plano de uma empresa (o Carlos confirma antes).', input_schema: { type: 'object', properties: { slug: { type: 'string' }, titulo: { type: 'string' }, detalhe: { type: 'string', description: 'descrição/passo a passo' }, prazo: { type: 'string', description: 'entrega AAAA-MM-DD' }, inicio: { type: 'string', description: 'AAAA-MM-DD' }, dono: { type: 'string', enum: ['unique', 'cliente'] }, tipo: { type: 'string', enum: ['acao', 'tecnica', 'isca', 'reuniao', 'video', 'material', 'post'] }, prioridade: { type: 'string', enum: ['', 'URGENTE', 'P1', 'P2', 'P3'] }, responsaveis: { type: 'array', items: { type: 'string' }, description: 'e-mails das pessoas e/ou "unique"' }, observadores: { type: 'array', items: { type: 'string' } } }, required: ['slug', 'titulo'] } },
@@ -104,6 +105,10 @@ function cria(d) {
         us.filter(u => u.status !== 'recusado' && (!u.ultimo || u.ultimo < lim)).forEach(u => out.push({ empresa: e.nome, slug: s, nome: u.nome, email: u.email, status: u.status, ultimo_acesso: u.ultimo || 'nunca' }));
       }
       return out;
+    }
+    if (nome === 'canivete') {
+      const L = await require('./canivete.js').lista(redis, d.SITE, false), t = String(x.texto || '').toLowerCase();
+      return L.filter(i => (!x.tipo || i.tipo === x.tipo) && (!t || (i.titulo + ' ' + (i.descricao || '') + ' ' + (i.tags || []).join(' ')).toLowerCase().indexOf(t) >= 0)).slice(0, 60).map(i => ({ id: i.id, tipo: i.tipo, titulo: i.titulo, link: i.link, descricao: i.descricao, liberado_para: i.destino === 'todos' ? 'todos' : (i.destino || []) }));
     }
     if (nome === 'buscar') {
       const t = String(x.texto || '').toLowerCase(), out = [];

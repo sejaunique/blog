@@ -9,6 +9,7 @@
 <script src="/assets/arquivos.js" defer></script>
 <script src="/assets/vitorias.js" defer></script>
 <script src="/assets/chat.js" defer></script>
+<script src="/assets/canivete.js" defer></script>
 <script src="/assets/agenda.js" defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>if(Math.min(screen.width,innerWidth)<900&&!/[?&]desk=1/.test(location.search))location.replace('/area/admin/app/'+location.hash);</script>
@@ -879,6 +880,7 @@ body{background:var(--ws-bg)}
 .rl-l{list-style:none;margin:0;padding:0;display:grid;gap:6px}.rl-l li{font-size:.86rem}.rl-l small{display:block;font-size:.74rem;color:var(--muted)}.rl-atr{font-size:.82rem;color:#a3043f}
 @media(max-width:900px){.rl-kpis{grid-template-columns:1fr 1fr}.rl-2{grid-template-columns:1fr}}
 @media print{body.imprime-rl *{visibility:hidden}body.imprime-rl #rl-doc,body.imprime-rl #rl-doc *{visibility:visible}body.imprime-rl #rl-doc{position:absolute;left:0;top:0;width:100%;padding:24px}}
+.cv-f{margin:6px 0 18px;padding:16px;border:1.5px solid var(--fg);border-radius:18px}
 .nv-soc{max-width:880px;margin:-56px auto 0;padding:0 28px 100px;width:100%;box-sizing:border-box;flex-shrink:0}
 .nv-soc h3{font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:0 0 4px}
 .nv-soc .social{margin-top:10px}
@@ -1156,7 +1158,7 @@ body{background:var(--ws-bg)}
     ['vendas','Vendas',[['crm','Funil de vendas'],['propostas','Propostas'],['diagnosticos','Diagnósticos']]],
     ['clientes','Clientes',[['empresas','Empresas'],['contatos','Contatos'],['resultados','Resultados']]],
     ['entregas','Entregas',[['acoes','Ações e tarefas'],['reunioes','Reuniões']]],
-    ['conteudo','Conteúdo',[['postagens','Blog e leituras'],['newsletter','Newsletter'],['videoaulas','Videoaulas']]],
+    ['conteudo','Conteúdo',[['canivete','Canivete de Vendas'],['postagens','Blog e leituras'],['newsletter','Newsletter'],['videoaulas','Videoaulas']]],
     ['ajustes','Ajustes',[['site','Integrações e site'],['alda','Alda.CRM']]]
   ];
   function grupoDe(v){ return GRUPOS.filter(function(g){ return g[2].some(function(x){return x[0]===v;}); })[0]||GRUPOS[0]; }
@@ -1209,7 +1211,7 @@ body{background:var(--ws-bg)}
     document.addEventListener('keydown',function(ev){ if((ev.metaKey||ev.ctrlKey)&&ev.key.toLowerCase()==='k'){ ev.preventDefault(); inp.focus(); inp.select(); } });
   })();
   function desenha(){
-    var f={painel:vPainel,crm:vCrm,notificacoes:vNotif,empresas:vEmpresas,contatos:vContatos,acoes:vAcoes,propostas:vPropostas,diagnosticos:vDiag,postagens:vPosts,newsletter:vNews,videoaulas:vVideos,reunioes:vReunioes,site:vSite,alda:vAlda,resultados:vResultados,assistente:vAssistente}[VISTA]||vPainel;
+    var f={painel:vPainel,crm:vCrm,notificacoes:vNotif,empresas:vEmpresas,contatos:vContatos,acoes:vAcoes,propostas:vPropostas,diagnosticos:vDiag,postagens:vPosts,newsletter:vNews,videoaulas:vVideos,reunioes:vReunioes,site:vSite,alda:vAlda,resultados:vResultados,assistente:vAssistente,canivete:vCanivete}[VISTA]||vPainel;
     f();
   }
 
@@ -1914,6 +1916,48 @@ body{background:var(--ws-bg)}
     return '<details class="ct-arqv"><summary>Arquivadas ('+A.length+')</summary>'+A.map(function(a){ return '<div class="ct-arqv-i"><div><p>'+esc(a.titulo)+'</p><small>'+(TIPO[a.tipo]||'Ação')+(a.prazo?' · '+dt(a.prazo):'')+(a.atualizado?' · arquivada '+dt(a.atualizado):'')+'</small></div><button class="pill" data-desarq="'+esc(a.id)+'">Desarquivar</button></div>'; }).join('')+'</details>'; }
   /* ---------- PÁGINA DA EMPRESA (mesmo layout da página do contato) ---------- */
   var EMPTAB='resumo', m0=null;
+  /* ---------- CANIVETE DE VENDAS: biblioteca de conteúdos (o cliente vê só o que for liberado) ---------- */
+  var CANV=null;
+  function vCanivete(){
+    var L=CANV||[], lib=L.filter(function(i){ return i.destino==='todos'||(i.destino||[]).length; }).length;
+    cabecalho('Canivete','de Vendas',[['doc',L.length,'conteúdos'],['check',lib,'liberados'],['users',L.length-lib,'fechados']]);
+    $('vista').innerHTML='<section class="card"><div class="card-h" style="flex-wrap:wrap"><h2>Biblioteca</h2><span class="muted" style="flex:1;min-width:220px">Palestras, aulas, tutoriais, iscas e ferramentas. O cliente só vê o que você liberar para a empresa dele.</span><button class="pill" id="cv-lote">Adicionar vários</button><button class="pill solid" id="cv-novo">'+ic('mais')+'Adicionar</button></div><div id="cv-form"></div><div id="cv-g">'+(CANV?'':'<div class="vazio">Carregando…</div>')+'</div></section>';
+    $('cv-novo').onclick=function(){ cvForm({}); }; $('cv-lote').onclick=cvLote;
+    if(!CANV){ get('?a=canivete').then(function(r){ CANV=(r&&r.itens)||[]; if(VISTA==='canivete') vCanivete(); }); return; }
+    UniqueCanivete.grade($('cv-g'),CANV,{admin:true,nomeEmp:nomeEmp,aoEditar:cvForm,aoLiberar:cvLibera,aoLeitura:cvLeitura,
+      aoExcluir:function(i){ post({a:'admin-canivete-del',id:i.id}).then(function(){ CANV=CANV.filter(function(x){return x.id!==i.id;}); toast('Excluído.'); vCanivete(); }); }});
+  }
+  function cvForm(i){ var f=$('cv-form'), N=UniqueCanivete.NOME;
+    f.innerHTML='<form class="form cv-f"><div class="l3"><div class="campo"><label>Tipo</label><select name="tipo">'+['palestra','aula','tutorial','isca','ferramenta','video','post','material'].map(function(k){return '<option value="'+k+'"'+(i.tipo===k?' selected':'')+'>'+N[k]+'</option>';}).join('')+'</select></div><div class="campo" style="grid-column:span 2"><label>Título</label><input name="titulo" required value="'+esc(i.titulo||'')+'"></div></div>'+
+      '<div class="campo"><label>Link (YouTube, Drive, Notion, Canva ou página do site)</label><input name="link" required placeholder="https://…" value="'+esc(i.link||'')+'"></div>'+
+      '<div class="campo"><label>Descrição curta</label><input name="descricao" value="'+esc(i.descricao||'')+'"></div><div class="campo"><label>Etiquetas (separe por vírgula)</label><input name="tags" value="'+esc((i.tags||[]).join(', '))+'" placeholder="vendas, WhatsApp, gestão"></div>'+
+      '<div style="display:flex;gap:8px"><button class="pill solid">'+(i.id?'Salvar':'Adicionar ao Canivete')+'</button><button type="button" class="pill" data-x>Cancelar</button></div></form>';
+    var fm=f.querySelector('form'); fm.titulo.focus(); fm.querySelector('[data-x]').onclick=function(){ f.innerHTML=''; };
+    fm.onsubmit=function(ev){ ev.preventDefault(); post({a:'admin-canivete',id:i.id||'',item:{tipo:fm.tipo.value,titulo:fm.titulo.value,link:fm.link.value,descricao:fm.descricao.value,tags:fm.tags.value}}).then(function(r){ if(!r.ok){ toast(r.erro||'Erro.'); return; } CANV=(CANV||[]).filter(function(x){return x.id!==r.item.id;}); CANV.unshift(r.item); f.innerHTML=''; toast(i.id?'Salvo.':'Adicionado. Agora é só liberar para quem deve ver.'); vCanivete(); }); }; }
+  function cvLote(){ var f=$('cv-form');
+    f.innerHTML='<form class="form cv-f"><div class="campo"><label>Cole os links, um por linha</label><textarea name="texto" rows="7" placeholder="https://youtu.be/…\nPalestra; Comercial Atleta; https://youtu.be/…\nFerramenta; Planilha de metas; https://docs.google.com/…"></textarea><small class="muted" style="font-size:.74rem">Pode ser só o link, “título; link” ou “tipo; título; link” (tipos: palestra, aula, tutorial, isca, ferramenta, vídeo). Também dá para colar direto de uma planilha. Depois você ajusta cada um.</small></div>'+
+      '<label style="font-size:.82rem;display:flex;gap:8px"><input type="checkbox" name="todos"> Já liberar para todos os clientes</label><div style="display:flex;gap:8px"><button class="pill solid">Adicionar todos</button><button type="button" class="pill" data-x>Cancelar</button></div></form>';
+    var fm=f.querySelector('form'); fm.texto.focus(); fm.querySelector('[data-x]').onclick=function(){ f.innerHTML=''; };
+    fm.onsubmit=function(ev){ ev.preventDefault(); post({a:'admin-canivete-lote',texto:fm.texto.value,destino:fm.todos.checked?'todos':[]}).then(function(r){ if(!r.ok){ toast(r.erro||'Erro.'); return; } CANV=(r.novos||[]).concat(CANV||[]); f.innerHTML=''; toast(r.novos.length+' conteúdo(s) adicionados.'); vCanivete(); }); }; }
+  function cvLibera(i,btn){ document.querySelectorAll('.pop').forEach(function(p){p.remove();});
+    var p=document.createElement('div'); p.className='pop'; var r=btn.getBoundingClientRect(); p.style.top=Math.min(r.bottom+6,innerHeight-380)+'px'; p.style.left=Math.max(12,Math.min(r.left,innerWidth-300))+'px';
+    var D=i.destino==='todos'?'todos':(i.destino||[]);
+    p.innerHTML='<b style="font-size:.8rem">Quem vê “'+esc(i.titulo)+'”</b><label style="font-weight:700"><input type="checkbox" data-todos'+(D==='todos'?' checked':'')+'> Todos os clientes (inclusive os novos)</label><hr style="border:0;border-top:1px solid var(--ws-line)">'+
+      (R.empresas||[]).map(function(e){return '<label><input type="checkbox" value="'+esc(e.slug)+'"'+(D!=='todos'&&D.indexOf(e.slug)>=0?' checked':'')+'> '+esc(e.nome)+'</label>';}).join('')+'<div class="bts"><button class="pill solid" data-ok>Salvar</button><button class="pill" data-x>Fechar</button></div>';
+    document.body.appendChild(p);
+    p.onclick=function(ev){ var b=ev.target.closest('button'); if(!b) return; if(b.hasAttribute('data-x')){ p.remove(); return; }
+      var todos=p.querySelector('[data-todos]').checked, sel=[].map.call(p.querySelectorAll('input[value]:checked'),function(x){return x.value;}); p.remove();
+      post({a:'admin-canivete-libera',id:i.id,destino:todos?'todos':sel}).then(function(r){ if(!r.ok){ toast('Erro.'); return; } i.destino=r.item.destino; toast(todos?'Liberado para todos os clientes.':sel.length?'Liberado para '+sel.length+' empresa(s).':'Fechado: ninguém vê.'); vCanivete(); }); }; }
+  function cvLeitura(i,btn){ document.querySelectorAll('.pop').forEach(function(p){p.remove();});
+    var p=document.createElement('div'); p.className='pop'; var r=btn.getBoundingClientRect(); p.style.top=Math.min(r.bottom+6,innerHeight-300)+'px'; p.style.left=Math.max(12,Math.min(r.left,innerWidth-300))+'px';
+    p.innerHTML='<b style="font-size:.8rem">Pôr na Lista de Leitura</b><select class="mini" data-e><option value="">Escolha a empresa</option>'+(R.empresas||[]).map(function(e){return '<option value="'+esc(e.slug)+'">'+esc(e.nome)+'</option>';}).join('')+'</select><select class="mini" data-p disabled><option value="*">A empresa toda</option></select><div class="bts"><button class="pill solid" data-ok>Pôr na lista</button><button class="pill" data-x>Fechar</button></div>';
+    document.body.appendChild(p);
+    var se=p.querySelector('[data-e]'), sp=p.querySelector('[data-p]');
+    se.onchange=function(){ var e=emp(se.value); sp.disabled=!e; sp.innerHTML='<option value="*">A empresa toda</option>'+(e?(e.usuarios||[]).map(function(u){return '<option value="'+esc(u.email)+'">'+esc(u.nome)+'</option>';}).join(''):''); };
+    p.onclick=function(ev){ var b=ev.target.closest('button'); if(!b) return; if(b.hasAttribute('data-x')){ p.remove(); return; } if(!se.value){ toast('Escolha a empresa.'); return; }
+      var item=i.tipo==='post'&&/^\/blog\//.test(i.link)?{slug:i.link.split('/')[2],titulo:i.titulo}:{cv:i.id,url:i.link,titulo:i.titulo};
+      post({a:'admin-leitura',slug:se.value,email:sp.value,posts:[item]}).then(function(r){ p.remove(); if(!r.ok){ toast(r.erro||'Erro.'); return; } toast(r.novos.length?'Na Lista de Leitura.':'Já estava na lista.'); delete CONTS[se.value];
+        if(i.destino!=='todos'&&(i.destino||[]).indexOf(se.value)<0) post({a:'admin-canivete-libera',id:i.id,destino:(i.destino||[]).concat([se.value])}).then(function(x){ if(x.ok){ i.destino=x.item.destino; vCanivete(); } }); }); }; }
   /* ---------- ASSISTENTE COM IA (tela cheia) ---------- */
   function vAssistente(){
     cabecalho('Assistente','com IA',[]);

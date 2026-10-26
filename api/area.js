@@ -65,6 +65,7 @@ const GOOGLE = require('./_area/google.js');
 const CAMPOS = require('./_area/campos.js');
 const CONSULTA = require('./_area/consulta.js');
 const NOTION = require('./_area/notion.js');
+const RICO = require('./_area/rico.js');
 
 const URL_DB = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -168,6 +169,13 @@ async function itemPorId(slug, id) {
   return vals.map(json).find(x => x && pastaDe(slug, x) === id) || null;
 }
 function membro(s, slug) { return !!s && (s.admin || s.slug === slug); }
+// quem é da empresa (nome e foto), para mostrar responsáveis e observadores
+async function pessoasDe(slug) {
+  const [ems] = await redis([['SMEMBERS', 'area:users:' + slug]]);
+  const us = (ems || []).length ? await redis(ems.map(m => ['GET', 'area:user:' + slug + ':' + m])) : [];
+  return us.map(json).filter(u => u && !u.arquivada && u.status !== 'recusado').map(u => ({ email: u.email, nome: u.nome, foto: u.foto || '', papel: papelDe(u) }))
+    .sort((a, b) => String(a.nome).localeCompare(String(b.nome), 'pt-BR'));
+}
 // ações do plano também têm curtir, comentar e link público (para quem não tem login)
 const ACAO_ID = /^[a-z0-9_-]{3,60}$/i;
 async function acaoDe(slug, id) { const c = await conteudo(slug); return (c.acoes || []).find(x => x.id === id) || null; }
@@ -184,7 +192,13 @@ async function papelSessao(s) {
   const [v] = await redis([['GET', 'area:user:' + s.slug + ':' + s.email]]);
   return papelDe(json(v));
 }
-const podeVer = (papel, x) => (NIVEL[papel] || 0) >= (PRECISA[visivelOk((x || {}).visivel)] || 0);
+// ação com observadores: só veem os responsáveis, os observadores e os ADMs; sem observadores, vale o nível ("quem vê")
+const podeVer = (papel, x, email) => {
+  if (papel === 'adm') return true;
+  const ob = (x && x.observadores) || [];
+  if (ob.length) return !!email && (ob.indexOf(email) >= 0 || ((x.responsaveis || []).indexOf(email) >= 0));
+  return (NIVEL[papel] || 0) >= (PRECISA[visivelOk((x || {}).visivel)] || 0);
+};
 
 function usuarioPublico(u) { return { papel: papelDe(u), semEmail: NOTION.ehInterno(u.email), notion: u.notion || '', email: u.email, nome: u.nome, whatsapp: u.whatsapp, status: u.status, criado: u.criado, ultimo: u.ultimo || '', origem: u.origem || '', crm: u.crm || {}, editado: u.editado || '', foto: u.foto || '', fotoOrigem: u.fotoOrigem || '' }; }
 
@@ -248,9 +262,9 @@ async function conteudo(slug) {
   const [modH, mstH] = await redis([['HGETALL', 'area:modelos'], ['HGETALL', 'area:mst:' + slug]]);
   const mst = {};
   lerPares(mstH).forEach(([k, v]) => { mst[k] = json(v) || {}; });
-  const comp = lerHash(modH).filter(m => valePara(m, slug)).map(m => Object.assign({}, m, { compartilhada: true, status: (mst[m.id] || {}).status || 'a_fazer', prazo: (mst[m.id] || {}).prazo || m.prazo || '', dono: (mst[m.id] || {}).dono || m.dono || 'unique', tipo: (mst[m.id] || {}).tipo || m.tipo || 'acao', pessoa: (mst[m.id] || {}).pessoa !== undefined ? mst[m.id].pessoa : (m.pessoa || ''), por: (mst[m.id] || {}).por, atualizado: (mst[m.id] || {}).atualizado }));
+  const comp = lerHash(modH).filter(m => valePara(m, slug)).map(m => Object.assign({}, m, { compartilhada: true, status: (mst[m.id] || {}).status || 'a_fazer', prazo: (mst[m.id] || {}).prazo || m.prazo || '', dono: (mst[m.id] || {}).dono || m.dono || 'unique', tipo: (mst[m.id] || {}).tipo || m.tipo || 'acao', pessoa: (mst[m.id] || {}).pessoa !== undefined ? mst[m.id].pessoa : (m.pessoa || ''), responsaveis: (mst[m.id] || {}).responsaveis || m.responsaveis, observadores: (mst[m.id] || {}).observadores || m.observadores, por: (mst[m.id] || {}).por, atualizado: (mst[m.id] || {}).atualizado }));
   const ordem = { fazendo: 0, a_fazer: 1, feito: 2, cancelado: 3, arquivado: 4 };
-  const acoes = lerHash(acoesH).concat(comp).sort((a, b) => (ordem[a.status] - ordem[b.status]) || String(a.prazo || '9').localeCompare(String(b.prazo || '9')));
+  const acoes = lerHash(acoesH).concat(comp).map(normAcao).sort((a, b) => (ordem[a.status] - ordem[b.status]) || String(a.prazo || '9').localeCompare(String(b.prazo || '9')));
   return { itens, acoes };
 }
 
@@ -272,16 +286,32 @@ function limpaItem(i) {
   };
 }
 const idc = id => String(id || '').replace(/-/g, '');
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const listaPessoas = (v, comUnique) => Array.from(new Set((Array.isArray(v) ? v : []).map(x => String(x || '').trim().toLowerCase()).filter(x => (comUnique && x === 'unique') || EMAIL_RE.test(x)))).slice(0, 30);
+// normaliza a ação (campos novos: responsaveis, observadores, data só com dia); `pessoa` fica como o 1º responsável do cliente
+function normAcao(a) {
+  if (!a) return a;
+  if (!Array.isArray(a.responsaveis)) a.responsaveis = a.pessoa ? [a.pessoa] : [];
+  if (!Array.isArray(a.observadores)) a.observadores = [];
+  a.pessoa = a.responsaveis.filter(x => x !== 'unique')[0] || '';
+  if (a.inicio) a.inicio = String(a.inicio).slice(0, 10);
+  return a;
+}
 function limpaAcao(a) {
+  const html = a.detalheHtml ? RICO.limpa(a.detalheHtml) : '';
+  const resp = a.responsaveis !== undefined ? listaPessoas(a.responsaveis, true) : (EMAIL_RE.test(a.pessoa || '') ? [String(a.pessoa).toLowerCase()] : []);
   return {
     id: /^[a-z0-9]{6,24}$/.test(a.id || '') ? a.id : novoId(),
     titulo: limpo(a.titulo, 200),
-    detalhe: limpo(a.detalhe, 1500),
+    detalhe: html ? RICO.plano(html).slice(0, 20000) : limpo(a.detalhe, 20000),
+    detalheHtml: html,
+    responsaveis: resp,
+    observadores: listaPessoas(a.observadores, false),
     responsavel: limpo(a.responsavel, 80),
     prazo: /^\d{4}-\d{2}-\d{2}$/.test(a.prazo || '') ? a.prazo : '',
-    inicio: /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2})?$/.test(a.inicio || '') ? a.inicio : '',
+    inicio: /^\d{4}-\d{2}-\d{2}/.test(a.inicio || '') ? String(a.inicio).slice(0, 10) : '',
     dono: a.dono === 'cliente' || a.dono === 'ambos' ? a.dono : 'unique',
-    pessoa: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(a.pessoa || '') ? String(a.pessoa).toLowerCase().slice(0, 120) : '',
+    pessoa: resp.filter(x => x !== 'unique')[0] || '',
     tipo: ['acao', 'post', 'video', 'reuniao', 'material', 'tecnica', 'isca'].indexOf(a.tipo) >= 0 ? a.tipo : 'acao',
     prioridade: ['URGENTE', 'P1', 'P2', 'P3'].indexOf(a.prioridade) >= 0 ? a.prioridade : '',
     link: (/^https:\/\//i.test(a.link || '') || /^\/[^/]/.test(a.link || '')) ? limpo(a.link, 600) : '',
@@ -341,7 +371,7 @@ module.exports = async (req, res) => {
         if (!ACAO_ID.test(id)) return res.status(400).json({ ok: false });
         if (!membro(s, slug)) return res.status(401).json({ ok: false, erro: 'Entre na sua conta.' });
         const a = await acaoDe(slug, id);
-        if (!a || !podeVer(await papelSessao(s), a)) return res.status(404).json({ ok: false });
+        if (!a || !podeVer(await papelSessao(s), a, s.email)) return res.status(404).json({ ok: false });
         const quem = s.admin ? 'unique' : s.email, k = slug + ':a:' + id;
         const [tok, n, curti, lst] = await redis([['HGET', 'area:acpub:' + slug, id], ['SCARD', 'area:curt:' + k], ['SISMEMBER', 'area:curt:' + k, quem], ['LRANGE', 'area:com:' + k, 0, 199]]);
         const comentarios = (lst || []).map(json).filter(Boolean).map(c => ({ cid: c.cid, nome: c.nome, texto: c.texto, data: c.data, unique: !!c.unique, meu: s.admin || c.email === s.email }));
@@ -366,7 +396,7 @@ module.exports = async (req, res) => {
         const k = pv.slug + ':a:' + pv.id;
         const [n, nc] = await redis([['SCARD', 'area:curt:' + k], ['LLEN', 'area:com:' + k]]);
         res.setHeader('Cache-Control', 'no-store');
-        return res.json({ ok: true, titulo: a.titulo, tipo: a.tipo || 'acao', detalhe: html ? '' : (a.detalhe || ''), html, empresa: e ? e.nome : '', status: a.status || 'a_fazer', prazo: a.prazo || '', dono: a.dono || 'unique', link: a.link || '', curtidas: n || 0, comentarios: nc || 0 });
+        return res.json({ ok: true, titulo: a.titulo, tipo: a.tipo || 'acao', detalhe: html ? '' : (a.detalhe || ''), detalheHtml: html ? '' : (a.detalheHtml || ''), html, empresa: e ? e.nome : '', status: a.status || 'a_fazer', prazo: a.prazo || '', dono: a.dono || 'unique', link: a.link || '', curtidas: n || 0, comentarios: nc || 0 });
       }
 
       if (q.a === 'social') {
@@ -375,7 +405,7 @@ module.exports = async (req, res) => {
         if (!ID_OK.test(id)) return res.status(400).json({ ok: false });
         const it = await itemPorId(slug, id);
         if (!it || (!it.publicado && !(s && s.admin))) return res.status(404).json({ ok: false });
-        if (s && !s.admin && s.slug === slug && !podeVer(await papelSessao(s), it)) return res.status(404).json({ ok: false });
+        if (s && !s.admin && s.slug === slug && !podeVer(await papelSessao(s), it, s.email)) return res.status(404).json({ ok: false });
         const pasta = pastaDe(slug, it);
         id = it.id;
         const quem = s ? (s.admin ? 'unique' : s.email) : '';
@@ -453,7 +483,7 @@ module.exports = async (req, res) => {
         const proprias = [];
         slugs.forEach((sl, i) => {
           const nt = {}; lerPares(por[i * 3 + 2]).forEach(([id, v]) => { nt[id] = json(v); });
-          lerPares(por[i * 3]).forEach(([, v]) => { const a = json(v); if (a) proprias.push(Object.assign(a, { slug: sl }, nt[a.id] ? { nota: nt[a.id] } : {})); });
+          lerPares(por[i * 3]).forEach(([, v]) => { const a = normAcao(json(v)); if (a) proprias.push(Object.assign(a, { slug: sl }, nt[a.id] ? { nota: nt[a.id] } : {})); });
           lerPares(por[i * 3 + 1]).forEach(([id, v]) => { (andamento[id] = andamento[id] || {})[sl] = json(v) || {}; });
           Object.keys(nt).forEach(id => { if (andamento[id] && andamento[id][sl]) andamento[id][sl].nota = nt[id]; else if (!proprias.some(a => a.id === id && a.slug === sl)) ((andamento[id] = andamento[id] || {})[sl] = { nota: nt[id] }); });
         });
@@ -478,7 +508,7 @@ module.exports = async (req, res) => {
         if (!e) return res.status(404).json({ ok: false, erro: 'Empresa não encontrada.' });
         const c = await conteudo(slug);
         const papel = await papelSessao(s);
-        if (!s.admin) { c.itens = c.itens.filter(i => i.publicado && podeVer(papel, i)); c.acoes = c.acoes.filter(a => podeVer(papel, a)); }
+        if (!s.admin) { c.itens = c.itens.filter(i => i.publicado && podeVer(papel, i, s.email)); c.acoes = c.acoes.filter(a => podeVer(papel, a, s.email)); }
         c.itens.forEach(i => {
           if (!i.arquivo) return;
           i.baixar = '/api/area?a=arquivo&e=' + slug + '&id=' + i.id;
@@ -492,11 +522,11 @@ module.exports = async (req, res) => {
         const [lH, rH, nH] = await redis([['HGETALL', 'area:leit:' + slug], ['HGETALL', 'area:reun:' + slug], ['HGETALL', 'area:anot:' + slug]]);
         const notas = {}; lerPares(nH).forEach(([k, v]) => { notas[k] = json(v); });
         c.acoes.forEach(a => { if (notas[a.id]) a.nota = notas[a.id]; a.rica = !!(a.nIA || a.nConteudo || String(a.detalhe || '').trim().length > 40 || (a.anexos || []).length); });
-        const reunioes = (NIVEL[papel] || 0) >= 1 ? lerPares(rH).map(([, v]) => json(v)).filter(Boolean).sort((a, b) => String(b.data).localeCompare(String(a.data))) : [];
+        const reunioes = papel === 'adm' ? lerPares(rH).map(([, v]) => json(v)).filter(Boolean).sort((a, b) => String(b.data).localeCompare(String(a.data))) : [];
         const leituras = lerPares(lH).map(([, v]) => json(v)).filter(Boolean).filter(l => s.admin || l.pessoa === s.email || l.pessoa === '*')
           .map(l => (!s.admin && l.pessoa === '*') ? Object.assign({}, l, { lido: (l.lidoPor || {})[s.email] || '', todos: true }) : l)
           .sort((a, b) => String(a.criado).localeCompare(String(b.criado)));
-        return res.json({ ok: true, empresa: { slug, nome: e.nome }, itens: c.itens, acoes: c.acoes, leituras, reunioes, iaFila: (await redis([['SCARD', 'area:ia:fila']]))[0] || 0, admin: !!s.admin, eu: s.admin ? '' : s.email, papel });
+        return res.json({ ok: true, empresa: { slug, nome: e.nome }, itens: c.itens, acoes: c.acoes, leituras, reunioes, iaFila: (await redis([['SCARD', 'area:ia:fila']]))[0] || 0, admin: !!s.admin, eu: s.admin ? '' : s.email, nome: s.admin ? 'Carlos' : (s.nome || ''), papel, pessoas: await pessoasDe(slug) });
       }
 
       if (q.a === 'arquivo') {
@@ -504,7 +534,7 @@ module.exports = async (req, res) => {
         if (!s.admin && s.slug !== slug) return res.status(403).json({ ok: false });
         const [v] = await redis([['HGET', 'area:itens:' + slug, String(q.id || '')]]);
         const it = json(v);
-        if (!it || !it.arquivo || (!s.admin && (!it.publicado || !podeVer(await papelSessao(s), it)))) return res.status(404).json({ ok: false });
+        if (!it || !it.arquivo || (!s.admin && (!it.publicado || !podeVer(await papelSessao(s), it, s.email)))) return res.status(404).json({ ok: false });
         res.setHeader('Location', it.arquivo.url);
         return res.status(302).end();
       }
@@ -564,7 +594,7 @@ module.exports = async (req, res) => {
         const slug = s.admin ? slugify(q.e) : s.slug;
         const c = await conteudo(slug);
         const a = (c.acoes || []).find(x => x.id === String(q.id || ''));
-        if (!a || !podeVer(await papelSessao(s), a)) return res.status(404).json({ ok: false });
+        if (!a || !podeVer(await papelSessao(s), a, s.email)) return res.status(404).json({ ok: false });
         let html = '', erro = '';
         let ia = false;
         try {
@@ -776,7 +806,7 @@ module.exports = async (req, res) => {
       const slug = s.admin ? slugify(b.slug) : s.slug;
       const id = String(b.id || '').slice(0, 40);
       if (!slug || !/^[a-z0-9_-]{3,40}$/i.test(id)) return res.status(400).json({ ok: false });
-      if (!s.admin) { const av = await acaoDe(slug, id); if (!av || !podeVer(await papelSessao(s), av)) return res.status(404).json({ ok: false }); }
+      if (!s.admin) { const av = await acaoDe(slug, id); if (!av || !podeVer(await papelSessao(s), av, s.email)) return res.status(404).json({ ok: false }); }
       const texto = String(b.texto || '').slice(0, 8000);
       const nota = { texto, por: s.admin ? 'Unique' : (s.nome || s.email), em: new Date().toISOString() };
       await redis([texto.trim() ? ['HSET', 'area:anot:' + slug, id, JSON.stringify(nota)] : ['HDEL', 'area:anot:' + slug, id]]);
@@ -785,10 +815,14 @@ module.exports = async (req, res) => {
 
     if (b.a === 'acao-status') {
       const slug = s.admin ? slugify(b.slug) : s.slug;
-      if (!s.admin) { const av = await acaoDe(slug, String(b.id || '')); if (!av || !podeVer(await papelSessao(s), av)) return res.status(404).json({ ok: false }); }
+      if (!s.admin) { const av = await acaoDe(slug, String(b.id || '')); if (!av || !podeVer(await papelSessao(s), av, s.email)) return res.status(404).json({ ok: false }); }
       if (b.status !== undefined && STATUS_ACAO.indexOf(b.status) < 0) return res.status(400).json({ ok: false });
       const TIPOS_ACAO = ['acao', 'post', 'video', 'reuniao', 'material', 'tecnica', 'isca'];
-      const extra = o => { if (b.dono === 'unique' || b.dono === 'cliente' || b.dono === 'ambos') o.dono = b.dono; if (TIPOS_ACAO.indexOf(b.tipo) >= 0) o.tipo = b.tipo; if (b.pessoa !== undefined) o.pessoa = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(b.pessoa || '') ? String(b.pessoa).toLowerCase().slice(0, 120) : ''; return o; };
+      const extra = o => { if (b.dono === 'unique' || b.dono === 'cliente' || b.dono === 'ambos') o.dono = b.dono; if (TIPOS_ACAO.indexOf(b.tipo) >= 0) o.tipo = b.tipo; if (b.pessoa !== undefined) { o.pessoa = EMAIL_RE.test(b.pessoa || '') ? String(b.pessoa).toLowerCase().slice(0, 120) : ''; o.responsaveis = o.pessoa ? [o.pessoa] : []; }
+        if (s.admin && b.responsaveis !== undefined) { o.responsaveis = listaPessoas(b.responsaveis, true); o.pessoa = o.responsaveis.filter(x => x !== 'unique')[0] || ''; }
+        if (s.admin && b.observadores !== undefined) o.observadores = listaPessoas(b.observadores, false);
+        if (s.admin && b.inicio !== undefined) o.inicio = /^\d{4}-\d{2}-\d{2}/.test(b.inicio || '') ? String(b.inicio).slice(0, 10) : '';
+        return o; };
       const [v, mv] = await redis([['HGET', 'area:acoes:' + slug, String(b.id || '')], ['HGET', 'area:modelos', String(b.id || '')]]);
       const a = json(v), m = json(mv);
       if (!a && valePara(m, slug)) {
@@ -833,7 +867,7 @@ module.exports = async (req, res) => {
       const slug = s.admin ? slugify(b.slug) : s.slug, ehAcao = b.t === 'acao';
       if (!membro(s, slugify(b.slug)) || !(ehAcao ? ACAO_ID : ID_OK).test(String(b.id || ''))) return res.status(403).json({ ok: false });
       const it = ehAcao ? await acaoDe(slug, String(b.id)) : await itemPorId(slug, String(b.id));
-      if (!it || !podeVer(await papelSessao(s), it)) return res.status(404).json({ ok: false });
+      if (!it || !podeVer(await papelSessao(s), it, s.email)) return res.status(404).json({ ok: false });
       const id = it.id;
       const quem = s.admin ? 'unique' : s.email;
       const k = slug + ':' + (ehAcao ? 'a:' : '') + id;
@@ -1237,7 +1271,10 @@ module.exports = async (req, res) => {
       if (!a.titulo) return res.status(400).json({ ok: false, erro: 'Dê um título para a ação.' });
       const [ov] = await redis([['HGET', 'area:acoes:' + slug, a.id]]);
       const velha = json(ov);
-      if (velha) ['notion', 'nEd', 'nTemArquivo', 'responsavel'].forEach(k => { if (velha[k] !== undefined && (k !== 'responsavel' || !a.responsavel)) a[k] = velha[k]; });
+      if (velha) ['notion', 'nEd', 'nTemArquivo', 'responsavel', 'nIA', 'nConteudo', 'nResumo'].forEach(k => { if (velha[k] !== undefined && (k !== 'responsavel' || !a.responsavel)) a[k] = velha[k]; });
+      // editaram só o texto puro (app do celular): o texto puro vale e a formatação antiga sai
+      const bruto = b.acao || {};
+      if (velha && velha.detalheHtml && bruto.detalheHtml === velha.detalheHtml && bruto.detalhe !== undefined && bruto.detalhe !== velha.detalhe) { a.detalheHtml = ''; a.detalhe = limpo(bruto.detalhe, 20000); }
       await redis([['HSET', 'area:acoes:' + slug, a.id, JSON.stringify(a)]]);
       await NOTION.envia(redis, 'acao', slug, a.id);
       const [nv] = await redis([['HGET', 'area:acoes:' + slug, a.id]]);

@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
 <link rel="stylesheet" href="/assets/casco.css">
 <script src="/assets/interacao.js" defer></script>
+<script src="/assets/rico.js" defer></script>
 <style>
 [hidden]{display:none!important}
 .capa .linha{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between}
@@ -220,6 +221,9 @@
 .nc table{width:100%}.nc th{text-align:left;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;border-bottom:2px solid var(--fg);padding:8px 10px}
 @media(max-width:620px){.nc .ia-dupla{grid-template-columns:1fr}.nc .ia-passos>li{padding-left:56px}}
 
+.av-p{width:28px;height:28px;border-radius:50%;display:inline-grid;place-items:center;overflow:hidden;background:#1e2357;color:#fff;font-size:.6rem;font-weight:800;border:2px solid var(--bg);flex-shrink:0;vertical-align:middle}.av-p img{width:100%;height:100%;object-fit:cover}
+.av-pilha{display:inline-flex;align-items:center;vertical-align:middle}.av-pilha>*+*{margin-left:-9px}.av-mais{width:28px;height:28px;border-radius:50%;display:inline-grid;place-items:center;background:var(--soft);border:2px solid var(--bg);font-size:.62rem;font-weight:800}
+.fp-av{display:inline-flex;align-items:center;gap:8px}
 .fp-soc{max-width:var(--read);margin:56px auto 0;padding-top:40px;border-top:1px solid var(--line)}
 .fp-soc h3{font-size:1.25rem;font-weight:500;letter-spacing:-.01em;margin:0}
 /* Golden Circle */
@@ -534,9 +538,15 @@
     var t=a.nResumo||a.detalhe||''; t=t.length>190?t.slice(0,190).replace(/\s\S*$/,'')+'…':t;
     return '<button type="button" class="tc st-'+a.status+(at?' atr':'')+'" data-abre="'+esc(a.id)+'"><span class="tc-top"><span class="tc-tipo">'+esc(TIPO[a.tipo]||'Ação')+'</span><span class="tc-st">'+STATUS[a.status]+'</span></span>'+
       '<span class="tc-tit">'+esc(a.titulo)+'</span>'+(t?'<span class="tc-res">'+esc(t)+'</span>':'')+
-      '<span class="tc-pe"><span class="tc-quem q-'+(a.dono||'unique')+'">'+DONO[a.dono||'unique']+'</span>'+(a.prazo?'<span class="'+(at?'t-atr':'')+'">'+(at?'Atrasada · ':'Entrega ')+data(a.prazo)+'</span>':'')+'<span class="tc-ic">'+((a.anexos||[]).length?'📎 '+a.anexos.length:'')+(a.nota?' ✎ nota':'')+'</span><span class="tc-abrir">Abrir →</span></span></button>';
+      '<span class="tc-pe">'+((a.responsaveis||[]).length?avPilha(a.responsaveis):'<span class="tc-quem q-'+(a.dono||'unique')+'">'+DONO[a.dono||'unique']+'</span>')+(a.prazo?'<span class="'+(at?'t-atr':'')+'">'+(at?'Atrasada · ':'Entrega ')+data(a.prazo)+'</span>':'')+'<span class="tc-ic">'+((a.anexos||[]).length?'📎 '+a.anexos.length:'')+(a.nota?' ✎ nota':'')+'</span><span class="tc-abrir">Abrir →</span></span></button>';
   }
   function acao(id){ return (DADOS.acoes||[]).filter(function(a){return a.id===id;})[0]; }
+  // pessoas da empresa com foto (responsáveis e observadores)
+  function pesInfo(m){ if(m==='unique') return {nome:'Carlos Ribeiro',foto:'/assets/carlos-hero.jpg'}; var u=(DADOS.pessoas||[]).filter(function(x){return x.email===m;})[0]; return u?{nome:u.nome,foto:u.foto?'/api/area?a=foto&k='+encodeURIComponent('p:'+DADOS.empresa.slug+':'+m)+'&v='+u.foto:''}:{nome:m===DADOS.eu?(DADOS.nome||'Você'):m}; }
+  function avP(m){ var p=pesInfo(m), ini=String(p.nome||'?').split(/\s+/).filter(Boolean).slice(0,2).map(function(x){return x[0];}).join('').toUpperCase(); return '<span class="av-p" title="'+esc(p.nome)+'">'+(p.foto?'<img src="'+esc(p.foto)+'" alt="" loading="lazy">':esc(ini))+'</span>'; }
+  function avPilha(L,max){ L=L||[]; max=max||3; if(!L.length) return ''; return '<span class="av-pilha">'+L.slice(0,max).map(avP).join('')+(L.length>max?'<span class="av-mais">+'+(L.length-max)+'</span>':'')+'</span>'; }
+  function nomesP(L){ return (L||[]).map(function(m){ var n=pesInfo(m).nome; return m==='unique'?n:String(n).split(' ')[0]; }).join(', '); }
+  function ricoOuTexto(a){ return a.detalheHtml?'<div class="rq-txt">'+a.detalheHtml+'</div>':textoSimples(a.detalhe); }
   function mudaStatus(a,st,cb){
     api({body:{a:'acao-status',id:a.id,slug:DADOS.empresa.slug,status:st}}).then(function(r){ if(r.ok){ a.status=r.acao.status; } plano(); calendario(); if(cb) cb(r.ok); });
   }
@@ -560,9 +570,9 @@
       '<button type="button" class="fp-x" data-fecha aria-label="Fechar">×</button></div></div>'+
       '<article class="wrap" role="dialog" aria-modal="true" aria-labelledby="fp-tit"><header class="fp-head"><span class="fp-tag">'+esc(TIPO[a.tipo]||'Ação')+'</span><h1 id="fp-tit">'+esc(a.titulo)+'</h1>'+
         '<p class="fp-sub">Plano de ações · '+esc(DADOS.empresa.nome)+'</p>'+
-        '<div class="fp-meta">'+met('Quem faz',DONO[a.dono||'unique'])+met('Pedida em',pedida?data(pedida):'—')+met('Entrega',a.prazo?data(a.prazo)+(atr?' <em>· atrasada</em>':''):'Sem data')+met('Prioridade',esc(a.prioridade||''))+met('Responsável',esc(a.responsavel||''))+'</div></header>'+
+        '<div class="fp-meta">'+met('Quem faz',DONO[a.dono||'unique'])+met('Pedida em',pedida?data(pedida):'—')+met('Entrega',a.prazo?data(a.prazo)+(atr?' <em>· atrasada</em>':''):'Sem data')+met('Prioridade',esc(a.prioridade||''))+((a.responsaveis||[]).length?met('Responsável','<span class="fp-av">'+avPilha(a.responsaveis)+esc(nomesP(a.responsaveis))+'</span>'):'')+((a.observadores||[]).length?met('Observadores','<span class="fp-av">'+avPilha(a.observadores)+'</span>'):'')+'</div></header>'+
         capa+
-        '<div class="fp-corpo"><div class="nc" id="fp-cont">'+(a.notion||a.nIA?'<div class="fp-carr"><i></i><i></i><i></i></div>':textoSimples(a.detalhe))+'</div>'+
+        '<div class="fp-corpo"><div class="nc" id="fp-cont">'+(a.notion||a.nIA?'<div class="fp-carr"><i></i><i></i><i></i></div>':ricoOuTexto(a))+'</div>'+
         (mat?'<section class="fp-mat"><h3>Material de apoio</h3>'+mat+'</section>':'')+
         '<div class="fp-cta"><p id="fp-cta-t">'+ctaTexto(a)+'</p><div class="fp-btns">'+ctaBotoes(a)+'</div></div>'+
         '<section class="fp-nota"><h3>Minhas anotações</h3><textarea id="fp-nota" placeholder="Escreva aqui o que você precisa lembrar, dúvidas, próximos passos…">'+esc((a.nota||{}).texto||'')+'</textarea>'+
@@ -577,7 +587,7 @@
     FOLHA.querySelector('.fp-st').onclick=function(ev){ var b=ev.target.closest('[data-st]'); if(b&&b.dataset.st!==a.status) poeSt(b.dataset.st); };
     FOLHA.querySelector('.fp-cta').onclick=function(ev){ var b=ev.target.closest('[data-st]'); if(b) poeSt(b.dataset.st); };
     api({get:'?a=acao-conteudo&id='+encodeURIComponent(a.id)+(DADOS.admin?'&e='+encodeURIComponent(DADOS.empresa.slug):'')}).then(function(r){ var c=document.getElementById('fp-cont'); if(!c) return;
-      c.innerHTML=r&&r.html?r.html:(textoSimples(a.detalhe)||(r&&r.erro?'<p class="fp-vz">'+esc(r.erro)+'</p>':''));
+      c.innerHTML=r&&r.html?r.html:(ricoOuTexto(a)||(r&&r.erro?'<p class="fp-vz">'+esc(r.erro)+'</p>':''));
       // a primeira imagem ou vídeo da página vira a capa, como no blog
       var cp=document.getElementById('fp-capa'), m=c.querySelector('.nc-video, figure');
       if(cp&&m){ var img=m.querySelector('img'), fr=m.querySelector('iframe'); cp.className='fp-capa'; cp.innerHTML=img?'<img src="'+esc(img.getAttribute('src'))+'" alt="">':fr?'<iframe src="'+esc(fr.getAttribute('src'))+'" title="Vídeo" allowfullscreen></iframe>':cp.innerHTML; if(img||fr) m.remove(); }

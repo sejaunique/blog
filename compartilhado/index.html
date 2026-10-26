@@ -138,6 +138,7 @@
 </head>
 <body class="leitura" data-casco="site">
 <script src="/assets/casco.js"></script>
+<script src="/assets/rico.js"></script>
 <main>
   <div class="fp"><article class="wrap" id="cp"><div class="cp-erro"><div class="fp-carr"><i></i><i></i><i></i></div></div></article></div>
 </main>
@@ -161,7 +162,7 @@
       '<header class="fp-head"><span class="fp-tag">'+esc(TIPO[d.tipo]||'Ação')+'</span><h1>'+esc(d.titulo)+'</h1>'+
       '<p class="fp-sub">Plano de ações'+(d.empresa?' · '+esc(d.empresa):'')+' · Unique Consultoria</p>'+
       '<div class="fp-meta">'+met('Status',ST[d.status]||'A fazer')+met('Quem faz',DONO[d.dono]||'Unique')+met('Entrega',d.prazo?data(d.prazo):'')+'</div></header>'+
-      '<div class="fp-corpo"><div class="nc">'+(d.html||texto(d.detalhe)||'<p>Esta ação ainda não tem explicação.</p>')+'</div>'+
+      '<div class="fp-corpo"><div class="nc">'+(d.html||(d.detalheHtml?'<div class="rq-txt">'+d.detalheHtml+'</div>':'')||texto(d.detalhe)||'<p>Esta ação ainda não tem explicação.</p>')+'</div>'+
       (d.link&&/^https?:\/\//.test(d.link)?'<div class="cp-mat" style="margin-top:32px"><a href="'+esc(d.link)+'" target="_blank" rel="noopener">↗ Abrir o material de apoio</a></div>':'')+'</div>'+
       '<footer class="cp-pe"><div class="cp-num"><span>'+I.cor+d.curtidas+(d.curtidas===1?' curtida':' curtidas')+'</span><span>'+I.com+d.comentarios+(d.comentarios===1?' comentário':' comentários')+'</span></div>'+
       '<div class="cp-cta"><b>Esse é o tipo de trabalho que a Unique faz com empresários.</b><p>Processo comercial, time de vendas e rotina que fazem a empresa vender mais.</p>'+

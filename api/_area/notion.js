@@ -13,6 +13,7 @@ const CAMPOS = require('./campos.js');
 
 const NV = '2022-06-28';
 const IA = require('./ia.js');
+const RICO = require('./rico.js');
 const DB_REUN = '25394b57fed881328544ce6e755832a4'; // (EMP) Reuniões e Compromissos: só leitura, Notion -> painel
 const DB = { emp: '20e94b57fed881a08c1eeb85fbb99700', pessoa: '25394b57fed88154bb5df25b63ac14e5', lead: '25394b57fed881e09ac8ef513a9a4e3f', tarefa: '25394b57fed8813ba22fe58b9619f4ac' };
 const SITE = 'https://sejaunique.com';
@@ -228,7 +229,8 @@ function deTarefa(p) {
     anexos: arqs.filter(f => f.type === 'external' && f.external && /^https:/.test(f.external.url)).map(f => ({ nome: f.name || 'Anexo', link: f.external.url }))
   };
   const resp = ler(pr, 'Responsável') || [];
-  return { id: idc(p.id), ed: p.last_edited_time, ia: ler(pr, 'Página com IA') || '', para: ler(pr, 'Tarefa para') || '', empresas: ler(pr, 'Empresa') || [], lead: (ler(pr, 'Lead') || [])[0] || '', pessoas: ler(pr, 'Responsável (cliente)') || [], responsavel: resp[0] || '', temArquivo: arqs.some(f => f.type !== 'external'), a };
+  const respIds = (((pr['Responsável'] || {}).people) || []).map(x => x.id).filter(Boolean);
+  return { rt: (pr['Descrição'] || {}).rich_text || [], observadores: ler(pr, 'Observadores (cliente)') || [], respIds, id: idc(p.id), ed: p.last_edited_time, ia: ler(pr, 'Página com IA') || '', para: ler(pr, 'Tarefa para') || '', empresas: ler(pr, 'Empresa') || [], lead: (ler(pr, 'Lead') || [])[0] || '', pessoas: ler(pr, 'Responsável (cliente)') || [], responsavel: resp[0] || '', temArquivo: arqs.some(f => f.type !== 'external'), a };
 }
 const absUrl = u => !u ? '' : /^https?:\/\//.test(u) ? u : SITE + (u.charAt(0) === '/' ? '' : '/') + u;
 function propsTarefa(a, slug, op) {
@@ -236,11 +238,13 @@ function propsTarefa(a, slug, op) {
   const ini = String(a.inicio || '').slice(0, 10), pz = a.prazo || '';
   const data = pz && ini && ini < pz ? { start: ini, end: pz } : (pz || a.inicio) ? { start: pz || a.inicio } : null;
   const o = {
-    Atividade: W.title(a.titulo), 'Descrição': W.text(a.detalhe), Prioridade: W.sel(a.prioridade), Link: W.url(absUrl(a.link)),
+    Atividade: W.title(a.titulo), 'Descrição': a.detalheHtml ? { rich_text: RICO.paraNotion(a.detalheHtml) } : W.text(a.detalhe), Prioridade: W.sel(a.prioridade), Link: W.url(absUrl(a.link)),
     'Status ': { status: { name: ST_PARA[a.status] || 'A fazer' } }, 'Quem faz': W.sel(DONO_PARA[a.dono] || 'Unique'), Tipo: W.sel(TIPO_PARA[a.tipo] || 'Ação'),
     'Data de Execução': { date: data }, Painel: W.url(SITE + '/area/admin/#acoes'),
-    'Responsável (cliente)': W.rel(op.pessoaId ? [op.pessoaId] : [])
+    'Responsável (cliente)': W.rel(op.pessoaIds || (op.pessoaId ? [op.pessoaId] : []))
   };
+  if (op.obsIds) o['Observadores (cliente)'] = W.rel(op.obsIds);
+  if (op.carlos && (a.responsaveis || []).indexOf('unique') >= 0) o['Responsável'] = { people: [{ id: op.carlos }] };
   if (!a.nTemArquivo) o['Arquivos e mídia'] = { files: (a.anexos || []).filter(x => /^https:/.test(x.link || '')).map(x => ({ name: String(x.nome || 'Anexo').slice(0, 100), type: 'external', external: { url: x.link } })) };
   if (op.empId) o.Empresa = W.rel([op.empId]);
   if (op.novo) { o['Tarefa para'] = W.sel('Cliente'); if (op.leadId) o.Lead = W.rel([op.leadId]); }
@@ -794,6 +798,7 @@ async function puxa(redis, op) {
   if (cmds.length || mapa.length) await redis(cmds.splice(0).concat(mapa.length ? [['HSET', 'area:nmap'].concat(mapa.splice(0))] : []));
   // tarefas -> ações do plano
   const tiradas = [], escrever = [], filaIA = [];
+  let [carlosNotion] = await redis([['GET', 'area:notion:carlos']]);
   T.map(deTarefa).forEach(n => {
     const lig = nmap[n.id];
     let velho = null, vs = '';
@@ -804,10 +809,15 @@ async function puxa(redis, op) {
     if (!sl) return;
     if (n.ia === 'Gerar') filaIA.push(n.id);
     if (velho && velho.nEd && n.ed < velho.nEd) return;
-    const pv = n.pessoas.map(id => nmap[id]).filter(v => v && v.indexOf('p|' + sl + '|') === 0)[0];
-    const novo = Object.assign({}, n.a, { pessoa: pv ? pv.split('|')[2] : '' });
+    const daEmp = ids => ids.map(id => nmap[id]).filter(v => v && v.indexOf('p|' + sl + '|') === 0).map(v => v.split('|')[2]);
+    const respE = daEmp(n.pessoas), obsE = daEmp(n.observadores || []);
+    if ((n.respIds || []).length && !carlosNotion) { carlosNotion = n.respIds[0]; cmds.push(['SET', 'area:notion:carlos', carlosNotion]); }
+    const comUnique = (n.respIds || []).length || ((velho && (velho.responsaveis || []).indexOf('unique') >= 0) && !carlosNotion);
+    const novo = Object.assign({}, n.a, { pessoa: respE[0] || '', responsaveis: (comUnique ? ['unique'] : []).concat(respE), observadores: obsE });
+    // texto formatado: se o texto não mudou no Notion, fica a formatação do painel; se mudou, vem a formatação do Notion
+    novo.detalheHtml = velho && velho.detalheHtml && velho.detalhe === novo.detalhe ? velho.detalheHtml : ((n.rt || []).some(r => { const x = r.annotations || {}; return x.bold || x.italic || x.underline || x.strikethrough || (x.color && x.color !== 'default') || r.href; }) || /\n[•\d☐☑]/.test(novo.detalhe) ? RICO.deNotion(n.rt) : '');
     if (velho && velho.status === 'arquivado' && novo.status === 'cancelado') novo.status = 'arquivado';
-    if (velho && velho.nEd === n.ed && vs === sl && mesmo(recorteAcao(velho), recorteAcao(novo)) && (velho.pessoa || '') === novo.pessoa) {
+    if (velho && velho.nEd === n.ed && vs === sl && mesmo(recorteAcao(velho), recorteAcao(novo)) && (velho.pessoa || '') === novo.pessoa && mesmo(velho.responsaveis || [], novo.responsaveis) && mesmo(velho.observadores || [], novo.observadores)) {
       if (velho.nConteudo === undefined) escrever.push({ sl, a: velho, id: n.id }); // ainda não sabemos se a página tem explicação
       return;
     }
@@ -958,11 +968,16 @@ async function envia(redis, tipo, slug, chave, repetindo) {
       if (tipo === 'acao-del') { if (chave) { await api('PATCH', 'pages/' + chave, { archived: true }); await redis([['HDEL', 'area:nmap', chave]]); } return true; }
       const [av, hN] = await redis([['HGET', 'area:acoes:' + slug, chave], ['HGETALL', 'area:neg:' + slug]]);
       const a = json(av); if (!a) return null;
-      let pessoaId = '';
-      if (a.pessoa) { const [uv] = await redis([['GET', 'area:user:' + slug + ':' + a.pessoa]]); pessoaId = (json(uv) || {}).notion || ''; }
+      const resp = Array.isArray(a.responsaveis) ? a.responsaveis : (a.pessoa ? [a.pessoa] : []);
+      const emails = resp.filter(x => x !== 'unique'), obs = a.observadores || [];
+      const todos = Array.from(new Set(emails.concat(obs)));
+      const us = todos.length ? await redis(todos.map(m => ['GET', 'area:user:' + slug + ':' + m])) : [];
+      const nid = {}; todos.forEach((m, i) => { const n = (json(us[i]) || {}).notion; if (n) nid[m] = n; });
+      const [carlos] = await redis([['GET', 'area:notion:carlos']]);
+      const pessoaIds = emails.map(m => nid[m]).filter(Boolean), obsIds = obs.map(m => nid[m]).filter(Boolean), pessoaId = pessoaIds[0] || '';
       let leadId = '';
       if (!a.notion) { const pares = Array.isArray(hN) ? hN : Object.keys(hN || {}).flatMap(k => [k, hN[k]]); const negs = []; for (let i = 0; i < pares.length; i += 2) { const g = json(pares[i + 1]); if (g && g.notion) negs.push(g); } const g = negs.sort((x, y) => String(y.nEd || '').localeCompare(String(x.nEd || '')))[0]; leadId = g ? g.notion : ''; }
-      const p = a.notion ? await atualiza(a.notion, propsTarefa(a, slug, { pessoaId })) : await cria(DB.tarefa, propsTarefa(a, slug, { novo: true, empId: e.notion, leadId, pessoaId }));
+      const p = a.notion ? await atualiza(a.notion, propsTarefa(a, slug, { pessoaId, pessoaIds, obsIds, carlos })) : await cria(DB.tarefa, propsTarefa(a, slug, { novo: true, empId: e.notion, leadId, pessoaId, pessoaIds, obsIds, carlos }));
       const novo = !a.notion;
       a.notion = idc(p.id); a.nEd = p.last_edited_time;
       await redis([['HSET', 'area:acoes:' + slug, a.id, JSON.stringify(a)]].concat(novo ? [['HSET', 'area:nmap', a.notion, 'a|' + slug + '|' + a.id]] : []));

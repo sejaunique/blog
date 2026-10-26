@@ -256,6 +256,9 @@ tr.det-cli td{background:transparent;border:0;padding:0 10px 10px}
 /* propostas */
 .prop-c{display:grid;gap:6px;padding:16px;border-radius:22px;background:var(--ws-card2);border:1px solid var(--ws-line)}
 .prop-c b{font-size:1rem}
+.ct-st-rascunho,.ct-st-cancelado{background:var(--ws-chip);color:var(--muted)}.ct-st-enviado{background:var(--marinho);color:#fff}.ct-st-assinado-cliente{background:var(--magenta);color:#fff}.ct-st-assinado{background:var(--verde);color:#000}
+.ct-vars{display:flex;flex-wrap:wrap;gap:5px}.ct-vars button{font:inherit;font-size:.7rem;font-family:ui-monospace,Menlo,monospace;border:1px solid var(--ws-line);background:var(--ws-card2);color:inherit;border-radius:8px;padding:4px 7px;cursor:pointer}
+.ct-ass{display:grid;gap:8px}.ct-ass>div{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:12px 14px;border:1px solid var(--ws-line);border-radius:14px;font-size:.84rem}
 .st-rascunho{background:var(--ws-chip);color:var(--muted)}.st-enviada{background:var(--marinho);color:#fff}.st-aceita{background:var(--verde);color:#000}.st-recusada{background:var(--magenta);color:#fff}
 .itens-p{display:grid;gap:6px}
 .itens-p div{display:grid;grid-template-columns:1fr 130px 34px;gap:6px}
@@ -1155,7 +1158,7 @@ body{background:var(--ws-bg)}
   /* ---------- navegação: 6 áreas, cada uma com abas ---------- */
   var GRUPOS=[
     ['hoje','Hoje',[['painel','Hoje'],['assistente','Assistente'],['notificacoes','Notificações']]],
-    ['vendas','Vendas',[['crm','Funil de vendas'],['propostas','Propostas'],['diagnosticos','Diagnósticos']]],
+    ['vendas','Vendas',[['crm','Funil de vendas'],['propostas','Propostas'],['contratos','Contratos'],['diagnosticos','Diagnósticos']]],
     ['clientes','Clientes',[['empresas','Empresas'],['contatos','Contatos'],['resultados','Resultados']]],
     ['entregas','Entregas',[['acoes','Ações e tarefas'],['reunioes','Reuniões']]],
     ['conteudo','Conteúdo',[['canivete','Canivete de Vendas'],['postagens','Blog e leituras'],['newsletter','Newsletter'],['videoaulas','Videoaulas']]],
@@ -1211,7 +1214,7 @@ body{background:var(--ws-bg)}
     document.addEventListener('keydown',function(ev){ if((ev.metaKey||ev.ctrlKey)&&ev.key.toLowerCase()==='k'){ ev.preventDefault(); inp.focus(); inp.select(); } });
   })();
   function desenha(){
-    var f={painel:vPainel,crm:vCrm,notificacoes:vNotif,empresas:vEmpresas,contatos:vContatos,acoes:vAcoes,propostas:vPropostas,diagnosticos:vDiag,postagens:vPosts,newsletter:vNews,videoaulas:vVideos,reunioes:vReunioes,site:vSite,alda:vAlda,resultados:vResultados,assistente:vAssistente,canivete:vCanivete}[VISTA]||vPainel;
+    var f={painel:vPainel,crm:vCrm,notificacoes:vNotif,empresas:vEmpresas,contatos:vContatos,acoes:vAcoes,propostas:vPropostas,diagnosticos:vDiag,postagens:vPosts,newsletter:vNews,videoaulas:vVideos,reunioes:vReunioes,site:vSite,alda:vAlda,resultados:vResultados,assistente:vAssistente,canivete:vCanivete,contratos:vContratos}[VISTA]||vPainel;
     f();
   }
 
@@ -2534,13 +2537,73 @@ body{background:var(--ws-bg)}
     $('p-enviar').onclick=function(){ envia(true); };
     $('p-lista').innerHTML=PROPS.length?PROPS.map(function(x){
       return '<div class="prop-c" style="'+(x.id===EDIT?'border-color:var(--fg)':'')+'"><div style="display:flex;justify-content:space-between;gap:8px"><span class="selo st-'+x.status+'">'+PST[x.status]+(x.vista?' · aberta '+dt(x.vista):'')+'</span><small class="muted">'+dt(x.atualizado||x.criado)+'</small></div><b>'+esc(x.empresa)+'</b><span class="muted" style="font-size:.8rem">'+esc(x.titulo)+(x.servico?' · '+esc(x.servico):'')+'</span><span class="total" style="font-size:1.1rem">'+brl(x.total)+'</span>'+
-        '<div style="display:flex;gap:6px;flex-wrap:wrap"><button class="pill" data-ed="'+esc(x.id)+'">'+ic('editar')+'Editar</button><a class="pill" target="_blank" href="/proposta/?p='+esc(x.token)+'">'+ic('abrir')+'Abrir</a><button class="pill" data-cp="'+esc(x.token)+'">'+ic('copiar')+'Link</button><button class="cbtn" data-del="'+esc(x.id)+'">'+ic('lixo')+'</button></div></div>'; }).join(''):'<div class="vazio">Nenhuma proposta ainda.</div>';
+        '<div style="display:flex;gap:6px;flex-wrap:wrap"><button class="pill" data-ed="'+esc(x.id)+'">'+ic('editar')+'Editar</button><a class="pill" target="_blank" href="/proposta/?p='+esc(x.token)+'">'+ic('abrir')+'Abrir</a><button class="pill" data-cp="'+esc(x.token)+'">'+ic('copiar')+'Link</button><button class="pill" data-ctr="'+esc(x.id)+'">'+ic('doc')+'Contrato</button><button class="cbtn" data-del="'+esc(x.id)+'">'+ic('lixo')+'</button></div></div>'; }).join(''):'<div class="vazio">Nenhuma proposta ainda.</div>';
     $('p-lista').onclick=function(ev){ var b=ev.target.closest('button'); if(!b) return;
       if(b.dataset.ed){ EDIT=b.dataset.ed; vPropostas(); window.scrollTo({top:0,behavior:'smooth'}); }
+      if(b.dataset.ctr){ b.disabled=true; post({a:'admin-contrato-gerar',proposta:b.dataset.ctr}).then(function(r){ b.disabled=false; if(!r.ok){ toast(r.erro||'Não foi possível gerar.'); return; } toast(r.existia?'Esta proposta já tem contrato.':'Contrato gerado a partir da proposta.'); CTRS=null; EMP=r.contrato.id; VISTA='contratos'; rota('#contratos/'+r.contrato.id); desenha(); window.scrollTo({top:0}); atualiza(); }); }
       if(b.dataset.cp){ var u=location.origin+'/proposta/?p='+b.dataset.cp; try{navigator.clipboard.writeText(u); toast('Link copiado.');}catch(e){prompt('Link:',u);} }
       if(b.dataset.del){ if(b.dataset.ok!=='1'){ b.dataset.ok='1'; b.style.background='var(--erro)'; toast('Clique de novo para excluir.'); return; } post({a:'admin-proposta-del',id:b.dataset.del}).then(function(){ if(EDIT===b.dataset.del) EDIT=''; carrega().then(vPropostas); }); } };
   }
 
+
+  /* ---------- CONTRATOS (assinatura pelo Gov.br) ---------- */
+  var CTRS=null, CTM=null, CTST={rascunho:'Rascunho',enviado:'Aguardando o cliente','assinado-cliente':'Falta você assinar',assinado:'Assinado',cancelado:'Cancelado'};
+  function vContratos(){
+    if(!CTRS){ $('vista').innerHTML='<div class="vazio">Carregando contratos…</div>'; get('?a=admin-contratos').then(function(r){ CTRS=(r&&r.contratos)||[]; CTM=r||{}; if(VISTA==='contratos') vContratos(); }); return; }
+    var L=CTRS, c=L.filter(function(x){return x.id===EMP;})[0];
+    cabecalho('Contratos','e assinaturas',[['doc',L.length,'contratos'],['users',L.filter(function(x){return x.status==='enviado';}).length,'com o cliente'],['alvo',L.filter(function(x){return x.status==='assinado-cliente';}).length,'falta você assinar'],['check',L.filter(function(x){return x.status==='assinado';}).length,'concluídos']]);
+    var lista='<section class="card"><div class="card-h"><h2>Contratos</h2></div><div class="lst" id="ct-lista">'+(L.length?L.map(function(x){
+      return '<div class="prop-c" style="'+(x.id===EMP?'border-color:var(--fg)':'')+'"><div style="display:flex;justify-content:space-between;gap:8px"><span class="selo ct-st-'+x.status+'">'+CTST[x.status]+(x.vista&&x.status==='enviado'?' · aberto '+dt(x.vista):'')+'</span><small class="muted">'+dt(x.atualizado||x.criado)+'</small></div><b>'+esc(x.empresa)+'</b><span class="muted" style="font-size:.8rem">'+esc(x.titulo)+'</span><span class="total" style="font-size:1.05rem">'+brl(x.total)+'</span>'+
+        '<div style="display:flex;gap:6px;flex-wrap:wrap"><button class="pill" data-ab="'+esc(x.id)+'">'+ic('editar')+'Abrir</button><a class="pill" target="_blank" href="/contrato/?c='+esc(x.token)+'">'+ic('abrir')+'Página</a></div></div>'; }).join(''):'<div class="vazio">Nenhum contrato ainda. Abra uma proposta e clique em “Contrato”.</div>')+'</div></section>';
+    var esq;
+    if(c){
+      var A=c.assinaturas||{};
+      esq='<section class="card"><div class="card-h"><h2>'+esc(c.empresa)+'</h2><button class="pill" id="ct-volta">'+ic('x')+'Fechar</button></div>'+
+        '<div class="form"><div class="l2"><div class="campo"><label>Título</label><input id="ct-tit" value="'+esc(c.titulo)+'"></div><div class="campo"><label>Quem assina pelo cliente</label><input id="ct-sig" value="'+esc(c.signatario||'')+'"></div></div>'+
+        '<div class="l2"><div class="campo"><label>Status</label><select id="ct-st"'+(c.status==='assinado-cliente'||c.status==='assinado'?' disabled':'')+'>'+['rascunho','enviado','cancelado'].concat(c.status==='assinado-cliente'||c.status==='assinado'?[c.status]:[]).map(function(k){return '<option value="'+k+'"'+(c.status===k?' selected':'')+'>'+CTST[k]+'</option>';}).join('')+'</select></div>'+
+        '<div style="display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap"><button class="pill solid" id="ct-salva">Salvar</button><button class="pill verde" id="ct-envia">'+ic('whatsapp')+'Enviar</button><a class="pill" target="_blank" href="/contrato/?c='+esc(c.token)+'">'+ic('abrir')+'Ver</a><button class="pill" id="ct-link">'+ic('copiar')+'Link</button></div></div>'+
+        '<div class="campo"><label>Assinaturas (Gov.br)</label><div class="ct-ass">'+[['cliente','Cliente'],['unique','Unique']].map(function(q){ var a=A[q[0]];
+          return '<div><span><b>'+q[1]+'</b> · '+(a?esc(a.nome||'')+' em '+dt(a.em,1):'pendente')+'</span><span style="display:flex;gap:6px">'+(a?'<a class="pill" target="_blank" rel="noopener" href="'+esc(a.link)+'">'+ic('abrir')+'PDF</a><button class="pill" data-tira="'+q[0]+'">Tirar</button>':(q[0]==='unique'&&A.cliente?'<a class="pill verde" target="_blank" href="/contrato/?c='+esc(c.token)+'">Assinar agora</a>':''))+'</span></div>'; }).join('')+
+          '<small class="muted">O cliente assina primeiro e envia o PDF pela página do contrato. Depois você assina em cima do mesmo PDF e envia ali também. Conferência: <a href="https://validar.iti.gov.br/" target="_blank" rel="noopener">validar.iti.gov.br</a>.</small></div></div>'+
+        '<div class="campo"><label>Texto do contrato'+(c.status==='rascunho'?'':' <span class="muted">(já enviado: mudanças aparecem no link)</span>')+'</label><div id="ct-ed"></div></div>'+
+        '<div class="campo"><label>Notas internas (só você vê)</label><textarea id="ct-notas" style="min-height:60px">'+esc(c.notas||'')+'</textarea></div>'+
+        '<div style="display:flex;gap:6px;flex-wrap:wrap"><button class="pill" id="ct-refaz">'+ic('reload')+'Refazer pelo modelo</button><button class="cbtn" id="ct-del" title="Excluir">'+ic('lixo')+'</button></div></div></section>';
+    } else {
+      var U=CTM.unique||{}, UK=[['razao','Razão social'],['cnpj','CNPJ'],['endereco','Endereço'],['cidade','Cidade'],['uf','UF'],['representante','Quem assina'],['cpf','CPF de quem assina'],['email','E-mail'],['foro','Foro (cidade/UF)']];
+      var ops=(PROPS||[]).map(function(p){return '<option value="'+esc(p.id)+'">'+esc(p.empresa+' · '+p.titulo+' · '+brl(p.total))+'</option>';}).join('');
+      esq='<section class="card"><div class="card-h"><h2>Novo contrato</h2></div><div class="form"><div class="campo"><label>A partir da proposta</label><select id="ct-prop">'+(ops||'<option value="">Nenhuma proposta ainda</option>')+'</select></div><div><button class="pill solid" id="ct-gera"'+(ops?'':' disabled')+'>'+ic('mais')+'Gerar contrato</button></div></div></section>'+
+        '<section class="card"><div class="card-h"><h2>Modelo do contrato</h2><button class="pill" id="ct-padrao">Voltar ao modelo padrão</button></div><p class="muted" style="font-size:.8rem;margin:-6px 0 10px">Escreva o seu contrato aqui uma vez. Os campos entre {{chaves}} são preenchidos com os dados da proposta, da empresa e do contato. Clique num campo para colocá-lo onde está o cursor. Os marcados em rosa no contrato gerado ficaram sem dado: complete no cadastro ou no próprio contrato.</p>'+
+        '<div class="ct-vars" id="ct-vars">'+(CTM.variaveis||[]).map(function(v){return '<button type="button" title="'+esc(v[1])+'" data-v="'+v[0]+'">{{'+v[0]+'}}</button>';}).join('')+'</div><div id="ct-mod" style="margin-top:10px"></div>'+
+        '<p class="muted" style="font-size:.74rem;margin:10px 0 0">O modelo padrão é uma base de consultoria. Vale passar pelo seu advogado antes do primeiro uso.</p></section>'+
+        '<section class="card"><div class="card-h"><h2>Dados da Unique no contrato</h2></div><form class="form" id="ct-uni"><div class="l2">'+UK.map(function(k){return '<div class="campo"><label>'+k[1]+'</label><input name="'+k[0]+'" value="'+esc(U[k[0]]||'')+'"></div>';}).join('')+'</div><div><button class="pill solid">Salvar dados</button></div></form></section>';
+    }
+    $('vista').innerHTML='<div class="grade" style="grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)"><div style="display:grid;gap:18px;align-content:start">'+esq+'</div>'+lista+'</div>';
+    if(window.innerWidth<1100) $('vista').firstChild.style.gridTemplateColumns='1fr';
+    $('ct-lista').onclick=function(ev){ var b=ev.target.closest('[data-ab]'); if(b){ EMP=b.dataset.ab; rota('#contratos/'+EMP); vContratos(); window.scrollTo({top:0,behavior:'smooth'}); } };
+    function troca(n){ CTRS=CTRS.map(function(x){return x.id===n.id?n:x;}); if(!CTRS.some(function(x){return x.id===n.id;})) CTRS.unshift(n); }
+    if(c){
+      UniqueRico.editor($('ct-ed'),c.html||'',function(h){ return post({a:'admin-contrato',id:c.id,html:h}).then(function(r){ if(r.ok){ c.html=r.contrato.html; troca(r.contrato); } }); },{ph:'Texto do contrato…'});
+      function salva(extra){ var o=Object.assign({a:'admin-contrato',id:c.id,titulo:$('ct-tit').value,signatario:$('ct-sig').value,notas:$('ct-notas').value},$('ct-st').disabled?{}:{status:$('ct-st').value},extra||{});
+        return post(o).then(function(r){ if(!r.ok){ toast(r.erro||'Não foi possível salvar.'); return r; } troca(r.contrato); return r; }); }
+      $('ct-volta').onclick=function(){ EMP=''; rota('#contratos'); vContratos(); };
+      $('ct-salva').onclick=function(){ salva().then(function(r){ if(r.ok){ toast('Contrato salvo.'); vContratos(); } }); };
+      $('ct-link').onclick=function(){ var u=location.origin+'/contrato/?c='+c.token; try{navigator.clipboard.writeText(u); toast('Link copiado.');}catch(e){prompt('Link:',u);} };
+      $('ct-envia').onclick=function(){ var ex=$('ct-st').disabled||$('ct-st').value!=='rascunho'?{}:{status:'enviado'};
+        salva(ex).then(function(r){ if(!r.ok) return; vContratos(); var e=emp(c.slug)||{usuarios:[]}, u=(e.usuarios||[]).filter(function(x){return x.email===c.email;})[0]||(e.usuarios||[])[0]||{};
+          var t='Olá, '+String(c.signatario||u.nome||'').split(' ')[0]+'! Segue o contrato da Unique para a '+c.empresa+'. A assinatura é pelo Gov.br e o passo a passo está na página: '+r.url;
+          try{navigator.clipboard.writeText(r.url);}catch(x){} if(wa(u.whatsapp)) abreZap(u.whatsapp,t); else prompt('Link do contrato (copiado):',r.url); }); };
+      $('vista').querySelector('.ct-ass').onclick=function(ev){ var b=ev.target.closest('[data-tira]'); if(!b) return; if(b.dataset.ok!=='1'){ b.dataset.ok='1'; b.textContent='Confirmar'; return; } salva({tira:b.dataset.tira}).then(function(r){ if(r.ok) vContratos(); }); };
+      $('ct-refaz').onclick=function(){ var b=this; if(b.dataset.ok!=='1'){ b.dataset.ok='1'; b.textContent='Substituir o texto atual?'; return; } post({a:'admin-contrato-gerar',proposta:c.proposta,email:c.email,refazer:1}).then(function(r){ if(!r.ok){ toast(r.erro||'Não foi possível.'); return; } troca(r.contrato); toast('Texto refeito pelo modelo.'); vContratos(); }); };
+      $('ct-del').onclick=function(){ var b=this; if(b.dataset.ok!=='1'){ b.dataset.ok='1'; b.style.background='var(--erro)'; toast('Clique de novo para excluir.'); return; } post({a:'admin-contrato-del',id:c.id}).then(function(){ CTRS=CTRS.filter(function(x){return x.id!==c.id;}); EMP=''; rota('#contratos'); vContratos(); }); };
+    } else {
+      if($('ct-gera')) $('ct-gera').onclick=function(){ var id=$('ct-prop').value; if(!id) return; post({a:'admin-contrato-gerar',proposta:id}).then(function(r){ if(!r.ok){ toast(r.erro||'Não foi possível gerar.'); return; } troca(r.contrato); if(r.existia) toast('Esta proposta já tem contrato.'); EMP=r.contrato.id; rota('#contratos/'+EMP); vContratos(); }); };
+      UniqueRico.editor($('ct-mod'),CTM.modelo||'',function(h){ CTM.modelo=h; return post({a:'admin-contrato-modelo',modelo:h}); },{ph:'Texto do modelo de contrato…'});
+      var vs=$('ct-vars'); vs.onmousedown=function(ev){ if(ev.target.closest('[data-v]')) ev.preventDefault(); };
+      vs.onclick=function(ev){ var b=ev.target.closest('[data-v]'); if(!b) return; var ed=$('ct-mod').querySelector('.rq-ed'); if(!ed.contains(document.activeElement)&&document.activeElement!==ed) ed.focus(); document.execCommand('insertText',false,'{{'+b.dataset.v+'}}'); };
+      $('ct-padrao').onclick=function(){ var b=this; if(b.dataset.ok!=='1'){ b.dataset.ok='1'; b.textContent='Substituir o seu modelo?'; return; } post({a:'admin-contrato-modelo',modelo:''}).then(function(){ CTM.modelo=CTM.modeloPadrao; toast('Modelo padrão de volta.'); vContratos(); }); };
+      $('ct-uni').onsubmit=function(ev){ ev.preventDefault(); var u={}; [].forEach.call(this.elements,function(el){ if(el.name) u[el.name]=el.value; }); post({a:'admin-contrato-modelo',unique:u}).then(function(r){ if(r.ok){ CTM.unique=u; toast('Dados da Unique salvos.'); } }); };
+    }
+  }
   /* ---------- DIAGNÓSTICOS ---------- */
   function vDiag(){
     var s=new Date(Date.now()-30*864e5).toISOString();

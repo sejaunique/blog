@@ -176,3 +176,10 @@ Botão ✦ no canto de qualquer tela do admin (atalho Ctrl+J) e a página **Hoje
 - Para criar ou mudar algo (ação, papel, reunião, leitura, vitória), mostra um cartão; só executa quando o Carlos clica em Confirmar, reaproveitando as rotas do admin (mesmas validações e ida para o Notion).
 - Anexos: imagens (também colar/arrastar), PDF e CSV/TXT. Microfone: ditado em português no navegador.
 - Usa a mesma ANTHROPIC_API_KEY das páginas com IA. Conversas ficam 30 dias.
+
+## Contratos (Vendas › Contratos)
+- Modelo de contrato editável no admin, com campos `{{variavel}}` preenchidos pela proposta, pela empresa (CNPJ, razão social, endereço), pelo contato e pelos dados da Unique.
+- “Contrato” no card da proposta gera o contrato; ele fica em `/contrato/?c=<token>` (página para imprimir ou salvar em PDF) e aparece nas entregas do cliente quando sai do rascunho.
+- Assinatura pelo Gov.br (assinador.iti.br). Não existe API para empresa privada, então cada parte assina o PDF e sobe o arquivo na página. O cliente assina primeiro e a Unique assina por último, no mesmo PDF. O arquivo vai para a pasta da empresa no Drive (ou para o Vercel Blob).
+- Quando o cliente assina, a proposta vira “aceita” e a empresa vira cliente. As notificações saem nos dois passos. As assinaturas podem ser conferidas em validar.iti.gov.br.
+- Redis: `area:contratos` (hash), `area:ctr:<token>`, `area:contrato:modelo`, `area:contrato:unique`.

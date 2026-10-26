@@ -67,6 +67,7 @@ const CONSULTA = require('./_area/consulta.js');
 const NOTION = require('./_area/notion.js');
 const RICO = require('./_area/rico.js');
 const CANIVETE = require('./_area/canivete.js');
+const CONTRATO = require('./_area/contrato.js');
 
 const URL_DB = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -189,6 +190,38 @@ async function pessoasDe(slug) {
   const us = (ems || []).length ? await redis(ems.map(m => ['GET', 'area:user:' + slug + ':' + m])) : [];
   return us.map(json).filter(u => u && !u.arquivada && u.status !== 'recusado').map(u => ({ email: u.email, nome: u.nome, foto: u.foto || '', papel: papelDe(u) }))
     .sort((a, b) => String(a.nome).localeCompare(String(b.nome), 'pt-BR'));
+}
+// contratos: área:contratos (id -> contrato), área:ctr:<token> -> id; aparece na área do cliente como entrega quando sai do rascunho
+async function contratoPorToken(t) {
+  t = String(t || '');
+  if (!/^[a-f0-9]{24}$/.test(t)) return null;
+  const [id] = await redis([['GET', 'area:ctr:' + t]]);
+  const [cv] = id ? await redis([['HGET', 'area:contratos', id]]) : [null];
+  return json(cv);
+}
+const CT_ST = { rascunho: 'Rascunho', enviado: 'Aguardando assinatura', 'assinado-cliente': 'Assinado pelo cliente', assinado: 'Assinado pelas duas partes', cancelado: 'Cancelado' };
+async function salvaContrato(c) {
+  const cmds = [['HSET', 'area:contratos', c.id, JSON.stringify(c)], ['SET', 'area:ctr:' + c.token, c.id]];
+  if (c.status === 'rascunho' || c.status === 'cancelado') cmds.push(['HDEL', 'area:itens:' + c.slug, 'ct' + c.id]);
+  else cmds.push(['HSET', 'area:itens:' + c.slug, 'ct' + c.id, JSON.stringify({ id: 'ct' + c.id, tipo: 'pagina', titulo: c.titulo, descricao: CT_ST[c.status] + '. Assinatura pelo Gov.br.', url: '/contrato/?c=' + c.token, publicado: true, criado: c.criado })]);
+  await redis(cmds);
+}
+async function assinaContrato(c, quem, a) {
+  c.assinaturas = c.assinaturas || {};
+  c.assinaturas[quem] = { em: new Date().toISOString(), nome: a.nome, link: a.link, arquivo: a.arquivo };
+  c.status = c.assinaturas.unique && c.assinaturas.cliente ? 'assinado' : c.assinaturas.cliente ? 'assinado-cliente' : c.status;
+  c.atualizado = c.assinaturas[quem].em;
+  await salvaContrato(c);
+  if (quem === 'cliente') {
+    // contrato assinado pelo cliente: proposta aceita e empresa vira cliente
+    const [pv, ev] = await redis([['HGET', 'area:propostas', String(c.proposta || '')], ['GET', 'area:emp:' + c.slug]]);
+    const p = json(pv), e = json(ev), cmds = [];
+    if (p && p.status !== 'aceita') { p.status = 'aceita'; cmds.push(['HSET', 'area:propostas', p.id, JSON.stringify(p)]); }
+    if (e && e.etapa !== 'cliente' && e.etapa !== 'finalizado') { e.etapa = 'cliente'; cmds.push(['SET', 'area:emp:' + c.slug, JSON.stringify(e)]); }
+    if (cmds.length) await redis(cmds);
+    await notifica(redis, { titulo: 'Contrato assinado pelo cliente', texto: c.empresa + ' enviou o contrato assinado no Gov.br. Falta a sua assinatura.', url: '/area/admin/#contratos' });
+  } else if (c.status === 'assinado') await notifica(redis, { titulo: 'Contrato concluído', texto: 'O contrato da ' + c.empresa + ' está assinado pelas duas partes.', url: '/area/admin/#contratos' });
+  return c;
 }
 // ações do plano também têm curtir, comentar e link público (para quem não tem login)
 const ACAO_ID = /^[a-z0-9_-]{3,60}$/i;
@@ -476,6 +509,14 @@ module.exports = async (req, res) => {
         return res.json({ ok: true, proposta: pub });
       }
 
+      if (q.a === 'contrato') {
+        const c = await contratoPorToken(q.c);
+        if (!c || (!(s && s.admin) && c.status === 'rascunho')) return res.status(404).json({ ok: false });
+        if (!(s && s.admin) && !c.vista) { c.vista = new Date().toISOString(); await redis([['HSET', 'area:contratos', c.id, JSON.stringify(c)]]); await notifica(redis, { titulo: 'Contrato aberto', texto: c.empresa + ' abriu o contrato.', url: '/area/admin/#contratos' }); }
+        const pub = Object.assign({}, c); delete pub.notas;
+        return res.json({ ok: true, contrato: pub, admin: !!(s && s.admin) });
+      }
+
       if (!s) return res.status(401).json({ ok: false, erro: 'Entre na sua conta.' });
 
       if (q.a === 'admin-push-chave' || q.a === 'admin-notif') {
@@ -483,6 +524,13 @@ module.exports = async (req, res) => {
         if (q.a === 'admin-push-chave') { const k = await chaves(redis); return res.json({ ok: true, publica: k.publica }); }
         const [l, lid] = await redis([['LRANGE', 'area:notif', 0, 39], ['SMEMBERS', 'area:notif-lidos']]);
         return res.json({ ok: true, notif: (l || []).map(json).filter(Boolean).map(n => Object.assign(n, { lido: (lid || []).indexOf(n.id) >= 0 })) });
+      }
+
+      if (q.a === 'admin-contratos') {
+        if (!s.admin) return res.status(403).json({ ok: false });
+        const [h, m, u] = await redis([['HGETALL', 'area:contratos'], ['GET', 'area:contrato:modelo'], ['GET', 'area:contrato:unique']]);
+        return res.json({ ok: true, contratos: lerPares(h).map(([, v]) => json(v)).filter(Boolean).sort((a, b) => String(b.criado).localeCompare(String(a.criado))),
+          modelo: m || CONTRATO.MODELO_PADRAO, modeloPadrao: CONTRATO.MODELO_PADRAO, unique: Object.assign({}, CONTRATO.UNIQUE_PADRAO, json(u) || {}), variaveis: CONTRATO.VARIAVEIS });
       }
 
       if (q.a === 'admin-acoes' || q.a === 'admin-diagnosticos' || q.a === 'admin-propostas') {
@@ -759,6 +807,36 @@ module.exports = async (req, res) => {
       if (!f) return res.status(502).json({ ok: false, erro: 'Falha ao enviar para o Drive.' });
       if (!s.admin) await notifica(redis, { titulo: 'Arquivo recebido', texto: s.nome + ' enviou ' + nome, url: '/area/admin/#empresas/' + slug });
       return res.json({ ok: true, arquivo: { id: f.id, nome: f.name, link: f.webViewLink } });
+    }
+
+    // ---------- contrato assinado no Gov.br: cada parte envia o PDF de volta (corpo bruto, até ~4 MB) ----------
+    if (q.a === 'contrato-pdf') {
+      const s = await sessao(req);
+      const c = await contratoPorToken(q.c);
+      if (!c || c.status === 'rascunho' || c.status === 'cancelado') return res.status(404).json({ ok: false, erro: 'Contrato não encontrado.' });
+      const quem = q.quem === 'unique' ? 'unique' : 'cliente';
+      if (quem === 'unique' && !(s && s.admin)) return res.status(403).json({ ok: false });
+      if (!(s && s.admin) && await limite('ctr:' + ip, 12, 3600)) return res.status(429).json({ ok: false, erro: 'Muitas tentativas. Tente mais tarde.' });
+      const dados = await lerCorpoBruto(req);
+      if (dados.length < 100 || dados.slice(0, 5).toString() !== '%PDF-') return res.status(400).json({ ok: false, erro: 'Envie o arquivo PDF que o assinador do Gov.br devolveu.' });
+      if (dados.length > 4.4e6) return res.status(413).json({ ok: false, erro: 'O PDF passou de 4 MB.' });
+      const nome = 'Contrato ' + c.empresa + ' · assinado ' + (quem === 'unique' ? 'Unique' : 'cliente') + ' · ' + new Date().toISOString().slice(0, 10) + '.pdf';
+      let link = '';
+      const DR = require('./_area/drive.js');
+      const p = await DR.pronto(redis);
+      if (p.ok) {
+        const pasta = await DR.pastaEmpresa(redis, c.slug, (CATALOGO[c.slug] || {}).nome || c.empresa);
+        const f = pasta && pasta.id ? await DR.envia(redis, pasta.id, nome, 'application/pdf', dados) : null;
+        if (f) link = f.webViewLink;
+      }
+      if (!link && BLOB) {
+        const r = await fetch('https://blob.vercel-storage.com/contratos/' + c.slug + '/' + encodeURIComponent(nome.replace(/[^\w.\- ]/g, '_')), { method: 'PUT', headers: { authorization: 'Bearer ' + BLOB, 'x-api-version': '7', 'x-add-random-suffix': '1', 'x-content-type': 'application/pdf' }, body: dados });
+        const out = await r.json().catch(() => ({}));
+        if (r.ok && out.url) link = out.url;
+      }
+      if (!link) return res.status(503).json({ ok: false, erro: 'Não consegui guardar o PDF agora. Mande o arquivo para a Unique pelo WhatsApp.' });
+      const r = await assinaContrato(c, quem, { link, nome: limpo(q.nome, 80) || (quem === 'unique' ? 'Carlos Ribeiro' : (s && s.nome) || c.signatario || ''), arquivo: nome });
+      return res.json({ ok: true, contrato: r });
     }
 
     // ---------- upload (corpo bruto) ----------
@@ -1244,6 +1322,55 @@ module.exports = async (req, res) => {
       const [pv] = await redis([['HGET', 'area:propostas', String(b.id || '')]]);
       const p = json(pv);
       if (p) await redis([['HDEL', 'area:propostas', p.id], ['DEL', 'area:prop:' + p.token], ['HDEL', 'area:itens:' + p.slug, 'pr' + p.id]]);
+      return res.json({ ok: true });
+    }
+
+    if (b.a === 'admin-contrato-modelo') {
+      const cmds = [];
+      if (b.modelo != null) cmds.push(String(b.modelo).trim() ? ['SET', 'area:contrato:modelo', RICO.limpa(String(b.modelo).slice(0, 60000))] : ['DEL', 'area:contrato:modelo']);
+      if (b.unique) { const u = {}; Object.keys(CONTRATO.UNIQUE_PADRAO).forEach(k => { u[k] = limpo(b.unique[k], 200); }); cmds.push(['SET', 'area:contrato:unique', JSON.stringify(u)]); }
+      if (cmds.length) await redis(cmds);
+      return res.json({ ok: true });
+    }
+    if (b.a === 'admin-contrato-gerar') {
+      const [pv] = await redis([['HGET', 'area:propostas', String(b.proposta || '')]]);
+      const prop = json(pv);
+      if (!prop) return res.status(404).json({ ok: false, erro: 'Proposta não encontrada.' });
+      const [h] = await redis([['HGETALL', 'area:contratos']]);
+      const ja = lerPares(h).map(([, v]) => json(v)).filter(c => c && c.proposta === prop.id && c.status !== 'cancelado')[0];
+      if (ja && !b.refazer) return res.json({ ok: true, contrato: ja, existia: true });
+      const [ev, m, u] = await redis([['GET', 'area:emp:' + prop.slug], ['GET', 'area:contrato:modelo'], ['GET', 'area:contrato:unique']]);
+      const e = json(ev) || { nome: prop.empresa, dados: {} };
+      const ems = (await pessoasDe(prop.slug)).map(x => x.email);
+      const em = emailOk(String(b.email || '').toLowerCase()) ? String(b.email).toLowerCase() : (ems[0] || '');
+      const [pu] = em ? await redis([['GET', 'area:user:' + prop.slug + ':' + em]]) : [null];
+      const pessoa = json(pu);
+      const agora = new Date().toISOString();
+      const c = ja && b.refazer ? ja : { id: novoId(), token: crypto.randomBytes(12).toString('hex'), criado: agora, status: 'rascunho', assinaturas: {} };
+      Object.assign(c, { atualizado: agora, proposta: prop.id, slug: prop.slug, empresa: prop.empresa, titulo: 'Contrato · ' + (prop.servico || prop.titulo), total: prop.total, signatario: prop.contato || (pessoa && pessoa.nome) || '', email: em,
+        html: CONTRATO.preenche(m || CONTRATO.MODELO_PADRAO, CONTRATO.variaveis(prop, e, pessoa, json(u))) });
+      await salvaContrato(c);
+      return res.json({ ok: true, contrato: c });
+    }
+    if (b.a === 'admin-contrato') {
+      const [cv] = await redis([['HGET', 'area:contratos', String(b.id || '')]]);
+      const c = json(cv);
+      if (!c) return res.status(404).json({ ok: false });
+      if (b.html != null) c.html = RICO.limpa(String(b.html).slice(0, 80000));
+      if (b.titulo != null) c.titulo = limpo(b.titulo, 140) || c.titulo;
+      if (b.signatario != null) c.signatario = limpo(b.signatario, 80);
+      if (b.notas != null) c.notas = limpo(b.notas, 2000);
+      if (['rascunho', 'enviado', 'cancelado'].indexOf(b.status) >= 0 && ['assinado-cliente', 'assinado'].indexOf(c.status) < 0) c.status = b.status;
+      if (b.status === 'cancelado') c.status = 'cancelado';
+      if (b.tirar && c.assinaturas && c.assinaturas[b.tirar]) { delete c.assinaturas[b.tirar]; c.status = c.assinaturas.cliente ? 'assinado-cliente' : 'enviado'; }
+      c.atualizado = new Date().toISOString();
+      await salvaContrato(c);
+      return res.json({ ok: true, contrato: c, url: SITE + '/contrato/?c=' + c.token });
+    }
+    if (b.a === 'admin-contrato-del') {
+      const [cv] = await redis([['HGET', 'area:contratos', String(b.id || '')]]);
+      const c = json(cv);
+      if (c) await redis([['HDEL', 'area:contratos', c.id], ['DEL', 'area:ctr:' + c.token], ['HDEL', 'area:itens:' + c.slug, 'ct' + c.id]]);
       return res.json({ ok: true });
     }
 

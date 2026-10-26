@@ -336,38 +336,48 @@ async function conteudoTarefa(redis, pageId, ed) {
 
 // ---------- página da tarefa feita pela IA ("Página com IA" = Gerar no Notion) ----------
 const propIA = (pageId, v) => api('PATCH', 'pages/' + pageId, { properties: { 'Página com IA': { select: { name: v } } } }).catch(() => null);
+// fila de páginas com IA: id da página no Notion (32 hex) ou ação do painel ('a|slug|id' / 'm|idDaBiblioteca')
+const chaveIA = (entrada) => /^[a-f0-9]{32}$/.test(entrada) ? 'area:nhtml:' + entrada : 'area:ahtml:' + entrada.replace(/^a\|/, '').replace(/\|/g, ':');
+const chaveIAde = (slug, a) => a.notion ? 'area:nhtml:' + a.notion : a.compartilhada || !slug ? 'area:ahtml:m:' + a.id : 'area:ahtml:' + slug + ':' + a.id;
 async function processaIA(redis) {
   const [ids] = await redis([['SMEMBERS', 'area:ia:fila']]);
   if (!ids || !ids.length) return { ok: true, fila: 0 };
   if (!IA.ligada()) { await redis([['SET', 'area:ia:estado', JSON.stringify({ erro: 'Falta a chave da IA (ANTHROPIC_API_KEY) na Vercel.', em: agora() })]]); return { ok: false, fila: ids.length, erro: 'sem chave' }; }
   const [trava] = await redis([['SET', 'area:ia:trava', '1', 'NX', 'EX', 75]]);
   if (trava !== 'OK') return { ok: true, fila: ids.length, ocupado: true };
-  const pageId = ids[0];
-  let titulo = '';
+  const ent = ids[0];
+  let titulo = '', pageId = '';
   try {
-    const [v] = await redis([['HGET', 'area:nmap', pageId]]);
-    if (!v || v.indexOf('a|') !== 0) { await redis([['SREM', 'area:ia:fila', pageId]]); return { ok: true, fila: ids.length - 1 }; }
-    const [, sl, aid] = v.split('|');
-    const [av, ev] = await redis([['HGET', 'area:acoes:' + sl, aid], ['GET', 'area:emp:' + sl]]);
-    const a = json(av);
-    if (!a) { await redis([['SREM', 'area:ia:fila', pageId]]); return { ok: true, fila: ids.length - 1 }; }
+    let a = null, sl = '', aid = '', ondeH = '', ondeK = '', modelo = false;
+    if (/^[a-f0-9]{32}$/.test(ent)) {
+      pageId = ent;
+      const [v] = await redis([['HGET', 'area:nmap', ent]]);
+      if (!v || v.indexOf('a|') !== 0) { await redis([['SREM', 'area:ia:fila', ent]]); return { ok: true, fila: ids.length - 1 }; }
+      [, sl, aid] = v.split('|');
+    } else if (ent.indexOf('a|') === 0) { [, sl, aid] = ent.split('|'); }
+    else { aid = ent.split('|')[1]; modelo = true; }
+    ondeH = modelo ? 'area:modelos' : 'area:acoes:' + sl; ondeK = aid;
+    const [av, ev] = await redis([['HGET', ondeH, ondeK], ['GET', 'area:emp:' + (sl || '_')]]);
+    a = json(av);
+    if (!a) { await redis([['SREM', 'area:ia:fila', ent]]); return { ok: true, fila: ids.length - 1 }; }
+    if (!pageId && a.notion) pageId = a.notion;
     titulo = a.titulo;
-    await propIA(pageId, 'Gerando');
+    if (pageId) await propIA(pageId, 'Gerando');
     const midia = [];
-    const linhas = await IA.paraTexto(filhos, await filhos(pageId), 1, midia);
-    const texto = [a.detalhe ? 'Descrição: ' + a.detalhe : ''].concat(linhas).join('\n').trim();
-    if (!texto) throw new Error('A página "' + a.titulo + '" está vazia no Notion.');
-    const html = await IA.gera({ titulo: a.titulo, tipo: TIPO_PARA[a.tipo], empresa: (json(ev) || {}).nome, texto });
+    const linhas = pageId ? await IA.paraTexto(filhos, await filhos(pageId), 1, midia) : [];
+    const texto = [a.detalhe ? 'Descrição: ' + a.detalhe : '', a.link ? 'Link de apoio: ' + a.link : '', a.dono ? 'Quem faz: ' + ({ unique: 'Unique', cliente: 'o cliente', ambos: 'Unique e cliente juntos' }[a.dono] || a.dono) : ''].concat(linhas).filter(Boolean).join('\n').trim();
+    if (!a.detalhe && !linhas.length) throw new Error('A tarefa "' + a.titulo + '" ainda não tem descrição nem conteúdo para a IA trabalhar.');
+    const html = await IA.gera({ titulo: a.titulo, tipo: TIPO_PARA[a.tipo], empresa: modelo ? '' : (json(ev) || {}).nome, texto });
     const em = agora();
-    const [av2] = await redis([['HGET', 'area:acoes:' + sl, aid]]);
+    const [av2] = await redis([['HGET', ondeH, ondeK]]);
     const a2 = json(av2) || a; a2.nIA = em;
-    await redis([['SET', 'area:nhtml:' + pageId, JSON.stringify({ html, midia, em, modelo: IA.MODELO() })], ['HSET', 'area:acoes:' + sl, aid, JSON.stringify(a2)], ['SREM', 'area:ia:fila', pageId],
+    await redis([['SET', chaveIA(pageId || ent), JSON.stringify({ html, midia, em, modelo: IA.MODELO() })], ['HSET', ondeH, ondeK, JSON.stringify(a2)], ['SREM', 'area:ia:fila', ent],
       ['SET', 'area:ia:estado', JSON.stringify({ erro: '', ultima: a.titulo, em })]]);
-    await propIA(pageId, 'Pronta');
+    if (pageId) await propIA(pageId, 'Pronta');
     return { ok: true, fila: ids.length - 1, feita: a.titulo };
   } catch (e) {
-    await redis([['SREM', 'area:ia:fila', pageId], ['SET', 'area:ia:estado', JSON.stringify({ erro: (titulo ? titulo + ': ' : '') + String(e.message || e).slice(0, 300), em: agora() })]]);
-    await propIA(pageId, 'Erro');
+    await redis([['SREM', 'area:ia:fila', ent], ['SET', 'area:ia:estado', JSON.stringify({ erro: (titulo ? titulo + ': ' : '') + String(e.message || e).slice(0, 300), em: agora() })]]);
+    if (pageId) await propIA(pageId, 'Erro');
     return { ok: false, fila: ids.length - 1, erro: String(e.message || e) };
   } finally { await redis([['DEL', 'area:ia:trava']]); }
 }
@@ -380,8 +390,8 @@ function midiaHtml(m, url) {
   if (m.tipo === 'video' && !m.externo) return '<video src="' + escH(url) + '" controls preload="metadata"></video>';
   return '<p><a class="nc-link" href="' + escH(url) + '" target="_blank" rel="noopener">' + (m.tipo === 'file' || m.tipo === 'pdf' ? '📎 ' : '') + escH(m.legenda || url.replace(/^https:\/\/(www\.)?/, '').slice(0, 60)) + ' ↗</a></p>';
 }
-async function paginaIA(redis, pageId) {
-  const [v] = await redis([['GET', 'area:nhtml:' + pageId]]);
+async function paginaIA(redis, chave) {
+  const [v] = await redis([['GET', /^area:/.test(chave) ? chave : 'area:nhtml:' + chave]]);
   const o = json(v);
   if (!o) return null;
   let html = o.html, sobra = '';
@@ -1000,4 +1010,4 @@ async function estado(redis) {
   return Object.assign({ token: ligado(), fila: f || 0, links: pl || 0, ia: Object.assign({ chave: IA.ligada(), fila: ifl || 0 }, json(ie) || {}) }, json(e) || {});
 }
 
-module.exports = { processaIA, paginaIA, conteudoTarefa, ligado, verifica, plano, aplica, puxa, envia, estado, diagnostico, ehInterno, emailInterno, DB, DB_REUN, _t: { deReuniao, deEmp, dePessoa, deLead, deTarefa, propsEmp, propsPessoa, propsLead, propsTarefa, juntaEnd, separaEnd } };
+module.exports = { chaveIAde, processaIA, paginaIA, conteudoTarefa, ligado, verifica, plano, aplica, puxa, envia, estado, diagnostico, ehInterno, emailInterno, DB, DB_REUN, _t: { deReuniao, deEmp, dePessoa, deLead, deTarefa, propsEmp, propsPessoa, propsLead, propsTarefa, juntaEnd, separaEnd } };

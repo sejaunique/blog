@@ -253,6 +253,7 @@ function limpaItem(i) {
     criado: limpo(i.criado, 30) || new Date().toISOString()
   };
 }
+const idc = id => String(id || '').replace(/-/g, '');
 function limpaAcao(a) {
   return {
     id: /^[a-z0-9]{6,24}$/.test(a.id || '') ? a.id : novoId(),
@@ -512,7 +513,11 @@ module.exports = async (req, res) => {
         if (!a) return res.status(404).json({ ok: false });
         let html = '', erro = '';
         let ia = false;
-        if (a.notion && NOTION.ligado()) { try { const pi = await NOTION.paginaIA(redis, a.notion); if (pi) { html = pi.html; ia = true; } else html = await NOTION.conteudoTarefa(redis, a.notion, a.nEd || ''); } catch (e) { erro = 'Não consegui abrir a explicação agora.'; } }
+        try {
+          const pi = await NOTION.paginaIA(redis, NOTION.chaveIAde(slug, a));
+          if (pi) { html = pi.html; ia = true; }
+          else if (a.notion && NOTION.ligado()) html = await NOTION.conteudoTarefa(redis, a.notion, a.nEd || '');
+        } catch (e) { erro = 'Não consegui abrir a explicação agora.'; }
         const [nv] = await redis([['HGET', 'area:anot:' + slug, a.id]]);
         return res.json({ ok: true, html, ia, erro, nota: json(nv) });
       }
@@ -694,6 +699,23 @@ module.exports = async (req, res) => {
 
     // processa a fila de páginas com IA (uma por chamada; qualquer pessoa logada pode disparar)
     if (b.a === 'notion-ia') return res.json(await NOTION.processaIA(redis));
+    // admin: pede a página com IA (Golden Circle + fluxograma) para uma ação, várias ou todas
+    if (b.a === 'admin-acao-ia') {
+      if (!s.admin) return res.status(403).json({ ok: false });
+      const ents = [];
+      const entrada = (slug, x) => x.notion ? idc(x.notion) : x.compartilhada || !slug ? 'm|' + x.id : 'a|' + slug + '|' + x.id;
+      if (b.todas) {
+        const [slugsDb, mH] = await redis([['SMEMBERS', 'area:emps'], ['HGETALL', 'area:modelos']]);
+        const sl = Array.from(new Set((slugsDb || []).concat(Object.keys(CATALOGO))));
+        const hs = sl.length ? await redis(sl.map(x => ['HGETALL', 'area:acoes:' + x])) : [];
+        sl.forEach((x, i) => lerPares(hs[i]).forEach(([, v]) => { const a = json(v); if (a && a.status !== 'arquivado' && a.status !== 'cancelado' && (b.refazer || !a.nIA) && (a.detalhe || a.notion)) ents.push(entrada(x, a)); }));
+        lerPares(mH).forEach(([, v]) => { const m = json(v); if (m && (b.refazer || !m.nIA) && m.detalhe) ents.push('m|' + m.id); });
+      } else (Array.isArray(b.itens) ? b.itens : []).slice(0, 200).forEach(x => { if (x && x.id) ents.push(x.notion ? idc(x.notion) : x.modelo ? 'm|' + String(x.id).replace(/[^a-z0-9_-]/gi, '').slice(0, 60) : 'a|' + slugify(x.slug) + '|' + String(x.id).replace(/[^a-z0-9_-]/gi, '').slice(0, 60)); });
+      const uniq = Array.from(new Set(ents));
+      if (uniq.length) await redis([['SADD', 'area:ia:fila'].concat(uniq)]);
+      const [n] = await redis([['SCARD', 'area:ia:fila']]);
+      return res.json({ ok: true, adicionadas: uniq.length, fila: n || 0, chave: !!process.env.ANTHROPIC_API_KEY });
+    }
 
     // bloco de anotações do cliente em cada tarefa (fica no painel; a Unique vê no admin)
     if (b.a === 'acao-nota') {

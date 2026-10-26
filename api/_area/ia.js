@@ -15,6 +15,14 @@ REGRAS
 - Onde o original tem [[midia:N]], coloque exatamente <div data-midia="N"></div> no ponto certo (uma vez cada).
 - Não repita o título da tarefa (ele já aparece no topo da página).
 
+OBRIGATÓRIO NO INÍCIO DA PÁGINA: o Golden Circle (Simon Sinek) da tarefa, logo depois de um parágrafo de abertura curto:
+<div class="ia-golden"><div class="g-why"><b>Por quê</b><p>o propósito: o resultado que essa tarefa traz para a empresa do cliente.</p></div><div class="g-how"><b>Como</b><p>o jeito de fazer, em uma ou duas frases.</p></div><div class="g-what"><b>O quê</b><p>a entrega concreta: o que fica pronto no fim.</p></div></div>
+Deduza o porquê, o como e o o quê do conteúdo; se faltar algo, use o que a própria tarefa deixa claro, sem inventar números ou fatos.
+
+FLUXOGRAMA (use sempre que houver sequência de etapas, um processo ou uma decisão; é o "desenho para entender melhor"):
+<div class="ia-fluxo"><div class="f-no f-ini">Início</div><div class="f-no">Etapa<small>detalhe curto</small></div><div class="f-no f-dec">Pergunta ou decisão?</div><div class="f-ramos"><div class="f-ramo sim"><small>Se sim</small><div class="f-no">…</div></div><div class="f-ramo nao"><small>Se não</small><div class="f-no">…</div></div></div><div class="f-no f-fim">Resultado</div></div>
+Use de 3 a 8 caixas, textos curtos (até 6 palavras no título). Os ramos são opcionais.
+
 COMPONENTES (classes prontas; use os que fizerem sentido, sem exagero):
 - <p class="ia-abre">…</p> parágrafo de abertura maior: o porquê da tarefa em 1–2 frases.
 - <span class="grifo">…</span> grifo verde em 1–3 palavras-chave da página.

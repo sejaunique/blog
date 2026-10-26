@@ -168,6 +168,10 @@ async function itemPorId(slug, id) {
   return vals.map(json).find(x => x && pastaDe(slug, x) === id) || null;
 }
 function membro(s, slug) { return !!s && (s.admin || s.slug === slug); }
+// ações do plano também têm curtir, comentar e link público (para quem não tem login)
+const ACAO_ID = /^[a-z0-9_-]{3,60}$/i;
+async function acaoDe(slug, id) { const c = await conteudo(slug); return (c.acoes || []).find(x => x.id === id) || null; }
+const urlAcaoPublica = t => SITE + '/compartilhado/?t=' + t;
 
 function usuarioPublico(u) { return { semEmail: NOTION.ehInterno(u.email), notion: u.notion || '', email: u.email, nome: u.nome, whatsapp: u.whatsapp, status: u.status, criado: u.criado, ultimo: u.ultimo || '', origem: u.origem || '', crm: u.crm || {}, editado: u.editado || '', foto: u.foto || '', fotoOrigem: u.fotoOrigem || '' }; }
 
@@ -315,6 +319,39 @@ module.exports = async (req, res) => {
         if (!it) return res.status(404).json({ ok: false });
         res.setHeader('Cache-Control', 'public, max-age=60');
         return res.json({ ok: true, titulo: it.titulo, descricao: it.descricao || '', capa: capaDe(slug, it), empresa: e.nome, publico: it.publico, url: SITE + it.url });
+      }
+
+      if (q.a === 'social' && q.t === 'acao') {
+        const slug = slugify(q.e), id = String(q.id || '');
+        if (!ACAO_ID.test(id)) return res.status(400).json({ ok: false });
+        if (!membro(s, slug)) return res.status(401).json({ ok: false, erro: 'Entre na sua conta.' });
+        const a = await acaoDe(slug, id);
+        if (!a) return res.status(404).json({ ok: false });
+        const quem = s.admin ? 'unique' : s.email, k = slug + ':a:' + id;
+        const [tok, n, curti, lst] = await redis([['HGET', 'area:acpub:' + slug, id], ['SCARD', 'area:curt:' + k], ['SISMEMBER', 'area:curt:' + k, quem], ['LRANGE', 'area:com:' + k, 0, 199]]);
+        const comentarios = (lst || []).map(json).filter(Boolean).map(c => ({ cid: c.cid, nome: c.nome, texto: c.texto, data: c.data, unique: !!c.unique, meu: s.admin || c.email === s.email }));
+        return res.json({ ok: true, logado: true, acao: true, admin: !!s.admin, curtidas: n || 0, curti: !!curti, comentarios, publico: !!tok, titulo: a.titulo, url: tok ? urlAcaoPublica(tok) : SITE + '/area/painel/#tarefa-' + id });
+      }
+      // página de uma ação aberta por link público (sem login, só leitura)
+      if (q.a === 'acao-publica') {
+        const t = String(q.t || '');
+        if (!/^[a-f0-9]{24}$/.test(t)) return res.status(404).json({ ok: false });
+        if (await limite('pub:' + ip, 120, 600)) return res.status(429).json({ ok: false });
+        const [v] = await redis([['GET', 'area:acpubt:' + t]]);
+        const pv = json(v);
+        if (!pv) return res.status(404).json({ ok: false, erro: 'Este link foi desativado.' });
+        const a = await acaoDe(pv.slug, pv.id);
+        if (!a) return res.status(404).json({ ok: false, erro: 'Esta página não existe mais.' });
+        const e = await empresa(pv.slug);
+        let html = '';
+        try {
+          const pi = await NOTION.paginaIA(redis, NOTION.chaveIAde(pv.slug, a));
+          if (pi) html = pi.html; else if (a.notion && NOTION.ligado()) html = await NOTION.conteudoTarefa(redis, a.notion, a.nEd || '');
+        } catch (x) { html = ''; }
+        const k = pv.slug + ':a:' + pv.id;
+        const [n, nc] = await redis([['SCARD', 'area:curt:' + k], ['LLEN', 'area:com:' + k]]);
+        res.setHeader('Cache-Control', 'no-store');
+        return res.json({ ok: true, titulo: a.titulo, tipo: a.tipo || 'acao', detalhe: html ? '' : (a.detalhe || ''), html, empresa: e ? e.nome : '', status: a.status || 'a_fazer', prazo: a.prazo || '', dono: a.dono || 'unique', link: a.link || '', curtidas: n || 0, comentarios: nc || 0 });
       }
 
       if (q.a === 'social') {
@@ -774,13 +811,24 @@ module.exports = async (req, res) => {
     }
 
     if (b.a === 'curtir' || b.a === 'comentar' || b.a === 'comentar-del' || b.a === 'publico') {
-      const slug = s.admin ? slugify(b.slug) : s.slug;
-      if (!membro(s, slugify(b.slug)) || !ID_OK.test(String(b.id || ''))) return res.status(403).json({ ok: false });
-      const it = await itemPorId(slug, String(b.id));
+      const slug = s.admin ? slugify(b.slug) : s.slug, ehAcao = b.t === 'acao';
+      if (!membro(s, slugify(b.slug)) || !(ehAcao ? ACAO_ID : ID_OK).test(String(b.id || ''))) return res.status(403).json({ ok: false });
+      const it = ehAcao ? await acaoDe(slug, String(b.id)) : await itemPorId(slug, String(b.id));
       if (!it) return res.status(404).json({ ok: false });
       const id = it.id;
       const quem = s.admin ? 'unique' : s.email;
-      const kc = 'area:curt:' + slug + ':' + id, kl = 'area:com:' + slug + ':' + id;
+      const k = slug + ':' + (ehAcao ? 'a:' : '') + id;
+      const kc = 'area:curt:' + k, kl = 'area:com:' + k;
+      if (ehAcao && b.a === 'publico') {
+        const [tok] = await redis([['HGET', 'area:acpub:' + slug, id]]);
+        if (b.publico) {
+          const t = tok || crypto.randomBytes(12).toString('hex');
+          await redis([['SET', 'area:acpubt:' + t, JSON.stringify({ slug, id, por: s.admin ? 'Unique' : (s.nome || s.email), em: new Date().toISOString() })], ['HSET', 'area:acpub:' + slug, id, t]]);
+          return res.json({ ok: true, publico: true, url: urlAcaoPublica(t) });
+        }
+        if (tok) await redis([['DEL', 'area:acpubt:' + tok], ['HDEL', 'area:acpub:' + slug, id]]);
+        return res.json({ ok: true, publico: false, url: SITE + '/area/painel/#tarefa-' + id });
+      }
 
       if (b.a === 'curtir') {
         const [tem] = await redis([['SISMEMBER', kc, quem]]);
@@ -793,7 +841,7 @@ module.exports = async (req, res) => {
         if (await limite('com:' + quem, 40, 3600)) return res.status(429).json({ ok: false, erro: 'Muitos comentários seguidos. Espere um pouco.' });
         const c = { cid: novoId(), nome: s.admin ? 'Carlos · Unique' : s.nome, email: s.admin ? '' : s.email, unique: !!s.admin, texto, data: new Date().toISOString() };
         await redis([['LPUSH', kl, JSON.stringify(c)], ['LTRIM', kl, 0, 499],
-          ['LPUSH', 'area:avisos', JSON.stringify({ slug, id, titulo: it.titulo, nome: c.nome, texto: texto.slice(0, 200), data: c.data, unique: c.unique })], ['LTRIM', 'area:avisos', 0, 99]]);
+          ['LPUSH', 'area:avisos', JSON.stringify({ slug, id, acao: ehAcao, titulo: it.titulo, nome: c.nome, texto: texto.slice(0, 200), data: c.data, unique: c.unique })], ['LTRIM', 'area:avisos', 0, 99]]);
         if (!s.admin) await notifica(redis, { titulo: 'Comentário de ' + c.nome, texto: it.titulo + ': ' + texto.slice(0, 120), url: '/area/admin/#notificacoes' });
         return res.json({ ok: true });
       }

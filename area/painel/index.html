@@ -220,6 +220,8 @@
 .nc table{width:100%}.nc th{text-align:left;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;border-bottom:2px solid var(--fg);padding:8px 10px}
 @media(max-width:620px){.nc .ia-dupla{grid-template-columns:1fr}.nc .ia-passos>li{padding-left:56px}}
 
+.fp-soc{max-width:var(--read);margin:56px auto 0;padding-top:40px;border-top:1px solid var(--line)}
+.fp-soc h3{font-size:1.25rem;font-weight:500;letter-spacing:-.01em;margin:0}
 /* Golden Circle */
 .nc .ia-golden{display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px;align-items:center;border:1px solid var(--line,#e4e4e7);border-radius:24px;padding:26px 28px;margin:2em 0}
 .nc .ia-golden::before{content:"";aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#00e676 0 23%,#fff 23.5% 25%,#1e2357 25.5% 48%,#fff 48.5% 50%,#0b0b0c 50.5% 71%,transparent 71.5%);grid-row:1/4}
@@ -565,6 +567,7 @@
         '<div class="fp-cta"><p id="fp-cta-t">'+ctaTexto(a)+'</p><div class="fp-btns">'+ctaBotoes(a)+'</div></div>'+
         '<section class="fp-nota"><h3>Minhas anotações</h3><textarea id="fp-nota" placeholder="Escreva aqui o que você precisa lembrar, dúvidas, próximos passos…">'+esc((a.nota||{}).texto||'')+'</textarea>'+
           '<div class="linha"><span>Só a sua empresa e a Unique veem.</span><span id="fp-salvo">'+(a.nota?'Salvo '+quandoFoi(a.nota.em)+(a.nota.por?' · '+esc(a.nota.por):''):'')+'</span></div></section></div>'+
+        '<section class="fp-soc"><h3>Curtir, comentar e compartilhar</h3><div id="fp-soc"></div></section>'+
         (outras.length?'<section class="fp-mais"><h3>Próximas tarefas</h3><div class="tg">'+outras.map(cartaoTarefa).join('')+'</div></section>':'<div style="height:80px"></div>')+
       '</article></div>';
     FOLHA.classList.add('on'); FOLHA.scrollTop=0; document.body.style.overflow='hidden';
@@ -578,6 +581,7 @@
       var cp=document.getElementById('fp-capa'), m=c.querySelector('.nc-video, figure');
       if(cp&&m){ var img=m.querySelector('img'), fr=m.querySelector('iframe'); cp.className='fp-capa'; cp.innerHTML=img?'<img src="'+esc(img.getAttribute('src'))+'" alt="">':fr?'<iframe src="'+esc(fr.getAttribute('src'))+'" title="Vídeo" allowfullscreen></iframe>':cp.innerHTML; if(img||fr) m.remove(); }
     }).catch(function(){});
+    var sb=document.getElementById('fp-soc'); if(sb&&window.UniqueSocial) window.UniqueSocial.montar(sb,{slug:DADOS.empresa.slug,id:a.id,tipo:'acao',aberto:true,titulo:a.titulo});
     var ta=document.getElementById('fp-nota'), sv=document.getElementById('fp-salvo'), tm=null, ult=ta.value;
     var salva=function(){ clearTimeout(tm); if(ta.value===ult) return; var v=ta.value; sv.textContent='Salvando…';
       api({body:{a:'acao-nota',slug:DADOS.empresa.slug,id:a.id,texto:v}}).then(function(r){ if(!r.ok){ sv.textContent='Não consegui salvar. Tente de novo.'; return; } ult=v; a.nota=r.nota; sv.textContent=r.nota?'Salvo agora':'Anotação apagada'; plano(); }); };

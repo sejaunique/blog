@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <script src="/assets/tema.js"></script>
+<script src="/assets/interacao.js" defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>if(Math.min(screen.width,innerWidth)<900&&!/[?&]desk=1/.test(location.search))location.replace('/area/admin/app/'+location.hash);</script>
 <title>Workspace · Unique</title>
@@ -854,6 +855,10 @@ body{background:var(--ws-bg)}
 .nv-peek.cheia .nv-ed>*{flex-shrink:0}
 .nv-peek.cheia [data-larg],.nv-peek.cheia .nv-peek-t [data-pf]{display:none}
 .nv-peek.m-ver .nv-ed,.nv-peek.m-ed .nv-ver{display:none}
+.nv-soc{max-width:880px;margin:-56px auto 0;padding:0 28px 100px;width:100%;box-sizing:border-box;flex-shrink:0}
+.nv-soc h3{font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:0 0 4px}
+.nv-soc .social{margin-top:10px}
+@media(max-width:700px){.nv-soc{padding:0 18px 80px}}
 .vh{background:#0b0b0c;color:#f5f5f5}
 .vh-in{max-width:1080px;margin:0 auto;padding:72px 28px 60px}
 .vh-k{margin:0 0 18px;font-size:.7rem;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:#a1a1a8}
@@ -1366,8 +1371,8 @@ body{background:var(--ws-bg)}
         return '<div class="li"><div><span class="tag">'+esc(p.empresaNome)+' · '+dt(p.criado,1)+'</span><h4>'+esc(p.nome)+'</h4><p>'+esc(p.email)+(p.whatsapp?' · '+esc(p.whatsapp):'')+'</p></div>'+
           '<div class="bts"><button class="pill verde" data-u="ativo" data-s="'+esc(p.slug)+'" data-e="'+esc(p.email)+'">Aprovar</button><button class="pill perigo" data-u="recusado" data-s="'+esc(p.slug)+'" data-e="'+esc(p.email)+'">Recusar</button></div></div>'; }).join(''):'<div class="vazio">Ninguém esperando.</div>')+'</div></section>'+
       '<section class="card"><div class="card-h"><h2>Comentários dos clientes</h2>'+(nl.length?'<button class="pill" data-todos>Marcar todos como lidos</button>':'')+'</div><div class="lst">'+(A.length?A.slice(0,30).map(function(a){
-        return '<div class="li'+(a.lido?' lido':'')+'"><div><span class="tag">'+esc(nomeEmp(a.slug))+' · '+esc(a.titulo)+' · '+dt(a.data,1)+'</span><h4>'+esc(a.nome)+'</h4><p>'+esc(a.texto)+'</p>'+
-          '<form data-resp="'+esc(a.slug)+'|'+esc(a.id)+'" hidden style="display:flex;gap:6px;margin-top:8px"><input class="mini" style="flex:1;border-radius:12px" placeholder="Sua resposta" required><button class="pill solid">Enviar</button></form></div>'+
+        return '<div class="li'+(a.lido?' lido':'')+'"><div><span class="tag">'+esc(nomeEmp(a.slug))+' · '+(a.acao?'Ação: ':'')+esc(a.titulo)+' · '+dt(a.data,1)+'</span><h4>'+esc(a.nome)+'</h4><p>'+esc(a.texto)+'</p>'+
+          '<form data-resp="'+esc(a.slug)+'|'+esc(a.id)+'|'+(a.acao?'acao':'')+'" hidden style="display:flex;gap:6px;margin-top:8px"><input class="mini" style="flex:1;border-radius:12px" placeholder="Sua resposta" required><button class="pill solid">Enviar</button></form></div>'+
           '<div class="bts"><button class="pill" data-r>Responder</button><button class="pill" data-lido="'+esc(a.k)+'" data-v="'+(a.lido?0:1)+'">'+(a.lido?'Não lido':'Lido')+'</button></div></div>'; }).join(''):'<div class="vazio">Nenhum comentário ainda.</div>')+'</div></section>'+
       '<section class="card"><div class="card-h"><h2>Leads sem acesso</h2></div><p class="muted" style="font-size:.78rem;margin:-6px 0 12px">Vieram do diagnóstico, de uma proposta ou você vinculou. Não receberam nada ainda.</p><div class="lst">'+(conv.length?conv.slice(0,30).map(function(u){
         return '<div class="li"><div><span class="tag">'+esc(u.empresa)+' · '+dt(u.criado)+'</span><h4>'+esc(u.nome)+'</h4><p>'+esc(mailV(u)||'sem e-mail')+'</p></div><div class="bts"><button class="pill verde" data-conv="'+esc(u.email)+'" data-s="'+esc(u.slug)+'" data-wa="'+esc(u.whatsapp||'')+'" data-nome="'+esc(u.nome)+'">Liberar acesso</button></div></div>'; }).join(''):'<div class="vazio">Todos já têm acesso.</div>')+'</div></section>'+
@@ -1391,7 +1396,7 @@ body{background:var(--ws-bg)}
       if(b.dataset.conv) convite(b.dataset.s,b.dataset.conv,b.dataset.nome,b.dataset.wa);
     };
     V.onsubmit=function(ev){ ev.preventDefault(); var f=ev.target, k=f.dataset.resp.split('|'), t=f.querySelector('input').value;
-      post({a:'comentar',slug:k[0],id:k[1],texto:t}).then(function(r){ if(!r.ok){toast(r.erro||'Erro.');return;} var a=(R.avisos||[]).filter(function(x){return x.slug===k[0]&&x.id===k[1]&&!x.lido;});
+      post({a:'comentar',slug:k[0],id:k[1],t:k[2]||undefined,texto:t}).then(function(r){ if(!r.ok){toast(r.erro||'Erro.');return;} var a=(R.avisos||[]).filter(function(x){return x.slug===k[0]&&x.id===k[1]&&!x.lido;});
         Promise.all(a.map(function(x){return post({a:'admin-lido',k:x.k});})).then(function(){ toast('Resposta enviada.'); recarrega(); }); }); };
   }
 
@@ -2125,6 +2130,8 @@ body{background:var(--ws-bg)}
       '<div class="dir"><button class="pill" data-gia>✦ '+(l.nIA?'Refazer com IA':'Gerar com IA')+'</button>'+(i.slug?'<a class="pill" target="_blank" href="/area/painel/?e='+esc(i.slug)+'#tarefa-'+esc(i.id)+'">Ver como cliente ↗</a>':'')+(l.notion?'<a class="pill" target="_blank" rel="noopener" href="https://www.notion.so/'+esc(l.notion)+'">Notion ↗</a>':'')+'</div>';
     var ver=document.createElement('div'); ver.className='nv-ver'; ver.innerHTML=nvVer(i,l,e);
     p.appendChild(bar); p.appendChild(ver); p.appendChild(ed);
+    // curtir, comentar e compartilhar (link público) no fim da página, nos dois modos
+    if(i.slug&&i.id&&window.UniqueSocial){ var soc=document.createElement('section'); soc.className='nv-soc'; soc.innerHTML='<h3>Conversa sobre esta ação</h3><div></div>'; p.appendChild(soc); window.UniqueSocial.montar(soc.lastChild,{slug:i.slug,id:i.id,tipo:'acao',aberto:true,titulo:i.titulo}); }
     p.classList.toggle('m-ver',AV.pmodo==='ver'); p.classList.toggle('m-ed',AV.pmodo==='ed');
     nvVerConteudo(i,l,ver);
     bar.onclick=function(ev){ var b=ev.target.closest('[data-modo]'); if(!b) return; AV.pmodo=b.dataset.modo; bar.querySelectorAll('[data-modo]').forEach(function(x){ x.setAttribute('aria-pressed',x===b); }); p.classList.toggle('m-ver',AV.pmodo==='ver'); p.classList.toggle('m-ed',AV.pmodo==='ed'); p.scrollTop=0; if(AV.pmodo==='ed'){ auto(tt); auto(p.querySelector('.nv-desc')); } };

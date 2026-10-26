@@ -53,17 +53,18 @@
     var url=d.url||location.href.split('?')[0].split('#')[0];
     var txt=d.titulo+(d.publico?'':' (acesso com login da área do cliente)');
     if(navigator.share){ navigator.share({title:d.titulo,text:d.titulo,url:url}).catch(function(){}); return; }
-    var feito=function(){ toast(d.publico?'Link copiado. Quem receber abre direto.':'Link copiado. Quem receber entra com o login da empresa.'); };
+    var feito=function(){ toast(d.acao&&d.publico?'Link copiado. Quem receber vê a página, sem precisar de senha.':d.publico?'Link copiado. Quem receber abre direto.':'Link copiado. Quem receber entra com o login da empresa.'); };
     if(navigator.clipboard) navigator.clipboard.writeText(url).then(feito,function(){});
     window.open('https://wa.me/?text='+encodeURIComponent(txt+'\n'+url),'_blank','noopener');
   }
 
   function montar(el,o){
     var slug=o.slug, id=o.id, D=null, aberto=!!o.aberto;
+    var postS=function(x){ if(o.tipo) x.t=o.tipo; return post(x); };
     el.classList.add('social');
     el.innerHTML='<p class="vaz">Carregando…</p>';
     function carrega(){
-      return fetch('/api/area?a=social&e='+encodeURIComponent(slug)+'&id='+encodeURIComponent(id),{credentials:'same-origin'})
+      return fetch('/api/area?a=social&e='+encodeURIComponent(slug)+'&id='+encodeURIComponent(id)+(o.tipo?'&t='+o.tipo:''),{credentials:'same-origin'})
         .then(function(r){return r.json();}).then(function(d){ if(!d.ok){ el.remove(); return; } D=d; if(!D.titulo) D.titulo=o.titulo||document.title; desenha(); if(o.onchange) o.onchange(D); })
         .catch(function(){ el.remove(); });
     }
@@ -80,9 +81,10 @@
         '<button class="sbt" type="button" data-s="com" aria-expanded="'+aberto+'">'+I.com+n+(n===1?' comentário':' comentários')+'</button>'+
         '<button class="sbt" type="button" data-s="sha">'+I.sha+'Compartilhar</button>'+
         '<span class="esp"></span>'+
-        (D.pasta?'<label class="pub"><input type="checkbox" data-s="pub"'+(D.publico?' checked':'')+'><span class="trilho"></span>Página pública</label>':'')+
+        (D.pasta||D.acao?'<label class="pub"><input type="checkbox" data-s="pub"'+(D.publico?' checked':'')+'><span class="trilho"></span>'+(D.acao?'Link público':'Página pública')+'</label>':'')+
         '</div>';
-      if(D.pasta) h+='<p class="nota">'+(D.publico?'Pública: qualquer pessoa com o link abre esta página, sem senha. Os comentários continuam só para a sua empresa.':'Fechada: quem receber o link entra com o login da empresa para ver.')+'</p>';
+      if(D.acao) h+='<p class="nota">'+(D.publico?'Link público ligado: quem receber o link vê esta página, só para leitura, sem senha. Curtidas e comentários continuam só para a empresa e a Unique.':'Compartilhar gera um link para quem não tem login ver esta página, só para leitura.')+'</p>';
+      else if(D.pasta) h+='<p class="nota">'+(D.publico?'Pública: qualquer pessoa com o link abre esta página, sem senha. Os comentários continuam só para a sua empresa.':'Fechada: quem receber o link entra com o login da empresa para ver.')+'</p>';
       if(aberto){
         h+='<div class="coms">'+(n?D.comentarios.map(function(c){
           return '<div class="com'+(c.unique?' u':'')+'"><span class="av">'+(c.unique?'U':esc(ini(c.nome)))+'</span><div><b>'+esc(c.nome)+'</b><time>'+quando(c.data)+'</time><p>'+esc(c.texto)+'</p>'+
@@ -95,24 +97,27 @@
       if(f) f.onsubmit=function(ev){
         ev.preventDefault(); var ta=f.querySelector('textarea'), b=f.querySelector('button'); if(!ta.value.trim()) return;
         b.disabled=true;
-        post({a:'comentar',slug:slug,id:id,texto:ta.value}).then(function(r){ b.disabled=false; if(r.ok) carrega(); else toast(r.erro||'Não foi possível comentar.'); });
+        postS({a:'comentar',slug:slug,id:id,texto:ta.value}).then(function(r){ b.disabled=false; if(r.ok) carrega(); else toast(r.erro||'Não foi possível comentar.'); });
       };
     }
     el.onclick=function(ev){
       var b=ev.target.closest('[data-s],[data-del]'); if(!b||b.tagName==='INPUT') return;
       if(b.dataset.del){
         if(b.dataset.ok!=='1'){ b.dataset.ok='1'; b.textContent='Confirmar'; return; }
-        post({a:'comentar-del',slug:slug,id:id,cid:b.dataset.del}).then(carrega); return;
+        postS({a:'comentar-del',slug:slug,id:id,cid:b.dataset.del}).then(carrega); return;
       }
-      if(b.dataset.s==='cur') post({a:'curtir',slug:slug,id:id}).then(function(r){ if(r.ok){ D.curti=r.curti; D.curtidas=r.curtidas; desenha(); if(o.onchange) o.onchange(D); } });
+      if(b.dataset.s==='cur') postS({a:'curtir',slug:slug,id:id}).then(function(r){ if(r.ok){ D.curti=r.curti; D.curtidas=r.curtidas; desenha(); if(o.onchange) o.onchange(D); } });
       if(b.dataset.s==='com'){ aberto=!aberto; desenha(); if(aberto){ var t=el.querySelector('textarea'); if(t) t.focus(); } }
-      if(b.dataset.s==='sha') compartilhar(D);
+      if(b.dataset.s==='sha'){
+        if(D.acao&&!D.publico){ b.disabled=true; postS({a:'publico',slug:slug,id:id,publico:true}).then(function(r){ b.disabled=false; if(!r.ok){ toast(r.erro||'Não foi possível gerar o link.'); return; } D.publico=true; D.url=r.url; desenha(); compartilhar(D); }); return; }
+        compartilhar(D);
+      }
     };
     el.onchange=function(ev){
       var c=ev.target; if(c.dataset.s!=='pub') return;
       c.disabled=true;
-      post({a:'publico',slug:slug,id:id,publico:c.checked}).then(function(r){
-        if(r.ok){ D.publico=r.publico; toast(r.publico?'Página pública: abre sem senha.':'Página fechada: só com login.'); }
+      postS({a:'publico',slug:slug,id:id,publico:c.checked}).then(function(r){
+        if(r.ok){ D.publico=r.publico; if(r.url) D.url=r.url; toast(r.publico?(D.acao?'Link público ligado: quem receber vê sem senha.':'Página pública: abre sem senha.'):(D.acao?'Link público desligado: o link antigo parou de funcionar.':'Página fechada: só com login.')); }
         else { c.checked=!c.checked; toast(r.erro||'Não foi possível alterar.'); }
         desenha(); if(o.onchange) o.onchange(D);
       });

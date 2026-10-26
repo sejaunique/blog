@@ -247,6 +247,92 @@ function propsTarefa(a, slug, op) {
 }
 const recorteAcao = a => { const o = {}; CAMPOS_ACAO.forEach(k => { o[k] = a[k] === undefined ? '' : a[k]; }); return o; };
 
+// ---------- explicação da tarefa: o conteúdo (blocos) da página no Notion ----------
+const escH = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const urlOk = u => /^https:\/\//i.test(u || '') ? u : '';
+function rt(arr) {
+  return (arr || []).map(t => {
+    let h = escH(t.plain_text).replace(/\n/g, '<br>');
+    const a = t.annotations || {};
+    if (a.code) h = '<code>' + h + '</code>';
+    if (a.bold) h = '<b>' + h + '</b>';
+    if (a.italic) h = '<i>' + h + '</i>';
+    if (a.strikethrough) h = '<s>' + h + '</s>';
+    if (a.underline) h = '<u>' + h + '</u>';
+    if (a.color && a.color !== 'default') h = '<span class="nc-' + escH(a.color.replace('_background', '-bg')) + '">' + h + '</span>';
+    const href = urlOk(t.href);
+    if (href) h = '<a href="' + escH(href) + '" target="_blank" rel="noopener">' + h + '</a>';
+    return h;
+  }).join('');
+}
+const txtRt = arr => (arr || []).map(t => t.plain_text).join('');
+async function filhos(id) {
+  let out = [], cursor;
+  do {
+    const j = await api('GET', 'blocks/' + id + '/children?page_size=100' + (cursor ? '&start_cursor=' + cursor : ''));
+    out = out.concat(j.results || []);
+    cursor = j.has_more ? j.next_cursor : null;
+  } while (cursor && out.length < 400);
+  return out;
+}
+async function resumoPagina(id) {
+  const j = await api('GET', 'blocks/' + id + '/children?page_size=12');
+  const B = (j.results || []).filter(b => !b.archived);
+  const tem = B.some(b => { const v = b[b.type] || {}; return b.type === 'image' || b.type === 'video' || b.type === 'divider' ? true : txtRt(v.rich_text).trim(); });
+  // resumo do cartão: os primeiros parágrafos de texto (sem títulos nem itens de lista)
+  const p = B.filter(b => ['paragraph', 'callout', 'quote'].indexOf(b.type) >= 0).map(b => txtRt((b[b.type] || {}).rich_text).trim()).filter(Boolean).slice(0, 2).join(' ');
+  return { tem: !!tem, resumo: p.slice(0, 240) };
+}
+const ytId = u => { const m = String(u || '').match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([\w-]{11})/); return m ? m[1] : ''; };
+async function htmlBlocos(B, nivel) {
+  let h = '', lista = '';
+  const fecha = () => { if (lista) { h += '</' + lista + '>'; lista = ''; } };
+  for (const b of B) {
+    if (b.archived) continue;
+    const t = b.type, v = b[t] || {};
+    const sub = b.has_children && nivel < 3 ? await htmlBlocos(await filhos(b.id), nivel + 1) : '';
+    if (t === 'bulleted_list_item' || t === 'numbered_list_item') {
+      const tag = t === 'bulleted_list_item' ? 'ul' : 'ol';
+      if (lista !== tag) { fecha(); h += '<' + tag + '>'; lista = tag; }
+      h += '<li>' + rt(v.rich_text) + sub + '</li>'; continue;
+    }
+    fecha();
+    if (t === 'paragraph') h += txtRt(v.rich_text).trim() ? '<p>' + rt(v.rich_text) + '</p>' + sub : sub;
+    else if (t === 'heading_1' || t === 'heading_2' || t === 'heading_3') {
+      const tag = { heading_1: 'h3', heading_2: 'h4', heading_3: 'h5' }[t];
+      h += v.is_toggleable ? '<details><summary class="' + tag + '">' + rt(v.rich_text) + '</summary>' + sub + '</details>' : '<' + tag + '>' + rt(v.rich_text) + '</' + tag + '>' + sub;
+    }
+    else if (t === 'to_do') h += '<p class="nc-todo' + (v.checked ? ' ok' : '') + '"><span>' + (v.checked ? '✓' : '') + '</span>' + rt(v.rich_text) + '</p>' + sub;
+    else if (t === 'quote') h += '<blockquote>' + rt(v.rich_text) + sub + '</blockquote>';
+    else if (t === 'callout') h += '<div class="nc-callout">' + (v.icon && v.icon.emoji ? '<span class="nc-ic">' + escH(v.icon.emoji) + '</span>' : '') + '<div>' + rt(v.rich_text) + sub + '</div></div>';
+    else if (t === 'toggle') h += '<details><summary>' + rt(v.rich_text) + '</summary>' + sub + '</details>';
+    else if (t === 'divider') h += '<hr>';
+    else if (t === 'code') h += '<pre><code>' + escH(txtRt(v.rich_text)) + '</code></pre>';
+    else if (t === 'image') { const u = urlOk(v.type === 'file' ? (v.file || {}).url : (v.external || {}).url); if (u) h += '<figure><img src="' + escH(u) + '" alt="" loading="lazy">' + (txtRt(v.caption) ? '<figcaption>' + rt(v.caption) + '</figcaption>' : '') + '</figure>'; }
+    else if (t === 'video' || t === 'embed') { const u = urlOk(v.type === 'file' ? (v.file || {}).url : (v.external || {}).url || v.url); const y = ytId(u);
+      if (y) h += '<div class="nc-video"><iframe src="https://www.youtube-nocookie.com/embed/' + y + '" allowfullscreen loading="lazy" title="Vídeo"></iframe></div>';
+      else if (u && t === 'video' && v.type === 'file') h += '<video src="' + escH(u) + '" controls preload="metadata"></video>';
+      else if (u) h += '<p><a class="nc-link" href="' + escH(u) + '" target="_blank" rel="noopener">' + escH(u.replace(/^https:\/\/(www\.)?/, '').slice(0, 60)) + ' ↗</a></p>'; }
+    else if (t === 'bookmark' || t === 'link_preview') { const u = urlOk(v.url); if (u) h += '<p><a class="nc-link" href="' + escH(u) + '" target="_blank" rel="noopener">' + (txtRt(v.caption) ? rt(v.caption) : escH(u.replace(/^https:\/\/(www\.)?/, '').slice(0, 60))) + ' ↗</a></p>'; }
+    else if (t === 'file' || t === 'pdf') { const u = urlOk(v.type === 'file' ? (v.file || {}).url : (v.external || {}).url); if (u) h += '<p><a class="nc-link" href="' + escH(u) + '" target="_blank" rel="noopener">📎 ' + escH(v.name || txtRt(v.caption) || 'Arquivo') + ' ↗</a></p>'; }
+    else if (t === 'column_list' || t === 'column' || t === 'synced_block') h += sub;
+    else if (t === 'table' && sub) h += '<div class="nc-tab"><table>' + sub + '</table></div>';
+    else if (t === 'table_row') h += '<tr>' + (v.cells || []).map(c => '<td>' + rt(c) + '</td>').join('') + '</tr>';
+  }
+  fecha();
+  return h;
+}
+// conteúdo pronto para a página da tarefa; guarda em cache (links de arquivos do Notion expiram em 1h)
+async function conteudoTarefa(redis, pageId, ed) {
+  const k = 'area:ncont:' + pageId;
+  const [c] = await redis([['GET', k]]);
+  const o = json(c);
+  if (o && o.ed === ed && o.ate > Date.now()) return o.html;
+  const html = await htmlBlocos(await filhos(pageId), 1);
+  await redis([['SET', k, JSON.stringify({ ed, html, ate: Date.now() + 45 * 60000 }), 'EX', 86400]]);
+  return html;
+}
+
 // ---------- Reuniões (EMP) -> página de reuniões do cliente (só leitura) ----------
 function deReuniao(p) {
   const pr = p.properties, dt = (pr['Data'] || {}).date;
@@ -628,7 +714,7 @@ async function puxa(redis, op) {
   });
   if (cmds.length || mapa.length) await redis(cmds.splice(0).concat(mapa.length ? [['HSET', 'area:nmap'].concat(mapa.splice(0))] : []));
   // tarefas -> ações do plano
-  const tiradas = [];
+  const tiradas = [], escrever = [];
   T.map(deTarefa).forEach(n => {
     const lig = nmap[n.id];
     let velho = null, vs = '';
@@ -641,12 +727,26 @@ async function puxa(redis, op) {
     const pv = n.pessoas.map(id => nmap[id]).filter(v => v && v.indexOf('p|' + sl + '|') === 0)[0];
     const novo = Object.assign({}, n.a, { pessoa: pv ? pv.split('|')[2] : '' });
     if (velho && velho.status === 'arquivado' && novo.status === 'cancelado') novo.status = 'arquivado';
-    if (velho && velho.nEd === n.ed && vs === sl && mesmo(recorteAcao(velho), recorteAcao(novo)) && (velho.pessoa || '') === novo.pessoa) return;
+    if (velho && velho.nEd === n.ed && vs === sl && mesmo(recorteAcao(velho), recorteAcao(novo)) && (velho.pessoa || '') === novo.pessoa) {
+      if (velho.nConteudo === undefined) escrever.push({ sl, a: velho, id: n.id }); // ainda não sabemos se a página tem explicação
+      return;
+    }
     const a = Object.assign({ id: novoId(), criado: agora() }, velho || {}, novo, { responsavel: n.responsavel || (velho || {}).responsavel || '', notion: n.id, nEd: n.ed, nTemArquivo: n.temArquivo, atualizado: agora(), por: 'Notion' });
     if (velho && vs !== sl) cmds.push(['HDEL', 'area:acoes:' + vs, velho.id]);
-    cmds.push(['HSET', 'area:acoes:' + sl, a.id, JSON.stringify(a)]);
+    if (!velho || velho.nEd !== n.ed) delete a.nConteudo; // página mudou: confere a explicação de novo
+    escrever.push({ sl, a, id: n.id });
     mapa.push(n.id, 'a|' + sl + '|' + a.id); mud.acoes++;
   });
+  // explicação de cada tarefa = o conteúdo da página no Notion (confere até 30 por vez; o resto na próxima)
+  let checadas = 0;
+  for (let i = 0; i < escrever.length; i += 3) {
+    await Promise.all(escrever.slice(i, i + 3).map(async x => {
+      if (x.a.nConteudo !== undefined || checadas >= 30) return;
+      checadas++;
+      try { const r = await resumoPagina(x.id); x.a.nConteudo = r.tem; x.a.nResumo = r.resumo; } catch (e) { /* tenta na próxima */ }
+    }));
+  }
+  escrever.forEach(x => cmds.push(['HSET', 'area:acoes:' + x.sl, x.a.id, JSON.stringify(x.a)]));
   if (tiradas.length) cmds.push(['HDEL', 'area:nmap'].concat(tiradas));
   if (cmds.length || mapa.length) await redis(cmds.splice(0).concat(mapa.length ? [['HSET', 'area:nmap'].concat(mapa.splice(0))] : []));
   if (Object.keys(tocadas).length) await etapasDasEmpresas(redis, Object.keys(tocadas));
@@ -828,4 +928,4 @@ async function estado(redis) {
   return Object.assign({ token: ligado(), fila: f || 0, links: pl || 0 }, json(e) || {});
 }
 
-module.exports = { ligado, verifica, plano, aplica, puxa, envia, estado, diagnostico, ehInterno, emailInterno, DB, DB_REUN, _t: { deReuniao, deEmp, dePessoa, deLead, deTarefa, propsEmp, propsPessoa, propsLead, propsTarefa, juntaEnd, separaEnd } };
+module.exports = { conteudoTarefa, ligado, verifica, plano, aplica, puxa, envia, estado, diagnostico, ehInterno, emailInterno, DB, DB_REUN, _t: { deReuniao, deEmp, dePessoa, deLead, deTarefa, propsEmp, propsPessoa, propsLead, propsTarefa, juntaEnd, separaEnd } };

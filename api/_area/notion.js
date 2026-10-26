@@ -15,7 +15,7 @@ const NV = '2022-06-28';
 const IA = require('./ia.js');
 const RICO = require('./rico.js');
 const DB_REUN = '25394b57fed881328544ce6e755832a4'; // (EMP) Reuniões e Compromissos: só leitura, Notion -> painel
-const DB = { emp: '20e94b57fed881a08c1eeb85fbb99700', pessoa: '25394b57fed88154bb5df25b63ac14e5', lead: '25394b57fed881e09ac8ef513a9a4e3f', tarefa: '25394b57fed8813ba22fe58b9619f4ac' };
+const DB = { emp: '20e94b57fed881a08c1eeb85fbb99700', pessoa: '25394b57fed88154bb5df25b63ac14e5', lead: '25394b57fed881e09ac8ef513a9a4e3f', tarefa: '25394b57fed8813ba22fe58b9619f4ac', projeto: '25394b57fed88153b034eec19e3c69df' };
 const SITE = 'https://sejaunique.com';
 const ligado = () => !!process.env.NOTION_TOKEN;
 const json = s => { try { return s ? JSON.parse(s) : null; } catch (e) { return null; } };
@@ -60,6 +60,19 @@ async function todas(db, filtro) {
   return out;
 }
 
+
+// projetos do Notion -> leads (tarefa sem Empresa e sem Lead herda a empresa pelo Projeto ou pela Atividade Principal)
+async function projetoLeads() {
+  try { const L = await todas(DB.projeto); const m = {}; L.forEach(p => { m[idc(p.id)] = (ler(p.properties, 'Lead') || []).map(idc); }); return m; }
+  catch (e) { return {}; }
+}
+// empresa (slug) de uma tarefa: Empresa > Lead > Projeto (lead do projeto) > Atividade Principal
+function slugTarefa(n, porEmp, porLead, projLead, porTarefa, visto) {
+  let sl = n.empresas.map(porEmp).filter(Boolean)[0] || porLead(n.lead);
+  if (!sl) (n.projetos || []).some(pid => (projLead[idc(pid)] || []).some(l => (sl = porLead(l))));
+  if (!sl && n.pai && !(visto = visto || {})[n.id]) { visto[n.id] = 1; sl = porTarefa(n.pai, visto); }
+  return sl || '';
+}
 // ---------- leitura e escrita de propriedades ----------
 const txt = arr => (arr || []).map(x => x.plain_text || '').join('').trim();
 function ler(props, nome) {
@@ -230,7 +243,7 @@ function deTarefa(p) {
   };
   const resp = ler(pr, 'Responsável') || [];
   const respIds = (((pr['Responsável'] || {}).people) || []).map(x => x.id).filter(Boolean);
-  return { rt: (pr['Descrição'] || {}).rich_text || [], observadores: ler(pr, 'Observadores (cliente)') || [], respIds, id: idc(p.id), ed: p.last_edited_time, ia: ler(pr, 'Página com IA') || '', para: ler(pr, 'Tarefa para') || '', empresas: ler(pr, 'Empresa') || [], lead: (ler(pr, 'Lead') || [])[0] || '', pessoas: ler(pr, 'Responsável (cliente)') || [], responsavel: resp[0] || '', temArquivo: arqs.some(f => f.type !== 'external'), a };
+  return { rt: (pr['Descrição'] || {}).rich_text || [], observadores: ler(pr, 'Observadores (cliente)') || [], respIds, id: idc(p.id), ed: p.last_edited_time, ia: ler(pr, 'Página com IA') || '', para: ler(pr, 'Tarefa para') || '', empresas: ler(pr, 'Empresa') || [], lead: (ler(pr, 'Lead') || [])[0] || '', projetos: ler(pr, 'Projeto') || [], pai: (ler(pr, 'Atividade Principal') || [])[0] || '', pessoas: ler(pr, 'Responsável (cliente)') || [], responsavel: resp[0] || '', temArquivo: arqs.some(f => f.type !== 'external'), a };
 }
 const absUrl = u => !u ? '' : /^https?:\/\//.test(u) ? u : SITE + (u.charAt(0) === '/' ? '' : '/') + u;
 function propsTarefa(a, slug, op) {
@@ -492,7 +505,7 @@ function slugLivre(base, ocupados) {
 
 // ---------- plano da carga inicial (nada é gravado) ----------
 async function monta(redis, catalogo) {
-  const [E, P, L, T] = await Promise.all([todas(DB.emp), todas(DB.pessoa), todas(DB.lead), todas(DB.tarefa)]);
+  const [E, P, L, T, PJ] = await Promise.all([todas(DB.emp), todas(DB.pessoa), todas(DB.lead), todas(DB.tarefa), projetoLeads()]);
   const { emps, nmap } = await painel(redis, Object.keys(catalogo || {}));
   Object.keys(catalogo || {}).forEach(s => { if (!emps[s].e) emps[s].e = { slug: s, nome: catalogo[s].nome, catalogo: true }; });
   const ne = E.map(deEmp), np = P.map(dePessoa), nl = L.map(deLead);
@@ -546,8 +559,10 @@ async function monta(redis, catalogo) {
   // 4) tarefas do plano de ação (só "Tarefa para" Cliente ou Lead)
   const leadSlug = {}; plano.negocios.forEach(x => { if (x.id) leadSlug[x.id] = x.slug; });
   const usadoA = {};
-  T.map(deTarefa).filter(n => PARA_CLIENTE.indexOf(n.para) >= 0).forEach(n => {
-    const sl = n.empresas.map(id => ligSlug[id]).filter(Boolean)[0] || leadSlug[n.lead];
+  const TT = T.map(deTarefa), TPor = {}; TT.forEach(x => { TPor[x.id] = x; });
+  const slT = (n, visto) => slugTarefa(n, id => ligSlug[idc(id)] || ligSlug[id], id => leadSlug[idc(id)] || leadSlug[id], PJ, (pid, v) => TPor[idc(pid)] ? slT(TPor[idc(pid)], v) : '', visto);
+  TT.filter(n => PARA_CLIENTE.indexOf(n.para) >= 0).forEach(n => {
+    const sl = slT(n);
     if (!sl) { plano.semEmpresa.push({ tipo: 'tarefa', nome: n.a.titulo }); return; }
     const acs = (emps[sl] || { acoes: [] }).acoes;
     let x = acs.find(a => a.notion === n.id), como = x ? 'ligada' : '';
@@ -743,6 +758,7 @@ async function puxa(redis, op) {
   const filtro = desde ? { timestamp: 'last_edited_time', last_edited_time: { on_or_after: desde } } : null;
   const inicio = agora();
   const [E, P, L, T] = await Promise.all([todas(DB.emp, filtro), todas(DB.pessoa, filtro), todas(DB.lead, filtro), est.cargaTarefas ? todas(DB.tarefa, filtro) : Promise.resolve([])]);
+  const PJ = T.length ? await projetoLeads() : {};
   const { emps, nmap } = await painel(redis);
   const ocupados = {}; Object.keys(emps).forEach(s => { if (emps[s].e) ocupados[s] = 1; });
   const cmds = [], mapa = [], mud = { empresas: 0, pessoas: 0, negocios: 0, acoes: 0 };
@@ -801,13 +817,15 @@ async function puxa(redis, op) {
   // tarefas -> ações do plano
   const tiradas = [], escrever = [], filaIA = [];
   let [carlosNotion] = await redis([['GET', 'area:notion:carlos']]);
-  T.map(deTarefa).forEach(n => {
+  const TT = T.map(deTarefa), TPor = {}; TT.forEach(x => { TPor[x.id] = x; });
+  const leadDe = id => { const v = nmap[idc(id)] || nmap[id]; return v && v.indexOf('n|') === 0 ? v.split('|')[1] : ''; };
+  const slT = (n, visto) => slugTarefa(n, slugDe, leadDe, PJ, (pid, v) => { if (TPor[idc(pid)]) return slT(TPor[idc(pid)], v); const w = nmap[idc(pid)]; return w && w.indexOf('a|') === 0 ? w.split('|')[1] : ''; }, visto);
+  TT.forEach(n => {
     const lig = nmap[n.id];
     let velho = null, vs = '';
     if (lig && lig.indexOf('a|') === 0) { const pz = lig.split('|'); vs = pz[1]; velho = ((emps[vs] || {}).acoes || []).find(a => a.id === pz[2]) || null; }
     if (PARA_CLIENTE.indexOf(n.para) < 0) { if (velho) { cmds.push(['HSET', 'area:acoes:' + vs, velho.id, JSON.stringify(Object.assign({}, velho, { status: 'arquivado', notion: '' }))]); tiradas.push(n.id); mud.acoes++; } return; }
-    const leadV = nmap[n.lead];
-    const sl = n.empresas.map(slugDe).filter(Boolean)[0] || (leadV && leadV.indexOf('n|') === 0 ? leadV.split('|')[1] : '');
+    const sl = slT(n);
     if (!sl) return;
     if (n.ia === 'Gerar') filaIA.push(n.id);
     if (velho && velho.nEd && n.ed < velho.nEd) return;

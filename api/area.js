@@ -254,7 +254,7 @@ const podeVer = (papel, x, email) => {
   return (NIVEL[papel] || 0) >= (PRECISA[visivelOk((x || {}).visivel)] || 0);
 };
 
-function usuarioPublico(u) { return { papel: papelDe(u), semEmail: NOTION.ehInterno(u.email), notion: u.notion || '', email: u.email, nome: u.nome, whatsapp: u.whatsapp, status: u.status, criado: u.criado, ultimo: u.ultimo || '', origem: u.origem || '', crm: u.crm || {}, editado: u.editado || '', foto: u.foto || '', fotoOrigem: u.fotoOrigem || '' }; }
+function usuarioPublico(u) { return { papel: papelDe(u), semEmail: NOTION.ehInterno(u.email), notion: u.notion || '', email: u.email, nome: u.nome, whatsapp: u.whatsapp, status: u.status, criado: u.criado, ultimo: u.ultimo || '', convidado: u.convidado || '', origem: u.origem || '', crm: u.crm || {}, editado: u.editado || '', foto: u.foto || '', fotoOrigem: u.fotoOrigem || '' }; }
 
 // Ações do catálogo entram no plano da empresa uma única vez (area:acoes-cat:<slug> lembra quais já entraram),
 // então o status do cliente e as edições/exclusões do admin valem normalmente depois.
@@ -1578,9 +1578,11 @@ module.exports = async (req, res) => {
       const email = limpo(b.email, 120).toLowerCase();
       if (NOTION.ehInterno(email)) return res.status(400).json({ ok: false, erro: 'Esse contato não tem e-mail. Preencha o e-mail (no painel ou no Notion) para gerar o acesso.' });
       const [v] = await redis([['GET', 'area:user:' + slug + ':' + email]]);
-      if (!json(v)) return res.status(404).json({ ok: false, erro: 'Pessoa não encontrada.' });
+      const uc = json(v);
+      if (!uc) return res.status(404).json({ ok: false, erro: 'Pessoa não encontrada.' });
       const t = crypto.randomBytes(20).toString('hex');
-      await redis([['SET', 'area:convite:' + t, JSON.stringify({ slug, email }), 'EX', 30 * 86400]]);
+      uc.convidado = new Date().toISOString();
+      await redis([['SET', 'area:convite:' + t, JSON.stringify({ slug, email }), 'EX', 30 * 86400], ['SET', 'area:user:' + slug + ':' + email, JSON.stringify(uc)]]);
       return res.json({ ok: true, url: SITE + '/area/?convite=' + t });
     }
 

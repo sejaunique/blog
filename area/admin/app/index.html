@@ -223,6 +223,10 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
 .cartao{border-radius:18px}
 .mc.c-mar,.mc.c-mag,.mc.c-ver,.mc.c-pre{background:var(--a-card);color:inherit;border:1px solid var(--a-line)}
 .app-c{background:var(--fg)!important;color:var(--bg)!important}.app-c .bt{background:var(--bg);color:var(--fg);border-color:var(--bg)}
+
+.bar .tema-bt{width:44px;height:44px;border:0;opacity:1;color:var(--fg)}.bar .tema-bt svg{width:21px;height:21px}
+
+.cab-k,.hj-k{color:var(--magenta-txt,var(--magenta))}
 </style>
 </head>
 <body data-casco="app">
@@ -254,6 +258,7 @@ select.inl,input.inl{border:1px solid var(--a-line);background:var(--a-bg);borde
 <script src="/area/admin/crm-form.js"></script>
 <script>
 (function(){
+  (function(){ var s=document.getElementById('b-sino'); if(s&&window.UniqueTema&&!document.querySelector('.bar .tema-bt')){ var b=UniqueTema.botao(); b.title='Modo claro / escuro'; s.parentNode.insertBefore(b,s); } })();
   /* versão de computador */
   if(matchMedia('(min-width: 900px)').matches && !/[?&]app=1/.test(location.search)){ location.replace('/area/admin/'+location.hash); return; }
 

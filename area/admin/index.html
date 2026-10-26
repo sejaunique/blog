@@ -762,6 +762,10 @@ body{background:var(--ws-bg)}
 .nv-peek>*{flex-shrink:0}
 .nv-peek{border-radius:26px 0 0 26px;padding:20px 26px}
 .nv-ptit{font-weight:800;font-size:1.8rem}
+
+[data-tema-alvo]{display:contents}[data-tema-alvo] .tema-bt{width:40px;height:40px;border:1px solid var(--ws-line);opacity:1;color:var(--fg)}[data-tema-alvo] .tema-bt:hover{background:var(--ws-chip)}
+
+.cab-k,.hj-k{color:var(--magenta-txt,var(--magenta))}
 </style>
 </head>
 <body data-casco="area">
@@ -796,6 +800,7 @@ body{background:var(--ws-bg)}
 <script src="/area/admin/crm-form.js"></script>
 <script>
 (function(){
+  (function(){ var ta=document.querySelector('[data-tema-alvo]'); if(ta&&window.UniqueTema&&!ta.querySelector('.tema-bt')){ var b=UniqueTema.botao(); b.title='Modo claro / escuro'; ta.appendChild(b); } })();
   var MENU=[
     ['painel','Painel','home'],['crm','CRM','kanban'],['notificacoes','Notificações','bell'],['empresas','Empresas','predio'],['contatos','Contatos','users'],
     ['acoes','Ações','tabela'],['propostas','Propostas','proposta'],['diagnosticos','Diagnósticos','diag'],

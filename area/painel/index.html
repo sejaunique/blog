@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="/assets/casco.css">
 <script src="/assets/interacao.js" defer></script>
 <script src="/assets/rico.js" defer></script>
+<script src="/assets/acoes-vis.js" defer></script>
 <script src="/assets/agenda.js" defer></script>
 <style>
 [hidden]{display:none!important}
@@ -233,6 +234,8 @@
 .av-p{width:28px;height:28px;border-radius:50%;display:inline-grid;place-items:center;overflow:hidden;background:#1e2357;color:#fff;font-size:.6rem;font-weight:800;border:2px solid var(--bg);flex-shrink:0;vertical-align:middle}.av-p img{width:100%;height:100%;object-fit:cover}
 .av-pilha{display:inline-flex;align-items:center;vertical-align:middle}.av-pilha>*+*{margin-left:-9px}.av-mais{width:28px;height:28px;border-radius:50%;display:inline-grid;place-items:center;background:var(--soft);border:2px solid var(--bg);font-size:.62rem;font-weight:800}
 .fp-av{display:inline-flex;align-items:center;gap:8px}
+.pv-modo{display:flex;gap:2px;background:var(--fg);border-radius:999px;padding:4px}.pv-modo button{font:inherit;font-size:.78rem;font-weight:600;border:0;background:none;color:var(--bg);border-radius:999px;padding:7px 14px;cursor:pointer}.pv-modo button[aria-pressed="true"]{background:var(--bg);color:var(--fg)}
+.pv-st{font-size:.72rem;font-weight:700;border-radius:999px;padding:3px 10px;background:var(--soft)}.pv-st.fazendo{background:#fff3d6;color:#8a5a00}.pv-st.feito{background:#d8f8e6;color:#06603a}
 .fp-soc{max-width:var(--read);margin:56px auto 0;padding-top:40px;border-top:1px solid var(--line)}
 .fp-soc h3{font-size:1.25rem;font-weight:500;letter-spacing:-.01em;margin:0}
 /* Golden Circle */
@@ -324,8 +327,9 @@
     <section class="bloco" aria-labelledby="h-plano">
       <div class="bloco-head">
         <div><span class="spaced">Plano de ações</span><h2 id="h-plano">O que precisa acontecer</h2></div>
-        <p class="muted" style="margin:0;max-width:40ch;font-size:.88rem">Atualize o status conforme o time avança. A Unique acompanha daqui.</p>
+        <div class="pv-modo" role="group" aria-label="Como ver o plano"><button type="button" data-pv="cartoes">Cartões</button><button type="button" data-pv="kanban">Kanban</button><button type="button" data-pv="tabela">Tabela</button></div>
       </div>
+      <p class="muted" style="margin:-8px 0 18px;font-size:.88rem">Atualize o status conforme o time avança. A Unique acompanha daqui.</p>
       <div class="plano" id="plano"></div>
     </section>
 
@@ -577,6 +581,9 @@
     document.getElementById('n-pct').textContent=A.length?pct+'%':'–';
     document.getElementById('barra').style.width=pct+'%';
     if(!TODAS.length){ el.innerHTML='<div class="vazio" style="margin-top:16px">O plano de ações da sua empresa aparece aqui depois do diagnóstico.</div>'; return; }
+    var PV='cartoes'; try{ PV=localStorage.getItem('plano-vista')||'cartoes'; }catch(x){}
+    document.querySelectorAll('[data-pv]').forEach(function(b){ b.setAttribute('aria-pressed',b.dataset.pv===PV); b.onclick=function(){ try{ localStorage.setItem('plano-vista',b.dataset.pv); }catch(x){} plano(); }; });
+    if((PV==='kanban'||PV==='tabela')&&window.UniqueAcoes){ planoVisao(el,PV,A.filter(function(a){return a.status!=='cancelado';})); return; }
     var ord=function(a,b){ return String(a.prazo||'9999').localeCompare(String(b.prazo||'9999')); };
     var abertas=A.filter(function(a){return a.status!=='feito';}).sort(ord), RICAS=abertas.filter(function(a){return a.rica;}), SIMPLES=abertas.filter(function(a){return !a.rica;}), FEITAS=A.filter(function(a){return a.status==='feito';});
     var atr=function(a){ return a.prazo&&a.prazo<hoje&&a.status!=='feito'; };
@@ -606,6 +613,42 @@
       '<span class="tc-pe">'+((a.responsaveis||[]).length?avPilha(a.responsaveis):'<span class="tc-quem q-'+(a.dono||'unique')+'">'+DONO[a.dono||'unique']+'</span>')+(a.prazo?'<span class="'+(at?'t-atr':'')+'">'+(at?'Atrasada · ':'Entrega ')+data(a.prazo)+'</span>':'')+'<span class="tc-ic">'+((a.anexos||[]).length?'📎 '+a.anexos.length:'')+(a.nota?' ✎ nota':'')+'</span><span class="tc-abrir">Abrir →</span></span></button>';
   }
   function acao(id){ return (DADOS.acoes||[]).filter(function(a){return a.id===id;})[0]; }
+  // plano em Kanban ou Tabela (mesmo componente do admin)
+  function planoVisao(el,PV,A){
+    var hoje=new Date().toISOString().slice(0,10), atr=function(a){ return a.prazo&&a.prazo<hoje&&a.status!=='feito'; };
+    var COLS=[['a_fazer','A fazer',''],['fazendo','Em andamento','am'],['feito','Feito','vd']];
+    var trecho=function(a){ var t=String(a.nResumo||a.detalhe||'').replace(/\s+/g,' ').trim(); return t.length>150?t.slice(0,150).replace(/\s\S*$/,'')+'…':t; };
+    var abre=function(a){ abreTarefa(a.id); };
+    if(PV==='kanban'){
+      UniqueAcoes.kanban(el,{rows:A,colunas:COLS,abre:abre,mover:function(a,st){ mudaStatus(a,st); },
+        cartao:function(a){ return '<span class="k"><span>'+esc(TIPO[a.tipo]||'Ação')+'</span><span>·</span><span>'+DONO[a.dono||'unique']+'</span></span><b>'+esc(a.titulo)+'</b>'+(trecho(a)?'<p>'+esc(trecho(a))+'</p>':'')+
+          '<span class="pe">'+avPilha(a.responsaveis||[])+(a.prazo?'<span class="'+(atr(a)?'atr':'')+'">'+(atr(a)?'Atrasada · ':'')+data(a.prazo)+'</span>':'<span>Sem data</span>')+'<span class="dir">'+((a.anexos||[]).length?'📎 '+a.anexos.length:'')+(a.nota?' ✎':'')+'</span></span>'; }});
+      return;
+    }
+    var ST={a_fazer:'A fazer',fazendo:'Em andamento',feito:'Feito'};
+    var pes=[['unique','Carlos Ribeiro (Unique)']].concat((DADOS.pessoas||[]).map(function(u){return [u.email,u.nome];}));
+    UniqueAcoes.tabela(el,{rows:A,chave:'tb-cli',padrao:['tipo','dono','resp','status','prazo'],ordem:{k:'prazo',d:'asc'},abre:abre,busca:function(a){ return a.titulo+' '+(a.detalhe||''); },
+      cols:[
+        {k:'titulo',t:'Tarefa',fixa:1,w:'260px',v:function(a){ return '<b>'+esc(a.titulo)+'</b>'+(trecho(a)?'<small>'+esc(trecho(a))+'</small>':''); },s:function(a){ return String(a.titulo).toLowerCase(); }},
+        {k:'tipo',t:'Tipo',v:function(a){ return esc(TIPO[a.tipo]||'Ação'); },s:function(a){ return TIPO[a.tipo]||'Ação'; }},
+        {k:'dono',t:'Quem faz',v:function(a){ return DONO[a.dono||'unique']; },s:function(a){ return a.dono||'unique'; }},
+        {k:'resp',t:'Responsável',v:function(a){ return (a.responsaveis||[]).length?'<span class="fp-av">'+avPilha(a.responsaveis)+'<small>'+esc(nomesP(a.responsaveis))+'</small></span>':'—'; },s:function(a){ return nomesP(a.responsaveis); }},
+        {k:'status',t:'Status',v:function(a){ return '<span class="pv-st '+a.status+'">'+(ST[a.status]||'A fazer')+'</span>'; },s:function(a){ return ['a_fazer','fazendo','feito'].indexOf(a.status); }},
+        {k:'inicio',t:'Pedida em',v:function(a){ var d=String(a.inicio||a.criado||'').slice(0,10); return d?data(d):'—'; },s:function(a){ return String(a.inicio||a.criado||'').slice(0,10); }},
+        {k:'prazo',t:'Entrega',v:function(a){ return a.prazo?'<span class="'+(atr(a)?'t-atr':'')+'">'+data(a.prazo)+'</span>':'Sem data'; },s:function(a){ return a.prazo||''; }},
+        {k:'prio',t:'Prioridade',v:function(a){ return esc(a.prioridade||'—'); },s:function(a){ return a.prioridade?{URGENTE:0,P1:1,P2:2,P3:3}[a.prioridade]:''; }},
+        {k:'anexos',t:'Anexos',v:function(a){ return (a.anexos||[]).length?'📎 '+a.anexos.length:'—'; },s:function(a){ return (a.anexos||[]).length; }}
+      ],
+      filtros:[
+        {k:'status',t:'Status',ops:[['a_fazer','A fazer'],['fazendo','Em andamento'],['feito','Feito']],f:function(a,v){ return a.status===v; }},
+        {k:'dono',t:'Quem faz',ops:[['unique','Unique'],['cliente','Sua empresa']],f:function(a,v){ return (a.dono==='cliente'?'cliente':'unique')===v; }},
+        {k:'resp',t:'Responsável',ops:pes,f:function(a,v){ return (a.responsaveis||[]).indexOf(v)>=0; }},
+        {k:'minhas',t:'Só as minhas',tipo:'chk',f:function(a){ return (a.responsaveis||[]).indexOf(DADOS.eu)>=0; }},
+        {k:'de',t:'Entrega a partir de',tipo:'data',f:function(a,v){ return a.prazo&&a.prazo>=v; }},
+        {k:'ate',t:'Entrega até',tipo:'data',f:function(a,v){ return a.prazo&&a.prazo<=v; }},
+        {k:'atras',t:'Só atrasadas',tipo:'chk',f:function(a){ return atr(a); }}
+      ]});
+  }
   // pessoas da empresa com foto (responsáveis e observadores)
   function pesInfo(m){ if(m==='unique') return {nome:'Carlos Ribeiro',foto:'/assets/carlos-hero.jpg'}; var u=(DADOS.pessoas||[]).filter(function(x){return x.email===m;})[0]; return u?{nome:u.nome,foto:u.foto?'/api/area?a=foto&k='+encodeURIComponent('p:'+DADOS.empresa.slug+':'+m)+'&v='+u.foto:''}:{nome:m===DADOS.eu?(DADOS.nome||'Você'):m}; }
   function avP(m){ var p=pesInfo(m), ini=String(p.nome||'?').split(/\s+/).filter(Boolean).slice(0,2).map(function(x){return x[0];}).join('').toUpperCase(); return '<span class="av-p" title="'+esc(p.nome)+'">'+(p.foto?'<img src="'+esc(p.foto)+'" alt="" loading="lazy">':esc(ini))+'</span>'; }

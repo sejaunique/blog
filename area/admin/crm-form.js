@@ -40,7 +40,11 @@
         return caixa(c,'<select'+n+(c.k==='uf'?' data-uf':'')+'><option value="">Selecione…</option>'+o.map(function(x){return '<option'+(x===val?' selected':'')+'>'+esc(x)+'</option>';}).join('')+'</select>'); }
       if(c.t==='cidade') return caixa(c,'<select'+n+' data-cidade><option value="">'+(val?'':'Escolha o estado primeiro')+'</option>'+(val?'<option selected>'+esc(val)+'</option>':'')+'</select>');
       if(c.t==='multi'||c.t==='contatos'){ var L=c.t==='contatos'?(pess||[]).map(function(u){return [u.email,u.nome];}):c.op.map(function(x){return [x,x];}), sel=val||[];
-        return caixa(c,'<div class="'+(app?'mch':'multi')+'" data-multi="'+c.k+'">'+(L.length?L.map(function(x){return '<label><input type="checkbox" value="'+esc(x[0])+'"'+(sel.indexOf(x[0])>=0?' checked':'')+'>'+esc(x[1])+'</label>';}).join(''):'<small class="muted">Vincule pessoas à empresa primeiro.</small>')+'</div>',true); }
+        if(!app){ // computador: lista suspensa com caixinhas
+          var res=L.filter(function(x){return sel.indexOf(x[0])>=0;}).map(function(x){return x[1];});
+          return caixa(c,'<div class="mdrop" data-multi="'+c.k+'"><button type="button" class="mdrop-b" data-mdrop><span data-mres>'+(res.length?esc(res.join(', ')):'Selecione…')+'</span><i>▾</i></button><div class="mdrop-l">'+(L.length>10?'<input type="search" class="mdrop-q" placeholder="Buscar…" data-mq>':'')+
+            (L.length?L.map(function(x){return '<label><input type="checkbox" value="'+esc(x[0])+'"'+(sel.indexOf(x[0])>=0?' checked':'')+'><span>'+esc(x[1])+'</span></label>';}).join(''):'<small class="muted">Vincule pessoas à empresa primeiro.</small>')+'</div></div>'); }
+        return caixa(c,'<div class="mch" data-multi="'+c.k+'">'+(L.length?L.map(function(x){return '<label><input type="checkbox" value="'+esc(x[0])+'"'+(sel.indexOf(x[0])>=0?' checked':'')+'>'+esc(x[1])+'</label>';}).join(''):'<small class="muted">Vincule pessoas à empresa primeiro.</small>')+'</div>',true); }
       var tp={data:'date',email:'email',pct:'number'}[c.t]||'text';
       var im={cnpj:'numeric',cpf:'numeric',cep:'numeric',tel:'tel',site:'url'}[c.mask]||{moeda:'decimal',email:'email',url:'url'}[c.t]||'';
       var ph={cnpj:'00.000.000/0000-00',cpf:'000.000.000-00',cep:'00000-000',tel:'(00) 00000-0000',insta:'@perfil',site:'site.com.br'}[c.mask]||(c.t==='moeda'?'0,00':'');
@@ -152,6 +156,8 @@
         cx.drawImage(img,x*k,y*k,w*S()*k,h*S()*k); try{ sai(cv.toDataURL('image/jpeg',0.86)); }catch(e){ op.toast('Não foi possível usar essa imagem.'); sai(null); } };
     }); }
     function fotoBotoes(tem){ var c=app?'bt peq':'pill';
+      if(!app) return '<div class="fmenu"><button type="button" class="pill" data-fmenu>Foto <i>▾</i></button><div class="foto-acoes"><button type="button" data-foto-insta>Puxar do Instagram</button><button type="button" data-foto-abre>Abrir Instagram</button><button type="button" data-foto-cola>Colar imagem</button>'+
+        '<label style="cursor:pointer">Enviar foto<input type="file" accept="image/*" data-foto-arq hidden></label>'+(tem?'<button type="button" data-foto-ajusta>Ajustar</button><button type="button" data-foto-del class="perigo">Remover</button>':'')+'</div></div>';
       return '<div class="foto-acoes"><button type="button" class="'+c+'" data-foto-insta>Puxar do Instagram</button>'+(app?'':'<button type="button" class="'+c+'" data-foto-abre>Abrir Instagram</button><button type="button" class="'+c+'" data-foto-cola>Colar imagem</button>')+
         '<label class="'+c+'" style="cursor:pointer">Enviar foto<input type="file" accept="image/*" data-foto-arq hidden></label>'+(tem?'<button type="button" class="'+c+'" data-foto-ajusta>Ajustar</button><button type="button" class="'+c+'" data-foto-del>Remover</button>':'')+'</div>'+
         (app&&!tem?'<small class="foto-dica">Perfil pessoal? Tire um print do perfil no Instagram, toque em Enviar foto e aproxime na bolinha.</small>':''); }
@@ -195,6 +201,18 @@
       raiz.addEventListener('change',function(ev){ var i=ev.target; if(!i.hasAttribute||!i.hasAttribute('data-foto-arq')||!i.files[0]) return;
         var arq=i.files[0]; i.value=''; if(!/^image\//.test(arq.type)){ op.toast('Escolha uma imagem.'); return; }
         editor(arq).then(function(d){ if(d) salva(d,'upload'); }); });
+    }
+    if(!app&&!window.__mdrop){ window.__mdrop=1;
+      var fecha=function(ex){ document.querySelectorAll('.mdrop.on,.fmenu.on').forEach(function(d){ if(d!==ex) d.classList.remove('on'); }); };
+      document.addEventListener('click',function(ev){
+        var b=ev.target.closest('[data-mdrop],[data-fmenu]');
+        if(b){ var w=b.parentNode; fecha(w); w.classList.toggle('on'); var q=w.querySelector('[data-mq]'); if(q&&w.classList.contains('on')) setTimeout(function(){ q.focus(); },30); return; }
+        if(ev.target.closest('.fmenu .foto-acoes button')){ fecha(); return; }
+        if(!ev.target.closest('.mdrop-l,.fmenu .foto-acoes')) fecha();
+      });
+      document.addEventListener('change',function(ev){ var d=ev.target.closest('.mdrop'); if(d&&ev.target.type==='checkbox'){ var r=[].map.call(d.querySelectorAll(':checked'),function(i){ return i.nextElementSibling?i.nextElementSibling.textContent:i.value; }); d.querySelector('[data-mres]').textContent=r.length?r.join(', '):'Selecione…'; } if(ev.target.closest('.fmenu')&&ev.target.type==='file') fecha(); });
+      document.addEventListener('input',function(ev){ if(!ev.target.matches('[data-mq]')) return; var q=ev.target.value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); ev.target.parentNode.querySelectorAll('label').forEach(function(l){ l.hidden=q&&l.textContent.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().indexOf(q)<0; }); });
+      document.addEventListener('keydown',function(ev){ if(ev.key==='Escape') fecha(); });
     }
     return { vazio:vazio, fotoUrl:fotoUrl, avatar:avatar, fotoBotoes:fotoBotoes, ligaFoto:ligaFoto, reduz:reduz, editor:editor, valTxt:valTxt, campoForm:campoForm, formCampos:formCampos, leForm:leForm, liga:liga, confere:confere, normSel:normSel };
   };

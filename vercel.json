@@ -38,6 +38,14 @@
     {
       "source": "/page/aluban/site/(.*)",
       "destination": "https://aluban-site.vercel.app/$1"
+    },
+    {
+      "source": "/page/aluban2",
+      "destination": "https://aluban2.vercel.app/"
+    },
+    {
+      "source": "/page/aluban2/(.*)",
+      "destination": "https://aluban2.vercel.app/$1"
     }
   ]
 }

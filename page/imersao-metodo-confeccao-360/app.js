@@ -281,3 +281,31 @@ const EMBED_YT = true;
   modal.addEventListener('click', (e) => { if (e.target === modal || e.target.closest('.yt-close')) fecha(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.hidden) fecha(); });
 })();
+
+// Depoimentos: com o mouse perto da borda, o carrossel anda para aquele lado (mais rápido quanto mais perto)
+(function () {
+  const track = document.querySelector('.dep-track');
+  if (!track || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const ZONA = 0.32;      // fração da largura em cada borda que faz andar
+  const VEL_MAX = reduceMotion ? 6 : 14; // px por quadro
+  let vel = 0, rodando = false;
+  function anda() {
+    const max = track.scrollWidth - track.clientWidth;
+    if (vel && !((vel < 0 && track.scrollLeft <= 0) || (vel > 0 && track.scrollLeft >= max - 1))) {
+      track.scrollLeft += vel;
+      requestAnimationFrame(anda);
+    } else {
+      rodando = false;
+    }
+  }
+  track.addEventListener('mousemove', (e) => {
+    const r = track.getBoundingClientRect();
+    const p = (e.clientX - r.left) / r.width;
+    if (p > 1 - ZONA) vel = VEL_MAX * ((p - (1 - ZONA)) / ZONA) ** 1.5;
+    else if (p < ZONA) vel = -VEL_MAX * ((ZONA - p) / ZONA) ** 1.5;
+    else vel = 0;
+    track.classList.toggle('andando', vel !== 0);
+    if (vel && !rodando) { rodando = true; requestAnimationFrame(anda); }
+  });
+  track.addEventListener('mouseleave', () => { vel = 0; track.classList.remove('andando'); });
+})();

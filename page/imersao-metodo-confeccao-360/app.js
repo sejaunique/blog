@@ -1,13 +1,24 @@
-// Formulário da WTS (widget "Imersão"). Só abre o popup nos domínios liberados no painel;
-// fora deles (página de aprovação, prévia) abre o link público do mesmo formulário.
+// Formulário da WTS (widget "Imersão"). A WTS só deixa o popup abrir nos "Domínios de instalação"
+// do painel; a página lê essa lista e, fora dela, abre o link público do mesmo formulário.
 const WTS_LINK = 'https://wshort.me/eNSQ';
-const WTS_DOMINIO = /(^|\.)textilclub\.com\.br$/;
+const WTS_CONFIG = 'https://cdn.wts.chat/static/widgets/imersao-5f5c2a.json';
 // Início da imersão (horário de Brasília/Goiânia).
 const EVENT_START = new Date('2026-11-19T08:00:00-03:00');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+let wtsLiberado = false;
+fetch(WTS_CONFIG, { cache: 'no-store' }).then((r) => r.json()).then((cfg) => {
+  const aqui = location.hostname.replace(/^www\./, '');
+  wtsLiberado = (cfg.allowedDomains || []).some((d) => {
+    const [host, ...resto] = d.replace(/^https?:\/\//, '').replace(/^www\./, '').split('/');
+    const caminho = '/' + resto.join('/');
+    return (aqui === host || aqui.endsWith('.' + host)) && location.pathname.startsWith(caminho);
+  });
+  document.documentElement.classList.toggle('wts-off', !wtsLiberado);
+}).catch(() => document.documentElement.classList.add('wts-off'));
+
 document.querySelectorAll('[data-lead-open]').forEach((btn) => btn.addEventListener('click', () => {
-  if (WTS_DOMINIO.test(location.hostname) && window.hWidget && document.querySelector('.h-widget-modal')) window.hWidget.show('overlay');
+  if (wtsLiberado && window.hWidget && document.querySelector('.h-widget-modal')) window.hWidget.show('overlay');
   else window.open(WTS_LINK, '_blank', 'noopener');
 }));
 

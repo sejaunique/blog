@@ -745,3 +745,5 @@ form .button{width:100%}
 .lead-steps li{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--line-2);border-radius:10px;background:#E0E1DD08;font-size:15px;line-height:1.4;color:var(--muted)}
 .lead-steps li strong{color:var(--text)}
 .lead-steps b{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--ink);font-family:var(--display);font-size:18px;font-weight:700}
+/* Fora dos domínios liberados na WTS o botão flutuante deles não funciona */
+.wts-off .h-widget-float,.wts-off .h-widget-modal{display:none!important}

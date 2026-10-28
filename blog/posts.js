@@ -61,6 +61,118 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 
 window.POSTS = [
   {
+    slug: "rota-do-atendimento",
+    capa: "assets/whatsapp-atendimento.jpg",
+    titulo: "Seu cliente compra em 6 passos. ==Você vende em quantos?==",
+    data: "2026-10-28",
+    categoria: "Processo",
+    resumo: "Cada vendedor atendendo do próprio jeito é o motivo de um vender R$ 200 mil e outro R$ 50 mil. A rota do atendimento B2B, etapa por etapa do funil.",
+    texto: `
+Quando eu pergunto para um time de vendas quantas vezes eles tentam reverter um cliente que parou de responder, a resposta quase nunca é um número.
+
+Um fala duas. Outro fala três. Outro fala ==enquanto houver esperança==.
+
+Um manda a proposta em PDF. Outro manda o valor solto no WhatsApp. Um liga, outro nunca liga.
+
+O time não é ruim. Cada vendedor só criou o próprio jeito de atender. E quando a empresa tenta entender por que uma vendedora fatura R$ 200 mil e a outra R$ 50 mil, não tem dado nenhum para olhar.
+
+> Hoje, na maioria das empresas B2B, quem controla a venda é o cliente.
+
+Ele chama, pede preço, some, volta quando quer. O vendedor responde notificação.
+
+Eu leio CRM de outro jeito: **Comportamento Repetido Muda**. Funciona na academia, na fé, na criação dos filhos. E funciona na venda.
+
+## O cliente compra em 6 passos
+
+O cliente B2B não decide de uma vez. Ele passa por ==descoberta, interesse, consideração, intenção, avaliação e compra==. Para cada passo existe uma ação de venda certa, e cada uma tem uma coluna no seu funil.
+
+- **Lead** (descoberta): criar conexão
+- **Qualificação** (interesse): perguntar e criar valor
+- **Orçamento** (consideração): comunicar o preço
+- **Negociação** (intenção): trocar, sem ceder
+- **Objeção** (avaliação): dar segurança
+- **Vendido** (compra): fechar e fidelizar
+- **Perdido**: recuperar
+
+O erro mais comum é pular etapa. Mandar preço para quem ainda está descobrindo. O cliente recebe um número sem contexto, compara com o mais barato e some.
+
+## Lead: pergunte "posso te ligar?"
+
+Responda em até 5 minutos e pergunte quem indicou. Depois faça a pergunta que mais encurta venda:
+
+> Posso te ligar 5 minutinhos?
+
+As perguntas que levariam meia hora de ping-pong no WhatsApp saem em 5 minutos por voz. Se ele preferir mensagem, tudo bem. Você só precisa oferecer.
+
+E cuidado com a indicação. Quem chegou indicado e foi mal atendido ==vira indicação contra==. E quem indicou fica sabendo.
+
+## Qualificação: onde e como vai usar?
+
+Quantidade mínima é o que menos importa. Pergunte sempre na mesma ordem:
+
+- **Uso:** onde e como vai usar?
+- **Quem:** quantas pessoas, quais setores?
+- **Hoje:** o que incomoda no fornecedor atual?
+- **Prazo:** para quando precisa?
+- **Decisão:** quem mais aprova?
+- **Investimento:** já tem uma faixa planejada?
+
+Quando o vendedor pergunta se o ambiente é climatizado antes de sugerir um tecido, ele deixa de vender preço e vira consultor.
+
+Combine com o time os 3 diferenciais que todo mundo fala em todo atendimento. É a regra da lasanha: a da sua mãe ganha da vizinha porque você sabe dizer por quê.
+
+## Orçamento: valor antes do número
+
+Nunca mande preço solto. A ordem é esta:
+
+- Recapitule a dor que o cliente contou
+- Mostre a solução para essa dor
+- Empilhe o valor
+- Fale o preço, uma vez
+- Fique em silêncio
+
+E no fim, ofereça o ==chocolate do caixa==: um item a mais, como na padaria.
+
+## Negociação: trocar, nunca ceder
+
+Toda concessão pede uma contrapartida: mais volume, pagamento à vista, fechar até sexta, uma indicação.
+
+Antes de pedir aprovação para a gestão, garanta o sim condicional:
+
+> Se eu conseguir isso, fechamos hoje?
+
+## Objeção: cinco passos, sempre os mesmos
+
+**Ouvir** até o fim. **Acolher**. **Isolar** ("além disso, tem mais alguma coisa?"). **Provar** com foto, depoimento ou conta. **Confirmar**.
+
+Objeção não é um não. É ==pedido de segurança==.
+
+## Vendido: atravesse para a recompra
+
+Registre a venda no CRM com o valor certo. Ligue 7 dias depois da entrega e peça a indicação nessa ligação, quando o cliente está satisfeito. E anote quando ele deve comprar de novo.
+
+## Perdido: ninguém sai sem 3 toques
+
+- **D+1:** foto de um cliente do mesmo segmento usando
+- **D+3:** um depoimento
+- **D+6:** a última condição
+
+E sempre o motivo da perda registrado. É ele que mostra onde a sua empresa perde venda. Nunca mande "e aí, conseguiu ver?".
+
+## Meta se bate por semana
+
+Processo sem rotina não sai do papel. A rotina tira a decisão do humor do dia: abrir o CRM às 8h, bloco de ligações de manhã, 5 clientes da carteira à tarde, CRM atualizado no fim do dia.
+
+E a meta precisa caber na semana. R$ 150 mil de meta com ticket médio de R$ 5 mil são 30 vendas no mês, ==cerca de 8 por semana==. Esse é o número que vai no caderno.
+
+> Toda segunda, uma pergunta: qual cliente me aproxima da meta desta semana?
+
+Quer saber em qual dessas etapas o seu comercial está travando? Faça o diagnóstico gratuito da Unique.
+
+[Fazer o diagnóstico comercial](/diagnostico/)
+`
+  },
+  {
     slug: "icp-do-lixo",
     capa: "assets/capa-icp-do-lixo.jpg",
     titulo: "Seu rolê não é para todo mundo. ==Mas todo mundo está chegando.==",

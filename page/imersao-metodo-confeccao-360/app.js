@@ -242,3 +242,42 @@ if ('IntersectionObserver' in window && !reduceMotion) {
     else rodando = false;
   }
 })();
+
+// Depoimentos: setas do carrossel e vídeo aberto na própria página
+const EMBED_YT = true;
+(function () {
+  const track = document.querySelector('.dep-track');
+  if (!track) return;
+  document.querySelectorAll('.dep-btn').forEach((b) => b.addEventListener('click', () => {
+    const card = track.querySelector('.dep');
+    const passo = card ? card.getBoundingClientRect().width + 20 : 300;
+    track.scrollBy({ left: Number(b.dataset.dir) * passo * 2, behavior: reduceMotion ? 'auto' : 'smooth' });
+  }));
+  if (!EMBED_YT) return; // sem player embutido: o card abre o YouTube em nova aba
+  const modal = document.createElement('div');
+  modal.className = 'yt-modal';
+  modal.hidden = true;
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  modal.setAttribute('aria-label', 'Depoimento em vídeo');
+  modal.innerHTML = '<div class="yt-box"><button type="button" class="yt-close" aria-label="Fechar vídeo">×</button><iframe title="Depoimento em vídeo" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>';
+  document.body.append(modal);
+  const frame = modal.querySelector('iframe');
+  let voltaFoco = null;
+  function fecha() {
+    modal.hidden = true;
+    frame.src = 'about:blank';
+    document.documentElement.style.overflow = '';
+    if (voltaFoco) voltaFoco.focus();
+  }
+  document.querySelectorAll('.dep[data-yt]').forEach((a) => a.addEventListener('click', (e) => {
+    e.preventDefault();
+    voltaFoco = a;
+    frame.src = `https://www.youtube.com/embed/${a.dataset.yt}?autoplay=1&rel=0&playsinline=1&origin=${encodeURIComponent(location.origin)}`;
+    modal.hidden = false;
+    document.documentElement.style.overflow = 'hidden';
+    modal.querySelector('.yt-close').focus();
+  }));
+  modal.addEventListener('click', (e) => { if (e.target === modal || e.target.closest('.yt-close')) fecha(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.hidden) fecha(); });
+})();

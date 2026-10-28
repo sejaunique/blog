@@ -29,5 +29,15 @@
       "destination": "https://sejaunique.com/:path",
       "permanent": false
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/page/aluban/site",
+      "destination": "https://aluban-site.vercel.app/"
+    },
+    {
+      "source": "/page/aluban/site/:path*",
+      "destination": "https://aluban-site.vercel.app/:path*"
+    }
   ]
 }

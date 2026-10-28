@@ -677,3 +677,12 @@ form .button{width:100%}
 .sticky-cta{outline:1px solid #0D1B2A33}
 @media(max-width:620px){.marquee b{font-size:25px}}
 .tone-gold .layer-final img{opacity:.06}
+
+/* Cursor de agulha (só com mouse; criado pelo app.js) */
+.needle-on,.needle-on *{cursor:none!important}
+.needle-on input,.needle-on textarea,.needle-on select{cursor:text!important}
+.needle-on input[type=checkbox]{cursor:pointer!important}
+.stitch-canvas{position:fixed;inset:0;z-index:2147483000;pointer-events:none}
+.needle{position:fixed;left:0;top:0;z-index:2147483001;width:62px;height:14px;pointer-events:none;transform-origin:62px 7px;opacity:0;transition:opacity .2s;filter:drop-shadow(0 0 1px #FFFFFFaa) drop-shadow(0 3px 4px #000a);will-change:transform}
+.needle svg{display:block;width:62px;height:14px;stroke:none;transition:transform .12s}
+.needle.fura svg{transform:translateX(5px) scaleX(.9)}

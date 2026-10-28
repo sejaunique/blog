@@ -131,3 +131,114 @@ if ('IntersectionObserver' in window && !reduceMotion) {
 } else {
   docItems.forEach((li) => li.classList.add('done'));
 }
+
+// Cursor de agulha: a agulha costura um ponto corrido por onde o mouse passa.
+// A linha fica presa à página (acompanha a rolagem) e some aos poucos. Só em mouse; nunca no toque.
+(function () {
+  if (reduceMotion || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const VIDA = 1400;      // ms até a linha sumir
+  const PONTO = 7, VAO = 5; // tamanho do ponto e do vão, em px
+  const GOLD = '#F2B705', NAVY = '#0D1B2A';
+  const SEM_AGULHA = 'input, textarea, select, [contenteditable]';
+  const FUNDO_OURO = '.tone-gold, .marquee, .topbar, .button, .header-cta:hover, .sticky-cta, .ticket-count, .pillar-day';
+
+  const canvas = document.createElement('canvas');
+  canvas.className = 'stitch-canvas';
+  canvas.setAttribute('aria-hidden', 'true');
+  const agulha = document.createElement('div');
+  agulha.className = 'needle';
+  agulha.setAttribute('aria-hidden', 'true');
+  agulha.innerHTML = '<svg viewBox="0 0 44 10" width="62" height="14"><defs><linearGradient id="aco" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".45" stop-color="#D9DEE5"/><stop offset="1" stop-color="#7D8896"/></linearGradient></defs><path d="M44 5 L30 3.1 L5 3.3 Q0 3.4 0 5 Q0 6.6 5 6.7 L30 6.9 Z" fill="url(#aco)" stroke="#0D1B2A" stroke-width=".7"/><ellipse cx="6.5" cy="5" rx="3" ry=".95" fill="#0D1B2A"/></svg>';
+  document.body.append(canvas, agulha);
+  document.documentElement.classList.add('needle-on');
+
+  const ctx = canvas.getContext('2d');
+  let dpr = 1;
+  function tamanho() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = innerWidth * dpr; canvas.height = innerHeight * dpr;
+    canvas.style.width = innerWidth + 'px'; canvas.style.height = innerHeight + 'px';
+  }
+  tamanho();
+  window.addEventListener('resize', tamanho);
+
+  const pts = [];   // {x, y (coordenadas da página), d (distância acumulada), t, cor}
+  const xis = [];   // pontos em X deixados pelo clique
+  let ang = -135, alvo = -135, mx = -100, my = -100, visivel = false, rodando = false, dist = 0;
+
+  function corEm(el) {
+    if (!el || !el.closest) return GOLD;
+    if (el.closest(FUNDO_OURO)) return NAVY;
+    return el.closest('.tone-light') && !el.closest('form, .ticket, .plan-doc, .tile') ? '#B8860B' : GOLD;
+  }
+
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX; my = e.clientY;
+    const livre = !(e.target.closest && e.target.closest(SEM_AGULHA));
+    if (livre !== visivel) { visivel = livre; agulha.style.opacity = livre ? 1 : 0; }
+    const px = mx + scrollX, py = my + scrollY;
+    const ult = pts[pts.length - 1];
+    const dx = ult ? px - ult.x : 0, dy = ult ? py - ult.y : 0, passo = Math.hypot(dx, dy);
+    if (!ult || passo > 3) {
+      if (ult && passo > 1.5) alvo = Math.atan2(dy, dx) * 180 / Math.PI;
+      dist += passo;
+      if (visivel) pts.push({ x: px, y: py, d: dist, t: performance.now(), cor: corEm(e.target) });
+      if (pts.length > 500) pts.shift();
+    }
+    acorda();
+  }, { passive: true });
+  document.addEventListener('mouseleave', () => { agulha.style.opacity = 0; visivel = false; });
+  document.addEventListener('mousedown', (e) => {
+    agulha.classList.add('fura');
+    if (!(e.target.closest && e.target.closest(SEM_AGULHA))) xis.push({ x: e.clientX + scrollX, y: e.clientY + scrollY, t: performance.now(), cor: corEm(e.target) });
+    acorda();
+  });
+  document.addEventListener('mouseup', () => agulha.classList.remove('fura'));
+  window.addEventListener('scroll', acorda, { passive: true });
+
+  function acorda() { if (!rodando) { rodando = true; requestAnimationFrame(quadro); } }
+
+  function quadro(agora) {
+    // a agulha gira suave até apontar para onde o mouse vai
+    let diff = ((alvo - ang + 540) % 360) - 180;
+    ang += diff * 0.35;
+    agulha.style.transform = `translate(${mx - 62}px, ${my - 7}px) rotate(${ang}deg)`;
+
+    while (pts.length && agora - pts[0].t > VIDA) pts.shift();
+    while (xis.length && agora - xis[0].t > VIDA * 1.6) xis.shift();
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    ctx.lineCap = 'round';
+    ctx.lineWidth = 2.2;
+    ctx.setLineDash([PONTO, VAO]);
+    for (let i = 1; i < pts.length; i++) {
+      const a = pts[i - 1], b = pts[i];
+      const vida = 1 - (agora - a.t) / VIDA;
+      if (vida <= 0) continue;
+      ctx.globalAlpha = Math.min(1, vida * 1.4);
+      ctx.strokeStyle = b.cor;
+      ctx.lineDashOffset = -(a.d % (PONTO + VAO)); // pontos ficam parados no "tecido"
+      ctx.beginPath();
+      ctx.moveTo(a.x - scrollX, a.y - scrollY);
+      ctx.lineTo(b.x - scrollX, b.y - scrollY);
+      ctx.stroke();
+    }
+    ctx.setLineDash([]);
+    ctx.lineWidth = 2;
+    for (const k of xis) {
+      const vida = 1 - (agora - k.t) / (VIDA * 1.6);
+      ctx.globalAlpha = Math.max(0, vida);
+      ctx.strokeStyle = k.cor;
+      const x = k.x - scrollX, y = k.y - scrollY, r = 4.5;
+      ctx.beginPath();
+      ctx.moveTo(x - r, y - r); ctx.lineTo(x + r, y + r);
+      ctx.moveTo(x + r, y - r); ctx.lineTo(x - r, y + r);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+
+    if (pts.length || xis.length || Math.abs(diff) > 0.5) requestAnimationFrame(quadro);
+    else rodando = false;
+  }
+})();

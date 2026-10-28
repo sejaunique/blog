@@ -595,3 +595,85 @@ form .button{width:100%}
 .layer-band{background:radial-gradient(circle at 68% 37%,#F2B705 0 20%,transparent 20.2%),var(--deep)}
 .layer-band img{object-position:center 12%}
 @media(max-width:620px){.layer-band{background:radial-gradient(circle at 70% 26%,#F2B705 0 26%,transparent 26.3%),var(--deep)}}
+
+/* ===== Ritmo de dobras: escuro / claro (papel) / ouro ===== */
+:root{--paper:#E6E7E3;--paper-2:#F3F3F0;--ink:#0D1B2A;--gold-ink:#8A6400}
+
+/* Banner: o selo 360° repetia a logo e cobria o rosto */
+.hero-visual .badge-ring{display:none}
+
+/* Dobra clara (papel) */
+.tone-light{--text:#0D1B2A;--muted:#2E3D52;--soft:#56677E;--line:#0D1B2A1C;--line-2:#0D1B2A33;background:var(--paper);color:var(--text)}
+.tone-light .eyebrow{color:var(--ink)}
+.tone-light .eyebrow-line{background:var(--gold)}
+.tone-light .h-accent{color:var(--ink);background:linear-gradient(transparent 60%,#F2B705 60%,#F2B705 90%,transparent 90%);-webkit-box-decoration-break:clone;box-decoration-break:clone;padding-inline:.06em}
+.tone-light em{color:var(--gold-ink)}
+.tone-light .photo-layer img{mix-blend-mode:multiply;opacity:var(--o,.14)}
+.tone-light .photo-layer:after{background-image:radial-gradient(circle,#0D1B2A 0 .8px,transparent 1.3px);opacity:.08}
+
+/* Cartões que continuam escuros dentro das dobras claras e ouro */
+.tone-light .plan-doc,.tone-light form,.tone-light .ticket,.tone-gold .fit-yes,.tile figcaption{--text:#E0E1DD;--muted:#E0E1DDB3;--soft:#E0E1DD80;--line:#E0E1DD17;--line-2:#E0E1DD2B;color:var(--text)}
+.tone-light form{background:#0D1B2A}
+.tone-light .ticket{background:#0D1B2A;border-color:#0D1B2A}
+
+/* Trajetória em papel: fotos impressas */
+.journey.tone-light{background:var(--paper)}
+.tone-light .journey-bigword{-webkit-text-stroke:1.5px #0D1B2A1A}
+.tone-light .tile{box-shadow:0 26px 50px -24px #0D1B2A99,0 0 0 1px #0D1B2A14}
+.tone-light .journey-strip i{color:var(--gold-ink)}
+
+/* Plano em papel */
+.plan.tone-light{background:var(--paper);border-top:0}
+.tone-light .plan-photo figcaption{color:#E0E1DDdd}
+.tone-light .plan-photo figcaption strong{color:#fff}
+.tone-light .plan-doc{box-shadow:0 50px 90px -40px #0D1B2Acc}
+.tone-light .manifesto{color:var(--ink)}
+
+/* Inscrição em papel */
+.registration.tone-light{background:radial-gradient(50% 70% at 0% 0%,#F2B70526,transparent 70%),var(--paper);border-top:0}
+.tone-light .layer-reg{--o:.16}
+.tone-light form{box-shadow:0 50px 100px -40px #0D1B2Ab3}
+.tone-light .ticket-row strong{color:var(--text)}
+
+/* Dobra ouro */
+.tone-gold{--text:#0D1B2A;--muted:#0D1B2Acc;--soft:#0D1B2A99;--line:#0D1B2A26;--line-2:#0D1B2A40;background:var(--gold);color:var(--text)}
+.tone-gold .eyebrow{color:var(--ink)}
+.tone-gold .eyebrow-line{background:var(--ink)}
+.tone-gold .h-accent{color:var(--ink);font-family:var(--serif);font-style:italic;font-weight:400;text-transform:none;letter-spacing:0}
+.tone-gold em{color:var(--ink)}
+.tone-gold .button{background:var(--ink);color:var(--gold);box-shadow:0 14px 40px -14px #0D1B2Acc}
+.tone-gold .button:before{background:linear-gradient(110deg,transparent 30%,#F2B70540 50%,transparent 70%)}
+
+/* Para quem é: ouro */
+.audience.tone-gold{background:var(--gold)}
+.tone-gold .fit-yes{background:#0D1B2A;border-color:#0D1B2A}
+.tone-gold .fit-no{background:#FFFFFF33;border-color:#0D1B2A26}
+.tone-gold .fit-no h3{color:var(--ink)}
+.tone-gold .fit-no h3 span{background:#0D1B2A1A;color:var(--ink)}
+.tone-gold .fit-no li:before{background:var(--ink)}
+
+/* Fechamento: ouro */
+.final.tone-gold{background:radial-gradient(60% 80% at 50% 100%,#FFD84D,transparent 70%),var(--gold);border-top:0}
+.final.tone-gold:before{-webkit-text-stroke:1.5px #0D1B2A22}
+.tone-gold .layer-final img{mix-blend-mode:multiply;opacity:.16}
+.tone-gold .photo-layer:after{display:none}
+.tone-gold .final-meta svg{color:var(--ink)}
+.tone-gold .final-meta{font-weight:700}
+.tone-gold .imersao-logo{filter:none}
+.tone-gold .il-name,.tone-gold .il-metodo{color:var(--ink)}
+.tone-gold .il-top,.tone-gold .il-360{background:linear-gradient(180deg,#1B263B,#0D1B2A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tone-gold .il-metodo:before,.tone-gold .il-metodo:after{background:linear-gradient(90deg,transparent,var(--ink))}
+.tone-gold .il-swoosh path{stroke:var(--ink)}
+.tone-gold .il-swoosh .il-head{fill:var(--ink)}
+
+/* Letreiro em ouro: quebra logo após o banner */
+.marquee{background:var(--gold);border-color:#0D1B2A}
+.marquee span{color:var(--ink)}
+.marquee span:nth-of-type(even){color:transparent;-webkit-text-stroke:1px var(--ink)}
+.marquee i{color:var(--ink)}
+.marquee b{color:var(--ink);font-family:var(--serif);font-style:italic;font-weight:400;text-transform:none;font-size:34px;letter-spacing:0}
+
+/* CTA fixo do celular continua legível sobre as dobras ouro */
+.sticky-cta{outline:1px solid #0D1B2A33}
+@media(max-width:620px){.marquee b{font-size:25px}}
+.tone-gold .layer-final img{opacity:.06}

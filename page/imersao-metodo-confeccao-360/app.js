@@ -81,7 +81,9 @@ function onScroll() {
   const pastHero = hero.getBoundingClientRect().bottom < 0;
   const r = registration.getBoundingClientRect();
   const atForm = r.top < window.innerHeight && r.bottom > 0;
-  sticky.classList.toggle('show', pastHero && !atForm);
+  const f = document.querySelector('.final').getBoundingClientRect();
+  const atFinal = f.top < window.innerHeight && f.bottom > 0;
+  sticky.classList.toggle('show', pastHero && !atForm && !atFinal);
 }
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();

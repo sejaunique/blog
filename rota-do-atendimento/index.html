@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<script src="/assets/tema.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kit do Vendedor · Rota do Atendimento · Unique</title>
+<meta name="description" content="O passo a passo do vendedor B2B, do primeiro oi ao pedido fechado: checklist por etapa do funil, mensagens prontas, roteiro de qualificação, objeções, follow-up e rotina.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Unique Consultoria">
+<meta property="og:title" content="Kit do Vendedor · Rota do Atendimento">
+<meta property="og:description" content="Checklist por etapa do funil, mensagens prontas e rotina do vendedor B2B. Gratuito para cadastrados.">
+<meta property="og:url" content="https://sejaunique.com/rota-do-atendimento/">
+<meta property="og:image" content="https://sejaunique.com/blog/assets/whatsapp-atendimento.jpg">
+<meta property="og:locale" content="pt_BR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+.w{max-width:1080px;margin-inline:auto;padding-inline:clamp(20px,4vw,36px)}
+.ver{color:var(--verde-txt)}.leve{font-weight:200;font-style:italic}
+.spaced{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--verde-txt)}
+.hero{background:#0b0b0c;color:#fff;padding:clamp(56px,9vw,110px) 0 clamp(48px,7vw,80px)}
+.hero .k{font-size:.78rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#00e676}
+.hero h1{font-size:clamp(2.2rem,6vw,4.4rem);line-height:1.02;letter-spacing:-.035em;margin:18px 0 20px;font-weight:800;text-wrap:balance}
+.hero p{font-size:clamp(1.05rem,2vw,1.25rem);line-height:1.6;max-width:680px;opacity:.85}
+.trilha{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.trilha span{font-size:.75rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:9px 14px;border-radius:999px;background:var(--c);color:#fff}
+.trilha span.esc{color:#0b0b0c}
+.gate{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px);margin:clamp(32px,5vw,56px) auto;padding:clamp(24px,4vw,40px);border:2px solid var(--fg,#0b0b0c);border-radius:28px}
+.gate h2{font-size:clamp(1.6rem,3.6vw,2.3rem);line-height:1.08;letter-spacing:-.03em;margin:10px 0 14px}
+.gate ul{margin:16px 0 0;padding-left:20px;line-height:1.8}
+form{display:flex;flex-direction:column;gap:10px}
+input,textarea{font:inherit;font-size:1rem;padding:13px 15px;border-radius:14px;border:1.5px solid var(--line,#ddd);background:var(--bg,#fff);color:inherit;width:100%}
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.isca{position:absolute;left:-9999px}
+.aceite{display:flex;gap:10px;font-size:.78rem;line-height:1.5;opacity:.85}.aceite input{width:auto;margin-top:3px}
+button{font:inherit;font-weight:800;font-size:1rem;padding:15px 22px;border-radius:999px;border:0;background:#00e676;color:#0b0b0c;cursor:pointer}
+.msg{font-size:.85rem;min-height:1.2em;margin:0}
+#conteudo,.ok{display:none}
+body.liberado .gate{display:none}body.liberado #conteudo{display:block}body.liberado .ok{display:block}
+.ok{margin:32px auto 0;padding:22px 26px;border-radius:20px;background:#00e676;color:#0b0b0c}
+.ok b{font-size:1.15rem}
+
+/* kit */
+.kithead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px;margin:clamp(40px,6vw,64px) 0 20px}
+.kithead h2{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.05;letter-spacing:-.03em;margin:8px 0 0}
+.meter{min-width:220px;font-size:.85rem;color:var(--muted)}
+.meter b{display:block;font-size:1.5rem;color:var(--fg);font-variant-numeric:tabular-nums}
+.meter .track{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:8px}
+.meter .track i{display:block;height:100%;background:#00e676;width:0;transition:width .3s}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;margin-bottom:22px}
+.tab{flex:none;font-size:.85rem;padding:11px 16px;border:2px solid var(--c);background:transparent;color:var(--fg)}
+.tab[aria-selected=true]{background:var(--c);color:#fff}
+.tab.lead[aria-selected=true],.tab.obj[aria-selected=true],.tab.perd[aria-selected=true]{color:#0b0b0c}
+.panel h3{font-size:clamp(1.5rem,3vw,2rem);line-height:1.1;letter-spacing:-.025em;margin:0 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 14px}
+.chip{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:7px 11px;border-radius:999px;border:1.5px solid var(--line);color:var(--muted)}
+.obj{font-size:1.05rem;line-height:1.6;margin:0 0 20px;max-width:70ch}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:12px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:12px}
+.pane{background:var(--card,#fff);border:1px solid var(--line);border-radius:18px;padding:18px 20px;min-width:0}
+.pane h4{font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin:0 0 12px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.pane h4 .ic{width:24px;height:24px;border-radius:8px;display:grid;place-items:center;background:var(--soft);color:var(--verde-txt);font-size:.75rem;font-style:normal}
+.pane ul,.pane ol{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:7px;font-size:.95rem;line-height:1.5}
+.scripts{display:flex;flex-direction:column;gap:10px}
+.script{border-radius:14px;background:var(--soft);padding:14px 16px}
+.script .lab{font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--verde-txt);display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.script .lab button{font-size:.7rem;padding:7px 12px;background:transparent;border:1.5px solid currentColor;color:var(--verde-txt)}
+.script p{margin:0;white-space:pre-line;font-size:.95rem;line-height:1.55}
+.checks{display:flex;flex-direction:column;gap:2px}
+.checks label{display:flex;gap:10px;align-items:flex-start;padding:7px 4px;border-radius:8px;cursor:pointer;font-size:.95rem;line-height:1.45}
+.checks input{width:20px;height:20px;margin-top:1px;accent-color:#00c864;flex:none;padding:0}
+.checks input:checked+span{color:var(--muted);text-decoration:line-through}
+.passa{display:flex;gap:14px;align-items:center;padding:16px 20px;border-radius:18px;border:2px solid var(--c);font-size:.95rem;margin-bottom:8px}
+.passa b{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;flex:none;max-width:120px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+td:first-child{font-weight:700;white-space:nowrap}
+.calc{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;align-items:end}
+.calc label{font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+.calc input{font-size:1.2rem;font-weight:700;font-variant-numeric:tabular-nums}
+.calc output{font-size:2rem;font-weight:800;color:var(--verde-txt);display:block;line-height:1}
+.calc .o small{display:block;font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+
+/* banners do diagnóstico e do Alda */
+.diag{margin-top:96px;display:grid;grid-template-columns:1fr 1fr;background:var(--ink);color:var(--ink-fg);overflow:hidden;border-radius:28px}
+.diag .txt{padding:clamp(32px,5vw,64px);display:grid;gap:18px;align-content:center}
+.diag .spaced{color:var(--ink-muted)}
+.diag h2{font-size:clamp(2rem,4.4vw,3.2rem);line-height:1;font-weight:800;letter-spacing:-.04em;margin:0;text-wrap:balance}
+.diag p{color:var(--ink-muted);margin:0;max-width:46ch}
+.diag .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.diag .ctas .btn:not(.verde){color:var(--ink-fg)}
+.diag figure{margin:0;position:relative;min-height:360px}
+.diag figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1);-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%);mask-image:linear-gradient(90deg,transparent,#000 35%)}
+.alda{margin-top:72px;background:#fff;border-top:1px solid #e4e4e7;border-bottom:1px solid #e4e4e7;color:#2e2e2e;overflow:hidden}
+.alda-in{display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:center;padding-block:44px}
+.alda-pato{width:110px;height:auto;align-self:end;margin-bottom:-44px}
+.alda h2{margin:0 0 8px;font-size:clamp(1.6rem,3vw,2.3rem);font-weight:900;letter-spacing:-.035em;line-height:1.05;color:#2e2e2e}
+.alda h2 span{font-weight:300;font-style:italic}
+.alda p{margin:0;max-width:60ch;color:#4a4a4a}
+.alda-bts{display:grid;gap:10px}
+.alda-bt{background:#2e2e2e;color:#fff;border-color:#2e2e2e}
+.alda-bt2{color:#2e2e2e;border-color:#2e2e2e}
+@media (max-width:860px){.grid3{grid-template-columns:1fr}.gate,.diag,.alda-in{grid-template-columns:1fr}.alda-pato{display:none}.diag figure{min-height:240px}}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}.calc{grid-template-columns:1fr 1fr}.duas{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<script src="/assets/casco.js"></script>
+<main>
+<section class="hero"><div class="w">
+  <span class="k">Kit do Vendedor · Unique</span>
+  <h1>Rota do Atendimento: <span class="leve" style="color:#00e676">do primeiro oi à recompra.</span></h1>
+  <p>O passo a passo do vendedor B2B em cada etapa do funil: o que fazer no WhatsApp, na ligação e na rotina, com mensagens prontas e checklist para marcar.</p>
+  <div class="trilha">
+    <span class="esc" style="--c:#e3ac12">Lead</span><span style="--c:#1f3a4d">Qualificação</span><span style="--c:#6a2fc1">Orçamento</span><span style="--c:#2a1a78">Negociação</span><span class="esc" style="--c:#d9623a">Objeção</span><span class="esc" style="--c:#d9413a">Perdido</span><span style="--c:#3a6b1c">Vendido</span>
+  </div>
+</div></section>
+
+<div class="w">
+  <div class="gate" id="liberar">
+    <div>
+      <span class="spaced">Gratuito para cadastrados</span>
+      <h2>Libere o kit <span class="leve">e use amanhã.</span></h2>
+      <p>Preencha e o kit abre aqui mesmo. O que você marcar fica salvo neste aparelho.</p>
+      <ul>
+        <li>Checklist de cada etapa do funil</li>
+        <li>Mensagens prontas para copiar</li>
+        <li>Roteiro de 6 perguntas de qualificação</li>
+        <li>Matriz de objeções e cadência de follow-up</li>
+        <li>Rotina diária e calculadora de meta semanal</li>
+      </ul>
+    </div>
+    <form id="f-lib" novalidate>
+      <div class="duas">
+        <input name="nome" autocomplete="name" placeholder="Seu nome" aria-label="Seu nome" maxlength="80" required>
+        <input name="empresa" autocomplete="organization" placeholder="Empresa" aria-label="Empresa" maxlength="80" required>
+      </div>
+      <input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="WhatsApp com DDD" aria-label="WhatsApp com DDD" maxlength="30" required>
+      <input name="email" type="email" autocomplete="email" placeholder="Seu melhor e-mail" aria-label="Seu e-mail" maxlength="120" required>
+      <input class="isca" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label class="aceite"><input type="checkbox" name="aceite" required><span>Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a <a href="/privacidade/" target="_blank" rel="noopener">Política de Privacidade</a>. Posso cancelar quando quiser.</span></label>
+      <button type="submit">Liberar o kit →</button>
+      <p class="msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+
+  <div class="ok"><b id="ok-t">Kit liberado!</b><p id="ok-p" style="margin:6px 0 0"></p></div>
+
+  <div id="conteudo">
+    <div class="kithead">
+      <div><span class="spaced">Seu kit</span><h2>Uma etapa do funil <span class="leve">por vez.</span></h2></div>
+      <div class="meter" aria-live="polite">Seu checklist<b id="mCount">0/0</b><div class="track"><i id="mBar"></i></div></div>
+    </div>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div id="panels"></div>
+  </div>
+</div>
+
+<section class="w" aria-label="Diagnóstico comercial">
+  <div class="diag">
+    <div class="txt">
+      <span class="spaced">Próximo passo</span>
+      <h2>Qual é o score comercial <span class="leve">da sua empresa?</span></h2>
+      <p>Faça o diagnóstico. Em 10 a 15 minutos você responde sobre os 4 pilares do seu comercial e recebe um relatório com o score, os gargalos e um plano de ação.</p>
+      <div class="ctas"><a class="btn verde" href="/diagnostico/">Faça seu diagnóstico comercial <i class="ic" style="--i:var(--ic-seta)"></i></a>
+      <a class="btn" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Vi%20o%20Kit%20Rota%20do%20Atendimento%20e%20quero%20conversar%20sobre%20o%20comercial%20da%20minha%20empresa." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Falar com o Carlos</a></div>
+    </div>
+    <figure><img src="/assets/fotos/palco.jpg" alt="Carlos Ribeiro em palestra, com microfone" width="1280" height="853" loading="lazy"></figure>
+  </div>
+</section>
+
+<section class="alda" aria-labelledby="h-alda">
+  <div class="w alda-in">
+    <img class="alda-pato" src="/diagnostico/relatorio/alda-pato.png" alt="" width="134" height="238" loading="lazy">
+    <div class="alda-tx">
+      <span class="spaced" style="display:block;margin-bottom:10px;color:#5e5e66">Alda.CRM</span>
+      <h2 id="h-alda">Atendimento e CRM <span>em um só lugar.</span></h2>
+      <p>WhatsApp, funil de vendas e follow-up organizados numa plataforma feita para quem vende pelo WhatsApp. A ferramenta que a Unique usa para tirar o plano do papel.</p>
+    </div>
+    <div class="alda-bts">
+      <a class="btn alda-bt" href="https://aldacrm.com" target="_blank" rel="noopener">Conhecer o Alda.CRM <i class="ic" style="--i:var(--ic-seta-up)"></i></a>
+      <a class="btn alda-bt2" href="https://wa.me/5511920781458?text=Ol%C3%A1%21%20Vim%20pelo%20Kit%20Rota%20do%20Atendimento%20da%20Unique%20e%20quero%20conhecer%20o%20Alda.CRM." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Falar com o Alda</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+(function(){
+const F = {
+  lead:{n:"Lead",c:"var(--lead)"}, qual:{n:"Qualificação",c:"var(--qual)"}, orc:{n:"Orçamento",c:"var(--orc)"},
+  neg:{n:"Negociação",c:"var(--neg)"}, obj:{n:"Objeção",c:"var(--obj)"}, perd:{n:"Perdido",c:"var(--perd)"}, vend:{n:"Vendido",c:"var(--vend)"}
+};
+
+const MAP = [
+  {f:"lead", compra:"01. Descoberta", venda:"Criar conexão", roda:"Conexão", key:"Responder rápido e perguntar: posso te ligar?"},
+  {f:"qual", compra:"02. Interesse", venda:"Diferenciação e criação de valor", roda:"Pergunta → Problema", key:"Roteiro de perguntas: onde e como vai usar"},
+  {f:"orc", compra:"03. Consideração", venda:"Comunicação de preço", roda:"Solução → Empilhamento", key:"Valor antes do número. Proposta padrão."},
+  {f:"neg", compra:"04. Intenção", venda:"Comunicação de preço", roda:"Empilhamento", key:"Toda concessão pede contrapartida"},
+  {f:"obj", compra:"05. Avaliação", venda:"Lidar com objeções", roda:"Objeção", key:"Ouvir, acolher, isolar, provar, confirmar"},
+  {f:"perd", compra:"Saiu da jornada", venda:"Recuperação", roda:"Volta para Conexão", key:"Motivo registrado + cadência de 3 toques"},
+  {f:"vend", compra:"06. Compra", venda:"Técnicas de fechamento → Fidelização", roda:"Atravessamento", key:"Registrar no CRM, pedir indicação, agendar recompra"}
+];
+
+const S = [
+{id:"abertura", min:5, title:"Abertura: por que processo",
+ objetivo:"Tirar o time do modo reativo. Hoje quem controla a venda é o cliente; a partir de hoje, quem controla é o processo.",
+ fala:["Venda é oferta e demanda. Se não tem demanda, a gente gera.","CRM = Comportamento Repetido Muda. Igual academia: o resultado vem da repetição, não do dia inspirado.","O CRM controla o que está sendo vendido. O ERP só mostra o que já foi.","Ninguém aqui está sendo criticado. Imagina o resultado que vocês já têm, agora com método."],
+ dinamica:"Pergunta relâmpago, cada um responde em 5 segundos: “Quantos clientes ativos você tem na carteira, número exato?” Anote quem sabe. Quem não sabe já tem a primeira tarefa da semana.",
+ check:["Timer iniciado e pauta mostrada","Pergunta da carteira feita a todos","Combinado: celular no silencioso, caderno aberto"]},
+
+{id:"mapa", min:7, title:"O mapa: compra × venda × funil",
+ objetivo:"O cliente percorre 6 passos de compra. Para cada passo existe uma ação de venda e uma coluna do funil no CRM. Vendedor que pula etapa perde o cliente no meio do caminho.",
+ map:true,
+ fala:["Leia a tabela da esquerda para a direita: cada coluna é uma etapa do CRM.","A roda da decisão do cliente gira: Conexão, Pergunta, Problema, Solução, Empilhamento, Objeção, Atravessamento. Depois do atravessamento, volta para a conexão com o mesmo cliente (recompra).","Perdido não é fim: é a entrada do pilar Recuperação."],
+ dinamica:"Peça para cada vendedor dizer em qual coluna está o último cliente que atendeu ontem. Se ninguém souber, o funil não está sendo usado.",
+ check:["Mapa apresentado coluna por coluna","Explicado: Perdido entra em recuperação","Explicado: Vendido entra em fidelização"]},
+
+{id:"lead", min:10, f:"lead", compra:"Descoberta", venda:"Criar conexão", roda:"Conexão",
+ title:"Lead: criar conexão",
+ objetivo:"Responder rápido e criar conexão humana antes de falar de produto. Lead é quem ainda não recebeu nenhuma proposta.",
+ whats:["Responder em até 5 minutos no horário comercial","Apresentar-se pelo nome, com áudio curto de até 30 s","Perguntar a origem: “quem te indicou?”","Oferecer a ligação antes de qualquer catálogo ou preço"],
+ lig:["Sorria antes de falar, a voz muda","Use o nome do cliente duas vezes nos primeiros 30 s","3 minutos de conexão: empresa, cidade, o que ele faz","Agende o próximo passo antes de desligar"],
+ comp:["Indicação é cliente VIP: indicação mal atendida vira indicação contra","Não escolha quem merece atenção pelo jeito que responde","Lead sem resposta não some: vai para a cadência"],
+ scripts:[
+  {t:"WhatsApp · primeira resposta", x:"Oi, [nome]! Aqui é a [seu nome], da [empresa]. Que bom te ver por aqui!\nVocê chegou pela indicação de alguém? Quero saber pra agradecer.\n\nPra eu não te encher de mensagem: posso te ligar 5 minutinhos agora?"},
+  {t:"Se ele disser que prefere WhatsApp", x:"Tranquilo, seguimos por aqui! Só comentei porque as perguntinhas chatas que preciso te fazer levam uns 5 minutos por voz e bem mais digitando. Se mudar de ideia é só falar.\n\nPra começar: esse uniforme é pra qual time/setor da empresa?"},
+  {t:"Ligação · abertura", x:"[Nome], tudo bem? Aqui é a [seu nome], da [empresa], falei com você no WhatsApp agora há pouco. Você consegue falar 5 minutinhos? Prometo ser rápida e já te deixo com tudo encaminhado."}],
+ check:["Lead criado no CRM com origem preenchida","Respondido em até 5 minutos","Feita a pergunta “posso te ligar?”","Nome, empresa e segmento preenchidos","Próximo passo agendado"],
+ avanca:"o cliente respondeu e aceitou conversar sobre a necessidade dele."},
+
+{id:"qual", min:13, f:"qual", compra:"Interesse", venda:"Diferenciação e criação de valor", roda:"Pergunta → Problema",
+ title:"Qualificação: perguntar antes de vender",
+ objetivo:"Entender o negócio do cliente melhor que o concorrente. Quantidade mínima é o que menos importa; o que importa é onde e como ele vai usar.",
+ roteiro:true,
+ whats:["Uma pergunta por mensagem, nunca um questionário","Use as respostas dele para a próxima pergunta","Registre cada resposta no CRM na hora"],
+ lig:["Siga o roteiro na ordem, sem pular","Quando ele falar de um problema, aprofunde: “e o que acontece quando…?”","Repita com suas palavras o que entendeu"],
+ comp:["Todo o time fala dos mesmos 3 diferenciais obrigatórios (a regra da lasanha)","Explique o diferencial na língua do cliente, não na técnica","Cliente demorado pode ser ticket alto: qualifique antes de descartar"],
+ scripts:[
+  {t:"Ligação · uso real (exemplo hotel)", x:"Me conta: onde a equipe vai usar esse uniforme no dia a dia?\n…Recepção? E o ambiente é climatizado ou mais quente?\nPergunto porque aqui em Goiás o calor marca a roupa, e funcionário suado na recepção passa uma imagem que o hotel não quer. Posso te sugerir um tecido mais fresco que deixa a equipe bonita o dia inteiro?"},
+  {t:"Diferencial na língua do cliente", x:"Nosso algodão é certificado BCI. Na prática: sabe aquela camisa macia, bem passada, que não pinica e não esquenta? É essa sensação o dia inteiro, lavagem após lavagem."},
+  {t:"Recapitular (fecha a qualificação)", x:"Deixa eu ver se entendi: são [qtd] pessoas, usando na [área], você precisa até [data], quem aprova é o [decisor] e o mais importante pra você é [dor principal]. É isso?"}],
+ dinamica:"Regra da lasanha (5 min). Pergunte: por que eu escolheria a lasanha da sua mãe e não a da vizinha? Depois o time escreve junto os 3 diferenciais que TODO vendedor fala em TODO atendimento. Anote no quadro e fixe no CRM.",
+ check:["Perguntei onde e como vai usar","Sei quantidade, prazo e quem decide","Identifiquei a dor principal","Falei os 3 diferenciais obrigatórios","Recapitulei e o cliente confirmou","Respostas registradas no CRM"],
+ avanca:"você sabe uso, quantidade, prazo e decisor, e o cliente confirmou a recapitulação."},
+
+{id:"orc", min:10, f:"orc", compra:"Consideração", venda:"Comunicação de preço", roda:"Solução → Empilhamento",
+ title:"Orçamento: valor antes do número",
+ objetivo:"Apresentar a solução para a dor que ele contou, empilhar o valor e só então mostrar o preço. Lead que recebeu proposta vira lead qualificado.",
+ whats:["Nunca mande preço solto em uma linha","Envie a proposta padrão em PDF, igual para todo o time","Junto da proposta, peça para apresentar em 5 minutos por ligação"],
+ lig:["Comece recapitulando a dor dele","Apresente a solução ligada a cada dor","Empilhe: produto + prazo + garantia + atendimento + 30 anos de história","Fale o preço uma vez, com firmeza, e fique em silêncio"],
+ comp:["Ofereça o “chocolate do caixa”: um item a mais no fim (polos premium para a diretoria, peças lisas)","Cada proposta enviada entra no CRM com valor e data","Agende o follow-up no mesmo minuto em que enviar"],
+ scripts:[
+  {t:"Envio da proposta", x:"[Nome], sua proposta está pronta. Montei pensando no que você me contou: [dor 1] e [dor 2].\nPosso te ligar 5 minutos pra te mostrar? Tem um detalhe no tecido que faz diferença pra equipe da [área]."},
+  {t:"Empilhamento na ligação", x:"Então ficou assim: [qtd] peças em [tecido] pensado pro calor da [área], com bordado da sua marca, entrega até [data], troca de tamanho garantida e eu acompanhando até a entrega. Tudo isso por [valor]."},
+  {t:"Chocolate do caixa (upsell)", x:"Uma ideia: quer incluir 5 polos premium pra diretoria, no mesmo padrão? Muita empresa faz isso pra liderança se destacar, e aproveita o mesmo pedido."}],
+ proposta:true,
+ check:["Proposta no modelo padrão do time","Valor e data de envio registrados no CRM","Apresentação por ligação oferecida","Oferecido um item a mais (upsell)","Follow-up agendado no CRM"],
+ avanca:"o cliente reagiu à proposta: pediu ajuste, prazo, condição ou desconto."},
+
+{id:"neg", min:8, f:"neg", compra:"Intenção", venda:"Comunicação de preço", roda:"Empilhamento",
+ title:"Negociação: trocar, nunca ceder",
+ objetivo:"O cliente já quer comprar. Agora toda concessão vem com uma contrapartida, e o vendedor sabe até onde pode ir sem chamar a gestão.",
+ whats:["Responda pedido de desconto com uma pergunta, não com outro número","Proponha a troca por escrito para ficar registrada"],
+ lig:["Negociação boa é por voz: ligue","“Se eu conseguir X, fechamos hoje?” antes de pedir aprovação","Nunca leve um pedido à gestão sem o “sim condicional” do cliente"],
+ comp:["Saiba de cor a sua alçada (tabela abaixo)","Pedido de quebra de política vai com dados: valor, volume, histórico","Desconto sem contrapartida ensina o cliente a sempre pedir"],
+ alcada:true,
+ scripts:[
+  {t:"Quando pedem desconto", x:"Entendo. Me ajuda a entender: o valor ficou acima do que você tinha planejado, ou você recebeu outra proposta?"},
+  {t:"Troca com contrapartida", x:"Consigo melhorar a condição se a gente [aumentar para X peças / pagamento à vista / fechar até sexta]. Faz sentido pra você?"},
+  {t:"Sim condicional antes de pedir aprovação", x:"Vou levar isso pra minha gestão agora. Se eu conseguir [condição], posso já gerar o pedido hoje?"}],
+ check:["Perguntei o motivo antes de dar desconto","Toda concessão teve contrapartida","Sim condicional obtido antes de pedir aprovação","Negociação registrada no CRM"],
+ avanca:"surgiu uma trava (objeção) ou o cliente disse sim."},
+
+{id:"obj", min:12, f:"obj", compra:"Avaliação", venda:"Lidar com objeções", roda:"Objeção",
+ title:"Objeção: a dúvida que vem antes do sim",
+ objetivo:"Objeção é pedido de segurança. Tratar com método, sempre o mesmo: Ouvir, Acolher, Isolar, Provar, Confirmar.",
+ metodo:true,
+ matriz:true,
+ whats:["Se a objeção chegou por texto, peça para ligar","Mande prova junto da resposta: foto, depoimento, case"],
+ lig:["Deixe ele terminar de falar","Isole: “além disso, tem mais alguma coisa?”","Responda só a objeção real"],
+ comp:["Toda objeção vai para o CRM, mesmo se fechar","Objeção repetida no time vira argumento padrão na próxima reunião"],
+ dinamica:"Role-play em duplas (6 min). Um é o cliente com uma objeção da matriz, o outro aplica os 5 passos. Troca. O treinador escolhe a melhor resposta e ela vira padrão do time.",
+ check:["Ouvi até o fim","Acolhi sem discordar","Isolei a objeção","Respondi com prova","Confirmei se resolveu","Objeção registrada no CRM"],
+ avanca:"a objeção foi resolvida (vai para Vendido) ou não teve saída (vai para Perdido com o motivo)."},
+
+{id:"vend", min:8, f:"vend", compra:"Compra", venda:"Técnicas de fechamento → Fidelização", roda:"Atravessamento",
+ title:"Fechamento e Vendido: atravessar para a recompra",
+ objetivo:"Conduzir o cliente a decidir e, no mesmo movimento, atravessar para o próximo ciclo: indicação, pós-venda e data de recompra.",
+ tecnicas:true,
+ whats:["Confirme o pedido por escrito com resumo do que foi combinado","Mensagem de relacionamento todo mês, sem vender nada","Curta e comente o Instagram da empresa do cliente"],
+ lig:["Ligue 7 dias depois da entrega: “a equipe gostou?”","Peça a indicação na ligação de pós-venda, quando ele está feliz","Pergunte quando entra gente nova ou quando renova o uniforme"],
+ comp:["Venda que não está em Vendido no CRM não existe","Cliente da carteira é o piquete mais valioso: separe por segmento","Use as datas do ano para gerar demanda (Outubro Rosa, Novembro Azul, fim de ano, Copa)"],
+ scripts:[
+  {t:"Fechamento por alternativa", x:"Pra garantir a entrega até [data], prefere que eu já gere o pedido com o bordado aprovado hoje, ou quer revisar o layout amanhã cedo?"},
+  {t:"Pós-venda D+7", x:"[Nome], passando pra saber: a equipe gostou dos uniformes? Algum tamanho pra trocar?\nE uma pergunta: conhece alguma empresa que também precisa? Se indicar, garanto um benefício no seu próximo pedido."},
+  {t:"Relacionamento mensal", x:"Oi, [nome]! Passando só pra desejar um ótimo mês pra você e pra equipe da [empresa]. Boas vendas por aí!"}],
+ check:["Pedido movido para Vendido com o valor exato","Pedido confirmado por escrito","Pós-venda D+7 agendado","Indicação pedida","Data prevista de recompra no CRM"],
+ avanca:"o pedido está em Vendido e o cliente entrou na régua de fidelização."},
+
+{id:"perd", min:7, f:"perd", compra:"Saiu da jornada", venda:"Recuperação", roda:"Volta para Conexão",
+ title:"Perdido: motivo e cadência de 3 toques",
+ objetivo:"Ninguém vai para Perdido sem motivo registrado e sem passar pela cadência. Perdido alimenta o pilar Recuperação.",
+ cadencia:true,
+ whats:["Cada toque leva uma coisa nova: prova, depoimento, condição","Nunca “e aí, conseguiu ver?”"],
+ lig:["Tente uma ligação antes do último toque","Pergunte o motivo real, com leveza"],
+ comp:["Motivo obrigatório: sumiu, preço, prazo, fornecedor atual, sem verba, outro","Motivo que se repete no mês vai para a reunião do time","Perdidos entram em campanha do marketing em 30 e 90 dias"],
+ scripts:[
+  {t:"Toque 1 · prova real", x:"[Nome], como você não me respondeu, imagino que ficou alguma dúvida. Olha como ficou o uniforme da [cliente do mesmo segmento] 👇 [foto]"},
+  {t:"Toque 2 · depoimento", x:"E olha o que a [cliente] falou da gente depois da entrega 👇 [print ou áudio do depoimento]"},
+  {t:"Toque 3 · última condição", x:"[Nome], consegui uma última condição pra você: [benefício], válida até [data]. Se não fizer sentido agora, sem problema, fico à disposição."},
+  {t:"Perguntar o motivo", x:"Sem problema nenhum! Só pra eu melhorar meu atendimento: o que pesou mais na decisão? Preço, prazo ou outra coisa?"}],
+ check:["Os 3 toques foram feitos","Motivo da perda registrado no CRM","Lead marcado para a régua de 30 e 90 dias"],
+ avanca:"o lead volta a responder (volta para Lead/Qualificação) ou entra na campanha de recuperação."},
+
+{id:"rotina", min:7, title:"Rotina e comportamento",
+ objetivo:"Demanda sem rotina nunca sai. A rotina tira a decisão do humor do dia: é o que vai rodar mesmo quando der preguiça.",
+ rotinaDia:true, calc:true,
+ fala:["Ninguém vai para a academia pensando no total de quilos do ano. Divida a meta por semana.","Pergunte toda segunda: quem é o cliente que me aproxima da meta desta semana? Ele é a prioridade.","Faltou na semana? Soma na próxima e revê onde perdeu tempo."],
+ check:["Rotina diária apresentada","Meta semanal calculada para cada vendedor","Indicadores da semana combinados"]},
+
+{id:"desafio", min:3, title:"Encerramento: o desafio do mês",
+ objetivo:"Três compromissos, só três, para começar amanhã. Repetição antes de sofisticação.",
+ desafio:true,
+ check:["Os 3 compromissos foram aceitos pelo time","Data do próximo acompanhamento marcada","Link desta página enviado ao time"]}
+];
+
+
+var store={get:function(k){try{return JSON.parse(localStorage.getItem(k)||'null');}catch(e){return null;}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});};
+var li=function(a){return a.map(function(x){return '<li>'+x+'</li>';}).join('');};
+var pane=function(ic,t,body,cls){return '<div class="pane '+(cls||'')+'"><h4><i class="ic" aria-hidden="true">'+ic+'</i>'+t+'</h4>'+body+'</div>';};
+const EXTRA = {
+ roteiro:()=>pane("?","Roteiro de qualificação · sempre nesta ordem",`<ol>
+   <li><b>Uso:</b> onde e como a equipe vai usar? (ambiente, clima, função)</li>
+   <li><b>Quem:</b> quantas pessoas, quais setores, tamanhos?</li>
+   <li><b>Hoje:</b> como é o uniforme atual? O que incomoda?</li>
+   <li><b>Prazo:</b> para quando precisa ter em mãos? Tem data especial?</li>
+   <li><b>Decisão:</b> quem mais participa da escolha e da aprovação?</li>
+   <li><b>Investimento:</b> já tem uma faixa de valor planejada?</li></ol>`),
+ proposta:()=>pane("PDF","O que toda proposta tem",`<ul>
+   <li>Resumo do que o cliente contou (a dor dele, com as palavras dele)</li>
+   <li>Solução ligada a cada dor + os 3 diferenciais obrigatórios</li>
+   <li>Prazo de entrega, condição de pagamento e validade</li>
+   <li>Foto de um cliente do mesmo segmento usando</li>
+   <li>Oferta de indicação: “indique e ganhe no próximo pedido”</li></ul>`),
+ alcada:()=>pane("⚖","Tabela de alçada · preencher com a gestão",`<div class="tbl"><table>
+   <thead><tr><th>Pedido do cliente</th><th>Vendedor decide sozinho</th><th>Precisa de aprovação</th></tr></thead><tbody>
+   <tr><td>Desconto</td><td>até ___%</td><td>acima de ___%</td></tr>
+   <tr><td>Prazo de entrega</td><td>prazo padrão</td><td>antecipar produção</td></tr>
+   <tr><td>Pagamento</td><td>formas da política</td><td>parcelar além de ___x</td></tr>
+   <tr><td>Quantidade mínima</td><td>a partir de ___ peças</td><td>abaixo disso</td></tr></tbody></table></div>`),
+ metodo:()=>pane("5","Os 5 passos da objeção",`<ol>
+   <li><b>Ouvir</b> até o fim, sem interromper</li>
+   <li><b>Acolher:</b> “faz todo sentido você pensar nisso”</li>
+   <li><b>Isolar:</b> “além disso, tem mais alguma coisa que te impede?”</li>
+   <li><b>Provar:</b> responder com fato, foto, depoimento ou conta</li>
+   <li><b>Confirmar:</b> “isso resolve sua dúvida?” e pedir o próximo passo</li></ol>`),
+ matriz:()=>pane("↯","Matriz de objeções · colinha rápida",`<div class="tbl"><table>
+   <thead><tr><th>Objeção</th><th>O que costuma ser</th><th>Resposta</th></tr></thead><tbody>
+   <tr><td>“Tá caro”</td><td>Não viu o valor</td><td>“Caro comparado a quê?” Refaça o empilhamento e compare durabilidade e conforto por lavagem.</td></tr>
+   <tr><td>“Vou pensar”</td><td>Dúvida não dita</td><td>“Claro. Pra eu te ajudar a pensar: o que ainda ficou em aberto, preço, prazo ou modelo?”</td></tr>
+   <tr><td>“Falar com o sócio”</td><td>Decisor fora da conversa</td><td>“Ótimo. Que tal uma ligação de 10 min com ele junto? Eu explico os detalhes técnicos.”</td></tr>
+   <tr><td>“Já tenho fornecedor”</td><td>Conforto com o atual</td><td>“Que bom! O que você mudaria nele se pudesse?” Ofereça um pedido teste de um setor.</td></tr>
+   <tr><td>“Prazo não atende”</td><td>Urgência real</td><td>Isolar a data crítica, propor entrega parcial ou priorizar peças-chave.</td></tr>
+   <tr><td>Sumiu</td><td>Prioridade caiu</td><td>Cadência de 3 toques (etapa Perdido).</td></tr></tbody></table></div>`),
+ tecnicas:()=>pane("✓","Técnicas de fechamento",`<ul>
+   <li><b>Alternativa:</b> duas opções que já são sim (data A ou data B)</li>
+   <li><b>Resumo + próximo passo:</b> recapitula e pede o pedido</li>
+   <li><b>Urgência real:</b> data de produção, evento, campanha (Outubro Rosa, Copa)</li>
+   <li><b>Cronograma:</b> “pra entregar dia X, o pedido precisa entrar até Y”</li>
+   <li><b>Pergunta direta:</b> “posso gerar o pedido?” e silêncio</li></ul>`),
+ cadencia:()=>pane("→","Cadência de follow-up",`<div class="tbl"><table>
+   <thead><tr><th>Quando</th><th>Toque</th><th>Leva o quê</th></tr></thead><tbody>
+   <tr><td>D+1</td><td>Prova real</td><td>Foto de cliente do mesmo segmento usando</td></tr>
+   <tr><td>D+3</td><td>Depoimento</td><td>Print ou áudio de cliente satisfeito</td></tr>
+   <tr><td>D+6</td><td>Última condição</td><td>A carta na manga liberada pela gestão</td></tr>
+   <tr><td>D+30</td><td>Recuperação</td><td>Campanha do marketing / novidade</td></tr>
+   <tr><td>D+90</td><td>Recuperação</td><td>Data sazonal do segmento dele</td></tr></tbody></table></div>`),
+ rotinaDia:()=>pane("◷","Rotina diária do vendedor",`<div class="tbl"><table>
+   <thead><tr><th>Horário</th><th>Bloco</th><th>Feito quando</th></tr></thead><tbody>
+   <tr><td>08:00</td><td>Abrir o CRM e ver tarefas do dia</td><td>Sei quem vou chamar hoje</td></tr>
+   <tr><td>08:15</td><td>Olhar a meta da semana</td><td>Sei quanto falta e quem me aproxima</td></tr>
+   <tr><td>08:30</td><td>Bloco de ligações: follow-ups e qualificações</td><td>Todos os follow-ups do dia tocados</td></tr>
+   <tr><td>10:00</td><td>Atendimento de leads e propostas</td><td>Toda proposta com follow-up agendado</td></tr>
+   <tr><td>14:00</td><td>Bloco fidelização: 5 clientes da carteira</td><td>5 contatos de relacionamento ou oferta</td></tr>
+   <tr><td>15:00</td><td>Atendimento e negociações</td><td>Objeções registradas</td></tr>
+   <tr><td>17:30</td><td>Fechar o dia no CRM</td><td>Vendidos e perdidos atualizados, amanhã planejado</td></tr></tbody></table></div>`)
+   + pane("#","Indicadores da semana · a gestão pergunta toda segunda",`<ul>
+   <li>Quantos leads você atendeu?</li><li>Quantas propostas em PDF você enviou?</li>
+   <li>Quantas vendas e qual o valor total?</li><li>Qual foi o motivo de perda que mais apareceu?</li>
+   <li>Quantos clientes da carteira você chamou sem eles chamarem?</li></ul>`),
+ calc:()=>`<div class="pane" style="margin-top:12px"><h4><span class="ic" aria-hidden="true">÷</span>Calculadora de meta semanal · exemplo do treinamento</h4>
+   <div class="calc">
+     <label for="cMeta">Meta do mês (R$)<input id="cMeta" type="number" inputmode="numeric" value="150000"></label>
+     <label for="cTicket">Ticket médio (R$)<input id="cTicket" type="number" inputmode="numeric" value="5000"></label>
+     <div class="o"><output id="cMes">30</output><small>vendas no mês</small></div>
+     <div class="o"><output id="cSem">8</output><small>vendas por semana</small></div>
+   </div>
+   <p style="margin:12px 0 0;color:var(--muted);font-size:14px">Ticket médio = faturamento do mês ÷ número de pedidos. A meta da semana é o número que vai no caderno, não o do mês.</p></div>`,
+ desafio:()=>`<div class="grid3">
+   ${pane("1","Tudo vendido no CRM","<p style='margin:0'>Pedido que não está em Vendido com o valor certo não entra no fechamento do mês. Sem exceção.</p>")}
+   ${pane("2","“Posso te ligar?” em todo lead","<p style='margin:0'>Em toda primeira conversa e em toda proposta enviada.</p>")}
+   ${pane("3","Cadência de 3 toques","<p style='margin:0'>Nenhum lead vai para Perdido sem prova, depoimento e última condição, e sem motivo registrado.</p>")}</div>`
+};
+
+
+F.lead.c='#e3ac12';F.qual.c='#1f3a4d';F.orc.c='#6a2fc1';F.neg.c='#2a1a78';F.obj.c='#d9623a';F.perd.c='#d9413a';F.vend.c='#3a6b1c';
+var KIT=S.filter(function(s){return s.f||s.id==='rotina';}).map(function(s){return s.id==='rotina'?Object.assign({},s,{title:'Rotina e meta',check:['Abri o CRM antes de qualquer conversa','Sei minha meta da semana','Fiz o bloco de ligações','Chamei 5 clientes da carteira','Fechei o dia com o CRM atualizado']}):s;});
+var tabs=document.getElementById('tabs'),panels=document.getElementById('panels');
+tabs.innerHTML=KIT.map(function(s,i){return '<button class="tab '+(s.f||'')+'" type="button" role="tab" id="tab-'+s.id+'" aria-controls="p-'+s.id+'" aria-selected="'+(i===0)+'" style="--c:'+(s.f?F[s.f].c:'#00c864')+'">'+(s.f?F[s.f].n:'Rotina')+'</button>';}).join('');
+panels.innerHTML=KIT.map(function(s,i){
+  var h='<div class="panel" role="tabpanel" id="p-'+s.id+'" aria-labelledby="tab-'+s.id+'" '+(i?'hidden':'')+' style="--c:'+(s.f?F[s.f].c:'#00c864')+'"><h3>'+s.title+'</h3>';
+  if(s.f) h+='<div class="chips"><span class="chip">Cliente: '+s.compra+'</span><span class="chip">Você: '+s.venda+'</span></div>';
+  h+='<p class="obj">'+s.objetivo+'</p>';
+  if(s.whats) h+='<div class="grid3">'+pane('✉','WhatsApp','<ul>'+li(s.whats)+'</ul>')+pane('☎','Ligação','<ul>'+li(s.lig)+'</ul>')+pane('↻','Comportamento','<ul>'+li(s.comp)+'</ul>')+'</div>';
+  ['roteiro','metodo','matriz','tecnicas','alcada','proposta','cadencia','rotinaDia'].forEach(function(k){ if(s[k]) h+='<div style="margin-bottom:12px">'+EXTRA[k]()+'</div>'; });
+  if(s.calc) h+=EXTRA.calc();
+  var left=s.scripts?pane('“','Mensagens prontas','<div class="scripts">'+s.scripts.map(function(x,j){return '<div class="script"><div class="lab">'+x.t+'<button type="button" data-copy="'+s.id+'-'+j+'">Copiar</button></div><p id="sc-'+s.id+'-'+j+'">'+esc(x.x)+'</p></div>';}).join('')+'</div>'):'';
+  var right=pane('☑','Meu checklist','<div class="checks">'+s.check.map(function(c,j){return '<label><input type="checkbox" id="kc-'+s.id+'-'+j+'"><span>'+c+'</span></label>';}).join('')+'</div>');
+  h+=left?'<div class="grid2">'+left+right+'</div>':'<div style="margin:12px 0">'+right+'</div>';
+  if(s.avanca) h+='<div class="passa"><b>Avança no funil quando</b><span>'+s.avanca+'</span></div>';
+  return h+'</div>';
+}).join('');
+tabs.addEventListener('click',function(e){var b=e.target.closest('.tab');if(!b)return;
+  tabs.querySelectorAll('.tab').forEach(function(t){t.setAttribute('aria-selected',t===b);});
+  panels.querySelectorAll('.panel').forEach(function(p){p.hidden=p.id!==b.getAttribute('aria-controls');});});
+var saved=store.get('ua_rota_checks')||{};
+var allCb=[].slice.call(document.querySelectorAll('.checks input'));
+function meter(){var n=allCb.filter(function(c){return c.checked;}).length;document.getElementById('mCount').textContent=n+'/'+allCb.length;document.getElementById('mBar').style.width=(n/allCb.length*100)+'%';}
+allCb.forEach(function(cb){cb.checked=!!saved[cb.id];cb.addEventListener('change',function(){saved[cb.id]=cb.checked;store.set('ua_rota_checks',saved);meter();});});
+meter();
+panels.addEventListener('click',function(e){var b=e.target.closest('[data-copy]');if(!b)return;
+  var p=document.getElementById('sc-'+b.dataset.copy);
+  var done=function(t){b.textContent=t;setTimeout(function(){b.textContent='Copiar';},1500);};
+  var fb=function(){var r=document.createRange();r.selectNodeContents(p);var s=getSelection();s.removeAllRanges();s.addRange(r);done('Selecionado');};
+  try{navigator.clipboard.writeText(p.textContent).then(function(){done('Copiado');},fb);}catch(err){fb();}});
+var cMeta=document.getElementById('cMeta'),cTicket=document.getElementById('cTicket');
+function calc(){var m=+cMeta.value||0,t=+cTicket.value||0,v=t?Math.ceil(m/t):0;document.getElementById('cMes').textContent=v;document.getElementById('cSem').textContent=Math.ceil(v/4);}
+if(cMeta){cMeta.addEventListener('input',calc);cTicket.addEventListener('input',calc);calc();}
+
+/* cadastro: mesmo fluxo das outras iscas (api/material.js) */
+var MAT='rota-do-atendimento', K='ua_mat_'+MAT;
+var $=function(s,c){return (c||document).querySelector(s);};
+function libera(d,novo){
+  document.body.classList.add('liberado');
+  var pn=(d&&d.nome||'').split(' ')[0];
+  $('#ok-t').textContent=novo?(pn?pn+', o':'O')+' seu kit está liberado!':'Bem-vindo de volta'+(pn?', '+pn:'')+'!';
+  $('#ok-p').textContent=novo?'Comece pela etapa Lead. Suas marcações ficam salvas neste aparelho, e você recebe cada post novo do blog no seu e-mail.':'Seu checklist continua de onde você parou.';
+}
+var salvo=store.get(K); if(salvo) libera(salvo,false);
+fetch('/api/material?a=adm&material='+MAT,{credentials:'same-origin',cache:'no-store'}).then(function(r){return r.json();}).then(function(r){ if(r&&r.admin) libera({nome:'Carlos'},false); else if(r&&r.cliente) libera({nome:r.nome||''},false); }).catch(function(){});
+var f=$('#f-lib'), msg=$('.msg',f), bt=$('button',f);
+f.addEventListener('submit',function(e){
+  e.preventDefault();
+  var d={nome:f.nome.value.trim(),empresa:f.empresa.value.trim(),whatsapp:f.whatsapp.value.trim(),email:f.email.value.trim()};
+  if(d.nome.length<2){msg.textContent='Informe o seu nome.';return;}
+  if(d.empresa.length<2){msg.textContent='Informe o nome da empresa.';return;}
+  if(d.whatsapp.replace(/\D/g,'').length<10){msg.textContent='Confira o seu WhatsApp com DDD.';return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)){msg.textContent='Confira o seu e-mail.';return;}
+  if(!f.aceite.checked){msg.textContent='Para liberar, marque que concorda com os termos.';return;}
+  bt.disabled=true; msg.textContent='';
+  fetch('/api/material',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({a:'liberar',material:MAT,nome:d.nome,empresa:d.empresa,whatsapp:d.whatsapp,email:d.email,aceite:true,site:f.site.value})})
+    .then(function(r){return r.json().catch(function(){return {};});})
+    .then(function(r){
+      if(!r||!r.ok){bt.disabled=false;msg.textContent=(r&&r.erro)||'Não deu certo agora. Tente de novo.';return;}
+      var vv={nome:d.nome,empresa:d.empresa,data:new Date().toISOString()}; store.set(K,vv); libera(vv,true);
+      window.scrollTo({top:$('.ok').offsetTop-90,behavior:'smooth'});
+    })
+    .catch(function(){bt.disabled=false;msg.textContent='Sem conexão. Tente de novo.';});
+});
+})();
+</script>
+</body>
+</html>

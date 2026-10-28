@@ -37,6 +37,13 @@ const MATERIAIS = {
     tag: 'Aula CRM',
     aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
   },
+  'rota-do-atendimento': {
+    titulo: 'Kit do Vendedor · Rota do Atendimento',
+    descricao: 'Checklist por etapa do funil, mensagens prontas, roteiro de qualificação, matriz de objeções, cadência de follow-up e rotina com meta semanal.',
+    url: '/rota-do-atendimento/',
+    tag: 'Rota do Atendimento',
+    aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
+  },
   'estoque-parado': {
     titulo: 'Estoque parado · Estratégias por segmento',
     descricao: 'Raio-x do estoque, ações por frente, plano de 30 dias, calculadoras (custo de segurar, desconto e meta de giro) e mensagens prontas para indústria, atacado e confecção.',

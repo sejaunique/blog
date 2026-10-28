@@ -167,9 +167,9 @@ E a meta precisa caber na semana. R$ 150 mil de meta com ticket médio de R$ 5 m
 
 > Toda segunda, uma pergunta: qual cliente me aproxima da meta desta semana?
 
-Quer saber em qual dessas etapas o seu comercial está travando? Faça o diagnóstico gratuito da Unique.
+Montei o kit para o vendedor usar no dia a dia, com tudo isso pronto para aplicar.
 
-[Fazer o diagnóstico comercial](/diagnostico/)
+[material: Kit do Vendedor · Rota do Atendimento | O passo a passo do vendedor B2B, do primeiro oi ao pedido fechado, etapa por etapa do funil. | assets/vendedor-conduz.jpg | Checklist de cada etapa do funil; Mensagens prontas para copiar; Roteiro de 6 perguntas de qualificação; Matriz de objeções e follow-up em 3 toques; Rotina diária e calculadora de meta | Quero o kit →](/rota-do-atendimento/)
 `
   },
   {

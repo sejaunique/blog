@@ -739,3 +739,9 @@ form .button{width:100%}
   .testimonials{position:relative}
   .dep-track{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 3%,#000 97%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 3%,#000 97%,transparent 100%)}
 }
+
+/* Inscrição: passos + botão que abre o formulário da WTS */
+.lead-steps{list-style:none;margin:22px 0 26px;padding:0;display:grid;gap:12px;counter-reset:none}
+.lead-steps li{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--line-2);border-radius:10px;background:#E0E1DD08;font-size:15px;line-height:1.4;color:var(--muted)}
+.lead-steps li strong{color:var(--text)}
+.lead-steps b{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--ink);font-family:var(--display);font-size:18px;font-weight:700}

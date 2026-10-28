@@ -1,32 +1,15 @@
-// Configure the confirmed destination before collecting live registrations.
-const CONTACT_WHATSAPP = '5562982272823';
+// Formulário da WTS (widget "Imersão"). Só abre o popup nos domínios liberados no painel;
+// fora deles (página de aprovação, prévia) abre o link público do mesmo formulário.
+const WTS_LINK = 'https://wshort.me/eNSQ';
+const WTS_DOMINIO = /(^|\.)textilclub\.com\.br$/;
 // Início da imersão (horário de Brasília/Goiânia).
 const EVENT_START = new Date('2026-11-19T08:00:00-03:00');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Formulário → WhatsApp
-const form = document.getElementById('lead-form');
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const status = document.getElementById('form-status');
-  if (!CONTACT_WHATSAPP) {
-    status.textContent = 'As inscrições por este formulário ainda não estão disponíveis. Seus dados não foram enviados.';
-    return;
-  }
-  const data = new FormData(form);
-  const message = `Olá! Quero saber como participar da Imersão Confecção 360°.\nNome: ${data.get('name')}\nConfecção: ${data.get('company')}\nE-mail: ${data.get('email')}\nWhatsApp: ${data.get('phone')}`;
-  window.location.href = `https://wa.me/${CONTACT_WHATSAPP}?text=${encodeURIComponent(message)}`;
-});
-
-// Máscara simples de telefone
-const phone = document.getElementById('phone');
-phone.addEventListener('input', () => {
-  const d = phone.value.replace(/\D/g, '').slice(0, 11);
-  if (d.length > 10) phone.value = `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
-  else if (d.length > 6) phone.value = `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
-  else if (d.length > 2) phone.value = `(${d.slice(0, 2)}) ${d.slice(2)}`;
-  else phone.value = d;
-});
+document.querySelectorAll('[data-lead-open]').forEach((btn) => btn.addEventListener('click', () => {
+  if (WTS_DOMINIO.test(location.hostname) && window.hWidget && document.querySelector('.h-widget-modal')) window.hWidget.show('overlay');
+  else window.open(WTS_LINK, '_blank', 'noopener');
+}));
 
 // Contagem regressiva
 const units = {

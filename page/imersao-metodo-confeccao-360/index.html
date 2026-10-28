@@ -353,17 +353,14 @@
       </div>
     </div>
     <form id="lead-form" data-reveal>
-      <div class="form-head"><span class="step">Inscrição · Imersão Método Confecção 360°</span><h3>Seu próximo ciclo começa aqui.</h3><p>Preencha e continue no WhatsApp para consultar condições do lote atual e disponibilidade de vagas.</p></div>
-      <label for="name">Seu nome</label><input id="name" name="name" autocomplete="name" placeholder="Como podemos chamar você?" required minlength="2">
-      <label for="email">E-mail</label><input id="email" name="email" autocomplete="email" type="email" placeholder="voce@empresa.com.br" required>
-      <div class="form-row">
-        <div><label for="phone">WhatsApp com DDD</label><input id="phone" name="phone" autocomplete="tel" type="tel" inputmode="tel" placeholder="(00) 00000-0000" pattern="[0-9\s()+-]{10,20}" required></div>
-        <div><label for="company">Nome da confecção</label><input id="company" name="company" autocomplete="organization" placeholder="Sua empresa" required></div>
-      </div>
-      <label class="consent"><input type="checkbox" required><span>Autorizo o contato sobre esta imersão pelos dados informados.</span></label>
-      <button class="button button-lg" type="submit"><svg><use href="#whats"/></svg>Continuar no WhatsApp</button>
+      <div class="form-head"><span class="step">Inscrição · Imersão Método Confecção 360°</span><h3>Seu próximo ciclo começa aqui.</h3><p>Garanta sua vaga em menos de um minuto e receba no WhatsApp as condições do lote atual.</p></div>
+      <ol class="lead-steps">
+        <li><b>1</b><span>Toque em <strong>Garantir minha vaga</strong></span></li>
+        <li><b>2</b><span>Informe nome, WhatsApp, e-mail e o nome da sua confecção</span></li>
+        <li><b>3</b><span>Receba a mensagem da equipe no seu WhatsApp</span></li>
+      </ol>
+      <button class="button button-lg" type="button" data-lead-open><svg><use href="#whats"/></svg>Garantir minha vaga</button>
       <p class="form-note">Sem compromisso. Você conversa com a equipe antes de decidir.</p>
-      <p id="form-status" role="status" aria-live="polite"></p>
     </form>
   </div>
 </section>
@@ -407,7 +404,6 @@
 
 <a class="sticky-cta" href="#inscricao"><span><small>19 e 20 nov · Goiânia</small><strong>Garantir minha vaga</strong></span><svg><use href="#arrow"/></svg></a>
 
-<script type="application/javascript" src="https://cdn.wts.chat/scripts/widget/v3/h-widget-min.js" data-widget="widget-545870" defer></script>
 <script src="/page/imersao-metodo-confeccao-360/app.js"></script>
 </body>
 </html>

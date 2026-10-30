@@ -24,6 +24,17 @@ module.exports = {
         chamada: 'Estratégia comercial de curto prazo',
         grifo: 'curto prazo',
         data: '2026-10-30'
+      },
+      {
+        id: 'ux',
+        tipo: 'relatorio',
+        titulo: 'Análise de UX do e-commerce',
+        descricao: 'Home, banners, fontes, fotos, botões e página de produto, dobra a dobra, comparados com Joyaly, Kauly, Via Tolentino e Jany Pim. 22 problemas priorizados e plano de 8 semanas.',
+        url: '/clientes/millarabello/ux/',
+        capa: '/assets/og/millarabello-ux.jpg',
+        chamada: 'A foto vende. A loja em volta cansa.',
+        grifo: 'cansa',
+        data: '2026-10-30'
       }
     ],
     acoes: [

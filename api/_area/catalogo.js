@@ -35,6 +35,17 @@ module.exports = {
         chamada: 'A foto vende. A loja em volta cansa.',
         grifo: 'cansa',
         data: '2026-10-30'
+      },
+      {
+        id: 'colecao',
+        tipo: 'relatorio',
+        titulo: 'Coleção Mulheres da Bíblia',
+        descricao: '107 mulheres da Bíblia para dar nome aos vestidos: passagem, quem foi, traço, frase de storytelling e a categoria de roupa que combina com cada história. Cápsulas de lançamento e nomes a evitar.',
+        url: '/clientes/millarabello/colecao/',
+        capa: '/assets/og/millarabello-colecao.jpg',
+        chamada: 'Cada vestido, uma mulher da Bíblia.',
+        grifo: 'mulher da Bíblia',
+        data: '2026-10-30'
       }
     ],
     acoes: [

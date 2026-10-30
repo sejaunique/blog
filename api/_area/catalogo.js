@@ -165,6 +165,17 @@ module.exports = {
         chamada: 'Chatbot IA: roteiro e prompt',
         grifo: 'roteiro e prompt',
         data: '2026-10-08'
+      },
+      {
+        id: 'black-zona',
+        tipo: 'pagina',
+        titulo: 'Black Zona: plano de Black Friday',
+        descricao: '6 ações para novembro: lote das locadoras, preço travado até a assembleia, cobertura antes da chuva, orçamentos em aberto, ampliação e o funil Black no atendimento.',
+        url: '/clientes/tendasaluban/black-zona/',
+        capa: '/assets/og/tendasaluban-black-zona.jpg',
+        chamada: 'Black Zona: plano de Black Friday',
+        grifo: 'Black Friday',
+        data: '2026-10-30'
       }
     ],
     acoes: [

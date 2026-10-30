@@ -51,6 +51,34 @@ const MATERIAIS = {
     tag: 'Estoque Parado',
     segmentos: { industria: 'Indústria', atacado: 'Atacado', confeccao: 'Confecção' },
     aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
+  },
+  'black-zona': {
+    titulo: 'Black Zona · Ações de Black Friday',
+    descricao: '18 ações de Black Friday para indústria e atacado, varejo e uniforme personalizado, com passo a passo, mensagens prontas, meta e calendário de novembro.',
+    url: '/black-zona/',
+    tag: 'Black Zona',
+    aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
+  },
+  'black-zona-industria': {
+    titulo: 'Black Zona · Indústria & Atacado',
+    descricao: '6 ações de Black Friday para indústria e atacado: kit do lojista, bônus em mercadoria, reativação, janeiro com preço travado, pedido-relâmpago e indicação.',
+    url: '/black-zona/industria/',
+    tag: 'Black Zona',
+    aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
+  },
+  'black-zona-varejo': {
+    titulo: 'Black Zona · Varejo',
+    descricao: '6 ações de Black Friday para o varejo: lista VIP, leve mais pague menos, brinde por faixa, clientes sumidos, crédito para dezembro e rotina do time.',
+    url: '/black-zona/varejo/',
+    tag: 'Black Zona',
+    aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
+  },
+  'black-zona-uniforme': {
+    titulo: 'Black Zona · Uniforme personalizado',
+    descricao: '6 ações de Black Friday para uniforme personalizado: reserva de produção de janeiro, kit confraternização, renovação, upgrade sem custo, orçamentos parados e prospecção por nicho.',
+    url: '/black-zona/uniforme/',
+    tag: 'Black Zona',
+    aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
   }
 };
 

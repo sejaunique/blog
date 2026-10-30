@@ -65,6 +65,18 @@ EXTRAS = [
     {"arquivo": "estoque-parado.jpg", "rotulo": "Material · Estratégias por segmento", "pill": "Material gratuito",
      "titulo": "Estoque parado", "chamada": "Estoque parado é dinheiro dormindo", "grifo": "dinheiro dormindo",
      "descricao": "Raio-x, ações por frente, plano de 30 dias, calculadoras e mensagens prontas para indústria, atacado e confecção."},
+    {"arquivo": "black-zona.jpg", "rotulo": "Black Friday 2026 · Ações prontas", "pill": "Material gratuito",
+     "titulo": "Black Zona", "chamada": "Black Zona: vender sem queimar margem", "grifo": "sem queimar margem",
+     "descricao": "18 ações para indústria e atacado, varejo e uniforme, com mensagens prontas, metas e calendário de novembro."},
+    {"arquivo": "black-zona-industria.jpg", "rotulo": "Black Zona · Indústria & Atacado", "pill": "Material gratuito",
+     "titulo": "Black Zona", "chamada": "Venda para a Black do lojista", "grifo": "Black do lojista",
+     "descricao": "Kit do lojista, bônus em mercadoria, reativação, janeiro com preço travado e mais 2 ações com mensagens prontas."},
+    {"arquivo": "black-zona-varejo.jpg", "rotulo": "Black Zona · Varejo", "pill": "Material gratuito",
+     "titulo": "Black Zona", "chamada": "Mais peças por cliente, não a mesma peça mais barata", "grifo": "mais peças",
+     "descricao": "Lista VIP, leve mais pague menos, brinde por faixa, clientes sumidos, crédito para dezembro e rotina do time."},
+    {"arquivo": "black-zona-uniforme.jpg", "rotulo": "Black Zona · Uniforme personalizado", "pill": "Material gratuito",
+     "titulo": "Black Zona", "chamada": "Venda vaga na produção de janeiro", "grifo": "produção de janeiro",
+     "descricao": "Reserva de produção, kit confraternização, renovação da carteira, upgrade sem custo e prospecção por nicho."},
 ]
 
 def chamada_html(p):

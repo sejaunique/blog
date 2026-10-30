@@ -191,3 +191,10 @@ Botão ✦ no canto de qualquer tela do admin (atalho Ctrl+J) e a página **Hoje
 - A empresa aberta fica como principal e recebe tudo das outras: contatos (o mesmo e-mail vira um contato só), negócios, ações, entregas, leituras, resultados, reuniões, anotações, comentários, propostas, contratos e liberações do Canivete. Os dados vazios da principal são completados com os das outras.
 - No Notion, contatos, negócios e tarefas passam a apontar para a página da principal. As páginas repetidas (empresas e contatos) são arquivadas.
 - As outras empresas ficam arquivadas e viram apelido da principal (`area:alias:<slug>`), então login e sessões antigos continuam funcionando.
+
+## Black Zona (Black Friday 2026)
+- `tools/black_zona.py` gera 5 páginas a partir de `tools/black_zona_dados.json` (mesmo CSS/JS em `black-zona/bz.css` e `black-zona/bz.js`).
+- `/black-zona/`: geral (indústria e atacado, varejo, uniforme), com abas e banco de ações. Material `black-zona`.
+- `/black-zona/industria/`, `/black-zona/varejo/`, `/black-zona/uniforme/`: uma página por segmento, cada uma com só os próprios dados, sem link para as outras e com cadastro próprio (materiais `black-zona-industria`, `-varejo`, `-uniforme`, etiqueta **Black Zona**). Liberar uma não libera a outra.
+- `/clientes/tendasaluban/black-zona/`: versão da Tendas Aluban, fechada pelo login da área do cliente (no catálogo da Aluban).
+- Para mudar textos: edite o JSON e rode `python3 tools/black_zona.py`.

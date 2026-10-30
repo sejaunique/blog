@@ -1,0 +1,430 @@
+{
+ "PILAR": {
+  "P": "Prospecção",
+  "N": "Nutrição",
+  "F": "Fidelização",
+  "R": "Recuperação"
+ },
+ "SEGS": [
+  {
+   "id": "industria",
+   "nome": "Indústria & Atacado",
+   "curto": "Atacado",
+   "c": "--ind",
+   "tese": "Seu cliente é o lojista. Venda pra Black dele, não pra sua.",
+   "janela": "Janela crítica: 02 a 19/11. O lojista precisa da mercadoria na loja antes da Black Week. Depois de 20/11, o pedido dele já foi pra outro fornecedor.",
+   "naofaca": [
+    "Desconto linear na tabela inteira: ensina o lojista a esperar a Black pra comprar.",
+    "Oferta sem prazo de faturamento: o lojista empurra a decisão até não dar mais tempo.",
+    "Mandar PDF de tabela. Mande kit pronto com margem do lojista em reais."
+   ],
+   "acoes": [
+    {
+     "t": "Kit Black do Lojista",
+     "p": "N",
+     "e": "Médio",
+     "d": "02–13/11",
+     "s": "Monte 3 kits fechados que o lojista já sabe revender na Black dele.",
+     "passos": [
+      "Escolha os 10 itens de maior giro de 2026 e 5 parados que precisam sair.",
+      "Monte 3 kits: Giro (só campeões), Margem (campeões + parados) e Vitrine (mix pra exposição). Preço por kit, não por peça.",
+      "Em cada kit, mostre o preço sugerido de revenda e a margem do lojista em R$.",
+      "Pronta entrega garantida só pra pedidos até 13/11."
+     ],
+     "sc": "Oi, {nome}! Aqui é {vendedor}, da {empresa}. Montei 3 kits pra Black da sua loja, já com preço sugerido de revenda e a sua margem em reais. O Kit Giro sai a R$ {valor} e te deixa R$ {margem} de margem. Te mando a foto dos 3? Pronta entrega só até dia 13.",
+     "m": "1 kit vendido a cada 5 clientes ativos abordados."
+    },
+    {
+     "t": "Bônus em mercadoria",
+     "p": "F",
+     "e": "Baixo",
+     "d": "02–20/11",
+     "s": "Troque desconto por peça grátis. Pro cliente vale o mesmo; pra você custa o preço de custo.",
+     "passos": [
+      "Defina 3 faixas de pedido (ex.: R$ 3 mil, R$ 6 mil e R$ 10 mil).",
+      "Bonifique em produto: 3%, 6% e 10% do pedido em peças a preço de tabela.",
+      "Você escolhe o que entra de bônus: estoque parado ou lançamento que quer testar.",
+      "Deixe a faixa seguinte sempre visível: \"faltam R$ 800 pra você ganhar 6%\"."
+     ],
+     "sc": "{nome}, nessa Black não vou te dar desconto: vou te dar mercadoria. Pedido acima de R$ 6 mil leva 6% em peças grátis pra você revender a preço cheio. Seu último pedido foi R$ {valor}, faltam R$ {diferença} pra entrar na faixa. Quer que eu monte?",
+     "m": "Pedido médio 20% acima do pedido médio de outubro."
+    },
+    {
+     "t": "Volta pra Black",
+     "p": "R",
+     "e": "Baixo",
+     "d": "02–19/11",
+     "s": "Puxe quem parou de comprar e ofereça uma condição de retorno com data pra acabar.",
+     "passos": [
+      "Tire do sistema os clientes sem pedido há 90 a 365 dias, com o valor do último pedido.",
+      "Separe os 30 maiores. Ligação primeiro, WhatsApp depois.",
+      "Condição de retorno: prazo estendido (30/60/90) ou frete CIF a partir do mínimo, válida até 19/11.",
+      "Anote o motivo de cada um ter parado. Isso vira plano de 2027."
+     ],
+     "sc": "Oi, {nome}, tudo bem? Aqui é {vendedor}, da {empresa}. Vi que a gente não fecha pedido desde {mês} e fiquei com isso na cabeça. Pra Black separei uma condição só pra quem já é cliente da casa: {condição}, até dia 19. Posso te ligar 5 minutos hoje pra entender o que mudou aí?",
+     "m": "Reativar 1 em cada 6 clientes inativos contatados."
+    },
+    {
+     "t": "Janeiro com preço travado",
+     "p": "F",
+     "e": "Médio",
+     "d": "16–30/11",
+     "s": "Feche agora o pedido de janeiro com a tabela atual, antes do reajuste.",
+     "passos": [
+      "Liste os 20 clientes que mais compraram em 2026 (curva A).",
+      "Ofereça reservar o pedido de janeiro com a tabela de novembro e entrega programada.",
+      "Peça sinal ou pedido firmado pra garantir a produção.",
+      "Use as reservas pra planejar matéria-prima e escala de janeiro."
+     ],
+     "sc": "{nome}, você está entre os 20 clientes que mais compraram da gente em 2026, então quero te dar prioridade. Janeiro vem com tabela nova. Se fechar até 30/11, travo o preço de hoje e programo a entrega pra {data}. Quer que eu monte com base no seu pedido de janeiro passado?",
+     "m": "Metade da curva A com pedido de janeiro fechado até 30/11."
+    },
+    {
+     "t": "Pedido-relâmpago 48h",
+     "p": "N",
+     "e": "Baixo",
+     "d": "24–26/11",
+     "s": "Uma oferta curta, com hora pra acabar, disparada pra toda a carteira na semana da Black.",
+     "passos": [
+      "Escolha 1 produto ou kit com estoque alto.",
+      "Dispare na lista de transmissão terça 24/11, 9h. Acaba quinta 26/11, 18h.",
+      "Lembrete só pra quem visualizou e não respondeu, quarta à tarde.",
+      "Fature no mesmo dia pra entregar antes do fim de semana."
+     ],
+     "sc": "BLACK 48H | {produto} sai a R$ {valor} a caixa (tabela: R$ {tabela}). Pedido mínimo {qtd}. Vale até quinta, 18h, ou até acabarem as {estoque} caixas. Responde aqui com a quantidade que eu já reservo.",
+     "m": "15% da lista respondendo e o lote zerado."
+    },
+    {
+     "t": "Lojista indica lojista",
+     "p": "P",
+     "e": "Baixo",
+     "d": "09–30/11",
+     "s": "Cada cliente seu conhece lojistas que não compram de você. Peça na hora do pedido.",
+     "passos": [
+      "Em todo pedido fechado em novembro, peça 2 indicações na hora.",
+      "Quem indica ganha crédito em mercadoria quando o indicado faturar o primeiro pedido.",
+      "O indicado entra com a mesma condição do Kit Black.",
+      "Ligue pro indicado em até 24h, citando quem indicou."
+     ],
+     "sc": "Oi, {nome}! Aqui é {vendedor}, da {empresa}. O {cliente}, da {loja}, me passou seu contato e disse que você ia gostar da linha que ele revende. Montei um kit de entrada pra Black com margem de R$ {margem} pra você. Posso te mandar?",
+     "m": "1 cliente novo a cada 4 indicações."
+    }
+   ]
+  },
+  {
+   "id": "varejo",
+   "nome": "Varejo",
+   "curto": "Varejo",
+   "c": "--var",
+   "tese": "Proteja a margem: venda mais peças por cliente, não a mesma peça mais barata.",
+   "janela": "Janela crítica: 23 a 30/11. Mas a lista VIP e a base de clientes sumidos precisam começar já na semana de 09/11.",
+   "naofaca": [
+    "\"Tudo com 50%\": quem compra é quem compraria de qualquer jeito.",
+    "Começar a divulgar na quinta 26/11. Quem não juntou lista antes, disputa atenção com todo mundo.",
+    "Time sem meta diária. Black é a semana em que a rotina mais vende."
+   ],
+   "acoes": [
+    {
+     "t": "Lista VIP da Black",
+     "p": "N",
+     "e": "Baixo",
+     "d": "02–25/11",
+     "s": "Junte os interessados antes e dê acesso 24h antes de todo mundo.",
+     "passos": [
+      "Crie uma lista de transmissão ou grupo \"VIP Black\" com link no Instagram, no caixa e no WhatsApp.",
+      "Na loja física, todo cliente que passar no caixa até 25/11 é convidado.",
+      "VIP recebe as ofertas quinta 26/11, 20h. O público geral só na sexta 27.",
+      "Poste a contagem de inscritos nos stories como prova social."
+     ],
+     "sc": "Oi, {nome}! A Black da {loja} vai ter acesso antecipado. Quem entrar na lista VIP vê as ofertas 24h antes, com estoque cheio. Quer entrar? É só responder EU QUERO.",
+     "m": "Lista com 3 vezes o número de vendas que você quer fazer no dia."
+    },
+    {
+     "t": "Leve mais, pague menos",
+     "p": "N",
+     "e": "Baixo",
+     "d": "23–30/11",
+     "s": "Troque o desconto linear por desconto progressivo. Sobe o ticket e protege a margem.",
+     "passos": [
+      "Monte a régua: 2 peças 10% off, 3 peças 15%, 4 ou mais 20%.",
+      "Coloque a régua no caixa, no provador, no site e em todo story.",
+      "Dê meta de peças por atendimento (PA) ao vendedor, não só de faturamento.",
+      "Todo atendimento termina com \"falta 1 peça pra você ganhar 15%\"."
+     ],
+     "sc": "Na Black da {loja}, quanto mais você leva, menos paga: 2 peças 10% off, 3 peças 15%, 4 ou mais 20%. Já separei umas peças no seu tamanho, quer ver por foto?",
+     "m": "PA de 2,5 peças por atendimento na Black Week."
+    },
+    {
+     "t": "Brinde por faixa",
+     "p": "F",
+     "e": "Baixo",
+     "d": "23–30/11",
+     "s": "Um brinde barato e desejado empurra o cliente pra próxima faixa de compra.",
+     "passos": [
+      "Pegue o ticket médio de outubro. A faixa do brinde fica 30% acima dele.",
+      "Escolha brinde de custo baixo e valor percebido alto: necessaire, ecobag da marca, acessório.",
+      "Quantidade limitada e anunciada: \"só 50 brindes\".",
+      "Deixe o brinde exposto no caixa e no topo do site."
+     ],
+     "sc": "{nome}, na Black da {loja} compras acima de R$ {faixa} ganham {brinde}. São só {qtd} unidades. Quer que eu reserve o seu junto com o pedido?",
+     "m": "Ticket médio da Black 25% acima de outubro."
+    },
+    {
+     "t": "Clientes sumidos",
+     "p": "R",
+     "e": "Baixo",
+     "d": "09–25/11",
+     "s": "Quem já comprou e sumiu responde mais rápido que quem nunca te viu.",
+     "passos": [
+      "Exporte do sistema ou do caixa os clientes sem compra há mais de 6 meses.",
+      "Mensagem pessoal, com o nome e o que ele comprou da última vez.",
+      "Cupom com o nome dele, válido só na Black Week.",
+      "Quem responder entra direto na lista VIP."
+     ],
+     "sc": "{nome}, sentimos sua falta aqui na {loja}! Da última vez você levou {produto}, e chegou coisa nova nessa linha. Pra Black criei um cupom só seu: {NOME}BLACK, com {benefício} extra. Vale de 24 a 30/11. Quer ver as novidades?",
+     "m": "10% dos clientes sumidos comprando na Black."
+    },
+    {
+     "t": "Crédito pra dezembro",
+     "p": "F",
+     "e": "Baixo",
+     "d": "27/11–24/12",
+     "s": "Toda compra da Black gera um crédito que só vale em dezembro. Você vende a Black e já garante o Natal.",
+     "passos": [
+      "Compras acima de R$ {valor} ganham R$ {crédito} pra usar de 01 a 24/12.",
+      "Entregue o crédito por escrito: cartão na sacola ou mensagem no WhatsApp com a data.",
+      "Lembrete em 05/12 e 18/12.",
+      "Meça quantos créditos voltaram."
+     ],
+     "sc": "Obrigado pela compra, {nome}! Você ganhou R$ {crédito} pra usar aqui na {loja} de 1º a 24 de dezembro. Já dá pra pensar no presente de Natal.",
+     "m": "30% dos créditos usados em dezembro."
+    },
+    {
+     "t": "30 contatos por dia",
+     "p": "P",
+     "e": "Médio",
+     "d": "23–27/11",
+     "s": "Black não é esperar cliente entrar. Cada vendedor chama 30 clientes da própria carteira por dia.",
+     "passos": [
+      "Cada vendedor monta a lista dele com 150 clientes (5 dias × 30).",
+      "Reunião de 10 minutos às 9h: meta do dia, oferta do dia, placar de ontem.",
+      "Placar visível na loja: mensagens enviadas, respostas, vendas.",
+      "Prêmio simples pro maior PA da semana."
+     ],
+     "sc": "Oi, {nome}! Aqui é {vendedor}, da {loja}. Separei 3 peças da Black que têm a sua cara, com a régua de até 20% off. Te mando as fotos?",
+     "m": "30 contatos ativos por dia por vendedor, 5 dias seguidos."
+    }
+   ]
+  },
+  {
+   "id": "uniforme",
+   "nome": "Uniforme personalizado",
+   "curto": "Uniforme",
+   "c": "--uni",
+   "tese": "Ninguém compra uniforme por impulso na Black. O que você vende é vaga na produção e prazo garantido.",
+   "janela": "Janela crítica: 02 a 25/11. Pedido de confraternização precisa fechar até 25/11 pra entregar antes de 15/12. Janeiro se vende agora.",
+   "naofaca": [
+    "Baixar o preço da peça: uniforme se decide por prazo e qualidade, não por 10%.",
+    "Prometer prazo de dezembro sem olhar a capacidade da produção.",
+    "Esperar o cliente pedir orçamento. Quem comprou ano passado não lembra de você sozinho."
+   ],
+   "acoes": [
+    {
+     "t": "Reserva de produção de janeiro",
+     "p": "F",
+     "e": "Médio",
+     "d": "02–30/11",
+     "s": "Empresas renovam uniforme na volta das férias. Venda agora a vaga na produção de janeiro com preço travado.",
+     "passos": [
+      "Calcule quantas peças sua produção entrega em janeiro. Esse é seu estoque de vagas.",
+      "Condição Black: preço de 2026 travado + sinal de 30% pra reservar.",
+      "Mostre a escassez real: \"restam X vagas pra entrega até 20/01\".",
+      "Arte aprovada em dezembro; em janeiro só produz."
+     ],
+     "sc": "{nome}, todo ano a produção de janeiro lota com empresas renovando uniforme. Abri reserva de vaga com o preço de 2026 travado: 30% de sinal e a arte a gente aprova em dezembro. Ainda tenho {x} vagas pra entrega até {data}. Quer garantir a de vocês?",
+     "m": "40% da capacidade de janeiro vendida até 30/11."
+    },
+    {
+     "t": "Kit Confraternização",
+     "p": "P",
+     "e": "Baixo",
+     "d": "02–25/11",
+     "s": "Dezembro é mês de festa de empresa, evento de igreja, corrida e formatura. Venda um kit pronto com prazo-limite.",
+     "passos": [
+      "Monte 2 kits: Básico (camiseta personalizada) e Completo (camiseta + boné ou ecobag).",
+      "Preço por pessoa e quantidade mínima clara (ex.: a partir de 20 unidades).",
+      "Pedido até 25/11 pra entrega até 15/12.",
+      "Mostre 3 fotos de kits já entregues."
+     ],
+     "sc": "Oi, {nome}! Vocês vão fazer confraternização de fim de ano? Tenho um kit pronto: camiseta com a arte da empresa + boné, a partir de R$ {valor} por pessoa (mín. 20). Pedido até 25/11, entrega até 15/12. Te mando o modelo?",
+     "m": "10 kits fechados até 25/11."
+    },
+    {
+     "t": "Renovação da carteira",
+     "p": "F",
+     "e": "Baixo",
+     "d": "02–19/11",
+     "s": "Quem comprou há 10 a 14 meses está perto de precisar de novo. A arte já está no seu arquivo.",
+     "passos": [
+      "Liste os clientes que compraram entre novembro/2025 e janeiro/2026.",
+      "Mande a foto do pedido anterior com a arte pronta.",
+      "Ofereça repetir o pedido com a condição Black e sem custo de arte ou matriz.",
+      "Pergunte se entrou gente nova na equipe: aumenta a quantidade."
+     ],
+     "sc": "{nome}, faz quase um ano do uniforme da {empresa}! A arte ainda está aqui, então é só me dizer quantidades e tamanhos. Nessa Black, repetindo o pedido você {condição}. Entrou gente nova no time?",
+     "m": "1 em cada 3 clientes da lista renovando."
+    },
+    {
+     "t": "Upgrade sem custo",
+     "p": "N",
+     "e": "Baixo",
+     "d": "09–30/11",
+     "s": "Em vez de baixar o preço, dê algo que custa pouco pra você e vale muito pro cliente.",
+     "passos": [
+      "Escolha o upgrade: estampa na segunda posição (manga ou costas), bordado no lugar do silk na logo, ou embalagem individual com nome.",
+      "Só a partir de uma quantidade mínima (ex.: 50 peças).",
+      "Coloque o upgrade como linha no orçamento, com o valor riscado: \"R$ 4,50/peça → grátis\".",
+      "Validade do upgrade: 30/11."
+     ],
+     "sc": "{nome}, segue o orçamento das {qtd} peças. Fechando até 30/11, a logo sai bordada no lugar do silk sem custo: são R$ {valor} que ficam por nossa conta. Posso seguir com a arte?",
+     "m": "Fechar metade dos orçamentos da Black sem dar desconto."
+    },
+    {
+     "t": "Orçamentos parados",
+     "p": "R",
+     "e": "Baixo",
+     "d": "02–20/11",
+     "s": "Todo orçamento não fechado em 2026 é uma venda meio pronta. Reenvie com prazo.",
+     "passos": [
+      "Puxe todos os orçamentos de 2026 que não fecharam.",
+      "Reenvie o mesmo orçamento com a condição Black e validade até 30/11.",
+      "Ligue pros 10 maiores e pergunte o motivo de não ter fechado.",
+      "Registre o motivo: preço, prazo, aprovação ou concorrente."
+     ],
+     "sc": "{nome}, achei aqui o orçamento de {qtd} {peças} que fizemos em {mês}. Nessa Black consigo manter o valor e ainda {upgrade}, se fechar até 30/11. Ainda faz sentido pra vocês?",
+     "m": "Fechar 1 em cada 5 orçamentos reenviados."
+    },
+    {
+     "t": "Prospecção por nicho",
+     "p": "P",
+     "e": "Médio",
+     "d": "09–27/11",
+     "s": "Escolha 2 nichos que compram uniforme todo ano e chame 10 empresas por dia.",
+     "passos": [
+      "Nichos de compra recorrente: academias, clínicas, construtoras, escolas, condomínios, igrejas, oficinas.",
+      "Monte lista de 50 empresas por nicho (Google Maps + Instagram).",
+      "Primeiro contato pelo WhatsApp com foto de uniforme do mesmo nicho.",
+      "Follow-up no 2º e no 5º dia."
+     ],
+     "sc": "Oi! Aqui é {vendedor}, da {empresa}. A gente faz o uniforme da {cliente referência}, que também é {nicho} aqui em {cidade}. Estou fechando a agenda de produção de janeiro e reservei condição de Black pra {nicho}. Posso te mandar fotos e valores?",
+     "m": "10 abordagens por dia e 3 orçamentos por semana por vendedor."
+    }
+   ]
+  },
+  {
+   "id": "aluban",
+   "nome": "Tendas Aluban",
+   "curto": "Aluban",
+   "c": "--alu",
+   "tese": "Dezembro e janeiro têm chuva, festa e assembleia de condomínio. A Black da Aluban é tirar o cliente da fila e colocar na produção.",
+   "janela": "Janela crítica: 02 a 30/11. Locadoras precisam da estrutura antes da temporada de festas; condomínios decidem em assembleia. As condições comerciais (frete, montagem, parcelamento) ficam com a diretoria e o Luiz definir.",
+   "naofaca": [
+    "Anunciar desconto em estrutura sob medida: o cliente passa a desconfiar do preço cheio.",
+    "Deixar lead da Black esperando o vendedor: SDR responde no mesmo dia.",
+    "Fazer follow-up de condomínio no ritmo do vendedor. O ritmo é o da assembleia."
+   ],
+   "acoes": [
+    {
+     "t": "Lote das locadoras",
+     "p": "P",
+     "e": "Médio",
+     "d": "02–19/11",
+     "s": "Locadoras de tendas e organizadores de evento precisam de estrutura antes da alta de dezembro e do réveillon. Venda lote, não unidade.",
+     "passos": [
+      "Liste locadoras de tendas e empresas de eventos de GO, DF e estados vizinhos (Google Maps + Instagram).",
+      "Oferta Black por lote fechado (ex.: a partir de 5 tendas) com a condição definida pela diretoria.",
+      "Data-limite de pedido que garanta entrega antes da temporada de festas.",
+      "Entra no funil como lead quente: SDR liga no mesmo dia."
+     ],
+     "sc": "Oi, {nome}! Aqui é da Tendas Aluban, fábrica em Goiânia. Dezembro e réveillon chegando e a locação sobe. Abrimos uma condição de Black pra locadoras fecharem lote de tendas com entrega antes da temporada, só pra pedidos até {data}. Posso te mandar os modelos e a condição?",
+     "m": "20 locadoras abordadas por semana."
+    },
+    {
+     "t": "Preço travado até a assembleia",
+     "p": "N",
+     "e": "Médio",
+     "d": "02–30/11",
+     "s": "Cobertura de garagem em condomínio depende de assembleia. Dê ao síndico um preço que espera a próxima.",
+     "passos": [
+      "Orçamento Black com validade estendida (ex.: 60 dias) pra caber na assembleia de dezembro ou janeiro.",
+      "Entregue junto uma apresentação pronta pro síndico mostrar aos moradores, no modelo da que foi feita pro Residencial Málaga.",
+      "Ofereça visita técnica ou participação online na assembleia.",
+      "Agende o follow-up pela data da assembleia."
+     ],
+     "sc": "{nome}, sei que a cobertura das vagas precisa passar em assembleia. Pra não perder a condição de Black, deixo o orçamento travado por 60 dias e te mando uma apresentação pronta pros moradores, com fotos, prazo e parcelamento. Quando é a próxima assembleia?",
+     "m": "10 condomínios com orçamento travado até 30/11."
+    },
+    {
+     "t": "Cobertura antes da chuva",
+     "p": "P",
+     "e": "Médio",
+     "d": "09–30/11",
+     "s": "Postos, mercados, concessionárias e estacionamentos perdem cliente com vaga no sol ou na chuva. Venda a sombra como estrutura que traz cliente.",
+     "passos": [
+      "Lista de 50 comércios com estacionamento aberto em Goiânia e região.",
+      "Visita ou WhatsApp com foto de obra parecida já entregue.",
+      "Condição Black definida pela diretoria (montagem, frete ou parcelamento).",
+      "Medição sem custo marcada na hora."
+     ],
+     "sc": "Oi, {nome}! Aqui é da Tendas Aluban. Passei pelo estacionamento da {empresa} e vi que as vagas ficam no sol. A gente fabrica cobertura aqui em Goiânia e está com condição de Black até 30/11. Posso mandar um técnico fazer a medição sem custo essa semana?",
+     "m": "15 medições marcadas no mês."
+    },
+    {
+     "t": "Orçamentos em aberto",
+     "p": "R",
+     "e": "Baixo",
+     "d": "02–20/11",
+     "s": "O SDR reabre os orçamentos de 2026 que não fecharam, com condição que acaba em 30/11.",
+     "passos": [
+      "Exporte da plataforma de atendimento os leads em Orçamento, Negociação e Perdido de 2026.",
+      "SDR reenvia com a condição Black e pergunta o que travou.",
+      "Cada objeção vira tag no funil: preço, prazo, aprovação, concorrente.",
+      "Quem responder vai direto pro vendedor."
+     ],
+     "sc": "{nome}, aqui é da Tendas Aluban. Em {mês} fizemos o orçamento da sua {estrutura} e ele ficou parado. Nessa Black consigo {condição} se fechar até 30/11. O que ficou faltando pra seguir?",
+     "m": "1 em cada 5 orçamentos reabertos virando negociação."
+    },
+    {
+     "t": "Ampliação pra quem já comprou",
+     "p": "F",
+     "e": "Baixo",
+     "d": "09–30/11",
+     "s": "Quem já tem estrutura Aluban conhece a qualidade. Ofereça ampliação com a mesma condição da primeira compra.",
+     "passos": [
+      "Liste os clientes de 2024 a 2026.",
+      "Pergunte se a estrutura atende ou se falta área coberta.",
+      "Ofereça mais módulos com a condição da compra anterior somada à condição Black.",
+      "Peça foto da obra e um depoimento em vídeo: vira prova pra prospecção."
+     ],
+     "sc": "{nome}, tudo bem? Aqui é da Tendas Aluban. Como está a estrutura que instalamos em {mês/ano}? Pra quem já é cliente, abrimos na Black a ampliação com a mesma condição da sua primeira compra. Está faltando área coberta aí?",
+     "m": "5 ampliações e 5 depoimentos em vídeo."
+    },
+    {
+     "t": "Funil Black no atendimento",
+     "p": "N",
+     "e": "Médio",
+     "d": "02–06/11",
+     "s": "Coloque a Black dentro do fluxo que já está sendo montado: chatbot, follow-up, SDR e vendedor.",
+     "passos": [
+      "Palavra-chave BLACK no chatbot abre o fluxo da campanha e aplica a tag.",
+      "O bot pergunta tipo de estrutura, cidade e prazo, e envia a condição.",
+      "Follow-up automático nos tempos definidos pelo Luiz.",
+      "Lead com prazo até janeiro vai pro SDR com prioridade."
+     ],
+     "sc": "Oi! Você chegou pela Black da Tendas Aluban. Pra te passar a condição certa: 1) é tenda ou cobertura? 2) qual cidade? 3) pra quando você precisa? Responde aqui que um especialista fala com você hoje.",
+     "m": "Todo lead Black com tag e primeiro contato humano no mesmo dia."
+    }
+   ]
+  }
+ ]
+}

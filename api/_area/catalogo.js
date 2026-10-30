@@ -11,6 +11,72 @@
 // (ele também escreve as tags de prévia na página). "chamada"/"grifo" = texto da capa (opcional).
 
 module.exports = {
+  millarabello: {
+    nome: 'Milla Rabello',
+    paginas: [
+      {
+        id: 'estrategia',
+        tipo: 'relatorio',
+        titulo: 'Estratégia comercial de curto prazo',
+        descricao: 'Diagnóstico do e-commerce, três alavancas para recuperar a queda, plano de 30 dias com metas e a preparação da Black Friday.',
+        url: '/clientes/millarabello/estrategia/',
+        capa: '/assets/og/millarabello-estrategia.jpg',
+        chamada: 'Estratégia comercial de curto prazo',
+        grifo: 'curto prazo',
+        data: '2026-10-30'
+      }
+    ],
+    acoes: [
+      {
+        id: 'millarabellocarrinho',
+        titulo: 'Ativar recuperação de carrinho (WhatsApp em 1h e e-mail em 24h com a foto da peça)',
+        detalhe: '46 carrinhos (R$21,5 mil) sem nenhum contato. Meta: recuperar 10–15%. Ganho estimado: R$2–3 mil/mês. Semana 1 (até 06/11).',
+        responsavel: 'Marketing / e-commerce',
+        status: 'a_fazer',
+        criado: '2026-10-30T05:00:00.000Z'
+      },
+      {
+        id: 'millarabellopix',
+        titulo: 'Lembrete de PIX antes de vencer e PIX com 5% na tela de cartão negado',
+        detalhe: '14% dos PIX vencem e 17% dos cartões são negados. Meta: recuperar 1/3 dos PIX vencidos. Pedir à Pagar.me o relatório dos motivos de recusa. Semana 1 (até 06/11).',
+        responsavel: 'E-commerce',
+        status: 'a_fazer',
+        criado: '2026-10-30T05:00:00.000Z'
+      },
+      {
+        id: 'millarabellofrete',
+        titulo: 'Barra "faltam R$X para frete grátis" com sugestão de cacharrel ou blusa e "outras cores deste modelo"',
+        detalhe: '1,28 peça por pedido; 221 pedidos entre R$400 e R$499 pagando frete. Meta: voltar a 1,5 peça por pedido. Ganho estimado: R$15–17 mil/mês. Semanas 2 e 3 (até 20/11).',
+        responsavel: 'E-commerce',
+        status: 'a_fazer',
+        criado: '2026-10-30T05:00:00.000Z'
+      },
+      {
+        id: 'millarabellograde',
+        titulo: 'Repor P/PP/M das campeãs A/A e tratar tamanhos esgotados',
+        detalhe: 'Nyna, Maisa, Clara, Amara: repor. Ocultar ou ativar "avise-me" nos esgotados. Conferir Vera, Flora Bege e Dalia. Meta: zerar ruptura nas 96 peças A/A.',
+        responsavel: 'Compras / estoque',
+        status: 'a_fazer',
+        criado: '2026-10-30T05:00:00.000Z'
+      },
+      {
+        id: 'millarabelloreativar',
+        titulo: 'Reativar as clientes "em risco" (91–180 dias) com convite para a Black Friday',
+        detalhe: '441 clientes com R$298 mil em histórico. Cupom pessoal ou acesso antecipado. Meta: 5% voltam a comprar (≈R$9 mil). Semanas 2 e 3.',
+        responsavel: 'Marketing / CRM',
+        status: 'a_fazer',
+        criado: '2026-10-30T05:00:00.000Z'
+      },
+      {
+        id: 'millarabellobf',
+        titulo: 'Black Friday como evento: pré-venda VIP 26/11 e abertura geral 27/11 às 21h',
+        detalhe: 'Pré-venda para as 50 maiores e as 404 recorrentes; escassez real nas peças-família; liquidar parte da Classe C. Antes: descobrir o que gerou os picos de 27–28/07 e 21–22/08.',
+        responsavel: 'Gestão + marketing',
+        status: 'a_fazer',
+        criado: '2026-10-30T05:00:00.000Z'
+      }
+    ]
+  },
   textilclub: {
     nome: 'Textil Club',
     paginas: [

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<script src="/assets/tema.js"></script>
+<script src="/assets/whats.js" defer></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agenda · Carlos Ribeiro · Unique</title>
+<meta name="description" content="Agende um horário com Carlos Ribeiro, da Unique Consultoria Comercial. Escolha o tipo de encontro e veja só os horários livres.">
+<meta property="og:title" content="Agende um horário com Carlos Ribeiro">
+<meta property="og:description" content="Escolha o tipo de encontro e marque direto na agenda.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://sejaunique.com/agenda/">
+<meta property="og:image" content="https://sejaunique.com/assets/og-site.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Agende um horário com Carlos Ribeiro">
+<meta name="twitter:description" content="Escolha o tipo de encontro e marque direto na agenda.">
+<meta name="twitter:image" content="https://sejaunique.com/assets/og-site.jpg">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+/* Agenda da Unique: mesma linguagem da página de links (preto da marca, Montserrat, verde só como grifo). */
+:root{
+  --bg:#ffffff;--fg:#0b0b0c;--muted:#5e5e66;--line:#e4e4e7;--soft:#f4f4f5;--chip:#e9e9ec;
+  --grifo:#00e676;--focus:#e0055e;
+  --font:"Montserrat",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--fg:#f5f5f5;--muted:#a1a1a8;--line:#26262a;--soft:#111113;--chip:#1c1c1f;--grifo:#00ff80;--focus:#ff2e7e;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#000;--fg:#f5f5f5;--muted:#a1a1a8;--line:#26262a;--soft:#111113;--chip:#1c1c1f;--grifo:#00ff80;--focus:#ff2e7e;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{color:var(--fg);font-family:var(--font);margin:0;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+.ag-page{max-width:560px;margin:0 auto;padding:48px 16px 64px;display:flex;flex-direction:column;gap:28px}
+.spaced{font-size:.66rem;font-weight:500;text-transform:uppercase;letter-spacing:.42em;color:var(--muted)}
+.grifo{text-decoration:underline;text-decoration-color:var(--grifo);text-decoration-thickness:max(2px,.06em);text-underline-offset:.16em;text-decoration-skip-ink:none}
+.icon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ag-hero{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px}
+.ag-hero img{width:96px;height:96px;border-radius:50%;object-fit:cover;object-position:top;background:var(--chip)}
+.ag-hero h1{font-size:clamp(1.5rem,5vw,1.9rem);font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:0;text-wrap:balance}
+.ag-hero p{margin:0;color:var(--muted);font-size:.95rem;max-width:40ch}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.chip{font-size:.75rem;font-weight:600;padding:5px 12px;border-radius:999px;background:var(--chip);color:var(--fg)}
+.links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.lk{display:flex;align-items:center;gap:16px;min-height:72px;padding:16px 18px;border:1px solid var(--line);border-radius:20px;background:var(--soft);transition:transform .15s,border-color .2s,box-shadow .2s}
+.lk:hover,.lk:focus-visible,.lk:active{border-color:var(--fg);transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.12)}
+.lk .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--chip);flex:none}
+.lk .tx{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.lk .tx strong{font-size:1rem;font-weight:700}
+.lk .tx small{font-size:.82rem;color:var(--muted)}
+.lk .go{color:var(--muted);transition:transform .2s}
+.lk:hover .go{transform:translateX(4px)}
+.lk.main{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.lk.main .ic{background:var(--bg);color:var(--fg)}
+.lk.main .tx small,.lk.main .go{color:var(--bg);opacity:.7}
+.ag-nota{font-size:.82rem;color:var(--muted);text-align:center;margin:0}
+.ag-nota a{text-decoration:underline;text-underline-offset:3px}
+@media (prefers-reduced-motion:reduce){.lk,.lk .go{transition:none}.lk:hover{transform:none}}
+</style>
+</head>
+<body data-casco="agenda">
+<script src="/assets/casco.js"></script>
+<main class="ag-page">
+  <header class="ag-hero">
+    <img src="/links/carlos.jpg?v=2" alt="Carlos Ribeiro" width="96" height="96">
+    <span class="spaced">Agenda</span>
+    <h1>Agende um horário com <span class="grifo">Carlos Ribeiro</span></h1>
+    <p>Escolha o tipo de encontro. Você vai direto para a agenda e vê só os horários que estão livres.</p>
+    <div class="chips"><span class="chip">Seg a sex · 8h às 19h</span><span class="chip">1 hora</span><span class="chip">Google Meet</span></div>
+  </header>
+
+  <ul class="links">
+    <li><a class="lk main" href="https://calendar.app.google/B3T8M9fLCoC6jbDf6" target="_blank" rel="noopener">
+      <span class="ic"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+      <span class="tx"><strong>Diagnóstico Comercial</strong><small>Análise do seu processo de vendas e próximos passos</small></span>
+      <svg class="icon go" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a></li>
+    <li><a class="lk" href="https://calendar.app.google/S6r7h3jyoM2Vcakj7" target="_blank" rel="noopener">
+      <span class="ic"><svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/></svg></span>
+      <span class="tx"><strong>Reunião Carlos Ribeiro</strong><small>Conversa direta sobre o seu negócio</small></span>
+      <svg class="icon go" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a></li>
+    <li><a class="lk" href="https://calendar.app.google/ooFhCoUxin4arqSa7" target="_blank" rel="noopener">
+      <span class="ic"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v4H4zM4 11h10v4H4zM4 17h6v3H4z"/></svg></span>
+      <span class="tx"><strong>Alda.CRM</strong><small>Apresentação e implantação do CRM</small></span>
+      <svg class="icon go" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a></li>
+    <li><a class="lk" href="https://calendar.app.google/kq6U5UwaXECwhj5FA" target="_blank" rel="noopener">
+      <span class="ic"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span>
+      <span class="tx"><strong>Encontro Textil Club Elite</strong><small>Encontro dos membros do Textil Club Elite</small></span>
+      <svg class="icon go" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a></li>
+  </ul>
+
+  <p class="ag-nota">Horário de Brasília. Depois de marcar, o convite com o link do Meet chega no seu e-mail.<br>Não achou um horário? <a href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Quero%20marcar%20um%20hor%C3%A1rio%20com%20voc%C3%AA." target="_blank" rel="noopener">Fale comigo no WhatsApp</a>.</p>
+</main>
+</body>
+</html>

@@ -28,6 +28,11 @@
       ],
       "destination": "https://sejaunique.com/:path",
       "permanent": false
+    },
+    {
+      "source": "/pages/laura",
+      "destination": "/pages/laura/",
+      "permanent": false
     }
   ],
   "rewrites": [

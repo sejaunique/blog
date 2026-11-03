@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Portal do paciente · Dra. Laura Scher</title>
+<meta name="description" content="Orientações e acesso para pacientes da Dra. Laura Scher.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Instrument+Sans:wght@400;500&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+.access{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-block:1px solid var(--tinta)}
+.access a,.access div.c{padding:clamp(28px,3vw,44px) clamp(20px,2.4vw,36px);display:flex;flex-direction:column;gap:14px;text-decoration:none;min-width:0;transition:background .3s}
+.access>*+*{border-left:1px solid var(--fio)}
+.access a:hover{background:var(--osso)}
+.access h2{margin:0;font-size:clamp(26px,2.4vw,34px);line-height:1.1}
+.access p{margin:0;color:var(--grafite);font-size:15px}
+.access .go{margin-top:auto;display:flex;align-items:center;gap:12px;font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase}
+.access .go svg{width:22px;height:10px}
+.access .off{color:var(--taupe)}
+.block{padding-block:clamp(72px,10vw,140px)}
+.block .wrap{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,9fr);gap:clamp(24px,5vw,80px)}
+.block h2.t{margin:0;font-size:clamp(34px,4.4vw,64px);line-height:1.02}
+.block .note{margin:16px 0 0;color:var(--grafite);max-width:56ch}
+.pre-list{margin:36px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 48px}
+.pre-list li{padding:16px 0;border-top:1px solid var(--fio);font-size:16px}
+.care{margin-top:40px;border-bottom:1px solid var(--tinta)}
+.care details{border-top:1px solid var(--tinta)}
+.care summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:24px 0}
+.care summary::-webkit-details-marker{display:none}
+.care summary b{font-family:var(--f-display);font-weight:400;font-size:clamp(24px,2.4vw,32px);line-height:1.1;display:block}
+.care summary span.s{font-size:13px;color:var(--grafite)}
+.pm{position:relative;width:14px;height:14px;flex:none}
+.pm::before,.pm::after{content:"";position:absolute;left:0;top:7px;width:14px;height:1px;background:var(--tinta);transition:transform .35s var(--ease)}
+.pm::after{transform:rotate(90deg)}
+details[open] .pm::after{transform:rotate(0)}
+.care ol{margin:0;padding:0 0 28px;list-style:none;counter-reset:c;display:grid;gap:12px;max-width:62ch}
+.care li{counter-increment:c;display:grid;grid-template-columns:34px 1fr;font-size:16px}
+.care li::before{content:counter(c,decimal-leading-zero);font-family:var(--f-display);color:var(--taupe)}
+.faq dl{margin:40px 0 0;display:grid}
+.faq dt{font-family:var(--f-display);font-size:clamp(22px,2vw,28px);line-height:1.2;padding-top:24px;border-top:1px solid var(--fio)}
+.faq dd{margin:10px 0 26px;color:var(--grafite);max-width:62ch}
+.osso{background:var(--osso)}
+@media (max-width:900px){.access,.block .wrap,.pre-list{grid-template-columns:minmax(0,1fr)}.access>*+*{border-left:0;border-top:1px solid var(--fio)}}
+</style>
+</head>
+<body>
+<header class="top" id="top">
+  <div class="wrap">
+    <nav aria-label="Principal"><a href="index.html#metodo">Método</a><a href="cases.html">Cases</a><a href="blog.html">Blog</a><a href="depoimentos.html">Depoimentos</a></nav>
+    <a class="brand" href="index.html" aria-label="Dra. Laura Scher, início"><img src="img/simbolo-bege.png" alt=""><span>Dra. Laura Scher</span></a>
+    <div class="side"><a class="portal" href="portal.html" aria-current=page>Portal do paciente</a><a class="cta" href="index.html#consulta">Agendar consulta</a><button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="sheet">Menu</button></div>
+  </div>
+</header>
+<div class="sheet" id="sheet" hidden role="dialog" aria-label="Menu">
+  <div class="row"><span>Dra. Laura Scher</span><button type="button">Fechar</button></div>
+  <nav><a style="--i:0" href="index.html">Início</a><a style="--i:1" href="index.html#metodo">Método</a><a style="--i:2" href="index.html#areas">Áreas de atuação</a><a style="--i:3" href="cases.html">Cases</a><a style="--i:4" href="blog.html">Blog</a><a style="--i:5" href="depoimentos.html">Depoimentos</a><a style="--i:6" href="portal.html">Portal do paciente</a><a style="--i:7" href="index.html#consulta">Agendar consulta</a></nav>
+  <p class="foot">(62) 99657-8843 · Anápolis, GO</p>
+</div>
+<main>
+<section class="page-head"><div class="wrap"><p class="label ld">Portal do paciente</p><div><h1 class="serif"><span class="ln"><span style="--d:0.10s">Seu</span></span> <span class="ln"><span style="--d:0.22s">cuidado</span></span> <span class="ln"><span style="--d:0.34s"><i>continua aqui.</i></span></span></h1><p class="intro ld" style="--d:.5s">Orientações para antes e depois de cada procedimento, respostas às dúvidas mais comuns e acesso direto à equipe.</p></div></div></section><section><div class="wrap"><div class="access">
+<div class="c" aria-disabled="true"><p class="label">Área restrita</p><h2 class="serif">Entrar no portal</h2><p>Agenda, receitas e documentos da sua consulta, no sistema da clínica.</p><span class="go off">Link do sistema a definir</span></div>
+<a href="https://api.whatsapp.com/send?phone=5562996578843&amp;text=Ol%C3%A1%21%20Sou%20paciente%20da%20Dra.%20Laura%20Scher%20e%20preciso%20de%20ajuda%20com%20minha%20consulta%20ou%20procedimento." target="_blank" rel="noopener"><p class="label">Equipe</p><h2 class="serif">Falar com a equipe</h2><p>Agendar, remarcar ou tirar dúvidas pelo WhatsApp: <span id="fone">(62) 99657-8843</span>.</p><span class="go">Abrir WhatsApp <svg viewBox="0 0 22 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 5h21M16.5 .5 21 5l-4.5 4.5"/></svg></span></a>
+<a href="#cuidados"><p class="label">Orientações</p><h2 class="serif">Depois do procedimento</h2><p>Cuidados gerais para cada tipo de tratamento.</p><span class="go">Ver cuidados <svg viewBox="0 0 22 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 5h21M16.5 .5 21 5l-4.5 4.5"/></svg></span></a>
+</div></div></section>
+
+<section class="block"><div class="wrap"><p class="label">Antes</p><div><h2 class="serif t">Antes do seu procedimento</h2><p class="note">Orientações gerais. Elas não substituem as orientações individuais que a Dra. Laura passa em consulta.</p>
+<ul class="pre-list"><li>Informe todos os medicamentos e suplementos que você usa.</li><li>Avise se estiver grávida, amamentando ou tentando engravidar.</li><li>Conte se já teve herpes, alergias ou reações a procedimentos anteriores.</li><li>Evite sol intenso e bronzeamento nos dias anteriores.</li><li>Chegue com a pele limpa, sem maquiagem, quando possível.</li><li>Não suspenda nenhum medicamento sem orientação médica.</li></ul></div></div></section>
+
+<section class="block osso" id="cuidados"><div class="wrap"><p class="label">Depois</p><div><h2 class="serif t">Cuidados após cada tratamento</h2><p class="note">Em caso de dor intensa, febre, alteração de cor da pele ou qualquer sintoma inesperado, entre em contato com a equipe imediatamente.</p>
+<div class="care"><details><summary><span><b>Toxina botulínica</b><span class="s">Inclui Glowtox e V-Lift</span></span><span class="pm" aria-hidden="true"></span></summary><ol><li><span>Não deite nas primeiras 4 horas após a aplicação.</span></li><li><span>Não massageie nem pressione as áreas tratadas no dia.</span></li><li><span>Evite atividade física intensa, sauna e calor excessivo nas primeiras 24 horas.</span></li><li><span>O efeito começa a aparecer em alguns dias e se completa em cerca de duas semanas. O retorno é agendado nesse período.</span></li></ol></details><details><summary><span><b>Ultrassom microfocado</b><span class="s">Rosto, papada e pescoço</span></span><span class="pm" aria-hidden="true"></span></summary><ol><li><span>Vermelhidão, inchaço leve e sensibilidade ao toque podem ocorrer e costumam passar em poucos dias.</span></li><li><span>A rotina pode ser retomada no mesmo dia.</span></li><li><span>Use protetor solar e mantenha a pele hidratada.</span></li><li><span>O resultado é gradual e se desenvolve ao longo das semanas seguintes.</span></li></ol></details><details><summary><span><b>Peeling</b><span class="s">Renovação da pele</span></span><span class="pm" aria-hidden="true"></span></summary><ol><li><span>Não arranque nem esfolie a pele que descamar.</span></li><li><span>Use apenas os produtos indicados pela Dra. nos dias seguintes.</span></li><li><span>Evite sol e calor e reaplique o protetor solar ao longo do dia.</span></li><li><span>Suspenda ácidos e esfoliantes até a liberação médica.</span></li></ol></details><details><summary><span><b>Bioestimuladores e tratamento corporal</b><span class="s">Glúteos, coxas e braços</span></span><span class="pm" aria-hidden="true"></span></summary><ol><li><span>Pequenos hematomas e inchaço são esperados nos primeiros dias.</span></li><li><span>Siga exatamente as orientações de massagem, se forem indicadas para o seu caso.</span></li><li><span>Evite atividade física intensa pelo período orientado.</span></li><li><span>O estímulo de colágeno é progressivo: o resultado é avaliado nas consultas de retorno.</span></li></ol></details><details><summary><span><b>Terapia capilar</b><span class="s">Couro cabeludo</span></span><span class="pm" aria-hidden="true"></span></summary><ol><li><span>Evite lavar os cabelos no mesmo dia, salvo outra orientação.</span></li><li><span>Não use tinturas, alisamentos ou química pelo período indicado.</span></li><li><span>Mantenha o tratamento em casa conforme prescrito: a constância faz parte do resultado.</span></li></ol></details><details><summary><span><b>Plasma frio</b><span class="s">Acne e inflamação</span></span><span class="pm" aria-hidden="true"></span></summary><ol><li><span>A pele pode ficar levemente avermelhada por algumas horas.</span></li><li><span>Evite maquiagem no dia, se possível.</span></li><li><span>Mantenha a rotina de cuidados prescrita e o protetor solar.</span></li></ol></details></div></div></div></section>
+
+<section class="block faq"><div class="wrap"><p class="label">Dúvidas</p><div><h2 class="serif t">Perguntas frequentes</h2><dl><dt>Como agendo, remarco ou cancelo uma consulta?</dt><dd>Pelo WhatsApp da equipe, no (62) 99657-8843. Pedimos que remarcações sejam avisadas com antecedência para que o horário possa ser oferecido a outra paciente.</dd><dt>O que devo levar na primeira consulta?</dt><dd>Seus exames recentes, se tiver, a lista de medicamentos e suplementos que usa e, se possível, os produtos de cuidado com a pele que usa hoje.</dd><dt>Posso fazer procedimentos estando grávida ou amamentando?</dt><dd>Muitos procedimentos não são indicados nesse período. Informe sempre a equipe e a Dra. Laura antes de qualquer tratamento.</dd><dt>Preciso suspender algum medicamento antes do procedimento?</dt><dd>Nunca suspenda medicamentos por conta própria. Informe tudo o que você usa e siga a orientação individual da Dra.</dd><dt>Senti algo diferente depois do procedimento. O que faço?</dt><dd>Entre em contato pelo WhatsApp e descreva o que está sentindo. Se possível, envie uma foto. Em caso de urgência, procure atendimento médico imediatamente.</dd></dl>
+<p class="draft" style="margin-top:32px">Orientações gerais · revisão da Dra.</p></div></div></section><section class="closing"><div class="wrap"><div><p class="label">Consulta</p><h2 class="serif" style="margin-top:18px">Tudo começa por uma <i>avaliação.</i></h2></div><a class="link" href="https://api.whatsapp.com/send?phone=5562996578843&amp;text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Dra.%20Laura%20Scher%20e%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener">Solicitar avaliação <svg viewBox="0 0 22 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 5h21M16.5 .5 21 5l-4.5 4.5"/></svg></a></div></section>
+</main>
+<section class="sig-foot" aria-label="Assinatura">
+  <div class="wrap">
+    <div class="row"><p class="label">Medicina do envelhecimento · Anápolis, GO</p><button class="back" type="button" data-top>Voltar ao início <svg viewBox="0 0 10 22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M5 22V1M.5 5.5 5 1l4.5 4.5"/></svg></button></div>
+    <p class="giant" aria-hidden="true">Laura <i>Scher</i></p>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <span class="l"><img src="img/simbolo-branco.png" alt="">Dra. Laura Scher · Médica · CRM-GO 23583 · Responsável técnica</span>
+    <nav aria-label="Rodapé"><a href="cases.html">Cases</a><a href="blog.html">Blog</a><a href="depoimentos.html">Depoimentos</a><a href="portal.html">Portal do paciente</a><a href="https://www.instagram.com/dralaurascher/" target="_blank" rel="noopener">Instagram</a></nav>
+    <span>Conteúdo informativo. Não substitui a consulta médica.</span>
+  </div>
+</footer>
+<script src="site.js"></script>
+</body>
+</html>

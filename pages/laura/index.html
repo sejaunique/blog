@@ -1,0 +1,639 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex, nofollow"><title>Dra. Laura Scher</title><meta property="og:title" content="Dra. Laura Scher · Medicina do envelhecimento"><meta property="og:description" content="Envelhecer bem é uma decisão médica. Anápolis, GO."><meta property="og:image" content="https://sejaunique.com/pages/laura/img/hero.jpg"><meta property="og:type" content="website"><style>[hidden]{display:none!important}body{margin:0}</style></head><body>
+<title>Dra. Laura Scher</title>
+<meta name="description" content="Dra. Laura Scher, médica (CRM-GO 23583). Medicina do envelhecimento facial e corporal em Anápolis, GO.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Instrument+Sans:wght@400;500&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+/* Mundo: consultório-ateliê. Papel marfim, tinta quente quase preta, uma única nota de taupe (a cor do símbolo). Tipografia didone em escala grande, muito ar, nenhum card. */
+:root{
+  --marfim:#F7F4EF;
+  --osso:#EDE7E0;
+  --tinta:#1E1916;
+  --grafite:#5F5751;
+  --taupe:#A89A8F;
+  --fio:#D9D0C7;
+  --sobre-tinta:#EFE8E1;
+  --f-display:"Bodoni Moda","Didot","Bodoni 72","Times New Roman",serif;
+  --f-text:"Instrument Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --g:clamp(16px,5vw,72px);
+  --max:1320px;
+  --ease:cubic-bezier(.2,.7,.1,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--marfim);color:var(--tinta);font-family:var(--f-text);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+::selection{background:var(--tinta);color:var(--marfim)}
+:focus-visible{outline:1px solid var(--tinta);outline-offset:4px}
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--g)}
+.label{font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--grafite)}
+.serif{font-family:var(--f-display);font-weight:400;letter-spacing:-.01em;text-wrap:balance}
+.photo{filter:saturate(.82) contrast(1.03)}
+.link{display:inline-flex;align-items:center;gap:14px;font-size:12px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;padding-block:10px;border-bottom:1px solid currentColor;transition:gap .4s var(--ease)}
+.link:hover{gap:22px}
+.hero .link,.visit .link{align-self:flex-start}
+.link svg{width:22px;height:10px}
+
+/* Cabeçalho */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--marfim);transition:box-shadow .3s}
+.top.scrolled{box-shadow:0 1px 0 var(--fio)}
+.top{transition:transform .6s var(--ease),box-shadow .3s}
+.top.hide{transform:translateY(-100%)}
+.top .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;padding-block:18px}
+.top nav{display:flex;gap:34px}
+.top nav a,.top .cta{font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;color:var(--grafite)}
+.top nav a:hover,.top .cta:hover{color:var(--tinta)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;justify-self:center}
+.brand img{width:30px;height:30px}
+.brand span{font-family:var(--f-display);font-size:19px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
+.top .cta{justify-self:end;color:var(--tinta);border-bottom:1px solid var(--tinta);padding-bottom:4px}
+
+/* Abertura: a foto ocupa meia tela, de ponta a ponta */
+.hero{position:relative;min-height:min(94svh,940px);display:flex;align-items:flex-end;overflow:hidden}
+.hero-media{position:absolute;top:0;right:0;bottom:0;width:50%;overflow:hidden;clip-path:inset(0 0 0 0);animation:curtain 1.6s var(--ease) both}
+.hero-media img,.hero-media canvas{width:100%;height:115%;object-fit:cover;object-position:46% 28%;will-change:transform;animation:settle 2.6s var(--ease) both;display:block}
+.hero-media canvas{position:absolute;top:0;left:0}
+.hero-media.gl img{visibility:hidden}
+.hero-inner{position:relative;width:100%;padding-block:clamp(48px,8vw,120px) clamp(48px,6vw,96px)}
+.hero-text{width:min(100%,46%);display:flex;flex-direction:column;gap:clamp(26px,2.6vw,40px)}
+.hero h1{font-size:clamp(48px,6.6vw,112px);line-height:.96;margin:0}
+.hero h1 i{color:var(--taupe)}
+.ln{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.ln>span{display:inline-block;animation:lineup 1.3s var(--ease) both;animation-delay:var(--d)}
+.ld{animation:rise 1.2s var(--ease) both;animation-delay:var(--d)}
+.hero-text>p:not(.label){margin:0;max-width:40ch;color:var(--grafite);font-size:17px}
+.hero-meta{display:flex;gap:clamp(20px,3.4vw,48px);flex-wrap:wrap;padding-top:26px;border-top:1px solid var(--fio)}
+.hero-meta .label{line-height:1.6}
+.hero-meta .label b{display:block;color:var(--tinta);font-weight:500}
+.scroll-cue{position:absolute;left:50%;bottom:22px;width:1px;height:56px;background:var(--fio);overflow:hidden}
+.scroll-cue span{position:absolute;left:0;top:-56px;width:1px;height:56px;background:var(--tinta);animation:cue 2.4s var(--ease) infinite 1.6s}
+@keyframes curtain{from{clip-path:inset(0 0 0 100%)}to{clip-path:inset(0 0 0 0)}}
+@keyframes settle{from{transform:scale(1.14)}to{transform:none}}
+@keyframes lineup{from{transform:translateY(105%)}to{transform:none}}
+@keyframes rise{from{transform:translateY(18px);opacity:.001}to{transform:none;opacity:1}}
+@keyframes cue{0%{top:-56px}60%,100%{top:56px}}
+
+/* Abertura de cortina (1x por sessão) */
+.intro{position:fixed;inset:0;z-index:100;background:var(--marfim);display:grid;place-items:center;transition:transform 1.1s cubic-bezier(.76,0,.24,1)}
+.intro.up{transform:translateY(-100%)}
+.intro .in{display:flex;flex-direction:column;align-items:center;gap:22px}
+.intro img{width:64px;height:64px;animation:knot 1.6s var(--ease) both}
+.intro p{margin:0;font-family:var(--f-display);font-size:clamp(18px,2vw,24px);letter-spacing:.32em;text-transform:uppercase;overflow:hidden}
+.intro p span{display:inline-block;animation:lineup 1s var(--ease) both .25s}
+.intro .bar{width:120px;height:1px;background:var(--fio);overflow:hidden}
+.intro .bar i{display:block;height:100%;background:var(--tinta);transform-origin:0 50%;animation:fill 1.25s cubic-bezier(.65,0,.35,1) both .2s}
+@keyframes knot{from{transform:rotate(-90deg) scale(.6);opacity:.001}to{transform:none;opacity:1}}
+@keyframes fill{from{transform:scaleX(0)}to{transform:none}}
+.intro-on .hero *,.intro-on .hero-media{animation-play-state:paused!important}
+
+/* Caso em destaque */
+.case-home .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,100px);align-items:center}
+.ba{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--tinta);user-select:none;touch-action:pan-y;width:100%;max-width:500px;justify-self:end}
+.ba .side{position:absolute;inset:0}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba .after{clip-path:inset(0 0 0 50%)}
+.ba .tag{position:absolute;top:14px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:500;color:var(--tinta);background:rgba(247,244,239,.85);padding:5px 9px}
+.ba .before .tag{left:14px}.ba .after .tag{right:14px}
+.ba .handle{position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--marfim);pointer-events:none}
+.ba .handle::after{content:"";position:absolute;top:50%;left:50%;width:42px;height:42px;border:1px solid var(--marfim);border-radius:50%;background:rgba(30,25,22,.35);backdrop-filter:blur(4px);transform:translate(-50%,-50%)}
+.ba .hint{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:500;color:var(--marfim);background:rgba(30,25,22,.45);padding:6px 12px;pointer-events:none;transition:opacity .5s;white-space:nowrap}
+.ba.touched .hint{opacity:0}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.case-home .tx{display:flex;flex-direction:column;gap:24px;min-width:0}
+.case-home h2{margin:0;font-size:clamp(40px,5vw,80px);line-height:1}
+.case-home h2 i{color:var(--taupe)}
+.case-home .tx>p:not(.label){margin:0;color:var(--grafite);max-width:44ch;font-size:17px}
+.case-home .actions{display:flex;gap:36px;flex-wrap:wrap}
+@media (max-width:1000px){.case-home .wrap{grid-template-columns:minmax(0,1fr)}.ba{justify-self:center}}
+
+/* Revelações ao rolar (estado de repouso sempre visível) */
+.rv{transition:transform 1.3s var(--ease),opacity 1.3s var(--ease)}
+.rv.pre{transform:translateY(48px);opacity:.25}
+.mask{overflow:hidden}
+.mask img{transition:transform 1.8s var(--ease),clip-path 1.6s var(--ease)}
+.mask.pre img{transform:scale(1.12);clip-path:inset(6% 6% 6% 6%)}
+
+/* Galeria horizontal fixa: as imagens contam o método */
+.reel{position:relative;height:calc(var(--n,5) * 85svh);background:var(--marfim)}
+.reel-stick{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:28px}
+.reel-head{display:flex;justify-content:space-between;align-items:end;gap:24px}
+.reel-head h2{margin:0;font-size:clamp(32px,4vw,60px);line-height:1}
+.reel-count{font-family:var(--f-display);font-size:15px;color:var(--grafite);white-space:nowrap}
+.reel-count b{font-weight:400;color:var(--tinta)}
+.track{display:flex;gap:clamp(20px,3vw,48px);padding-inline:var(--g);will-change:transform}
+.slide{flex:none;margin:0;width:min(42vw,66svh * .75);display:flex;flex-direction:column;gap:16px}
+.slide .frame{overflow:hidden;aspect-ratio:3/4;max-height:66svh}
+.slide:nth-child(even){transform:translateY(5svh)}
+.slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 1.4s var(--ease)}
+.slide.on img{transform:none}
+.slide figcaption{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline}
+.slide .n{font-family:var(--f-display);font-size:14px;color:var(--taupe)}
+.slide .w{font-family:var(--f-display);font-size:clamp(26px,2.6vw,40px);line-height:1}
+.slide .s{grid-column:2;font-size:14px;color:var(--grafite);max-width:34ch}
+.bar{height:1px;background:var(--fio);position:relative}
+.bar i{position:absolute;left:0;top:0;height:1px;width:0;background:var(--tinta)}
+
+/* Manifesto */
+.manifesto{background:var(--tinta);color:var(--sobre-tinta)}
+.manifesto .wrap{padding-block:clamp(96px,14vw,200px);display:grid;grid-template-columns:minmax(0,3fr) minmax(0,9fr);gap:clamp(24px,5vw,80px)}
+.manifesto .label{color:var(--taupe)}
+.manifesto blockquote{margin:0;font-family:var(--f-display);font-size:clamp(34px,5vw,76px);line-height:1.08;letter-spacing:-.015em;text-wrap:balance}
+.manifesto blockquote i{color:var(--taupe)}
+.manifesto .wd{transition:opacity .4s linear}
+.manifesto .cols{margin-top:clamp(40px,5vw,72px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,4vw,64px);max-width:860px}
+.manifesto .cols p{margin:0;color:#BDB3AA;font-size:16px}
+
+/* Seções gerais */
+section{scroll-margin-top:84px}
+.sec{padding-block:clamp(88px,12vw,180px)}
+.head{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,9fr);gap:clamp(24px,5vw,80px);margin-bottom:clamp(48px,7vw,104px)}
+.head h2{margin:0;font-size:clamp(38px,5.2vw,80px);line-height:1.02}
+.head p{margin:20px 0 0;max-width:56ch;color:var(--grafite)}
+
+/* Método */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--tinta)}
+.steps li{padding:28px clamp(16px,2vw,32px) 0 0;display:flex;flex-direction:column;gap:14px;min-width:0}
+.steps li+li{padding-left:clamp(16px,2vw,32px);border-left:1px solid var(--fio)}
+.steps .num{font-family:var(--f-display);font-size:15px;color:var(--taupe)}
+.steps h3{margin:0;font-family:var(--f-display);font-weight:400;font-size:clamp(22px,2vw,28px);line-height:1.15}
+.steps p{margin:0;color:var(--grafite);font-size:15px}
+
+/* Áreas (índice) */
+.areas{background:var(--osso)}
+.areas-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,6vw,100px);align-items:start}
+.areas-fig{position:sticky;top:110px;margin:0}
+.areas-fig img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:opacity .45s var(--ease),transform 1.2s var(--ease)}
+.areas-fig figcaption{margin-top:14px}
+.area{border-top:1px solid var(--tinta)}
+.area:last-child{border-bottom:1px solid var(--tinta)}
+.area>h3{margin:0;display:grid;grid-template-columns:56px minmax(0,1fr);align-items:baseline;padding:28px 0 6px}
+.area>h3 .n{font-family:var(--f-display);font-size:15px;color:var(--taupe)}
+.area>h3 .t{font-family:var(--f-display);font-weight:400;font-size:clamp(28px,3vw,42px);line-height:1.1}
+.area>p{margin:0 0 18px 56px;color:var(--grafite);font-size:15px;max-width:52ch}
+.items{margin:0 0 22px 56px}
+details.it{border-top:1px solid var(--fio)}
+details.it summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0;font-size:16px}
+details.it summary::-webkit-details-marker{display:none}
+details.it summary:hover .nm{color:var(--grafite)}
+.pm{position:relative;width:13px;height:13px;flex:none}
+.pm::before,.pm::after{content:"";position:absolute;left:0;top:6px;width:13px;height:1px;background:var(--tinta);transition:transform .35s var(--ease)}
+.pm::after{transform:rotate(90deg)}
+details.it[open] .pm::after{transform:rotate(0)}
+.it-body{padding:2px 0 26px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 36px}
+.it-body .simple{grid-column:1/-1;margin:0;font-family:var(--f-display);font-size:clamp(19px,1.7vw,22px);line-height:1.45}
+.it-body h4{margin:0 0 8px;font-size:10.5px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--grafite)}
+.it-body ul{margin:0;padding:0;list-style:none;display:grid;gap:4px;font-size:15px}
+.it-body li::before{content:"— ";color:var(--taupe)}
+.it-body .tech{margin:0;font-size:14px;color:var(--grafite)}
+.note{margin:36px 0 0;font-size:13px;color:var(--grafite)}
+
+/* A médica */
+.doc .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,7vw,120px);align-items:center}
+.doc figure{margin:0}
+.doc figure img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 20%}
+.doc .txt{display:flex;flex-direction:column;gap:24px;min-width:0}
+.doc h2{margin:0;font-size:clamp(40px,5vw,76px);line-height:1}
+.doc .txt p{margin:0;max-width:52ch;color:var(--grafite)}
+.facts{margin:16px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--tinta)}
+.facts div{padding:20px 16px 0 0}
+.facts div+div{padding-left:16px;border-left:1px solid var(--fio)}
+.facts dt{font-family:var(--f-display);font-size:clamp(20px,1.9vw,26px);line-height:1.1;white-space:nowrap}
+.facts dd{margin:8px 0 0;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--grafite);line-height:1.5}
+
+/* Faixa de imagem */
+.still{position:relative;height:clamp(360px,62vw,760px);overflow:hidden}
+.still img{width:100%;height:124%;object-fit:cover;object-position:50% 38%;will-change:transform}
+.still .cap{position:absolute;left:var(--g);bottom:clamp(24px,4vw,56px);color:#fff;font-family:var(--f-display);font-size:clamp(28px,4vw,60px);line-height:1.05;max-width:14ch;text-shadow:0 2px 30px rgba(0,0,0,.25)}
+
+/* Depoimento */
+.word .wrap{max-width:1040px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:36px}
+.word .link{align-self:center}
+.word blockquote{margin:0;font-family:var(--f-display);font-size:clamp(28px,3.6vw,50px);line-height:1.2;letter-spacing:-.01em;text-wrap:balance}
+.word cite{font-style:normal}
+.word .src{display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:center}
+.word .dot{width:4px;height:4px;border-radius:50%;background:var(--taupe)}
+
+/* Continue */
+.more-sec{padding-top:0}
+.more-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,44px)}
+.more-it{text-decoration:none;display:flex;flex-direction:column;gap:14px}
+.more-it .fr{overflow:hidden}
+.more-it img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:transform 1.6s var(--ease)}
+.more-it:hover img{transform:scale(1.05)}
+.more-it h3{margin:0;font-size:clamp(22px,2.2vw,30px);line-height:1.15}
+@media (max-width:800px){.more-grid{grid-template-columns:minmax(0,1fr)}.more-it img{aspect-ratio:16/11}}
+
+/* Trilha de seções */
+.rail{position:fixed;right:clamp(14px,2vw,28px);top:50%;transform:translateY(-50%);z-index:15;display:flex;flex-direction:column;gap:12px;color:var(--grafite);transition:color .4s}
+.rail.inv{color:var(--sobre-tinta)}
+.rail a{display:flex;align-items:center;justify-content:flex-end;gap:12px;text-decoration:none;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:inherit;opacity:.55;transition:opacity .3s}
+.rail a span{opacity:0;transform:translateX(8px);transition:opacity .35s,transform .45s var(--ease)}
+.rail a::after{content:"";width:14px;height:1px;background:currentColor;transition:width .5s var(--ease)}
+.rail a.on{opacity:1}.rail a.on::after{width:36px}
+.rail a.on span,.rail:hover a span{opacity:1;transform:none}
+.rail:hover a{opacity:1}
+@media (max-width:1180px){.rail{display:none}}
+
+/* Consulta */
+.visit{background:var(--tinta);color:var(--sobre-tinta)}
+.visit .wrap{padding-block:clamp(88px,12vw,180px);display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(40px,7vw,120px);align-items:end}
+.visit h2{margin:0;font-size:clamp(44px,6.4vw,104px);line-height:.98}
+.visit h2 i{color:var(--taupe)}
+.visit .lead{margin:28px 0 40px;max-width:46ch;color:#BDB3AA;font-size:17px}
+.visit .label{color:var(--taupe)}
+.visit dl{margin:0;display:grid;gap:26px}
+.visit dt{margin-bottom:6px}
+.visit dd{margin:0;font-size:16px;overflow-wrap:anywhere;color:var(--sobre-tinta)}
+.visit dd a{text-decoration:none;border-bottom:1px solid rgba(239,232,225,.35)}
+.visit dd a:hover{border-color:var(--sobre-tinta)}
+.copy{margin-left:10px;background:none;border:0;border-bottom:1px solid var(--taupe);color:var(--taupe);font:500 10px var(--f-text);letter-spacing:.2em;text-transform:uppercase;cursor:pointer;padding:0 0 2px}
+.copy:hover{color:var(--sobre-tinta)}
+
+footer{background:var(--tinta);color:#8F857D;border-top:1px solid rgba(239,232,225,.12)}
+footer .wrap{padding-block:36px;display:flex;justify-content:space-between;gap:20px 40px;flex-wrap:wrap;font-size:12px;line-height:1.6}
+footer img{width:26px;height:26px;opacity:.8}
+footer .l{display:flex;gap:14px;align-items:center}
+footer nav{display:flex;gap:24px}
+footer nav a{text-decoration:none;letter-spacing:.16em;text-transform:uppercase;font-size:11px}
+footer nav a:hover{color:var(--sobre-tinta)}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}.rv.pre{transform:none;opacity:1}.mask.pre img{transform:none;clip-path:none}}
+
+@media (max-width:1000px){
+  .hero{display:block;min-height:0}
+  .hero-media{position:relative;width:100%;height:68svh}
+  .hero-media img,.hero-media canvas{height:112%}
+  .hero-text{width:100%}
+  .scroll-cue{display:none}
+  .slide{width:min(72vw,52svh)}
+
+  .top .wrap{grid-template-columns:1fr auto}
+  .top nav{display:none}
+  .brand{justify-self:start}
+  .hero .wrap,.doc .wrap,.visit .wrap,.areas-grid{grid-template-columns:minmax(0,1fr)}
+  .manifesto .wrap,.head{grid-template-columns:minmax(0,1fr)}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps li:nth-child(3){padding-left:0;border-left:0}
+  .steps li:nth-child(n+3){margin-top:28px;border-top:1px solid var(--fio)}
+  .areas-fig{position:static;max-width:520px}
+  .areas-fig img{aspect-ratio:16/11}
+  .doc figure{max-width:520px}
+}
+@media (max-width:600px){
+  .brand span{font-size:15px;letter-spacing:.1em}
+  .label{letter-spacing:.18em;font-size:10.5px}
+  .brand img{width:24px;height:24px}
+  .top .cta{font-size:10px;letter-spacing:.16em}
+  .manifesto .cols,.steps,.it-body{grid-template-columns:minmax(0,1fr)}
+  .steps li,.steps li+li{padding-left:0;border-left:0}
+  .steps li+li{margin-top:28px;border-top:1px solid var(--fio)}
+  .area>h3{grid-template-columns:40px minmax(0,1fr)}
+  .area>p,.items{margin-left:40px}
+  .facts{grid-template-columns:minmax(0,1fr)}
+  .facts div,.facts div+div{padding:18px 0 0;border-left:0}
+  .facts div+div{margin-top:18px;border-top:1px solid var(--fio)}
+}
+</style>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <nav aria-label="Principal"><a href="#metodo">Método</a><a href="cases.html">Cases</a><a href="blog.html">Blog</a><a href="depoimentos.html">Depoimentos</a></nav>
+    <a class="brand" href="index.html" aria-label="Dra. Laura Scher, início"><img src="img/simbolo-bege.png" alt=""><span>Dra. Laura Scher</span></a>
+    <div class="side"><a class="portal" href="portal.html">Portal do paciente</a><a class="cta" href="#consulta">Agendar consulta</a><button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="sheet">Menu</button></div>
+  </div>
+</header>
+<div class="sheet" id="sheet" hidden role="dialog" aria-label="Menu">
+  <div class="row"><span>Dra. Laura Scher</span><button type="button">Fechar</button></div>
+  <nav><a style="--i:0" href="index.html">Início</a><a style="--i:1" href="index.html#metodo">Método</a><a style="--i:2" href="index.html#areas">Áreas de atuação</a><a style="--i:3" href="cases.html">Cases</a><a style="--i:4" href="blog.html">Blog</a><a style="--i:5" href="depoimentos.html">Depoimentos</a><a style="--i:6" href="portal.html">Portal do paciente</a><a style="--i:7" href="index.html#consulta">Agendar consulta</a></nav>
+  <p class="foot">(62) 99657-8843 · Anápolis, GO</p>
+</div>
+
+<main>
+<section class="hero" id="inicio">
+  <div class="hero-media"><img class="photo" id="hero-img" src="img/hero.jpg" alt="Dra. Laura Scher de perfil"></div>
+  <div class="wrap hero-inner">
+    <div class="hero-text">
+      <p class="label ld" style="--d:.1s">Medicina do envelhecimento · facial e corporal</p>
+      <h1 class="serif"><span class="ln"><span style="--d:.2s">Envelhecer</span></span> <span class="ln"><span style="--d:.32s">bem é uma</span></span> <span class="ln"><span style="--d:.44s"><i>decisão</i></span></span> <span class="ln"><span style="--d:.56s"><i>médica.</i></span></span></h1>
+      <p class="ld" style="--d:.8s">A Dra. Laura Scher conduz o envelhecimento do rosto, da pele, do cabelo e do corpo como um plano contínuo, com critério clínico e resultados que preservam quem você é.</p>
+      <a class="link ld" style="--d:.95s" href="#consulta">Solicitar avaliação <svg viewBox="0 0 22 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 5h21M16.5 .5 21 5l-4.5 4.5"/></svg></a>
+      <div class="hero-meta ld" style="--d:1.1s">
+        <span class="label"><b>Médica</b>CRM-GO 23583</span>
+        <span class="label"><b>Embaixadora</b>V-Lift</span>
+        <span class="label"><b>Anápolis</b>Goiás</span>
+      </div>
+    </div>
+  </div>
+  <a class="scroll-cue" href="#filosofia" aria-label="Rolar para a próxima seção"><span></span></a>
+</section>
+
+<section class="manifesto" id="filosofia" aria-label="Filosofia">
+  <div class="wrap">
+    <p class="label">Filosofia</p>
+    <div>
+      <blockquote>“Desacelero seu processo de <i>envelhecimento.</i>”</blockquote>
+      <div class="cols">
+        <p>O envelhecimento não acontece em um ponto do rosto. Ele envolve músculo, pele, sustentação, cabelo e corpo, cada um no seu ritmo. Tratar só o que aparece no espelho hoje é corrigir. Planejar o que vem pela frente é cuidar.</p>
+        <p>Por isso não há pacotes nem protocolos prontos. Há diagnóstico, um plano com ordem e tempo definidos, e acompanhamento ao longo dos anos. O objetivo é que você pareça descansada e fiel a si mesma, nunca transformada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reel" id="olhar" aria-label="O olhar da Dra. Laura" style="--n:5">
+  <div class="reel-stick">
+    <div class="wrap reel-head"><div><p class="label">O olhar</p><h2 class="serif" style="margin-top:14px">O que se trata, <i style="color:var(--taupe)">sem que se perceba.</i></h2></div><p class="reel-count"><b id="rc">01</b> / 05</p></div>
+    <div class="track" id="track">
+      <figure class="slide"><div class="frame" data-cur="Role"><img class="photo" src="img/close18.jpg" alt="Retrato aproximado, mão nos cabelos"></div><figcaption><span class="n">01</span><span class="w">Expressão</span><span class="s">Linhas suavizadas. Traços e personalidade preservados.</span></figcaption></figure>
+      <figure class="slide"><div class="frame" data-cur="Role"><img class="photo" src="img/perfil48.jpg" alt="Perfil com o cabelo preso"></div><figcaption><span class="n">02</span><span class="w">Contorno</span><span class="s">Sustentação que redesenha a linha do rosto sem transformá-lo.</span></figcaption></figure>
+      <figure class="slide"><div class="frame" data-cur="Role"><img class="photo" src="img/close19.jpg" alt="Retrato aproximado da pele"></div><figcaption><span class="n">03</span><span class="w">Pele</span><span class="s">Textura, viço e tom uniforme, tratados na causa.</span></figcaption></figure>
+      <figure class="slide"><div class="frame" data-cur="Role"><img class="photo" src="img/sorriso10.jpg" alt="Dra. Laura sorrindo"></div><figcaption><span class="n">04</span><span class="w">Naturalidade</span><span class="s">O resultado que ninguém aponta, mas todos percebem.</span></figcaption></figure>
+      <figure class="slide"><div class="frame" data-cur="Role"><img class="photo" src="img/sofa37.jpg" alt="Dra. Laura sentada no sofá"></div><figcaption><span class="n">05</span><span class="w">Tempo</span><span class="s">Cuidado contínuo, planejado para os próximos anos.</span></figcaption></figure>
+    </div>
+    <div class="wrap"><div class="bar"><i id="bar"></i></div></div>
+  </div>
+</section>
+
+<section class="sec" id="metodo">
+  <div class="wrap">
+    <div class="head">
+      <p class="label">O método</p>
+      <div><h2 class="serif">Um plano para o seu tempo, não para um dia.</h2></div>
+    </div>
+    <ol class="steps">
+      <li><span class="num">I.</span><h3>Diagnóstico</h3><p>Consulta detalhada para entender como o envelhecimento se manifesta em você: rosto, pele, cabelo e corpo, além da sua rotina e das suas expectativas.</p></li>
+      <li><span class="num">II.</span><h3>Plano individual</h3><p>Prioridades, ordem das etapas e intervalos entre elas, definidos para o seu caso. Você sabe o que será feito, por que e quando.</p></li>
+      <li><span class="num">III.</span><h3>Execução</h3><p>Procedimentos realizados pela Dra. Laura, com técnica precisa e doses pensadas para manter a naturalidade dos traços.</p></li>
+      <li><span class="num">IV.</span><h3>Acompanhamento</h3><p>Retornos para avaliar a evolução e ajustar o plano. O cuidado continua ao longo dos anos, não termina no procedimento.</p></li>
+    </ol>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="tr"><span>Diagnóstico ·</span><span><i>plano</i> ·</span><span><b>execução</b> ·</span><span><i>acompanhamento</i> ·</span><span>Tempo ·</span><span><b>critério</b> ·</span><span><i>naturalidade</i> ·</span><span>Diagnóstico ·</span><span><i>plano</i> ·</span><span><b>execução</b> ·</span><span><i>acompanhamento</i> ·</span><span>Tempo ·</span><span><b>critério</b> ·</span><span><i>naturalidade</i> ·</span></div></div>
+
+<section class="sec areas" id="areas">
+  <div class="wrap">
+    <div class="head">
+      <p class="label">Áreas de atuação</p>
+      <div><h2 class="serif">Onde o tempo aparece, e como ele é tratado.</h2><p>Cada tratamento abaixo tem uma explicação simples, para que serve e a descrição técnica. A indicação é sempre definida em consulta.</p></div>
+    </div>
+    <div class="areas-grid">
+      <figure class="areas-fig"><img class="photo" id="area-img" src="img/close17.jpg" alt="Dra. Laura Scher, retrato aproximado"><figcaption class="label" id="area-cap">I. Expressão e contorno</figcaption></figure>
+      <div><article class="area" id="a-expressao" data-img="img/close17.jpg" data-cap="I. Expressão e contorno"><h3><span class="n">I.</span><span class="t">Expressão e contorno</span></h3><p>A musculatura da mímica e os vetores que desenham o rosto.</p><div class="items"><details class="it"><summary><span class="nm">Controle muscular com toxina botulínica</span><span class="pm" aria-hidden="true"></span></summary><div class="it-body"><p class="simple">Alguns músculos do rosto trabalham demais quando falamos, sorrimos ou franzimos a testa, e com o tempo marcam a pele. A toxina relaxa esses músculos de forma controlada: as linhas ficam mais suaves e o rosto continua com expressão natural.</p><div><h4>Para que serve</h4><ul><li>Suavizar rugas da testa, entre as sobrancelhas e ao redor dos olhos</li><li>Prevenir o aprofundamento das linhas</li><li>Deixar a aparência mais descansada</li></ul></div><div><h4>Descrição técnica</h4><p class="tech">Aplicação de toxina botulínica tipo A em pontos estratégicos da musculatura da mímica facial, para modular a contração muscular e suavizar rugas dinâmicas na região frontal, glabelar e periorbital.</p></div></div></details><details class="it"><summary><span class="nm">V-Lift e suas variações</span><span class="pm" aria-hidden="true"></span></summary><div class="it-body"><p class="simple">Alguns músculos do pescoço e da parte de baixo do rosto “puxam” a pele para baixo e deixam o contorno do queixo menos marcado. Ao tratar esses pontos, o rosto ganha uma linha mais definida, com efeito de leve levantamento.</p><div><h4>Para que serve</h4><ul><li>Definir o contorno da mandíbula</li><li>Suavizar o aspecto “caído” do terço inferior do rosto</li><li>Suavizar as bandas do pescoço</li></ul></div><div><h4>Descrição técnica</h4><p class="tech">Protocolo de aplicação no terço inferior da face e na região cervical (platisma, depressor do ângulo da boca e, conforme o caso, masseter), reduzindo os vetores de tração inferior e favorecendo o contorno mandibular. As variações combinam pontos e técnicas conforme a anatomia de cada paciente.</p></div></div></details><details class="it"><summary><span class="nm">Abertura de olhar</span><span class="pm" aria-hidden="true"></span></summary><div class="it-body"><p class="simple">Com o tempo, a sobrancelha desce e a pálpebra pesa, deixando o olhar cansado ou triste. Este protocolo combina diferentes tratamentos para levantar levemente a sobrancelha e deixar a região dos olhos mais firme e descansada.</p><div><h4>Para que serve</h4><ul><li>Olhar mais aberto e descansado</li><li>Elevação sutil da sobrancelha</li><li>Mais firmeza ao redor dos olhos</li></ul></div><div><h4>Descrição técnica</h4><p class="tech">Protocolo personalizado para as regiões periorbital e supraciliar, associando técnicas conforme a avaliação, como toxina botulínica para elevação da cauda da sobrancelha, bioestimulação e tecnologias.</p></div></div></details></div></article>
+<article class="area" id="a-sustentacao" data-img="img/perfil48.jpg" data-cap="II. Sustentação e firmeza"><h3><span class="n">II.</span><span class="t">Sustentação e firmeza</span></h3><p>Colágeno, flacidez e a estrutura que segura a pele.</p><div class="items"><details class="it"><summary><span class="nm">Ultrassom microfocado</span><span class="pm" aria-hidden="true"></span></summary><div class="it-body"><p class="simple">Um aparelho leva calor de forma bem precisa às camadas mais profundas da pele, sem cortar nem machucar a superfície. O corpo responde produzindo colágeno novo e, com as semanas, a pele fica mais firme e com aspecto mais “levantado”.</p><div><h4>Para que serve</h4><ul><li>Tratar a flacidez do rosto, papada e pescoço</li><li>Melhorar o contorno facial</li><li>Estimular a produção natural de colágeno</li></ul></div><div><h4>Descrição técnica</h4><p class="tech">Tecnologia de ultrassom focado em diferentes profundidades, até a camada musculoaponeurótica (SMAS), gerando pontos de coagulação térmica que promovem retração tecidual e neocolagênese.</p></div></div></details><details class="it"><summary><span class="nm">Tratamento de pescoço</span><span class="pm" aria-hidden="true"></span></summary><div class="it-body"><p class="simple">O pescoço costuma mostrar sinais do tempo antes do rosto e muitas vezes fica esquecido nos cuidados. Este tratamento atua nas linhas, na flacidez e na qualidade da pele para harmonizar o pescoço com o rosto.</p><div><h4>Para que serve</h4><ul><li>Suavizar as linhas horizontais do pescoço</li><li>Melhorar a flacidez e as “cordinhas”</li><li>Melhorar textura e firmeza da pele</li></ul></div><div><h4>Descrição técnica</h4><p class="tech">Protocolo para a região cervical e o colo, voltado a flacidez, linhas horizontais, bandas platismais e qualidade de pele, associando técnicas como toxina botulínica, ultrassom microfocado e bioestimuladores, conforme a indicação.</p></div></div></details></div></article>
+<article class="area" id="a-pele" data-img="img/close19.jpg" data-cap="III. Qualidade da pele"><h3><span class="n">III.</span><span class="t">Qualidade da pele</span></h3><p>Textura, manchas, viço e inflamação.</p><div class="items"><details class="it"><summary><span class="nm">Glowtox</span><span class="pm" aria-hidden="true"></span></summary><div class="it-body"><p class="simple">São microgotas da mesma substância do &quot;botox&quot;, aplicadas logo abaixo da pele e não no músculo. A ideia não é tirar rugas: é deixar a pele mais lisinha, com menos oleosidade, poros menos aparentes e aquele aspecto iluminado.</p><div><h4>Para que serve</h4><ul><li>Diminuir a oleosidade e a aparência dos poros</li><li>Melhorar a textura e o viço da pele</li><li>Dar uniformidade e luminosidade ao rosto</li></ul></div><div><h4>Descrição técnica</h4><p class="tech">Técnica de microdoses de toxina botulínica diluída, aplicada de forma intradérmica em toda a face. Atua sobre glândulas sebáceas e sudoríparas e sobre fibras musculares superficiais, melhorando textura, oleosidade e aspecto dos poros.</p></div></div></details><details class="it"><summary><span class="nm">Peeling</span><span class="pm" aria-hidden="true"></span></summary><div class="it-body"><p class="simple">É uma renovação da pele: o produto ajuda a pele a soltar as camadas mais velhas e dar lugar a uma pele nova, mais uniforme e com mais viço. A intensidade é escolhida para cada tipo de pele.</p><div><h4>Para que serve</h4><ul><li>Melhorar a textura e o brilho da pele</li><li>Clarear manchas</li><li>Suavizar marcas de acne e linhas finas</li><li>Controlar a oleosidade</li></ul></div><div><h4>Descrição técnica</h4><p class="tech">Aplicação controlada de agentes químicos que promovem renovação das camadas da pele em profundidade superficial ou média, estimulando a renovação celular e uniformizando tom e textura.</p></div></div></details><details class="it"><summary><span class="nm">Protocolo de melasma</span><span class="pm" aria-hidden="true"></span></summary><div class="it-body"><p class="simple">Melasma é aquela mancha escura que aparece principalmente no rosto e piora com sol, calor e hormônios. Não existe solução única: o tratamento combina cuidados em casa e procedimentos no consultório para clarear as manchas e mantê-las sob controle.</p><div><h4>Para que serve</h4><ul><li>Clarear as manchas</li><li>Reduzir a chance de as manchas voltarem</li><li>Uniformizar o tom da pele</li></ul></div><div><h4>Descrição técnica</h4><p class="tech">Abordagem multimodal de hiperpigmentação crônica e recidivante, associando clareadores tópicos, ativos orais quando indicados, procedimentos em consultório e fotoproteção, ajustados à profundidade da mancha e ao fototipo.</p></div></div></details><details class="it"><summary><span class="nm">Plasma frio</span><span class="pm" aria-hidden="true"></span></summary><div class="it-body"><p class="simple">Um aparelho libera um “gás energizado” frio sobre a pele, sem dor e sem queimar. Ele ajuda a combater bactérias e acalmar a inflamação, para que espinhas e irritações desinflamem mais rápido e a pele se recupere melhor.</p><div><h4>Para que serve</h4><ul><li>Desinflamar lesões de acne</li><li>Tratar a dermatite perioral</li><li>Acalmar a pele sensibilizada</li><li>Ajudar na cicatrização</li></ul></div><div><h4>Descrição técnica</h4><p class="tech">Tecnologia de plasma atmosférico frio, gás ionizado em baixa temperatura com ação antimicrobiana, anti-inflamatória e de estímulo à cicatrização, usada como coadjuvante em quadros inflamatórios da pele.</p></div></div></details><details class="it"><summary><span class="nm">Clareamento íntimo e de dobras</span><span class="pm" aria-hidden="true"></span></summary><div class="it-body"><p class="simple">Axilas, virilha e região íntima costumam escurecer com o atrito, a depilação e os hormônios. Este tratamento clareia essas áreas de forma segura e gradual, respeitando a sensibilidade de cada região.</p><div><h4>Para que serve</h4><ul><li>Clarear axilas, virilha e região íntima</li><li>Uniformizar o tom da pele nas dobras</li><li>Mais conforto e autoestima</li></ul></div><div><h4>Descrição técnica</h4><p class="tech">Protocolo para hiperpigmentação de áreas de atrito e dobras, associando ativos clareadores, peelings específicos e, quando indicado, tecnologias, além de orientações para reduzir atrito e inflamação local.</p></div></div></details></div></article>
+<article class="area" id="a-cabelo" data-img="img/close18.jpg" data-cap="IV. Cabelo"><h3><span class="n">IV.</span><span class="t">Cabelo</span></h3><p>Queda, falhas e a saúde do couro cabeludo.</p><div class="items"><details class="it"><summary><span class="nm">Terapia capilar para queda e calvície</span><span class="pm" aria-hidden="true"></span></summary><div class="it-body"><p class="simple">A queda de cabelo e as “entradas” têm causas diferentes, e o primeiro passo é descobrir qual é a sua. Depois, ativos aplicados no couro cabeludo nutrem e estimulam a raiz do fio, junto com os cuidados em casa.</p><div><h4>Para que serve</h4><ul><li>Diminuir a queda de cabelo</li><li>Estimular o crescimento de novos fios</li><li>Tratar a calvície em fases iniciais e intermediárias</li></ul></div><div><h4>Descrição técnica</h4><p class="tech">Tratamento de alopecias (como a androgenética) e eflúvios, a partir de avaliação clínica e tricoscópica, com intradermoterapia, tecnologias e terapia tópica e oral para estimular o folículo e reduzir a queda.</p></div></div></details><details class="it"><summary><span class="nm">Terapia capilar para fios mais fortes</span><span class="pm" aria-hidden="true"></span></summary><div class="it-body"><p class="simple">Para quem sente o cabelo fino, fraco ou sem volume. O tratamento cuida da raiz e do couro cabeludo para que os fios nasçam mais fortes, encorpados e saudáveis.</p><div><h4>Para que serve</h4><ul><li>Fios mais firmes e encorpados</li><li>Couro cabeludo mais saudável</li><li>Mais volume e densidade</li></ul></div><div><h4>Descrição técnica</h4><p class="tech">Protocolo voltado à qualidade da haste e à saúde do couro cabeludo, estimulando a fase anágena, melhorando densidade e espessura dos fios e equilibrando oleosidade e inflamação.</p></div></div></details></div></article>
+<article class="area" id="a-corpo" data-img="img/sofa37.jpg" data-cap="V. Corpo"><h3><span class="n">V.</span><span class="t">Corpo</span></h3><p>Firmeza e qualidade de pele de glúteos, coxas e braços.</p><div class="items"><details class="it"><summary><span class="nm">Estímulo de colágeno corporal</span><span class="pm" aria-hidden="true"></span></summary><div class="it-body"><p class="simple">Com o tempo e as variações de peso, a pele do bumbum, da parte interna da coxa e dos braços perde firmeza. O tratamento estimula o próprio corpo a produzir colágeno novo, e a pele vai ficando mais firme, de forma gradual e natural.</p><div><h4>Para que serve</h4><ul><li>Melhorar a flacidez de glúteos, coxas e braços</li><li>Mais sustentação para o bumbum</li><li>Melhorar a textura da pele</li></ul></div><div><h4>Descrição técnica</h4><p class="tech">Protocolo de bioestimulação para glúteos, face interna das coxas e braços, com bioestimuladores de colágeno injetáveis e/ou tecnologias que induzem neocolagênese, melhorando firmeza, sustentação e qualidade da pele.</p></div></div></details></div></article>
+        <p class="note">Os resultados variam de pessoa para pessoa. A indicação de cada procedimento depende de avaliação médica individual.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec doc" id="medica">
+  <div class="wrap">
+    <figure><img class="photo" src="img/branco33.jpg" alt="Dra. Laura Scher sentada, de camisa branca"></figure>
+    <div class="txt">
+      <p class="label">A médica</p>
+      <h2 class="serif">Dra. Laura Scher</h2>
+      <p>Médica, com atuação dedicada a gerenciar o processo de envelhecimento facial e corporal. Atende em Anápolis (GO), com hora marcada.</p>
+      <p>Seu trabalho parte de uma convicção: a melhor intervenção é a que ninguém percebe, apenas o resultado. Ela explica cada etapa, recomenda só o que tem indicação e acompanha cada paciente de perto.</p>
+      <dl class="facts">
+        <div><dt>CRM-GO 23583</dt><dd>Registro médico</dd></div>
+        <div><dt>V-Lift</dt><dd>Embaixadora</dd></div>
+        <div><dt>5,0</dt><dd>66 avaliações no Google</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="sec case-home" id="caso" aria-label="Caso em destaque">
+  <div class="wrap">
+    <div class="ba" id="home-ba"><div class="side before"><img src="img/caso01-antes.jpg" alt="Antes: rosto da Dra. Laura Scher, de frente"><span class="tag">Antes</span></div><div class="side after"><img src="img/caso01-depois.jpg" alt="Depois: rosto da Dra. Laura Scher, com o olhar mais aberto"><span class="tag">Depois</span></div><span class="handle"></span><span class="hint">Arraste para comparar</span><input type="range" min="0" max="100" value="50" aria-label="Comparar antes e depois"></div>
+    <div class="tx">
+      <p class="label">Caso em destaque</p>
+      <h2 class="serif">O próprio <i>olhar.</i></h2>
+      <p>Antes de cuidar de alguém, a Dra. Laura cuidou de si. O olhar ficou mais aberto e descansado, e a expressão continua a mesma.</p>
+      <p class="label" style="line-height:1.7">Imagens sem retoque, apenas recortadas e alinhadas. Os resultados variam de pessoa para pessoa.</p>
+      <div class="actions"><a class="link" href="cases.html">Ver os cases <svg viewBox="0 0 22 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 5h21M16.5 .5 21 5l-4.5 4.5"/></svg></a><a class="link" href="https://api.whatsapp.com/send?phone=5562996578843&amp;text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Dra.%20Laura%20Scher%20e%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener">Avaliar o meu olhar <svg viewBox="0 0 22 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 5h21M16.5 .5 21 5l-4.5 4.5"/></svg></a></div>
+    </div>
+  </div>
+</section>
+
+<div class="still" id="still"><img class="photo" src="img/poltrona38.jpg" alt=""><p class="cap">Presença, não excesso.</p></div>
+
+<section class="sec word" aria-label="Depoimento">
+  <div class="wrap">
+    <p class="label">Depoimento</p>
+    <blockquote>“Realçar a beleza naturalmente, sem os exageros que vemos por aí.”</blockquote>
+    <div class="src"><span class="label"><cite>Adriana D.</cite></span><span class="dot"></span><span class="label">Avaliação no Google · nota 5,0</span></div>
+    <a class="link" href="depoimentos.html">Ler todos os depoimentos <svg viewBox="0 0 22 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 5h21M16.5 .5 21 5l-4.5 4.5"/></svg></a>
+  </div>
+</section>
+
+<section class="sec more-sec" aria-label="Continue">
+  <div class="wrap">
+    <div class="head"><p class="label">Continue</p><div><h2 class="serif">Para conhecer com calma.</h2></div></div>
+    <div class="more-grid">
+      <a class="more-it" href="cases.html" data-cur="Ver"><div class="fr"><img class="photo" src="img/close17.jpg" alt="" loading="lazy"></div><p class="label">Cases</p><h3 class="serif">Resultados que falam baixo</h3></a>
+      <a class="more-it" href="blog.html" data-cur="Ler"><div class="fr"><img class="photo" src="img/perfil48.jpg" alt="" loading="lazy"></div><p class="label">Blog</p><h3 class="serif">Envelhecer bem não é parecer mais jovem</h3></a>
+      <a class="more-it" href="portal.html" data-cur="Abrir"><div class="fr"><img class="photo" src="img/cinza05.jpg" alt="" loading="lazy"></div><p class="label">Portal do paciente</p><h3 class="serif">Orientações antes e depois de cada procedimento</h3></a>
+    </div>
+  </div>
+</section>
+
+<section class="visit" id="consulta">
+  <div class="wrap">
+    <div>
+      <p class="label">Consulta</p>
+      <h2 class="serif" style="margin-top:22px">Tudo começa por uma <i>avaliação.</i></h2>
+      <p class="lead">Atendimento particular e com hora marcada. Na primeira consulta, a Dra. Laura avalia seu caso e apresenta o plano indicado para você.</p>
+      <a class="link" href="https://api.whatsapp.com/send?phone=5562996578843&amp;text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Dra.%20Laura%20Scher%20e%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener">Solicitar avaliação pelo WhatsApp <svg viewBox="0 0 22 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 5h21M16.5 .5 21 5l-4.5 4.5"/></svg></a>
+    </div>
+    <dl>
+      <div><dt class="label">Agendamento</dt><dd><span id="fone">(62) 99657-8843</span><button class="copy" type="button" data-copy="fone">Copiar</button></dd></div>
+      <div><dt class="label">Consultório</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=Genesis+Office+Av.+Juscelino+Kubitscheck+An%C3%A1polis+GO" target="_blank" rel="noopener">Genesis Office, Av. Juscelino Kubitscheck, Qd. 19, R. L-01, 21º andar, sala 2104, Jundiaí, Anápolis (GO)</a></dd></div>
+      <div><dt class="label">Instagram</dt><dd><a href="https://www.instagram.com/dralaurascher/" target="_blank" rel="noopener">@dralaurascher</a></dd></div>
+    </dl>
+  </div>
+</section>
+<nav class="rail" id="rail" aria-label="Seções desta página">
+  <a href="#inicio" data-s="inicio"><span>Abertura</span></a>
+  <a href="#filosofia" data-s="filosofia"><span>Filosofia</span></a>
+  <a href="#olhar" data-s="olhar"><span>O olhar</span></a>
+  <a href="#metodo" data-s="metodo"><span>Método</span></a>
+  <a href="#areas" data-s="areas"><span>Áreas</span></a>
+  <a href="#medica" data-s="medica"><span>A médica</span></a>
+  <a href="#caso" data-s="caso"><span>Caso</span></a>
+  <a href="#consulta" data-s="consulta"><span>Consulta</span></a>
+</nav>
+</main>
+
+<section class="sig-foot" aria-label="Assinatura">
+  <div class="wrap">
+    <div class="row"><p class="label">Medicina do envelhecimento · Anápolis, GO</p><button class="back" type="button" data-top>Voltar ao início <svg viewBox="0 0 10 22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M5 22V1M.5 5.5 5 1l4.5 4.5"/></svg></button></div>
+    <p class="giant" aria-hidden="true">Laura <i>Scher</i></p>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <span class="l"><img src="img/simbolo-branco.png" alt="">Dra. Laura Scher · Médica · CRM-GO 23583 · Responsável técnica</span>
+    <nav aria-label="Rodapé"><a href="cases.html">Cases</a><a href="blog.html">Blog</a><a href="depoimentos.html">Depoimentos</a><a href="portal.html">Portal do paciente</a><a href="https://www.instagram.com/dralaurascher/" target="_blank" rel="noopener">Instagram</a></nav>
+    <span>Conteúdo informativo. Não substitui a consulta médica.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var top=document.getElementById('top'),lastY=scrollY;
+
+  /* Revelações */
+  var rvSel='.more-it,.head,.steps li,.area,.doc .txt>*,.word .wrap>*,.visit .wrap>*,.manifesto .cols p,.note';
+  var maskSel='.doc figure,.areas-fig';
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.remove('pre');io.unobserve(e.target)}})},{rootMargin:'0px 0px -12% 0px'});
+    document.querySelectorAll(rvSel).forEach(function(el,i){
+      var r=el.getBoundingClientRect(); if(r.top<innerHeight)return;
+      el.classList.add('rv','pre');el.style.transitionDelay=((i%4)*90)+'ms';io.observe(el)});
+    document.querySelectorAll(maskSel).forEach(function(el){
+      var r=el.getBoundingClientRect(); el.classList.add('mask'); if(r.top<innerHeight)return;
+      el.classList.add('pre');io.observe(el)});
+  }
+
+  /* Manifesto: palavras acendem conforme a leitura */
+  var q=document.querySelector('.manifesto blockquote'),words=[];
+  if(q && !reduce){
+    (function wrap(node){[].slice.call(node.childNodes).forEach(function(n){
+      if(n.nodeType===3){var f=document.createDocumentFragment();n.textContent.split(/(\s+)/).forEach(function(t){
+        if(!t)return; if(/^\s+$/.test(t)){f.appendChild(document.createTextNode(t));return}
+        var sp=document.createElement('span');sp.className='wd';sp.textContent=t;words.push(sp);f.appendChild(sp)});n.replaceWith(f)}
+      else wrap(n)})})(q);
+  }
+
+  /* Galeria horizontal */
+  var reel=document.getElementById('olhar'),track=document.getElementById('track'),bar=document.getElementById('bar'),rc=document.getElementById('rc');
+  var slides=[].slice.call(track.children);
+  var heroImg=document.getElementById('hero-img'),still=document.getElementById('still'),stillImg=still.querySelector('img');
+
+  var areaImg=document.getElementById('area-img'),cap=document.getElementById('area-cap');
+  var areas=[].slice.call(document.querySelectorAll('.area'));
+
+  function frame(){
+    var y=scrollY,vh=innerHeight;
+    if(reduce)return;
+    // hero parallax
+    if(y<vh*1.2) (window.__heroEl||heroImg).style.transform='translateY('+(y*0.12)+'px)';
+    // manifesto
+    if(words.length){var r=q.getBoundingClientRect();var p=Math.min(1,Math.max(0,(vh*0.85-r.top)/(r.height+vh*0.35)));
+      var k=Math.round(p*words.length*1.15);words.forEach(function(w,i){w.style.opacity=i<k?1:.28})}
+    // reel
+    var rr=reel.getBoundingClientRect(),dist=reel.offsetHeight-vh;
+    var pr=Math.min(1,Math.max(0,-rr.top/dist));
+    var max=track.scrollWidth-innerWidth;
+    track.style.transform='translateX('+(-pr*max)+'px)';
+    bar.style.width=(pr*100)+'%';
+    var idx=Math.min(slides.length-1,Math.round(pr*(slides.length-1)));
+    rc.textContent='0'+(idx+1);
+    slides.forEach(function(s,i){var b=s.getBoundingClientRect();s.classList.toggle('on',b.left<innerWidth*0.9&&b.right>innerWidth*0.1)});
+    // still parallax
+    var sr=still.getBoundingClientRect();
+    if(sr.bottom>0&&sr.top<vh){var sp=(sr.top+sr.height)/(vh+sr.height);stillImg.style.transform='translateY('+(-sp*18)+'%)'}
+  }
+  var ticking=false;
+  function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(function(){ticking=false;frame()})}}
+  addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);frame();
+
+  /* Áreas: imagem acompanha a leitura */
+  if('IntersectionObserver' in window){
+    var io2=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(!e.isIntersecting)return;var a=e.target;if(areaImg.dataset.cur===a.id)return;areaImg.dataset.cur=a.id;
+      areaImg.style.opacity=.15;areaImg.style.transform='scale(1.04)';
+      setTimeout(function(){areaImg.src=a.dataset.img;cap.textContent=a.dataset.cap;areaImg.style.opacity=1;areaImg.style.transform='none'},350);
+    })},{rootMargin:'-45% 0px -45% 0px'});
+    areas.forEach(function(a){io2.observe(a)});
+  }
+
+  var rail=document.getElementById('rail'),rl=[].slice.call(rail.querySelectorAll('a'));
+  if('IntersectionObserver' in window){var io3=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var id=e.target.id;
+    rl.forEach(function(a){a.classList.toggle('on',a.dataset.s===id)});rail.classList.toggle('inv',id==='filosofia'||id==='consulta')})},{rootMargin:'-50% 0px -50% 0px'});
+    rl.forEach(function(a){var el=document.getElementById(a.dataset.s);if(el)io3.observe(el)})}
+  document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){
+    var el=document.getElementById(b.dataset.copy);
+    function ok(){b.textContent='Copiado';setTimeout(function(){b.textContent='Copiar'},1600)}
+    function sel(){var r=document.createRange();r.selectNodeContents(el);var x=getSelection();x.removeAllRanges();x.addRange(r)}
+    try{navigator.clipboard.writeText(el.textContent.trim()).then(ok,sel)}catch(e){sel()}
+  })});
+})();
+</script>
+<script src="site.js"></script>
+<script>
+/* ===== Overdrive: cortina de abertura, luz líquida no retrato, caso com varredura ===== */
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,root=document.documentElement;
+  /* 1. Cortina */
+  var seen=false;try{seen=sessionStorage.getItem('ls-intro')==='1'}catch(e){}
+  if(!seen&&!reduce){
+    try{sessionStorage.setItem('ls-intro','1')}catch(e){}
+    root.classList.add('intro-on');
+    var it=document.createElement('div');it.className='intro';it.setAttribute('aria-hidden','true');
+    it.innerHTML='<div class="in"><img src="img/simbolo-bege.png" alt=""><p><span>Dra. Laura Scher</span></p><div class="bar"><i></i></div></div>';
+    document.body.appendChild(it);
+    setTimeout(function(){it.classList.add('up');root.classList.remove('intro-on')},1650);
+    setTimeout(function(){it.remove()},2900);
+  }
+  /* 2. Comparador do caso com varredura automática */
+  var ba=document.getElementById('home-ba');
+  if(ba){var r=ba.querySelector('input'),a=ba.querySelector('.after'),h=ba.querySelector('.handle');
+    function u(){a.style.clipPath='inset(0 0 0 '+r.value+'%)';h.style.left=r.value+'%'}
+    r.addEventListener('input',function(){ba.classList.add('touched');u()});u();
+    if('IntersectionObserver' in window&&!reduce){var done=false;var io=new IntersectionObserver(function(es){if(!es[0].isIntersecting||done)return;done=true;io.disconnect();
+      var K=[[0,50],[900,88],[2000,12],[2900,50]],t0=null;function ez(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2}
+      function st(ts){if(ba.classList.contains('touched'))return;if(!t0)t0=ts;var t=ts-t0,k=1;while(k<K.length-1&&t>K[k][0])k++;var p=Math.min(1,Math.max(0,(t-K[k-1][0])/(K[k][0]-K[k-1][0])));r.value=K[k-1][1]+(K[k][1]-K[k-1][1])*ez(p);u();if(t<K[K.length-1][0])requestAnimationFrame(st)}
+      setTimeout(function(){requestAnimationFrame(st)},400)},{threshold:.5});io.observe(ba)}}
+  /* 3. Luz líquida no retrato (WebGL) */
+  if(reduce)return;
+  var media=document.querySelector('.hero-media'),img=document.getElementById('hero-img');
+  var cv=document.createElement('canvas'),gl=cv.getContext('webgl',{premultipliedAlpha:false,antialias:false});
+  if(!gl)return;
+  var VS='attribute vec2 p;varying vec2 v;void main(){v=p*.5+.5;gl_Position=vec4(p,0.,1.);}';
+  var FS='precision mediump float;varying vec2 v;uniform sampler2D tx;uniform vec2 res,ms;uniform float tm,ia,hv;'+
+   'void main(){vec2 q=vec2(v.x,1.-v.y);float ca=res.x/res.y;vec2 s=ca>ia?vec2(1.,ia/ca):vec2(ca/ia,1.);vec2 pos=vec2(.46,.28);'+
+   'vec2 uv=(q-pos)*s+pos;'+
+   'vec2 fl=vec2(sin(q.y*9.+tm*.55)+sin(q.y*3.1-tm*.3),cos(q.x*8.+tm*.45)+cos(q.x*2.7+tm*.25))*.0016;'+
+   'vec2 m=vec2(ms.x,1.-ms.y);vec2 dv=q-m;dv.x*=ca;float d=length(dv);float f=smoothstep(.26,0.,d)*hv;'+
+   'vec2 lens=(q-m)*f*.07*s;vec2 u2=uv+fl-lens;'+
+   'vec3 c=vec3(texture2D(tx,u2+vec2(.0018,0.)*f).r,texture2D(tx,u2).g,texture2D(tx,u2-vec2(.0018,0.)*f).b);'+
+   'c+=vec3(1.,.95,.88)*.06*f;c=mix(vec3(dot(c,vec3(.299,.587,.114))),c,.84);c*=1.03;gl_FragColor=vec4(c,1.);}';
+  function sh(t,src){var o=gl.createShader(t);gl.shaderSource(o,src);gl.compileShader(o);return gl.getShaderParameter(o,gl.COMPILE_STATUS)?o:null}
+  var vs=sh(gl.VERTEX_SHADER,VS),fs=sh(gl.FRAGMENT_SHADER,FS);if(!vs||!fs)return;
+  var pr=gl.createProgram();gl.attachShader(pr,vs);gl.attachShader(pr,fs);gl.linkProgram(pr);if(!gl.getProgramParameter(pr,gl.LINK_STATUS))return;gl.useProgram(pr);
+  var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+  var lp=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(lp);gl.vertexAttribPointer(lp,2,gl.FLOAT,false,0,0);
+  var U={};['res','ms','tm','ia','hv','tx'].forEach(function(n){U[n]=gl.getUniformLocation(pr,n)});
+  function start(){
+    var t=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,t);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+    try{gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,img)}catch(e){return}
+    cv.setAttribute('aria-hidden','true');media.appendChild(cv);media.classList.add('gl');window.__heroEl=cv;
+    var mx=.5,my=.5,tx=.5,ty=.5,hv=0,th=0,vis=true,t0=performance.now();
+    media.addEventListener('pointermove',function(e){var r=cv.getBoundingClientRect();tx=(e.clientX-r.left)/r.width;ty=(e.clientY-r.top)/r.height;th=1});
+    media.addEventListener('pointerleave',function(){th=0});
+    if('IntersectionObserver' in window)new IntersectionObserver(function(es){vis=es[0].isIntersecting}).observe(media);
+    function size(){var dpr=Math.min(devicePixelRatio||1,1.5),r=cv.getBoundingClientRect();cv.width=Math.max(1,r.width*dpr|0);cv.height=Math.max(1,r.height*dpr|0);gl.viewport(0,0,cv.width,cv.height)}
+    addEventListener('resize',size);size();
+    gl.uniform1f(U.ia,img.naturalWidth/img.naturalHeight);gl.uniform1i(U.tx,0);
+    (function loop(now){requestAnimationFrame(loop);if(!vis||document.hidden)return;
+      mx+=(tx-mx)*.08;my+=(ty-my)*.08;hv+=(th-hv)*.05;
+      gl.uniform2f(U.res,cv.width,cv.height);gl.uniform2f(U.ms,mx,my);gl.uniform1f(U.tm,(now-t0)/1000);gl.uniform1f(U.hv,hv);
+      gl.drawArrays(gl.TRIANGLE_STRIP,0,4)})(t0);
+  }
+  if(img.complete&&img.naturalWidth)start();else img.addEventListener('load',start);
+})();
+</script>
+</body></html>

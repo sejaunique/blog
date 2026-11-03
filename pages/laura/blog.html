@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Blog · Dra. Laura Scher</title>
+<meta name="description" content="Artigos da Dra. Laura Scher sobre envelhecimento facial e corporal.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Instrument+Sans:wght@400;500&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+.bh{padding-block:clamp(56px,9vw,140px) clamp(32px,4vw,56px)}
+.bh .wrap{display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);gap:clamp(24px,5vw,80px);align-items:end}
+.bh h1{margin:18px 0 0;font-size:clamp(56px,9vw,150px);line-height:.92}
+.bh h1 i{color:var(--taupe)}
+.bh .intro{margin:0;color:var(--grafite);font-size:17px;max-width:38ch}
+.bh .stats{display:flex;gap:28px;margin-top:22px;padding-top:18px;border-top:1px solid var(--fio)}
+.bh .stats b{display:block;font-family:var(--f-display);font-weight:400;font-size:34px;line-height:1;color:var(--tinta)}
+.feat{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(28px,5vw,80px);align-items:stretch;text-decoration:none;border-top:1px solid var(--tinta);padding-top:clamp(28px,3vw,40px)}
+.feat .fr{overflow:hidden}
+.feat img{width:100%;height:100%;min-height:420px;max-height:720px;object-fit:cover;object-position:50% 30%;transition:transform 1.8s var(--ease)}
+.feat:hover img{transform:scale(1.04)}
+.feat .tx{display:flex;flex-direction:column;gap:22px;min-width:0}
+.feat .num{font-family:var(--f-display);font-size:clamp(90px,11vw,180px);line-height:.8;color:transparent;-webkit-text-stroke:1px var(--taupe)}
+.feat h2{margin:0;font-size:clamp(34px,3.6vw,56px);line-height:1.02}
+.feat p{margin:0;color:var(--grafite);font-size:17px}
+.feat .link{margin-top:auto}
+.meta{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.idx{padding-block:clamp(72px,10vw,140px)}
+.idx-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.idx-head h2{margin:0;font-size:clamp(30px,3.4vw,48px)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips button{font:500 11px var(--f-text);letter-spacing:.18em;text-transform:uppercase;padding:9px 14px;background:none;border:1px solid var(--fio);color:var(--grafite);cursor:pointer;transition:all .25s}
+.chips button sup{font-size:9px;margin-left:4px}
+.chips button:hover{border-color:var(--tinta);color:var(--tinta)}
+.chips button[aria-pressed="true"]{background:var(--tinta);border-color:var(--tinta);color:var(--marfim)}
+.rows{list-style:none;margin:0;padding:0;border-bottom:1px solid var(--tinta)}
+.rows li{border-top:1px solid var(--tinta)}
+.row{display:grid;grid-template-columns:150px 60px minmax(0,1fr) 140px 80px 30px;align-items:center;gap:20px;padding:clamp(22px,2.6vw,34px) 0;text-decoration:none;position:relative}
+.row .n{font-family:var(--f-display);font-size:16px;color:var(--taupe)}
+.row h3{margin:0;font-family:var(--f-display);font-weight:400;font-size:clamp(24px,2.8vw,42px);line-height:1.08;transition:transform .6s var(--ease)}
+.row:hover h3{transform:translateX(14px)}
+.row .thumb{width:150px;aspect-ratio:4/3;object-fit:cover;transition:transform 1.2s var(--ease)}
+.row:hover .thumb{transform:scale(1.04)}
+.row .tw{overflow:hidden}
+.row svg{width:22px;height:10px;transition:transform .5s var(--ease)}
+.row:hover svg{transform:translateX(6px)}
+.soon{margin-top:clamp(56px,7vw,96px);display:grid;grid-template-columns:minmax(0,3fr) minmax(0,9fr);gap:clamp(24px,5vw,80px)}
+.soon ul{list-style:none;margin:0;padding:0}
+.soon li{display:flex;justify-content:space-between;gap:20px;padding:16px 0;border-top:1px solid var(--fio);font-family:var(--f-display);font-size:clamp(20px,2vw,26px);color:var(--grafite)}
+.soon li span{font-family:var(--f-text);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--taupe);white-space:nowrap;align-self:center}
+@media (max-width:900px){
+ .bh .wrap,.feat,.soon{grid-template-columns:minmax(0,1fr)}
+ .feat img{min-height:0;aspect-ratio:4/5;height:auto}
+ .row{grid-template-columns:84px minmax(0,1fr);gap:6px 16px}
+ .row .tw{grid-row:1/4}
+ .row .thumb{width:84px;aspect-ratio:3/4}
+ .row .n{display:none}
+ .row .c,.row .t{grid-column:2;font-size:10px}
+ .row svg{display:none}
+ .row:hover h3{transform:none}
+}
+</style>
+</head>
+<body>
+<header class="top" id="top">
+  <div class="wrap">
+    <nav aria-label="Principal"><a href="index.html#metodo">Método</a><a href="cases.html">Cases</a><a href="blog.html" aria-current=page>Blog</a><a href="depoimentos.html">Depoimentos</a></nav>
+    <a class="brand" href="index.html" aria-label="Dra. Laura Scher, início"><img src="img/simbolo-bege.png" alt=""><span>Dra. Laura Scher</span></a>
+    <div class="side"><a class="portal" href="portal.html">Portal do paciente</a><a class="cta" href="index.html#consulta">Agendar consulta</a><button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="sheet">Menu</button></div>
+  </div>
+</header>
+<div class="sheet" id="sheet" hidden role="dialog" aria-label="Menu">
+  <div class="row"><span>Dra. Laura Scher</span><button type="button">Fechar</button></div>
+  <nav><a style="--i:0" href="index.html">Início</a><a style="--i:1" href="index.html#metodo">Método</a><a style="--i:2" href="index.html#areas">Áreas de atuação</a><a style="--i:3" href="cases.html">Cases</a><a style="--i:4" href="blog.html">Blog</a><a style="--i:5" href="depoimentos.html">Depoimentos</a><a style="--i:6" href="portal.html">Portal do paciente</a><a style="--i:7" href="index.html#consulta">Agendar consulta</a></nav>
+  <p class="foot">(62) 99657-8843 · Anápolis, GO</p>
+</div>
+<main>
+<section class="bh"><div class="wrap"><div><p class="label ld">Blog · Notas da Dra. Laura</p><h1 class="serif"><span class="ln"><span style="--d:.1s">Notas sobre</span></span> <span class="ln"><span style="--d:.25s"><i>o tempo.</i></span></span></h1></div>
+<div class="ld" style="--d:.45s"><p class="intro">Textos sobre envelhecimento, pele, cabelo e corpo, para quem prefere decidir com informação.</p><div class="stats"><span class="label"><b>3</b>artigos</span><span class="label"><b>3</b>temas</span><span class="label"><b>3</b>em preparo</span></div></div></div></section>
+<section><div class="wrap">
+<a class="feat" href="blog-envelhecer-bem.html" data-cur="Ler" data-rv><div class="fr"><img class="photo" src="img/perfil48.jpg" alt=""></div>
+<div class="tx"><span class="num" aria-hidden="true">01</span><div class="meta"><span class="label">Em destaque · Filosofia · 6 min</span><span class="draft">Rascunho · revisão da Dra.</span></div><h2 class="serif">Envelhecer bem não é parecer mais jovem</h2><p>O objetivo do cuidado médico com o envelhecimento não é apagar a idade. É fazer com que o rosto e o corpo acompanhem quem você é, com saúde e naturalidade.</p><span class="link">Ler artigo <svg viewBox="0 0 22 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 5h21M16.5 .5 21 5l-4.5 4.5"/></svg></span></div></a>
+</div></section>
+<section class="idx"><div class="wrap">
+<div class="idx-head"><h2 class="serif">Todos os artigos</h2><div class="chips" role="group" aria-label="Filtrar por tema"><button type="button" data-f="*" aria-pressed="true">Todos<sup>3</sup></button><button type="button" data-f="Filosofia" aria-pressed="false">Filosofia<sup>1</sup></button><button type="button" data-f="Pele" aria-pressed="false">Pele<sup>1</sup></button><button type="button" data-f="Expressão" aria-pressed="false">Expressão<sup>1</sup></button></div></div>
+<ul class="rows" id="rows"><li data-cat="Filosofia"><a class="row" href="blog-envelhecer-bem.html"><span class="tw"><img class="thumb photo" src="img/perfil48.jpg" alt="" loading="lazy"></span><span class="n">Nº 01</span><h3>Envelhecer bem não é parecer mais jovem</h3><span class="label c">Filosofia</span><span class="label t">6 min</span><svg viewBox="0 0 22 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 5h21M16.5 .5 21 5l-4.5 4.5"/></svg></a></li><li data-cat="Pele"><a class="row" href="blog-melasma.html"><span class="tw"><img class="thumb photo" src="img/close19.jpg" alt="" loading="lazy"></span><span class="n">Nº 02</span><h3>Melasma: por que as manchas voltam e como manter o controle</h3><span class="label c">Pele</span><span class="label t">7 min</span><svg viewBox="0 0 22 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 5h21M16.5 .5 21 5l-4.5 4.5"/></svg></a></li><li data-cat="Expressão"><a class="row" href="blog-toxina-natural.html"><span class="tw"><img class="thumb photo" src="img/close17.jpg" alt="" loading="lazy"></span><span class="n">Nº 03</span><h3>Toxina botulínica sem “cara de botox”: o que define um resultado natural</h3><span class="label c">Expressão</span><span class="label t">5 min</span><svg viewBox="0 0 22 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 5h21M16.5 .5 21 5l-4.5 4.5"/></svg></a></li></ul>
+<div class="soon"><p class="label">Próximos temas</p><ul><li>Ultrassom microfocado: o que esperar nas semanas seguintes<span>Em preparo</span></li><li>Queda de cabelo: quando é hora de investigar<span>Em preparo</span></li><li>Pescoço: a região que costuma revelar a idade primeiro<span>Em preparo</span></li></ul></div>
+</div></section>
+<section class="closing"><div class="wrap"><div><p class="label">Consulta</p><h2 class="serif" style="margin-top:18px">Tudo começa por uma <i>avaliação.</i></h2></div><a class="link" href="https://api.whatsapp.com/send?phone=5562996578843&amp;text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Dra.%20Laura%20Scher%20e%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener">Solicitar avaliação <svg viewBox="0 0 22 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 5h21M16.5 .5 21 5l-4.5 4.5"/></svg></a></div></section><script>
+(function(){
+  var bs=document.querySelectorAll('.chips button'),li=document.querySelectorAll('#rows li');
+  bs.forEach(function(b){b.addEventListener('click',function(){bs.forEach(function(x){x.setAttribute('aria-pressed',x===b)});li.forEach(function(l){l.hidden=!(b.dataset.f==='*'||l.dataset.cat===b.dataset.f)})})});
+})();
+</script>
+</main>
+<section class="sig-foot" aria-label="Assinatura">
+  <div class="wrap">
+    <div class="row"><p class="label">Medicina do envelhecimento · Anápolis, GO</p><button class="back" type="button" data-top>Voltar ao início <svg viewBox="0 0 10 22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M5 22V1M.5 5.5 5 1l4.5 4.5"/></svg></button></div>
+    <p class="giant" aria-hidden="true">Laura <i>Scher</i></p>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <span class="l"><img src="img/simbolo-branco.png" alt="">Dra. Laura Scher · Médica · CRM-GO 23583 · Responsável técnica</span>
+    <nav aria-label="Rodapé"><a href="cases.html">Cases</a><a href="blog.html">Blog</a><a href="depoimentos.html">Depoimentos</a><a href="portal.html">Portal do paciente</a><a href="https://www.instagram.com/dralaurascher/" target="_blank" rel="noopener">Instagram</a></nav>
+    <span>Conteúdo informativo. Não substitui a consulta médica.</span>
+  </div>
+</footer>
+<script src="site.js"></script>
+</body>
+</html>

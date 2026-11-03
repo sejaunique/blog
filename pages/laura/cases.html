@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cases · Dra. Laura Scher</title>
+<meta name="description" content="Casos de pacientes da Dra. Laura Scher, publicados com autorização.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Instrument+Sans:wght@400;500&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:clamp(36px,5vw,64px)}
+.filters button{font:500 11px var(--f-text);letter-spacing:.2em;text-transform:uppercase;padding:11px 18px;background:none;border:1px solid var(--fio);color:var(--grafite);cursor:pointer;transition:all .25s}
+.filters button:hover{border-color:var(--tinta);color:var(--tinta)}
+.filters button[aria-pressed="true"]{background:var(--tinta);color:var(--marfim);border-color:var(--tinta)}
+.cases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(40px,5vw,80px) clamp(28px,4vw,64px);padding-bottom:clamp(88px,12vw,180px)}
+.case{display:flex;flex-direction:column;gap:20px;margin:0}
+.ba{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--osso);user-select:none;touch-action:pan-y}
+.ba .side{position:absolute;inset:0;display:grid;place-items:center}
+.ba .after{clip-path:inset(0 0 0 50%);background:#E5DDD4}
+.ba .before{padding-right:50%}.ba .after{padding-left:50%}
+.ba .ph{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;color:var(--grafite);padding:20px}
+.ba .ph svg{width:34px;height:34px;stroke:var(--taupe);fill:none;stroke-width:1}
+.ba .tag{position:absolute;top:14px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:500;color:var(--tinta);background:rgba(247,244,239,.85);padding:5px 9px}
+.ba .before .tag{left:14px}.ba .after .tag{right:14px}
+.ba .handle{position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--tinta);pointer-events:none}
+.ba .handle::after{content:"";position:absolute;top:50%;left:50%;width:40px;height:40px;border:1px solid var(--tinta);border-radius:50%;background:var(--marfim);transform:translate(-50%,-50%)}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.case h2{margin:0;font-size:clamp(24px,2.4vw,34px);line-height:1.1}
+.case dl{margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 24px;border-top:1px solid var(--fio);padding-top:16px}
+.case dt{font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:500;color:var(--grafite)}
+.case dd{margin:2px 0 0;font-size:14px}
+.case .pend{color:var(--taupe)}
+.feat-case{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,88px);align-items:center;margin:0 0 clamp(72px,9vw,140px);padding-bottom:clamp(56px,7vw,100px);border-bottom:1px solid var(--tinta)}
+.ba.real{aspect-ratio:4/5;background:var(--tinta);width:100%;max-width:520px;justify-self:end}
+.ba.real .side{padding:0}
+.ba.real img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba.real .handle{background:var(--marfim)}
+.ba.real .handle::after{border-color:var(--marfim);background:rgba(30,25,22,.35);backdrop-filter:blur(4px)}
+.ba .hint{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:500;color:var(--marfim);background:rgba(30,25,22,.45);padding:6px 12px;pointer-events:none;transition:opacity .5s;white-space:nowrap}
+.ba.touched .hint{opacity:0}
+.feat-case .tx{display:flex;flex-direction:column;gap:22px;min-width:0}
+.feat-case h2{margin:0;font-size:clamp(38px,4.6vw,72px);line-height:1}
+.feat-case h2 i{color:var(--taupe)}
+.feat-case p.d{margin:0;color:var(--grafite);font-size:17px;max-width:44ch}
+.feat-case dl{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:900px){.feat-case{grid-template-columns:minmax(0,1fr)}.ba.real{justify-self:center}}
+.ethics{background:var(--osso)}
+.ethics .wrap{padding-block:clamp(56px,7vw,96px);display:grid;grid-template-columns:minmax(0,3fr) minmax(0,9fr);gap:clamp(24px,5vw,80px)}
+.ethics ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 40px;color:var(--grafite);font-size:15px}
+.ethics li{padding-top:14px;border-top:1px solid var(--fio)}
+@media (max-width:900px){.cases,.ethics .wrap,.ethics ul{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<header class="top" id="top">
+  <div class="wrap">
+    <nav aria-label="Principal"><a href="index.html#metodo">Método</a><a href="cases.html" aria-current=page>Cases</a><a href="blog.html">Blog</a><a href="depoimentos.html">Depoimentos</a></nav>
+    <a class="brand" href="index.html" aria-label="Dra. Laura Scher, início"><img src="img/simbolo-bege.png" alt=""><span>Dra. Laura Scher</span></a>
+    <div class="side"><a class="portal" href="portal.html">Portal do paciente</a><a class="cta" href="index.html#consulta">Agendar consulta</a><button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="sheet">Menu</button></div>
+  </div>
+</header>
+<div class="sheet" id="sheet" hidden role="dialog" aria-label="Menu">
+  <div class="row"><span>Dra. Laura Scher</span><button type="button">Fechar</button></div>
+  <nav><a style="--i:0" href="index.html">Início</a><a style="--i:1" href="index.html#metodo">Método</a><a style="--i:2" href="index.html#areas">Áreas de atuação</a><a style="--i:3" href="cases.html">Cases</a><a style="--i:4" href="blog.html">Blog</a><a style="--i:5" href="depoimentos.html">Depoimentos</a><a style="--i:6" href="portal.html">Portal do paciente</a><a style="--i:7" href="index.html#consulta">Agendar consulta</a></nav>
+  <p class="foot">(62) 99657-8843 · Anápolis, GO</p>
+</div>
+<main>
+<section class="page-head"><div class="wrap"><p class="label ld">Cases</p><div><h1 class="serif"><span class="ln"><span style="--d:0.10s">Resultados</span></span> <span class="ln"><span style="--d:0.22s">que</span></span> <span class="ln"><span style="--d:0.34s"><i>falam baixo.</i></span></span></h1><p class="intro ld" style="--d:.5s">Casos reais, publicados com autorização, para mostrar o que um plano bem indicado pode alcançar. Arraste o controle sobre cada imagem para comparar.</p></div></div></section><section><div class="wrap"><div class="filters" role="group" aria-label="Filtrar casos"><button type="button" data-f="todos" aria-pressed="true">Todos</button><button type="button" data-f="expressao" aria-pressed="false">Expressão</button><button type="button" data-f="contorno" aria-pressed="false">Contorno</button><button type="button" data-f="sustentacao" aria-pressed="false">Sustentação</button><button type="button" data-f="pele" aria-pressed="false">Pele</button><button type="button" data-f="cabelo" aria-pressed="false">Cabelo</button></div><figure class="case feat-case" data-cat="expressao">
+<div class="ba real" id="feat-ba"><div class="side before"><img src="img/caso01-antes.jpg" alt="Antes: rosto da Dra. Laura Scher, de frente"><span class="tag">Antes</span></div><div class="side after"><img src="img/caso01-depois.jpg" alt="Depois: rosto da Dra. Laura Scher, de frente, com o olhar mais aberto"><span class="tag">Depois</span></div><span class="handle"></span><span class="hint">Arraste para comparar</span><input type="range" min="0" max="100" value="50" aria-label="Comparar antes e depois do caso 01"></div>
+<figcaption class="tx"><p class="label">Caso 01 · Expressão · Em destaque</p><h2 class="serif">Valorização <i>do olhar</i></h2><p class="d">O caso da própria Dra. Laura Scher. O olhar ficou mais aberto e descansado, e os traços e a expressão continuam os mesmos.</p>
+<dl><div><dt>Tratamento</dt><dd>Protocolo de abertura de olhar</dd></div><div><dt>Paciente</dt><dd>A própria Dra. Laura Scher</dd></div><div><dt>Intervalo entre as fotos</dt><dd class="pend">A preencher</dd></div><div><dt>Imagens</dt><dd>Sem retoque, apenas recortadas e alinhadas</dd></div></dl>
+<a class="link" href="https://api.whatsapp.com/send?phone=5562996578843&amp;text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Dra.%20Laura%20Scher%20e%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener">Avaliar o meu olhar <svg viewBox="0 0 22 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 5h21M16.5 .5 21 5l-4.5 4.5"/></svg></a></figcaption>
+</figure><p class="draft" style="margin-bottom:28px">Próximos casos · fotos a inserir</p><div class="cases" id="cases"><figure class="case" data-cat="contorno" data-rv>
+<div class="ba" style="--x:50%"><div class="side before"><span class="tag">Antes</span><div class="ph"><svg viewBox="0 0 34 34"><rect x="4" y="9" width="26" height="19" rx="1"/><circle cx="17" cy="18.5" r="5.5"/><path d="M12 9l2-3h6l2 3"/></svg><span class="label">Foto a inserir</span></div></div><div class="side after"><span class="tag">Depois</span><div class="ph"><svg viewBox="0 0 34 34"><rect x="4" y="9" width="26" height="19" rx="1"/><circle cx="17" cy="18.5" r="5.5"/><path d="M12 9l2-3h6l2 3"/></svg><span class="label">Foto a inserir</span></div></div><span class="handle"></span><input type="range" min="0" max="100" value="50" aria-label="Comparar antes e depois do caso 02"></div>
+<figcaption><p class="label">Caso 02 · Contorno</p><h2 class="serif" style="margin-top:10px">Perda de definição do contorno da mandíbula</h2></figcaption>
+<dl><div><dt>Tratamento</dt><dd>V-Lift</dd></div><div><dt>Sessões</dt><dd class="pend">A preencher</dd></div><div><dt>Intervalo entre as fotos</dt><dd class="pend">A preencher</dd></div><div><dt>Autorização</dt><dd class="pend">Termo assinado (a anexar)</dd></div></dl>
+</figure><figure class="case" data-cat="pele" data-rv>
+<div class="ba" style="--x:50%"><div class="side before"><span class="tag">Antes</span><div class="ph"><svg viewBox="0 0 34 34"><rect x="4" y="9" width="26" height="19" rx="1"/><circle cx="17" cy="18.5" r="5.5"/><path d="M12 9l2-3h6l2 3"/></svg><span class="label">Foto a inserir</span></div></div><div class="side after"><span class="tag">Depois</span><div class="ph"><svg viewBox="0 0 34 34"><rect x="4" y="9" width="26" height="19" rx="1"/><circle cx="17" cy="18.5" r="5.5"/><path d="M12 9l2-3h6l2 3"/></svg><span class="label">Foto a inserir</span></div></div><span class="handle"></span><input type="range" min="0" max="100" value="50" aria-label="Comparar antes e depois do caso 03"></div>
+<figcaption><p class="label">Caso 03 · Pele</p><h2 class="serif" style="margin-top:10px">Manchas de melasma nas bochechas</h2></figcaption>
+<dl><div><dt>Tratamento</dt><dd>Protocolo de melasma</dd></div><div><dt>Sessões</dt><dd class="pend">A preencher</dd></div><div><dt>Intervalo entre as fotos</dt><dd class="pend">A preencher</dd></div><div><dt>Autorização</dt><dd class="pend">Termo assinado (a anexar)</dd></div></dl>
+</figure><figure class="case" data-cat="pele" data-rv>
+<div class="ba" style="--x:50%"><div class="side before"><span class="tag">Antes</span><div class="ph"><svg viewBox="0 0 34 34"><rect x="4" y="9" width="26" height="19" rx="1"/><circle cx="17" cy="18.5" r="5.5"/><path d="M12 9l2-3h6l2 3"/></svg><span class="label">Foto a inserir</span></div></div><div class="side after"><span class="tag">Depois</span><div class="ph"><svg viewBox="0 0 34 34"><rect x="4" y="9" width="26" height="19" rx="1"/><circle cx="17" cy="18.5" r="5.5"/><path d="M12 9l2-3h6l2 3"/></svg><span class="label">Foto a inserir</span></div></div><span class="handle"></span><input type="range" min="0" max="100" value="50" aria-label="Comparar antes e depois do caso 04"></div>
+<figcaption><p class="label">Caso 04 · Pele</p><h2 class="serif" style="margin-top:10px">Acne inflamatória</h2></figcaption>
+<dl><div><dt>Tratamento</dt><dd>Plasma frio associado ao tratamento clínico</dd></div><div><dt>Sessões</dt><dd class="pend">A preencher</dd></div><div><dt>Intervalo entre as fotos</dt><dd class="pend">A preencher</dd></div><div><dt>Autorização</dt><dd class="pend">Termo assinado (a anexar)</dd></div></dl>
+</figure><figure class="case" data-cat="sustentacao" data-rv>
+<div class="ba" style="--x:50%"><div class="side before"><span class="tag">Antes</span><div class="ph"><svg viewBox="0 0 34 34"><rect x="4" y="9" width="26" height="19" rx="1"/><circle cx="17" cy="18.5" r="5.5"/><path d="M12 9l2-3h6l2 3"/></svg><span class="label">Foto a inserir</span></div></div><div class="side after"><span class="tag">Depois</span><div class="ph"><svg viewBox="0 0 34 34"><rect x="4" y="9" width="26" height="19" rx="1"/><circle cx="17" cy="18.5" r="5.5"/><path d="M12 9l2-3h6l2 3"/></svg><span class="label">Foto a inserir</span></div></div><span class="handle"></span><input type="range" min="0" max="100" value="50" aria-label="Comparar antes e depois do caso 05"></div>
+<figcaption><p class="label">Caso 05 · Sustentação</p><h2 class="serif" style="margin-top:10px">Flacidez leve de papada e pescoço</h2></figcaption>
+<dl><div><dt>Tratamento</dt><dd>Ultrassom microfocado</dd></div><div><dt>Sessões</dt><dd class="pend">A preencher</dd></div><div><dt>Intervalo entre as fotos</dt><dd class="pend">A preencher</dd></div><div><dt>Autorização</dt><dd class="pend">Termo assinado (a anexar)</dd></div></dl>
+</figure><figure class="case" data-cat="cabelo" data-rv>
+<div class="ba" style="--x:50%"><div class="side before"><span class="tag">Antes</span><div class="ph"><svg viewBox="0 0 34 34"><rect x="4" y="9" width="26" height="19" rx="1"/><circle cx="17" cy="18.5" r="5.5"/><path d="M12 9l2-3h6l2 3"/></svg><span class="label">Foto a inserir</span></div></div><div class="side after"><span class="tag">Depois</span><div class="ph"><svg viewBox="0 0 34 34"><rect x="4" y="9" width="26" height="19" rx="1"/><circle cx="17" cy="18.5" r="5.5"/><path d="M12 9l2-3h6l2 3"/></svg><span class="label">Foto a inserir</span></div></div><span class="handle"></span><input type="range" min="0" max="100" value="50" aria-label="Comparar antes e depois do caso 06"></div>
+<figcaption><p class="label">Caso 06 · Cabelo</p><h2 class="serif" style="margin-top:10px">Queda e redução de volume dos fios</h2></figcaption>
+<dl><div><dt>Tratamento</dt><dd>Terapia capilar</dd></div><div><dt>Sessões</dt><dd class="pend">A preencher</dd></div><div><dt>Intervalo entre as fotos</dt><dd class="pend">A preencher</dd></div><div><dt>Autorização</dt><dd class="pend">Termo assinado (a anexar)</dd></div></dl>
+</figure></div></div></section>
+<section class="ethics"><div class="wrap"><p class="label">Como publicamos</p><ul>
+<li>Todas as imagens são publicadas com autorização por escrito da paciente.</li>
+<li>Fotos sem filtros ou retoques, com a mesma luz, ângulo e distância.</li>
+<li>Cada caso informa o tratamento realizado e o intervalo entre as fotos.</li>
+<li>Os resultados variam de pessoa para pessoa e não representam promessa de resultado.</li>
+</ul></div></section><section class="closing"><div class="wrap"><div><p class="label">Consulta</p><h2 class="serif" style="margin-top:18px">Tudo começa por uma <i>avaliação.</i></h2></div><a class="link" href="https://api.whatsapp.com/send?phone=5562996578843&amp;text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Dra.%20Laura%20Scher%20e%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener">Solicitar avaliação <svg viewBox="0 0 22 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 5h21M16.5 .5 21 5l-4.5 4.5"/></svg></a></div></section><script>
+(function(){
+  document.querySelectorAll('.ba').forEach(function(b){var r=b.querySelector('input'),a=b.querySelector('.after'),h=b.querySelector('.handle');
+    function u(){a.style.clipPath='inset(0 0 0 '+r.value+'%)';h.style.left=r.value+'%'}b._u=u;r.addEventListener('input',function(){b.classList.add('touched');u()});u()});
+  var fb=document.getElementById('feat-ba');
+  if(fb&&'IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var done=false,inp=fb.querySelector('input');
+    var io=new IntersectionObserver(function(es){if(!es[0].isIntersecting||done)return;done=true;io.disconnect();
+      var keys=[[0,50],[900,88],[2000,12],[2900,50]],t0=null;
+      function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2}
+      function step(ts){if(fb.classList.contains('touched'))return;if(!t0)t0=ts;var t=ts-t0,k=1;while(k<keys.length-1&&t>keys[k][0])k++;
+        var a=keys[k-1],b=keys[k],p=Math.min(1,Math.max(0,(t-a[0])/(b[0]-a[0])));inp.value=a[1]+(b[1]-a[1])*ease(p);fb._u();
+        if(t<keys[keys.length-1][0])requestAnimationFrame(step)}
+      setTimeout(function(){requestAnimationFrame(step)},500)},{threshold:.5});
+    io.observe(fb)}
+  var btns=document.querySelectorAll('.filters button'),cs=document.querySelectorAll('.case');
+  btns.forEach(function(b){b.addEventListener('click',function(){var f=b.dataset.f;
+    btns.forEach(function(x){x.setAttribute('aria-pressed',x===b)});
+    cs.forEach(function(c){c.hidden=!(f==='todos'||c.dataset.cat===f)})})});
+})();
+</script>
+</main>
+<section class="sig-foot" aria-label="Assinatura">
+  <div class="wrap">
+    <div class="row"><p class="label">Medicina do envelhecimento · Anápolis, GO</p><button class="back" type="button" data-top>Voltar ao início <svg viewBox="0 0 10 22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M5 22V1M.5 5.5 5 1l4.5 4.5"/></svg></button></div>
+    <p class="giant" aria-hidden="true">Laura <i>Scher</i></p>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <span class="l"><img src="img/simbolo-branco.png" alt="">Dra. Laura Scher · Médica · CRM-GO 23583 · Responsável técnica</span>
+    <nav aria-label="Rodapé"><a href="cases.html">Cases</a><a href="blog.html">Blog</a><a href="depoimentos.html">Depoimentos</a><a href="portal.html">Portal do paciente</a><a href="https://www.instagram.com/dralaurascher/" target="_blank" rel="noopener">Instagram</a></nav>
+    <span>Conteúdo informativo. Não substitui a consulta médica.</span>
+  </div>
+</footer>
+<script src="site.js"></script>
+</body>
+</html>

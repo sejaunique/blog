@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<script src="/assets/tema.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prospecção Atleta no Atacado · Programa evolutivo · Unique</title>
+<meta name="description" content="Programa evolutivo de prospecção para vendas de atacado: rotina do vendedor, papel do gestor, indicadores, cobrança, motivação e bonificação. Por Carlos Ribeiro, com o método de Jeb Blount adaptado ao Brasil.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Unique Consultoria">
+<meta property="og:title" content="Prospecção Atleta no Atacado · Programa evolutivo">
+<meta property="og:description" content="Do vendedor tirador de pedido ao prospector de lojistas: 4 fases, rotina diária, indicadores, cobrança e bonificação.">
+<meta property="og:url" content="https://sejaunique.com/prospeccao-atacado/">
+<meta property="og:image" content="https://sejaunique.com/assets/og/prospeccao-atacado.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://sejaunique.com/assets/og/prospeccao-atacado.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+:root{--sp:cubic-bezier(.34,1.56,.64,1)}
+.doc{max-width:1080px;margin-inline:auto;padding-inline:20px}
+section.bloco{padding-block:64px 0}
+.n{display:inline-block;font-size:.68rem;font-weight:600;letter-spacing:.3em;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-variant-numeric:tabular-nums}
+.bloco h2{font-size:clamp(1.7rem,3.6vw,2.6rem);font-weight:800;letter-spacing:-.035em;line-height:1.05;margin:16px 0 10px;text-wrap:balance}
+.bloco h2 .leve{display:inline;font-size:1em;font-weight:200;font-style:italic}
+.bloco .lead{color:var(--muted);max-width:64ch;margin:0 0 28px;font-size:1.05rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.card h3{margin:0 0 8px;font-size:1.12rem;font-weight:800;letter-spacing:-.02em}
+.card p{margin:0;color:var(--muted);font-size:.95rem;line-height:1.6}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:.68rem;font-weight:700;letter-spacing:.06em;border-radius:999px;padding:4px 10px;border:1px solid var(--line);background:var(--soft);white-space:nowrap}
+.tag.v{background:color-mix(in srgb,var(--verde) 18%,transparent);border-color:color-mix(in srgb,var(--verde-txt) 45%,transparent);color:var(--verde-txt)}
+.tag.m{background:color-mix(in srgb,var(--magenta) 12%,transparent);border-color:color-mix(in srgb,var(--magenta-txt) 40%,transparent);color:var(--magenta-txt)}
+.tag.a{background:color-mix(in srgb,var(--marinho) 12%,transparent);border-color:color-mix(in srgb,var(--marinho-txt) 40%,transparent);color:var(--marinho-txt)}
+.exemplo{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);border:1px dashed var(--line);border-radius:999px;padding:4px 10px}
+
+/* ===== HERO (motion 01 + motion 03) ===== */
+.hero{background:#000;color:#f5f5f5;position:relative;overflow:hidden;padding-block:64px 40px}
+.hero::before{content:"";position:absolute;inset:-20% -10% auto auto;width:70vw;height:70vw;max-width:900px;max-height:900px;background:radial-gradient(closest-side,rgba(0,230,118,.16),transparent 70%);pointer-events:none}
+.hero-in{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center;position:relative}
+.hero .spaced{color:#a1a1a8;margin-bottom:22px}
+.kin{margin:0;font-weight:800;letter-spacing:-.045em;line-height:1.04;font-size:clamp(2.3rem,6.4vw,5.2rem)}
+.kin .l{display:block}
+.kin .pillrow{display:block;margin:.08em 0}
+.pill{position:relative;display:inline-block;vertical-align:bottom;height:1.18em;border-radius:999px;background:var(--verde);color:#000;overflow:hidden;padding:0 .38em;box-sizing:content-box}
+.pill .strip{display:block;will-change:transform}
+.pill .strip span{display:block;height:1.18em;line-height:1.18em;white-space:nowrap;transition:opacity .35s}
+.pill-glow{position:absolute;left:0;top:50%;width:100%;height:1.6em;transform:translateY(-50%);border-radius:999px;background:radial-gradient(closest-side,rgba(0,230,118,.55),transparent);filter:blur(18px);animation:respira 3.2s ease-in-out infinite;pointer-events:none;z-index:-1}
+.pillwrap{position:relative;display:inline-block;isolation:isolate}
+@keyframes respira{50%{opacity:.35;transform:translateY(-50%) scale(1.12)}}
+.kdots{display:flex;gap:8px;margin:18px 0 0}
+.kdots i{width:7px;height:7px;border-radius:50%;background:#3a3a40;transition:background .3s,transform .3s}
+.kdots i.on{background:var(--verde);transform:scale(1.3)}
+.hero p.tese{color:#a1a1a8;max-width:56ch;margin:22px 0 0;font-size:1.08rem}
+.hero p.tese b{color:#f5f5f5}
+.autores{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.autores span{font-size:.78rem;font-weight:700;border:1px solid #2a2a2e;border-radius:999px;padding:8px 14px;color:#f5f5f5;display:inline-flex;gap:8px;align-items:center}
+.autores span i{width:8px;height:8px;border-radius:50%;background:var(--verde)}
+.autores span:nth-child(2) i{background:#8f98ff}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.hero .ctas .btn:not(.verde){color:#f5f5f5}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:52px;border-top:1px solid #26262a;position:relative}
+.kpis div{padding:20px 18px 0 0}
+.kpis b{display:block;font-size:clamp(1.6rem,3.4vw,2.6rem);font-weight:200;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.kpis b em{font-style:normal;color:var(--verde)}
+.kpis small{display:block;color:#a1a1a8;font-size:.8rem;line-height:1.45;margin-top:8px;max-width:26ch}
+
+/* cena do celular (motion 03) */
+.cena{position:relative;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.fone{width:220px;height:440px;border-radius:40px;background:linear-gradient(160deg,#1b1d3a 0%,#0a0a12 55%,#1a0f08 100%);border:6px solid #1c1c1f;box-shadow:0 30px 80px rgba(0,0,0,.6),inset 0 0 0 1px #333;position:relative;overflow:hidden}
+.fone::before{content:"";position:absolute;inset:auto -40% -30% -40%;height:60%;background:radial-gradient(closest-side,rgba(0,230,118,.28),transparent);}
+.ilha{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:76px;height:22px;border-radius:999px;background:#000;z-index:3}
+.hora{position:absolute;top:44px;left:0;right:0;text-align:center;color:#fff}
+.hora small{display:block;font-size:.7rem;font-weight:600;opacity:.75}
+.hora b{display:block;font-size:3.1rem;font-weight:300;letter-spacing:-.03em;line-height:1.05;font-variant-numeric:tabular-nums}
+.notifs{position:absolute;left:9px;right:9px;top:142px;height:290px}
+.nt{position:absolute;left:0;right:0;top:0;border-radius:16px;padding:9px 11px;background:rgba(255,255,255,.14);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#fff;font-size:.66rem;line-height:1.35;display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:center;will-change:transform,opacity}
+.nt .app{width:26px;height:26px;border-radius:7px;background:#25d366;display:grid;place-items:center}
+.nt .app svg{width:16px;height:16px}
+.nt b{display:flex;justify-content:space-between;gap:6px;font-size:.66rem;white-space:nowrap}
+.nt b small{opacity:.6;font-weight:500}
+.nt span{opacity:.85}
+.painelz{display:grid;gap:12px}
+.rcard{background:#fff;color:#0b0b0c;border-radius:20px;padding:18px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.rcard small{font-size:.66rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#5e5e66}
+.rcard .big{font-size:1.9rem;font-weight:800;letter-spacing:-.04em;font-variant-numeric:tabular-nums;line-height:1.1;margin:6px 0}
+.rcard .chip{display:inline-block;font-size:.68rem;font-weight:800;background:#d9fbe8;color:#078a46;border-radius:999px;padding:3px 9px}
+.rcard svg{display:block;width:100%;height:54px;margin-top:8px}
+.vivo{background:#111113;color:#f5f5f5;border:1px solid #26262a;border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:10px;font-size:.8rem}
+.vivo i{width:9px;height:9px;border-radius:50%;background:#2fd27e;box-shadow:0 0 0 0 rgba(47,210,126,.6);animation:pulsov 1.6s infinite}
+.vivo b{font-variant-numeric:tabular-nums}
+@keyframes pulsov{70%{box-shadow:0 0 0 10px rgba(47,210,126,0)}100%{box-shadow:0 0 0 0 rgba(47,210,126,0)}}
+.cena .exemplo{position:absolute;bottom:-26px;left:0;color:#a1a1a8;border-color:#333}
+
+/* ===== ABAS ===== */
+.abas{position:sticky;top:var(--topo,0px);z-index:29;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.abas .wrap{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-block:10px}
+.abas .wrap::-webkit-scrollbar{display:none}
+.abas a{flex:none;text-decoration:none;font-size:.8rem;font-weight:700;padding:9px 14px;border-radius:999px;color:var(--muted);border:1px solid transparent;display:inline-flex;gap:7px;align-items:center}
+.abas a[aria-current="page"]{background:var(--fg);color:var(--bg)}
+.abas a .lk{width:12px;height:12px;opacity:.6}
+body.liberado .abas a .lk{display:none}
+.painel{display:none}
+.painel.on{display:block;animation:entra .4s ease}
+@keyframes entra{from{opacity:0;transform:translateY(10px)}}
+body:not(.liberado) .painel[data-lock] .corpo{display:none}
+body.liberado .teaser{display:none}
+.teaser{margin-top:56px}
+.teaser .lista{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:20px}
+.teaser .lista div{border:1px dashed var(--line);border-radius:18px;padding:18px;display:flex;gap:12px;align-items:flex-start;font-weight:600;font-size:.95rem}
+.teaser .lista .ic{color:var(--muted);flex:none;margin-top:3px}
+
+/* ===== comparação (motion 11) ===== */
+.cmp{background:#000;color:#f5f5f5;border-radius:28px;padding:clamp(22px,4vw,44px);position:relative;overflow:hidden}
+.cmp table{width:100%;border-collapse:separate;border-spacing:0;position:relative;z-index:1}
+.cmp th{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:#a1a1a8;padding:0 10px 16px;text-align:center}
+.cmp th:first-child{text-align:left;padding-left:0}
+.cmp th.us{color:var(--verde)}
+.cmp td{padding:13px 10px;border-top:1px solid #1d1d21;text-align:center;font-size:.98rem}
+.cmp td:first-child{text-align:left;padding-left:0;font-weight:600}
+.cmp tr.r td:first-child span{display:inline-block;opacity:0;transform:translateX(-18px);transition:opacity .45s,transform .45s}
+.cmp tr.r.on td:first-child span{opacity:1;transform:none}
+.cmp .x,.cmp .ok2{width:30px;height:30px;display:inline-block;vertical-align:middle}
+.cmp .x path{stroke:#6b6b72;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .3s}
+.cmp .x path+path{transition-delay:.12s}
+.cmp tr.on .x path{stroke-dashoffset:0}
+.cmp .ok2 circle{fill:var(--verde);transform-origin:15px 15px;transform:scale(0);transition:transform .45s var(--sp)}
+.cmp .ok2 path{stroke:#000;stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:22;stroke-dashoffset:22;transition:stroke-dashoffset .35s .2s}
+.cmp tr.on .ok2 circle{transform:scale(1)}
+.cmp tr.on .ok2 path{stroke-dashoffset:0}
+.cmp .hl{position:absolute;top:clamp(14px,3vw,34px);bottom:96px;border:1.5px solid var(--verde);border-radius:20px;background:rgba(0,230,118,.07);box-shadow:0 0 40px rgba(0,230,118,.18);transform-origin:top;transform:scaleY(0);transition:transform .8s cubic-bezier(.65,0,.35,1);z-index:0}
+.cmp.on .hl{transform:scaleY(1)}
+.cmp .fim{margin-top:22px;text-align:center;opacity:0;transform:translateY(16px) scale(.9);transition:opacity .4s,transform .5s var(--sp)}
+.cmp.fim-on .fim{opacity:1;transform:none}
+.cmp .fim a{background:#fff;color:#000;border-color:#fff}
+
+/* ===== leis ===== */
+.leis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.lei{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:grid;gap:10px;align-content:start}
+.lei .q{font-size:2.6rem;font-weight:100;line-height:.9;letter-spacing:-.05em;color:var(--marinho-txt)}
+.lei h3{margin:0;font-size:1.05rem;font-weight:800}
+.lei p{margin:0;font-size:.92rem;color:var(--muted);line-height:1.55}
+.lei .atac{font-size:.86rem;line-height:1.5;border-top:1px solid var(--line);padding-top:10px;color:var(--fg)}
+.lei .atac b{color:var(--verde-txt)}
+.crm{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+.crm div{border-top:2px solid var(--fg);padding-top:16px}
+.crm b{display:block;font-size:clamp(2.6rem,6vw,4.2rem);font-weight:100;line-height:.9;letter-spacing:-.05em}
+.crm span{font-weight:800}
+.crm div:last-child{border-color:var(--verde-txt)}.crm div:last-child b,.crm div:last-child span{color:var(--verde-txt)}
+
+/* ===== jornada S (motion 08) ===== */
+.jornada{background:#000;color:#f5f5f5;border-radius:28px;padding:clamp(18px,3vw,36px);position:relative;overflow:hidden}
+.jornada svg.trilho{width:100%;height:auto;display:block}
+.jornada .trk-base{fill:none;stroke:#2a2a2e;stroke-width:3;stroke-dasharray:6 8}
+.jornada .trk-fg{fill:none;stroke:var(--verde);stroke-width:4;stroke-linecap:round}
+.jornada .ponta{fill:var(--verde);filter:drop-shadow(0 0 8px rgba(0,230,118,.9))}
+.jornada .st circle{fill:#111113;stroke:#3a3a40;stroke-width:3;transition:fill .3s,stroke .3s}
+.jornada .st path{fill:none;stroke:#000;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:26;stroke-dashoffset:26;transition:stroke-dashoffset .35s .15s}
+.jornada .st text{fill:#a1a1a8;font:700 15px Montserrat,sans-serif;text-anchor:middle;transition:fill .3s}
+.jornada .st.on circle{fill:var(--verde);stroke:var(--verde)}
+.jornada .st.on path{stroke-dashoffset:0}
+.jornada .st.on text{fill:#f5f5f5}
+.jornada .st g.sc{transform-box:fill-box;transform-origin:center;transition:transform .5s var(--sp)}
+.jornada .st.on g.sc{transform:scale(1.18)}
+.fases{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+.fase{background:#111113;border:1px solid #26262a;border-radius:18px;padding:16px;opacity:0;transform:translateY(24px);transition:opacity .5s,transform .6s var(--sp)}
+.fase.on{opacity:1;transform:none}
+.fase small{font-size:.62rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--verde)}
+.fase b{display:block;font-size:1.1rem;font-weight:800;margin:4px 0}
+.fase p{margin:0;font-size:.85rem;color:#a1a1a8;line-height:1.5}
+.live{display:flex;justify-content:center;margin-top:18px;opacity:0;transform:translateY(8px);transition:.5s}
+.live.on{opacity:1;transform:none}
+.live span{display:inline-flex;gap:10px;align-items:center;background:#111113;border:1px solid #26262a;border-radius:999px;padding:9px 16px;font-size:.85rem;font-weight:700}
+.live i{width:9px;height:9px;border-radius:50%;background:#2fd27e;animation:pulsov 1.6s infinite}
+
+/* detalhe das fases */
+.fdet{display:grid;gap:14px;margin-top:22px}
+.fd{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.fd summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;padding:20px 24px}
+.fd summary::-webkit-details-marker{display:none}
+.fd summary .num{font-size:2.6rem;font-weight:100;letter-spacing:-.05em;line-height:1;color:var(--marinho-txt)}
+.fd summary b{display:block;font-size:1.15rem;font-weight:800;letter-spacing:-.02em}
+.fd summary small{color:var(--muted);font-size:.85rem}
+.fd summary .mais{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:transform .3s}
+.fd[open] summary .mais{transform:rotate(45deg)}
+.fd .in{padding:0 24px 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.fd .in h4{margin:0 0 8px;font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;font-weight:700}
+.fd .in .v h4{color:var(--verde-txt)}.fd .in .gs h4{color:var(--marinho-txt)}.fd .in .pa h4{color:var(--magenta-txt)}
+.fd .in ul{margin:0;padding-left:18px;font-size:.92rem;line-height:1.55;display:grid;gap:4px}
+.fd .in .pa{background:var(--soft);border-radius:16px;padding:14px 16px}
+.fd .in .pa p{margin:0;font-size:.92rem;line-height:1.55}
+
+/* objetivos */
+.obj{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.obj .card{display:grid;gap:8px;align-content:start}
+.obj .ic{width:28px;height:28px;color:var(--verde-txt)}
+
+/* ===== checklists ===== */
+.blocos{display:grid;gap:12px}
+.bl{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;display:grid;grid-template-columns:150px 1fr;gap:20px}
+.bl .h{display:grid;gap:4px;align-content:start}
+.bl .h time{font-size:1.8rem;font-weight:100;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.bl .h b{font-size:.95rem;font-weight:800}
+.bl .h small{color:var(--muted);font-size:.78rem;line-height:1.4}
+.bl.ouro{border-color:color-mix(in srgb,var(--verde-txt) 50%,var(--line));background:color-mix(in srgb,var(--verde) 6%,var(--card))}
+.chk{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.chk label{display:flex;gap:12px;align-items:flex-start;cursor:pointer;padding:6px 0;line-height:1.45}
+.chk input{appearance:none;-webkit-appearance:none;width:22px;height:22px;border:1.5px solid var(--muted);border-radius:7px;flex:none;margin:0;display:grid;place-items:center;cursor:pointer;background:var(--bg)}
+.chk input:checked{background:var(--verde);border-color:var(--verde)}
+.chk input:checked::after{content:"";width:6px;height:11px;border:solid #000;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.chk input:checked+span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--verde-txt)}
+.prog{display:flex;align-items:center;gap:14px;margin:0 0 16px}
+.prog .barra{flex:1;height:8px;border-radius:999px;background:var(--soft);overflow:hidden;border:1px solid var(--line)}
+.prog .barra i{display:block;height:100%;width:0;background:var(--verde);transition:width .3s}
+.prog span{font-size:.85rem;font-weight:700;font-variant-numeric:tabular-nums;min-width:9ch;text-align:right}
+.prog button{font:inherit;font-size:.75rem;font-weight:600;background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:6px 12px;cursor:pointer}
+
+/* cadência */
+.cad{position:relative;display:grid;grid-template-columns:repeat(8,1fr);gap:8px;padding-top:34px}
+.cad::before{content:"";position:absolute;left:4%;right:4%;top:15px;height:2px;background:linear-gradient(90deg,var(--verde-txt),var(--marinho-txt))}
+.cad div{position:relative;text-align:center}
+.cad div::before{content:"";position:absolute;top:-25px;left:50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--bg);border:3px solid var(--verde-txt)}
+.cad b{display:block;font-size:.72rem;letter-spacing:.14em;font-weight:800;color:var(--muted)}
+.cad strong{display:block;font-size:.88rem;margin:4px 0 2px;line-height:1.25}
+.cad small{display:block;font-size:.76rem;color:var(--muted);line-height:1.35}
+
+/* pirâmide */
+.pir{display:grid;grid-template-columns:1fr 1.1fr;gap:28px;align-items:center}
+.pir svg{width:100%;height:auto;display:block}
+.pir svg g{cursor:pointer}
+.pir svg polygon{transition:opacity .2s,filter .2s}
+.pir svg g:not(.on) polygon{opacity:.42}
+.pir svg g:hover polygon{opacity:.8}
+.pir svg text{font:700 13px Montserrat,sans-serif;fill:#fff;text-anchor:middle;pointer-events:none}
+.pir .info{min-height:200px}
+.pir .info small{font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;font-weight:700;color:var(--verde-txt)}
+.pir .info h3{margin:8px 0;font-size:1.5rem;font-weight:800;letter-spacing:-.03em}
+.pir .info p{margin:0 0 10px;color:var(--muted)}
+.pir .info .acao{background:var(--soft);border-radius:16px;padding:14px 16px;font-size:.95rem}
+
+/* roteiros */
+.rot{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.rot .card{display:grid;gap:12px;align-content:start}
+.rot h3 small{display:block;font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--verde-txt);font-weight:700;margin-bottom:6px}
+.rot ol{margin:0;padding-left:20px;font-size:.92rem;line-height:1.55;display:grid;gap:4px;color:var(--muted)}
+.rot ol b{color:var(--fg)}
+blockquote.msg{margin:0;padding:14px 16px;border-left:3px solid var(--verde);background:var(--soft);border-radius:0 14px 14px 0;line-height:1.6;font-size:.95rem}
+
+/* ===== objeções (motion 04) ===== */
+.obstage{background:#000;color:#f5f5f5;border-radius:28px;padding:clamp(24px,4vw,48px);display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;overflow:hidden}
+.pilha{position:relative;height:330px}
+.oc{position:absolute;left:0;right:0;bottom:0;background:#fff;color:#0b0b0c;border-radius:22px;padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.45);transform-origin:50% 100%;will-change:transform,opacity}
+.oc .passos{display:flex;gap:6px;margin-bottom:12px}
+.oc .passos span{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:4px 9px;background:#f0f0f2;color:#9a9aa2;transition:background .25s,color .25s,transform .3s var(--sp)}
+.oc .passos span.on{background:var(--verde);color:#000;transform:scale(1.08)}
+.oc q{display:block;font-size:1.35rem;font-weight:800;letter-spacing:-.03em;line-height:1.2;quotes:"“" "”"}
+.oc p{margin:12px 0 0;font-size:.88rem;color:#4a4a52;line-height:1.5}
+.oc .quem{display:flex;gap:10px;align-items:center;margin-top:14px;font-size:.78rem;color:#5e5e66}
+.oc .quem i{width:30px;height:30px;border-radius:50%;background:#1e2357;color:#fff;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:.72rem}
+.obstage h2{font-size:clamp(1.6rem,3.4vw,2.4rem);font-weight:800;letter-spacing:-.035em;line-height:1.05;margin:12px 0}
+.obstage p.l{color:#a1a1a8;margin:0}
+.ladi{display:grid;gap:10px;margin-top:22px}
+.ladi div{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start}
+.ladi b{width:40px;height:40px;border-radius:50%;border:1px solid #333;display:grid;place-items:center;font-weight:800;color:var(--verde)}
+.ladi strong{display:block}
+.ladi span{color:#a1a1a8;font-size:.9rem}
+.rbo{display:grid;gap:12px}
+.rbo .card{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start}
+.rbo .card h3{font-size:1.05rem}
+.rbo dl{margin:10px 0 0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:.92rem;line-height:1.5}
+.rbo dt{font-weight:800;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;padding-top:4px}
+.rbo dt.a{color:var(--marinho-txt)}.rbo dt.b{color:var(--magenta-txt)}.rbo dt.c{color:var(--verde-txt)}
+.rbo dd{margin:0}
+
+/* ===== indicadores (motion 05) ===== */
+.bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(170px,auto);gap:14px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;opacity:0;transform:translateY(16px);transition:opacity .5s,transform .6s var(--sp);position:relative;overflow:hidden}
+.bento.on .tile{opacity:1;transform:none}
+.tile small{font-size:.66rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.tile .num{font-size:2.2rem;font-weight:800;letter-spacing:-.04em;font-variant-numeric:tabular-nums;line-height:1.1;margin-top:6px}
+.tile.big{grid-row:span 2;display:grid;place-items:center;text-align:center}
+.tile.wide{grid-column:span 2}
+.ring{width:170px;height:170px;position:relative;margin:10px auto}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:14}
+.ring .b{stroke:var(--soft)}.ring .f{stroke:var(--verde);stroke-linecap:round}
+.ring .num{position:absolute;inset:0;display:grid;place-items:center;font-size:2.4rem;margin:0}
+.barras{display:flex;align-items:flex-end;gap:6px;height:64px;margin-top:10px}
+.barras i{flex:1;background:var(--marinho-txt);opacity:.35;border-radius:6px 6px 2px 2px;height:0;transition:height .6s var(--sp)}
+.barras i:last-child{background:var(--verde);opacity:1}
+.dias5{display:flex;gap:6px;margin-top:10px}
+.dias5 i{flex:1;height:30px;border-radius:8px;background:var(--soft);border:1px solid var(--line);transition:background .3s}
+.dias5 i.on{background:var(--verde);border-color:var(--verde)}
+.linha svg{width:100%;height:120px;display:block;margin-top:8px;overflow:visible}
+.linha .tip{position:absolute;right:20px;top:18px;background:var(--fg);color:var(--bg);font-size:.78rem;font-weight:800;border-radius:999px;padding:6px 12px;transform:scale(0);transition:transform .45s var(--sp)}
+.linha.tipon .tip{transform:scale(1)}
+
+.calc{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.calc label{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px;display:grid;gap:6px;font-size:.8rem;font-weight:700;line-height:1.3}
+.calc input{font:inherit;font-size:1.4rem;font-weight:300;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--fg);padding:4px 0;width:100%;outline:none;font-variant-numeric:tabular-nums}
+.funil{display:grid;gap:8px;margin-top:16px}
+.funil div{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;background:var(--ink);color:var(--ink-fg);border-radius:14px;padding:12px 18px;margin-inline:auto;width:100%;transition:width .4s}
+.funil div b{font-size:1.5rem;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.funil div span{font-size:.88rem;color:var(--ink-muted)}
+.funil div.dia{background:var(--verde);color:#000}.funil div.dia span{color:#000}
+
+.tab{width:100%;border-collapse:collapse;font-size:.93rem;min-width:640px}
+.tab th{text-align:left;font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--muted);padding:10px 12px;border-bottom:2px solid var(--fg)}
+.tab td{padding:12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5}
+.tab td b{font-weight:800}
+.rolar{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--r)}
+.eep{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:center;text-align:center}
+.eep div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px}
+.eep div b{display:block;font-size:1.1rem;font-weight:800}
+.eep div span{font-size:.85rem;color:var(--muted)}
+.eep i{font-style:normal;font-size:2rem;font-weight:200}
+.eep div:last-child{background:var(--verde);border-color:var(--verde);color:#000}.eep div:last-child span{color:#000}
+
+/* ===== cobrar / bonificar (motion 10) ===== */
+.escada{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:end}
+.escada div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;display:grid;gap:6px}
+.escada div:nth-child(1){min-height:150px}.escada div:nth-child(2){min-height:175px}.escada div:nth-child(3){min-height:200px}.escada div:nth-child(4){min-height:225px}.escada div:nth-child(5){min-height:250px;background:var(--ink);color:var(--ink-fg);border-color:var(--ink)}
+.escada b{font-size:2rem;font-weight:100;line-height:1;color:var(--marinho-txt)}
+.escada div:nth-child(5) b{color:var(--magenta)}
+.escada strong{font-size:.98rem}
+.escada span{font-size:.84rem;color:var(--muted);line-height:1.45}
+.escada div:nth-child(5) span{color:var(--ink-muted)}
+.fipc{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.fipc div{padding:18px;border-right:1px solid var(--line)}
+.fipc div:last-child{border-right:0;background:color-mix(in srgb,var(--verde) 10%,var(--card))}
+.fipc b{display:block;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.fipc p{margin:0;font-size:.92rem;line-height:1.5}
+.bonus{display:grid;grid-template-columns:1.05fr 1fr;gap:20px;align-items:stretch}
+.camadas{display:grid;gap:10px}
+.cam{display:grid;grid-template-columns:52px 1fr;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px}
+.cam b{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:1.3rem;font-weight:800;background:var(--soft)}
+.cam:nth-child(1) b{background:var(--marinho);color:#fff}.cam:nth-child(2) b{background:var(--verde);color:#000}.cam:nth-child(3) b{background:#000;color:var(--verde)}.cam:nth-child(4) b{background:var(--magenta);color:#fff}
+.cam strong{display:block;font-size:1rem}
+.cam span{font-size:.88rem;color:var(--muted);line-height:1.5}
+.sim{background:#000;color:#f5f5f5;border-radius:24px;padding:24px;display:grid;gap:14px;align-content:start}
+.seg{display:inline-grid;grid-template-columns:1fr 1fr;background:#1a1a1d;border-radius:999px;padding:4px;position:relative;justify-self:start}
+.seg button{position:relative;z-index:1;font:inherit;font-size:.8rem;font-weight:800;background:none;border:0;color:#a1a1a8;padding:9px 16px;cursor:pointer;border-radius:999px;transition:color .3s}
+.seg button[aria-pressed="true"]{color:#000}
+.seg .knob{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);background:var(--verde);border-radius:999px;transition:transform .45s var(--sp)}
+.seg.tri .knob{transform:translateX(100%)}
+.badge{display:inline-block;margin-left:8px;font-size:.66rem;font-weight:800;background:var(--magenta);color:#fff;border-radius:999px;padding:4px 9px;transform:scale(0);transition:transform .45s var(--sp);vertical-align:middle}
+.seg.tri+.badge{transform:scale(1)}
+.sim label{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:.84rem;font-weight:600;color:#d4d4d8}
+.sim label output{font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
+.sim input[type=range]{grid-column:1/-1;width:100%;accent-color:#00e676}
+.odo{display:flex;align-items:baseline;gap:2px;font-size:clamp(2.2rem,5vw,3.2rem);font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--verde)}
+.odo .rs{font-size:.5em;margin-right:8px;color:#a1a1a8;font-weight:600}
+.odo .dg{display:inline-block;height:1em;overflow:hidden;width:.64em;text-align:center}
+.odo .dg span{display:block;transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.odo .dg span i{display:block;height:1em;font-style:normal}
+.odo .sep{width:.3em;text-align:center}
+.sim .det{font-size:.84rem;color:#a1a1a8;line-height:1.6;transition:opacity .2s}
+.sim .det b{color:#f5f5f5}
+.nota{font-size:.85rem;color:var(--muted);border-left:3px solid var(--alerta);padding:10px 14px;background:var(--soft);border-radius:0 12px 12px 0;margin-top:18px}
+.niveis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.niveis div{border-top:3px solid var(--line);padding-top:12px}
+.niveis div:nth-child(2){border-color:var(--marinho-txt)}.niveis div:nth-child(3){border-color:var(--verde-txt)}.niveis div:nth-child(4){border-color:var(--magenta-txt)}
+.niveis b{display:block;font-size:1.05rem}
+.niveis span{font-size:.86rem;color:var(--muted);line-height:1.5;display:block;margin-top:4px}
+
+/* ===== cultura ===== */
+.cult{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.cu{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:0;overflow:hidden;display:grid;grid-template-rows:auto 1fr}
+.cu .de{padding:16px 22px;background:var(--soft);border-bottom:1px solid var(--line);font-size:.9rem}
+.cu .de small{display:block;font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;font-weight:700;color:var(--marinho-txt);margin-bottom:4px}
+.cu .pa{padding:16px 22px 20px;font-size:.95rem;line-height:1.6}
+.cu .pa small{display:block;font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;font-weight:700;color:var(--verde-txt);margin-bottom:4px}
+.cu .pa b{font-weight:800}
+
+/* ===== banco de ações ===== */
+.filtros{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.filtros input[type=search]{font:inherit;font-size:.95rem;flex:1 1 240px;border:1px solid var(--line);border-radius:999px;padding:11px 18px;background:var(--card);color:var(--fg);outline:none}
+.filtros input[type=search]:focus{border-color:var(--verde-txt)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{font:inherit;font-size:.76rem;font-weight:700;border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:999px;padding:7px 12px;cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.chips small{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:700;align-self:center;margin-right:4px}
+#acoes-tb td:first-child{font-weight:600;min-width:260px}
+#acoes-n{font-size:.85rem;color:var(--muted);margin:10px 0 0}
+
+/* ===== cadastro + CTA (motion 12) ===== */
+.gate{margin-top:56px;background:var(--ink);color:var(--ink-fg);border-radius:28px;padding:clamp(28px,5vw,52px);display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center;position:relative;overflow:hidden}
+.gate .spaced{color:var(--ink-muted)}
+.gate h2{margin:12px 0;font-size:clamp(1.8rem,3.8vw,2.7rem);font-weight:800;letter-spacing:-.035em;line-height:1.02}
+.gate h2 .leve{display:block;font-weight:200;font-style:italic}
+.gate p{color:var(--ink-muted);margin:0}
+.gate ul{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-size:.95rem}
+.gate ul li{display:flex;gap:10px;align-items:center}
+.gate ul .ic{color:var(--verde)}
+.gate form{display:grid;gap:12px}
+.gate .duas{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gate input{font:inherit;font-size:1rem;color:#0b0b0c;background:#fff;border:2px solid #fff;border-radius:999px;padding:14px 20px;width:100%;outline:none}
+.gate input:focus{box-shadow:0 0 0 4px rgba(0,230,118,.4)}
+.gate input::placeholder{color:#6b6b72}
+.gate .aviso-nl{font-size:.8rem;color:var(--ink-muted);margin:2px 0 0;display:flex;gap:8px;align-items:flex-start}
+.gate .aviso-nl .ic{color:var(--verde);margin-top:2px;flex:none}
+.gate .msg{margin:0;font-weight:700;color:#ff4d8f}.gate .msg:empty{display:none}
+.isca{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+.aceite{display:flex;gap:12px;align-items:flex-start;font-size:.8rem;line-height:1.5;color:#c4c4ca;cursor:pointer}
+.gate .aceite input{appearance:none;-webkit-appearance:none;width:22px;height:22px;padding:0;border-radius:7px;border:2px solid #fff;background:transparent;flex:none;display:grid;place-items:center;cursor:pointer;margin-top:1px}
+.gate .aceite input:checked{background:var(--verde);border-color:var(--verde)}
+.gate .aceite input:checked::after{content:"";width:6px;height:11px;border:solid #000;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.aceite a{color:var(--verde)}
+body.liberado .gate{display:none}
+.cta-wrap{position:relative;display:grid;justify-items:center;min-height:62px}
+.cta{position:relative;font:inherit;font-weight:800;font-size:1.02rem;background:var(--verde);color:#000;border:0;border-radius:999px;height:60px;width:100%;padding:0 26px;cursor:pointer;display:inline-flex;gap:10px;align-items:center;justify-content:center;overflow:hidden;transition:width .45s cubic-bezier(.65,0,.35,1),transform .2s,background .3s,box-shadow .3s}
+.cta::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-20deg);transition:left .7s}
+.cta:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,230,118,.3)}
+.cta:hover::after{left:120%}
+.cta:active{transform:scale(.96)}
+.cta .lb{transition:opacity .2s}
+.cta .arc,.cta .vk{position:absolute;inset:0;margin:auto;opacity:0}
+.cta .arc{width:28px;height:28px;border-radius:50%;border:3px solid rgba(0,0,0,.18);border-top-color:#000;animation:gira .8s linear infinite}
+.cta .vk{width:28px;height:28px}
+.cta .vk path{fill:none;stroke:#000;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:30;stroke-dashoffset:30;transition:stroke-dashoffset .4s .1s}
+.cta.load{width:60px;padding:0}.cta.load .lb{opacity:0}.cta.load .arc{opacity:1}
+.cta.done{width:60px;padding:0;background:#fff;transform:scale(1.08)}.cta.done .lb,.cta.done .arc{opacity:0}.cta.done .vk{opacity:1}.cta.done .vk path{stroke-dashoffset:0}
+@keyframes gira{to{transform:rotate(360deg)}}
+canvas.confete{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:90}
+.ok{display:none;margin-top:40px;border-radius:24px;background:var(--verde);color:#000;padding:24px 28px;grid-template-columns:auto 1fr;gap:20px;align-items:center}
+body.liberado .ok.show{display:grid;animation:entra .5s ease}
+.ok .selo{width:52px;height:52px;border-radius:50%;background:#000;color:var(--verde);display:grid;place-items:center}
+.ok .selo .ic{width:26px;height:26px}
+.ok b{display:block;font-size:1.25rem;font-weight:800;letter-spacing:-.02em}
+.ok p{margin:4px 0 0;font-size:.95rem;font-weight:500}
+.ok .nl-tag{display:inline-flex;gap:8px;align-items:center;font-size:.7rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;margin-top:10px}
+.ok .nl-tag i{width:8px;height:8px;border-radius:50%;background:#000;display:block;animation:pis 1.8s ease-in-out infinite}
+@keyframes pis{50%{opacity:.25}}
+body.liberado [data-newsletter="site"]{display:none}
+.ferr{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+
+/* banners finais */
+.diag{margin-top:96px;display:grid;grid-template-columns:1fr 1fr;background:var(--ink);color:var(--ink-fg);overflow:hidden;border-radius:28px}
+.diag .txt{padding:clamp(32px,5vw,64px);display:grid;gap:18px;align-content:center}
+.diag .spaced{color:var(--ink-muted)}
+.diag h2{font-size:clamp(2rem,4.4vw,3.2rem);line-height:1;font-weight:800;letter-spacing:-.04em;margin:0;text-wrap:balance}
+.diag h2 .leve{display:inline;font-size:1em;font-weight:200;font-style:italic}
+.diag p{color:var(--ink-muted);margin:0;max-width:46ch}
+.diag .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.diag .ctas .btn:not(.verde){color:var(--ink-fg)}
+.diag figure{margin:0;position:relative;min-height:360px}
+.diag figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1);-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%);mask-image:linear-gradient(90deg,transparent,#000 35%)}
+.alda{margin-top:72px;background:#fff;border-top:1px solid #e4e4e7;border-bottom:1px solid #e4e4e7;color:#2e2e2e;overflow:hidden}
+.alda-in{display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:center;padding-block:44px}
+.alda-pato{width:110px;height:auto;align-self:end;margin-bottom:-44px}
+.alda h2{margin:0 0 8px;font-size:clamp(1.6rem,3vw,2.3rem);font-weight:900;letter-spacing:-.035em;line-height:1.05;color:#2e2e2e}
+.alda h2 span{font-weight:300;font-style:italic}
+.alda p{margin:0;max-width:60ch;color:#4a4a4a}
+.alda-bts{display:grid;gap:10px}
+.alda-bt{background:#2e2e2e;color:#fff;border-color:#2e2e2e}
+.alda-bt2{color:#2e2e2e;border-color:#2e2e2e}
+.fontes{margin-top:72px;font-size:.88rem;color:var(--muted)}
+.fontes h2{font-size:1.1rem!important}
+.fontes ol{padding-left:20px;line-height:1.7}
+.fontes a{color:var(--fg)}
+
+/* ADM */
+.admbar{background:var(--marinho);color:#f5f5f5}
+.admbar .wrap{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between;padding-block:16px}
+.admbar .sel{display:inline-flex;align-items:center;gap:10px;font-size:.68rem;font-weight:800;letter-spacing:.28em;text-transform:uppercase}
+.admbar .sel i{width:8px;height:8px;border-radius:50%;background:var(--verde);display:block;animation:pis 1.8s ease-in-out infinite}
+.admbar .tx{font-size:.85rem;opacity:.85;margin:4px 0 0}
+.admbar .num2{display:flex;gap:22px}
+.admbar .num2 b{display:block;font-size:1.9rem;font-weight:200;line-height:1;font-variant-numeric:tabular-nums}
+.admbar .num2 small{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;opacity:.75}
+.admbar .acs{display:flex;flex-wrap:wrap;gap:8px}
+.admbar .btn{color:#f5f5f5;border-color:rgba(245,245,245,.5)}
+.admbar .btn.verde{color:#000;border-color:var(--verde)}
+.admbar .lista{display:none;padding-bottom:18px}
+.admbar.aberta .lista{display:block}
+.admbar table{width:100%;border-collapse:collapse;font-size:.85rem}
+.admbar th{text-align:left;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;opacity:.7;padding:8px 10px;border-bottom:1px solid rgba(245,245,245,.3)}
+.admbar td{padding:9px 10px;border-bottom:1px solid rgba(245,245,245,.12)}
+.admbar td a{color:#f5f5f5}
+
+@media (max-width:980px){
+  .hero-in{grid-template-columns:1fr}
+  .cena{justify-content:start}
+  .leis,.obj,.g4,.niveis{grid-template-columns:1fr 1fr}
+  .fases{grid-template-columns:1fr 1fr}
+  .fd .in{grid-template-columns:1fr}
+  .obstage,.pir,.bonus,.gate,.diag,.alda-in{grid-template-columns:1fr}
+  .alda-pato{display:none}
+  .bento{grid-template-columns:1fr 1fr}
+  .tile.wide{grid-column:span 2}
+  .calc{grid-template-columns:1fr 1fr}
+  .escada{grid-template-columns:1fr 1fr}
+  .escada div{min-height:0!important}
+  .fipc{grid-template-columns:1fr 1fr}
+  .cad{grid-template-columns:repeat(4,1fr);row-gap:44px}
+}
+@media (max-width:640px){
+  .kpis{grid-template-columns:1fr 1fr}
+  .kpis div{padding:18px 12px 0 0}
+  .cena{grid-template-columns:1fr}
+  .fone{width:200px;height:400px;margin-inline:auto}
+  .painelz{display:none}
+  .leis,.obj,.g2,.g3,.g4,.rot,.cult,.niveis,.crm,.fases{grid-template-columns:1fr}
+  .bl{grid-template-columns:1fr;gap:10px}
+  .gate .duas{grid-template-columns:1fr}
+  .bento{grid-template-columns:1fr}
+  .tile.wide,.tile.big{grid-column:auto;grid-row:auto}
+  .calc{grid-template-columns:1fr 1fr}
+  .eep{grid-template-columns:1fr;gap:6px}
+  .eep i{line-height:1}
+  .escada,.fipc{grid-template-columns:1fr}
+  .fipc div{border-right:0;border-bottom:1px solid var(--line)}
+  .cad{grid-template-columns:repeat(2,1fr)}
+  .cad::before{display:none}
+  .cmp td{font-size:.86rem;padding:11px 4px}
+  .cmp th{padding:0 4px 12px;letter-spacing:.1em}
+  .pilha{height:360px}
+  .rbo .card{grid-template-columns:1fr}
+  .fd summary{grid-template-columns:auto 1fr;padding:18px}
+  .fd summary .mais{display:none}
+  .fd .in{padding:0 18px 18px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+@media print{
+  .hero .cena,.abas,.gate,.ok,.ferr,.diag,.alda,[data-newsletter],.prog button,.admbar,.teaser,.jornada,.cmp,.obstage,.bento,.filtros{display:none!important}
+  .painel{display:block!important}
+  .painel .corpo{display:block!important}
+  .card,.bl,.fd,.cu,.lei{break-inside:avoid}
+  .fd .in{display:grid!important}
+  body{background:#fff;color:#000}
+}
+</style>
+</head>
+<body class="leitura">
+<script src="/assets/casco.js"></script>
+<main>
+
+<!-- ============ CAPA ============ -->
+<section class="hero">
+  <div class="wrap hero-in">
+    <div class="hero-tx">
+      <span class="spaced">Programa evolutivo · Vendas de atacado</span>
+      <h1 class="kin" aria-label="Prospecção que enche a agenda no atacado">
+        <span class="l" aria-hidden="true">Prospecção que</span>
+        <span class="pillrow" aria-hidden="true"><span class="pillwrap"><span class="pill-glow"></span><span class="pill" id="pill"><span class="strip" id="strip"><span>enche a agenda</span><span>abre lojista novo</span><span>vira pedido</span><span>vira carteira</span><span>enche a agenda</span></span></span></span></span>
+        <span class="l" aria-hidden="true">no atacado.</span>
+      </h1>
+      <div class="kdots" id="kdots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+      <p class="tese"><b>O atacado brasileiro virou tirador de pedido: espera o lojista chamar no WhatsApp.</b> Este programa transforma o vendedor em atleta da prospecção em 4 fases, com rotina, placar, cobrança e bônus que pagam pelo comportamento certo.</p>
+      <div class="autores"><span><i></i>Carlos Ribeiro · Método CRM</span><span><i></i>Jeb Blount · Prospecção Fanática</span></div>
+      <div class="ctas"><a class="btn verde" href="#programa">Ver o programa <i class="ic" style="--i:var(--ic-seta)"></i></a><a class="btn" href="#liberar">Liberar o kit completo</a></div>
+    </div>
+    <div class="cena" id="cena" aria-label="Cena ilustrativa: pedidos de lojistas novos chegando no WhatsApp">
+      <div class="fone" aria-hidden="true">
+        <div class="ilha"></div>
+        <div class="hora"><small id="cena-dia">terça-feira, 10 de março</small><b>9:41</b></div>
+        <div class="notifs" id="notifs"></div>
+      </div>
+      <div class="painelz" aria-hidden="true">
+        <div class="rcard"><small>Pedidos de lojistas novos · hoje</small><div class="big" id="cena-total">R$ 0</div><span class="chip">+38% vs. mês passado</span>
+          <svg viewBox="0 0 200 54" preserveAspectRatio="none"><polyline id="spark" fill="none" stroke="#00b85e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="0,46"/><circle id="spark-dot" r="4" fill="#00b85e" cx="0" cy="46"/></svg></div>
+        <div class="vivo"><i></i><span><b id="cena-cad">0</b> lojistas na cadência agora</span></div>
+      </div>
+      <span class="exemplo">dados de exemplo</span>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="kpis">
+      <div><b>R$ <em>616,6</em> bi</b><small>faturamento do atacado distribuidor brasileiro em 2025 (Ranking ABAD/NielsenIQ 2026)</small></div>
+      <div><b><em>1,18</em> mi</b><small>pontos de venda atendidos pelas empresas do ranking</small></div>
+      <div><b><em>95</em>%</b><small>das empresas brasileiras usam o WhatsApp como canal principal (Yalo/IDC)</small></div>
+      <div><b><em>30</em>→90</b><small>a prospecção destes 30 dias paga os próximos 90 (regra dos 30 dias, Blount)</small></div>
+    </div>
+  </div>
+</section>
+
+<nav class="abas" aria-label="Seções do programa">
+  <div class="wrap" id="abas">
+    <a href="#programa" data-t="programa">Programa</a>
+    <a href="#vendedor" data-t="vendedor"><svg class="lk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Vendedor</a>
+    <a href="#objecoes" data-t="objecoes"><svg class="lk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Objeções</a>
+    <a href="#gestor" data-t="gestor"><svg class="lk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Gestor</a>
+    <a href="#indicadores" data-t="indicadores"><svg class="lk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Indicadores</a>
+    <a href="#cobrar" data-t="cobrar"><svg class="lk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Cobrar e bonificar</a>
+    <a href="#cultura" data-t="cultura"><svg class="lk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Cultura BR</a>
+    <a href="#acoes" data-t="acoes"><svg class="lk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Banco de ações</a>
+  </div>
+</nav>
+
+<div class="doc">
+
+<!-- ============ PROGRAMA ============ -->
+<section class="painel" id="p-programa" data-t="programa">
+  <section class="bloco">
+    <span class="n">01 · A VIRADA</span>
+    <h2>Do tirador de pedido <span class="leve">ao vendedor atleta.</span></h2>
+    <p class="lead">Quem só atende o que chega vende o que o mercado deixa. Quem prospecta escolhe o lojista, o mix e o mês. Seis comportamentos separam os dois.</p>
+    <div class="cmp" id="cmp">
+      <div class="hl" id="cmp-hl"></div>
+      <table>
+        <thead><tr><th>Comportamento</th><th>Tirador de pedido</th><th class="us">Vendedor atleta</th></tr></thead>
+        <tbody>
+          <tr class="r"><td><span>Bloco diário de prospecção na agenda</span></td><td><svg class="x" viewBox="0 0 30 30"><path d="M9 9l12 12"/><path d="M21 9L9 21"/></svg></td><td><svg class="ok2" viewBox="0 0 30 30"><circle cx="15" cy="15" r="14"/><path d="M9 15.5l4 4 8-9"/></svg></td></tr>
+          <tr class="r"><td><span>Lista de lojistas-alvo pelo perfil ideal</span></td><td><svg class="x" viewBox="0 0 30 30"><path d="M9 9l12 12"/><path d="M21 9L9 21"/></svg></td><td><svg class="ok2" viewBox="0 0 30 30"><circle cx="15" cy="15" r="14"/><path d="M9 15.5l4 4 8-9"/></svg></td></tr>
+          <tr class="r"><td><span>Cadência com dia e canal (liga, áudio, visita)</span></td><td><svg class="x" viewBox="0 0 30 30"><path d="M9 9l12 12"/><path d="M21 9L9 21"/></svg></td><td><svg class="ok2" viewBox="0 0 30 30"><circle cx="15" cy="15" r="14"/><path d="M9 15.5l4 4 8-9"/></svg></td></tr>
+          <tr class="r"><td><span>Placar de atividade fechado todo dia</span></td><td><svg class="x" viewBox="0 0 30 30"><path d="M9 9l12 12"/><path d="M21 9L9 21"/></svg></td><td><svg class="ok2" viewBox="0 0 30 30"><circle cx="15" cy="15" r="14"/><path d="M9 15.5l4 4 8-9"/></svg></td></tr>
+          <tr class="r"><td><span>Pede o próximo passo em todo contato</span></td><td><svg class="x" viewBox="0 0 30 30"><path d="M9 9l12 12"/><path d="M21 9L9 21"/></svg></td><td><svg class="ok2" viewBox="0 0 30 30"><circle cx="15" cy="15" r="14"/><path d="M9 15.5l4 4 8-9"/></svg></td></tr>
+          <tr class="r"><td><span>Prospecta mesmo com o mês batido</span></td><td><svg class="x" viewBox="0 0 30 30"><path d="M9 9l12 12"/><path d="M21 9L9 21"/></svg></td><td><svg class="ok2" viewBox="0 0 30 30"><circle cx="15" cy="15" r="14"/><path d="M9 15.5l4 4 8-9"/></svg></td></tr>
+        </tbody>
+      </table>
+      <div class="fim"><a class="btn" href="#programa-fases">Começar pela Fase 1 →</a></div>
+    </div>
+  </section>
+
+  <section class="bloco">
+    <span class="n">02 · OS DOIS MÉTODOS</span>
+    <h2>Comportamento Repetido Muda <span class="leve">e quatro leis que não perdoam.</span></h2>
+    <p class="lead">O Método CRM de Carlos Ribeiro dá a disciplina: prospecção é o primeiro dos 4 pilares comerciais e vira treino diário. As leis de Jeb Blount explicam por que parar de prospectar sempre cobra a conta, só que 90 dias depois.</p>
+    <div class="crm"><div><b>C</b><span>Comportamento</span></div><div><b>R</b><span>Repetido</span></div><div><b>M</b><span>Muda</span></div></div>
+    <div class="leis" style="margin-top:28px">
+      <article class="lei"><span class="q">01</span><h3>Lei Universal da Necessidade</h3><p>Quanto mais desesperado você está para vender, menos vende. O desespero aparece na voz e espanta o comprador.</p><p class="atac"><b>No atacado:</b> o vendedor que só prospecta no fim do mês liga dando desconto. Prospecção constante tira o desespero da conversa.</p></article>
+      <article class="lei"><span class="q">02</span><h3>Regra dos 30 dias</h3><p>A prospecção feita nestes 30 dias paga os próximos 90. Perdeu uma semana, sente no bolso lá na frente.</p><p class="atac"><b>No atacado:</b> o lojista compra a coleção antes da data. Quem não prospectou em janeiro não vende o Dia das Mães.</p></article>
+      <article class="lei"><span class="q">03</span><h3>Lei da Substituição</h3><p>Clientes saem sempre. Se você não repõe, a carteira encolhe sem ninguém perceber.</p><p class="atac"><b>No atacado:</b> loja fecha, troca de dono, muda de fornecedor. Todo mês é preciso repor CNPJs ativos.</p></article>
+      <article class="lei"><span class="q">04</span><h3>Lei da Familiaridade</h3><p>Quanto mais o comprador te vê, mais atende e mais confia.</p><p class="atac"><b>No Brasil:</b> é a lei mais forte. Lojista compra de quem conhece. Story, áudio, visita e feira constroem familiaridade.</p></article>
+    </div>
+  </section>
+
+  <section class="bloco" id="programa-fases">
+    <span class="n">03 · O PROGRAMA EVOLUTIVO</span>
+    <h2>Quatro fases. <span class="leve">Só avança quem cumpre o critério de passagem.</span></h2>
+    <p class="lead">Como no esporte: aquecimento, treino, competição e alta performance. Cada fase tem o que o vendedor faz, o que o gestor faz e um critério objetivo para subir de fase.</p>
+    <div class="jornada" id="jornada">
+      <svg class="trilho" viewBox="0 0 1000 230" aria-hidden="true">
+        <path id="trk-base" class="trk-base" d="M60,170 C180,170 200,60 330,60 S480,170 600,170 S800,60 940,60"/>
+        <path id="trk-fg" class="trk-fg" d="M60,170 C180,170 200,60 330,60 S480,170 600,170 S800,60 940,60"/>
+        <circle id="trk-dot" class="ponta" r="8" cx="60" cy="170"/>
+        <g class="st" data-s="0"><g class="sc"><circle cx="60" cy="170" r="24"/><path d="M50 170l7 7 13-14"/></g><text x="60" y="222">1 · Aquecimento</text></g>
+        <g class="st" data-s="1"><g class="sc"><circle cx="330" cy="60" r="24"/><path d="M320 60l7 7 13-14"/></g><text x="330" y="112">2 · Treino</text></g>
+        <g class="st" data-s="2"><g class="sc"><circle cx="600" cy="170" r="24"/><path d="M590 170l7 7 13-14"/></g><text x="600" y="222">3 · Competição</text></g>
+        <g class="st" data-s="3"><g class="sc"><circle cx="940" cy="60" r="24"/><path d="M930 60l7 7 13-14"/></g><text x="900" y="112">4 · Alta performance</text></g>
+      </svg>
+      <div class="fases">
+        <div class="fase"><small>Semanas 1 e 2</small><b>Base e alvo</b><p>Perfil do lojista ideal, base de CNPJs na pirâmide, CRM e bloco na agenda.</p></div>
+        <div class="fase"><small>Semanas 3 a 6</small><b>Rotina diária</b><p>Bloco de ouro, cadência de 14 dias, roteiros e reversão de objeções.</p></div>
+        <div class="fase"><small>Semanas 7 a 12</small><b>Escala e rota</b><p>Visitas, feiras, indicação, 50 contas-conquista, campeonato e bônus.</p></div>
+        <div class="fase"><small>Mês 4 em diante</small><b>Carteira</b><p>Segundo pedido, vários contatos por loja, eventos-gatilho e novo nível.</p></div>
+      </div>
+      <div class="live" id="jornada-live"><span><i></i>Prospecção rodando no automático do hábito</span></div>
+    </div>
+
+    <div class="fdet">
+      <details class="fd" open><summary><span class="num">01</span><span><b>Aquecimento · Base e alvo</b><small>Semanas 1 e 2 · ninguém liga sem saber para quem</small></span><span class="mais">+</span></summary>
+        <div class="in">
+          <div class="v"><h4>Vendedor faz</h4><ul><li>Escreve o perfil do lojista ideal: segmento, cidade, porte, mix, pedido mínimo possível</li><li>Monta a lista de 300 CNPJs-alvo na pirâmide de prospecção</li><li>Cadastra tudo no CRM, com WhatsApp do dono</li><li>Bloqueia 2 blocos de prospecção na agenda, todos os dias</li><li>Grava e decora a abertura de ligação de 5 etapas</li></ul></div>
+          <div class="gs"><h4>Gestor faz</h4><ul><li>Define território e regra de carteira (de quem é cada CNPJ)</li><li>Calcula a meta de atividade pela matemática reversa</li><li>Assina o contrato de rotina com cada vendedor</li><li>Monta o placar visível (CRM ou quadro)</li><li>Faz o primeiro bloco junto com o time</li></ul></div>
+          <div class="pa"><h4>Critério de passagem</h4><p>300 alvos qualificados no CRM, abertura decorada e bloco cumprido em 5 dias úteis seguidos.</p></div>
+        </div></details>
+      <details class="fd"><summary><span class="num">02</span><span><b>Treino · Rotina diária</b><small>Semanas 3 a 6 · volume com qualidade, todo dia</small></span><span class="mais">+</span></summary>
+        <div class="in">
+          <div class="v"><h4>Vendedor faz</h4><ul><li>Cumpre o bloco de ouro: ligação + WhatsApp, sem orçamento no meio</li><li>Roda a cadência de 14 dias em cada lojista novo</li><li>Reverte objeções com Apoio, Quebra e Pedido</li><li>Fecha o placar no CRM antes de ir embora</li><li>Prepara a lista de amanhã fora do horário de ouro</li></ul></div>
+          <div class="gs"><h4>Gestor faz</h4><ul><li>Daily de 15 minutos às 8h, em pé</li><li>Ouve 2 ligações por vendedor por semana e dá 1 ponto de melhoria</li><li>Protege o bloco: ninguém interrompe quem está prospectando</li><li>Mede taxas de contato e de agendamento</li><li>Celebra o primeiro pedido de cada vendedor</li></ul></div>
+          <div class="pa"><h4>Critério de passagem</h4><p>4 semanas com 90% ou mais dos blocos cumpridos e as taxas de contato e de agendamento medidas.</p></div>
+        </div></details>
+      <details class="fd"><summary><span class="num">03</span><span><b>Competição · Escala e rota</b><small>Semanas 7 a 12 · mais canais, mais alvo, placar valendo bônus</small></span><span class="mais">+</span></summary>
+        <div class="in">
+          <div class="v"><h4>Vendedor faz</h4><ul><li>Rota de visitas a frio nos polos e cidades da região</li><li>Prospecção em feiras e excursões de compradores</li><li>Pede uma indicação por dia a lojista que já compra</li><li>Escolhe as 50 contas-conquista e toca todas todo mês</li><li>Converte o pedido de teste em segundo pedido</li></ul></div>
+          <div class="gs"><h4>Gestor faz</h4><ul><li>Liga a bonificação de 4 camadas</li><li>Abre o campeonato por times, com tabela semanal</li><li>Revisa a pirâmide e a qualidade da base</li><li>Faz o 1:1 semanal de 30 minutos</li><li>Ajusta a meta de atividade com as taxas reais</li></ul></div>
+          <div class="pa"><h4>Critério de passagem</h4><p>12 semanas de rotina, meta de lojistas ativados batida em 2 dos 3 meses e taxa de segundo pedido medida.</p></div>
+        </div></details>
+      <details class="fd"><summary><span class="num">04</span><span><b>Alta performance · Carteira</b><small>Mês 4 em diante · prospecção estratégica de contas grandes</small></span><span class="mais">+</span></summary>
+        <div class="in">
+          <div class="v"><h4>Vendedor faz</h4><ul><li>Fala com 2 ou 3 pessoas por conta: dono, comprador, gerente</li><li>Monitora eventos-gatilho: loja nova, reforma, troca de fornecedor</li><li>Entrega o cliente ativado para a fidelização com plano de recompra</li><li>Mantém o bloco mesmo com a carteira cheia</li></ul></div>
+          <div class="gs"><h4>Gestor faz</h4><ul><li>Promove de nível quem cumpre os critérios</li><li>Revisa o perfil ideal a cada trimestre com os melhores clientes</li><li>Liga a prospecção aos outros 3 pilares: nutrição, fidelização e recuperação</li><li>Forma um vendedor-espelho para treinar os novos</li></ul></div>
+          <div class="pa"><h4>Critério de permanência</h4><p>Revisão trimestral: rotina acima de 85%, carteira crescendo em CNPJs ativos e ticket do segundo pedido maior que o do primeiro.</p></div>
+        </div></details>
+    </div>
+  </section>
+
+  <section class="bloco">
+    <span class="n">04 · OS 4 OBJETIVOS</span>
+    <h2>Todo contato tem <span class="leve">um objetivo claro.</span></h2>
+    <p class="lead">Blount separa quatro objetivos de prospecção. No atacado, eles viram estes quatro pedidos.</p>
+    <div class="obj">
+      <div class="card"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><h3>Marcar</h3><p>Visita, chamada de vídeo com o mostruário ou ida ao showroom. É o objetivo principal do primeiro contato.</p></div>
+      <div class="card"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><h3>Qualificar</h3><p>CNPJ ativo, o que mais gira, quanto compra por mês, quando fecha a coleção e quem decide.</p></div>
+      <div class="card"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><h3>Fechar</h3><p>Pedido de teste no mínimo da casa. O primeiro pedido existe para ganhar o segundo.</p></div>
+      <div class="card"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/></svg><h3>Familiaridade</h3><p>Entrar no radar antes da próxima compra: o lojista precisa lembrar do seu nome quando abrir o pedido.</p></div>
+    </div>
+  </section>
+</section>
+
+<!-- ============ VENDEDOR ============ -->
+<section class="painel" id="p-vendedor" data-t="vendedor" data-lock>
+  <div class="teaser">
+    <span class="n">ÂNGULO DO VENDEDOR</span>
+    <h2 style="font-size:clamp(1.7rem,3.6vw,2.6rem);font-weight:800;letter-spacing:-.035em;margin:16px 0 8px">O dia de treino <span class="leve" style="display:inline;font-size:1em">do vendedor de atacado.</span></h2>
+    <div class="lista"><div><i class="ic" style="--i:var(--ic-clock)"></i>Checklist diário com blocos de ouro</div><div><i class="ic" style="--i:var(--ic-repetir)"></i>Cadência de 14 dias por lojista</div><div><i class="ic" style="--i:var(--ic-funil)"></i>Pirâmide de prospecção interativa</div><div><i class="ic" style="--i:var(--ic-phone)"></i>Roteiros de ligação, áudio, WhatsApp e visita</div></div>
+  </div>
+  <div class="corpo">
+  <section class="bloco">
+    <span class="n">05 · CHECKLIST DIÁRIO</span>
+    <h2>Um dia de atleta <span class="leve">bloco por bloco.</span></h2>
+    <p class="lead">Os blocos verdes são as horas de ouro: só prospecção, sem orçamento, sem pós-venda, sem "só um minutinho". Pesquisa e preparo ficam fora delas. Horários de exemplo: ajuste ao movimento do seu lojista. As marcações ficam salvas neste aparelho e zeram no dia seguinte.</p>
+    <div class="prog" data-grupo="dia"><div class="barra"><i></i></div><span>0 de 0</span><button type="button" data-zera="dia">Zerar o dia</button></div>
+    <div class="blocos" data-grupo="dia">
+      <div class="bl"><div class="h"><time>08:00</time><b>Placar e lista</b><small>15 min · daily do time</small></div><ul class="chk">
+        <li><label><input type="checkbox" data-k="v1"><span>Conferir o placar de ontem: tentativas, conversas, agendamentos, pedidos</span></label></li>
+        <li><label><input type="checkbox" data-k="v2"><span>Abrir a lista do dia já pronta (feita ontem, fora do horário de ouro)</span></label></li></ul></div>
+      <div class="bl ouro"><div class="h"><time>08:30</time><b>Bloco de ouro 1</b><small>90 min · celular no silencioso</small></div><ul class="chk">
+        <li><label><input type="checkbox" data-k="v3"><span>Ligar para os lojistas novos da lista antes da loja encher</span></label></li>
+        <li><label><input type="checkbox" data-k="v4"><span>Quem não atendeu: WhatsApp curto ou áudio de até 30 segundos</span></label></li>
+        <li><label><input type="checkbox" data-k="v5"><span>Rodar os toques da cadência que vencem hoje</span></label></li>
+        <li><label><input type="checkbox" data-k="v6"><span>Pedir o próximo passo em toda conversa (data e hora)</span></label></li></ul></div>
+      <div class="bl"><div class="h"><time>10:00</time><b>Respostas</b><small>atender o que chegou</small></div><ul class="chk">
+        <li><label><input type="checkbox" data-k="v7"><span>Responder quem retornou da prospecção em até 1 hora</span></label></li>
+        <li><label><input type="checkbox" data-k="v8"><span>Mandar mostruário segmentado só para quem tem conversa marcada</span></label></li></ul></div>
+      <div class="bl"><div class="h"><time>13:30</time><b>Apresentações</b><small>visita, vídeo ou showroom</small></div><ul class="chk">
+        <li><label><input type="checkbox" data-k="v9"><span>Fazer as apresentações agendadas e pedir o pedido de teste</span></label></li>
+        <li><label><input type="checkbox" data-k="v10"><span>Na rota: entrar em 2 lojas sem hora marcada perto da visita</span></label></li></ul></div>
+      <div class="bl ouro"><div class="h"><time>16:00</time><b>Bloco de ouro 2</b><small>60 min · cadência e indicação</small></div><ul class="chk">
+        <li><label><input type="checkbox" data-k="v11"><span>Segunda rodada de ligações para quem não atendeu de manhã</span></label></li>
+        <li><label><input type="checkbox" data-k="v12"><span>Pedir uma indicação a um lojista que já compra</span></label></li>
+        <li><label><input type="checkbox" data-k="v13"><span>Interagir no Instagram de 5 lojas-alvo (story, comentário)</span></label></li></ul></div>
+      <div class="bl"><div class="h"><time>17:30</time><b>Fechar o placar</b><small>horas de platina</small></div><ul class="chk">
+        <li><label><input type="checkbox" data-k="v14"><span>Registrar tudo no CRM: resultado, próximo passo e data</span></label></li>
+        <li><label><input type="checkbox" data-k="v15"><span>Montar a lista de amanhã (novos, cadência, recuperação)</span></label></li>
+        <li><label><input type="checkbox" data-k="v16"><span>Fazer mais uma ligação antes de ir embora</span></label></li></ul></div>
+    </div>
+  </section>
+
+  <section class="bloco">
+    <span class="n">06 · CADÊNCIA DE 14 DIAS</span>
+    <h2>Oito toques <span class="leve">em canais diferentes.</span></h2>
+    <p class="lead">Um contato só não é prospecção, é tentativa. A cadência mistura canais para o lojista te ver em vários lugares, sem virar spam. Respondeu? Sai da cadência e entra no funil.</p>
+    <div class="cad">
+      <div><b>DIA 1</b><strong>Ligação</strong><small>+ WhatsApp curto se não atender</small></div>
+      <div><b>DIA 2</b><strong>Áudio</strong><small>até 30 s, nome e motivo</small></div>
+      <div><b>DIA 4</b><strong>Ligação</strong><small>outro horário</small></div>
+      <div><b>DIA 5</b><strong>Instagram</strong><small>seguir e reagir ao story</small></div>
+      <div><b>DIA 7</b><strong>WhatsApp</strong><small>foto do que gira na região</small></div>
+      <div><b>DIA 9</b><strong>Ligação</strong><small>ou visita, se estiver na rota</small></div>
+      <div><b>DIA 11</b><strong>Prova</strong><small>lojista vizinho que compra</small></div>
+      <div><b>DIA 14</b><strong>Porta aberta</strong><small>volta à pirâmide em 30 dias</small></div>
+    </div>
+  </section>
+
+  <section class="bloco">
+    <span class="n">07 · PIRÂMIDE DE PROSPECÇÃO</span>
+    <h2>Nem todo lojista <span class="leve">merece o mesmo esforço.</span></h2>
+    <p class="lead">A base é larga e fria; o topo é curto e vale o ano. Toque em cada nível para ver o que fazer com ele.</p>
+    <div class="pir">
+      <svg viewBox="0 0 400 330" id="pir" role="group" aria-label="Pirâmide de prospecção em 5 níveis">
+        <g data-p="4"><polygon points="20,320 380,320 344,256 56,256" fill="#1e2357"/><text x="200" y="293">Base bruta de CNPJs</text></g>
+        <g data-p="3"><polygon points="58,252 342,252 306,188 94,188" fill="#2b3280"/><text x="200" y="225">Dados confirmados</text></g>
+        <g data-p="2"><polygon points="96,184 304,184 268,120 132,120" fill="#078a46"/><text x="200" y="157">Janela de compra</text></g>
+        <g data-p="1"><polygon points="134,116 266,116 230,52 170,52" fill="#00b85e"/><text x="200" y="89">Decisor engajado</text></g>
+        <g data-p="0" class="on"><polygon points="172,48 228,48 200,4" fill="#e0055e"/></g>
+      </svg>
+      <div class="info" id="pir-info" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="bloco">
+    <span class="n">08 · ROTEIROS</span>
+    <h2>Estrutura decorada, <span class="leve">tom de conversa.</span></h2>
+    <p class="lead">Roteiro não é para ler: é trilho para não improvisar. Troque o que está entre colchetes e fale do seu jeito.</p>
+    <div class="rot">
+      <div class="card"><h3><small>Ligação · 5 etapas (Blount)</small>Chegar ao ponto em 10 segundos</h3>
+        <ol><li><b>Chame pelo nome:</b> "Oi, Marcos!"</li><li><b>Identifique-se:</b> quem você é e de onde fala</li><li><b>Diga o motivo:</b> "Estou ligando para marcar…"</li><li><b>Dê um porquê:</b> a ponte com algo do mundo dele</li><li><b>Peça e fique em silêncio</b></li></ol>
+        <blockquote class="msg">Oi, [Marcos]! Aqui é o [Carlos], da [Distribuidora], de [Goiânia]. Estou ligando para marcar 15 minutos e te mostrar a [coleção de inverno]. Te liguei porque [três lojas de Anápolis] renovaram o mix com a gente e o [jeans] passou a girar em 20 dias. Que tal [quinta, às 10h], por vídeo?</blockquote>
+        <button class="btn sm" type="button" data-copia><i class="ic" style="--i:var(--ic-doc)"></i>Copiar</button></div>
+      <div class="card"><h3><small>Áudio no WhatsApp · o "correio de voz" brasileiro</small>Até 30 segundos, uma ideia só</h3>
+        <ol><li><b>Nome do lojista</b> logo no começo</li><li><b>Seu nome e empresa</b></li><li><b>Motivo</b> em uma frase</li><li><b>Prova:</b> loja vizinha ou produto que gira</li><li><b>Pedido simples:</b> responder "sim" ou um horário</li></ol>
+        <blockquote class="msg">Oi, [Marcos], tudo bem? [Carlos] aqui, da [Distribuidora]. Separei os [10 itens que mais giram nas lojas de Anápolis] e queria te mostrar em 15 minutos por vídeo. Me responde com o melhor horário, quinta ou sexta?</blockquote>
+        <button class="btn sm" type="button" data-copia><i class="ic" style="--i:var(--ic-doc)"></i>Copiar</button></div>
+      <div class="card"><h3><small>Primeira mensagem escrita</small>Curta, com motivo e pergunta</h3>
+        <blockquote class="msg">Oi, [Marcos]! Sou o [Carlos], da [Distribuidora] (CNPJ [00.000.000/0001-00], [Goiânia]). Atendemos [lojas de moda do interior de Goiás] com pedido a partir de [R$ 1.500]. Posso te ligar amanhã às [10h] para entender o que mais gira aí na [loja]?</blockquote>
+        <button class="btn sm" type="button" data-copia><i class="ic" style="--i:var(--ic-doc)"></i>Copiar</button></div>
+      <div class="card"><h3><small>Visita a frio na rota</small>Entrar, ser breve, marcar</h3>
+        <blockquote class="msg">Bom dia! Eu sou o [Carlos], da [Distribuidora]. Estou atendendo [duas lojas aqui da rua] hoje e não quis passar sem me apresentar. Quem cuida das compras? … Não vou tomar seu tempo agora com loja cheia: qual o melhor dia para eu voltar com o mostruário, [terça cedo] ou [quarta à tarde]?</blockquote>
+        <button class="btn sm" type="button" data-copia><i class="ic" style="--i:var(--ic-doc)"></i>Copiar</button></div>
+      <div class="card"><h3><small>Pedido de indicação</small>Peça de outra cidade, não do concorrente</h3>
+        <blockquote class="msg">[Ana], que bom que o [jeans] girou rápido aí! Uma ajuda: você conhece algum lojista de [outra cidade] que trabalha com o mesmo público? Não é concorrente seu, e se fizer sentido eu falo que fui indicado por você.</blockquote>
+        <button class="btn sm" type="button" data-copia><i class="ic" style="--i:var(--ic-doc)"></i>Copiar</button></div>
+      <div class="card"><h3><small>Mentalidade · os 3 Ps que travam</small>O que segura o vendedor</h3>
+        <ol><li><b>Procrastinação:</b> "depois eu ligo". Antídoto: bloco com hora marcada e lista pronta.</li><li><b>Perfeccionismo:</b> pesquisar 20 minutos cada loja antes de ligar. Antídoto: pesquisa nas horas de platina, limite de 2 minutos no bloco.</li><li><b>Paralisia por análise:</b> esperar o momento certo. Antídoto: o momento certo é o bloco de hoje.</li></ol>
+        <p style="margin-top:6px">Termine sempre com a regra das onze palavras de Blount, na versão Unique: <b>faça mais uma ligação.</b></p></div>
+    </div>
+  </section>
+  </div>
+</section>
+
+<!-- ============ OBJEÇÕES ============ -->
+<section class="painel" id="p-objecoes" data-t="objecoes" data-lock>
+  <div class="teaser">
+    <span class="n">OBJEÇÕES NA PROSPECÇÃO</span>
+    <h2 style="font-size:clamp(1.7rem,3.6vw,2.6rem);font-weight:800;letter-spacing:-.035em;margin:16px 0 8px">"Manda o catálogo" <span class="leve" style="display:inline;font-size:1em">não é um não.</span></h2>
+    <div class="lista"><div><i class="ic" style="--i:var(--ic-chat)"></i>8 objeções do atacado brasileiro</div><div><i class="ic" style="--i:var(--ic-repetir)"></i>Estrutura Apoio, Quebra e Pedido</div><div><i class="ic" style="--i:var(--ic-doc)"></i>Respostas prontas para copiar</div></div>
+  </div>
+  <div class="corpo">
+  <section class="bloco">
+    <div class="obstage">
+      <div>
+        <span class="spaced" style="color:#a1a1a8">Reflexos, desculpas e objeções</span>
+        <h2>Na prospecção você não contorna objeção. <span class="leve" style="display:inline;font-size:1em">Você reverte para o próximo passo.</span></h2>
+        <p class="l">O primeiro "não" do lojista é reflexo: ele foi interrompido. Blount chama de RBO (reflexo, desculpa, objeção) e ensina uma estrutura de três tempos, decorada até soar natural.</p>
+        <div class="ladi">
+          <div><b>1</b><p style="margin:0"><strong>Apoio</strong><span>Frase curta e decorada que segura a emoção ("Faz sentido."). No original, <em>ledge</em>.</span></p></div>
+          <div><b>2</b><p style="margin:0"><strong>Quebra de padrão</strong><span>Diga o que ele não espera de um vendedor. No original, <em>disrupt</em>.</span></p></div>
+          <div><b>3</b><p style="margin:0"><strong>Pedido</strong><span>Peça de novo, com confiança, com dia e hora. No original, <em>ask</em>.</span></p></div>
+        </div>
+      </div>
+      <div><div class="pilha" id="pilha"></div><p style="color:#a1a1a8;font-size:.8rem;margin:14px 0 0">Respostas-modelo · adapte ao seu tom</p></div>
+    </div>
+  </section>
+  <section class="bloco">
+    <span class="n">09 · AS 8 MAIS COMUNS</span>
+    <h2>O que o lojista diz <span class="leve">e o que você responde.</span></h2>
+    <p class="lead">Objeção de preço de verdade aparece na negociação, não na primeira ligação. Na prospecção, quase tudo é reflexo. Treine estas oito em dupla até sair sem pensar.</p>
+    <div class="rbo" id="rbo"></div>
+  </section>
+  </div>
+</section>
+
+<!-- ============ GESTOR ============ -->
+<section class="painel" id="p-gestor" data-t="gestor" data-lock>
+  <div class="teaser">
+    <span class="n">ÂNGULO DO GESTOR</span>
+    <h2 style="font-size:clamp(1.7rem,3.6vw,2.6rem);font-weight:800;letter-spacing:-.035em;margin:16px 0 8px">Prospecção não sobrevive <span class="leve" style="display:inline;font-size:1em">sem gestor no campo.</span></h2>
+    <div class="lista"><div><i class="ic" style="--i:var(--ic-lista)"></i>Implantação em 16 passos com progresso</div><div><i class="ic" style="--i:var(--ic-calendar)"></i>Rituais: daily, 1:1, mensal e trimestral</div><div><i class="ic" style="--i:var(--ic-headset)"></i>Coaching de ligação com inteligência emocional</div><div><i class="ic" style="--i:var(--ic-doc)"></i>Contrato de rotina e regra de carteira</div></div>
+  </div>
+  <div class="corpo">
+  <section class="bloco">
+    <span class="n">10 · IMPLANTAÇÃO</span>
+    <h2>Tirar do papel <span class="leve">em 16 passos.</span></h2>
+    <p class="lead">O checklist do gestor, fase por fase. Fica salvo neste aparelho até você zerar.</p>
+    <div class="prog" data-grupo="imp"><div class="barra"><i></i></div><span>0 de 0</span><button type="button" data-zera="imp">Zerar</button></div>
+    <div class="blocos" data-grupo="imp">
+      <div class="bl"><div class="h"><time>F1</time><b>Aquecimento</b><small>semanas 1 e 2</small></div><ul class="chk">
+        <li><label><input type="checkbox" data-k="g1"><span>Reunir o time e apresentar o porquê: regra dos 30 dias e lei da substituição com os números da empresa</span></label></li>
+        <li><label><input type="checkbox" data-k="g2"><span>Desenhar o perfil do lojista ideal com os 20 melhores clientes atuais</span></label></li>
+        <li><label><input type="checkbox" data-k="g3"><span>Dividir território e publicar a regra de carteira</span></label></li>
+        <li><label><input type="checkbox" data-k="g4"><span>Configurar o CRM com etapas de prospecção e campos obrigatórios</span></label></li>
+        <li><label><input type="checkbox" data-k="g5"><span>Definir a meta de atividade pela matemática reversa</span></label></li>
+        <li><label><input type="checkbox" data-k="g6"><span>Assinar o contrato de rotina com cada vendedor</span></label></li></ul></div>
+      <div class="bl"><div class="h"><time>F2</time><b>Treino</b><small>semanas 3 a 6</small></div><ul class="chk">
+        <li><label><input type="checkbox" data-k="g7"><span>Começar a daily de 15 minutos e não desmarcar</span></label></li>
+        <li><label><input type="checkbox" data-k="g8"><span>Treinar roteiro e objeções em dupla (role-play) toda segunda</span></label></li>
+        <li><label><input type="checkbox" data-k="g9"><span>Ouvir 2 ligações por vendedor por semana</span></label></li>
+        <li><label><input type="checkbox" data-k="g10"><span>Proteger os blocos de ouro: nada de reunião ou tarefa interna</span></label></li></ul></div>
+      <div class="bl"><div class="h"><time>F3</time><b>Competição</b><small>semanas 7 a 12</small></div><ul class="chk">
+        <li><label><input type="checkbox" data-k="g11"><span>Lançar a bonificação de 4 camadas por escrito</span></label></li>
+        <li><label><input type="checkbox" data-k="g12"><span>Abrir o campeonato por times com tabela semanal</span></label></li>
+        <li><label><input type="checkbox" data-k="g13"><span>Montar rotas de visita e calendário de feiras</span></label></li>
+        <li><label><input type="checkbox" data-k="g14"><span>Recalibrar metas com as taxas reais das 6 primeiras semanas</span></label></li></ul></div>
+      <div class="bl"><div class="h"><time>F4</time><b>Alta performance</b><small>mês 4 em diante</small></div><ul class="chk">
+        <li><label><input type="checkbox" data-k="g15"><span>Fazer a primeira promoção de nível com critério público</span></label></li>
+        <li><label><input type="checkbox" data-k="g16"><span>Revisar o perfil ideal e a lista de contas-conquista</span></label></li></ul></div>
+    </div>
+  </section>
+
+  <section class="bloco">
+    <span class="n">11 · RITUAIS</span>
+    <h2>A cadência do gestor <span class="leve">é a cadência do time.</span></h2>
+    <div class="g4">
+      <div class="card"><span class="tag v">Diário · 15 min</span><h3 style="margin-top:12px">Daily em pé</h3><p>Cada vendedor diz 3 números: o que fez ontem, o que vai fazer hoje e um bloqueio. Sem discussão de caso: caso vai para o 1:1.</p></div>
+      <div class="card"><span class="tag a">Semanal · 30 min</span><h3 style="margin-top:12px">1:1 com placar</h3><p>Placar da semana, 2 ligações ouvidas juntos, 1 habilidade para treinar e 1 compromisso com data.</p></div>
+      <div class="card"><span class="tag v">Mensal · 1 h</span><h3 style="margin-top:12px">Campeonato e taxas</h3><p>Tabela do campeonato, premiação, revisão das taxas de conversão e ajuste da meta de atividade.</p></div>
+      <div class="card"><span class="tag m">Trimestral · 2 h</span><h3 style="margin-top:12px">Revisão do jogo</h3><p>Perfil ideal, pirâmide, contas-conquista, promoções de nível e ajuste da bonificação.</p></div>
+    </div>
+  </section>
+
+  <section class="bloco">
+    <span class="n">12 · COACHING</span>
+    <h2>Treine o que se adquire, <span class="leve">não o que se nasce com.</span></h2>
+    <p class="lead">Em Sales EQ, Blount separa quatro inteligências. A inata não muda; as outras três o gestor treina toda semana.</p>
+    <div class="g4">
+      <div class="card"><span class="tag">QI · inata</span><h3 style="margin-top:12px">Contrate bem</h3><p>Não se treina. Entra no processo seletivo: raciocínio rápido e aprendizado.</p></div>
+      <div class="card"><span class="tag a">Adquirida</span><h3 style="margin-top:12px">Produto e mercado</h3><p>Mix, grade, giro por região, calendário do varejo, condição comercial. Treino toda segunda.</p></div>
+      <div class="card"><span class="tag a">Tecnológica</span><h3 style="margin-top:12px">CRM e WhatsApp</h3><p>Registrar, agendar, usar etiqueta e mensagem rápida. Quem não registra não existe no placar.</p></div>
+      <div class="card"><span class="tag v">Emocional</span><h3 style="margin-top:12px">Sales EQ</h3><p>Empatia, autoconsciência, autocontrole e impulso de vendas. É o que segura o vendedor depois do décimo "não".</p></div>
+    </div>
+  </section>
+
+  <section class="bloco">
+    <span class="n">13 · REGRAS DO JOGO</span>
+    <h2>Combinado <span class="leve">não sai caro.</span></h2>
+    <div class="g2">
+      <div class="card"><h3>Contrato de rotina</h3><p>Uma página assinada pelo vendedor e pelo gestor: horários dos blocos de ouro, meta diária de atividade, registro no CRM até as 18h, participação na daily e no 1:1. É o que dá base para cobrar sem ser pessoal.</p></div>
+      <div class="card"><h3>Regra de carteira</h3><p>"O cliente é meu" é a briga mais comum do atacado brasileiro. Regra simples: o CNPJ é de quem registrou a primeira conversa no CRM; 60 dias sem atividade registrada, volta para o time. Sem registro, sem dono.</p></div>
+    </div>
+  </section>
+  </div>
+</section>
+
+<!-- ============ INDICADORES ============ -->
+<section class="painel" id="p-indicadores" data-t="indicadores" data-lock>
+  <div class="teaser">
+    <span class="n">INDICADORES E RESULTADOS</span>
+    <h2 style="font-size:clamp(1.7rem,3.6vw,2.6rem);font-weight:800;letter-spacing:-.035em;margin:16px 0 8px">Conheça seus números <span class="leve" style="display:inline;font-size:1em">ou o mês te conhece.</span></h2>
+    <div class="lista"><div><i class="ic" style="--i:var(--ic-grafico)"></i>Painel de resultados</div><div><i class="ic" style="--i:var(--ic-funil)"></i>Calculadora de meta reversa</div><div><i class="ic" style="--i:var(--ic-lista)"></i>Quadro de 12 indicadores</div></div>
+  </div>
+  <div class="corpo">
+  <section class="bloco">
+    <span class="n">14 · O PLACAR</span>
+    <h2>O que um time rodando <span class="leve">mostra no fim do trimestre.</span></h2>
+    <p class="lead">Painel ilustrativo para você enxergar o destino. Os números da sua empresa entram depois de 4 semanas medindo. <span class="exemplo">dados de exemplo</span></p>
+    <div class="bento" id="bento">
+      <div class="tile big"><div><small>Taxa de contato efetivo</small><div class="ring"><svg viewBox="0 0 170 170"><circle class="b" cx="85" cy="85" r="70"/><circle class="f" id="ring-f" cx="85" cy="85" r="70" stroke-dasharray="440" stroke-dashoffset="440"/></svg><div class="num"><span data-cont="34" data-suf="%">0%</span></div></div><span class="tag v">+12 p.p. desde a fase 2</span></div></div>
+      <div class="tile"><small>Pipeline gerado</small><div class="num"><span data-cont="186" data-pre="R$ " data-suf=" mil">R$ 0 mil</span></div><div class="barras" id="barras"><i data-h="30"></i><i data-h="42"></i><i data-h="38"></i><i data-h="55"></i><i data-h="61"></i><i data-h="70"></i><i data-h="92"></i></div></div>
+      <div class="tile"><small>Lojistas novos ativados</small><div class="num"><span data-cont="27">0</span></div><span style="font-size:.85rem;color:var(--muted)">CNPJs com primeiro pedido faturado</span></div>
+      <div class="tile"><small>Rotina cumprida na semana</small><div class="num"><span data-cont="4.6" data-dec="1" data-suf=" de 5">0 de 5</span></div><div class="dias5" id="dias5"><i></i><i></i><i></i><i></i><i></i></div></div>
+      <div class="tile"><small>Segundo pedido em 60 dias</small><div class="num"><span data-cont="58" data-suf="%">0%</span></div><span style="font-size:.85rem;color:var(--muted)">dos lojistas ativados</span></div>
+      <div class="tile wide linha" id="linha"><small>Pedidos de lojistas novos por semana</small><span class="tip">+38% de pedidos</span>
+        <svg viewBox="0 0 600 120" preserveAspectRatio="none"><defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#00e676" stop-opacity=".35"/><stop offset="1" stop-color="#00e676" stop-opacity="0"/></linearGradient></defs><path id="area" fill="url(#ga)" d=""/><path id="lin" fill="none" stroke="#00b85e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d=""/><circle id="lin-dot" r="5" fill="#00b85e" cx="-10" cy="-10"/></svg></div>
+    </div>
+  </section>
+
+  <section class="bloco">
+    <span class="n">15 · MATEMÁTICA REVERSA</span>
+    <h2>Da meta de lojistas novos <span class="leve">à ligação de hoje.</span></h2>
+    <p class="lead">Comece pelo resultado e volte até a atividade diária. Use as suas taxas; se ainda não tem, comece com estas como hipótese e corrija na semana 6.</p>
+    <div class="calc">
+      <label>Lojistas novos por mês<input id="m1" inputmode="decimal" value="10"></label>
+      <label>% apresentação que vira pedido<input id="m2" inputmode="decimal" value="30"></label>
+      <label>% conversa que vira apresentação<input id="m3" inputmode="decimal" value="25"></label>
+      <label>% tentativa que vira conversa<input id="m4" inputmode="decimal" value="30"></label>
+      <label>Dias úteis no mês<input id="m5" inputmode="decimal" value="21"></label>
+    </div>
+    <div class="funil" id="funil"></div>
+  </section>
+
+  <section class="bloco">
+    <span class="n">16 · QUADRO DE INDICADORES</span>
+    <h2>Atividade, conversão <span class="leve">e resultado.</span></h2>
+    <p class="lead">Cobre atividade todo dia, conversão toda semana e resultado todo mês. As referências são pontos de partida para calibrar, não verdades do mercado.</p>
+    <div class="rolar"><table class="tab">
+      <thead><tr><th>Grupo</th><th>Indicador</th><th>Como medir</th><th>Quando</th><th>Ponto de partida</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag a">Atividade</span></td><td><b>Tentativas de contato</b></td><td>Ligações + mensagens de prospecção para lojistas novos</td><td>Diário</td><td>Sai da matemática reversa</td></tr>
+        <tr><td><span class="tag a">Atividade</span></td><td><b>Conversas efetivas</b></td><td>Falou com quem decide ou compra</td><td>Diário</td><td>8 a 12 por dia</td></tr>
+        <tr><td><span class="tag a">Atividade</span></td><td><b>Blocos de ouro cumpridos</b></td><td>Dias com os 2 blocos completos</td><td>Diário</td><td>90% dos dias</td></tr>
+        <tr><td><span class="tag a">Atividade</span></td><td><b>Toques de cadência em dia</b></td><td>Toques vencidos e feitos no dia</td><td>Diário</td><td>100%</td></tr>
+        <tr><td><span class="tag v">Conversão</span></td><td><b>Taxa de contato</b></td><td>Conversas ÷ tentativas</td><td>Semanal</td><td>Medir e subir mês a mês</td></tr>
+        <tr><td><span class="tag v">Conversão</span></td><td><b>Taxa de agendamento</b></td><td>Apresentações marcadas ÷ conversas</td><td>Semanal</td><td>Medir e subir mês a mês</td></tr>
+        <tr><td><span class="tag v">Conversão</span></td><td><b>Taxa de primeiro pedido</b></td><td>Pedidos de teste ÷ apresentações feitas</td><td>Semanal</td><td>Medir e subir mês a mês</td></tr>
+        <tr><td><span class="tag m">Resultado</span></td><td><b>Lojistas ativados</b></td><td>CNPJs novos com primeiro pedido faturado e pago</td><td>Mensal</td><td>Meta da empresa</td></tr>
+        <tr><td><span class="tag m">Resultado</span></td><td><b>Pipeline gerado</b></td><td>Soma dos orçamentos abertos com lojistas novos</td><td>Mensal</td><td>3 vezes a meta de faturamento novo</td></tr>
+        <tr><td><span class="tag m">Resultado</span></td><td><b>Segundo pedido em 60 dias</b></td><td>Ativados que recompraram ÷ ativados</td><td>Mensal</td><td>Mais da metade</td></tr>
+        <tr><td><span class="tag m">Resultado</span></td><td><b>Ticket do primeiro pedido</b></td><td>Faturamento dos pedidos de teste ÷ quantidade</td><td>Mensal</td><td>Acima do pedido mínimo</td></tr>
+        <tr><td><span class="tag">Saúde</span></td><td><b>Base na pirâmide</b></td><td>CNPJs por nível e % com dados completos</td><td>Mensal</td><td>Topo sempre com 50 contas</td></tr>
+      </tbody>
+    </table></div>
+    <div class="eep" style="margin-top:28px"><div><b>Eficiência</b><span>quanta atividade cabe no bloco</span></div><i>+</i><div><b>Eficácia</b><span>quanto da atividade vira resultado</span></div><i>=</i><div><b>Desempenho</b><span>a fórmula E + E = D de Blount</span></div></div>
+  </section>
+  </div>
+</section>
+
+<!-- ============ COBRAR E BONIFICAR ============ -->
+<section class="painel" id="p-cobrar" data-t="cobrar" data-lock>
+  <div class="teaser">
+    <span class="n">COBRAR, MOTIVAR E BONIFICAR</span>
+    <h2 style="font-size:clamp(1.7rem,3.6vw,2.6rem);font-weight:800;letter-spacing:-.035em;margin:16px 0 8px">Pague pelo comportamento <span class="leve" style="display:inline;font-size:1em">que gera o resultado.</span></h2>
+    <div class="lista"><div><i class="ic" style="--i:var(--ic-sobe)"></i>Escada de cobrança em 5 degraus</div><div><i class="ic" style="--i:var(--ic-chat)"></i>Conversa de cobrança em 4 passos</div><div><i class="ic" style="--i:var(--ic-alvo)"></i>Bonificação de 4 camadas com simulador</div><div><i class="ic" style="--i:var(--ic-foguete)"></i>Campeonato e plano de níveis</div></div>
+  </div>
+  <div class="corpo">
+  <section class="bloco">
+    <span class="n">17 · COMO COBRAR</span>
+    <h2>Cobre o que o vendedor controla. <span class="leve">Resultado é consequência.</span></h2>
+    <p class="lead">Ninguém controla se o lojista compra hoje. Todo mundo controla se fez as ligações. A cobrança sobe um degrau por vez, e só sobe se o anterior não resolveu.</p>
+    <div class="escada">
+      <div><b>1</b><strong>Placar visível</strong><span>O número aparece sozinho. Ninguém precisa perguntar.</span></div>
+      <div><b>2</b><strong>Daily</strong><span>O vendedor fala o próprio número na frente do time.</span></div>
+      <div><b>3</b><strong>1:1 semanal</strong><span>Conversa de 4 passos, em particular, com compromisso.</span></div>
+      <div><b>4</b><strong>Plano de 2 semanas</strong><span>Meta de atividade diária acompanhada pelo gestor.</span></div>
+      <div><b>5</b><strong>Decisão</strong><span>Mudar de função ou de empresa. Sem surpresa: tudo estava combinado.</span></div>
+    </div>
+    <h3 style="margin:36px 0 12px;font-size:1.1rem;font-weight:800">A conversa de cobrança em 4 passos</h3>
+    <div class="fipc">
+      <div><b>Fato</b><p>"Nesta semana foram 2 blocos de ouro de 10."</p></div>
+      <div><b>Impacto</b><p>"Pela regra dos 30 dias, isso aparece no seu bônus de fevereiro."</p></div>
+      <div><b>Pergunta</b><p>"O que travou? O que você precisa de mim?"</p></div>
+      <div><b>Compromisso</b><p>"Qual bloco você garante amanhã? Eu passo às 8h30 para ver."</p></div>
+    </div>
+    <p class="nota"><b>Cultura brasileira:</b> elogio em público, correção em particular. Nunca exponha o número ruim de alguém no grupo do WhatsApp. O placar é público; a conversa difícil, não.</p>
+  </section>
+
+  <section class="bloco">
+    <span class="n">18 · COMO MOTIVAR</span>
+    <h2>Brasileiro joga melhor <span class="leve">quando tem campeonato.</span></h2>
+    <div class="g3">
+      <div class="card"><span class="tag v">Competição</span><h3 style="margin-top:12px">Campeonato por times</h3><p>Pontos por bloco cumprido, apresentação feita e lojista ativado. Tabela semanal tipo Brasileirão. Time vence junto: quem está bem puxa quem está mal.</p></div>
+      <div class="card"><span class="tag v">Reconhecimento</span><h3 style="margin-top:12px">O sino do primeiro pedido</h3><p>Todo lojista novo ativado é anunciado na hora, com nome da loja e cidade. "Garimpeiro do mês" com foto no mural e no Instagram da empresa.</p></div>
+      <div class="card"><span class="tag v">Progresso</span><h3 style="margin-top:12px">Gradiente de meta</h3><p>A motivação cresce perto do objetivo. Mostre a barra de cada vendedor até a próxima faixa de bônus, todo dia.</p></div>
+    </div>
+    <h3 style="margin:36px 0 14px;font-size:1.1rem;font-weight:800">Plano de níveis do vendedor</h3>
+    <div class="niveis">
+      <div><b>Júnior</b><span>Em treino. Fases 1 e 2. Bônus de rotina e de ativação.</span></div>
+      <div><b>Pleno</b><span>3 meses com rotina acima de 90% e meta de ativação em 2 de 3 meses.</span></div>
+      <div><b>Sênior</b><span>6 meses como pleno e segundo pedido acima da média do time. Ganha contas-conquista.</span></div>
+      <div><b>Hunter</b><span>Abre redes e contas grandes, treina os novos e tem acelerador maior.</span></div>
+    </div>
+  </section>
+
+  <section class="bloco">
+    <span class="n">19 · COMO BONIFICAR</span>
+    <h2>Bônus em quatro camadas. <span class="leve">A rotina destrava o resto.</span></h2>
+    <p class="lead">Bônus só por faturamento premia quem herdou carteira boa. Este modelo paga pela atividade certa, pelo lojista novo e, principalmente, pelo segundo pedido, que é o que prova que o cliente ficou.</p>
+    <div class="bonus">
+      <div class="camadas">
+        <div class="cam"><b>1</b><div><strong>Gatilho de rotina</strong><span>Blocos de ouro cumpridos em 85% ou mais dos dias do mês. Abaixo disso, as camadas 2 e 3 pagam metade.</span></div></div>
+        <div class="cam"><b>2</b><div><strong>Lojista novo ativado</strong><span>Valor fixo por CNPJ novo com primeiro pedido acima do mínimo, faturado e pago.</span></div></div>
+        <div class="cam"><b>3</b><div><strong>Acelerador de segundo pedido</strong><span>Valor extra quando o lojista ativado recompra em até 60 dias.</span></div></div>
+        <div class="cam"><b>4</b><div><strong>Prêmio de conta-conquista</strong><span>Trimestral, para quem abre uma das 50 contas do topo da pirâmide.</span></div></div>
+      </div>
+      <div class="sim" id="sim">
+        <div><div class="seg" id="seg"><span class="knob"></span><button type="button" aria-pressed="true" data-per="m">Mensal</button><button type="button" aria-pressed="false" data-per="t">Trimestral</button></div><span class="badge">+ conta-conquista</span></div>
+        <label>Dias com rotina cumprida<output id="o-r">90%</output><input type="range" id="s-r" min="50" max="100" step="5" value="90"></label>
+        <label>Lojistas novos ativados no mês<output id="o-n">8</output><input type="range" id="s-n" min="0" max="30" value="8"></label>
+        <label>Valor por lojista ativado<output id="o-v">R$ 150</output><input type="range" id="s-v" min="50" max="500" step="25" value="150"></label>
+        <label>% que fez o segundo pedido<output id="o-s">50%</output><input type="range" id="s-s" min="0" max="100" step="5" value="50"></label>
+        <label>Acelerador por segundo pedido<output id="o-a">R$ 100</output><input type="range" id="s-a" min="0" max="400" step="25" value="100"></label>
+        <small style="font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:#a1a1a8;font-weight:700;margin-top:6px">Bônus estimado</small>
+        <div class="odo" id="odo" aria-live="polite"></div>
+        <p class="det" id="sim-det"></p>
+      </div>
+    </div>
+    <p class="nota"><b>Atenção à CLT:</b> desde a Lei 13.467/2017, o art. 457 da CLT diz que prêmios pagos por desempenho superior ao esperado não integram a remuneração, enquanto comissões integram. A forma de pagar muda encargos e riscos. Valide o modelo e o texto da política com o seu contador ou advogado trabalhista antes de lançar. Não sou advogado; isto é orientação de gestão.</p>
+  </section>
+  </div>
+</section>
+
+<!-- ============ CULTURA ============ -->
+<section class="painel" id="p-cultura" data-t="cultura" data-lock>
+  <div class="teaser">
+    <span class="n">CULTURA BRASILEIRA</span>
+    <h2 style="font-size:clamp(1.7rem,3.6vw,2.6rem);font-weight:800;letter-spacing:-.035em;margin:16px 0 8px">Blount escreveu para os EUA. <span class="leve" style="display:inline;font-size:1em">Aqui é o atacado brasileiro.</span></h2>
+    <div class="lista"><div><i class="ic" style="--i:var(--ic-mundo)"></i>10 adaptações do método ao Brasil</div><div><i class="ic" style="--i:var(--ic-whatsapp)"></i>WhatsApp, áudio e confiança</div><div><i class="ic" style="--i:var(--ic-pin)"></i>Polos, feiras e calendário do varejo</div></div>
+  </div>
+  <div class="corpo">
+  <section class="bloco">
+    <span class="n">20 · TRADUÇÃO CULTURAL</span>
+    <h2>O método é universal. <span class="leve">O jeito é brasileiro.</span></h2>
+    <p class="lead">Cada cartão mostra o que Blount ensina e como isso funciona no atacado daqui: empresa familiar, WhatsApp no centro, confiança antes do negócio e calendário do varejo mandando na compra.</p>
+    <div class="cult">
+      <div class="cu"><div class="de"><small>Blount</small>O telefone é a ferramenta de prospecção mais poderosa.</div><div class="pa"><small>No atacado brasileiro</small>Telefone e WhatsApp andam juntos. <b>Ligue primeiro</b>; se não atender, mande texto curto; confirme tudo por escrito. Lojista que não atende ligação responde áudio.</div></div>
+      <div class="cu"><div class="de"><small>Blount</small>Deixe recados de voz estruturados para gerar retorno.</div><div class="pa"><small>No atacado brasileiro</small>O correio de voz morreu; o <b>áudio de até 30 segundos</b> no WhatsApp é o recado de voz brasileiro. Nome, motivo, prova e pergunta.</div></div>
+      <div class="cu"><div class="de"><small>Blount</small>Lei da Familiaridade: quanto mais o comprador te vê, mais responde.</div><div class="pa"><small>No atacado brasileiro</small>É a lei mais forte. <b>Brasileiro compra de quem conhece.</b> Story, visita, cafezinho, feira e indicação valem mais que tabela de preço.</div></div>
+      <div class="cu"><div class="de"><small>Blount</small>"Me mande informações" é uma desculpa para se livrar de você.</div><div class="pa"><small>No atacado brasileiro</small>A versão nacional é <b>"manda o catálogo"</b>. Mande, mas só depois de marcar dia e hora para olhar junto. Catálogo solto vira arquivo esquecido.</div></div>
+      <div class="cu"><div class="de"><small>Sales EQ</small>Mapeie todas as partes interessadas da decisão.</div><div class="pa"><small>No atacado brasileiro</small>Empresa familiar: decide o dono, mas quem compra pode ser a esposa, o filho ou a gerente. <b>"Vou ver com meu sócio"</b> é real. Fale com 2 ou 3 pessoas por loja.</div></div>
+      <div class="cu"><div class="de"><small>Blount</small>Prospecte antes da janela de compra.</div><div class="pa"><small>No atacado brasileiro</small>O <b>calendário do varejo</b> manda: volta às aulas, Páscoa, Dia das Mães, Dia dos Pais, Black Friday, Natal. Pergunte quando o lojista fecha a compra de cada data e entre antes.</div></div>
+      <div class="cu"><div class="de"><small>Blount</small>Nada substitui o cara a cara.</div><div class="pa"><small>No atacado brasileiro</small>Os <b>polos atacadistas</b> (como a Região da 44 em Goiânia e o Brás em São Paulo), as feiras do setor e as excursões de compradores são campo de prospecção. Leve lista e meta de contatos.</div></div>
+      <div class="cu"><div class="de"><small>Sales EQ</small>Confiança é pré-requisito para avançar.</div><div class="pa"><small>No atacado brasileiro</small>Lojista tem medo de golpe e de fornecedor que some. <b>Mostre o CNPJ, o endereço, vídeo do estoque</b> e o nome de um lojista da cidade que já compra.</div></div>
+      <div class="cu"><div class="de"><small>Blount</small>Qualifique antes de investir tempo.</div><div class="pa"><small>No atacado brasileiro</small>Prazo e boleto fazem parte da venda. <b>Consulte o CNPJ</b> antes do primeiro pedido e comece com pedido de teste e prazo curto. O primeiro pedido existe para ganhar o segundo.</div></div>
+      <div class="cu"><div class="de"><small>Blount</small>Peça indicações o tempo todo.</div><div class="pa"><small>No atacado brasileiro</small>"Quem indica" abre porta. <b>Peça indicação de lojista de outra cidade</b>: o cliente ajuda sem medo de criar concorrente na esquina dele.</div></div>
+    </div>
+  </section>
+  </div>
+</section>
+
+<!-- ============ BANCO DE AÇÕES ============ -->
+<section class="painel" id="p-acoes" data-t="acoes" data-lock>
+  <div class="teaser">
+    <span class="n">BANCO DE AÇÕES</span>
+    <h2 style="font-size:clamp(1.7rem,3.6vw,2.6rem);font-weight:800;letter-spacing:-.035em;margin:16px 0 8px">Todas as ações do programa <span class="leve" style="display:inline;font-size:1em">em uma tabela.</span></h2>
+    <div class="lista"><div><i class="ic" style="--i:var(--ic-lista)"></i>36 ações com busca e filtros</div><div><i class="ic" style="--i:var(--ic-users)"></i>Por papel, fase e tema</div><div><i class="ic" style="--i:var(--ic-alvo)"></i>Impacto e origem de cada ação</div></div>
+  </div>
+  <div class="corpo">
+  <section class="bloco">
+    <span class="n">21 · BANCO DE AÇÕES</span>
+    <h2>Filtre por papel, fase <span class="leve">ou tema.</span></h2>
+    <p class="lead">Use na reunião de implantação: filtre a fase atual, distribua as ações e acompanhe no CRM.</p>
+    <div class="filtros">
+      <input type="search" id="q" placeholder="Buscar ação (ex.: WhatsApp, bônus, feira)" aria-label="Buscar ação">
+    </div>
+    <div class="filtros"><div class="chips" data-f="quem"><small>Papel</small><button type="button" aria-pressed="true" data-v="">Todos</button><button type="button" aria-pressed="false" data-v="Vendedor">Vendedor</button><button type="button" aria-pressed="false" data-v="Gestor">Gestor</button></div>
+      <div class="chips" data-f="fase"><small>Fase</small><button type="button" aria-pressed="true" data-v="">Todas</button><button type="button" aria-pressed="false" data-v="1">1</button><button type="button" aria-pressed="false" data-v="2">2</button><button type="button" aria-pressed="false" data-v="3">3</button><button type="button" aria-pressed="false" data-v="4">4</button></div></div>
+    <div class="filtros"><div class="chips" data-f="tema"><small>Tema</small><button type="button" aria-pressed="true" data-v="">Todos</button></div></div>
+    <div class="rolar"><table class="tab" id="acoes-tb"><thead><tr><th>Ação</th><th>Papel</th><th>Fase</th><th>Tema</th><th>Impacto</th><th>Origem</th></tr></thead><tbody></tbody></table></div>
+    <p id="acoes-n"></p>
+  </section>
+  </div>
+</section>
+
+<!-- ============ CADASTRO ============ -->
+<div class="gate" id="liberar">
+  <div>
+    <span class="spaced">Programa completo · gratuito</span>
+    <h2>Libere o programa <span class="leve">inteiro, agora.</span></h2>
+    <p>Preencha e todas as abas abrem aqui mesmo, prontas para usar com o time no celular ou impressas.</p>
+    <ul>
+      <li><i class="ic" style="--i:var(--ic-check)"></i>Rotina diária do vendedor e cadência de 14 dias</li>
+      <li><i class="ic" style="--i:var(--ic-check)"></i>Roteiros e 8 objeções com resposta pronta</li>
+      <li><i class="ic" style="--i:var(--ic-check)"></i>Implantação do gestor em 16 passos e rituais</li>
+      <li><i class="ic" style="--i:var(--ic-check)"></i>Indicadores, calculadora de meta e simulador de bônus</li>
+      <li><i class="ic" style="--i:var(--ic-check)"></i>Adaptação ao Brasil e banco com 36 ações</li>
+    </ul>
+  </div>
+  <form id="f-lib" novalidate>
+    <div class="duas">
+      <input name="nome" autocomplete="name" placeholder="Seu nome" aria-label="Seu nome" maxlength="80" required>
+      <input name="empresa" autocomplete="organization" placeholder="Empresa" aria-label="Empresa" maxlength="80" required>
+    </div>
+    <input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="WhatsApp com DDD" aria-label="WhatsApp com DDD" maxlength="30" required>
+    <input name="email" type="email" autocomplete="email" placeholder="Seu melhor e-mail" aria-label="Seu e-mail" maxlength="120" required>
+    <input class="isca" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <label class="aceite"><input type="checkbox" name="aceite" required><span>Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a <a href="/privacidade/" target="_blank" rel="noopener">Política de Privacidade</a>. Posso cancelar quando quiser.</span></label>
+    <div class="cta-wrap"><button type="submit" class="cta" id="cta"><span class="lb">Liberar o programa, é grátis →</span><span class="arc"></span><svg class="vk" viewBox="0 0 28 28"><path d="M7 14.5l5 5 9-10"/></svg></button></div>
+    <p class="msg" role="status" aria-live="polite"></p>
+    <p class="aviso-nl"><i class="ic" style="--i:var(--ic-mail)"></i>Ao liberar, você entra na newsletter Unique e recebe os posts novos do blog. Cancele quando quiser, com um clique.</p>
+  </form>
+</div>
+<div class="ok" role="status" aria-live="polite">
+  <div class="selo"><i class="ic" style="--i:var(--ic-check)"></i></div>
+  <div>
+    <b id="ok-t">Programa liberado!</b>
+    <p id="ok-p">E você já está na newsletter Unique: cada post novo do blog chega direto no seu e-mail.</p>
+    <span class="nl-tag"><i></i>Newsletter Unique · inscrição ativa</span>
+  </div>
+</div>
+<div class="ferr" id="ferr" hidden>
+  <button class="btn solid" type="button" id="imprimir"><i class="ic" style="--i:var(--ic-doc)"></i>Imprimir ou salvar PDF</button>
+  <a class="btn" href="#vendedor"><i class="ic" style="--i:var(--ic-seta)"></i>Abrir a rotina do vendedor</a>
+</div>
+
+<section class="fontes bloco">
+  <span class="n">FONTES</span>
+  <h2>Referências <span class="leve">· programa de 03/11/2026</span></h2>
+  <ol>
+    <li>Carlos Ribeiro, Unique Consultoria. Método CRM (Comportamento Repetido Muda) e os 4 pilares comerciais. <a href="https://sejaunique.com/comercial-atleta/">Comercial Atleta</a>.</li>
+    <li>Jeb Blount. <i>Prospecção Fanática</i> (Fanatical Prospecting). Wiley, 2015. Regra dos 30 dias, Lei Universal da Necessidade, Lei da Substituição, Lei da Familiaridade, três Ps, horas de ouro e de platina, quatro objetivos, pirâmide de prospecção, E + E = D, abertura telefônica de 5 etapas.</li>
+    <li>Jeb Blount. <i>Objeções</i> (Objections). Wiley, 2018. Quatro tipos de objeção, RBOs na prospecção, emoções disruptivas e estrutura Ledge, Disrupt, Ask.</li>
+    <li>Jeb Blount. <i>Sales EQ: Psicologia das Vendas</i>. Wiley, 2017. Quatro níveis de inteligência de vendas, empatia, autoconsciência, autocontrole, impulso e partes interessadas.</li>
+    <li>Mercado &amp; Consumo, 12/05/2026. <a href="https://mercadoeconsumo.com.br/12/05/2026/noticias-varejo/com-atacadao-na-lideranca-setor-atacadista-movimenta-r-6166-bilhoes-veja-os-10-maiores/">Ranking ABAD/NielsenIQ 2026: setor atacadista movimenta R$ 616,6 bilhões</a>. Ver também a <a href="https://abad.com.br/wp-content/uploads/2026/05/Apresentacao-NIQ-Ranking-ABAD-2026_v2_12.05.26.pdf">apresentação oficial da ABAD</a>.</li>
+    <li>Olhar Digital, 28/10/2023. <a href="https://olhardigital.com.br/2023/10/28/internet-e-redes-sociais/whatsapp-e-utilizado-por-95-das-empresas-brasileiras-mostra-pesquisa/">WhatsApp é utilizado por 95% das empresas brasileiras</a> (pesquisa Yalo com dados IDC).</li>
+    <li>Consolidação das Leis do Trabalho, art. 457, §§ 2º e 4º, com redação da <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13467.htm">Lei 13.467/2017</a>.</li>
+  </ol>
+</section>
+</div><!-- /doc -->
+
+<section class="wrap" style="padding-inline:20px">
+  <div class="diag">
+    <div class="txt">
+      <span class="spaced">Próximo passo</span>
+      <h2>Qual é o score comercial <span class="leve">da sua empresa?</span></h2>
+      <p>Faça o diagnóstico. Em 10 a 15 minutos você responde sobre os 4 pilares do seu comercial, prospecção incluída, e recebe um relatório com o score, os gargalos e um plano de ação.</p>
+      <div class="ctas"><a class="btn verde" href="/diagnostico/">Faça seu diagnóstico comercial <i class="ic" style="--i:var(--ic-seta)"></i></a>
+      <a class="btn" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Vi%20o%20programa%20de%20Prospec%C3%A7%C3%A3o%20no%20Atacado%20e%20quero%20implantar%20no%20meu%20time." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Implantar com o Carlos</a></div>
+    </div>
+    <figure><img src="/assets/fotos/palco.jpg" alt="Carlos Ribeiro em palestra, com microfone" width="1280" height="853" loading="lazy"></figure>
+  </div>
+</section>
+
+<section class="alda" aria-labelledby="h-alda">
+  <div class="wrap alda-in">
+    <img class="alda-pato" src="/diagnostico/relatorio/alda-pato.png" alt="" width="134" height="238" loading="lazy">
+    <div class="alda-tx">
+      <span class="spaced" style="display:block;margin-bottom:10px;color:#5e5e66">Alda.CRM</span>
+      <h2 id="h-alda">Cadência, placar e WhatsApp <span>em um só lugar.</span></h2>
+      <p>Funil de prospecção, follow-up com data e o WhatsApp do time organizados numa plataforma feita para quem vende pelo WhatsApp. A ferramenta que a Unique usa para tirar este programa do papel.</p>
+    </div>
+    <div class="alda-bts">
+      <a class="btn alda-bt" href="https://aldacrm.com" target="_blank" rel="noopener">Conhecer o Alda.CRM <i class="ic" style="--i:var(--ic-seta-up)"></i></a>
+      <a class="btn alda-bt2" href="https://wa.me/5511920781458?text=Ol%C3%A1%21%20Vim%20pelo%20programa%20de%20Prospec%C3%A7%C3%A3o%20no%20Atacado%20da%20Unique%20e%20quero%20conhecer%20o%20Alda.CRM." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Falar com o Alda</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+(function(){
+  var MAT='prospeccao-atacado', K='ua_mat_'+MAT;
+  var RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ls={get:function(k){try{return JSON.parse(localStorage.getItem(k)||'null');}catch(e){return null;}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+  var $=function(s,el){return (el||document).querySelector(s);}, $$=function(s,el){return [].slice.call((el||document).querySelectorAll(s));};
+  var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+  var hoje=new Date().toLocaleDateString('sv-SE',{timeZone:'America/Sao_Paulo'});
+  var brl=function(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});};
+  var ease={out:function(t){return 1-Math.pow(1-t,3);},expo:function(t){return t===1?1:1-Math.pow(2,-10*t);},io:function(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}};
+  function tween(d,fn,ez,done){var t0=performance.now();ez=ez||ease.out;(function f(n){var t=Math.min(1,(n-t0)/d);fn(ez(t));if(t<1)requestAnimationFrame(f);else if(done)done();})(t0);}
+  // mola: k rigidez, c amortecimento (leve sobra, assenta em ~0,5 s)
+  function mola(de,para,fn,k,c,done){var x=de,v=0,last=performance.now();k=k||180;c=c||17;(function f(n){var dt=Math.min(.032,(n-last)/1000);last=n;var a=-k*(x-para)-c*v;v+=a*dt;x+=v*dt;if(Math.abs(v)<.02&&Math.abs(x-para)<.02){fn(para);if(done)done();return;}fn(x);requestAnimationFrame(f);})(last);}
+  // roda animações só quando visíveis
+  function quandoVisivel(el,cb,sai){if(!el)return;if(!('IntersectionObserver' in window)){cb();return;}var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)cb();else if(sai)sai();});},{threshold:.25});io.observe(el);}
+
+  // ================= MOTION 01 · título cinético =================
+  (function(){
+    var pill=$('#pill'), strip=$('#strip'), dots=$$('#kdots i'), spans=$$('span',strip), n=4, i=0, ws=[];
+    function medir(){ var tmp=document.createElement('span'); tmp.style.cssText='position:absolute;visibility:hidden;white-space:nowrap;font:inherit;letter-spacing:inherit'; pill.appendChild(tmp); ws=spans.map(function(s){tmp.textContent=s.textContent;return tmp.getBoundingClientRect().width;}); tmp.remove(); pill.style.width=ws[i%n]+'px'; }
+    function opac(){spans.forEach(function(s,j){s.style.opacity=(j===i?1:.15);});}
+    (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){ medir(); opac(); });
+    window.addEventListener('resize',medir);
+    if(RM) return;
+    var curW, h;
+    setInterval(function(){
+      if(document.hidden) return;
+      h=spans[0].getBoundingClientRect().height; var de=i, para=i+1; curW=ws[de%n];
+      i=para; opac(); dots.forEach(function(d,j){d.classList.toggle('on',j===para%n);});
+      mola(de,para,function(x){strip.style.transform='translateY('+(-x*h)+'px)';},170,16,function(){ if(i===n){ i=0; strip.style.transform='translateY(0)'; opac(); } });
+      mola(curW,ws[para%n],function(w){pill.style.width=w+'px';},170,16);
+    },1850);
+  })();
+
+  // ================= MOTION 03 · cena de pedidos =================
+  (function(){
+    var box=$('#notifs'); if(!box) return;
+    var ped=[['R$ 3.480','Loja Estilo Fino · Anápolis','primeiro pedido'],['R$ 2.150','Bella Moda · Rio Verde','pedido de teste'],['R$ 5.920','Rede Ponto Certo · Itumbiara','2º pedido'],['R$ 1.870','Ateliê Nossa Senhora · Catalão','primeiro pedido'],['R$ 4.300','Mundo Jeans · Jataí','apresentação → pedido']];
+    var vals=[3480,2150,5920,1870,4300];
+    var d=new Date(); try{$('#cena-dia').textContent=d.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long',timeZone:'America/Sao_Paulo'});}catch(e){}
+    var tot=$('#cena-total'), spark=$('#spark'), dot=$('#spark-dot'), cad=$('#cena-cad');
+    var ic='<svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.8-1c.2-.3.4-.2.6-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3z"/></svg>';
+    var cards=[], k=0, soma=0, pts=[[0,46]], timer=null, ciclo=null, rodando=false;
+    function reset(){box.innerHTML='';cards=[];k=0;soma=0;pts=[[0,46]];tot.textContent='R$ 0';spark.setAttribute('points','0,46');dot.setAttribute('cx',0);dot.setAttribute('cy',46);cad.textContent='37';}
+    function slot(c,j){var y=j*72;c._y=c._y==null?-80:c._y;var de=c._y;c._y=y;mola(de,y,function(v){c.style.transform='translateY('+v+'px) scale('+(j>3?.9:1)+')';},200,18);c.style.opacity=j>3?0:1;}
+    function chega(){
+      if(k>=ped.length) return; var p=ped[k], el=document.createElement('div'); el.className='nt'; el.style.transition='opacity .4s';
+      el.innerHTML='<div class="app">'+ic+'</div><div><b>Pedido novo · '+p[0]+'<small>agora</small></b><span>'+p[1]+'</span></div>';
+      box.appendChild(el); cards.unshift(el); cards.forEach(slot);
+      if(cards.length>4){var velho=cards.pop();setTimeout(function(){velho.remove();},450);}
+      var de=soma; soma+=vals[k]; tween(600,function(t){tot.textContent=brl(de+(soma-de)*t);});
+      var x=(k+1)*40, y=46-(soma/17720)*40; var px=pts[pts.length-1]; pts.push([x,y]);
+      tween(600,function(t){var cx=px[0]+(x-px[0])*t, cy=px[1]+(y-px[1])*t; spark.setAttribute('points',pts.slice(0,-1).concat([[cx,cy]]).map(function(q){return q.join(',');}).join(' ')); dot.setAttribute('cx',cx); dot.setAttribute('cy',cy);});
+      cad.textContent=String(37+k*3); k++;
+    }
+    function roda(){ if(rodando) return; rodando=true; reset(); if(RM){for(var j=0;j<ped.length;j++)chega();return;} chega(); timer=setInterval(chega,1100); ciclo=setInterval(function(){clearInterval(timer);reset();chega();timer=setInterval(chega,1100);},7000); }
+    function para(){ rodando=false; clearInterval(timer); clearInterval(ciclo); }
+    quandoVisivel($('#cena'),roda,para);
+  })();
+
+  // ================= ABAS =================
+  var ABAS=['programa','vendedor','objecoes','gestor','indicadores','cobrar','cultura','acoes'];
+  var onTab={};
+  function abre(t,rolar){
+    if(ABAS.indexOf(t)<0) t='programa';
+    $$('.painel').forEach(function(p){p.classList.toggle('on',p.dataset.t===t);});
+    $$('#abas a').forEach(function(a){ if(a.dataset.t===t) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+    var at=$('#abas a[data-t="'+t+'"]'), bar=$('#abas'); if(at&&bar) bar.scrollLeft=Math.max(0,at.offsetLeft-(bar.clientWidth-at.offsetWidth)/2);
+    if(onTab[t]) onTab[t]();
+    if(rolar){ var tp=$('.top'), y=$('.abas').getBoundingClientRect().top+window.scrollY-(tp?tp.offsetHeight:0); if(Math.abs(window.scrollY-y)>4) window.scrollTo({top:y,behavior:RM?'auto':'smooth'}); }
+  }
+  function rota(){
+    var h=(location.hash||'').slice(1);
+    if(h==='liberar'){ return; }
+    if(h==='programa-fases'){ abre('programa'); return; }
+    abre(h||'programa', !!h);
+  }
+  window.addEventListener('hashchange',rota);
+  function topo(){ var t=$('.top'); if(t) document.documentElement.style.setProperty('--topo',t.offsetHeight+'px'); }
+  topo(); window.addEventListener('resize',topo);
+
+  // ================= MOTION 11 · comparação =================
+  (function(){
+    var c=$('#cmp'); if(!c) return; var rows=$$('tr.r',c), hl=$('#cmp-hl'), tms=[];
+    function pos(){ var th=$('th.us',c), cr=c.getBoundingClientRect(), r=th.getBoundingClientRect(), lr=rows[rows.length-1].getBoundingClientRect(); hl.style.left=(r.left-cr.left-6)+'px'; hl.style.width=(r.width+12)+'px'; hl.style.top=(r.top-cr.top-10)+'px'; hl.style.bottom=(cr.bottom-lr.bottom-6)+'px'; }
+    function roda(){ pos(); c.classList.remove('on','fim-on'); rows.forEach(function(r){r.classList.remove('on');}); tms.forEach(clearTimeout); tms=[];
+      tms.push(setTimeout(function(){c.classList.add('on');},80));
+      rows.forEach(function(r,j){tms.push(setTimeout(function(){r.classList.add('on');},500+j*450));});
+      tms.push(setTimeout(function(){c.classList.add('fim-on');},500+rows.length*450+200)); }
+    if(RM){ pos(); c.classList.add('on','fim-on'); rows.forEach(function(r){r.classList.add('on');}); return; }
+    var feito=false; quandoVisivel(c,function(){ if(!feito){feito=true;roda();} });
+    window.addEventListener('resize',pos);
+  })();
+
+  // ================= MOTION 08 · jornada em S =================
+  (function(){
+    var j=$('#jornada'); if(!j) return; var fg=$('#trk-fg'), dot=$('#trk-dot'), L=fg.getTotalLength(), sts=$$('.st',j), fs=$$('.fase',j), live=$('#jornada-live');
+    var marcos=[0,.33,.64,1], loop=null, raf;
+    fg.style.strokeDasharray=L; fg.style.strokeDashoffset=L;
+    function zera(){ sts.forEach(function(s){s.classList.remove('on');}); fs.forEach(function(f){f.classList.remove('on');}); live.classList.remove('on'); fg.style.strokeDashoffset=L; var p=fg.getPointAtLength(0); dot.setAttribute('cx',p.x); dot.setAttribute('cy',p.y); }
+    function roda(){ zera(); var t0=performance.now(), D=3000;
+      (function f(n){ var t=Math.min(1,(n-t0)/D), e=ease.io(t); fg.style.strokeDashoffset=L*(1-e); var p=fg.getPointAtLength(L*e); dot.setAttribute('cx',p.x); dot.setAttribute('cy',p.y);
+        marcos.forEach(function(m,k){ if(e>=m-.001&&!sts[k].classList.contains('on')){ sts[k].classList.add('on'); fs[k].classList.add('on'); } });
+        if(t<1) raf=requestAnimationFrame(f); else setTimeout(function(){live.classList.add('on');},250); })(t0); }
+    if(RM){ fg.style.strokeDashoffset=0; var p=fg.getPointAtLength(L); dot.setAttribute('cx',p.x); dot.setAttribute('cy',p.y); sts.forEach(function(s){s.classList.add('on');}); fs.forEach(function(f){f.classList.add('on');}); live.classList.add('on'); return; }
+    quandoVisivel(j,function(){ if(loop) return; roda(); loop=setInterval(roda,7000); },function(){ clearInterval(loop); loop=null; cancelAnimationFrame(raf); });
+  })();
+
+  // ================= PIRÂMIDE =================
+  (function(){
+    var info=$('#pir-info'); if(!info) return;
+    var N=[
+      ['Topo','Contas-conquista','As 10 a 50 lojas e redes que mudariam o seu ano. Lista curta, escolhida a dedo.','Toque todo mês em mais de um contato, acompanhe eventos-gatilho (loja nova, reforma, troca de comprador) e construa familiaridade antes da janela de compra.'],
+      ['Nível 2','Decisor engajado','Você tem o dono ou o comprador, o WhatsApp dele e já houve conversa.','Campanha de nutrição: novidades do mix, prova de giro na região e convite para o showroom antes da data de compra.'],
+      ['Nível 3','Janela de compra','Você sabe quando o lojista fecha a compra de cada data do varejo.','Agende o contato para 30 a 45 dias antes da janela e marque a apresentação com o mostruário certo.'],
+      ['Nível 4','Dados confirmados','Telefone, WhatsApp, endereço e responsável conferidos.','Descubra a janela de compra e quem decide. Uma conversa de qualificação de 5 minutos resolve.'],
+      ['Base','Base bruta de CNPJs','Milhares de lojas por CNAE, Google Maps, feiras e listas. Só nome e às vezes telefone.','Confirmar dados e subir de nível. Não gaste bloco de ouro aqui: use as horas de platina para limpar a base.']
+    ];
+    function mostra(i){ $$('#pir g').forEach(function(g){g.classList.toggle('on',+g.dataset.p===i);}); var n=N[i]; info.innerHTML='<small>'+n[0]+'</small><h3>'+n[1]+'</h3><p>'+n[2]+'</p><div class="acao"><b>O que fazer: </b>'+n[3]+'</div>'; }
+    $$('#pir g').forEach(function(g){ g.setAttribute('tabindex','0'); g.setAttribute('role','button'); g.addEventListener('click',function(){mostra(+g.dataset.p);}); g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();mostra(+g.dataset.p);}}); });
+    mostra(0);
+  })();
+
+  // ================= OBJEÇÕES =================
+  var RBO=[
+    ['Já tenho fornecedor.','Que bom, sinal de que a loja gira.','A maioria dos lojistas que atendo também tinha. Eles me usam quando falta grade ou para testar o que está vendendo em outras cidades.','Que tal eu te mostrar os 10 itens que mais giram na região, quinta às 10h, por vídeo?'],
+    ['Manda o catálogo.','Mando sim.','Só que o catálogo tem 600 itens e você não tem tempo para isso. Me diz o que mais sai aí que eu separo os 15 certos.','E amanhã às 10h eu te ligo para olharmos juntos em 10 minutos. Pode ser?'],
+    ['Agora não, estou atendendo.','Imaginei, a loja está cheia.','Por isso vou ser rápido: não quero te vender nada agora, só marcar uma conversa.','Fica melhor amanhã cedo, antes de abrir, ou quinta depois do almoço?'],
+    ['Não estou comprando agora.','Faz sentido, ninguém compra quando o vendedor liga.','Quero estar no seu radar antes da compra do Dia das Mães, quando todo mundo te liga ao mesmo tempo.','Quando você costuma fechar essa compra?'],
+    ['Qual o preço?','Faz sentido perguntar.','O preço muda com a grade e o volume, e eu não quero te passar um número errado.','Quanto você compra por mês dessa linha, mais ou menos?'],
+    ['Vou ver com meu sócio.','Claro, decisão de compra é a dois.','Muitos lojistas preferem que eu mostre direto para os dois, aí ninguém precisa repassar recado.','Qual o melhor horário para falarmos os três, terça ou quarta?'],
+    ['Já recebo muita ligação de vendedor.','Imagino, todo dia chega alguém.','Por isso eu não vou te mandar catálogo nem tabela. Só faço sentido se eu ajudar a girar o estoque.','Me dá 10 minutos na quinta para eu provar isso?'],
+    ['Não conheço sua empresa.','É justo, eu também desconfiaria.','Te mando o CNPJ e um vídeo do nosso estoque agora, e o contato da [Loja X], aqui de [cidade], que compra com a gente.','Depois de ver, posso te ligar amanhã às 11h?']
+  ];
+  (function(){
+    var box=$('#rbo'); if(!box) return;
+    box.innerHTML=RBO.map(function(r){return '<div class="card"><div><h3>“'+esc(r[0])+'”</h3><dl><dt class="a">Apoio</dt><dd>'+esc(r[1])+'</dd><dt class="b">Quebra</dt><dd>'+esc(r[2])+'</dd><dt class="c">Pedido</dt><dd>'+esc(r[3])+'</dd></dl></div><button class="btn sm" type="button" data-copiar="'+esc(r[1]+' '+r[2]+' '+r[3])+'"><i class="ic" style="--i:var(--ic-doc)"></i>Copiar</button></div>';}).join('');
+  })();
+  // MOTION 04 · pilha de objeções
+  (function(){
+    var p=$('#pilha'); if(!p) return; var ini=['JF','MC','AN','NC'], nomes=['Lojista · Anápolis','Compradora · Rio Verde','Dono · Catalão','Gerente · Jataí'];
+    var cs=RBO.slice(0,4).map(function(r,j){var d=document.createElement('div');d.className='oc';d.innerHTML='<div class="passos"><span>Apoio</span><span>Quebra</span><span>Pedido</span></div><q>'+esc(r[0])+'</q><p><b>Você:</b> '+esc(r[1])+' '+esc(r[2].split('. ')[0])+'. '+esc(r[3])+'</p><div class="quem"><i>'+ini[j]+'</i>'+nomes[j]+'</div>';p.appendChild(d);return d;});
+    var ordem=cs.slice(), loop=null;
+    function layout(anim){ ordem.forEach(function(c,j){ c.style.zIndex=10-j; c.style.transition=anim?'transform .6s cubic-bezier(.65,0,.35,1),opacity .6s,filter .6s':'none'; c.style.transform='translateY('+(-26*j)+'px) scale('+(1-.06*j)+')'; c.style.filter='brightness('+(1-.1*j)+')'; c.style.opacity=j>3?0:1; }); }
+    function estrelas(c){ var s=$$('.passos span',c); s.forEach(function(x){x.classList.remove('on');}); s.forEach(function(x,k){setTimeout(function(){x.classList.add('on');},200+k*260);}); }
+    layout(false); estrelas(ordem[0]);
+    if(RM){ $$('.passos span',ordem[0]).forEach(function(x){x.classList.add('on');}); return; }
+    function passo(){ var f=ordem[0]; f.style.transition='transform .55s cubic-bezier(.4,0,.2,1),opacity .5s'; f.style.transform='translateX(-120%) rotate(-12deg)'; f.style.opacity=0;
+      setTimeout(function(){ ordem.push(ordem.shift()); layout(true); var u=ordem[ordem.length-1]; u.style.opacity=0; setTimeout(function(){u.style.transition='opacity .5s';u.style.opacity=1;},350); estrelas(ordem[0]); },380); }
+    quandoVisivel(p,function(){ if(!loop) loop=setInterval(passo,1750*1.6); },function(){clearInterval(loop);loop=null;});
+  })();
+
+  // ================= MOTION 05 · bento de indicadores =================
+  (function(){
+    var b=$('#bento'); if(!b) return; var ring=$('#ring-f'), bars=$$('#barras i'), d5=$$('#dias5 i'), lin=$('#lin'), area=$('#area'), ldot=$('#lin-dot'), linha=$('#linha'), loop=null, rodou=false;
+    var Y=[92,88,84,86,74,70,62,58,50,40,34,22], W=600;
+    var P=Y.map(function(y,i){return [i*(W/(Y.length-1)),y];});
+    function caminho(n){ var pts=P.slice(0,Math.max(2,n)); return 'M'+pts.map(function(p){return p.join(',');}).join(' L'); }
+    function roda(){
+      b.classList.remove('on'); void b.offsetWidth; b.classList.add('on'); linha.classList.remove('tipon');
+      $$('[data-cont]',b).forEach(function(el,k){ var alvo=parseFloat(el.dataset.cont), dec=+el.dataset.dec||0, pre=el.dataset.pre||'', suf=el.dataset.suf||'';
+        setTimeout(function(){ tween(1800,function(t){ el.textContent=pre+(alvo*t).toFixed(dec).replace('.',',')+suf; },ease.expo); },k*100); });
+      ring.style.transition='none'; ring.style.strokeDashoffset=440; void ring.getBoundingClientRect(); ring.style.transition='stroke-dashoffset 1.8s cubic-bezier(.16,1,.3,1)'; ring.style.strokeDashoffset=440*(1-.34);
+      bars.forEach(function(x){x.style.height=0;}); bars.forEach(function(x,k){setTimeout(function(){x.style.height=x.dataset.h+'%';},200+k*120);});
+      d5.forEach(function(x){x.classList.remove('on');}); d5.forEach(function(x,k){ if(k<4) setTimeout(function(){x.classList.add('on');},300+k*250); }); setTimeout(function(){d5[4].classList.add('on');d5[4].style.opacity=.6;},1400);
+      tween(1800,function(t){ var L=t*(P.length-1), i=Math.floor(L), f=L-i, pts=P.slice(0,i+1); if(i<P.length-1){pts=pts.concat([[P[i][0]+(P[i+1][0]-P[i][0])*f,P[i][1]+(P[i+1][1]-P[i][1])*f]]);} var dd='M'+pts.map(function(p){return p.join(',');}).join(' L'); lin.setAttribute('d',dd); var last=pts[pts.length-1]; area.setAttribute('d',dd+' L'+last[0]+',120 L0,120 Z'); ldot.setAttribute('cx',last[0]); ldot.setAttribute('cy',last[1]); },ease.io,function(){linha.classList.add('tipon');});
+    }
+    onTab.indicadores=function(){ setTimeout(function(){ if(!document.body.classList.contains('liberado')) return; if(!rodou){rodou=true;} roda(); },60); };
+    if(RM){ roda=function(){ b.classList.add('on'); $$('[data-cont]',b).forEach(function(el){el.textContent=(el.dataset.pre||'')+String(el.dataset.cont).replace('.',',')+(el.dataset.suf||'');}); ring.style.strokeDashoffset=440*.66; bars.forEach(function(x){x.style.height=x.dataset.h+'%';}); d5.forEach(function(x){x.classList.add('on');}); var dd=caminho(P.length); lin.setAttribute('d',dd); area.setAttribute('d',dd+' L600,120 L0,120 Z'); ldot.setAttribute('cx',600); ldot.setAttribute('cy',22); linha.classList.add('tipon'); }; return; }
+    quandoVisivel(b,function(){ if(loop||!document.body.classList.contains('liberado')) return; loop=setInterval(roda,7000); },function(){clearInterval(loop);loop=null;});
+  })();
+
+  // ================= MATEMÁTICA REVERSA =================
+  (function(){
+    var f=$('#funil'); if(!f) return;
+    var num=function(id){var v=String($(id).value||'').replace(/\./g,'').replace(',','.').replace(/[^\d.]/g,'');return parseFloat(v)||0;};
+    function calc(){
+      var meta=num('#m1'), t1=num('#m2')/100, t2=num('#m3')/100, t3=num('#m4')/100, dias=num('#m5')||21;
+      var apr=t1?meta/t1:0, conv=t2?apr/t2:0, tent=t3?conv/t3:0, dia=tent/dias;
+      var r=Math.ceil, fmt=function(v){return isFinite(v)?r(v).toLocaleString('pt-BR'):'—';};
+      var linhas=[[fmt(meta),'lojistas novos ativados no mês',40],[fmt(apr),'apresentações feitas (visita, vídeo ou showroom)',55],[fmt(conv),'conversas efetivas com quem decide',72],[fmt(tent),'tentativas de contato no mês',88],[fmt(dia),'tentativas por dia, por vendedor: a meta do bloco de ouro',100]];
+      f.innerHTML=linhas.map(function(l,i){return '<div'+(i===4?' class="dia"':'')+' style="width:'+l[2]+'%"><span>'+l[1]+'</span><b>'+l[0]+'</b></div>';}).join('');
+    }
+    ['#m1','#m2','#m3','#m4','#m5'].forEach(function(id){$(id).addEventListener('input',calc);});
+    calc();
+  })();
+
+  // ================= MOTION 10 · simulador de bônus com odômetro =================
+  (function(){
+    var odo=$('#odo'); if(!odo) return; var tri=false, seg=$('#seg');
+    var S=function(id){return +$(id).value;};
+    function digitos(str){ // monta as colunas uma vez por formato
+      var html='<span class="rs">R$</span>'; for(var i=0;i<str.length;i++){ var c=str[i]; if(/\d/.test(c)){ var col=''; for(var v=0;v<20;v++) col+='<i>'+(v%10)+'</i>'; html+='<span class="dg"><span data-d="0">'+col+'</span></span>'; } else html+='<span class="sep">'+c+'</span>'; }
+      odo.innerHTML=html;
+    }
+    var formato='';
+    function mostra(v){
+      var s=Math.round(v).toLocaleString('pt-BR'); var fmt=s.replace(/\d/g,'0');
+      if(fmt!==formato){ formato=fmt; digitos(s); }
+      var cols=$$('.dg > span',odo), ds=s.replace(/\D/g,'');
+      cols.forEach(function(c,i){ var alvo=+ds[i], atual=+c.dataset.d, ult=(i===cols.length-1);
+        var pos=alvo+(ult&&alvo!==atual?10:0); if(!ult&&alvo<atual) pos=alvo+10;
+        c.style.transition=RM?'none':''; c.style.transform='translateY('+(-pos)+'em)'; c.dataset.d=alvo; var tk=c._tk=(c._tk||0)+1;
+        setTimeout(function(){ if(c._tk!==tk) return; c.style.transition='none'; c.style.transform='translateY('+(-alvo)+'em)'; void c.offsetWidth; c.style.transition=''; },950);
+      });
+    }
+    function calc(){
+      var r=S('#s-r'), n=S('#s-n'), v=S('#s-v'), s=S('#s-s'), a=S('#s-a');
+      $('#o-r').textContent=r+'%'; $('#o-n').textContent=n; $('#o-v').textContent=brl(v); $('#o-s').textContent=s+'%'; $('#o-a').textContent=brl(a);
+      var fator=r>=85?1:.5, mes=n*v*fator + Math.round(n*s/100)*a*fator, cc=tri?600:0, tot=(tri?mes*3:mes)+cc;
+      mostra(tot);
+      var det=$('#sim-det'); det.style.opacity=0; setTimeout(function(){ det.innerHTML=(r>=85?'Rotina destravada: camadas 2 e 3 pagam inteiro.':'<b>Rotina abaixo de 85%:</b> camadas 2 e 3 pagam metade.')+' Ativação: <b>'+brl(n*v*fator)+'</b> · Segundo pedido: <b>'+brl(Math.round(n*s/100)*a*fator)+'</b>'+(tri?' · por mês, vezes 3 meses, mais o prêmio de uma conta-conquista: <b>'+brl(cc)+'</b>.':' no mês.')+' Valores de exemplo: ajuste à margem da sua empresa.'; det.style.opacity=1; },160);
+    }
+    $$('#sim input[type=range]').forEach(function(i){i.addEventListener('input',calc);});
+    $$('#seg button').forEach(function(b){ b.addEventListener('click',function(){ tri=b.dataset.per==='t'; seg.classList.toggle('tri',tri); $$('#seg button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b));}); calc(); }); });
+    calc();
+  })();
+
+  // ================= BANCO DE AÇÕES =================
+  (function(){
+    var tb=$('#acoes-tb tbody'); if(!tb) return;
+    // [ação, papel, fase, tema, impacto, origem]
+    var A=[
+      ['Escrever o perfil do lojista ideal com os 20 melhores clientes','Gestor',1,'Base','Alto','Carlos'],
+      ['Montar lista de 300 CNPJs-alvo por CNAE, região e Google Maps','Vendedor',1,'Base','Alto','Blount'],
+      ['Classificar a base nos 5 níveis da pirâmide','Vendedor',1,'Base','Médio','Blount'],
+      ['Configurar etapas de prospecção e campos obrigatórios no CRM','Gestor',1,'Ferramenta','Alto','Ambos'],
+      ['Publicar regra de carteira: 60 dias sem atividade, CNPJ volta ao time','Gestor',1,'Cobrança','Alto','Carlos'],
+      ['Calcular a meta de atividade pela matemática reversa','Gestor',1,'Indicador','Alto','Blount'],
+      ['Assinar o contrato de rotina com cada vendedor','Gestor',1,'Cobrança','Alto','Carlos'],
+      ['Decorar a abertura de ligação de 5 etapas','Vendedor',1,'Roteiro','Alto','Blount'],
+      ['Bloquear 2 blocos de ouro na agenda todos os dias','Vendedor',1,'Rotina','Alto','Ambos'],
+      ['Cumprir o bloco de ouro 1: ligação + WhatsApp, sem orçamento no meio','Vendedor',2,'Rotina','Alto','Blount'],
+      ['Rodar a cadência de 14 dias em todo lojista novo','Vendedor',2,'Canal','Alto','Ambos'],
+      ['Gravar áudio de até 30 s para quem não atende','Vendedor',2,'Canal','Médio','Carlos'],
+      ['Reverter objeções com Apoio, Quebra e Pedido','Vendedor',2,'Objeção','Alto','Blount'],
+      ['Treinar as 8 objeções em dupla toda segunda','Gestor',2,'Treino','Alto','Ambos'],
+      ['Fechar o placar no CRM antes das 18h','Vendedor',2,'Indicador','Alto','Carlos'],
+      ['Preparar a lista de amanhã nas horas de platina','Vendedor',2,'Rotina','Médio','Blount'],
+      ['Conduzir a daily de 15 minutos em pé','Gestor',2,'Ritual','Alto','Carlos'],
+      ['Ouvir 2 ligações por vendedor por semana e dar 1 ponto de melhoria','Gestor',2,'Treino','Alto','Blount'],
+      ['Proteger os blocos de ouro de reuniões e tarefas internas','Gestor',2,'Rotina','Alto','Blount'],
+      ['Fazer mais uma ligação antes de ir embora','Vendedor',2,'Mentalidade','Médio','Blount'],
+      ['Montar rotas de visita a frio nos polos e cidades da região','Vendedor',3,'Canal','Alto','Carlos'],
+      ['Prospectar em feiras e excursões de compradores com meta de contatos','Vendedor',3,'Canal','Médio','Carlos'],
+      ['Pedir 1 indicação por dia a lojista de outra cidade','Vendedor',3,'Canal','Alto','Ambos'],
+      ['Escolher as 50 contas-conquista e tocar todas no mês','Vendedor',3,'Base','Alto','Blount'],
+      ['Converter pedido de teste em segundo pedido em até 60 dias','Vendedor',3,'Resultado','Alto','Carlos'],
+      ['Lançar a bonificação de 4 camadas por escrito','Gestor',3,'Bonificação','Alto','Carlos'],
+      ['Abrir o campeonato por times com tabela semanal','Gestor',3,'Motivação','Alto','Carlos'],
+      ['Anunciar cada lojista novo ativado na hora (sino do primeiro pedido)','Gestor',3,'Motivação','Médio','Carlos'],
+      ['Recalibrar metas com as taxas reais das 6 primeiras semanas','Gestor',3,'Indicador','Alto','Blount'],
+      ['Fazer o 1:1 semanal com a conversa Fato, Impacto, Pergunta, Compromisso','Gestor',3,'Cobrança','Alto','Carlos'],
+      ['Falar com 2 ou 3 pessoas por conta: dono, comprador e gerente','Vendedor',4,'Relacionamento','Alto','Blount'],
+      ['Monitorar eventos-gatilho: loja nova, reforma, troca de comprador','Vendedor',4,'Base','Médio','Blount'],
+      ['Entregar o cliente ativado para a fidelização com plano de recompra','Vendedor',4,'Resultado','Alto','Carlos'],
+      ['Promover de nível com critério público','Gestor',4,'Motivação','Alto','Carlos'],
+      ['Revisar perfil ideal e contas-conquista a cada trimestre','Gestor',4,'Base','Alto','Ambos'],
+      ['Formar um vendedor-espelho para treinar os novos','Gestor',4,'Treino','Médio','Carlos']
+    ];
+    var temas=A.map(function(a){return a[3];}).filter(function(v,i,s){return s.indexOf(v)===i;}).sort();
+    var ct=$('.chips[data-f="tema"]'); ct.insertAdjacentHTML('beforeend',temas.map(function(t){return '<button type="button" aria-pressed="false" data-v="'+t+'">'+t+'</button>';}).join(''));
+    var F={quem:'',fase:'',tema:''}, q=$('#q');
+    function cor(o){return o==='Blount'?'a':(o==='Carlos'?'v':'');}
+    function pinta(){
+      var t=(q.value||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+      var r=A.filter(function(a){ return (!F.quem||a[1]===F.quem)&&(!F.fase||String(a[2])===F.fase)&&(!F.tema||a[3]===F.tema)&&(!t||(a.join(' ').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').indexOf(t)>=0)); });
+      tb.innerHTML=r.map(function(a){return '<tr><td>'+esc(a[0])+'</td><td>'+a[1]+'</td><td>'+a[2]+'</td><td><span class="tag">'+a[3]+'</span></td><td><span class="tag '+(a[4]==='Alto'?'m':'a')+'">'+a[4]+'</span></td><td><span class="tag '+cor(a[5])+'">'+a[5]+'</span></td></tr>';}).join('')||'<tr><td colspan="6">Nenhuma ação com esse filtro.</td></tr>';
+      $('#acoes-n').textContent=r.length+' de '+A.length+' ações';
+    }
+    q.addEventListener('input',pinta);
+    $$('.chips[data-f]').forEach(function(g){ g.addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b) return; F[g.dataset.f]=b.dataset.v; $$('button',g).forEach(function(x){x.setAttribute('aria-pressed',String(x===b));}); pinta(); }); });
+    pinta();
+  })();
+
+  // ================= CHECKLISTS =================
+  (function(){
+    var CK='ua_pa_chk', st=ls.get(CK)||{};
+    if(st.dia&&st.dia.data!==hoje) st.dia={data:hoje,k:{}};
+    ['dia','imp'].forEach(function(g){ if(!st[g]) st[g]={data:hoje,k:{}}; });
+    function grupoDe(el){var g=el.closest('[data-grupo]');return g?g.getAttribute('data-grupo'):'dia';}
+    $$('.chk input[data-k]').forEach(function(i){ var g=grupoDe(i); i.checked=!!st[g].k[i.dataset.k]; i.addEventListener('change',function(){ st[g].k[i.dataset.k]=i.checked; ls.set(CK,st); prog(); }); });
+    function prog(){ $$('.prog[data-grupo]').forEach(function(p){ var g=p.getAttribute('data-grupo'), its=$$('.blocos[data-grupo="'+g+'"] .chk input'), n=its.filter(function(i){return i.checked;}).length; $('.barra i',p).style.width=(its.length?n/its.length*100:0)+'%'; $('span',p).textContent=n+' de '+its.length; }); }
+    $$('[data-zera]').forEach(function(b){ b.addEventListener('click',function(){ var g=b.dataset.zera; st[g]={data:hoje,k:{}}; ls.set(CK,st); $$('.blocos[data-grupo="'+g+'"] .chk input').forEach(function(i){i.checked=false;}); prog(); }); });
+    prog();
+  })();
+
+  // ================= COPIAR =================
+  function copia(t,b){ var ok=function(){var h=b.innerHTML;b.textContent='Copiado!';setTimeout(function(){b.innerHTML=h;},1600);};
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok,function(){}); else { var a=document.createElement('textarea'); a.value=t; document.body.appendChild(a); a.select(); try{document.execCommand('copy');ok();}catch(e){} a.remove(); } }
+  document.addEventListener('click',function(e){ var b=e.target.closest('[data-copia],[data-copiar]'); if(!b) return; var t=b.hasAttribute('data-copiar')?b.getAttribute('data-copiar'):b.parentNode.querySelector('blockquote').textContent.trim(); copia(t,b); });
+
+  // ================= LIBERAÇÃO + MOTION 12 =================
+  function libera(d, novo){
+    document.body.classList.add('liberado'); $('#ferr').hidden=false;
+    var pn=(d&&d.nome||'').split(' ')[0];
+    if(novo){ $('.ok').classList.add('show'); $('#ok-t').textContent=(pn?pn+', o':'O')+' programa está liberado!'; $('#ok-p').textContent=(d.nl==='ja'?'Você já estava na newsletter Unique: continua recebendo':'E você já está na newsletter Unique: vai receber')+' cada post novo do blog direto no seu e-mail.'; }
+    onTab.indicadores&&$('#p-indicadores').classList.contains('on')&&onTab.indicadores();
+  }
+  function confete(origem){
+    if(RM) return; var cv=document.createElement('canvas'); cv.className='confete'; document.body.appendChild(cv);
+    var dpr=window.devicePixelRatio||1, W=innerWidth, H=innerHeight; cv.width=W*dpr; cv.height=H*dpr; var c=cv.getContext('2d'); c.scale(dpr,dpr);
+    var seed=7; function rnd(){ seed=(seed*16807)%2147483647; return (seed-1)/2147483646; }
+    var cores=['#00e676','#e0055e','#1e2357','#ffffff','#00b85e'], ps=[];
+    for(var i=0;i<44;i++){ var an=-Math.PI/2+(rnd()-.5)*Math.PI*1.1, v=6+rnd()*7; ps.push({x:origem.x,y:origem.y,vx:Math.cos(an)*v,vy:Math.sin(an)*v,r:rnd()*6.28,vr:(rnd()-.5)*.4,w:6+rnd()*6,h:3+rnd()*4,c:cores[i%5]}); }
+    var t0=performance.now();
+    (function f(n){ var t=(n-t0)/1000; c.clearRect(0,0,W,H); ps.forEach(function(p){ p.vy+=.28; p.x+=p.vx; p.y+=p.vy; p.vx*=.99; p.r+=p.vr; c.save(); c.globalAlpha=Math.max(0,1-t/1.8); c.translate(p.x,p.y); c.rotate(p.r); c.fillStyle=p.c; c.fillRect(-p.w/2,-p.h/2,p.w,p.h); c.restore(); }); if(t<1.9) requestAnimationFrame(f); else cv.remove(); })(t0);
+  }
+  var salvo=ls.get(K); if(salvo) libera(salvo,false);
+  var f=$('#f-lib'), msg=$('.msg',f), bt=$('#cta');
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var d={nome:f.nome.value.trim(),empresa:f.empresa.value.trim(),whatsapp:f.whatsapp.value.trim(),email:f.email.value.trim()};
+    if(d.nome.length<2){msg.textContent='Informe o seu nome.';f.nome.focus();return;}
+    if(d.empresa.length<2){msg.textContent='Informe o nome da empresa.';f.empresa.focus();return;}
+    if(d.whatsapp.replace(/\D/g,'').length<10){msg.textContent='Confira o seu WhatsApp com DDD.';f.whatsapp.focus();return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)){msg.textContent='Confira o seu e-mail.';f.email.focus();return;}
+    if(!f.aceite.checked){msg.textContent='Para liberar, marque que concorda em receber os conteúdos e com a LGPD.';f.aceite.focus();return;}
+    bt.disabled=true; msg.textContent=''; bt.classList.add('load');
+    fetch('/api/material',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({a:'liberar',material:MAT,nome:d.nome,empresa:d.empresa,whatsapp:d.whatsapp,email:d.email,aceite:true,site:f.site.value})})
+      .then(function(r){return r.json().catch(function(){return {};});})
+      .then(function(r){
+        if(!r||!r.ok){bt.disabled=false;bt.classList.remove('load');msg.textContent=(r&&r.erro)||'Não deu certo agora. Tente de novo em instantes.';return;}
+        bt.classList.remove('load'); bt.classList.add('done');
+        var rc=bt.getBoundingClientRect(); confete({x:rc.left+rc.width/2,y:rc.top+rc.height/2});
+        var v={nome:d.nome,empresa:d.empresa,nl:r.newsletter,data:new Date().toISOString()};
+        ls.set(K,v);
+        setTimeout(function(){ libera(v,true); var ok=$('.ok'); if(ok&&ok.scrollIntoView) ok.scrollIntoView({behavior:RM?'auto':'smooth',block:'center'}); },900);
+      })
+      .catch(function(){bt.disabled=false;bt.classList.remove('load');msg.textContent='Sem conexão. Tente de novo.';});
+  });
+
+  // ================= ADM =================
+  function dt(x){ try{return new Date(x).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}catch(e){return '';} }
+  fetch('/api/material?a=adm&material='+MAT,{credentials:'same-origin',cache:'no-store'}).then(function(r){return r.json();}).then(function(r){
+    if(r&&r.cliente){ libera({},false); return; }
+    if(!r||!r.admin) return;
+    document.body.classList.add('modo-adm'); libera({},false);
+    var visitante=false, el=document.createElement('section'); el.className='admbar'; el.setAttribute('aria-label','Visualização ADM');
+    var linhas=(r.ultimos||[]).map(function(x){ var w=String(x.whatsapp||'').replace(/\D/g,''); if(w.length>=10&&w.length<=11) w='55'+w;
+      return '<tr><td>'+dt(x.data)+'</td><td>'+esc(x.nome)+'</td><td><a href="/area/admin/#empresas/'+encodeURIComponent(x.slug||'')+'">'+esc(x.empresa)+'</a></td><td>'+(w?'<a href="https://wa.me/'+w+'" target="_blank" rel="noopener">'+esc(x.whatsapp)+'</a>':'')+'</td><td>'+esc(x.email)+'</td></tr>'; }).join('');
+    el.innerHTML='<div class="wrap"><div><span class="sel"><i></i>Visualização ADM</span><p class="tx">Você vê o programa completo porque está logado no workspace. O visitante precisa se cadastrar.</p></div>'+
+      '<div class="num2"><div><b>'+(r.total||0)+'</b><small>cadastros</small></div><div><b>'+(r.hoje||0)+'</b><small>hoje</small></div></div>'+
+      '<div class="acs"><button class="btn sm verde" type="button" data-adm="lista">Ver cadastros</button><button class="btn sm" type="button" data-adm="vis">Ver como visitante</button><a class="btn sm" href="/area/admin/#crm">Abrir CRM</a></div></div>'+
+      '<div class="wrap lista">'+(linhas?'<div class="rolar"><table><thead><tr><th>Quando</th><th>Nome</th><th>Empresa</th><th>WhatsApp</th><th>E-mail</th></tr></thead><tbody>'+linhas+'</tbody></table></div>':'<p class="tx">Nenhum cadastro ainda.</p>')+'</div>';
+    var main=document.querySelector('main'); main.insertBefore(el,main.firstChild);
+    el.addEventListener('click',function(e){ var b=e.target.closest('[data-adm]'); if(!b) return;
+      if(b.dataset.adm==='lista'){ var a=el.classList.toggle('aberta'); b.textContent=a?'Fechar cadastros':'Ver cadastros'; }
+      if(b.dataset.adm==='vis'){ visitante=!visitante; document.body.classList.toggle('liberado',!visitante); b.textContent=visitante?'Ver como ADM':'Ver como visitante'; }
+    });
+  }).catch(function(){});
+
+  $('#imprimir').addEventListener('click',function(){ window.print(); });
+  rota();
+})();
+</script>
+</body>
+</html>

@@ -17,6 +17,13 @@ const URL_DB = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
 
 const MATERIAIS = {
+  'prospeccao-atacado': {
+    titulo: 'Prospecção Atleta no Atacado · Programa evolutivo',
+    descricao: 'Programa em 4 fases para tirar a prospecção do papel no atacado: rotina do vendedor, papel do gestor, objeções, indicadores, cobrança, motivação e bonificação.',
+    url: '/prospeccao-atacado/',
+    tag: 'Prospecção Atacado',
+    aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
+  },
   'comercial-atleta': {
     titulo: 'Comercial Atleta · Material de apoio',
     descricao: 'Os 4 pilares comerciais, a rotina diária, semanal e mensal, o placar de indicadores e o desafio de 30 dias.',

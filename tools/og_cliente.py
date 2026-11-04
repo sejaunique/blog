@@ -50,6 +50,9 @@ h1{{font-size:{tam}px;line-height:1.02;font-weight:700;letter-spacing:-.035em}}
 </body></html>"""
 
 EXTRAS = [
+    {"arquivo": "prospeccao-atacado.jpg", "rotulo": "Programa evolutivo · Atacado", "pill": "Material gratuito",
+     "titulo": "Prospecção Atleta", "chamada": "Prospecção que vira carteira no atacado", "grifo": "vira carteira",
+     "descricao": "4 fases, rotina do vendedor, papel do gestor, indicadores, cobrança e bonificação. Carlos Ribeiro e Jeb Blount."},
     {"arquivo": "case-clinica-brasil.jpg", "rotulo": "Case · Clínica Brasil", "pill": "Case de sucesso",
      "titulo": "Atendimento humanizado que converte", "grifo": "converte",
      "descricao": "Como a Unique centralizou o atendimento, treinou a equipe e estruturou a jornada do paciente."},

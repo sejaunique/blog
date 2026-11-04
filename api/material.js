@@ -59,6 +59,13 @@ const MATERIAIS = {
     segmentos: { industria: 'Indústria', atacado: 'Atacado', confeccao: 'Confecção' },
     aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
   },
+  'comissao-ote': {
+    titulo: 'Comissão OTE + Bônus de comportamento',
+    descricao: 'Calculadora de OTE (fixo, comissão, gatilho e acelerador), bônus de comportamento pelos 4 pilares, custo real na CLT (13º, férias, DSR, FGTS e INSS) e regulamento pronto.',
+    url: '/comissao-ote/',
+    tag: 'Comissão OTE',
+    aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
+  },
   'black-zona': {
     titulo: 'Black Zona · Ações de Black Friday',
     descricao: '18 ações de Black Friday para indústria e atacado, varejo e uniforme personalizado, com passo a passo, mensagens prontas, meta e calendário de novembro.',

@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<script src="/assets/tema.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comissão OTE + Bônus de Comportamento · Unique</title>
+<meta name="description" content="Calculadora de comissão OTE com as regras do jogo, o custo real na CLT (13º, férias, DSR, FGTS, INSS) e o bônus de comportamento pelos 4 pilares: prospecção, nutrição, fidelização e recuperação.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Unique Consultoria">
+<meta property="og:title" content="Comissão OTE + Bônus de Comportamento">
+<meta property="og:description" content="Calculadora de OTE, regras do jogo, custo real na CLT e bônus pelos 4 pilares comerciais. Gratuito para cadastrados.">
+<meta property="og:url" content="https://sejaunique.com/comissao-ote/">
+<meta property="og:image" content="https://sejaunique.com/assets/og/comissao-ote.jpg">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+:root{--pros:#00c864;--nutr:#2b3384;--fide:#6a2fc1;--recu:#e0055e}
+.w{max-width:1120px;margin-inline:auto;padding-inline:clamp(16px,4vw,36px)}
+.leve{font-weight:200;font-style:italic}
+.spaced{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--verde-txt)}
+.tn{font-variant-numeric:tabular-nums}
+
+/* capa */
+.hero{background:#0b0b0c;color:#fff;padding:clamp(56px,9vw,112px) 0 clamp(44px,7vw,80px);overflow:hidden;position:relative}
+.hero .k{font-size:.78rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#00e676}
+.hero h1{font-size:clamp(2.4rem,7vw,5.2rem);line-height:.98;letter-spacing:-.045em;margin:18px 0 22px;font-weight:800;text-wrap:balance;max-width:14ch}
+.hero p{font-size:clamp(1.05rem,2vw,1.3rem);line-height:1.6;max-width:640px;opacity:.85;margin:0}
+.eq{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:34px;font-weight:800}
+.eq span{padding:12px 18px;border-radius:999px;font-size:clamp(.85rem,1.8vw,1rem);letter-spacing:.02em}
+.eq .o{opacity:.6;padding:0;font-size:1.4rem;font-weight:300}
+.eq .a{background:#fff;color:#0b0b0c}.eq .b{background:#00e676;color:#0b0b0c}.eq .c{border:2px solid #fff}.eq .t{background:#e0055e;color:#fff}
+.pil4{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.pil4 span{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:8px 13px;border-radius:999px;color:#fff;background:var(--c)}
+
+.hgrid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.9fr);gap:clamp(28px,5vw,64px);align-items:center}
+.hcard{border:1px solid #2a2a2e;border-radius:24px;padding:24px;background:#141416}
+.hcard small{display:block;font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#a1a1a8;margin-bottom:8px}
+.hcard .v{font-size:clamp(2.4rem,5vw,3.4rem);font-weight:800;letter-spacing:-.04em;color:#00e676;line-height:1}
+.hcard .st{display:flex;height:16px;border-radius:8px;overflow:hidden;margin:20px 0 14px}
+.hcard .st i{display:block;height:100%}
+.hcard .lin{display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid #2a2a2e;font-size:.9rem}
+.hcard .lin span{color:#c9c9cf}.hcard .lin span i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:8px}
+@media (max-width:860px){.hgrid{grid-template-columns:1fr}}
+/* sumário */
+.sum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:clamp(32px,5vw,56px) 0 0}
+.sum a{display:flex;gap:14px;align-items:flex-start;padding:18px 20px;border:1px solid var(--line);border-radius:18px;color:inherit;text-decoration:none;background:var(--card)}
+.sum a b{font-size:2rem;font-weight:200;font-style:italic;line-height:1;color:var(--verde-txt)}
+.sum a span{font-weight:800;line-height:1.3}
+.sum a small{display:block;font-weight:500;color:var(--muted);margin-top:4px;font-size:.85rem}
+
+/* cadastro */
+.gate{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px);margin:clamp(32px,5vw,56px) auto;padding:clamp(22px,4vw,40px);border:2px solid var(--fg);border-radius:28px}
+.gate h2{font-size:clamp(1.6rem,3.6vw,2.4rem);line-height:1.06;letter-spacing:-.03em;margin:10px 0 14px}
+.gate ul{margin:16px 0 0;padding-left:20px;line-height:1.8}
+form{display:flex;flex-direction:column;gap:10px}
+input,textarea,select{font:inherit;font-size:1rem;padding:12px 14px;border-radius:14px;border:1.5px solid var(--line);background:var(--bg);color:inherit;width:100%;min-width:0}
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.isca{position:absolute;left:-9999px}
+.aceite{display:flex;gap:10px;font-size:.78rem;line-height:1.5;opacity:.85}.aceite input{width:auto;margin-top:3px}
+button{font:inherit;font-weight:800;font-size:1rem;padding:14px 22px;border-radius:999px;border:0;background:#00e676;color:#0b0b0c;cursor:pointer}
+button.sec{background:transparent;border:1.5px solid currentColor;color:var(--fg);font-size:.85rem;padding:10px 16px}
+.msg{font-size:.85rem;min-height:1.2em;margin:0}
+#conteudo,.ok{display:none}
+body.liberado .gate{display:none}body.liberado #conteudo{display:block}body.liberado .ok{display:block}
+.ok{margin:32px auto 0;padding:22px 26px;border-radius:20px;background:#00e676;color:#0b0b0c}
+.ok b{font-size:1.15rem}
+
+/* navegação fixa */
+.nav{position:sticky;top:var(--hh,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);margin-top:28px}
+.nav .w{display:flex;gap:6px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+.nav a{flex:none;font-size:.8rem;font-weight:800;padding:9px 14px;border-radius:999px;border:1.5px solid var(--line);color:var(--fg);text-decoration:none}
+.nav a.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+
+/* seções */
+.sec-h{padding-top:clamp(56px,8vw,96px);scroll-margin-top:calc(var(--hh,0px) + 64px)}
+.sec-h h2{font-size:clamp(2rem,5vw,3.4rem);line-height:1.02;letter-spacing:-.04em;margin:10px 0 14px;font-weight:800;text-wrap:balance;max-width:20ch}
+.lead{font-size:clamp(1.02rem,1.8vw,1.18rem);line-height:1.65;max-width:68ch;margin:0 0 26px;color:var(--muted)}
+.lead b{color:var(--fg)}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.pane{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px 22px;min-width:0}
+.pane h3{font-size:1.1rem;line-height:1.25;margin:0 0 8px;letter-spacing:-.01em}
+.pane h4{font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin:0 0 12px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.pane p{margin:0 0 8px;line-height:1.55;font-size:.95rem}.pane p:last-child{margin:0}
+.pane ul,.pane ol{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:7px;font-size:.95rem;line-height:1.5}
+.pane.escuro{background:#0b0b0c;color:#fff;border-color:#0b0b0c}
+.pane.escuro h4{color:#a1a1a8}
+.n{font-size:2.6rem;font-weight:200;font-style:italic;line-height:1;color:var(--verde-txt);margin-bottom:10px;display:block}
+.tag{display:inline-block;font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;border-radius:999px;background:var(--soft);color:var(--muted)}
+.tag.ok2{background:rgba(0,200,100,.14);color:var(--verde-txt)}.tag.no{background:rgba(224,5,94,.12);color:var(--magenta-txt)}.tag.at{background:rgba(227,172,18,.16);color:#9a6f00}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:560px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:800}
+td.r,th.r{text-align:right}
+.aviso{display:flex;gap:12px;padding:16px 18px;border-radius:16px;border:1.5px solid var(--magenta);margin:16px 0;font-size:.92rem;line-height:1.55}
+.aviso b{color:var(--magenta-txt)}
+.dica{padding:16px 18px;border-radius:16px;background:var(--soft);font-size:.92rem;line-height:1.55;margin:16px 0}
+
+/* calculadoras */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:16px;align-items:start}
+.campos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.campos label,.fld{font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+.campos input,.campos select{font-size:1.05rem;font-weight:700;font-variant-numeric:tabular-nums;text-transform:none;letter-spacing:0}
+.campos .full{grid-column:1/-1}
+.campos small{font-weight:600;letter-spacing:0;text-transform:none;font-size:.75rem}
+input[type=range]{padding:0;accent-color:#00c864;border:0}
+.res{position:sticky;top:calc(var(--hh,0px) + 64px)}
+.big{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.big div{padding:16px;border-radius:16px;background:var(--soft)}
+.big .tot{grid-column:1/-1;background:#0b0b0c;color:#fff}
+.big small{display:block;font-size:.64rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-bottom:6px}
+.big output{font-size:clamp(1.3rem,3vw,1.7rem);font-weight:800;font-variant-numeric:tabular-nums;display:block;line-height:1.1}
+.big .tot output{font-size:clamp(2rem,5vw,2.8rem);color:#00e676}
+.big em{font-style:normal;font-size:.8rem;opacity:.75;display:block;margin-top:4px}
+.barras{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.barra{display:grid;grid-template-columns:52px minmax(0,1fr) 96px;gap:10px;align-items:center;font-size:.82rem;font-variant-numeric:tabular-nums}
+.barra .tr{height:22px;background:var(--soft);border-radius:6px;overflow:hidden;display:flex}
+.barra .tr i{display:block;height:100%}
+.barra .tr .f{background:var(--marinho)}.barra .tr .v{background:#00c864}.barra .tr .b{background:#e3ac12}
+.barra b{text-align:right}
+.barra.atual{font-weight:800}.barra.atual span:first-child{color:var(--verde-txt)}
+.leg{display:flex;gap:14px;flex-wrap:wrap;font-size:.75rem;color:var(--muted);margin-top:10px}
+.leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.linha{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.linha:last-child{border-bottom:0}
+.linha span{color:var(--muted);min-width:0}.linha b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.linha.t{font-size:1.05rem}.linha.t span{color:var(--fg);font-weight:800}
+
+/* 4 pilares */
+.fluxo{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;position:relative;margin:8px 0 6px}
+.nodo{border-radius:20px;padding:20px;color:#fff;background:var(--c);position:relative;min-width:0}
+.nodo:not(:last-child)::after{content:"";position:absolute;right:-22px;top:50%;width:16px;height:16px;border-top:3px solid var(--muted);border-right:3px solid var(--muted);transform:translateY(-50%) rotate(45deg)}
+.nodo b{display:block;font-size:1.15rem;margin-bottom:6px}
+.nodo p{margin:0;font-size:.86rem;line-height:1.45;opacity:.9}
+.nodo .q{font-size:.66rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.75;display:block;margin-bottom:8px}
+.volta{display:flex;align-items:center;gap:10px;font-size:.82rem;font-weight:700;color:var(--magenta-txt);margin:14px 0 0}
+.volta svg{flex:none}
+.pil{border-left:5px solid var(--c);}
+.pil .cab{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px}
+.pil .cab h3{margin:0;color:var(--c)}
+.pil .cab .pv{font-weight:800;font-variant-numeric:tabular-nums;font-size:1.15rem;white-space:nowrap}
+.ind{display:grid;grid-template-columns:minmax(0,1fr) 78px 78px 52px;gap:8px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line);font-size:.88rem}
+.ind:last-of-type{border-bottom:0}
+.ind input{padding:8px 9px;font-size:.92rem;font-weight:700;border-radius:10px;text-align:right}
+.ind .pc{font-weight:800;text-align:right;font-variant-numeric:tabular-nums;font-size:.82rem}
+.ind .tp{display:block;font-size:.66rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ind.conv .tp{color:var(--verde-txt)}
+.ind.hd{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line)}
+.ind.hd span:not(:first-child){text-align:right}
+.pesos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.pesos label{border-left:4px solid var(--c)}
+.status{font-size:.8rem;margin-top:10px;line-height:1.45}
+.filtros{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.filtros button{font-size:.78rem;padding:8px 14px;background:transparent;border:1.5px solid var(--c,var(--line));color:var(--fg)}
+.filtros button[aria-pressed=true]{background:var(--c,var(--fg));color:#fff}
+.filtros input{max-width:260px;padding:8px 12px;font-size:.88rem;border-radius:999px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--c);margin-right:6px}
+
+/* checklist */
+.meter{min-width:200px;font-size:.85rem;color:var(--muted)}
+.meter b{display:block;font-size:1.5rem;color:var(--fg);font-variant-numeric:tabular-nums}
+.meter .track{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:8px}
+.meter .track i{display:block;height:100%;background:#00e676;width:0;transition:width .3s}
+.passos{counter-reset:p;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.passo{position:relative;padding:20px 20px 18px;border-radius:20px;border:1px solid var(--line);background:var(--card)}
+.passo::before{counter-increment:p;content:counter(p,decimal-leading-zero);font-size:2.2rem;font-weight:200;font-style:italic;color:var(--verde-txt);display:block;line-height:1;margin-bottom:10px}
+.passo h3{margin:0 0 6px;font-size:1.05rem}
+.passo p{margin:0 0 10px;font-size:.9rem;line-height:1.5;color:var(--muted)}
+.checks{display:flex;flex-direction:column;gap:2px}
+.checks label{display:flex;gap:10px;align-items:flex-start;padding:6px 2px;border-radius:8px;cursor:pointer;font-size:.9rem;line-height:1.45}
+.checks input{width:20px;height:20px;margin-top:1px;accent-color:#00c864;flex:none;padding:0}
+.checks input:checked+span{color:var(--muted);text-decoration:line-through}
+.regul{white-space:pre-wrap;font-family:inherit;font-size:.9rem;line-height:1.65;padding:22px;border-radius:18px;background:var(--soft);max-height:520px;overflow:auto;margin:0}
+.acoes{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+
+/* banners do diagnóstico e do Alda */
+.diag{margin-top:96px;display:grid;grid-template-columns:1fr 1fr;background:var(--ink);color:var(--ink-fg);overflow:hidden;border-radius:28px}
+.diag .txt{padding:clamp(28px,5vw,64px);display:grid;gap:18px;align-content:center}
+.diag .spaced{color:var(--ink-muted)}
+.diag h2{font-size:clamp(2rem,4.4vw,3.2rem);line-height:1;font-weight:800;letter-spacing:-.04em;margin:0;text-wrap:balance}
+.diag p{color:var(--ink-muted);margin:0;max-width:46ch}
+.diag .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.diag .ctas .btn:not(.verde){color:var(--ink-fg)}
+.diag figure{margin:0;position:relative;min-height:360px}
+.diag figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1);-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%);mask-image:linear-gradient(90deg,transparent,#000 35%)}
+.alda{margin-top:72px;background:#fff;border-top:1px solid #e4e4e7;border-bottom:1px solid #e4e4e7;color:#2e2e2e;overflow:hidden}
+.alda-in{display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:center;padding-block:44px}
+.alda-pato{width:110px;height:auto;align-self:end;margin-bottom:-44px}
+.alda h2{margin:0 0 8px;font-size:clamp(1.6rem,3vw,2.3rem);font-weight:900;letter-spacing:-.035em;line-height:1.05;color:#2e2e2e}
+.alda h2 span{font-weight:300;font-style:italic}
+.alda p{margin:0;max-width:60ch;color:#4a4a4a}
+.alda-bts{display:grid;gap:10px}
+.alda-bt{background:#2e2e2e;color:#fff;border-color:#2e2e2e}
+.alda-bt2{color:#2e2e2e;border-color:#2e2e2e}
+
+@media (max-width:920px){.calc{grid-template-columns:minmax(0,1fr)}.res{position:static}.fluxo{grid-template-columns:1fr 1fr}.nodo:nth-child(2)::after{display:none}.g4,.pesos{grid-template-columns:1fr 1fr}.passos{grid-template-columns:1fr 1fr}}
+@media (max-width:860px){.g3,.sum{grid-template-columns:1fr}.gate,.diag,.alda-in{grid-template-columns:1fr}.alda-pato{display:none}.diag figure{min-height:240px}}
+@media (max-width:640px){.g2,.duas,.passos{grid-template-columns:1fr}.fluxo{grid-template-columns:1fr;gap:26px}.nodo::after{right:auto!important;left:50%;top:auto!important;bottom:-21px;transform:translateX(-50%) rotate(135deg)!important;display:block!important}.nodo:last-child::after{display:none!important}.ind{grid-template-columns:minmax(0,1fr) 64px 64px 44px;font-size:.82rem}}
+@media print{.nav,.gate,.diag,.alda,header,footer,.acoes,.ok{display:none!important}#conteudo{display:block!important}.res{position:static}}
+</style>
+</head>
+<body>
+<script src="/assets/casco.js"></script>
+<main>
+<section class="hero"><div class="w hgrid"><div>
+  <span class="k">Ferramenta · Remuneração comercial</span>
+  <h1>Comissão OTE <span class="leve" style="color:#00e676">com bônus de comportamento.</span></h1>
+  <p>Quanto o vendedor ganha batendo a meta, quanto ele custa de verdade na CLT e como pagar pelo hábito que gera a venda, não só pela venda.</p>
+  <div class="eq" aria-label="OTE é igual a fixo mais comissão mais bônus de comportamento">
+    <span class="t">OTE</span><span class="o">=</span><span class="a">Fixo</span><span class="o">+</span><span class="b">Comissão</span><span class="o">+</span><span class="c">Bônus de comportamento</span>
+  </div>
+  <div class="pil4"><span style="--c:var(--pros)">Prospecção</span><span style="--c:var(--nutr)">Nutrição</span><span style="--c:var(--fide)">Fidelização</span><span style="--c:var(--recu)">Recuperação</span></div>
+</div>
+  <div class="hcard" aria-label="Exemplo de OTE">
+    <small>Exemplo · vendedor completo</small>
+    <div class="v">R$ 8.000</div>
+    <span style="font-size:.85rem;color:#a1a1a8">batendo 100% da meta de R$ 100 mil</span>
+    <div class="st"><i style="width:60%;background:#2b3384"></i><i style="width:30%;background:#00c864"></i><i style="width:10%;background:#e3ac12"></i></div>
+    <div class="lin"><span><i style="background:#2b3384"></i>Fixo</span><b>R$ 4.800</b></div>
+    <div class="lin"><span><i style="background:#00c864"></i>Comissão</span><b>R$ 2.400</b></div>
+    <div class="lin"><span><i style="background:#e3ac12"></i>Bônus dos 4 pilares</span><b>R$ 800</b></div>
+    <div class="lin"><span>Custo para a empresa (Presumido)</span><b style="color:#e0055e">≈ R$ 13,8 mil</b></div>
+  </div>
+</div></section>
+
+<div class="w">
+  <div class="sum" aria-label="O que tem no material">
+    <a href="#ote"><b>01</b><span>Entenda o OTE<small>As 5 peças e o mix por função</small></span></a>
+    <a href="#regras"><b>02</b><span>Regras do jogo<small>12 regras para ninguém brigar no fechamento</small></span></a>
+    <a href="#calculadora"><b>03</b><span>Calculadora OTE<small>Fixo, comissão, gatilho e acelerador</small></span></a>
+    <a href="#comportamento"><b>04</b><span>Bônus pelos 4 pilares<small>12 indicadores que geram venda</small></span></a>
+    <a href="#custo"><b>05</b><span>Custo real na CLT<small>13º, férias, DSR, FGTS e INSS</small></span></a>
+    <a href="#regulamento"><b>06</b><span>Regulamento pronto<small>Texto do plano para assinar</small></span></a>
+  </div>
+
+  <div class="gate" id="liberar">
+    <div>
+      <span class="spaced">Gratuito para cadastrados</span>
+      <h2>Libere a calculadora <span class="leve">e monte o plano do seu time.</span></h2>
+      <p>Preencha e tudo abre aqui mesmo. Os números que você digitar ficam salvos neste aparelho.</p>
+      <ul>
+        <li>Calculadora OTE com gatilho, acelerador e cenários</li>
+        <li>Bônus de comportamento pelos 4 pilares, com 12 indicadores</li>
+        <li>Custo real do vendedor: encargos, DSR, 13º e férias</li>
+        <li>Comissão, prêmio ou PLR: o que integra o salário</li>
+        <li>Regulamento do plano gerado com os seus números</li>
+      </ul>
+    </div>
+    <form id="f-lib" novalidate>
+      <div class="duas">
+        <input name="nome" autocomplete="name" placeholder="Seu nome" aria-label="Seu nome" maxlength="80" required>
+        <input name="empresa" autocomplete="organization" placeholder="Empresa" aria-label="Empresa" maxlength="80" required>
+      </div>
+      <input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="WhatsApp com DDD" aria-label="WhatsApp com DDD" maxlength="30" required>
+      <input name="email" type="email" autocomplete="email" placeholder="Seu melhor e-mail" aria-label="Seu e-mail" maxlength="120" required>
+      <input class="isca" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label class="aceite"><input type="checkbox" name="aceite" required><span>Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a <a href="/privacidade/" target="_blank" rel="noopener">Política de Privacidade</a>. Posso cancelar quando quiser.</span></label>
+      <button type="submit">Liberar a calculadora →</button>
+      <p class="msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+
+  <div class="ok"><b id="ok-t">Liberado!</b><p id="ok-p" style="margin:6px 0 0"></p></div>
+</div>
+
+<div id="conteudo">
+<nav class="nav" aria-label="Seções"><div class="w" id="navw">
+  <a href="#ote">OTE</a><a href="#regras">Regras</a><a href="#calculadora">Calculadora</a><a href="#comportamento">4 pilares</a><a href="#custo">Custo CLT</a><a href="#regulamento">Regulamento</a><a href="#implantar">Implantar</a>
+</div></nav>
+
+<div class="w">
+
+<!-- 01 OTE -->
+<section id="ote" class="sec-h">
+  <span class="spaced">01 · Entenda</span>
+  <h2>OTE é o salário de quem <span class="leve">bate a meta.</span></h2>
+  <p class="lead"><b>On-Target Earnings</b> é quanto o vendedor ganha no total quando entrega exatamente 100% do combinado. Em vez de “R$ 3 mil + comissão”, você contrata dizendo “batendo a meta, você ganha R$ 8 mil”. O vendedor enxerga o alvo, e a empresa sabe quanto o comercial custa antes de o mês começar.</p>
+  <div class="g3">
+    <div class="pane"><span class="n">1</span><h3>O valor do OTE</h3><p>Defina pelo mercado da função e da região. Ele precisa ser atrativo para quem é bom e caber no custo comercial.</p></div>
+    <div class="pane"><span class="n">2</span><h3>O mix</h3><p>Quanto é fixo e quanto é variável. Quanto mais o resultado depende do vendedor, mais variável.</p></div>
+    <div class="pane"><span class="n">3</span><h3>A meta</h3><p>Precisa caber na conta: no varejo e no atacado, o OTE costuma ficar entre 6% e 12% da meta. Depende da margem.</p></div>
+    <div class="pane"><span class="n">4</span><h3>O gatilho</h3><p>O patamar mínimo para ter variável, geralmente 70% da meta. Abaixo disso, a empresa não paga por resultado fraco.</p></div>
+    <div class="pane"><span class="n">5</span><h3>O acelerador</h3><p>Acima de 100%, cada ponto paga mais (1,5x ou 2x). É o que faz o bom vendedor passar da meta em vez de segurar pedido.</p></div>
+    <div class="pane escuro"><span class="n" style="color:#00e676">+</span><h3>O bônus de comportamento</h3><p style="opacity:.8">A peça da Unique: uma parte do variável paga a rotina dos 4 pilares. O vendedor é premiado pelo hábito que gera a venda do mês que vem, não só pela venda de hoje.</p></div>
+  </div>
+
+  <h3 style="margin:36px 0 12px;font-size:1.3rem">Mix por função</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Função</th><th>Fixo / variável</th><th>Do variável, para comportamento</th><th>Peso maior nos pilares</th></tr></thead>
+    <tbody>
+      <tr><td><b>Hunter / closer</b><br><span class="tag">abre cliente novo</span></td><td>50/50 ou 60/40</td><td>15% a 20%</td><td>Prospecção e nutrição</td></tr>
+      <tr><td><b>Farmer / carteira</b><br><span class="tag">cuida de quem já compra</span></td><td>70/30</td><td>25% a 35%</td><td>Fidelização e recuperação</td></tr>
+      <tr><td><b>Atendimento / inside sales</b><br><span class="tag">responde quem chega</span></td><td>70/30</td><td>25% a 30%</td><td>Nutrição</td></tr>
+      <tr><td><b>SDR / pré-vendas</b><br><span class="tag">agenda para o closer</span></td><td>70/30</td><td>40% a 50%</td><td>Prospecção (reuniões que acontecem)</td></tr>
+      <tr><td><b>Vendedor completo</b><br><span class="tag">faz tudo, empresa pequena</span></td><td>60/40</td><td>20% a 25%</td><td>Os 4 equilibrados</td></tr>
+    </tbody></table></div>
+  <div class="dica"><b>Regra do fixo:</b> o fixo nunca fica abaixo do salário mínimo ou do piso do sindicato da categoria. Para comissionista puro, a lei garante o mínimo mesmo quando a comissão não chega lá.</div>
+</section>
+
+<!-- 02 REGRAS -->
+<section id="regras" class="sec-h">
+  <span class="spaced">02 · Regras do jogo</span>
+  <h2>Escreva antes, <span class="leve">para não brigar depois.</span></h2>
+  <p class="lead">Plano de comissão que vive na cabeça do dono vira discussão todo dia 5. Estas são as regras que vão no papel, assinadas pelo vendedor <b>antes</b> do mês começar.</p>
+  <div class="filtros" id="fRegras" role="group" aria-label="Filtrar regras"></div>
+  <div class="g3" id="regrasLista"></div>
+  <div class="aviso"><i class="ic" style="--i:var(--ic-alerta);flex:none;margin-top:2px"></i><span><b>Atenção ao estorno.</b> Para vendedor CLT, a Lei 3.207/57 só permite estornar comissão quando o comprador fica insolvente. Cancelamento, troca ou inadimplência comum são risco da empresa, e a Justiça do Trabalho costuma mandar devolver o que foi descontado. O caminho seguro é pagar a comissão na proporção do que foi recebido, o que a mesma lei permite nas vendas a prazo.</span></div>
+</section>
+
+<!-- 03 CALCULADORA -->
+<section id="calculadora" class="sec-h">
+  <span class="spaced">03 · Calculadora OTE</span>
+  <h2>Monte o plano <span class="leve">e veja quanto paga em cada cenário.</span></h2>
+  <p class="lead">Escolha a função para carregar um modelo e ajuste os números. A calculadora separa o variável em <b>comissão</b> (paga pelo resultado) e <b>bônus de comportamento</b> (pago pelos 4 pilares, na seção 04).</p>
+  <div class="calc">
+    <div class="pane">
+      <div class="campos">
+        <label class="full">Função<select id="o-func">
+          <option value="hunter">Hunter / closer</option><option value="farmer">Farmer / carteira</option><option value="inside">Atendimento / inside sales</option><option value="sdr">SDR / pré-vendas</option><option value="completo" selected>Vendedor completo</option>
+        </select></label>
+        <label>OTE mensal (R$)<input id="o-ote" type="number" inputmode="decimal" min="0" step="100"></label>
+        <label>Meta de vendas no mês (R$)<input id="o-meta" type="number" inputmode="decimal" min="0" step="1000"></label>
+        <label class="full">Fixo: <span id="o-fixo-l" class="tn"></span><input id="o-fixo" type="range" min="30" max="90" step="5"><small>O resto é variável.</small></label>
+        <label class="full">Do variável, vai para comportamento: <span id="o-comp-l" class="tn"></span><input id="o-comp" type="range" min="0" max="50" step="5"></label>
+        <label>Vendido no mês (R$)<input id="o-real" type="number" inputmode="decimal" min="0" step="1000"></label>
+        <label>Gatilho mínimo (%)<input id="o-gat" type="number" inputmode="numeric" min="0" max="100" step="5"></label>
+        <label>Acelerador acima de 100%<select id="o-acel"><option value="1">1x (linear)</option><option value="1.5">1,5x</option><option value="2">2x</option></select></label>
+        <label>Teto da comissão<select id="o-teto"><option value="0">Sem teto (recomendado)</option><option value="1.5">150% da comissão-alvo</option><option value="2">200% da comissão-alvo</option></select></label>
+      </div>
+      <p class="status" id="o-alerta"></p>
+    </div>
+    <div class="res">
+      <div class="big">
+        <div><small>Fixo</small><output id="r-fixo">–</output></div>
+        <div><small>Atingimento</small><output id="r-at">–</output><em id="r-at-e"></em></div>
+        <div><small>Comissão do mês</small><output id="r-com">–</output><em id="r-com-e"></em></div>
+        <div><small>Bônus de comportamento</small><output id="r-bon">–</output><em id="r-bon-e"></em></div>
+        <div class="tot"><small>Total do vendedor no mês</small><output id="r-tot">–</output><em id="r-tot-e"></em></div>
+      </div>
+      <div class="pane">
+        <h4>Cenários · quanto ele ganha</h4>
+        <div class="barras" id="r-cen"></div>
+        <div class="leg"><span><i style="background:var(--marinho)"></i>Fixo</span><span><i style="background:#00c864"></i>Comissão</span><span><i style="background:#e3ac12"></i>Bônus de comportamento (no alvo)</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="dica" id="o-taxa"></div>
+</section>
+
+<!-- 04 COMPORTAMENTO -->
+<section id="comportamento" class="sec-h">
+  <span class="spaced">04 · Bônus de comportamento</span>
+  <h2>Pague pelo hábito <span class="leve">que gera a venda.</span></h2>
+  <p class="lead">Comissão premia o que já aconteceu. O bônus de comportamento premia o que vai fazer a venda do mês que vem acontecer. Ele segue os <b>4 pilares comerciais</b> da Unique, e cada pilar tem duas atividades e uma prova de que a atividade virou dinheiro. <b>Comportamento repetido muda</b>: é o método atleta aplicado à remuneração.</p>
+
+  <div class="fluxo" aria-label="Fluxo dos 4 pilares">
+    <div class="nodo" style="--c:var(--pros)"><span class="q">Ir atrás</span><b>Prospecção</b><p>Ação ativa: quem ainda não é cliente e não chegou sozinho.</p></div>
+    <div class="nodo" style="--c:var(--nutr)"><span class="q">Tudo que chega</span><b>Nutrição</b><p>Leads do orgânico e do tráfego: responder rápido e acompanhar até decidir.</p></div>
+    <div class="nodo" style="--c:var(--fide)"><span class="q">Quem já comprou</span><b>Fidelização</b><p>Evoluir o cliente de R$ 1 para R$ 1 milhão: recompra, mix e indicação.</p></div>
+    <div class="nodo" style="--c:var(--recu)"><span class="q">Quem parou</span><b>Recuperação</b><p>Inativos, perdidos e orçamentos parados voltam para o funil.</p></div>
+  </div>
+  <p class="volta"><svg width="28" height="18" viewBox="0 0 28 18" aria-hidden="true"><path d="M26 4H8a6 6 0 0 0 0 12h4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 1 2 4l4 3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Quem é recuperado volta para a nutrição. O ciclo não fecha nunca.</p>
+
+  <h3 style="margin:36px 0 6px;font-size:1.3rem">As 4 regras do bônus</h3>
+  <div class="g4" style="margin-bottom:28px">
+    <div class="pane"><span class="n">1</span><p><b>Só vale o que está no CRM.</b> Ligação sem registro não existiu.</p></div>
+    <div class="pane"><span class="n">2</span><p><b>Gatilho por pilar:</b> abaixo de 80% das atividades, o pilar não paga.</p></div>
+    <div class="pane"><span class="n">3</span><p><b>Prova de venda:</b> atividade sem conversão paga metade. Conversão acima da meta paga 20% a mais.</p></div>
+    <div class="pane"><span class="n">4</span><p><b>Teto de 150%</b> do bônus-alvo. Ninguém ganha por encher o CRM de registro vazio.</p></div>
+  </div>
+
+  <div class="pane" style="margin-bottom:12px">
+    <h4>Peso de cada pilar · <span id="b-func-l">vendedor completo</span></h4>
+    <div class="campos pesos">
+      <label style="--c:var(--pros);padding-left:10px">Prospecção %<input id="w-pros" type="number" inputmode="numeric" min="0" max="100" step="5"></label>
+      <label style="--c:var(--nutr);padding-left:10px">Nutrição %<input id="w-nutr" type="number" inputmode="numeric" min="0" max="100" step="5"></label>
+      <label style="--c:var(--fide);padding-left:10px">Fidelização %<input id="w-fide" type="number" inputmode="numeric" min="0" max="100" step="5"></label>
+      <label style="--c:var(--recu);padding-left:10px">Recuperação %<input id="w-recu" type="number" inputmode="numeric" min="0" max="100" step="5"></label>
+    </div>
+    <p class="status" id="w-soma"></p>
+  </div>
+
+  <div class="g2" id="pilares"></div>
+
+  <div class="big" style="margin-top:12px">
+    <div><small>Bônus-alvo do mês</small><output id="b-alvo">–</output><em>vem da calculadora OTE</em></div>
+    <div><small>Pontuação de comportamento</small><output id="b-pts">–</output><em id="b-pts-e"></em></div>
+    <div class="tot"><small>Bônus de comportamento a pagar</small><output id="b-tot">–</output><em id="b-tot-e"></em></div>
+  </div>
+
+  <h3 style="margin:40px 0 12px;font-size:1.3rem">Banco de indicadores · escolha os que cabem no seu time</h3>
+  <p class="lead" style="margin-bottom:14px">Os 12 da calculadora são o ponto de partida. Troque por outros desta lista quando o seu processo pedir. Regra: no máximo 3 por pilar, e sempre um de conversão.</p>
+  <div class="filtros" id="fInd" role="group" aria-label="Filtrar indicadores"></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Indicador</th><th>Pilar</th><th>Tipo</th><th>Como medir no CRM</th><th>Meta de partida</th></tr></thead>
+    <tbody id="indLista"></tbody></table></div>
+</section>
+
+<!-- 05 CUSTO -->
+<section id="custo" class="sec-h">
+  <span class="spaced">05 · Contabilidade</span>
+  <h2>Quanto o vendedor <span class="leve">custa de verdade.</span></h2>
+  <p class="lead">O que o vendedor recebe não é o que a empresa paga. Comissão é salário: entra no FGTS, no INSS da empresa, no 13º, nas férias e ainda gera o <b>DSR</b>, o descanso semanal remunerado sobre a parte variável. Os valores vêm da calculadora OTE; ajuste o regime e os dias do mês.</p>
+  <div class="calc">
+    <div class="pane">
+      <div class="campos">
+        <label class="full">Regime tributário<select id="c-reg">
+          <option value="simples">Simples Nacional · Anexos I, II, III ou V</option>
+          <option value="presumido" selected>Lucro Presumido ou Real</option>
+          <option value="anexo4">Simples Nacional · Anexo IV</option>
+          <option value="outro">Outro (digito o percentual)</option>
+        </select></label>
+        <label class="full">INSS da empresa + RAT + terceiros (%)<input id="c-enc" type="number" inputmode="decimal" min="0" max="40" step="0.1"><small id="c-enc-s"></small></label>
+        <label>Dias úteis no mês<input id="c-du" type="number" inputmode="numeric" min="1" max="31"><small>Segunda a sábado, sem feriados</small></label>
+        <label>Domingos e feriados<input id="c-df" type="number" inputmode="numeric" min="0" max="15"><small>Nov/2026: 23 e 7</small></label>
+        <label class="full">Bônus de comportamento pago como<select id="c-tipo">
+          <option value="rem" selected>Remuneração (integra o salário) · mais seguro</option>
+          <option value="premio">Prêmio (art. 457 §4º da CLT) · não integra</option>
+        </select></label>
+        <label class="full" style="flex-direction:row;align-items:center;gap:10px;text-transform:none;letter-spacing:0;font-size:.9rem"><input id="c-multa" type="checkbox" style="width:20px;height:20px;accent-color:#00c864"> Provisionar a multa de 40% do FGTS (desligamento sem justa causa)</label>
+      </div>
+      <p class="status" id="c-obs"></p>
+    </div>
+    <div class="res">
+      <div class="pane" id="c-tab"></div>
+    </div>
+  </div>
+
+  <h3 style="margin:40px 0 12px;font-size:1.3rem">Como entram o 13º e as férias de quem ganha comissão</h3>
+  <div class="g3">
+    <div class="pane"><h4><i class="ic" style="--i:var(--ic-calendar)"></i>DSR</h4><p>Quem ganha comissão tem direito ao descanso semanal sobre ela (Súmula 27 do TST). Conta: <b>comissões do mês ÷ dias úteis × domingos e feriados.</b> Precisa aparecer separado no holerite.</p><p style="color:var(--muted);font-size:.85rem">Bônus mensal de produtividade não gera DSR (Súmula 225 do TST).</p></div>
+    <div class="pane"><h4><i class="ic" style="--i:var(--ic-grafico)"></i>13º salário</h4><p><b>Fixo + média das comissões e do DSR</b> de janeiro a novembro. Em dezembro, a média é refeita com o mês de dezembro e a diferença é paga até 10 de janeiro.</p></div>
+    <div class="pane"><h4><i class="ic" style="--i:var(--ic-clock)"></i>Férias + 1/3</h4><p><b>Fixo + média das comissões dos 12 meses anteriores</b> às férias, mais um terço. A empresa provisiona 1/12 por mês para não levar susto.</p></div>
+  </div>
+
+  <h3 style="margin:40px 0 12px;font-size:1.3rem">Comissão, prêmio ou PLR?</h3>
+  <div class="tbl"><table>
+    <thead><tr><th></th><th>Comissão / gratificação</th><th>Prêmio (art. 457 §4º)</th><th>PLR (Lei 10.101/2000)</th></tr></thead>
+    <tbody>
+      <tr><td>Integra o salário?</td><td><span class="tag no">Sim</span></td><td><span class="tag ok2">Não</span></td><td><span class="tag ok2">Não</span></td></tr>
+      <tr><td>INSS da empresa e FGTS</td><td>Incidem</td><td>Não incidem</td><td>Não incidem</td></tr>
+      <tr><td>13º, férias e DSR</td><td>Entram na média</td><td>Não entram</td><td>Não entram</td></tr>
+      <tr><td>Imposto de renda do vendedor</td><td>Na tabela mensal</td><td>Na tabela mensal</td><td>Tabela própria da PLR</td></tr>
+      <tr><td>Quando usar</td><td>Comissão sobre venda e bônus de rotina</td><td>Desempenho <b>acima</b> do esperado, com critério escrito antes</td><td>Resultado da empresa, até 2 pagamentos por ano</td></tr>
+      <tr><td>Exigência</td><td>Contrato e regulamento assinados</td><td>Ser liberalidade e comprovar o desempenho superior</td><td>Acordo com o sindicato ou comissão com representante sindical</td></tr>
+    </tbody></table></div>
+  <div class="aviso"><i class="ic" style="--i:var(--ic-alerta);flex:none;margin-top:2px"></i><span><b>Bônus de comportamento como prêmio é zona cinzenta.</b> Pagar por ligar, responder lead e fazer pós-venda é pagar pelo trabalho normal, e a Receita e a Justiça do Trabalho tendem a tratar isso como salário. Se for usar prêmio, reserve para o que passa do esperado (por exemplo, o trecho acima de 100% das atividades) e documente o critério antes do mês. Na dúvida, pague como remuneração: o custo é previsível e não vira passivo. Não somos escritório de contabilidade nem advocacia; valide o plano com o seu contador e o jurídico trabalhista.</span></div>
+</section>
+
+<!-- 06 REGULAMENTO -->
+<section id="regulamento" class="sec-h">
+  <span class="spaced">06 · Regulamento</span>
+  <h2>O plano no papel, <span class="leve">com os seus números.</span></h2>
+  <p class="lead">O texto abaixo é montado com o que você preencheu nas calculadoras. Ajuste o que precisar, imprima e colha a assinatura de cada vendedor como aditivo ao contrato. Mudança que reduz o ganho do vendedor exige concordância dele e não pode trazer prejuízo (art. 468 da CLT).</p>
+  <div class="campos" style="margin-bottom:12px">
+    <label>Empresa<input id="g-emp" maxlength="80" placeholder="Nome da empresa"></label>
+    <label>Início da vigência<input id="g-ini" type="month"></label>
+  </div>
+  <pre class="regul" id="g-txt"></pre>
+  <div class="acoes"><button type="button" id="g-copy">Copiar o regulamento</button><button type="button" class="sec" id="g-print">Imprimir ou salvar em PDF</button></div>
+</section>
+
+<!-- 07 IMPLANTAR -->
+<section id="implantar" class="sec-h">
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px">
+    <div><span class="spaced">07 · Implantação</span><h2>Do rascunho <span class="leve">ao primeiro pagamento.</span></h2></div>
+    <div class="meter" aria-live="polite">Seu checklist<b id="mCount">0/0</b><div class="track"><i id="mBar"></i></div></div>
+  </div>
+  <div class="passos" id="passos"></div>
+</section>
+
+</div>
+</div>
+
+<section class="w" aria-label="Diagnóstico comercial">
+  <div class="diag">
+    <div class="txt">
+      <span class="spaced">Próximo passo</span>
+      <h2>Qual é o score comercial <span class="leve">da sua empresa?</span></h2>
+      <p>Faça o diagnóstico. Em 10 a 15 minutos você responde sobre os 4 pilares do seu comercial e recebe um relatório com o score, os gargalos e um plano de ação.</p>
+      <div class="ctas"><a class="btn verde" href="/diagnostico/">Faça seu diagnóstico comercial <i class="ic" style="--i:var(--ic-seta)"></i></a>
+      <a class="btn" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Vi%20a%20calculadora%20de%20Comiss%C3%A3o%20OTE%20e%20quero%20montar%20o%20plano%20do%20meu%20time." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Falar com o Carlos</a></div>
+    </div>
+    <figure><img src="/assets/fotos/palco.jpg" alt="Carlos Ribeiro em palestra, com microfone" width="1280" height="853" loading="lazy"></figure>
+  </div>
+</section>
+
+<section class="alda" aria-labelledby="h-alda">
+  <div class="w alda-in">
+    <img class="alda-pato" src="/diagnostico/relatorio/alda-pato.png" alt="" width="134" height="238" loading="lazy">
+    <div class="alda-tx">
+      <span class="spaced" style="display:block;margin-bottom:10px;color:#5e5e66">Alda.CRM</span>
+      <h2 id="h-alda">Os indicadores do bônus <span>saem do CRM.</span></h2>
+      <p>Ligações, follow-ups, pós-venda e reativações registrados no WhatsApp e no funil. Sem CRM, o bônus de comportamento vira palpite.</p>
+    </div>
+    <div class="alda-bts">
+      <a class="btn alda-bt" href="https://aldacrm.com" target="_blank" rel="noopener">Conhecer o Alda.CRM <i class="ic" style="--i:var(--ic-seta-up)"></i></a>
+      <a class="btn alda-bt2" href="https://wa.me/5511920781458?text=Ol%C3%A1%21%20Vim%20pela%20calculadora%20de%20Comiss%C3%A3o%20OTE%20da%20Unique%20e%20quero%20conhecer%20o%20Alda.CRM." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Falar com o Alda</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+(function(){
+var store={get:function(k){try{return JSON.parse(localStorage.getItem(k)||'null');}catch(e){return null;}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+var $=function(s,c){return (c||document).querySelector(s);};
+var brl=function(v){return (isFinite(v)?v:0).toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});};
+var brl2=function(v){return (isFinite(v)?v:0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});};
+var pct=function(v,d){return (isFinite(v)?v*100:0).toLocaleString('pt-BR',{maximumFractionDigits:d==null?0:d})+'%';};
+var num=function(id){var v=parseFloat(String($('#'+id).value).replace(',','.'));return isFinite(v)?v:0;};
+var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});};
+
+var PIL={pros:{n:'Prospecção',c:'var(--pros)'},nutr:{n:'Nutrição',c:'var(--nutr)'},fide:{n:'Fidelização',c:'var(--fide)'},recu:{n:'Recuperação',c:'var(--recu)'}};
+
+/* ---------- REGRAS DO JOGO ---------- */
+var REGRAS=[
+ {g:'Base',t:'O que conta como venda',x:'Pedido faturado e com nota emitida no mês. Orçamento aprovado, pedido tirado ou “cliente vai pagar” não contam.'},
+ {g:'Base',t:'Venda a prazo',x:'Comissão paga na proporção do que foi recebido (Lei 3.207/57). Parcela que entrou no mês, comissão que sai no mês.'},
+ {g:'Base',t:'Venda dividida',x:'Dois vendedores no mesmo pedido: a divisão é decidida antes de fechar e registrada no CRM. Sem registro, fica com quem lançou o pedido.'},
+ {g:'Meta',t:'Meta conhecida no dia 1',x:'A meta do mês é entregue por escrito até o primeiro dia útil. Meta que muda no meio do mês só vale se for para baixo.'},
+ {g:'Meta',t:'Gatilho',x:'Abaixo do gatilho (ex.: 70% da meta), não há comissão de resultado no mês. O bônus de comportamento segue regra própria.'},
+ {g:'Meta',t:'Proporcional e acelerador',x:'Entre o gatilho e 100%, a comissão é proporcional. Acima de 100%, cada ponto paga com o acelerador combinado.'},
+ {g:'Meta',t:'Sem teto (ou teto alto)',x:'Teto faz o vendedor segurar pedido para o mês seguinte. Se precisar de um, que seja de 200% da comissão-alvo.'},
+ {g:'Pagamento',t:'Apuração e data',x:'Apuração até o dia 3 com o relatório do CRM e do ERP. Pagamento junto com o salário, no mesmo holerite, com DSR separado.'},
+ {g:'Pagamento',t:'Desligamento',x:'Venda fechada antes da saída gera comissão, mesmo que o pagamento do cliente entre depois. Pague quando receber, como nas outras vendas.'},
+ {g:'Pagamento',t:'Desconto máximo',x:'Desconto acima da alçada do vendedor pode reduzir a comissão daquele pedido, desde que a regra esteja escrita antes (ex.: comissão sobre a margem).'},
+ {g:'Gestão',t:'Revisão a cada 6 meses',x:'Plano não muda no meio do semestre. Na revisão, mudança que reduz o ganho precisa da concordância do vendedor (art. 468 da CLT).'},
+ {g:'Gestão',t:'Transparência',x:'O vendedor acompanha atingimento e indicadores pelo CRM durante o mês, não só no fechamento. Placar visível muda o comportamento.'}
+];
+var fR=$('#fRegras'),gR=['Todas','Base','Meta','Pagamento','Gestão'];
+fR.innerHTML=gR.map(function(g,i){return '<button type="button" aria-pressed="'+(i===0)+'" data-g="'+g+'">'+g+'</button>';}).join('');
+function pintaRegras(g){$('#regrasLista').innerHTML=REGRAS.filter(function(r){return g==='Todas'||r.g===g;}).map(function(r){return '<div class="pane"><span class="tag">'+r.g+'</span><h3 style="margin-top:10px">'+r.t+'</h3><p>'+r.x+'</p></div>';}).join('');}
+fR.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;fR.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b);});pintaRegras(b.dataset.g);});
+pintaRegras('Todas');
+
+/* ---------- MODELOS POR FUNÇÃO ---------- */
+var FUNC={
+ hunter:{n:'Hunter / closer',ote:9000,meta:120000,fixo:55,comp:20,gat:70,acel:'2',w:{pros:45,nutr:30,fide:10,recu:15}},
+ farmer:{n:'Farmer / carteira',ote:7500,meta:110000,fixo:70,comp:30,gat:70,acel:'1.5',w:{pros:10,nutr:20,fide:40,recu:30}},
+ inside:{n:'Atendimento / inside sales',ote:5500,meta:80000,fixo:70,comp:30,gat:70,acel:'1.5',w:{pros:10,nutr:50,fide:20,recu:20}},
+ sdr:{n:'SDR / pré-vendas',ote:4500,meta:60000,fixo:70,comp:45,gat:60,acel:'1.5',w:{pros:60,nutr:25,fide:0,recu:15}},
+ completo:{n:'Vendedor completo',ote:8000,meta:100000,fixo:60,comp:25,gat:70,acel:'1.5',w:{pros:25,nutr:25,fide:25,recu:25}}
+};
+
+/* ---------- INDICADORES (12 da calculadora + banco) ---------- */
+var IND=[
+ {id:'p1',p:'pros',t:'a',n:'Abordagens ativas novas',m:'Ligação, WhatsApp ou visita a quem nunca comprou, registrada como atividade',meta:200,u:'no mês',calc:1},
+ {id:'p2',p:'pros',t:'a',n:'Reuniões ou visitas realizadas',m:'Reunião com status “realizada”, não só agendada',meta:12,u:'no mês',calc:1},
+ {id:'p3',p:'pros',t:'c',n:'Clientes novos com 1º pedido',m:'Empresa que saiu de lead para cliente no mês',meta:3,u:'no mês',calc:1},
+ {id:'n1',p:'nutr',t:'a',n:'Leads respondidos em até 5 min',m:'Tempo da primeira resposta no horário comercial',meta:90,u:'%',calc:1},
+ {id:'n2',p:'nutr',t:'a',n:'Orçamentos com cadência completa',m:'Orçamentos com os 3 toques de follow-up feitos',meta:100,u:'%',calc:1},
+ {id:'n3',p:'nutr',t:'c',n:'Conversão de leads em venda',m:'Vendidos ÷ leads atendidos no mês',meta:20,u:'%',calc:1},
+ {id:'f1',p:'fide',t:'a',n:'Clientes da carteira contatados sem eles chamarem',m:'Contato ativo de relacionamento ou oferta',meta:60,u:'no mês',calc:1},
+ {id:'f2',p:'fide',t:'a',n:'Pós-venda D+7 feitos',m:'Ligação ou mensagem 7 dias após a entrega',meta:90,u:'%',calc:1},
+ {id:'f3',p:'fide',t:'c',n:'Clientes da carteira que recompraram',m:'Clientes com novo pedido no mês',meta:15,u:'no mês',calc:1},
+ {id:'r1',p:'recu',t:'a',n:'Inativos contatados (90 a 365 dias)',m:'Clientes sem compra no período, com contato registrado',meta:40,u:'no mês',calc:1},
+ {id:'r2',p:'recu',t:'a',n:'Perdidos e orçamentos parados retomados',m:'Negócios reabertos com nova proposta ou condição',meta:20,u:'no mês',calc:1},
+ {id:'r3',p:'recu',t:'c',n:'Inativos reativados',m:'Inativos que voltaram a comprar no mês',meta:3,u:'no mês',calc:1},
+ {p:'pros',t:'a',n:'Indicações pedidas a clientes',m:'Pedido de indicação registrado no pós-venda',meta:'20 no mês'},
+ {p:'pros',t:'c',n:'Reuniões que viraram proposta',m:'Propostas ÷ reuniões realizadas',meta:'50%'},
+ {p:'nutr',t:'a',n:'Propostas apresentadas por ligação',m:'Proposta enviada + ligação de apresentação registrada',meta:'70%'},
+ {p:'nutr',t:'a',n:'CRM atualizado no fim do dia',m:'Dias com todas as etapas e motivos preenchidos',meta:'95% dos dias'},
+ {p:'nutr',t:'c',n:'Ticket médio dos leads novos',m:'Faturamento de leads ÷ pedidos de leads',meta:'Ticket do trimestre + 10%'},
+ {p:'fide',t:'a',n:'Ofertas de mix ou upsell',m:'Proposta com item a mais para cliente da carteira',meta:'30 no mês'},
+ {p:'fide',t:'c',n:'Indicações recebidas que viraram lead',m:'Leads com origem “indicação de cliente”',meta:'4 no mês'},
+ {p:'fide',t:'c',n:'Crescimento da carteira',m:'Faturamento da carteira x mesmo mês do ano anterior',meta:'+10%'},
+ {p:'recu',t:'a',n:'Motivo de perda registrado',m:'Perdidos com motivo preenchido',meta:'100%'},
+ {p:'recu',t:'a',n:'Carrinhos e pedidos abandonados tratados',m:'Abandonos com contato em até 24 h (e-commerce)',meta:'90%'},
+ {p:'recu',t:'c',n:'Valor recuperado',m:'Faturamento de inativos e perdidos reativados',meta:'5% da meta'}
+];
+var fI=$('#fInd');
+fI.innerHTML='<button type="button" aria-pressed="true" data-p="">Todos</button>'+Object.keys(PIL).map(function(k){return '<button type="button" aria-pressed="false" data-p="'+k+'" style="--c:'+PIL[k].c+'">'+PIL[k].n+'</button>';}).join('')+'<input type="search" id="fIndQ" placeholder="Buscar indicador" aria-label="Buscar indicador">';
+var fP='';
+function pintaInd(){var q=($('#fIndQ').value||'').toLowerCase();
+ $('#indLista').innerHTML=IND.filter(function(i){return (!fP||i.p===fP)&&(!q||(i.n+' '+i.m).toLowerCase().indexOf(q)>-1);}).map(function(i){
+  return '<tr><td><b>'+i.n+'</b>'+(i.calc?' <span class="tag ok2">na calculadora</span>':'')+'</td><td style="white-space:nowrap"><span class="dot" style="--c:'+PIL[i.p].c+'"></span>'+PIL[i.p].n+'</td><td>'+(i.t==='c'?'<span class="tag ok2">Conversão</span>':'<span class="tag">Atividade</span>')+'</td><td>'+i.m+'</td><td style="white-space:nowrap">'+(typeof i.meta==='number'?i.meta+(i.u==='%'?'%':' '+i.u):i.meta)+'</td></tr>';}).join('')||'<tr><td colspan="5">Nenhum indicador com esse filtro.</td></tr>';}
+fI.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;fP=b.dataset.p;fI.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b);});pintaInd();});
+fI.addEventListener('input',pintaInd);
+pintaInd();
+
+/* blocos dos pilares na calculadora */
+$('#pilares').innerHTML=Object.keys(PIL).map(function(k){
+ var its=IND.filter(function(i){return i.calc&&i.p===k;});
+ return '<div class="pane pil" style="--c:'+PIL[k].c+'"><div class="cab"><h3>'+PIL[k].n+'</h3><span class="pv" id="pv-'+k+'">–</span></div>'+
+  '<div class="ind hd"><span>Indicador</span><span>Meta</span><span>Feito</span><span>%</span></div>'+
+  its.map(function(i){return '<div class="ind '+(i.t==='c'?'conv':'')+'"><span><span class="tp">'+(i.t==='c'?'Prova de venda':'Atividade')+' · '+(i.u==='%'?'%':i.u)+'</span>'+i.n+'</span><input type="number" inputmode="decimal" min="0" id="m-'+i.id+'" aria-label="Meta: '+esc(i.n)+'"><input type="number" inputmode="decimal" min="0" id="v-'+i.id+'" aria-label="Realizado: '+esc(i.n)+'"><span class="pc" id="pc-'+i.id+'">–</span></div>';}).join('')+
+  '<p class="status" id="st-'+k+'"></p></div>';}).join('');
+
+/* ---------- ESTADO ---------- */
+var KS='ua_ote_v1';
+var CAMPOS=['o-func','o-ote','o-meta','o-fixo','o-comp','o-real','o-gat','o-acel','o-teto','w-pros','w-nutr','w-fide','w-recu','c-reg','c-enc','c-du','c-df','c-tipo','c-multa','g-emp','g-ini'];
+IND.forEach(function(i){if(i.calc){CAMPOS.push('m-'+i.id,'v-'+i.id);}});
+function aplicaFunc(k){var f=FUNC[k];
+ $('#o-ote').value=f.ote;$('#o-meta').value=f.meta;$('#o-fixo').value=f.fixo;$('#o-comp').value=f.comp;$('#o-gat').value=f.gat;$('#o-acel').value=f.acel;$('#o-real').value=Math.round(f.meta*.9);
+ Object.keys(f.w).forEach(function(p){$('#w-'+p).value=f.w[p];});}
+function padrao(){
+ $('#o-func').value='completo';aplicaFunc('completo');$('#o-teto').value='0';
+ var ex={p1:180,p2:13,p3:2,n1:85,n2:90,n3:22,f1:64,f2:70,f3:16,r1:28,r2:22,r3:4};
+ IND.forEach(function(i){if(i.calc){$('#m-'+i.id).value=i.meta;$('#v-'+i.id).value=ex[i.id];}});
+ $('#c-reg').value='presumido';$('#c-enc').value='27.8';$('#c-du').value=25;$('#c-df').value=5;$('#c-tipo').value='rem';$('#c-multa').checked=false;
+ var d=new Date();d.setMonth(d.getMonth()+1);$('#g-ini').value=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+}
+padrao();
+var st=store.get(KS);
+if(st){CAMPOS.forEach(function(id){var el=$('#'+id);if(!el||st[id]==null)return;if(el.type==='checkbox')el.checked=!!st[id];else el.value=st[id];});}
+function salva(){var o={};CAMPOS.forEach(function(id){var el=$('#'+id);if(el)o[id]=el.type==='checkbox'?el.checked:el.value;});store.set(KS,o);}
+
+/* ---------- CÁLCULOS ---------- */
+function comissao(at,alvo,gat,acel,teto){
+ if(at<gat)return 0;
+ var c=at<=1?alvo*at:alvo+alvo*(at-1)*acel;
+ if(teto>0)c=Math.min(c,alvo*teto);
+ return c;}
+var OUT={};
+function calcOTE(){
+ var ote=num('o-ote'),meta=num('o-meta'),fx=num('o-fixo')/100,cp=num('o-comp')/100,real=num('o-real'),gat=num('o-gat')/100,acel=parseFloat($('#o-acel').value),teto=parseFloat($('#o-teto').value);
+ var fixo=ote*fx,varb=ote-fixo,bAlvo=varb*cp,cAlvo=varb-bAlvo;
+ var at=meta>0?real/meta:0,com=comissao(at,cAlvo,gat,acel,teto);
+ $('#o-fixo-l').textContent=Math.round(fx*100)+'% ('+brl(fixo)+') · variável '+Math.round((1-fx)*100)+'%';
+ $('#o-comp-l').textContent=Math.round(cp*100)+'% ('+brl(bAlvo)+' de bônus-alvo)';
+ OUT.ote=ote;OUT.meta=meta;OUT.fixo=fixo;OUT.cAlvo=cAlvo;OUT.bAlvo=bAlvo;OUT.at=at;OUT.com=com;OUT.real=real;OUT.gat=gat;OUT.acel=acel;OUT.teto=teto;OUT.fx=fx;OUT.cp=cp;
+ OUT.taxa=meta>0?cAlvo/meta:0;
+ $('#r-fixo').textContent=brl(fixo);
+ $('#r-at').textContent=pct(at);
+ $('#r-at-e').textContent=at<gat?'abaixo do gatilho de '+pct(gat):(at>=1?'meta batida':'entre o gatilho e a meta');
+ $('#r-com').textContent=brl(com);
+ $('#r-com-e').textContent='alvo '+brl(cAlvo)+' · '+pct(OUT.taxa,2)+' sobre a venda na meta';
+ $('#o-taxa').innerHTML='<b>Em porcentagem:</b> na meta, a comissão equivale a <b>'+pct(OUT.taxa,2)+'</b> sobre o vendido, e o OTE inteiro custa <b>'+pct(meta>0?ote/meta:0,1)+'</b> da meta (sem encargos; o custo com encargos está na seção 05). Para o vendedor, fale em reais (“batendo a meta, você ganha '+brl(ote)+'”). Para o financeiro, fale em porcentagem.';
+ var al=[];var tx=meta>0?ote/meta:0;
+ if(tx>.15)al.push('<span class="tag no">Atenção</span> O OTE passa de 15% da meta. Confira a margem: a meta pode estar baixa ou o OTE alto.');
+ else if(tx<.04&&meta>0)al.push('<span class="tag at">Confira</span> O OTE ficou abaixo de 4% da meta. Pode ser pouco atrativo para quem vende bem.');
+ if(gat>.85)al.push('<span class="tag at">Confira</span> Gatilho acima de 85% desanima: quem está em 80% no dia 20 desiste do mês.');
+ if(teto>0)al.push('<span class="tag at">Confira</span> Com teto, o vendedor tende a segurar pedido para o mês seguinte.');
+ $('#o-alerta').innerHTML=al.join('<br>');
+ /* cenários */
+ var cen=[.6,.7,.85,1,1.2,1.5],maxT=fixo+comissao(1.5,cAlvo,gat,acel,teto)+bAlvo*1.5||1;
+ var arr=cen.slice();var ai=Math.round(at*100)/100;if(cen.indexOf(ai)<0&&at>0&&at<3)arr.push(ai);arr.sort(function(a,b){return a-b;});
+ maxT=Math.max(maxT,fixo+comissao(arr[arr.length-1],cAlvo,gat,acel,teto)+bAlvo);
+ $('#r-cen').innerHTML=arr.map(function(a){var c=comissao(a,cAlvo,gat,acel,teto),t=fixo+c+bAlvo;
+  return '<div class="barra'+(a===ai?' atual':'')+'"><span>'+pct(a)+'</span><span class="tr"><i class="f" style="width:'+(fixo/maxT*100)+'%"></i><i class="v" style="width:'+(c/maxT*100)+'%"></i><i class="b" style="width:'+(bAlvo/maxT*100)+'%"></i></span><b>'+brl(t)+'</b></div>';}).join('');
+}
+function calcBonus(){
+ var soma=0,ws={};Object.keys(PIL).forEach(function(k){ws[k]=num('w-'+k);soma+=ws[k];});
+ $('#w-soma').innerHTML=soma===100?'<span class="tag ok2">Soma 100%</span>':'<span class="tag no">Soma '+soma+'%</span> Os pesos precisam somar 100%. A calculadora usa a proporção enquanto isso.';
+ $('#b-func-l').textContent=FUNC[$('#o-func').value].n.toLowerCase();
+ var total=0;OUT.pil={};
+ Object.keys(PIL).forEach(function(k){
+  var its=IND.filter(function(i){return i.calc&&i.p===k;}),ats=[],conv=null;
+  its.forEach(function(i){var m=num('m-'+i.id),v=num('v-'+i.id),r=m>0?v/m:0;$('#pc-'+i.id).textContent=pct(r);
+   $('#pc-'+i.id).style.color=r>=1?'var(--verde-txt)':(r<.8?'var(--magenta-txt)':'');
+   if(i.t==='c')conv=r;else ats.push(Math.min(r,1.2));});
+  var atv=ats.reduce(function(a,b){return a+b;},0)/(ats.length||1);
+  var fc=conv==null?1:(conv>=1?1.2:(conv>=.7?1:.5));
+  var peso=soma>0?ws[k]/soma:0;
+  var fator=atv<.8?0:Math.min(atv*fc,1.5);
+  var v=OUT.bAlvo*peso*fator;total+=v;OUT.pil[k]={atv:atv,fc:fc,v:v,peso:peso};
+  $('#pv-'+k).textContent=brl(v);
+  var txt=peso===0?'Peso zero para esta função.':(atv<.8?'<span class="tag no">Não paga</span> Atividades em '+pct(atv)+', abaixo do gatilho de 80%.':
+   '<span class="tag ok2">Paga</span> Atividades '+pct(atv)+' × '+(fc===1.2?'prova de venda acima da meta (+20%)':fc===1?'prova de venda ok':'<b>prova de venda fraca (paga metade)</b>')+' · alvo do pilar '+brl(OUT.bAlvo*peso));
+  $('#st-'+k).innerHTML=txt;});
+ total=Math.min(total,OUT.bAlvo*1.5);
+ OUT.bonus=total;
+ $('#b-alvo').textContent=brl(OUT.bAlvo);
+ $('#b-pts').textContent=pct(OUT.bAlvo>0?total/OUT.bAlvo:0);
+ $('#b-pts-e').textContent='100% = bônus-alvo · teto 150%';
+ $('#b-tot').textContent=brl(total);
+ $('#b-tot-e').textContent='entra no total do vendedor e no custo da seção 05';
+ $('#r-bon').textContent=brl(total);$('#r-bon-e').textContent='alvo '+brl(OUT.bAlvo)+' · pelos 4 pilares';
+ var tot=OUT.fixo+OUT.com+total;OUT.tot=tot;
+ $('#r-tot').textContent=brl(tot);$('#r-tot-e').textContent='OTE de '+brl(OUT.ote)+' · '+(tot>=OUT.ote?'acima':'abaixo')+' do OTE em '+brl(Math.abs(tot-OUT.ote));
+}
+var REG={simples:{v:0,s:'No Simples (anexos I, II, III e V), o INSS da empresa já está no DAS. Na folha fica só o FGTS.'},presumido:{v:27.8,s:'20% de INSS + RAT de 1% a 3% (ajustado pelo FAP; usamos 2%) + 5,8% de terceiros. Setores com desoneração da folha em transição têm percentual menor: confirme com o contador.'},anexo4:{v:22,s:'No Anexo IV (ex.: construção, vigilância, limpeza), a empresa paga 20% de INSS + RAT fora do DAS. Terceiros não entram.'},outro:{v:null,s:'Digite o percentual que o seu contador usa.'}};
+function calcCusto(){
+ var reg=$('#c-reg').value;$('#c-enc-s').textContent=REG[reg].s;
+ var enc=num('c-enc')/100,du=Math.max(1,num('c-du')),df=num('c-df'),premio=$('#c-tipo').value==='premio',multa=$('#c-multa').checked;
+ var com=OUT.com,dsr=com/du*df,bon=OUT.bonus;
+ var rem=OUT.fixo+com+dsr+(premio?0:bon);
+ var inss=rem*enc,fgts=rem*.08,p13=rem/12,pfe=rem/12*4/3,encP=(p13+pfe)*(enc+.08);
+ var mul=multa?(fgts+(p13+pfe)*.08)*.4:0;
+ var pr=premio?bon:0;
+ var total=rem+inss+fgts+p13+pfe+encP+mul+pr;
+ OUT.dsr=dsr;OUT.custo=total;OUT.enc=enc;
+ var L=function(a,b,c){return '<div class="linha'+(c||'')+'"><span>'+a+'</span><b>'+b+'</b></div>';};
+ $('#c-tab').innerHTML='<h4>Custo mensal do vendedor · cenário atual</h4>'+
+  L('Fixo',brl2(OUT.fixo))+L('Comissão',brl2(com))+L('DSR sobre a comissão ('+df+' ÷ '+du+')',brl2(dsr))+
+  (premio?'':L('Bônus de comportamento',brl2(bon)))+
+  L('<b style="color:var(--fg)">Remuneração (base dos encargos)</b>','<b>'+brl2(rem)+'</b>')+
+  L('INSS da empresa + RAT + terceiros ('+pct(enc,1)+')',brl2(inss))+L('FGTS (8%)',brl2(fgts))+
+  L('Provisão do 13º (1/12)',brl2(p13))+L('Provisão de férias + 1/3 (1/12 + 1/3)',brl2(pfe))+
+  L('Encargos e FGTS sobre as provisões',brl2(encP))+(multa?L('Provisão da multa de 40% do FGTS',brl2(mul)):'')+
+  (premio?L('Prêmio de comportamento (sem encargos)',brl2(pr)):'')+
+  L('Custo total no mês',brl2(total),' t')+
+  '<div class="big" style="margin:14px 0 0"><div><small>Custo no ano (×12)</small><output>'+brl(total*12)+'</output></div><div><small>Sobre o vendido</small><output>'+pct(OUT.real>0?total/OUT.real:0,1)+'</output><em>'+brl(OUT.real)+' vendidos</em></div><div class="tot"><small>Para cada R$ 1 que o vendedor recebe, a empresa gasta</small><output>'+brl2((OUT.fixo+com+dsr+bon)>0?total/(OUT.fixo+com+dsr+bon):0)+'</output></div></div>';
+ var ob=['A provisão usa a remuneração deste mês como se fosse a média do ano. Na prática, o 13º e as férias usam a média real das comissões.','Descontos do vendedor (INSS dele e imposto de renda) saem do que ele recebe e não mudam o custo da empresa.'];
+ if(premio)ob.unshift('<span class="tag at">Prêmio</span> Sem encargos só se for desempenho acima do esperado, com critério escrito antes. Veja o aviso abaixo.');
+ $('#c-obs').innerHTML=ob.join('<br>');
+}
+var MES=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+function calcReg(){
+ var emp=$('#g-emp').value.trim()||'[EMPRESA]',ini=$('#g-ini').value,mi=ini?MES[+ini.split('-')[1]-1]+' de '+ini.split('-')[0]:'[MÊS/ANO]';
+ var func=FUNC[$('#o-func').value].n,acelT=OUT.acel===1?'na mesma proporção':'multiplicado por '+String(OUT.acel).replace('.',','),premio=$('#c-tipo').value==='premio';
+ var pil=Object.keys(PIL).filter(function(k){return OUT.pil[k].peso>0;}).map(function(k){var its=IND.filter(function(i){return i.calc&&i.p===k;});
+  return '   • '+PIL[k].n+' ('+pct(OUT.pil[k].peso)+'): '+its.map(function(i){return i.n.toLowerCase()+' (meta '+num('m-'+i.id)+(i.u==='%'?'%':'')+')';}).join('; ')+'.';}).join('\n');
+ var t='REGULAMENTO DO PLANO DE REMUNERAÇÃO VARIÁVEL\n'+emp+' · Função: '+func+'\nVigência: a partir de '+mi+', com revisão a cada 6 meses.\n\n'+
+ '1. REMUNERAÇÃO-ALVO (OTE)\nAo atingir 100% da meta mensal e dos indicadores de comportamento, a remuneração total prevista é de '+brl(OUT.ote)+' por mês, composta por:\n   • Salário fixo: '+brl(OUT.fixo)+';\n   • Comissão-alvo sobre vendas: '+brl(OUT.cAlvo)+';\n   • Bônus de comportamento-alvo: '+brl(OUT.bAlvo)+'.\n\n'+
+ '2. META DE VENDAS\nA meta mensal é de '+brl(OUT.meta)+', comunicada por escrito até o primeiro dia útil de cada mês. Conta como venda o pedido faturado, com nota fiscal emitida no mês. Nas vendas a prazo, a comissão é paga na proporção dos valores efetivamente recebidos (Lei 3.207/57).\n\n'+
+ '3. CÁLCULO DA COMISSÃO\n   • Abaixo de '+pct(OUT.gat)+' da meta: não há comissão no mês.\n   • De '+pct(OUT.gat)+' a 100%: comissão proporcional ao atingimento (ex.: 85% da meta = 85% da comissão-alvo).\n   • Acima de 100%: cada ponto percentual excedente é pago '+acelT+'.\n   • '+(OUT.teto>0?'Limite: '+pct(OUT.teto)+' da comissão-alvo.':'Não há teto.')+'\n   Na meta, a comissão equivale a '+pct(OUT.taxa,2)+' sobre o valor vendido.\n\n'+
+ '4. BÔNUS DE COMPORTAMENTO (4 PILARES)\nO bônus remunera as atividades que geram vendas futuras, distribuído por pilar:\n'+pil+'\n   Regras: (a) só contam atividades registradas no CRM; (b) o pilar só é pago com pelo menos 80% das metas de atividade; (c) se o indicador de conversão do pilar ficar abaixo de 70% da meta, o pilar paga metade; se passar de 100%, paga 20% a mais; (d) o bônus total é limitado a 150% do valor-alvo.\n   Natureza: '+(premio?'prêmio por desempenho superior ao ordinariamente esperado (art. 457, §§ 2º e 4º, da CLT), concedido por liberalidade, com critérios definidos antes do período de apuração.':'parcela de natureza salarial, com os reflexos legais.')+'\n\n'+
+ '5. APURAÇÃO E PAGAMENTO\nApuração até o 3º dia útil do mês seguinte, com base nos relatórios do CRM e do sistema de faturamento. Pagamento junto com o salário, em rubricas separadas no holerite, incluindo o DSR sobre as comissões (Súmula 27 do TST). Comissões e parcelas salariais variáveis integram a média para 13º salário, férias e FGTS.\n\n'+
+ '6. ESTORNO, CANCELAMENTO E DESLIGAMENTO\nNão há estorno de comissão já paga, salvo nos casos de insolvência do comprador (art. 7º da Lei 3.207/57). Vendas concluídas até a data do desligamento geram comissão, paga conforme o recebimento.\n\n'+
+ '7. ALTERAÇÕES\nO plano é revisado a cada 6 meses. Alterações que reduzam a remuneração dependem de concordância do colaborador e não poderão lhe causar prejuízo (art. 468 da CLT).\n\n'+
+ '8. TRANSPARÊNCIA\nO colaborador acompanha atingimento e indicadores no CRM durante o mês. Divergências devem ser apontadas até o 5º dia útil após a apuração.\n\n\n_______________________________          _______________________________\n'+emp+'                                     Colaborador(a)\n\nLocal e data: ____________________, ___ de ____________ de ______.\n\nModelo de referência. Valide com o contador e o jurídico trabalhista antes de assinar.';
+ $('#g-txt').textContent=t;}
+function tudo(){calcOTE();calcBonus();calcCusto();calcReg();salva();}
+$('#o-func').addEventListener('change',function(){aplicaFunc(this.value);tudo();});
+$('#c-reg').addEventListener('change',function(){var v=REG[this.value].v;if(v!=null)$('#c-enc').value=v;tudo();});
+document.getElementById('conteudo').addEventListener('input',function(e){if(e.target.id==='fIndQ')return;tudo();});
+document.getElementById('conteudo').addEventListener('change',function(e){if(e.target.id==='o-func'||e.target.id==='c-reg')return;tudo();});
+tudo();
+$('#g-copy').addEventListener('click',function(){var b=this,t=$('#g-txt').textContent;var done=function(x){b.textContent=x;setTimeout(function(){b.textContent='Copiar o regulamento';},1600);};
+ try{navigator.clipboard.writeText(t).then(function(){done('Copiado');},function(){done('Selecione e copie');});}catch(e){done('Selecione e copie');}});
+$('#g-print').addEventListener('click',function(){window.print();});
+
+/* ---------- IMPLANTAÇÃO ---------- */
+var PASSOS=[
+ {t:'Diagnóstico',x:'Antes de desenhar, olhe para trás: quanto cada vendedor vendeu e ganhou nos últimos 6 meses.',c:['Faturamento por vendedor dos últimos 6 meses','Custo comercial atual (salários + comissões + encargos)','Margem de contribuição média dos produtos']},
+ {t:'Desenho',x:'OTE, mix, meta, gatilho e acelerador por função. Escolha os indicadores dos 4 pilares.',c:['OTE e mix definidos por função','Meta mensal por vendedor','3 indicadores por pilar, com 1 de conversão']},
+ {t:'Simulação',x:'Rode o plano com os números reais dos últimos 6 meses. Ninguém pode perder muito sem motivo.',c:['Simulado em 60%, 100% e 130% da meta','Comparado com o que cada um ganhou de fato','Custo com encargos dentro do orçamento']},
+ {t:'Validação',x:'Contador confere encargos e rubricas. Jurídico confere o regulamento e o aditivo.',c:['Contador validou rubricas e DSR','Jurídico validou o regulamento','CRM medindo todos os indicadores']},
+ {t:'Comunicação',x:'Reunião com o time: o porquê, o OTE em reais e o placar. Depois, conversa 1 a 1.',c:['Reunião de apresentação feita','Aditivo assinado por cada vendedor','Placar visível para o time']},
+ {t:'Acompanhamento',x:'Rode 90 dias como piloto. Placar semanal, fechamento mensal, revisão no 6º mês.',c:['Placar revisado toda segunda','Fechamento até o 3º dia útil','Revisão marcada para daqui a 6 meses']}
+];
+$('#passos').innerHTML=PASSOS.map(function(p,i){return '<div class="passo"><h3>'+p.t+'</h3><p>'+p.x+'</p><div class="checks">'+p.c.map(function(c,j){return '<label><input type="checkbox" id="ck-'+i+'-'+j+'"><span>'+c+'</span></label>';}).join('')+'</div></div>';}).join('');
+var KC='ua_ote_checks',sv=store.get(KC)||{},cbs=[].slice.call(document.querySelectorAll('#passos input'));
+function meter(){var n=cbs.filter(function(c){return c.checked;}).length;$('#mCount').textContent=n+'/'+cbs.length;$('#mBar').style.width=(n/cbs.length*100)+'%';}
+cbs.forEach(function(cb){cb.checked=!!sv[cb.id];cb.addEventListener('change',function(){sv[cb.id]=cb.checked;store.set(KC,sv);meter();});});meter();
+
+/* navegação ativa: a barra fica logo abaixo do cabeçalho do site */
+function hh(){var t=document.querySelector('.top');document.documentElement.style.setProperty('--hh',(t?t.offsetHeight:0)+'px');}
+hh();window.addEventListener('resize',hh);setTimeout(hh,600);
+var links=[].slice.call(document.querySelectorAll('#navw a'));
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){var on=a.getAttribute('href')==='#'+e.target.id;a.classList.toggle('on',on);if(on&&a.scrollIntoView)a.parentNode.scrollLeft=a.offsetLeft-20;});}});},{rootMargin:'-40% 0px -55% 0px'});
+ links.forEach(function(a){var s=document.querySelector(a.getAttribute('href'));if(s)io.observe(s);});}
+
+/* ---------- CADASTRO (api/material.js) ---------- */
+var MAT='comissao-ote',K='ua_mat_'+MAT;
+function libera(d,novo){
+ document.body.classList.add('liberado');
+ var pn=(d&&d.nome||'').split(' ')[0];
+ $('#ok-t').textContent=novo?(pn?pn+', a':'A')+' calculadora está liberada!':'Bem-vindo de volta'+(pn?', '+pn:'')+'!';
+ $('#ok-p').textContent=novo?'Comece escolhendo a função na calculadora OTE. Seus números ficam salvos neste aparelho, e você passa a receber cada post novo do blog no seu e-mail.':'Seus números continuam de onde você parou.';
+}
+var salvo=store.get(K);if(salvo)libera(salvo,false);
+document.querySelectorAll('.sum a').forEach(function(a){a.addEventListener('click',function(e){if(!document.body.classList.contains('liberado')){e.preventDefault();$('#liberar').scrollIntoView({behavior:'smooth',block:'start'});}});});
+fetch('/api/material?a=adm&material='+MAT,{credentials:'same-origin',cache:'no-store'}).then(function(r){return r.json();}).then(function(r){if(r&&r.admin)libera({nome:'Carlos'},false);else if(r&&r.cliente)libera({nome:r.nome||''},false);}).catch(function(){});
+var f=$('#f-lib'),msg=$('.msg',f),bt=$('button',f);
+f.addEventListener('submit',function(e){
+ e.preventDefault();
+ var d={nome:f.nome.value.trim(),empresa:f.empresa.value.trim(),whatsapp:f.whatsapp.value.trim(),email:f.email.value.trim()};
+ if(d.nome.length<2){msg.textContent='Informe o seu nome.';return;}
+ if(d.empresa.length<2){msg.textContent='Informe o nome da empresa.';return;}
+ if(d.whatsapp.replace(/\D/g,'').length<10){msg.textContent='Confira o seu WhatsApp com DDD.';return;}
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)){msg.textContent='Confira o seu e-mail.';return;}
+ if(!f.aceite.checked){msg.textContent='Para liberar, marque que concorda com os termos.';return;}
+ bt.disabled=true;msg.textContent='';
+ fetch('/api/material',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({a:'liberar',material:MAT,nome:d.nome,empresa:d.empresa,whatsapp:d.whatsapp,email:d.email,aceite:true,site:f.site.value})})
+  .then(function(r){return r.json().catch(function(){return {};});})
+  .then(function(r){
+   if(!r||!r.ok){bt.disabled=false;msg.textContent=(r&&r.erro)||'Não deu certo agora. Tente de novo.';return;}
+   var vv={nome:d.nome,empresa:d.empresa,data:new Date().toISOString()};store.set(K,vv);libera(vv,true);
+   if(!$('#g-emp').value){$('#g-emp').value=d.empresa;tudo();}
+   window.scrollTo({top:$('.ok').offsetTop-90,behavior:'smooth'});
+  })
+  .catch(function(){bt.disabled=false;msg.textContent='Sem conexão. Tente de novo.';});
+});
+})();
+</script>
+</body>
+</html>

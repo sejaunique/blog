@@ -6,7 +6,7 @@
 <meta property="og:description" content="Plano de Black Friday ativa da Super Bolla: oferta, diagnóstico da base, ondas de disparo pelo WhatsApp oficial, calendário, mensagens, checklist e listas.">
 <meta property="og:url" content="https://sejaunique.com/pages/superbolla/black/"><meta property="og:image" content="https://sejaunique.com/pages/superbolla/black/img/capa.jpg">
 <meta property="og:locale" content="pt_BR"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon-32.png" sizes="32x32">
+<link rel="icon" href="img/favicon.png" type="image/png"><link rel="apple-touch-icon" href="img/simbolo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Barlow:wght@400;500;600;700&display=swap">
@@ -72,6 +72,8 @@ p { margin: 0; }
 .brand b { font-family: var(--f-display); font-size: 20px; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; }
 .brand span { color: var(--muted); font-size: 13px; }
 .brand svg { flex: none; }
+.brand .sym { width: 30px; height: auto; flex: none; }
+.brand .wordmark { display: inline-block; flex: none; height: 15px; aspect-ratio: 681 / 80; background: var(--fg); -webkit-mask: url(img/wordmark.png) center / contain no-repeat; mask: url(img/wordmark.png) center / contain no-repeat; }
 nav.tabs { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; margin-inline: -4px; }
 nav.tabs::-webkit-scrollbar { display: none; }
 nav.tabs a { flex: none; padding: 10px 12px 11px; color: var(--muted); text-decoration: none; font-weight: 600; font-size: 14px; letter-spacing: .03em; text-transform: uppercase; border-bottom: 3px solid transparent; }
@@ -246,8 +248,8 @@ footer.end { border-top: 1px solid var(--line); padding-block: 18px; color: var(
 <header class="top">
   <div class="wrap">
     <div class="brand">
-      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7" fill="var(--accent)"/><path d="M5 19 L19 5 M9 23 L23 9 M14 25 L25 14" stroke="var(--accent-ink)" stroke-width="2.6" stroke-linecap="round"/></svg>
-      <b>Super Bolla</b><span>Black Friday ativa 2026</span>
+      <img class="sym" src="img/simbolo.png" alt="" width="30" height="26">
+      <span class="wordmark" role="img" aria-label="Super Bolla"></span><span>Black Friday ativa 2026</span>
     </div>
     <nav class="tabs" aria-label="Páginas do plano">
       <a href="#resumo">Resumo</a>
@@ -277,16 +279,9 @@ footer.end { border-top: 1px solid var(--line); padding-block: 18px; color: var(
     </div>
     <div class="art" aria-hidden="true">
       <svg viewBox="0 0 240 250">
-        <defs>
-          <clipPath id="shirt"><path d="M70 22 L100 10 Q120 34 140 10 L170 22 L222 62 L198 108 L176 96 L176 236 L64 236 L64 96 L42 108 L18 62 Z"/></clipPath>
-        </defs>
         <path d="M70 22 L100 10 Q120 34 140 10 L170 22 L222 62 L198 108 L176 96 L176 236 L64 236 L64 96 L42 108 L18 62 Z" fill="var(--surface-2)" stroke="var(--line)" stroke-width="2"/>
-        <g clip-path="url(#shirt)">
-          <path d="M-20 170 L170 -20 L196 -20 L6 170 Z" fill="var(--accent)"/>
-          <path d="M-10 206 L200 -4 L214 -4 L4 206 Z" fill="var(--accent)" opacity=".75"/>
-          <path d="M10 236 L230 16 L238 16 L18 236 Z" fill="var(--accent)" opacity=".5"/>
-        </g>
-        <path d="M100 10 Q120 34 140 10" fill="none" stroke="var(--fg)" stroke-width="3"/>
+        <path d="M100 10 Q120 34 140 10" fill="none" stroke="var(--accent)" stroke-width="3"/>
+        <image href="img/simbolo.png" x="78" y="44" width="84" height="73"/>
         <text x="120" y="196" text-anchor="middle" font-family="Big Shoulders Display, Impact, sans-serif" font-weight="900" font-size="84" fill="var(--fg)">26</text>
         <text x="120" y="222" text-anchor="middle" font-family="Barlow, sans-serif" font-weight="700" font-size="13" letter-spacing="3" fill="var(--muted)">BLACK FRIDAY</text>
       </svg>
@@ -697,7 +692,7 @@ footer.end { border-top: 1px solid var(--line); padding-block: 18px; color: var(
   <div class="block sources">
     <div class="eyebrow">Fontes</div>
     <h2>De onde vêm os números</h2>
-    <p>Análise feita em 04/11/2026. As artes da oferta foram enviadas pelo Carlos; as demais ilustrações são desenhadas na página.</p>
+    <p>Análise feita em 04/11/2026. As artes da oferta e o logo foram enviados pelo Carlos; as demais ilustrações são desenhadas na página.</p>
     <ol>
       <li>Artes da campanha Black Super Bolla 2026 (10 artes), recebidas em 04/11/2026: kits, preços, condições e bônus de lançamento.</li>
       <li>Base de Contatos Super Bolla, unificada a partir das 5 carteiras do ChatGuru (out/2022 a fev/2025) e do backup de conversas do Atende AI (nov/2025 a set/2026). Classificação de funil, horários, Feirão, Black 2025, objeções e valores de pedido: análise própria.</li>

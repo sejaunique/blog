@@ -48,7 +48,7 @@ section.bloco{padding-block:64px 0}
 .hero-in{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center;position:relative}
 .hero .spaced{color:#a1a1a8;margin-bottom:22px}
 .kin{margin:0;font-weight:800;letter-spacing:-.045em;line-height:1.04;font-size:clamp(2.3rem,6.4vw,5.2rem)}
-.kin .l{display:block}
+.kin .dest{color:var(--verde)}
 .kin .pillrow{display:block;margin:.08em 0}
 .pill{position:relative;display:inline-block;vertical-align:bottom;height:1.18em;border-radius:999px;background:var(--verde);color:#000;overflow:hidden;padding:0 .38em;box-sizing:content-box}
 .pill .strip{display:block;will-change:transform}
@@ -550,12 +550,7 @@ body.liberado [data-newsletter="site"]{display:none}
   <div class="wrap hero-in">
     <div class="hero-tx">
       <span class="spaced">Programa evolutivo · Vendas de atacado</span>
-      <h1 class="kin" aria-label="Prospecção que enche a agenda no atacado">
-        <span class="l" aria-hidden="true">Prospecção que</span>
-        <span class="pillrow" aria-hidden="true"><span class="pillwrap"><span class="pill-glow"></span><span class="pill" id="pill"><span class="strip" id="strip"><span>enche a agenda</span><span>abre lojista novo</span><span>vira pedido</span><span>vira carteira</span><span>enche a agenda</span></span></span></span></span>
-        <span class="l" aria-hidden="true">no atacado.</span>
-      </h1>
-      <div class="kdots" id="kdots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+      <h1 class="kin">Prospecção que <span class="dest">vira carteira</span> no atacado.</h1>
       <p class="tese"><b>O atacado brasileiro virou tirador de pedido: espera o lojista chamar no WhatsApp.</b> Este programa transforma o vendedor em atleta da prospecção em 4 fases, com rotina, placar, cobrança e bônus que pagam pelo comportamento certo.</p>
       <div class="autores"><span><i></i>Carlos Ribeiro · Método CRM</span><span><i></i>Jeb Blount · Prospecção Fanática</span></div>
       <div class="ctas"><a class="btn verde" href="#programa">Ver o programa <i class="ic" style="--i:var(--ic-seta)"></i></a><a class="btn" href="#liberar">Liberar o kit completo</a></div>
@@ -1192,24 +1187,6 @@ body.liberado [data-newsletter="site"]{display:none}
   function mola(de,para,fn,k,c,done){var x=de,v=0,last=performance.now();k=k||180;c=c||17;(function f(n){var dt=Math.min(.032,(n-last)/1000);last=n;var a=-k*(x-para)-c*v;v+=a*dt;x+=v*dt;if(Math.abs(v)<.02&&Math.abs(x-para)<.02){fn(para);if(done)done();return;}fn(x);requestAnimationFrame(f);})(last);}
   // roda animações só quando visíveis
   function quandoVisivel(el,cb,sai){if(!el)return;if(!('IntersectionObserver' in window)){cb();return;}var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)cb();else if(sai)sai();});},{threshold:.25});io.observe(el);}
-
-  // ================= MOTION 01 · título cinético =================
-  (function(){
-    var pill=$('#pill'), strip=$('#strip'), dots=$$('#kdots i'), spans=$$('span',strip), n=4, i=0, ws=[];
-    function medir(){ var tmp=document.createElement('span'); tmp.style.cssText='position:absolute;visibility:hidden;white-space:nowrap;font:inherit;letter-spacing:inherit'; pill.appendChild(tmp); ws=spans.map(function(s){tmp.textContent=s.textContent;return tmp.getBoundingClientRect().width;}); tmp.remove(); pill.style.width=ws[i%n]+'px'; }
-    function opac(){spans.forEach(function(s,j){s.style.opacity=(j===i?1:.15);});}
-    (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){ medir(); opac(); });
-    window.addEventListener('resize',medir);
-    if(RM) return;
-    var curW, h;
-    setInterval(function(){
-      if(document.hidden) return;
-      h=spans[0].getBoundingClientRect().height; var de=i, para=i+1; curW=ws[de%n];
-      i=para; opac(); dots.forEach(function(d,j){d.classList.toggle('on',j===para%n);});
-      mola(de,para,function(x){strip.style.transform='translateY('+(-x*h)+'px)';},170,16,function(){ if(i===n){ i=0; strip.style.transform='translateY(0)'; opac(); } });
-      mola(curW,ws[para%n],function(w){pill.style.width=w+'px';},170,16);
-    },1850);
-  })();
 
   // ================= MOTION 03 · cena de pedidos =================
   (function(){

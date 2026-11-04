@@ -33,6 +33,11 @@
       "source": "/pages/laura",
       "destination": "/pages/laura/",
       "permanent": false
+    },
+    {
+      "source": "/pages/superbolla/black",
+      "destination": "/pages/superbolla/black/",
+      "permanent": false
     }
   ],
   "rewrites": [

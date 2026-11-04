@@ -35,6 +35,8 @@ Gerador atual: `tools/carrossel.py`, na pegada do bloco do Alda.CRM no relatóri
 - `tools/editorial.py`: escuro, foto sangrada e tipografia condensada (palestra Textil Club).
 - `tools/carrossel_lupa.py`: pôster escuro com foto panorâmica que continua entre os slides, lupa e etiquetas; cores cheias (cliente x lead, zona, equação, número). Usado em `antes-do-desconto`.
 
+- `tools/carrossel_holerite.py`: fundo escuro com grade, holerite em papel claro com borda picotada, pontilhado até o valor e carimbo; tipos capa, soma, versus, pilares, regras, numero, cta. Gera também a capa do blog 16:9 (`capa_blog` no slides.json). Usado em `voce-paga-pela-venda`.
+
 Modelo APROVADO pelo Carlos em 11/10: carrossel da Dra. Laura Scher (maslow-e-o-poder-da-imagem). Todos os próximos carrosséis seguem este gerador. Máximo de 2 fotos por carrossel.
 
 ## Diagnóstico de Maturidade Comercial

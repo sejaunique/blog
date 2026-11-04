@@ -1,0 +1,82 @@
+{
+  "estilo": "holerite",
+  "capa_blog": "capa-comissao-ote.jpg",
+  "slides": [
+    {
+      "tipo": "capa",
+      "kicker": "Remuneração comercial",
+      "titulo": "Você paga o vendedor pela venda. //E pelo ==hábito==?//",
+      "cab": "Holerite",
+      "ref": "Nov/2026",
+      "linhas": [
+        {"t": "Salário fixo", "v": "R$ 4.800", "cor": "marinho"},
+        {"t": "Comissão sobre vendas", "v": "R$ 2.400", "cor": "verde"},
+        {"t": "Bônus de comportamento", "v": "R$ 800", "cor": "ouro", "destaque": true, "carimbo": "O que falta", "carimbo_cor": "magenta"},
+        {"t": "Total na meta (OTE)", "v": "R$ 8.000", "total": true}
+      ]
+    },
+    {
+      "tipo": "soma",
+      "kicker": "O que é OTE",
+      "titulo": "OTE é o salário de quem //bate a meta.//",
+      "sub": "Em vez de “R$ 3 mil + comissão”, você contrata dizendo: **batendo a meta, você ganha R$ 8 mil.** O vendedor enxerga o alvo. A empresa sabe o custo antes do mês começar.",
+      "cab": "On-Target Earnings",
+      "ref": "100% da meta",
+      "mix": [["marinho", 60], ["verde", 30], ["ouro", 10]],
+      "linhas": [
+        {"t": "Fixo · 60%", "v": "R$ 4.800"},
+        {"t": "Variável · 40%", "v": "R$ 3.200"},
+        {"t": "Meta do mês", "v": "R$ 100.000", "total": true}
+      ]
+    },
+    {
+      "tipo": "versus",
+      "kicker": "O problema",
+      "titulo": "Comissão premia o mês //que passou.//",
+      "colunas": [
+        {"t": "A comissão paga", "g": "A venda de hoje", "cor": "#1c1c20", "itens": ["Pedido faturado", "O cliente que já ia comprar", "O resultado, não o caminho"]},
+        {"t": "O bônus paga", "g": "A venda do mês que vem", "cor": "verde", "texto": "#0b0b0c", "itens": ["A ligação para quem nunca comprou", "O follow-up que ninguém faz", "O cliente sumido que voltou"]}
+      ]
+    },
+    {
+      "tipo": "pilares",
+      "kicker": "Os 4 pilares",
+      "titulo": "Cada pilar paga um //comportamento.//",
+      "pilares": [
+        {"n": "Prospecção", "x": "200 abordagens ativas e 12 reuniões no mês", "p": "3 clientes novos", "cor": "verde"},
+        {"n": "Nutrição", "x": "90% dos leads respondidos em 5 min", "p": "20% de conversão", "cor": "marinho"},
+        {"n": "Fidelização", "x": "60 clientes da carteira chamados sem eles chamarem", "p": "15 recompras", "cor": "roxo"},
+        {"n": "Recuperação", "x": "40 inativos contatados e 20 orçamentos retomados", "p": "3 reativados", "cor": "magenta"}
+      ]
+    },
+    {
+      "tipo": "regras",
+      "kicker": "As regras do bônus",
+      "titulo": "Comportamento que //gera venda.//",
+      "itens": [
+        "**Só vale o que está no CRM.** Ligação sem registro não existiu.",
+        "**Gatilho de 80%** das atividades. Abaixo disso, o pilar não paga.",
+        "**Prova de venda:** atividade sem conversão paga metade. Acima da meta, +20%.",
+        "**Teto de 150%.** Ninguém ganha por encher o CRM de registro vazio."
+      ]
+    },
+    {
+      "tipo": "numero",
+      "kicker": "E o custo?",
+      "titulo": "Para cada R$ 1 que o vendedor recebe, //a empresa gasta://",
+      "pre": "R$",
+      "numero": "1,62",
+      "nota": "No Lucro Presumido. Comissão é salário: entra no INSS da empresa, no FGTS, no 13º, nas férias e ainda gera o **DSR**, o descanso semanal sobre a parte variável."
+    },
+    {
+      "tipo": "cta",
+      "kicker": "Material gratuito",
+      "titulo": "Monte o plano do //seu time.//",
+      "selo": "Calculadora · sejaunique.com",
+      "chamada": "Comissão OTE + //bônus dos 4 pilares//",
+      "itens": ["Calculadora OTE com gatilho e acelerador", "Bônus de comportamento por pilar", "Custo real na CLT: 13º, férias e DSR", "Regulamento pronto com os seus números"],
+      "botao": "Link na bio →"
+    }
+  ],
+  "legenda": "Você paga o vendedor pela venda. E pelo hábito que gera a venda?\n\nComissão premia o mês que passou: o pedido faturado, muitas vezes do cliente que já ia comprar de qualquer jeito.\n\nO que faz a venda do mês que vem acontecer é outra coisa: a ligação para quem nunca comprou, o follow-up que ninguém faz, o cliente sumido que voltou. E isso quase ninguém remunera.\n\nO modelo que eu uso tem 3 partes:\n1. Fixo\n2. Comissão sobre vendas\n3. Bônus de comportamento pelos 4 pilares: prospecção, nutrição, fidelização e recuperação\n\nSomadas, dão o OTE: quanto o vendedor ganha batendo a meta.\n\nRegras do bônus: só vale o que está no CRM, gatilho de 80% das atividades e prova de venda. Atividade sem conversão paga metade.\n\nE atenção ao custo: na CLT, para cada R$ 1 que o vendedor recebe, a empresa gasta perto de R$ 1,62.\n\nMontei uma calculadora gratuita com tudo isso e o regulamento pronto para assinar. 👇\n\n📌 Link na bio.\n\n#vendas #comissao #remuneracaovariavel #gestaocomercial #metasdevendas #timedevendas #consultoriadevendas #sejaunique"
+}

@@ -61,6 +61,104 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 
 window.POSTS = [
   {
+    slug: "voce-paga-pela-venda",
+    capa: "assets/capa-comissao-ote.jpg",
+    titulo: "Você paga o vendedor pela venda. ==E pelo hábito?==",
+    data: "2026-11-04",
+    categoria: "Gestão",
+    resumo: "Comissão premia o mês que passou. O bônus de comportamento paga o que faz a venda do mês que vem acontecer. Como montar o OTE do time pelos 4 pilares, e quanto isso custa na CLT.",
+    texto: `
+Todo dia 5 tem uma conversa parecida em alguma empresa.
+
+O vendedor acha que a comissão veio errada. O dono acha que pagou demais para um mês fraco. E ninguém consegue provar nada, porque o plano de comissão vive na cabeça de alguém.
+
+Mas o problema maior não é a conta. É o que a conta premia.
+
+> Comissão premia o mês que passou.
+
+Ela paga o pedido faturado, muitas vezes do cliente que já ia comprar de qualquer jeito. O que faz a venda do mês que vem acontecer é outra coisa: a ligação para quem nunca comprou, o follow-up que ninguém faz, o cliente sumido que voltou.
+
+E isso ==quase ninguém remunera==.
+
+## OTE: o salário de quem bate a meta
+
+OTE vem do inglês *On-Target Earnings*. É quanto o vendedor ganha no total quando entrega exatamente 100% do combinado.
+
+Em vez de contratar dizendo "R$ 3 mil mais comissão", você diz:
+
+> Batendo a meta, você ganha R$ 8 mil.
+
+O vendedor enxerga o alvo. A empresa sabe quanto o comercial custa antes de o mês começar.
+
+O modelo tem cinco peças:
+
+- **O valor do OTE**, pelo mercado da função e da região
+- **O mix**: quanto é fixo e quanto é variável
+- **A meta**, que precisa caber na margem
+- **O gatilho**: abaixo de 70% da meta, não há comissão
+- **O acelerador**: acima de 100%, cada ponto paga mais
+
+Sem acelerador, o vendedor que bate a meta no dia 22 segura pedido para o mês seguinte. Com teto, também. ==Teto ensina a esconder venda.==
+
+## A peça que falta: o comportamento
+
+Eu acredito em CRM como **Comportamento Repetido Muda**. Resultado vem da repetição, igual academia. Então faz sentido pagar uma parte do variável pela repetição.
+
+No modelo que eu uso, o variável se divide em dois:
+
+- **Comissão**, paga pelo resultado do mês
+- **Bônus de comportamento**, pago pelos 4 pilares comerciais
+
+Num OTE de R$ 8 mil para um vendedor completo, fica assim: R$ 4.800 de fixo, R$ 2.400 de comissão na meta e ==R$ 800 de bônus de comportamento==.
+
+## Cada pilar paga um comportamento
+
+Cada pilar tem duas atividades e uma prova de que a atividade virou dinheiro.
+
+- **Prospecção** (ir atrás): abordagens ativas e reuniões realizadas. Prova: clientes novos com o primeiro pedido.
+- **Nutrição** (tudo que chega): leads respondidos em até 5 minutos e orçamentos com a cadência completa. Prova: conversão de leads em venda.
+- **Fidelização** (quem já comprou): clientes da carteira chamados sem eles chamarem e pós-venda feito. Prova: clientes que recompraram.
+- **Recuperação** (quem parou): inativos contatados e orçamentos parados retomados. Prova: inativos que voltaram a comprar.
+
+O peso de cada pilar muda com a função. O hunter pesa prospecção. O farmer pesa fidelização e recuperação. Quem atende o que chega pesa nutrição.
+
+## As regras que impedem a farra
+
+Bônus de atividade sem regra vira CRM cheio de registro vazio. Por isso:
+
+- **Só vale o que está no CRM.** Ligação sem registro não existiu.
+- **Gatilho de 80%.** Abaixo de 80% das atividades, o pilar não paga.
+- **Prova de venda.** Atividade sem conversão paga metade. Conversão acima da meta paga 20% a mais.
+- **Teto de 150%** do bônus-alvo.
+
+É comportamento que ==gera venda==, não comportamento por comportamento.
+
+## E quanto isso custa na CLT
+
+O que o vendedor recebe não é o que a empresa paga.
+
+Comissão é salário. Entra no INSS da empresa, no FGTS, no 13º, nas férias e ainda gera o DSR, o descanso semanal remunerado sobre a parte variável. É a Súmula 27 do TST, e muita empresa esquece.
+
+> No Lucro Presumido, para cada R$ 1 que o vendedor recebe, a empresa gasta perto de R$ 1,62.
+
+No Simples, fica menor, porque o INSS da empresa já está no DAS.
+
+E cuidado com a tentação de pagar o bônus como "prêmio" para fugir dos encargos. Prêmio sem encargo é para desempenho ==acima do esperado==, com critério escrito antes. Ligar para cliente e responder lead é o trabalho normal. Na dúvida, pague como remuneração: o custo é previsível e não vira passivo.
+
+Outro ponto que dá briga: estorno. Para vendedor CLT, a lei só permite estornar comissão quando o comprador fica insolvente. Cancelamento e inadimplência comum são risco da empresa. O caminho seguro é pagar a comissão na proporção do que foi recebido.
+
+## Escreva antes, para não brigar depois
+
+Plano bom cabe em uma folha e é assinado antes do mês começar: o OTE, a meta, como a comissão é calculada, os indicadores de cada pilar, quando paga e quando muda.
+
+Valide com o seu contador e com o jurídico trabalhista. E rode 90 dias como piloto antes de travar.
+
+Montei uma calculadora gratuita com tudo isso: o OTE, o bônus pelos 4 pilares, o custo real na CLT e o regulamento pronto com os seus números.
+
+[material: Comissão OTE + Bônus de comportamento | Monte o plano de remuneração do seu time pelos 4 pilares e veja quanto ele custa de verdade. | assets/sala-mesa-central.jpg | Calculadora OTE com gatilho e acelerador; Bônus de comportamento pelos 4 pilares; Custo real na CLT: 13º, férias e DSR; Comissão, prêmio ou PLR: o que integra o salário; Regulamento pronto para assinar | Quero a calculadora](/comissao-ote/)
+`
+  },
+  {
     slug: "rota-do-atendimento",
     capa: "assets/whatsapp-atendimento.jpg",
     titulo: "Seu cliente compra em 6 passos. ==Você vende em quantos?==",

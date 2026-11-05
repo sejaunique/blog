@@ -61,6 +61,96 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 
 window.POSTS = [
   {
+    slug: "chega-de-venda-frouxa",
+    capa: "assets/capa-chega-de-venda-frouxa.jpg",
+    titulo: "Chega de venda ==frouxa==.",
+    data: "2026-11-05",
+    categoria: "Vendas",
+    resumo: "Mandar desconto e ficar esperando a resposta não é follow-up. É torcida. Toda oferta tem condição e data: se você fizer isso, eu consigo aquilo, até tal dia. As 13 mecânicas para a Black Friday.",
+    texto: `
+Chega. Não dá mais.
+
+Não é possível que você vai continuar deixando a venda solta desse jeito.
+
+Eu vejo isso toda semana nos times comerciais que acompanho. O vendedor manda o orçamento. O cliente some. O vendedor manda um desconto. O cliente continua sumido. E aí vem a mensagem que já virou clássico:
+
+> "E aí, conseguiu ver?"
+
+Depois, "fico no aguardo". Depois, "qualquer coisa me chama". E a venda fica lá, parada, frouxa, esperando o cliente lembrar que ela existe.
+
+Isso não é follow-up. ==É torcida.==
+
+## O desconto não é a oferta
+
+Quando eu falo de oferta, não estou falando de preço.
+
+Desconto sozinho não cria motivo nenhum para o cliente decidir hoje. Ele só ensina que, se esperar mais um pouco, vem mais desconto. Você deu a mão, e na próxima ele vai querer o braço.
+
+Oferta é outra coisa. Oferta é uma troca com compromisso de data:
+
+> Se você fizer isso, eu consigo aquilo, até tal dia.
+
+Três peças. Sempre as três:
+
+- **Condição:** o que o cliente faz. Sobe a quantidade, paga à vista, fecha a grade, fecha até sexta.
+- **Benefício:** o que ele ganha. Frete, brinde, bônus em peças, preço travado, prioridade na produção.
+- **Data:** dia da semana e data. "Até sexta, 13/11". Nunca "essa semana", nunca "por tempo limitado".
+
+Faltou uma, a mensagem não sai.
+
+## Por que a data muda tudo
+
+Sem data, o cliente não tem pressa. Sem condição, você não tem motivo para voltar a chamar.
+
+E quando o vendedor não tem motivo para voltar, ele não volta. Ou volta com o "e aí, conseguiu ver?", que não dá ao cliente nenhum motivo para responder.
+
+A data resolve os dois lados. Ela dá urgência para o cliente e dá roteiro para o vendedor: um dia antes você avisa que vence amanhã, no dia você liga, no dia seguinte você encerra e abre uma condição menor. ==Cada toque tem um motivo novo.==
+
+É isso que acelera o faturamento. Não é o desconto maior. É a decisão que acontece antes.
+
+## A mesma mensagem, com pressão
+
+- "E aí, conseguiu ver?" vira: **"Consegui segurar o frete por nossa conta até sexta, 13/11. Te mando o pedido para aprovar?"**
+- "Consigo um descontinho" vira: **"Com 80 peças você está em 5%. Subindo para 100 até quinta, 12/11, vai para 8%."**
+- "Fico no aguardo" vira: **"Duas opções: Pix com 7% até quarta, 11/11, ou 30/60/90 no valor cheio. Qual fica melhor?"**
+- "Qualquer coisa me chama" vira: **"Restam 3 vagas de produção para janeiro. Reservo a sua até sexta?"**
+
+Pressão não é grosseria. ==Pressão é prazo.== É dar ao cliente um motivo para decidir hoje.
+
+## As 13 mecânicas
+
+Para a Black Friday, eu separei as 13 condicionais que o time pode usar em vez do desconto seco:
+
+1. **Condicional:** se fizer X, ganha Y. Acima de R$ 3 mil, frete pago.
+2. **Desconto progressivo:** quanto mais leva, menos paga.
+3. **Combo / kit:** itens que se completam, com preço fechado.
+4. **Upsell:** "faltam R$ 80 para o frete grátis".
+5. **Cross-sell / order bump:** o item barato na hora de fechar.
+6. **Brinde por faixa:** acima de um valor, leva um brinde.
+7. **Bônus em mercadoria:** o desconto vira peças, não preço.
+8. **Prazo como moeda:** Pix com desconto ou parcelado no cheio.
+9. **Voucher:** crédito para usar numa data futura.
+10. **Cashback:** parte volta como saldo para a próxima compra.
+11. **Preço travado:** a tabela de hoje vale para o pedido de janeiro.
+12. **Acesso antecipado:** a lista VIP vê e fecha antes.
+13. **Escassez real:** estoque ou vaga de produção contada.
+
+Todas com a mesma regra: condição, benefício e data.
+
+E uma observação importante: escassez ==só se for real==. Se você disse que acaba na sexta, acaba na sexta. Prazo que volta é prazo que o cliente nunca mais leva a sério.
+
+## Vai, filho
+
+A Black Friday é o pior momento para deixar venda solta. Todo mundo está oferecendo alguma coisa. Quem só manda desconto e espera vai disputar no preço. Quem manda uma troca com data fecha antes.
+
+Revise hoje os orçamentos abertos do seu time. Para cada um, pergunte: qual é a condição, qual é o benefício e até quando? Se o vendedor não souber responder, a venda está frouxa.
+
+Montei um material com as 13 mecânicas, a mensagem pronta de cada uma, um gerador de follow-up que já escreve a data e a cadência de 6 toques até o prazo vencer.
+
+[material: Pressão · 13 mecânicas de condicional | Chega de follow-up vazio. Toda oferta com condição, benefício e data. | assets/capa-chega-de-venda-frouxa.jpg | As 13 mecânicas com mensagem pronta; A regra da troca: condição + benefício + data; Gerador de follow-up com a data já escrita; Cadência de 6 toques até o prazo; Checklist antes de apertar enviar | Quero as 13 mecânicas](/pressao/)
+`
+  },
+  {
     slug: "voce-paga-pela-venda",
     capa: "assets/capa-comissao-ote.jpg",
     titulo: "Você paga o vendedor pela venda. ==E pelo hábito?==",

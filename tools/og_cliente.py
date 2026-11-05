@@ -83,6 +83,9 @@ EXTRAS = [
     {"arquivo": "black-zona-uniforme.jpg", "rotulo": "Black Zona · Uniforme personalizado", "pill": "Material gratuito",
      "titulo": "Black Zona", "chamada": "Venda vaga na produção de janeiro", "grifo": "produção de janeiro",
      "descricao": "Reserva de produção, kit confraternização, renovação da carteira, upgrade sem custo e prospecção por nicho."},
+    {"arquivo": "pressao.jpg", "rotulo": "Material · Follow-up com condicional", "pill": "Material gratuito",
+     "titulo": "Pressão", "chamada": "Chega de venda frouxa: toda oferta tem data", "grifo": "tem data",
+     "descricao": "As 13 mecânicas de condicional com mensagens prontas, gerador de follow-up, cadência até o prazo e checklist."},
 ]
 
 def chamada_html(p):

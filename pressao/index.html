@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<script src="/assets/tema.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pressão · 13 mecânicas de condicional · Unique</title>
+<meta name="description" content="Chega de venda frouxa. As 13 mecânicas de condicional com data para o follow-up: mensagens prontas, gerador de oferta, cadência e checklist. Gratuito para cadastrados.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Unique Consultoria">
+<meta property="og:title" content="Pressão · 13 mecânicas de condicional">
+<meta property="og:description" content="Toda oferta tem condição e data. As 13 mecânicas com mensagens prontas, gerador de follow-up e cadência. Gratuito para cadastrados.">
+<meta property="og:url" content="https://sejaunique.com/pressao/">
+<meta property="og:image" content="https://sejaunique.com/assets/og/pressao.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+.w{max-width:1080px;margin-inline:auto;padding-inline:clamp(20px,4vw,36px)}
+.leve{font-weight:200;font-style:italic}
+.spaced{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--verde-txt)}
+.hero{background:#0b0b0c;color:#fff;padding:clamp(56px,9vw,110px) 0 clamp(48px,7vw,80px);overflow:hidden}
+.hero .in{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(24px,4vw,56px);align-items:center}
+.hero .k{font-size:.78rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#ff3d8b}
+.hero h1{font-size:clamp(2.4rem,6.4vw,4.8rem);line-height:.98;letter-spacing:-.04em;margin:18px 0 20px;font-weight:900;text-wrap:balance}
+.hero h1 .x{color:#ff3d8b;text-decoration:line-through;text-decoration-thickness:6px}
+.hero p{font-size:clamp(1.05rem,2vw,1.25rem);line-height:1.6;max-width:600px;opacity:.85;margin:0}
+.formula{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.formula span{font-size:.8rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:10px 15px;border-radius:999px;background:var(--c);color:#fff}
+.formula span.e{color:#0b0b0c}
+.gauge{width:100%;max-width:340px;justify-self:center}
+.gauge .ponteiro{transform-origin:150px 150px;transform:rotate(-78deg);transition:transform 1.6s cubic-bezier(.3,1.4,.5,1)}
+.hero.vai .gauge .ponteiro{transform:rotate(68deg)}
+.gate{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px);margin:clamp(32px,5vw,56px) auto;padding:clamp(24px,4vw,40px);border:2px solid var(--fg,#0b0b0c);border-radius:28px}
+.gate h2{font-size:clamp(1.6rem,3.6vw,2.3rem);line-height:1.08;letter-spacing:-.03em;margin:10px 0 14px}
+.gate ul{margin:16px 0 0;padding-left:20px;line-height:1.8}
+form{display:flex;flex-direction:column;gap:10px}
+input,textarea,select{font:inherit;font-size:1rem;padding:13px 15px;border-radius:14px;border:1.5px solid var(--line,#ddd);background:var(--bg,#fff);color:inherit;width:100%}
+textarea{min-height:150px;line-height:1.55;resize:vertical}
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.isca{position:absolute;left:-9999px}
+.aceite{display:flex;gap:10px;font-size:.78rem;line-height:1.5;opacity:.85}.aceite input{width:auto;margin-top:3px}
+button{font:inherit;font-weight:800;font-size:1rem;padding:15px 22px;border-radius:999px;border:0;background:#00e676;color:#0b0b0c;cursor:pointer}
+.msg{font-size:.85rem;min-height:1.2em;margin:0}
+#conteudo,.ok{display:none}
+body.liberado .gate{display:none}body.liberado #conteudo{display:block}body.liberado .ok{display:block}
+.ok{margin:32px auto 0;padding:22px 26px;border-radius:20px;background:#00e676;color:#0b0b0c}
+.ok b{font-size:1.15rem}
+.sec{margin-top:clamp(48px,7vw,80px)}
+.sec>h2{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.05;letter-spacing:-.03em;margin:8px 0 10px}
+.sec>p.lead{font-size:1.05rem;line-height:1.6;color:var(--muted);max-width:68ch;margin:0 0 22px}
+.regra{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.regra div{border-radius:22px;padding:24px;background:var(--c);color:#fff}
+.regra div.e{color:#0b0b0c}
+.regra b{display:block;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;opacity:.8;margin-bottom:10px}
+.regra span{font-size:clamp(1.3rem,2.6vw,1.7rem);font-weight:800;line-height:1.15;letter-spacing:-.02em}
+.regra small{display:block;margin-top:12px;font-size:.92rem;line-height:1.45;opacity:.9}
+.ex{margin-top:12px;padding:18px 22px;border-radius:18px;background:var(--soft);font-size:1.05rem;line-height:1.55}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.95rem;min-width:560px}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45}
+th{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+td.fx{color:var(--magenta-txt);text-decoration:line-through;text-decoration-thickness:1.5px}
+td.pr{color:var(--fg);font-weight:600}
+td b.tag{display:inline-block;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--verde-txt);margin-bottom:4px}
+.filtros{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.filtros button{font-size:.8rem;padding:9px 14px;background:transparent;border:1.5px solid var(--line);color:var(--fg)}
+.filtros button[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.mecs{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.mec{border:1px solid var(--line);background:var(--card);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:10px;position:relative}
+.mec .n{font-size:2.4rem;font-weight:200;font-style:italic;line-height:1;color:var(--c)}
+.mec h3{font-size:1.3rem;line-height:1.15;letter-spacing:-.02em;margin:0}
+.mec .como{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.mec p{margin:0;font-size:.95rem;line-height:1.5}
+.mec .quando{color:var(--muted)}
+.mec .exm{font-weight:700}
+.mec .script{border-radius:14px;background:var(--soft);padding:14px 16px;font-size:.93rem;line-height:1.55;white-space:pre-line}
+.mec .bts{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+.mec .bts button{font-size:.78rem;padding:9px 14px;background:transparent;border:1.5px solid var(--fg);color:var(--fg)}
+.mec .bts button.usa{background:var(--fg);color:var(--bg)}
+.mec .selo{position:absolute;top:20px;right:20px;font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:6px 10px;border-radius:999px;background:var(--soft);color:var(--muted)}
+.ger{display:grid;grid-template-columns:.9fr 1.1fr;gap:16px;border:2px solid var(--fg);border-radius:28px;padding:clamp(20px,3vw,32px)}
+.ger label{display:flex;flex-direction:column;gap:6px;font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.ger .saida{display:flex;flex-direction:column;gap:10px}
+.ger .alerta{font-size:.85rem;color:var(--magenta-txt);min-height:1.2em;margin:0}
+.ger .bts{display:flex;flex-wrap:wrap;gap:8px}
+.ger .bts .sec2{background:transparent;border:1.5px solid var(--fg);color:var(--fg)}
+.checks{display:flex;flex-direction:column;gap:2px;border:1px solid var(--line);border-radius:22px;padding:14px 18px;background:var(--card)}
+.checks label{display:flex;gap:12px;align-items:flex-start;padding:10px 4px;border-radius:8px;cursor:pointer;font-size:1rem;line-height:1.45}
+.checks input{width:22px;height:22px;margin-top:1px;accent-color:#00c864;flex:none;padding:0}
+.checks input:checked+span{color:var(--muted);text-decoration:line-through}
+.nunca{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.nunca div{border-radius:20px;padding:20px 22px;border:2px solid var(--magenta-txt)}
+.nunca b{display:block;color:var(--magenta-txt);font-size:1.05rem;margin-bottom:6px}
+.nunca p{margin:0;font-size:.95rem;line-height:1.5;color:var(--muted)}
+.diag{margin-top:96px;display:grid;grid-template-columns:1fr 1fr;background:var(--ink);color:var(--ink-fg);overflow:hidden;border-radius:28px}
+.diag .txt{padding:clamp(32px,5vw,64px);display:grid;gap:18px;align-content:center}
+.diag .spaced{color:var(--ink-muted)}
+.diag h2{font-size:clamp(2rem,4.4vw,3.2rem);line-height:1;font-weight:800;letter-spacing:-.04em;margin:0;text-wrap:balance}
+.diag p{color:var(--ink-muted);margin:0;max-width:46ch}
+.diag .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.diag .ctas .btn:not(.verde){color:var(--ink-fg)}
+.diag figure{margin:0;position:relative;min-height:360px}
+.diag figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1);-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%);mask-image:linear-gradient(90deg,transparent,#000 35%)}
+.alda{margin-top:72px;background:#fff;border-top:1px solid #e4e4e7;border-bottom:1px solid #e4e4e7;color:#2e2e2e;overflow:hidden}
+.alda-in{display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:center;padding-block:44px}
+.alda-pato{width:110px;height:auto;align-self:end;margin-bottom:-44px}
+.alda h2{margin:0 0 8px;font-size:clamp(1.6rem,3vw,2.3rem);font-weight:900;letter-spacing:-.035em;line-height:1.05;color:#2e2e2e}
+.alda h2 span{font-weight:300;font-style:italic}
+.alda p{margin:0;max-width:60ch;color:#4a4a4a}
+.alda-bts{display:grid;gap:10px}
+.alda-bt{background:#2e2e2e;color:#fff;border-color:#2e2e2e}
+.alda-bt2{color:#2e2e2e;border-color:#2e2e2e}
+@media (max-width:860px){.hero .in,.gate,.diag,.alda-in,.ger{grid-template-columns:1fr}.gauge{max-width:240px}.alda-pato{display:none}.diag figure{min-height:240px}.regra,.nunca{grid-template-columns:1fr}}
+@media (max-width:640px){.duas{grid-template-columns:1fr}.mecs{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<script src="/assets/casco.js"></script>
+<main>
+<section class="hero" id="hero"><div class="w in">
+  <div>
+    <span class="k">Pressão · Material da Unique</span>
+    <h1>Chega de venda <span class="x">frouxa</span>. <span class="leve" style="color:#00e676">Toda oferta tem condição e data.</span></h1>
+    <p>As 13 mecânicas de condicional para o follow-up parar de ser "e aí, conseguiu ver?" e virar uma troca com prazo: se você fizer isso, eu consigo aquilo, até tal dia.</p>
+    <div class="formula"><span style="--c:#2b3384">Se você…</span><span class="e" style="--c:#00e676">eu consigo…</span><span style="--c:#e0055e">até sexta, 13/11</span></div>
+  </div>
+  <svg class="gauge" viewBox="0 0 300 190" role="img" aria-label="Manômetro saindo de venda frouxa para venda com pressão">
+    <path d="M30 150 A120 120 0 0 1 90 46" fill="none" stroke="#e0055e" stroke-width="22" stroke-linecap="round"/>
+    <path d="M100 41 A120 120 0 0 1 200 41" fill="none" stroke="#2b3384" stroke-width="22"/>
+    <path d="M210 46 A120 120 0 0 1 270 150" fill="none" stroke="#00e676" stroke-width="22" stroke-linecap="round"/>
+    <g class="ponteiro"><line x1="150" y1="150" x2="150" y2="48" stroke="#fff" stroke-width="7" stroke-linecap="round"/></g>
+    <circle cx="150" cy="150" r="14" fill="#fff"/>
+    <text x="30" y="184" fill="#ff3d8b" font-size="15" font-weight="800" font-family="Montserrat,sans-serif">FROUXA</text>
+    <text x="270" y="184" fill="#00e676" font-size="15" font-weight="800" font-family="Montserrat,sans-serif" text-anchor="end">PRESSÃO</text>
+  </svg>
+</div></section>
+
+<div class="w">
+  <div class="gate" id="liberar">
+    <div>
+      <span class="spaced">Gratuito para cadastrados</span>
+      <h2>Libere as 13 mecânicas <span class="leve">e use no follow-up de hoje.</span></h2>
+      <p>Preencha e o material abre aqui mesmo. O que você marcar fica salvo neste aparelho.</p>
+      <ul>
+        <li>As 13 mecânicas com exemplo e mensagem pronta</li>
+        <li>A regra da troca: condição + benefício + data</li>
+        <li>Gerador de follow-up com a data já escrita</li>
+        <li>Cadência de 6 toques até o prazo vencer</li>
+        <li>Checklist antes de mandar qualquer mensagem</li>
+      </ul>
+    </div>
+    <form id="f-lib" novalidate>
+      <div class="duas">
+        <input name="nome" autocomplete="name" placeholder="Seu nome" aria-label="Seu nome" maxlength="80" required>
+        <input name="empresa" autocomplete="organization" placeholder="Empresa" aria-label="Empresa" maxlength="80" required>
+      </div>
+      <input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="WhatsApp com DDD" aria-label="WhatsApp com DDD" maxlength="30" required>
+      <input name="email" type="email" autocomplete="email" placeholder="Seu melhor e-mail" aria-label="Seu e-mail" maxlength="120" required>
+      <input class="isca" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label class="aceite"><input type="checkbox" name="aceite" required><span>Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a <a href="/privacidade/" target="_blank" rel="noopener">Política de Privacidade</a>. Posso cancelar quando quiser.</span></label>
+      <button type="submit">Liberar as 13 mecânicas →</button>
+      <p class="msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+
+  <div class="ok"><b id="ok-t">Material liberado!</b><p id="ok-p" style="margin:6px 0 0"></p></div>
+
+  <div id="conteudo">
+
+    <section class="sec">
+      <span class="spaced">A regra</span>
+      <h2>Desconto não é oferta. <span class="leve">Oferta é troca com prazo.</span></h2>
+      <p class="lead">Toda mensagem de follow-up leva três peças. Faltou uma, a mensagem não sai. É isso que cria motivo para voltar a falar com o cliente e acelera o faturamento.</p>
+      <div class="regra">
+        <div style="--c:#2b3384"><b>1 · Condição</b><span>Se você…</span><small>O que o cliente faz: sobe a quantidade, paga à vista, fecha a grade, fecha até tal dia.</small></div>
+        <div class="e" style="--c:#00e676"><b>2 · Benefício</b><span>eu consigo…</span><small>O que ele ganha: frete, brinde, bônus em peças, preço travado, prioridade na produção.</small></div>
+        <div style="--c:#e0055e"><b>3 · Data</b><span>até sexta, 13/11.</span><small>Dia da semana e data. Nunca "essa semana", nunca "por tempo limitado".</small></div>
+      </div>
+      <p class="ex"><b>Na prática:</b> "Carla, fechando as 120 peças até sexta, 13/11, eu consigo travar a tabela de hoje e colocar seu pedido na primeira semana de produção de janeiro. Posso gerar o pedido?"</p>
+    </section>
+
+    <section class="sec">
+      <span class="spaced">Frouxa × pressão</span>
+      <h2>A mesma mensagem, <span class="leve">com e sem pressão.</span></h2>
+      <div class="tbl"><table>
+        <thead><tr><th>Venda frouxa</th><th>Venda com pressão</th></tr></thead>
+        <tbody>
+          <tr><td class="fx">"E aí, conseguiu ver o orçamento?"</td><td class="pr"><b class="tag">Condicional</b><br>"Consegui segurar o frete por nossa conta até sexta, 13/11. Te mando o pedido para aprovar?"</td></tr>
+          <tr><td class="fx">"Consigo um descontinho pra você."</td><td class="pr"><b class="tag">Desconto progressivo</b><br>"Com 80 peças você está em 5%. Subindo para 100 até quinta, 12/11, vai para 8%."</td></tr>
+          <tr><td class="fx">"Fico no aguardo 🙏"</td><td class="pr"><b class="tag">Prazo como moeda</b><br>"Duas opções: Pix com 7% até quarta, 11/11, ou 30/60/90 no valor cheio. Qual fica melhor?"</td></tr>
+          <tr><td class="fx">"Qualquer coisa me chama."</td><td class="pr"><b class="tag">Escassez real</b><br>"Restam 3 vagas de produção para janeiro. Reservo a sua até sexta, 13/11?"</td></tr>
+          <tr><td class="fx">"Te faço o preço da Black."</td><td class="pr"><b class="tag">Preço travado</b><br>"A tabela muda em dezembro. Fechando até sexta, 27/11, travo o preço de hoje para o seu pedido de janeiro."</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="sec" id="mecanicas">
+      <span class="spaced">As 13 mecânicas</span>
+      <h2>Escolha a troca <span class="leve">certa para cada cliente.</span></h2>
+      <p class="lead">Cada uma com quando usar, um exemplo e a mensagem pronta. Clique em "Usar no gerador" e a mensagem já vai com o nome do cliente e a data.</p>
+      <div class="filtros" id="filtros" role="group" aria-label="Filtrar mecânicas"></div>
+      <div class="mecs" id="mecs"></div>
+    </section>
+
+    <section class="sec" id="gerador">
+      <span class="spaced">Gerador de follow-up</span>
+      <h2>Escreva a mensagem <span class="leve">com a data já dentro.</span></h2>
+      <p class="lead">Escolha a mecânica, o nome e o prazo. Troque o que estiver entre [colchetes] e mande. Se ficar algum colchete, o gerador avisa.</p>
+      <div class="ger">
+        <div>
+          <label for="gMec">Mecânica<select id="gMec"></select></label>
+          <label for="gNome">Nome do cliente<input id="gNome" placeholder="Ex.: Carla" maxlength="40"></label>
+          <label for="gData">Prazo da condição<input id="gData" type="date"></label>
+          <label for="gZap">WhatsApp do cliente (opcional)<input id="gZap" type="tel" inputmode="tel" placeholder="DDD + número" maxlength="20"></label>
+        </div>
+        <div class="saida">
+          <label for="gTxt" style="margin:0">Sua mensagem<textarea id="gTxt"></textarea></label>
+          <p class="alerta" id="gAlerta" role="status" aria-live="polite"></p>
+          <div class="bts"><button type="button" id="gCopiar">Copiar mensagem</button><button type="button" class="sec2" id="gZapBt">Abrir no WhatsApp</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <span class="spaced">Cadência até o prazo</span>
+      <h2>Seis toques. <span class="leve">Cada um com um motivo novo.</span></h2>
+      <p class="lead">A data é o motivo para voltar a falar com o cliente. Antes dela você lembra, perto dela você aperta, depois dela você encerra e abre uma condição menor. Nunca reabra a mesma condição.</p>
+      <div class="tbl"><table>
+        <thead><tr><th>Quando</th><th>Toque</th><th>O que vai na mensagem</th></tr></thead>
+        <tbody>
+          <tr><td><b>D0</b></td><td>Proposta com condição</td><td>Proposta + uma mecânica + data. "Essa condição vale até [dia], [data]."</td></tr>
+          <tr><td><b>D+1</b></td><td>Prova</td><td>Foto ou case de cliente do mesmo segmento + lembrete da data.</td></tr>
+          <tr><td><b>D+3</b></td><td>Subir a troca</td><td>Uma segunda mecânica em cima da primeira: "fechando até [data], ainda consigo [brinde/bônus]".</td></tr>
+          <tr><td><b>Véspera</b></td><td>Aviso</td><td>"Amanhã é o último dia da condição. Quer que eu deixe o pedido pronto para você aprovar?"</td></tr>
+          <tr><td><b>Dia do prazo</b></td><td>Ligação</td><td>Ligue. Se não atender, mensagem curta: "Hoje encerra. Te espero até as 18h."</td></tr>
+          <tr><td><b>Dia seguinte</b></td><td>Encerrar</td><td>"A condição encerrou ontem." Ofereça uma condição menor com nova data. Nunca a mesma.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="sec">
+      <span class="spaced">Antes de apertar enviar</span>
+      <h2>O checklist <span class="leve">de cada follow-up.</span></h2>
+      <div class="checks" id="checks">
+        <label><input type="checkbox" id="ck-0"><span>Tem uma condição clara: "se você…"</span></label>
+        <label><input type="checkbox" id="ck-1"><span>O benefício não é só preço (frete, brinde, bônus, prioridade, preço travado)</span></label>
+        <label><input type="checkbox" id="ck-2"><span>Tem dia da semana e data: "até sexta, 13/11"</span></label>
+        <label><input type="checkbox" id="ck-3"><span>Termina pedindo o próximo passo: "posso gerar o pedido?"</span></label>
+        <label><input type="checkbox" id="ck-4"><span>A condição e a data estão no CRM, com tarefa marcada para a véspera</span></label>
+        <label><input type="checkbox" id="ck-5"><span>Se o desconto entrou, entrou com contrapartida</span></label>
+      </div>
+    </section>
+
+    <section class="sec">
+      <span class="spaced">O que mata a pressão</span>
+      <h2>Quatro erros <span class="leve">que deixam a venda solta.</span></h2>
+      <div class="nunca">
+        <div><b>Desconto sem contrapartida</b><p>Ensina o cliente a sempre pedir mais. Toda concessão vem com uma troca: quantidade, prazo de pagamento ou data de fechamento.</p></div>
+        <div><b>Prazo sem data</b><p>"Essa semana" e "por tempo limitado" não pressionam ninguém. Dia da semana e data, sempre.</p></div>
+        <div><b>Escassez inventada</b><p>Se você disse que acaba na sexta, acaba na sexta. Prazo que volta é prazo que o cliente nunca mais leva a sério.</p></div>
+        <div><b>Follow-up vazio</b><p>"E aí, conseguiu ver?" não dá motivo nenhum para o cliente responder. Toda mensagem leva uma condição nova, uma prova ou o aviso do prazo.</p></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<section class="w" aria-label="Diagnóstico comercial">
+  <div class="diag">
+    <div class="txt">
+      <span class="spaced">Próximo passo</span>
+      <h2>Qual é o score comercial <span class="leve">da sua empresa?</span></h2>
+      <p>Faça o diagnóstico. Em 10 a 15 minutos você responde sobre os 4 pilares do seu comercial e recebe um relatório com o score, os gargalos e um plano de ação.</p>
+      <div class="ctas"><a class="btn verde" href="/diagnostico/">Faça seu diagnóstico comercial <i class="ic" style="--i:var(--ic-seta)"></i></a>
+      <a class="btn" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Vi%20o%20material%20Press%C3%A3o%20e%20quero%20conversar%20sobre%20o%20comercial%20da%20minha%20empresa." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Falar com o Carlos</a></div>
+    </div>
+    <figure><img src="/assets/fotos/palco.jpg" alt="Carlos Ribeiro em palestra, com microfone" width="1280" height="853" loading="lazy"></figure>
+  </div>
+</section>
+
+<section class="alda" aria-labelledby="h-alda">
+  <div class="w alda-in">
+    <img class="alda-pato" src="/diagnostico/relatorio/alda-pato.png" alt="" width="134" height="238" loading="lazy">
+    <div class="alda-tx">
+      <span class="spaced" style="display:block;margin-bottom:10px;color:#5e5e66">Alda.CRM</span>
+      <h2 id="h-alda">Nenhum prazo <span>esquecido no WhatsApp.</span></h2>
+      <p>Funil de vendas, tarefa na véspera de cada prazo e follow-up organizado numa plataforma feita para quem vende pelo WhatsApp. A ferramenta que a Unique usa para tirar o plano do papel.</p>
+    </div>
+    <div class="alda-bts">
+      <a class="btn alda-bt" href="https://aldacrm.com" target="_blank" rel="noopener">Conhecer o Alda.CRM <i class="ic" style="--i:var(--ic-seta-up)"></i></a>
+      <a class="btn alda-bt2" href="https://wa.me/5511920781458?text=Ol%C3%A1%21%20Vim%20pelo%20material%20Press%C3%A3o%20da%20Unique%20e%20quero%20conhecer%20o%20Alda.CRM." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Falar com o Alda</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+(function(){
+var G={margem:{n:'Protege a margem',c:'#00c864'},ticket:{n:'Sobe o ticket',c:'#2b3384'},prazo:{n:'Acelera o fechamento',c:'#e0055e'},volta:{n:'Faz o cliente voltar',c:'#6a2fc1'}};
+var M=[
+ {n:'Condicional',g:'ticket',como:'Se fizer X, ganha Y',quando:'O cliente está perto de uma faixa e você quer puxar o pedido para cima.',ex:'Acima de R$ 3 mil, o frete é por nossa conta.',msg:'[Nome], consegui uma condição pra você: fechando acima de R$ [valor], o frete fica por nossa conta. Vale até [data]. Te mando o pedido ajustado?'},
+ {n:'Desconto progressivo',g:'ticket',como:'Quanto mais leva, menos paga',quando:'O cliente já decidiu comprar e está negociando quantidade.',ex:'50 peças 5%, 100 peças 8%, 150 peças 10%.',msg:'[Nome], com [quantidade atual] peças seu pedido está na faixa de [x]%. Subindo para [quantidade], vai para [y]%. Essa tabela vale para pedidos fechados até [data]. Quer que eu simule?'},
+ {n:'Combo / kit',g:'ticket',como:'Itens que se completam',quando:'O cliente compra uma peça e precisa de outras que ainda não pediu.',ex:'Kit colaborador: 2 camisas + 1 calça, preço fechado por pessoa.',msg:'[Nome], montei um kit pra sua equipe: [itens do kit], por R$ [valor] por pessoa. Sai mais barato que separado, e seguro esse preço até [data]. Posso seguir com o kit?'},
+ {n:'Upsell',g:'ticket',como:'Levar à próxima faixa',quando:'Falta pouco para o pedido chegar a um benefício.',ex:'Faltam R$ 80 para o frete grátis.',msg:'[Nome], faltam só R$ [diferença] para o seu pedido entrar na faixa de [benefício]. Quer que eu inclua [sugestão]? Seguro a condição até [data].'},
+ {n:'Cross-sell / order bump',g:'ticket',como:'Item barato na hora de fechar',quando:'O pedido está fechado e falta só gerar.',ex:'Boné, ecobag ou cordão de crachá com a logo.',msg:'[Nome], antes de eu gerar o pedido: quer incluir [item] por R$ [valor]? Esse preço é só para quem fecha junto com o pedido, até [data].'},
+ {n:'Brinde por faixa',g:'margem',como:'Brinde acima de uma faixa',quando:'Você quer subir o ticket sem mexer no preço.',ex:'Acima de R$ 5 mil, leva uma peça sob medida para o gestor.',msg:'[Nome], pedidos acima de R$ [valor] fechados até [data] levam [brinde]. Você está a R$ [diferença] disso. Quer que eu complete?'},
+ {n:'Bônus em mercadoria',g:'margem',como:'% em peças, não em preço',quando:'O cliente pede desconto e você quer proteger a tabela.',ex:'Pedido de R$ 6 mil leva 6% em peças.',msg:'[Nome], em vez de desconto, consigo bônus em mercadoria: fechando R$ [valor] até [data], você leva [x]% do pedido em peças, à sua escolha. Fica bom pra você?'},
+ {n:'Prazo como moeda',g:'prazo',como:'Desconto à vista ou prazo',quando:'O cliente trava no pagamento ou você precisa de caixa.',ex:'Pix com 7% ou 30/60/90 no valor cheio.',msg:'[Nome], te dou duas opções: à vista no Pix com [x]% de desconto, ou 30/60/90 no valor cheio. A condição do Pix vale até [data]. Qual fica melhor pra você?'},
+ {n:'Voucher',g:'volta',como:'Crédito para usar depois',quando:'Você quer fechar agora e garantir a próxima compra.',ex:'R$ 50 de crédito para usar de 01 a 24/12.',msg:'[Nome], fechando até [data], você ganha R$ [valor] de crédito para usar no próximo pedido, de [início] a [fim]. Posso gerar o pedido?'},
+ {n:'Cashback',g:'volta',como:'Parte volta como saldo',quando:'Cliente recorrente que compra em ciclos.',ex:'10% volta como saldo para usar em 45 dias.',msg:'[Nome], nesse pedido [x]% volta pra você como saldo, para usar em até [dias] dias. Vale para pedidos fechados até [data].'},
+ {n:'Preço travado',g:'prazo',como:'Mantém a condição de hoje',quando:'Reajuste chegando ou pedido com entrega mais para frente.',ex:'Tabela de novembro vale para o pedido de janeiro.',msg:'[Nome], a tabela muda em [mês do reajuste]. Fechando até [data], eu travo o preço de hoje para o seu pedido de [mês do pedido], mesmo com entrega depois.'},
+ {n:'Acesso antecipado',g:'prazo',como:'A lista vê antes',quando:'Lançamento, coleção nova ou Black Friday para a carteira.',ex:'Lista VIP vê a condição na quinta às 20h.',msg:'[Nome], você está na minha lista VIP. Na [dia e hora], libero [novidade] só para essa lista, antes de abrir para todo mundo. A condição VIP vale até [data]. Quer que eu te chame primeiro?'},
+ {n:'Escassez real',g:'prazo',como:'Estoque ou vaga contada',quando:'Produção, estoque ou agenda têm limite de verdade.',ex:'8 vagas de produção em janeiro.',msg:'[Nome], restam [número] vagas de produção para [mês]. Depois de [data], a próxima janela é só em [mês seguinte]. Quer que eu reserve a sua?'}
+];
+var store={get:function(k){try{return JSON.parse(localStorage.getItem(k)||'null');}catch(e){return null;}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});};
+var $=function(s,c){return (c||document).querySelector(s);};
+
+/* manômetro sobe ao abrir */
+setTimeout(function(){$('#hero').classList.add('vai');},400);
+
+/* cards */
+var mecs=$('#mecs'),filtros=$('#filtros');
+mecs.innerHTML=M.map(function(m,i){var g=G[m.g];return '<article class="mec" data-g="'+m.g+'" style="--c:'+g.c+'"><span class="selo">'+g.n+'</span><span class="n">'+String(i+1).padStart(2,'0')+'</span><h3>'+m.n+'</h3><span class="como">'+m.como+'</span><p class="quando">'+m.quando+'</p><p class="exm">'+esc(m.ex)+'</p><div class="script" id="ms-'+i+'">'+esc(m.msg)+'</div><div class="bts"><button type="button" class="usa" data-usa="'+i+'">Usar no gerador</button><button type="button" data-copy="'+i+'">Copiar</button></div></article>';}).join('');
+filtros.innerHTML='<button type="button" aria-pressed="true" data-f="">Todas · 13</button>'+Object.keys(G).map(function(k){return '<button type="button" aria-pressed="false" data-f="'+k+'">'+G[k].n+' · '+M.filter(function(m){return m.g===k;}).length+'</button>';}).join('');
+filtros.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;filtros.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b);});var f=b.dataset.f;mecs.querySelectorAll('.mec').forEach(function(c){c.hidden=!!f&&c.dataset.g!==f;});});
+function copiar(txt,b,lab){var done=function(t){b.textContent=t;setTimeout(function(){b.textContent=lab;},1500);};try{navigator.clipboard.writeText(txt).then(function(){done('Copiado');},function(){done('Copie à mão');});}catch(err){done('Copie à mão');}}
+mecs.addEventListener('click',function(e){
+  var c=e.target.closest('[data-copy]');if(c){copiar(M[+c.dataset.copy].msg,c,'Copiar');return;}
+  var u=e.target.closest('[data-usa]');if(u){gMec.value=u.dataset.usa;monta(true);window.scrollTo({top:$('#gerador').offsetTop-80,behavior:'smooth'});}
+});
+
+/* gerador */
+var gMec=$('#gMec'),gNome=$('#gNome'),gData=$('#gData'),gTxt=$('#gTxt'),gZap=$('#gZap'),gAl=$('#gAlerta');
+gMec.innerHTML=M.map(function(m,i){return '<option value="'+i+'">'+String(i+1).padStart(2,'0')+' · '+m.n+'</option>';}).join('');
+var DIAS=['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
+function proxSexta(){var d=new Date();var add=(5-d.getDay()+7)%7||7;d.setDate(d.getDate()+add);return d.toISOString().slice(0,10);}
+gData.value=proxSexta();
+function dataTxt(){if(!gData.value)return '[data]';var p=gData.value.split('-');var d=new Date(+p[0],+p[1]-1,+p[2]);return DIAS[d.getDay()]+', '+p[2]+'/'+p[1];}
+function monta(forca){
+  var m=M[+gMec.value];var nome=gNome.value.trim()||'[Nome]';
+  gTxt.value=m.msg.replace(/\[Nome\]/g,nome).replace(/\[data\]/g,dataTxt());
+  confere();
+}
+function confere(){var f=(gTxt.value.match(/\[[^\]]+\]/g)||[]);gAl.textContent=f.length?'Falta trocar: '+f.join(', '):'Pronta para enviar.';gAl.style.color=f.length?'':'var(--verde-txt)';}
+[gMec,gNome,gData].forEach(function(el){el.addEventListener('input',function(){monta();});el.addEventListener('change',function(){monta();});});
+gTxt.addEventListener('input',confere);
+$('#gCopiar').addEventListener('click',function(){copiar(gTxt.value,this,'Copiar mensagem');});
+$('#gZapBt').addEventListener('click',function(){var n=gZap.value.replace(/\D/g,'');if(n&&n.length<=11)n='55'+n;window.open('https://wa.me/'+(n||'')+'?text='+encodeURIComponent(gTxt.value),'_blank','noopener');});
+monta();
+
+/* checklist */
+var saved=store.get('ua_pressao_checks')||{};
+document.querySelectorAll('#checks input').forEach(function(cb){cb.checked=!!saved[cb.id];cb.addEventListener('change',function(){saved[cb.id]=cb.checked;store.set('ua_pressao_checks',saved);});});
+
+/* cadastro: mesmo fluxo das outras iscas (api/material.js) */
+var MAT='pressao', K='ua_mat_'+MAT;
+function libera(d,novo){
+  document.body.classList.add('liberado');
+  var pn=(d&&d.nome||'').split(' ')[0];
+  $('#ok-t').textContent=novo?(pn?pn+', as':'As')+' 13 mecânicas estão liberadas!':'Bem-vindo de volta'+(pn?', '+pn:'')+'!';
+  $('#ok-p').textContent=novo?'Comece pela regra e escolha uma mecânica para o próximo follow-up de hoje. Você também recebe cada post novo do blog no seu e-mail.':'Seu material continua aqui, do jeito que você deixou.';
+}
+var salvo=store.get(K); if(salvo) libera(salvo,false);
+fetch('/api/material?a=adm&material='+MAT,{credentials:'same-origin',cache:'no-store'}).then(function(r){return r.json();}).then(function(r){ if(r&&r.admin) libera({nome:'Carlos'},false); else if(r&&r.cliente) libera({nome:r.nome||''},false); }).catch(function(){});
+var f=$('#f-lib'), msg=$('.msg',f), bt=$('button',f);
+f.addEventListener('submit',function(e){
+  e.preventDefault();
+  var d={nome:f.nome.value.trim(),empresa:f.empresa.value.trim(),whatsapp:f.whatsapp.value.trim(),email:f.email.value.trim()};
+  if(d.nome.length<2){msg.textContent='Informe o seu nome.';return;}
+  if(d.empresa.length<2){msg.textContent='Informe o nome da empresa.';return;}
+  if(d.whatsapp.replace(/\D/g,'').length<10){msg.textContent='Confira o seu WhatsApp com DDD.';return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)){msg.textContent='Confira o seu e-mail.';return;}
+  if(!f.aceite.checked){msg.textContent='Para liberar, marque que concorda com os termos.';return;}
+  bt.disabled=true; msg.textContent='';
+  fetch('/api/material',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({a:'liberar',material:MAT,nome:d.nome,empresa:d.empresa,whatsapp:d.whatsapp,email:d.email,aceite:true,site:f.site.value})})
+    .then(function(r){return r.json().catch(function(){return {};});})
+    .then(function(r){
+      if(!r||!r.ok){bt.disabled=false;msg.textContent=(r&&r.erro)||'Não deu certo agora. Tente de novo.';return;}
+      var vv={nome:d.nome,empresa:d.empresa,data:new Date().toISOString()}; store.set(K,vv); libera(vv,true);
+      window.scrollTo({top:$('.ok').offsetTop-90,behavior:'smooth'});
+    })
+    .catch(function(){bt.disabled=false;msg.textContent='Sem conexão. Tente de novo.';});
+});
+})();
+</script>
+</body>
+</html>

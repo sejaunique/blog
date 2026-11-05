@@ -66,6 +66,13 @@ const MATERIAIS = {
     tag: 'Comissão OTE',
     aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
   },
+  'pressao': {
+    titulo: 'Pressão · 13 mecânicas de condicional',
+    descricao: 'As 13 mecânicas de condicional com data para o follow-up: regra da troca, mensagens prontas, gerador de follow-up, cadência até o prazo e checklist.',
+    url: '/pressao/',
+    tag: 'Pressão',
+    aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
+  },
   'black-zona': {
     titulo: 'Black Zona · Ações de Black Friday',
     descricao: '18 ações de Black Friday para indústria e atacado, varejo e uniforme personalizado, com passo a passo, mensagens prontas, meta e calendário de novembro.',

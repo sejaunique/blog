@@ -1,0 +1,78 @@
+{
+ "estilo": "manometro",
+ "arroba": "@soucarlosribeiro",
+ "capa_blog": "capa-chega-de-venda-frouxa.jpg",
+ "legenda": "Chega. Não dá mais.\n\nO vendedor manda o orçamento, manda um desconto e fica esperando. \"E aí, conseguiu ver?\" \"Fico no aguardo 🙏\". A venda fica lá, solta, frouxa, sem motivo nenhum para o cliente responder.\n\nIsso não é follow-up. É torcida.\n\nOferta não é preço. Oferta é troca com prazo:\n→ Se você fizer isso (condição)\n→ eu consigo aquilo (benefício)\n→ até sexta, 13/11 (data)\n\nSem data, o cliente não tem pressa. Sem condição, você não tem motivo para voltar a chamar. E sem os dois, você está deixando faturamento na mesa, ainda mais agora, na Black Friday.\n\nSão 13 mecânicas para nunca mais mandar follow-up vazio: condicional, desconto progressivo, combo, upsell, order bump, brinde por faixa, bônus em mercadoria, prazo como moeda, voucher, cashback, preço travado, acesso antecipado e escassez real.\n\n📌 Comente PRESSÃO que eu te mando o material com as 13 mecânicas, as mensagens prontas, o gerador de follow-up com data e a cadência até o prazo.\n\nO texto completo está no blog: sejaunique.com/blog/chega-de-venda-frouxa/\n\nVai, filho. 💥\n\n#vendas #followup #gestaocomercial #blackfriday #timecomercial #empresarios #consultoriadevendas #sejaunique",
+ "slides": [
+  {
+   "tipo": "capa",
+   "kicker": "Black Friday · time comercial",
+   "titulo": "Chega de venda ~~frouxa~~.",
+   "sub": "Mandar desconto e ficar esperando não é follow-up. É torcida.",
+   "ponteiro": 8
+  },
+  {
+   "tipo": "chat",
+   "kicker": "Reconhece?",
+   "titulo": "O follow-up //que não pressiona ninguém.//",
+   "msgs": [
+    {"t": "E aí, conseguiu ver o orçamento?", "h": "seg 09:12 ✓✓"},
+    {"t": "Consigo um descontinho pra você 🙏", "h": "qua 16:40 ✓✓"},
+    {"t": "Fico no aguardo!", "h": "sex 11:03 ✓✓"},
+    {"t": "Qualquer coisa me chama.", "h": "seg 08:57 ✓"}
+   ],
+   "nota": "Nenhuma dessas mensagens dá **um motivo** para o cliente responder."
+  },
+  {
+   "tipo": "frase",
+   "kicker": "O problema",
+   "cor": "magenta",
+   "frase": "Sem data, o cliente não tem pressa.\nSem condição, você não tem motivo para voltar.",
+   "apoio": "E venda sem pressa e sem motivo vira orçamento parado no fim do mês."
+  },
+  {
+   "tipo": "formula",
+   "kicker": "A regra da troca",
+   "titulo": "Oferta não é preço. //É troca com prazo.//",
+   "blocos": [
+    {"cor": "marinho", "rot": "Condição", "t": "Se você…"},
+    {"cor": "verde", "rot": "Benefício", "t": "eu consigo…"},
+    {"cor": "magenta", "rot": "Data", "t": "até sexta, 13/11."}
+   ],
+   "exemplo": "**Na prática:** \"Fechando as 120 peças até sexta, 13/11, eu travo a tabela de hoje e coloco seu pedido na primeira semana de produção de janeiro. Posso gerar o pedido?\""
+  },
+  {
+   "tipo": "grade",
+   "kicker": "As 13 mecânicas",
+   "titulo": "Escolha a troca. //Nunca o desconto seco.//",
+   "itens": ["Condicional", "Desconto progressivo", "Combo / kit", "Upsell", "Cross-sell / order bump", "Brinde por faixa", "Bônus em mercadoria", "Prazo como moeda", "Voucher", "Cashback", "Preço travado", "Acesso antecipado", "Escassez real"],
+   "fim": "+ uma data.\nSempre."
+  },
+  {
+   "tipo": "versus",
+   "kicker": "Mesma mensagem",
+   "titulo": "Frouxa × //com pressão.//",
+   "linhas": [
+    ["\"E aí, conseguiu ver?\"", "\"Seguro o frete por nossa conta até sexta, 13/11. Te mando o pedido?\""],
+    ["\"Consigo um descontinho.\"", "\"Subindo para 100 peças até quinta, 12/11, vai de 5% para 8%.\""],
+    ["\"Fico no aguardo.\"", "\"Pix com 7% até quarta, 11/11, ou 30/60/90 no cheio. Qual fica melhor?\""],
+    ["\"Qualquer coisa me chama.\"", "\"Restam 3 vagas de produção em janeiro. Reservo a sua?\""]
+   ]
+  },
+  {
+   "tipo": "frase",
+   "kicker": "Pressão não é grosseria",
+   "cor": "tinta",
+   "frase": "Pressão é ==prazo==.\nÉ dar ao cliente um motivo para decidir hoje.",
+   "apoio": "Escassez real, data com dia da semana e contrapartida em todo desconto. É assim que se acelera faturamento."
+  },
+  {
+   "tipo": "cta",
+   "kicker": "Vai, filho",
+   "titulo": "Comente a palavra:",
+   "palavra": "PRESSÃO",
+   "itens": ["As 13 mecânicas com mensagens prontas", "Gerador de follow-up com a data já dentro", "Cadência de 6 toques até o prazo", "Checklist antes de apertar enviar"],
+   "obs": "Com ou sem til, eu te mando o link no direct."
+  }
+ ]
+}

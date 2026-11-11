@@ -88,6 +88,11 @@ Menu lateral com: Painel (controle e gestão), CRM (Kanban), Notificações (apr
 - Página fechada compartilhada: o WhatsApp/Instagram/LinkedIn recebem só título, descrição e capa (o `middleware.js` reconhece os robôs de prévia); quem clica cai no login, que mostra a página que vai abrir, já preenche a empresa e volta para ela depois de entrar.
 - Comentários novos dos clientes aparecem no admin em "Comentários recentes".
 
+### Videoaulas para vários clientes (`/aulas/`)
+- `aulas/<aula>/index.html`: aula escrita com o vídeo do YouTube embutido. Abre para qualquer pessoa logada na área do cliente (de qualquer empresa) e para o admin; quem não está logado vai para o login e volta para a aula (`middleware.js`). Robôs de prévia passam e leem as tags da própria página.
+- `aulas/rota-do-atendimento/`: "A Rota do Atendimento" (treinamento de 11/11/2026, vídeo 8TrVmXtVMYA). Capítulos clicáveis que pulam o vídeo (`CAPS` no script), as 7 etapas com técnicas, frases e checklist salvos no aparelho (`ua_aula_rota_v1`), rotina, calculadora de meta, desafio, perguntas da turma e o link para o Kit do Vendedor. Capa: `assets/og/aula-rota-do-atendimento.jpg` (`EXTRAS` em `tools/og_cliente.py`).
+- Para entregar a um cliente: no workspace, Videoaulas → Nova videoaula com o link da página e marque os clientes.
+
 ## Identidade visual (padrão de todas as páginas)
 
 - `assets/tema.js` (no `<head>` de **toda** página): botão claro/escuro no cabeçalho, escolha salva e válida no site inteiro.

@@ -4,7 +4,8 @@
 // para o link compartilhado mostrar a thumbnail mesmo com a página fechada.
 // A sessão é o cookie ua_sess, criado por /api/area e guardado no Redis (area:sess:<token>).
 
-export const config = { matcher: ['/clientes/:path*'] };
+// /aulas/<aula>/: videoaulas da Unique para vários clientes. Abre para qualquer pessoa logada na área (de qualquer empresa) e para o admin.
+export const config = { matcher: ['/clientes/:path*', '/aulas/:path*'] };
 
 const URL_DB = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -52,8 +53,22 @@ async function previa(req, slug, pasta, volta) {
   return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=300' } });
 }
 
+async function aula(req, url) {
+  const volta = '/area/?volta=' + encodeURIComponent(url.pathname);
+  if (ROBO.test(req.headers.get('user-agent') || '')) return segue(); // prévia do link: a página já tem título, descrição e capa
+  if (!URL_DB || !TOKEN) return vai(req.url, volta);
+  const t = cookie(req, 'ua_sess');
+  if (!/^[a-f0-9]{48}$/.test(t)) return vai(req.url, volta);
+  try {
+    const [sv] = await redis([['GET', 'area:sess:' + t]]);
+    if (sv) return segue();
+  } catch (e) {}
+  return vai(req.url, volta);
+}
+
 export default async function middleware(req) {
   const url = new URL(req.url);
+  if (url.pathname.startsWith('/aulas')) return aula(req, url);
   const partes = url.pathname.split('/');
   const slug = (partes[2] || '').toLowerCase();
   const pasta = (partes[3] || '').toLowerCase();

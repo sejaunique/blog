@@ -1,0 +1,1286 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kauê Uniformes · Uniformes para o Agro</title>
+<meta name="description" content="Uniformes personalizados para fazendas, revendas, cooperativas e prestadores de serviço do agro. Camisa UV, polo, camisa social, calça e jaleco com a sua marca. Atendemos todo o Brasil.">
+<meta name="theme-color" content="#002535">
+<meta property="og:title" content="Kauê Uniformes · Uniforme de quem move o agro">
+<meta property="og:description" content="Da lavoura ao escritório: monte o pré-pedido do uniforme da sua fazenda ou empresa em 2 minutos.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%20viewBox%3D%22295.0%20346.8%20424.6%20386.4%22%3E%20%3Cpath%20fill-rule%3D%22nonzero%22%20fill%3D%22%23002535%22%20fill-opacity%3D%221%22%20d%3D%22M%20411.691406%20348.824219%20L%20411.691406%20501.765625%20L%20296.984375%20540%20L%20411.691406%20578.234375%20L%20411.691406%20731.179688%20L%20526.394531%20616.472656%20L%20449.925781%20540%20L%20526.394531%20463.527344%20Z%20M%20411.691406%20348.824219%20%22/%3E%20%3Cpath%20fill-rule%3D%22nonzero%22%20fill%3D%22rgb%280%25%2C%2033.699036%25%2C%2064.299011%25%29%22%20fill-opacity%3D%221%22%20d%3D%22M%20612.425781%20540%20L%20717.574219%20348.824219%20L%20488.160156%20540%20L%20717.574219%20731.175781%20Z%20M%20612.425781%20540%20%22/%3E%20%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira:wdth,wght@100..125,500..900&family=Manrope:wght@400..800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#002535; --navy-2:#03334a; --navy-3:#0a4260;
+  --blue:#0056a4; --blue-2:#0a68c4; --sky:#7fb4ec; --sky-2:#cfe2f6;
+  --paper:#f4f6f3; --paper-2:#e9ede8; --sand:#e8e2d3; --earth:#8a6a3b;
+  --ink:#0b1c26; --ink-2:#3c4d57; --ink-3:#6b7a83; --line:#d6dcd8;
+  --white:#fff; --ok:#1f8a4c;
+  --r:18px; --r-sm:12px;
+  --shadow:0 1px 2px rgba(0,37,53,.06),0 10px 30px -12px rgba(0,37,53,.22);
+  --display:"Saira",system-ui,sans-serif; --body:"Manrope",system-ui,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.55;font-size:16px;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+.display{font-family:var(--display);font-variation-settings:"wdth" 118;letter-spacing:-.01em;line-height:1.02;font-weight:800}
+.eyebrow{font-family:var(--display);font-variation-settings:"wdth" 125;font-weight:700;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--blue)}
+.on-dark .eyebrow,.eyebrow.light{color:var(--sky)}
+section{position:relative}
+.sec{padding:96px 0}
+.sec-head{max-width:760px;margin-bottom:44px}
+.sec-head h2{font-size:clamp(30px,4.6vw,52px);margin:14px 0 14px}
+.sec-head p{color:var(--ink-2);font-size:18px;max-width:620px}
+.on-dark{background:var(--navy);color:#e8f0f5}
+.on-dark .sec-head p{color:#a9bfcc}
+
+/* ===== Botões ===== */
+.btn{--h:54px;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:var(--h);padding:0 26px;border-radius:999px;font-weight:800;font-size:16px;text-decoration:none;transition:transform .2s var(--ease),background .2s,box-shadow .2s;position:relative;overflow:hidden;white-space:nowrap}
+.btn-cta{background:var(--blue);color:#fff;box-shadow:0 10px 24px -10px rgba(0,86,164,.8),inset 0 1px 0 rgba(255,255,255,.18)}
+.btn-cta:hover{background:var(--blue-2);transform:translateY(-2px)}
+.btn-cta:active{transform:scale(.97)}
+.btn-cta::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-120%);transition:transform .7s var(--ease)}
+.btn-cta:hover::after{transform:translateX(120%)}
+.btn-ghost{border:1.5px solid currentColor;opacity:.92}
+.btn-ghost:hover{opacity:1;transform:translateY(-2px)}
+.btn svg{width:18px;height:18px}
+
+/* ===== Topo ===== */
+.top{position:fixed;inset:0 0 auto;z-index:50;transition:background .3s,box-shadow .3s,transform .3s}
+.top.solid{background:rgba(0,37,53,.94);backdrop-filter:blur(10px);box-shadow:0 6px 24px -14px #000}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:20px}
+.logo{display:flex;align-items:center;color:#fff;text-decoration:none}
+.logo svg{height:44px;width:auto}
+.nav{display:flex;gap:28px;font-weight:700;font-size:14px;color:#cfdde6}
+.nav a{text-decoration:none;transition:color .2s}
+.nav a:hover{color:#fff}
+.top .btn{--h:44px;padding:0 20px;font-size:14px}
+@media (max-width:880px){.nav{display:none}.top .btn{display:none}}
+
+/* ===== Hero ===== */
+.hero{min-height:100svh;background:var(--navy);color:#fff;padding:120px 0 64px;overflow:hidden;display:flex;align-items:center}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg svg{width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,37,53,.96) 0%,rgba(0,37,53,.82) 45%,rgba(0,37,53,.35) 100%);z-index:0}
+.hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.12fr .88fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(40px,6.4vw,80px);margin:18px 0 20px}
+.hero h1 em{font-style:normal;color:var(--sky)}
+.rot{display:inline-flex;align-items:center;gap:12px;font-family:var(--display);font-variation-settings:"wdth" 112;font-weight:700;font-size:clamp(18px,2.2vw,24px);color:#dbe8f1}
+.pill{position:relative;display:inline-block;height:1.6em;line-height:1.6em;border-radius:999px;background:var(--blue);padding:0 .7em;overflow:hidden;vertical-align:middle;transition:width .5s cubic-bezier(.34,1.56,.64,1);box-shadow:0 0 0 0 rgba(0,86,164,.6);animation:glow 2.6s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 0 28px 4px rgba(10,104,196,.55)}}
+.pill-strip{display:flex;flex-direction:column;align-items:flex-start;transition:transform .55s cubic-bezier(.34,1.56,.64,1)}
+.pill-strip span{white-space:nowrap;color:#fff;transition:opacity .4s}
+.hero-sub{font-size:clamp(17px,1.6vw,20px);color:#b7cad6;max-width:560px;margin-bottom:30px}
+.choose{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:620px}
+.choose-q{font-weight:800;font-size:14px;letter-spacing:.04em;color:#8fb0c4;margin-bottom:12px;text-transform:uppercase}
+.seg-card{text-align:left;border-radius:var(--r);padding:18px 18px 16px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.14);color:#fff;transition:transform .25s var(--ease),border-color .25s,background .25s;position:relative;min-height:128px;display:flex;flex-direction:column;gap:6px}
+.seg-card:hover{transform:translateY(-3px);border-color:var(--sky);background:rgba(127,180,236,.10)}
+.seg-card[aria-pressed="true"]{border-color:var(--sky);background:rgba(0,86,164,.38)}
+.seg-card small{font-family:var(--display);font-variation-settings:"wdth" 125;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--sky);font-weight:700}
+.seg-card b{font-family:var(--display);font-variation-settings:"wdth" 112;font-size:20px;line-height:1.1}
+.seg-card span{font-size:13.5px;color:#a9c0cf}
+.seg-card .arr{position:absolute;right:14px;top:14px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.1);transition:transform .25s,background .25s}
+.seg-card:hover .arr,.seg-card[aria-pressed="true"] .arr{background:var(--blue);transform:rotate(-45deg)}
+.hero-trust{display:flex;gap:18px;flex-wrap:wrap;margin-top:24px;font-size:13.5px;color:#9db6c6;font-weight:600}
+.hero-trust span{display:flex;align-items:center;gap:7px}
+.hero-trust svg{width:16px;height:16px;color:var(--sky)}
+.hero-art{position:relative;height:540px}
+.hero-art .shirt{position:absolute;filter:drop-shadow(0 30px 40px rgba(0,0,0,.45))}
+.hero-art .s1{width:62%;left:2%;top:12%;transform:rotate(-8deg);animation:float 7s ease-in-out infinite}
+.hero-art .s2{width:58%;right:0;top:0;transform:rotate(7deg);animation:float 8s ease-in-out -2s infinite}
+.hero-art .s3{width:56%;left:24%;top:40%;animation:float 6.5s ease-in-out -4s infinite;z-index:2}
+@keyframes float{50%{translate:0 -14px}}
+.tag-float{position:absolute;z-index:3;background:#fff;color:var(--ink);border-radius:14px;padding:10px 14px;font-size:13px;font-weight:700;box-shadow:var(--shadow);display:flex;gap:10px;align-items:center}
+.tag-float i{width:30px;height:30px;border-radius:9px;background:var(--sky-2);display:grid;place-items:center;font-style:normal;color:var(--blue)}
+.tag-float small{display:block;font-weight:600;color:var(--ink-3);font-size:11.5px}
+.tf1{left:-4%;bottom:16%}.tf2{right:-2%;top:44%}
+@media (max-width:980px){
+  .hero .wrap{grid-template-columns:1fr}
+  .hero-art{height:340px;order:-1;margin:-10px auto -10px;width:min(440px,100%)}
+  .hero{padding-top:92px}
+  .hero::after{background:linear-gradient(180deg,rgba(0,37,53,.55) 0%,rgba(0,37,53,.95) 45%)}
+}
+@media (max-width:560px){
+  .choose{grid-template-columns:1fr}
+  .seg-card{min-height:auto;padding-right:54px}
+  .hero-art{height:280px}
+  .tf2{display:none}
+  .tf1{left:0;bottom:6%}
+}
+
+/* ===== Números ===== */
+.nums{background:var(--navy-2);color:#fff;padding:34px 0;border-top:1px solid rgba(255,255,255,.08)}
+.nums .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.num b{font-family:var(--display);font-variation-settings:"wdth" 120;font-size:clamp(28px,3.6vw,42px);font-weight:800;font-variant-numeric:tabular-nums;display:block;line-height:1}
+.num span{font-size:14px;color:#a9bfcc;font-weight:600}
+@media (max-width:760px){.nums .wrap{grid-template-columns:1fr 1fr;row-gap:26px}}
+
+/* ===== Segment toggle ===== */
+.seg-toggle{display:inline-flex;background:var(--paper-2);border-radius:999px;padding:5px;position:relative;margin-bottom:34px;border:1px solid var(--line)}
+.seg-toggle button{position:relative;z-index:1;padding:11px 20px;border-radius:999px;font-weight:800;font-size:14px;color:var(--ink-2);transition:color .25s}
+.seg-toggle button[aria-pressed="true"]{color:#fff}
+.seg-toggle .knob{position:absolute;top:5px;bottom:5px;border-radius:999px;background:var(--navy);transition:left .4s cubic-bezier(.34,1.4,.64,1),width .4s cubic-bezier(.34,1.4,.64,1)}
+[data-for]{display:none}
+body[data-seg="produtor"] [data-for="produtor"],body[data-seg="empresa"] [data-for="empresa"]{display:revert}
+body[data-seg="produtor"] .grid-dor[data-for="produtor"],body[data-seg="empresa"] .grid-dor[data-for="empresa"]{display:grid}
+
+/* ===== Dores ===== */
+.grid-dor{grid-template-columns:repeat(4,1fr);gap:16px}
+.dor{background:#fff;border-radius:var(--r);padding:26px 22px;border:1px solid var(--line);position:relative;overflow:hidden;animation:rise .6s var(--ease) both}
+.dor:nth-child(2){animation-delay:.07s}.dor:nth-child(3){animation-delay:.14s}.dor:nth-child(4){animation-delay:.21s}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}}
+.dor .ic{width:46px;height:46px;border-radius:13px;background:var(--navy);color:var(--sky);display:grid;place-items:center;margin-bottom:18px}
+.dor .ic svg{width:24px;height:24px}
+.dor q{display:block;font-family:var(--display);font-variation-settings:"wdth" 110;font-weight:800;font-size:20px;line-height:1.15;margin-bottom:10px;quotes:none}
+.dor p{font-size:15px;color:var(--ink-2)}
+.dor .fix{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);font-size:13.5px;font-weight:700;color:var(--blue);display:flex;gap:8px}
+@media (max-width:980px){.grid-dor{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.grid-dor{grid-template-columns:1fr}}
+
+/* ===== Camadas ===== */
+.layers{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.1)}
+.layer{padding:30px 26px 0;position:relative;display:flex;flex-direction:column}
+.layer:nth-child(1){background:#0a3a52}.layer:nth-child(2){background:#0c4766}.layer:nth-child(3){background:#0f557a}
+.layer .lv{font-family:var(--display);font-variation-settings:"wdth" 125;font-size:11px;letter-spacing:.2em;font-weight:700;color:var(--sky);text-transform:uppercase}
+.layer h3{font-size:26px;margin:8px 0 8px}
+.layer p{color:#b3c8d5;font-size:15px;margin-bottom:14px}
+.layer ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.layer li{font-size:12.5px;font-weight:700;background:rgba(255,255,255,.08);border-radius:999px;padding:5px 11px}
+.layer .ls{margin-top:auto;width:72%;align-self:center;translate:0 18%;transition:translate .5s var(--ease)}
+.layer:hover .ls{translate:0 6%}
+@media (max-width:860px){.layers{grid-template-columns:1fr}.layer .ls{width:52%}}
+
+/* ===== Peças ===== */
+.prods{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.prod{background:#fff;border-radius:22px;overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column;transition:transform .3s var(--ease),box-shadow .3s}
+.prod:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.prod-art{background:radial-gradient(120% 90% at 50% 100%,var(--sky-2),#eef3f7 60%);height:230px;display:grid;place-items:center;position:relative}
+.prod-art svg{height:190px;width:auto;transition:transform .5s var(--ease)}
+.prod:hover .prod-art svg{transform:scale(1.05) rotate(-2deg)}
+.prod-art .where{position:absolute;left:14px;top:14px;font-size:11.5px;font-weight:800;background:#fff;border-radius:999px;padding:5px 10px;color:var(--navy)}
+.prod-body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
+.prod h3{font-family:var(--display);font-variation-settings:"wdth" 112;font-size:21px;font-weight:800}
+.prod p{font-size:14.5px;color:var(--ink-2)}
+.prod .feat{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:10px}
+.prod .feat li{font-size:12px;font-weight:700;color:var(--blue);background:#eaf2fb;border-radius:8px;padding:4px 9px}
+.prod .add{margin-top:14px;font-weight:800;font-size:14px;color:var(--navy);display:flex;align-items:center;gap:8px;min-height:44px}
+.prod .add:hover{color:var(--blue)}
+@media (max-width:980px){.prods{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.prods{grid-template-columns:1fr}.prod-art{height:200px}}
+
+/* ===== Cases ===== */
+.cases-sec{background:var(--sand);overflow:hidden}
+.cases-sec::before{content:"";position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");pointer-events:none}
+.case-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.case-tabs button{padding:10px 18px;border-radius:999px;font-weight:800;font-size:14px;background:rgba(255,255,255,.6);border:1px solid rgba(0,37,53,.12);min-height:44px;transition:background .2s,color .2s}
+.case-tabs button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.case-tabs .ct{font-size:12px;opacity:.7;margin-left:4px}
+.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
+.case{background:#fff;border-radius:22px;overflow:hidden;text-align:left;display:flex;flex-direction:column;box-shadow:0 1px 0 rgba(0,0,0,.04);transition:transform .35s var(--ease),box-shadow .35s;position:relative;animation:rise .5s var(--ease) both}
+.case:hover{transform:translateY(-6px);box-shadow:0 28px 50px -24px rgba(0,37,53,.45)}
+.case[hidden]{display:none}
+.case-img{position:relative;aspect-ratio:16/11;overflow:hidden;background:var(--navy)}
+.case-img .scene{position:absolute;inset:0;width:100%;height:100%;transition:transform .8s var(--ease)}
+.case:hover .case-img .scene{transform:scale(1.06)}
+.case-img .mk{position:absolute;right:6%;bottom:-6%;width:42%;filter:drop-shadow(0 18px 20px rgba(0,0,0,.4));transition:transform .5s var(--ease)}
+.case:hover .case-img .mk{transform:translateY(-6px) rotate(-3deg)}
+.case-img .seg{position:absolute;left:14px;top:14px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:rgba(255,255,255,.92);color:var(--navy);border-radius:999px;padding:5px 10px}
+.photo-tag{position:absolute;left:14px;bottom:12px;font-size:10.5px;font-weight:700;color:rgba(255,255,255,.75);letter-spacing:.06em;display:flex;align-items:center;gap:6px}
+.photo-tag::before{content:"";width:12px;height:9px;border:1.5px solid currentColor;border-radius:2px}
+.case-body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.case-body .who{font-size:13px;font-weight:700;color:var(--ink-3)}
+.case-body h3{font-family:var(--display);font-variation-settings:"wdth" 108;font-size:21px;line-height:1.15;font-weight:800}
+.case-kpis{display:flex;gap:18px;margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
+.case-kpis div b{font-family:var(--display);font-variation-settings:"wdth" 118;font-size:22px;display:block;line-height:1.1}
+.case-kpis div span{font-size:12px;color:var(--ink-3);font-weight:600}
+.case-open{display:flex;align-items:center;justify-content:space-between;font-weight:800;color:var(--blue);font-size:14.5px;margin-top:6px;min-height:40px}
+.case-open i{width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-style:normal;transition:transform .3s}
+.case:hover .case-open i{transform:translateX(4px)}
+.case-more{margin-top:26px;font-size:14px;color:var(--ink-2);display:flex;gap:10px;align-items:center}
+@media (max-width:980px){.cases{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.cases{grid-template-columns:1fr}}
+
+/* ===== Modal do case ===== */
+.sheet{position:fixed;inset:0;z-index:100;display:none}
+.sheet.open{display:block}
+.sheet-bg{position:absolute;inset:0;background:rgba(0,20,30,.6);backdrop-filter:blur(6px);animation:fade .3s both}
+@keyframes fade{from{opacity:0}}
+.sheet-panel{position:absolute;inset:3vh 0 0;margin-inline:auto;width:min(1040px,100%);background:var(--paper);border-radius:28px 28px 0 0;overflow:auto;overscroll-behavior:contain;animation:up .5s var(--ease) both}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+.sheet-close{position:sticky;top:14px;float:right;margin:14px 14px -58px 0;z-index:5;width:44px;height:44px;border-radius:50%;background:#fff;box-shadow:var(--shadow);display:grid;place-items:center}
+.cs-hero{position:relative;height:clamp(320px,52vh,480px);overflow:hidden;color:#fff;background:var(--navy)}
+.cs-hero .scene{position:absolute;inset:0;width:100%;height:100%}
+.cs-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,20,30,.85))}
+.cs-hero .mks{position:absolute;right:4%;bottom:-8%;display:flex;align-items:flex-end;z-index:1}
+.cs-hero .mks svg{width:clamp(120px,17vw,190px);filter:drop-shadow(0 20px 26px rgba(0,0,0,.45));margin-left:-34px}
+.cs-hero .mks svg:nth-child(2){width:clamp(140px,20vw,220px);z-index:2;margin-bottom:-4%}
+.cs-hero-txt{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:0 clamp(20px,4vw,48px) 30px;max-width:640px}
+.cs-hero-txt h2{font-size:clamp(28px,4vw,44px);margin-top:10px}
+.cs-meta{display:grid;grid-template-columns:repeat(4,1fr);background:var(--navy);color:#fff}
+.cs-meta div{padding:18px clamp(16px,3vw,28px);border-right:1px solid rgba(255,255,255,.1)}
+.cs-meta small{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sky);font-weight:800;margin-bottom:3px}
+.cs-meta b{font-size:15px}
+.cs-body{padding:clamp(28px,4vw,52px) clamp(20px,4vw,48px) 40px;display:grid;grid-template-columns:1.25fr .75fr;gap:40px}
+.cs-body h3{font-family:var(--display);font-variation-settings:"wdth" 118;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin:0 0 12px;font-weight:800}
+.cs-body .blk{margin-bottom:34px}
+.cs-body p{font-size:17px;color:var(--ink-2)}
+.cs-why{list-style:none;display:grid;gap:10px}
+.cs-why li{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;gap:12px;font-size:15.5px}
+.cs-why li b{display:block}
+.cs-why .n{flex:none;width:28px;height:28px;border-radius:8px;background:var(--navy);color:#fff;font-weight:800;display:grid;place-items:center;font-size:13px}
+.cs-do{list-style:none;display:grid;gap:12px}
+.cs-do li{display:flex;gap:12px;font-size:16px;color:var(--ink-2)}
+.cs-do li::before{content:"";flex:none;width:20px;height:20px;margin-top:3px;border-radius:50%;background:var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/12px no-repeat}
+.cs-res{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.cs-res div{background:var(--navy);color:#fff;border-radius:16px;padding:18px 16px}
+.cs-res b{font-family:var(--display);font-variation-settings:"wdth" 120;font-size:30px;display:block;line-height:1;color:#fff}
+.cs-res span{font-size:13px;color:#a9bfcc;font-weight:600}
+.cs-quote{background:#fff;border-radius:20px;padding:26px;border:1px solid var(--line);position:relative}
+.cs-quote::before{content:"“";position:absolute;top:-4px;left:20px;font-family:Georgia,serif;font-size:90px;color:var(--sky);line-height:1}
+.cs-quote p{font-family:var(--display);font-variation-settings:"wdth" 104;font-weight:700;font-size:20px;color:var(--ink);line-height:1.3;margin:22px 0 16px}
+.who-row{display:flex;align-items:center;gap:12px}
+.av{width:42px;height:42px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:800;font-size:14px;flex:none}
+.who-row small{display:block;color:var(--ink-3);font-size:13px}
+.side-card{background:#fff;border-radius:20px;border:1px solid var(--line);padding:22px;margin-bottom:16px}
+.pc-row{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14.5px}
+.pc-row:last-child{border:0}
+.pc-row b{font-variant-numeric:tabular-nums}
+.pc-bar{grid-column:1/-1;height:6px;border-radius:9px;background:var(--paper-2);overflow:hidden}
+.pc-bar i{display:block;height:100%;background:var(--blue);border-radius:9px;transform-origin:left;animation:grow 1s var(--ease) both .2s}
+@keyframes grow{from{transform:scaleX(0)}}
+.pc-total{display:flex;justify-content:space-between;font-weight:800;margin-top:10px;font-size:15px}
+.swatches{display:flex;gap:8px;margin-top:6px}
+.swatches i{width:30px;height:30px;border-radius:9px;border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
+.gal{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px}
+.gal div{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/3;background:var(--navy)}
+.gal div:first-child{aspect-ratio:auto;grid-row:span 1}
+.gal svg{width:100%;height:100%}
+.gal span{position:absolute;left:10px;bottom:8px;font-size:11px;color:#fff;font-weight:700;background:rgba(0,0,0,.35);padding:3px 8px;border-radius:6px}
+.cs-cta{background:var(--navy);color:#fff;border-radius:22px;padding:28px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin:0 clamp(20px,4vw,48px) 40px;flex-wrap:wrap}
+.cs-cta h4{font-family:var(--display);font-variation-settings:"wdth" 115;font-size:24px}
+.cs-cta p{color:#a9bfcc;font-size:15px}
+.demo-note{font-size:12px;color:var(--ink-3);padding:0 clamp(20px,4vw,48px) 34px}
+@media (max-width:860px){.cs-body{grid-template-columns:1fr}.cs-meta{grid-template-columns:1fr 1fr}.cs-meta div:nth-child(2){border-right:0}.cs-meta div:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.1)}.cs-res{grid-template-columns:1fr 1fr 1fr}.cs-res b{font-size:24px}.gal{grid-template-columns:1fr 1fr}.gal div:first-child{grid-column:1/-1;aspect-ratio:16/9}}
+@media (max-width:560px){.sheet-panel{inset:0;border-radius:0}.cs-res{grid-template-columns:1fr}.cs-hero .mks svg{width:110px}.cs-hero .mks svg:nth-child(2){width:130px}}
+
+/* ===== Como funciona (S-path) ===== */
+.how{position:relative}
+.how svg.path{width:100%;height:auto;overflow:visible}
+.how-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:-12px}
+.step{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:22px 20px;opacity:.35;transform:translateY(16px);transition:opacity .6s var(--ease),transform .6s var(--ease),border-color .6s}
+.step.on{opacity:1;transform:none;border-color:rgba(127,180,236,.45)}
+.step .k{font-family:var(--display);font-variation-settings:"wdth" 125;font-size:12px;letter-spacing:.18em;color:var(--sky);font-weight:800}
+.step h3{font-family:var(--display);font-variation-settings:"wdth" 112;font-size:21px;margin:8px 0 6px}
+.step p{font-size:14.5px;color:#a9bfcc}
+.how-live{display:inline-flex;align-items:center;gap:10px;margin-top:28px;background:rgba(255,255,255,.08);border-radius:999px;padding:10px 18px;font-weight:700;font-size:14px;opacity:0;transform:translateY(8px);transition:all .6s var(--ease)}
+.how-live.on{opacity:1;transform:none}
+.dot-live{width:9px;height:9px;border-radius:50%;background:#3ddc84;box-shadow:0 0 0 0 rgba(61,220,132,.6);animation:pulse 1.6s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(61,220,132,0)}100%{box-shadow:0 0 0 0 rgba(61,220,132,0)}}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
+.rule{display:flex;gap:14px;align-items:flex-start;padding:18px;border-radius:16px;background:rgba(0,0,0,.18)}
+.rule b{font-family:var(--display);font-variation-settings:"wdth" 120;font-size:30px;line-height:1;color:#fff;min-width:64px}
+.rule span{font-size:14px;color:#a9bfcc}
+.rule span strong{color:#fff;display:block;font-size:15px}
+@media (max-width:900px){.how svg.path{display:none}.how-steps{grid-template-columns:1fr 1fr;margin-top:0}.rules{grid-template-columns:1fr}}
+@media (max-width:520px){.how-steps{grid-template-columns:1fr}}
+
+/* ===== Comparativo ===== */
+.cmp{background:#fff;border-radius:24px;border:1px solid var(--line);overflow:hidden;position:relative}
+.cmp-row{display:grid;grid-template-columns:1.6fr .7fr .7fr;align-items:center;border-bottom:1px solid var(--line);min-height:62px}
+.cmp-row:last-child{border:0}
+.cmp-row>*{padding:12px 20px}
+.cmp-head{font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.cmp-head .us{color:var(--blue)}
+.cmp-row .lbl{font-weight:700;font-size:15.5px;opacity:0;transform:translateX(-14px);transition:all .5s var(--ease)}
+.cmp-row.on .lbl{opacity:1;transform:none}
+.cmp-row .c{display:grid;place-items:center}
+.cmp-row .c svg{width:30px;height:30px}
+.cmp-row .x path{stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .4s ease .1s}
+.cmp-row.on .x path{stroke-dashoffset:0}
+.cmp-row .v circle{transform:scale(0);transform-origin:center;transition:transform .45s cubic-bezier(.34,1.56,.64,1) .25s}
+.cmp-row .v path{stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .35s ease .5s}
+.cmp-row.on .v circle{transform:scale(1)}
+.cmp-row.on .v path{stroke-dashoffset:0}
+.cmp-hl{position:absolute;top:0;bottom:0;right:0;width:calc(.7 / 3 * 100%);background:linear-gradient(180deg,rgba(0,86,164,.08),rgba(0,86,164,.03));border-left:2px solid rgba(0,86,164,.25);pointer-events:none;transform:scaleY(0);transform-origin:top;transition:transform .9s var(--ease)}
+.cmp.on .cmp-hl{transform:none}
+@media (max-width:600px){.cmp-row{grid-template-columns:1.5fr .55fr .55fr}.cmp-row>*{padding:12px 10px}.cmp-row .lbl{font-size:14px}.cmp-head{font-size:10.5px;letter-spacing:.02em}.cmp-hl{width:calc(.55 / 2.6 * 100%)}}
+
+/* ===== Depoimentos stack ===== */
+.testi{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+.stack{position:relative;height:330px;max-width:520px;width:100%;margin-inline:auto}
+.tcard{position:absolute;inset:auto 0 0;height:280px;background:#fff;color:var(--ink);border-radius:22px;padding:26px;box-shadow:0 20px 40px -20px rgba(0,0,0,.5);transition:transform .6s cubic-bezier(.65,0,.35,1),opacity .6s,filter .6s;display:flex;flex-direction:column}
+.tcard .stars{display:flex;gap:3px;margin-bottom:12px}
+.tcard .stars svg{width:18px;height:18px;color:#d6dde2}
+.tcard.front .stars svg{animation:star .35s cubic-bezier(.34,1.56,.64,1) both}
+.tcard.front .stars svg{color:#f2a81d}
+.tcard.front .stars svg:nth-child(2){animation-delay:.08s}.tcard.front .stars svg:nth-child(3){animation-delay:.16s}.tcard.front .stars svg:nth-child(4){animation-delay:.24s}.tcard.front .stars svg:nth-child(5){animation-delay:.32s}
+@keyframes star{from{transform:scale(.3)}}
+.tcard p{font-family:var(--display);font-variation-settings:"wdth" 104;font-weight:700;font-size:clamp(18px,2vw,22px);line-height:1.28;flex:1}
+.tcard.out{transform:translateX(-120%) rotate(-10deg)!important;opacity:0!important}
+.stack-meta{margin-top:20px;text-align:center;font-weight:700;color:#a9bfcc;font-size:14px}
+.stack-meta b{color:#fff}
+@media (max-width:900px){.testi{grid-template-columns:1fr;gap:30px}.stack{height:340px}.tcard{height:300px}}
+
+/* ===== Formulário ===== */
+.form-sec{background:linear-gradient(180deg,var(--paper) 0,var(--paper-2) 100%)}
+.fwrap{display:grid;grid-template-columns:1.3fr .7fr;gap:24px;align-items:start}
+.fcard{background:#fff;border-radius:26px;border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden}
+.fprog{padding:22px 28px 0}
+.fprog-top{display:flex;justify-content:space-between;font-size:13px;font-weight:800;color:var(--ink-3);margin-bottom:10px}
+.fprog-top b{color:var(--navy)}
+.fbar{height:8px;border-radius:9px;background:var(--paper-2);overflow:hidden}
+.fbar i{display:block;height:100%;width:25%;background:linear-gradient(90deg,var(--blue),var(--sky));border-radius:9px;transition:width .5s var(--ease)}
+.fsteps{display:flex;gap:6px;margin-top:12px}
+.fsteps span{flex:1;font-size:11.5px;font-weight:700;color:var(--ink-3);text-align:center}
+.fsteps span.on{color:var(--navy)}
+.fstep{display:none;padding:26px 28px 30px}
+.fstep.on{display:block;animation:rise .45s var(--ease) both}
+.fstep h3{font-family:var(--display);font-variation-settings:"wdth" 112;font-size:26px;line-height:1.1;margin-bottom:6px}
+.fstep .hint{color:var(--ink-3);font-size:14.5px;margin-bottom:22px}
+.lbl-f{display:block;font-weight:800;font-size:14px;margin:18px 0 10px}
+.opts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.opts.three{grid-template-columns:repeat(3,1fr)}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt label{display:flex;align-items:center;gap:10px;min-height:52px;padding:12px 14px;border-radius:14px;border:1.5px solid var(--line);font-weight:700;font-size:14.5px;cursor:pointer;transition:border-color .2s,background .2s;background:#fff;line-height:1.25}
+.opt label:hover{border-color:var(--sky)}
+.opt input:checked+label{border-color:var(--blue);background:#eef5fd;color:var(--navy)}
+.opt input:focus-visible+label{outline:3px solid var(--sky);outline-offset:2px}
+.opt label .em{width:30px;height:30px;border-radius:9px;background:var(--paper-2);display:grid;place-items:center;flex:none;color:var(--navy)}
+.opt input:checked+label .em{background:var(--blue);color:#fff}
+.opt label small{display:block;font-weight:600;color:var(--ink-3);font-size:12.5px}
+.qty-list{display:grid;gap:10px}
+.qty{display:grid;grid-template-columns:58px 1fr auto;align-items:center;gap:14px;border:1.5px solid var(--line);border-radius:16px;padding:8px 12px 8px 8px;transition:border-color .2s,background .2s}
+.qty.has{border-color:var(--blue);background:#f4f9fe}
+.qty .mini{width:58px;height:58px;border-radius:12px;background:var(--paper);display:grid;place-items:center}
+.qty .mini svg{height:48px;width:auto}
+.qty b{display:block;font-size:15px}
+.qty small{color:var(--ink-3);font-size:12.5px;font-weight:600}
+.stepper{display:flex;align-items:center;gap:4px;background:var(--paper);border-radius:999px;padding:4px}
+.stepper button{width:40px;height:40px;border-radius:50%;background:#fff;font-weight:800;font-size:20px;line-height:1;box-shadow:0 1px 2px rgba(0,0,0,.08);display:grid;place-items:center}
+.stepper button:active{transform:scale(.92)}
+.stepper input{width:52px;text-align:center;border:0;background:none;font:800 16px var(--body);font-variant-numeric:tabular-nums;color:var(--ink);-moz-appearance:textfield}
+.stepper input::-webkit-outer-spin-button,.stepper input::-webkit-inner-spin-button{-webkit-appearance:none}
+.min-meter{margin-top:16px;background:var(--paper);border-radius:14px;padding:14px 16px}
+.min-meter .mm-top{display:flex;justify-content:space-between;font-size:13.5px;font-weight:700;margin-bottom:8px}
+.min-meter .mm-bar{height:8px;border-radius:9px;background:#dde4e0;overflow:hidden}
+.min-meter .mm-bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .4s var(--ease),background .3s}
+.min-meter.short .mm-bar i{background:#e0a23a}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label{font-weight:800;font-size:14px}
+.field input,.field select,.field textarea{min-height:52px;border-radius:14px;border:1.5px solid var(--line);padding:12px 14px;font:600 16px var(--body);color:var(--ink);background:#fff;transition:border-color .2s}
+.field textarea{min-height:90px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px rgba(0,86,164,.12)}
+.field .err{color:#b3261e;font-size:13px;font-weight:700;display:none}
+.field.bad input{border-color:#b3261e}.field.bad .err{display:block}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row-uf{display:grid;grid-template-columns:1fr 110px;gap:12px}
+.fnav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+.fnav .back{font-weight:800;color:var(--ink-3);min-height:48px;padding:0 6px}
+.fnav .back[hidden]{visibility:hidden;display:block}
+.fnote{font-size:12.5px;color:var(--ink-3);margin-top:12px;display:flex;gap:6px;align-items:center}
+.sum{background:var(--navy);color:#fff;border-radius:26px;padding:26px;position:sticky;top:92px}
+.sum h4{font-family:var(--display);font-variation-settings:"wdth" 118;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--sky);margin-bottom:16px}
+.sum-row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:14.5px}
+.sum-row span{color:#a9bfcc}
+.sum-row b{text-align:right}
+.sum-empty{color:#7f9aab;font-size:14px;padding:6px 0 10px}
+.sum-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:16px}
+.sum-total b{font-family:var(--display);font-variation-settings:"wdth" 120;font-size:40px;line-height:1;font-variant-numeric:tabular-nums}
+.sum-perks{list-style:none;display:grid;gap:8px;margin-top:20px;font-size:13.5px;color:#b9ccd7}
+.sum-perks li{display:flex;gap:8px}
+.sum-perks svg{width:16px;height:16px;color:#3ddc84;flex:none;margin-top:3px}
+.done{text-align:center;padding:40px 28px 40px;display:none}
+.done.on{display:block}
+.done .ok{width:96px;height:96px;margin:0 auto 18px;position:relative}
+.done .ok circle{fill:var(--blue);transform:scale(0);transform-origin:center;animation:pop .5s cubic-bezier(.34,1.56,.64,1) both}
+.done .ok path{stroke-dasharray:60;stroke-dashoffset:60;animation:draw .45s ease .35s forwards}
+@keyframes pop{to{transform:scale(1)}}
+@keyframes draw{to{stroke-dashoffset:0}}
+.done h3{font-family:var(--display);font-variation-settings:"wdth" 115;font-size:30px}
+.done p{color:var(--ink-2);max-width:460px;margin:10px auto 22px}
+.confetti{position:absolute;inset:0;pointer-events:none;overflow:visible}
+@media (max-width:960px){.fwrap{grid-template-columns:1fr}.sum{position:static;order:-1;padding:20px}.sum-perks{display:none}}
+@media (max-width:560px){.fstep,.fprog{padding-left:18px;padding-right:18px}.opts.three{grid-template-columns:1fr 1fr}.row2{grid-template-columns:1fr}.qty{grid-template-columns:46px 1fr;row-gap:8px}.qty .mini{width:46px;height:46px}.qty .mini svg{height:38px}.stepper{grid-column:1/-1;justify-self:end}.fsteps span{font-size:10.5px}}
+
+/* ===== FAQ ===== */
+.faq{max-width:840px}
+.faq details{border-bottom:1px solid var(--line);padding:4px 0}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;min-height:64px;font-weight:800;font-size:17px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary i{width:32px;height:32px;border-radius:50%;background:var(--paper-2);display:grid;place-items:center;flex:none;font-style:normal;transition:transform .3s,background .3s}
+.faq details[open] summary i{transform:rotate(45deg);background:var(--navy);color:#fff}
+.faq details p{padding:0 48px 20px 0;color:var(--ink-2)}
+
+/* ===== CTA final + rodapé ===== */
+.final{background:var(--navy);color:#fff;overflow:hidden}
+.final .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}
+.final h2{font-size:clamp(34px,5vw,60px)}
+.final p{color:#a9bfcc;font-size:18px;margin:16px 0 28px;max-width:540px}
+.final-art{position:relative;height:320px}
+.final-art svg{position:absolute;width:70%;left:15%;top:0;filter:drop-shadow(0 30px 40px rgba(0,0,0,.4))}
+.foot{background:#001a26;color:#86a3b4;padding:44px 0 110px;font-size:14px}
+.foot .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
+.foot .logo svg{height:38px}
+.foot a{text-decoration:none;font-weight:700;color:#cfdde6}
+.foot .demo{width:100%;font-size:12px;color:#5f7f91;border-top:1px solid rgba(255,255,255,.08);padding-top:18px}
+@media (max-width:860px){.final .wrap{grid-template-columns:1fr}.final-art{height:220px}}
+
+/* barra fixa mobile */
+.mbar{position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:60;display:none;transform:translateY(140%);transition:transform .4s var(--ease)}
+.mbar.on{transform:none}
+.mbar .btn{width:100%;--h:56px}
+@media (max-width:880px){.mbar{display:block}}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+:focus-visible{outline:3px solid var(--sky);outline-offset:3px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.step{opacity:1;transform:none}.cmp-row .lbl{opacity:1;transform:none}}
+</style>
+</head>
+<body data-seg="produtor">
+
+<!-- ===== TOPO ===== -->
+<header class="top" id="top">
+  <div class="wrap">
+    <a href="#inicio" class="logo" aria-label="Kauê Uniformes"><svg role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="146.4 398.6 787.2 227.1">
+
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 420.460938 572.191406 L 420.460938 546.476562 L 428.925781 546.476562 L 428.925781 571.867188 C 428.925781 581.242188 433.15625 585.28125 440.511719 585.28125 C 447.871094 585.28125 452.035156 581.242188 452.035156 571.867188 L 452.035156 546.476562 L 460.371094 546.476562 L 460.371094 572.191406 C 460.371094 585.476562 452.882812 592.703125 440.445312 592.703125 C 427.945312 592.703125 420.460938 585.476562 420.460938 572.191406 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 525.734375 546.476562 L 525.734375 592.050781 L 518.769531 592.050781 L 493.636719 561.1875 L 493.636719 592.050781 L 485.238281 592.050781 L 485.238281 546.476562 L 492.207031 546.476562 L 517.335938 577.335938 L 517.335938 546.476562 Z M 525.734375 546.476562 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 550.996094 546.476562 L 559.460938 546.476562 L 559.460938 592.050781 L 550.996094 592.050781 Z M 550.996094 546.476562 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 593.25 553.574219 L 593.25 567.441406 L 615.253906 567.441406 L 615.253906 574.601562 L 593.25 574.601562 L 593.25 592.050781 L 584.785156 592.050781 L 584.785156 546.476562 L 618.054688 546.476562 L 618.054688 553.574219 Z M 593.25 553.574219 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 676.066406 569.261719 C 676.066406 559.953125 669.226562 553.246094 660.046875 553.246094 C 650.867188 553.246094 644.03125 559.953125 644.03125 569.261719 C 644.03125 578.574219 650.867188 585.277344 660.046875 585.277344 C 669.226562 585.277344 676.066406 578.574219 676.066406 569.261719 M 635.503906 569.261719 C 635.503906 555.785156 645.917969 545.824219 660.046875 545.824219 C 674.175781 545.824219 684.59375 555.722656 684.59375 569.261719 C 684.59375 582.804688 674.175781 592.703125 660.046875 592.703125 C 645.917969 592.703125 635.503906 582.742188 635.503906 569.261719 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 724.957031 553.636719 L 715.0625 553.636719 L 715.0625 571.804688 L 724.957031 571.804688 C 732.382812 571.804688 736.222656 568.417969 736.222656 562.6875 C 736.222656 556.957031 732.382812 553.636719 724.957031 553.636719 M 736.417969 592.050781 L 727.105469 578.703125 C 726.519531 578.769531 725.933594 578.769531 725.347656 578.769531 L 715.0625 578.769531 L 715.0625 592.050781 L 706.597656 592.050781 L 706.597656 546.476562 L 725.347656 546.476562 C 737.328125 546.476562 744.75 552.597656 744.75 562.6875 C 744.75 569.589844 741.234375 574.667969 735.050781 577.074219 L 745.53125 592.050781 Z M 736.417969 592.050781 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 809.074219 592.050781 L 809.011719 561.839844 L 794.035156 586.84375 L 790.261719 586.84375 L 775.285156 562.230469 L 775.285156 592.050781 L 767.210938 592.050781 L 767.210938 546.476562 L 774.179688 546.476562 L 792.277344 576.683594 L 810.054688 546.476562 L 817.019531 546.476562 L 817.082031 592.050781 Z M 809.074219 592.050781 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 876.589844 584.953125 L 876.589844 592.050781 L 842.40625 592.050781 L 842.40625 546.476562 L 875.675781 546.476562 L 875.675781 553.574219 L 850.871094 553.574219 L 850.871094 565.421875 L 872.878906 565.421875 L 872.878906 572.386719 L 850.871094 572.386719 L 850.871094 584.953125 Z M 876.589844 584.953125 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 895.210938 587.234375 L 898.136719 580.65625 C 901.785156 583.585938 907.578125 585.671875 913.179688 585.671875 C 920.277344 585.671875 923.269531 583.128906 923.269531 579.746094 C 923.269531 569.914062 896.183594 576.359375 896.183594 559.429688 C 896.183594 552.074219 902.046875 545.824219 914.546875 545.824219 C 920.015625 545.824219 925.746094 547.257812 929.714844 549.863281 L 927.046875 556.4375 C 922.945312 554.027344 918.453125 552.855469 914.480469 552.855469 C 907.449219 552.855469 904.585938 555.589844 904.585938 559.042969 C 904.585938 568.742188 931.605469 562.425781 931.605469 579.160156 C 931.605469 586.453125 925.679688 592.703125 913.179688 592.703125 C 906.082031 592.703125 898.984375 590.488281 895.210938 587.234375 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 525.414062 439.015625 L 487.59375 482.851562 L 525.414062 526.6875 L 494.835938 526.6875 L 467.332031 493.777344 L 443.140625 493.777344 L 443.140625 515.082031 L 419.933594 526.6875 L 419.933594 439.015625 L 443.140625 450.617188 L 443.140625 471.921875 L 467.332031 471.921875 L 494.835938 439.015625 Z M 525.414062 439.015625 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 643.523438 484.273438 L 643.523438 481.800781 C 643.523438 479 643.292969 476.359375 642.84375 473.886719 C 642.386719 471.414062 641.585938 469.230469 640.429688 467.332031 C 639.273438 465.4375 637.710938 463.929688 635.730469 462.820312 C 633.753906 461.707031 631.199219 461.148438 628.066406 461.148438 L 593.441406 461.148438 C 590.308594 461.148438 587.730469 461.707031 585.710938 462.820312 C 583.691406 463.929688 582.105469 465.4375 580.953125 467.332031 C 579.796875 469.230469 578.992188 471.414062 578.542969 473.886719 C 578.085938 476.359375 577.859375 479 577.859375 481.800781 L 577.859375 484.273438 Z M 620.398438 439.015625 C 623.035156 439.015625 626.023438 439.160156 629.363281 439.449219 C 632.703125 439.738281 636.082031 440.394531 639.503906 441.425781 C 642.921875 442.457031 646.285156 443.921875 649.582031 445.816406 C 652.878906 447.714844 655.804688 450.289062 658.359375 453.542969 C 660.914062 456.800781 662.976562 460.839844 664.542969 465.664062 C 666.109375 470.484375 666.894531 476.277344 666.894531 483.035156 L 666.894531 526.6875 L 643.523438 515.082031 L 643.523438 504.921875 L 577.859375 504.921875 L 577.859375 515.082031 L 554.488281 526.6875 L 554.488281 483.035156 C 554.488281 476.277344 555.273438 470.484375 556.839844 465.664062 C 558.40625 460.839844 560.488281 456.800781 563.082031 453.542969 C 565.679688 450.289062 568.605469 447.714844 571.863281 445.816406 C 575.121094 443.921875 578.480469 442.457031 581.941406 441.425781 C 585.40625 440.394531 588.804688 439.738281 592.144531 439.449219 C 595.480469 439.160156 598.46875 439.015625 601.109375 439.015625 Z M 620.398438 439.015625 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 783.871094 452.042969 L 783.871094 485.324219 C 783.871094 488.125 783.648438 490.769531 783.191406 493.242188 C 782.742188 495.714844 781.933594 497.898438 780.78125 499.796875 C 779.628906 501.6875 778.042969 503.195312 776.015625 504.304688 C 774 505.417969 771.421875 505.976562 768.289062 505.976562 L 733.667969 505.976562 C 730.535156 505.976562 727.976562 505.417969 726.003906 504.304688 C 724.019531 503.195312 722.453125 501.6875 721.300781 499.796875 C 720.148438 497.898438 719.34375 495.714844 718.890625 493.242188 C 718.433594 490.769531 718.210938 488.125 718.210938 485.324219 L 718.210938 452.042969 L 694.835938 440.4375 L 694.835938 484.085938 C 694.835938 490.84375 695.625 496.640625 697.191406 501.460938 C 698.757812 506.289062 700.816406 510.320312 703.371094 513.582031 C 705.921875 516.832031 708.851562 519.410156 712.148438 521.308594 C 715.449219 523.207031 718.808594 524.667969 722.230469 525.699219 C 725.652344 526.734375 729.03125 527.386719 732.367188 527.679688 C 735.703125 527.96875 738.699219 528.109375 741.332031 528.109375 L 760.625 528.109375 C 763.265625 528.109375 766.253906 527.96875 769.589844 527.679688 C 772.925781 527.386719 776.328125 526.734375 779.789062 525.699219 C 783.253906 524.667969 786.613281 523.207031 789.867188 521.308594 C 793.125 519.410156 796.046875 516.832031 798.648438 513.582031 C 801.246094 510.320312 803.328125 506.289062 804.894531 501.460938 C 806.460938 496.640625 807.238281 490.84375 807.238281 484.085938 L 807.238281 440.4375 Z M 783.871094 452.042969 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 883.898438 415.507812 L 906.882812 428.148438 L 883.898438 400.566406 L 860.917969 428.148438 Z M 883.898438 415.507812 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 931.605469 439.015625 L 920 460.746094 L 859.402344 460.746094 L 859.402344 472.90625 L 920 472.90625 L 920 493.410156 L 859.402344 493.410156 L 859.402344 504.953125 L 920 504.953125 L 931.605469 526.6875 L 836.195312 526.6875 L 836.195312 439.015625 Z M 931.605469 439.015625 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 213.050781 408.152344 L 213.050781 494.359375 L 148.394531 515.910156 L 213.050781 537.460938 L 213.050781 623.667969 L 277.703125 559.011719 L 234.601562 515.910156 L 277.703125 472.804688 Z M 213.050781 408.152344 "/>
+<path fill-rule="nonzero" fill="rgb(0%, 33.699036%, 64.299011%)" fill-opacity="1" d="M 326.195312 515.910156 L 385.460938 408.152344 L 256.152344 515.910156 L 385.460938 623.667969 Z M 326.195312 515.910156 "/>
+</svg></a>
+    <nav class="nav" aria-label="Principal">
+      <a href="#pecas">Peças</a><a href="#cases">Cases</a><a href="#como">Como funciona</a><a href="#duvidas">Dúvidas</a>
+    </nav>
+    <a href="#pedido" class="btn btn-cta">Montar meu pedido</a>
+  </div>
+</header>
+
+<main id="inicio">
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true" id="heroBg"></div>
+  <div class="wrap">
+    <div>
+      <p class="eyebrow light">Uniformes para o agro · Brasil todo</p>
+      <h1 class="display">Uniforme que aguenta <em>sol, poeira</em> e a safra inteira.</h1>
+      <p class="rot" aria-label="Feito pra lavoura, colheita, curral, revenda e escritório">
+        Feito pra
+        <span class="pill" id="pill" aria-hidden="true"><span class="pill-strip" id="pillStrip"></span></span>
+      </p>
+      <p class="hero-sub" style="margin-top:18px">Camisa UV pra lida, polo pra quem vende, camisa social pro escritório. A mesma marca do peão ao gerente, com o padrão que a sua operação merece.</p>
+      <p class="choose-q">Pra quem é o uniforme?</p>
+      <div class="choose">
+        <button class="seg-card" data-pick="produtor" aria-pressed="false">
+          <small>Da porteira pra dentro</small>
+          <b>Sou produtor rural</b>
+          <span>Fazenda, pecuária, café, granja</span>
+          <span class="arr" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </button>
+        <button class="seg-card" data-pick="empresa" aria-pressed="false">
+          <small>Da porteira pra fora</small>
+          <b>Sou empresa do agro</b>
+          <span>Revenda, cooperativa, prestador de serviço</span>
+          <span class="arr" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </button>
+      </div>
+      <div class="hero-trust">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Layout pra aprovar antes de produzir</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>A partir de 30 peças</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Enviamos pra todo o Brasil</span>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="shirt s1" id="hs1"></div>
+      <div class="shirt s2" id="hs2"></div>
+      <div class="shirt s3" id="hs3"></div>
+      <div class="tag-float tf1"><i>☀</i><div>Camisa UV manga longa<small>pra lida no sol forte</small></div></div>
+      <div class="tag-float tf2"><i>✦</i><div>Sua logo bordada<small>vetor guardado pra recompra</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NÚMEROS ===== -->
+<div class="nums">
+  <div class="wrap">
+    <div class="num"><b data-count="48000" data-pre="+" data-fmt="k">0</b><span>peças entregues</span></div>
+    <div class="num"><b data-count="320" data-pre="+">0</b><span>fazendas e empresas atendidas</span></div>
+    <div class="num"><b data-count="21">0</b><span>estados com cliente Kauê</span></div>
+    <div class="num"><b data-count="30" data-suf=" dias">0</b><span>de prazo após a aprovação</span></div>
+  </div>
+</div>
+
+<!-- ===== DORES ===== -->
+<section class="sec" id="dores">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">A gente conhece a lida</p>
+      <h2 class="display" data-for="produtor">Na fazenda, uniforme não é enfeite. É ferramenta de trabalho.</h2>
+      <h2 class="display" data-for="empresa">No agro, a sua equipe chega antes do seu catálogo.</h2>
+      <p data-for="produtor">Quem tá no campo sabe: o sol não perdoa, a safra dobra a equipe e a visita sempre chega no pior dia. O uniforme certo resolve mais do que parece.</p>
+      <p data-for="empresa">O produtor compra de quem confia. E a confiança começa na porteira, quando o seu técnico desce da caminhonete. Uniforme é parte da estratégia comercial.</p>
+    </div>
+    <div class="seg-toggle" role="group" aria-label="Escolha o perfil">
+      <span class="knob" id="knob"></span>
+      <button data-pick="produtor" aria-pressed="true">Produtor rural</button>
+      <button data-pick="empresa" aria-pressed="false">Empresa do agro</button>
+    </div>
+    <div class="grid-dor" data-for="produtor" id="dorProd"></div>
+    <div class="grid-dor" data-for="empresa" id="dorEmp"></div>
+  </div>
+</section>
+
+<!-- ===== CAMADAS ===== -->
+<section class="sec on-dark" style="overflow:hidden">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Uma marca, três frentes</p>
+      <h2 class="display">Do peão ao gerente, cada um com a peça certa.</h2>
+      <p>A Kauê desenha a linha inteira da sua operação. Tecido, modelagem e personalização mudam conforme a função. A identidade é uma só.</p>
+    </div>
+    <div class="layers reveal" id="layers"></div>
+  </div>
+</section>
+
+<!-- ===== PEÇAS ===== -->
+<section class="sec" id="pecas">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Linha agro</p>
+      <h2 class="display">As peças que mais saem pro campo e pro escritório.</h2>
+      <p>Toque em "Adicionar ao pedido" e a peça já entra no seu pré-pedido lá embaixo.</p>
+    </div>
+    <div class="prods" id="prods"></div>
+  </div>
+</section>
+
+<!-- ===== CASES ===== -->
+<section class="sec cases-sec" id="cases">
+  <div class="wrap" style="position:relative">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Cases Kauê no agro</p>
+      <h2 class="display">Cada uniforme resolveu um problema de verdade.</h2>
+      <p>Abra um case e veja o porquê do projeto, o que foi feito, as peças, os números e o que o cliente falou.</p>
+    </div>
+    <div class="case-tabs" role="group" aria-label="Filtrar cases">
+      <button data-filter="todos" aria-pressed="true">Todos <span class="ct" id="ctAll"></span></button>
+      <button data-filter="produtor" aria-pressed="false">Produtores <span class="ct" id="ctP"></span></button>
+      <button data-filter="empresa" aria-pressed="false">Empresas do agro <span class="ct" id="ctE"></span></button>
+    </div>
+    <div class="cases" id="cases-grid"></div>
+  </div>
+</section>
+
+<!-- ===== COMO FUNCIONA ===== -->
+<section class="sec on-dark how" id="como">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Como funciona</p>
+      <h2 class="display">Do pré-pedido à entrega, sem dor de cabeça.</h2>
+      <p>Você fala o que precisa. A gente cuida do layout, da lista de nomes e tamanhos e da produção.</p>
+    </div>
+    <svg class="path" viewBox="0 0 1180 160" aria-hidden="true">
+      <path id="trk" d="M40 110 C 200 110, 220 40, 335 40 S 500 120, 630 110 S 790 30, 925 40 S 1080 110, 1140 100" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="3" stroke-dasharray="6 10"/>
+      <path id="prg" d="M40 110 C 200 110, 220 40, 335 40 S 500 120, 630 110 S 790 30, 925 40 S 1080 110, 1140 100" fill="none" stroke="#0a68c4" stroke-width="4" stroke-linecap="round"/>
+      <circle id="tip" r="7" fill="#7fb4ec" style="filter:drop-shadow(0 0 10px #7fb4ec)"/>
+      <g id="nodes"></g>
+    </svg>
+    <div class="how-steps" id="steps">
+      <div class="step"><span class="k">01</span><h3>Pré-pedido aqui</h3><p>Em 2 minutos você diz as peças, as quantidades e a personalização.</p></div>
+      <div class="step"><span class="k">02</span><h3>Layout pra aprovar</h3><p>A gente monta a arte com a sua marca. Duas rodadas de ajuste já inclusas.</p></div>
+      <div class="step"><span class="k">03</span><h3>Lista e produção</h3><p>Nomes, funções e tamanhos na planilha padrão. Aprovou, entra na produção.</p></div>
+      <div class="step"><span class="k">04</span><h3>Entrega no Brasil</h3><p>Uniforme pronto em até 30 dias após a aprovação, enviado pra sua cidade.</p></div>
+    </div>
+    <div class="how-live" id="live"><span class="dot-live"></span>Equipe uniformizada antes da safra</div>
+    <div class="rules">
+      <div class="rule"><b>30</b><span><strong>peças de pedido mínimo</strong>Dá pra misturar modelos e tamanhos.</span></div>
+      <div class="rule"><b>30d</b><span><strong>de prazo de produção</strong>Contados a partir do layout e da lista aprovados.</span></div>
+      <div class="rule"><b>90d</b><span><strong>de garantia</strong>Contra defeito de fabricação: costura, tecido e personalização.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMPARATIVO ===== -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Por que a Kauê</p>
+      <h2 class="display">Malharia comum faz camiseta. A Kauê faz uniforme pro agro.</h2>
+    </div>
+    <div class="cmp" id="cmp">
+      <div class="cmp-hl"></div>
+      <div class="cmp-row cmp-head on"><span class="lbl" style="opacity:1;transform:none">O que importa</span><span class="c">Malharia comum</span><span class="c us">Kauê</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DEPOIMENTOS ===== -->
+<section class="sec on-dark">
+  <div class="wrap testi">
+    <div class="sec-head reveal" style="margin:0">
+      <p class="eyebrow">Quem veste, aprova</p>
+      <h2 class="display">O que dizem os clientes do campo.</h2>
+      <p>Produtor, gerente de fazenda, revenda e cooperativa. Gente que não tem tempo pra uniforme que dá problema.</p>
+      <a href="#pedido" class="btn btn-cta" style="margin-top:26px">Quero o meu orçamento</a>
+    </div>
+    <div>
+      <div class="stack" id="stack"></div>
+      <p class="stack-meta"><b>4,9</b> de média nas avaliações dos clientes</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FORMULÁRIO ===== -->
+<section class="sec form-sec" id="pedido">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Pré-pedido</p>
+      <h2 class="display">Monte o pedido do seu uniforme em 2 minutos.</h2>
+      <p>Não precisa saber tudo agora. Com essas informações a gente já volta com o layout e a proposta.</p>
+    </div>
+    <div class="fwrap">
+      <form class="fcard" id="form" novalidate>
+        <div class="fprog" id="fprog">
+          <div class="fprog-top"><span>Etapa <b id="stepN">1</b> de 4</span><span id="stepLeft">faltam 3 etapas</span></div>
+          <div class="fbar"><i id="fbar"></i></div>
+          <div class="fsteps"><span class="on">Perfil</span><span>Peças</span><span>Personalização</span><span>Contato</span></div>
+        </div>
+
+        <div class="fstep on" data-step="1">
+          <h3>Pra quem é o uniforme?</h3>
+          <p class="hint">Assim a gente já te mostra modelos de quem é do seu ramo.</p>
+          <div class="opts">
+            <div class="opt"><input type="radio" name="perfil" id="pf1" value="Produtor rural"><label for="pf1"><span class="em">🌱</span><span>Produtor rural<small>Da porteira pra dentro</small></span></label></div>
+            <div class="opt"><input type="radio" name="perfil" id="pf2" value="Empresa do agro"><label for="pf2"><span class="em">🏢</span><span>Empresa do agro<small>Da porteira pra fora</small></span></label></div>
+          </div>
+          <span class="lbl-f">Qual é a atividade?</span>
+          <div class="opts three" id="atividades"></div>
+          <span class="lbl-f">Quantas pessoas vão usar?</span>
+          <div class="opts three">
+            <div class="opt"><input type="radio" name="equipe" id="eq1" value="Até 30"><label for="eq1">Até 30</label></div>
+            <div class="opt"><input type="radio" name="equipe" id="eq2" value="31 a 100"><label for="eq2">31 a 100</label></div>
+            <div class="opt"><input type="radio" name="equipe" id="eq3" value="Mais de 100"><label for="eq3">Mais de 100</label></div>
+          </div>
+        </div>
+
+        <div class="fstep" data-step="2">
+          <h3>Quais peças e quantas de cada?</h3>
+          <p class="hint">Quantidade aproximada já ajuda. Dá pra ajustar depois na lista.</p>
+          <div class="qty-list" id="qtyList"></div>
+          <div class="min-meter short" id="meter">
+            <div class="mm-top"><span id="mmTxt">Faltam 30 peças para o pedido mínimo</span><b id="mmN">0/30</b></div>
+            <div class="mm-bar"><i id="mmBar"></i></div>
+          </div>
+        </div>
+
+        <div class="fstep" data-step="3">
+          <h3>Como fica a sua marca na peça?</h3>
+          <p class="hint">Marque tudo o que fizer sentido. Se não souber, a gente sugere.</p>
+          <span class="lbl-f" style="margin-top:0">Personalização</span>
+          <div class="opts three" id="persos"></div>
+          <span class="lbl-f">Você tem a logo em arquivo?</span>
+          <div class="opts three">
+            <div class="opt"><input type="radio" name="logo" id="lg1" value="Sim, em vetor (AI, CDR, PDF, SVG)"><label for="lg1">Sim, em vetor</label></div>
+            <div class="opt"><input type="radio" name="logo" id="lg2" value="Só em imagem (JPG, PNG, print)"><label for="lg2">Só em imagem</label></div>
+            <div class="opt"><input type="radio" name="logo" id="lg3" value="Ainda não tenho logo"><label for="lg3">Não tenho</label></div>
+          </div>
+          <span class="lbl-f">Pra quando você precisa?</span>
+          <div class="opts three">
+            <div class="opt"><input type="radio" name="prazo" id="pz1" value="Sem pressa (prazo padrão)"><label for="pz1">Prazo padrão</label></div>
+            <div class="opt"><input type="radio" name="prazo" id="pz2" value="Tenho uma data (safra, evento, dia de campo)"><label for="pz2">Tenho uma data</label></div>
+            <div class="opt"><input type="radio" name="prazo" id="pz3" value="Urgente"><label for="pz3">É urgente</label></div>
+          </div>
+          <div class="field" style="margin-top:16px"><label for="obs">Cores, detalhes ou referência <span style="color:var(--ink-3);font-weight:600">(opcional)</span></label><textarea id="obs" name="obs" placeholder="Ex.: camisa cinza pro campo, azul pro escritório, logo no peito e nome nas costas"></textarea></div>
+        </div>
+
+        <div class="fstep" data-step="4">
+          <h3>Pra onde a gente manda a proposta?</h3>
+          <p class="hint">Um consultor da Kauê fala com você pelo WhatsApp.</p>
+          <div class="field" id="f-nome"><label for="nome">Seu nome</label><input id="nome" name="nome" autocomplete="name" placeholder="Como você se chama"><span class="err">Escreva o seu nome</span></div>
+          <div class="field"><label for="empresa">Fazenda ou empresa</label><input id="empresa" name="empresa" autocomplete="organization" placeholder="Ex.: Fazenda Santa Helena"></div>
+          <div class="row-uf">
+            <div class="field"><label for="cidade">Cidade</label><input id="cidade" name="cidade" autocomplete="address-level2" placeholder="Sua cidade"></div>
+            <div class="field"><label for="uf">UF</label><select id="uf" name="uf"><option value="">UF</option></select></div>
+          </div>
+          <div class="field" id="f-whats"><label for="whats">WhatsApp</label><input id="whats" name="whats" type="tel" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000"><span class="err">Confira o número com DDD</span></div>
+        </div>
+
+        <div class="fstep" style="padding-top:0;padding-bottom:0;display:block" id="navWrap">
+          <div class="fnav">
+            <button type="button" class="back" id="back" hidden>← Voltar</button>
+            <button type="button" class="btn btn-cta" id="next">Continuar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </div>
+          <p class="fnote" style="padding-bottom:24px">🔒 Seus dados ficam só com a Kauê. Nada de spam.</p>
+        </div>
+
+        <div class="done" id="done">
+          <div class="ok"><svg viewBox="0 0 96 96"><circle cx="48" cy="48" r="46"/><path d="M28 50l13 13 27-29" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg><canvas class="confetti" id="confetti" width="400" height="400" style="width:400px;height:400px;left:-152px;top:-152px"></canvas></div>
+          <h3 class="display">Pré-pedido recebido!</h3>
+          <p>Em breve um consultor da Kauê chama você no WhatsApp com o layout e a proposta. Quer adiantar? Mande o resumo agora.</p>
+          <a class="btn btn-cta" id="waBtn" href="#" target="_blank" rel="noopener">Enviar resumo pelo WhatsApp</a>
+        </div>
+      </form>
+
+      <aside class="sum" aria-live="polite">
+        <h4>Seu pedido até agora</h4>
+        <div id="sumRows"><p class="sum-empty">Comece escolhendo o perfil ao lado.</p></div>
+        <div class="sum-total"><span style="color:#a9bfcc;font-weight:700">Total de peças</span><b id="sumTotal">0</b></div>
+        <ul class="sum-perks">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Layout pra aprovar antes de produzir</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Teste de cor físico a partir de 50 peças</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Faturamento em boleto para CNPJ</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="sec" id="duvidas" style="padding-top:40px">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Dúvidas frequentes</p>
+      <h2 class="display">Antes de fechar, todo mundo pergunta.</h2>
+    </div>
+    <div class="faq" id="faq"></div>
+  </div>
+</section>
+
+<!-- ===== CTA FINAL ===== -->
+<section class="sec final">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow light">Próxima safra começa agora</p>
+      <h2 class="display">Equipe uniformizada antes do plantio.</h2>
+      <p>Monte o pré-pedido em 2 minutos. A gente devolve com o layout da sua marca e a proposta.</p>
+      <a href="#pedido" class="btn btn-cta">Montar meu pedido <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="final-art" id="finalArt" aria-hidden="true"></div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <a href="#inicio" class="logo" aria-label="Kauê Uniformes"><svg role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="146.4 398.6 787.2 227.1">
+
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 420.460938 572.191406 L 420.460938 546.476562 L 428.925781 546.476562 L 428.925781 571.867188 C 428.925781 581.242188 433.15625 585.28125 440.511719 585.28125 C 447.871094 585.28125 452.035156 581.242188 452.035156 571.867188 L 452.035156 546.476562 L 460.371094 546.476562 L 460.371094 572.191406 C 460.371094 585.476562 452.882812 592.703125 440.445312 592.703125 C 427.945312 592.703125 420.460938 585.476562 420.460938 572.191406 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 525.734375 546.476562 L 525.734375 592.050781 L 518.769531 592.050781 L 493.636719 561.1875 L 493.636719 592.050781 L 485.238281 592.050781 L 485.238281 546.476562 L 492.207031 546.476562 L 517.335938 577.335938 L 517.335938 546.476562 Z M 525.734375 546.476562 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 550.996094 546.476562 L 559.460938 546.476562 L 559.460938 592.050781 L 550.996094 592.050781 Z M 550.996094 546.476562 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 593.25 553.574219 L 593.25 567.441406 L 615.253906 567.441406 L 615.253906 574.601562 L 593.25 574.601562 L 593.25 592.050781 L 584.785156 592.050781 L 584.785156 546.476562 L 618.054688 546.476562 L 618.054688 553.574219 Z M 593.25 553.574219 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 676.066406 569.261719 C 676.066406 559.953125 669.226562 553.246094 660.046875 553.246094 C 650.867188 553.246094 644.03125 559.953125 644.03125 569.261719 C 644.03125 578.574219 650.867188 585.277344 660.046875 585.277344 C 669.226562 585.277344 676.066406 578.574219 676.066406 569.261719 M 635.503906 569.261719 C 635.503906 555.785156 645.917969 545.824219 660.046875 545.824219 C 674.175781 545.824219 684.59375 555.722656 684.59375 569.261719 C 684.59375 582.804688 674.175781 592.703125 660.046875 592.703125 C 645.917969 592.703125 635.503906 582.742188 635.503906 569.261719 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 724.957031 553.636719 L 715.0625 553.636719 L 715.0625 571.804688 L 724.957031 571.804688 C 732.382812 571.804688 736.222656 568.417969 736.222656 562.6875 C 736.222656 556.957031 732.382812 553.636719 724.957031 553.636719 M 736.417969 592.050781 L 727.105469 578.703125 C 726.519531 578.769531 725.933594 578.769531 725.347656 578.769531 L 715.0625 578.769531 L 715.0625 592.050781 L 706.597656 592.050781 L 706.597656 546.476562 L 725.347656 546.476562 C 737.328125 546.476562 744.75 552.597656 744.75 562.6875 C 744.75 569.589844 741.234375 574.667969 735.050781 577.074219 L 745.53125 592.050781 Z M 736.417969 592.050781 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 809.074219 592.050781 L 809.011719 561.839844 L 794.035156 586.84375 L 790.261719 586.84375 L 775.285156 562.230469 L 775.285156 592.050781 L 767.210938 592.050781 L 767.210938 546.476562 L 774.179688 546.476562 L 792.277344 576.683594 L 810.054688 546.476562 L 817.019531 546.476562 L 817.082031 592.050781 Z M 809.074219 592.050781 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 876.589844 584.953125 L 876.589844 592.050781 L 842.40625 592.050781 L 842.40625 546.476562 L 875.675781 546.476562 L 875.675781 553.574219 L 850.871094 553.574219 L 850.871094 565.421875 L 872.878906 565.421875 L 872.878906 572.386719 L 850.871094 572.386719 L 850.871094 584.953125 Z M 876.589844 584.953125 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 895.210938 587.234375 L 898.136719 580.65625 C 901.785156 583.585938 907.578125 585.671875 913.179688 585.671875 C 920.277344 585.671875 923.269531 583.128906 923.269531 579.746094 C 923.269531 569.914062 896.183594 576.359375 896.183594 559.429688 C 896.183594 552.074219 902.046875 545.824219 914.546875 545.824219 C 920.015625 545.824219 925.746094 547.257812 929.714844 549.863281 L 927.046875 556.4375 C 922.945312 554.027344 918.453125 552.855469 914.480469 552.855469 C 907.449219 552.855469 904.585938 555.589844 904.585938 559.042969 C 904.585938 568.742188 931.605469 562.425781 931.605469 579.160156 C 931.605469 586.453125 925.679688 592.703125 913.179688 592.703125 C 906.082031 592.703125 898.984375 590.488281 895.210938 587.234375 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 525.414062 439.015625 L 487.59375 482.851562 L 525.414062 526.6875 L 494.835938 526.6875 L 467.332031 493.777344 L 443.140625 493.777344 L 443.140625 515.082031 L 419.933594 526.6875 L 419.933594 439.015625 L 443.140625 450.617188 L 443.140625 471.921875 L 467.332031 471.921875 L 494.835938 439.015625 Z M 525.414062 439.015625 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 643.523438 484.273438 L 643.523438 481.800781 C 643.523438 479 643.292969 476.359375 642.84375 473.886719 C 642.386719 471.414062 641.585938 469.230469 640.429688 467.332031 C 639.273438 465.4375 637.710938 463.929688 635.730469 462.820312 C 633.753906 461.707031 631.199219 461.148438 628.066406 461.148438 L 593.441406 461.148438 C 590.308594 461.148438 587.730469 461.707031 585.710938 462.820312 C 583.691406 463.929688 582.105469 465.4375 580.953125 467.332031 C 579.796875 469.230469 578.992188 471.414062 578.542969 473.886719 C 578.085938 476.359375 577.859375 479 577.859375 481.800781 L 577.859375 484.273438 Z M 620.398438 439.015625 C 623.035156 439.015625 626.023438 439.160156 629.363281 439.449219 C 632.703125 439.738281 636.082031 440.394531 639.503906 441.425781 C 642.921875 442.457031 646.285156 443.921875 649.582031 445.816406 C 652.878906 447.714844 655.804688 450.289062 658.359375 453.542969 C 660.914062 456.800781 662.976562 460.839844 664.542969 465.664062 C 666.109375 470.484375 666.894531 476.277344 666.894531 483.035156 L 666.894531 526.6875 L 643.523438 515.082031 L 643.523438 504.921875 L 577.859375 504.921875 L 577.859375 515.082031 L 554.488281 526.6875 L 554.488281 483.035156 C 554.488281 476.277344 555.273438 470.484375 556.839844 465.664062 C 558.40625 460.839844 560.488281 456.800781 563.082031 453.542969 C 565.679688 450.289062 568.605469 447.714844 571.863281 445.816406 C 575.121094 443.921875 578.480469 442.457031 581.941406 441.425781 C 585.40625 440.394531 588.804688 439.738281 592.144531 439.449219 C 595.480469 439.160156 598.46875 439.015625 601.109375 439.015625 Z M 620.398438 439.015625 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 783.871094 452.042969 L 783.871094 485.324219 C 783.871094 488.125 783.648438 490.769531 783.191406 493.242188 C 782.742188 495.714844 781.933594 497.898438 780.78125 499.796875 C 779.628906 501.6875 778.042969 503.195312 776.015625 504.304688 C 774 505.417969 771.421875 505.976562 768.289062 505.976562 L 733.667969 505.976562 C 730.535156 505.976562 727.976562 505.417969 726.003906 504.304688 C 724.019531 503.195312 722.453125 501.6875 721.300781 499.796875 C 720.148438 497.898438 719.34375 495.714844 718.890625 493.242188 C 718.433594 490.769531 718.210938 488.125 718.210938 485.324219 L 718.210938 452.042969 L 694.835938 440.4375 L 694.835938 484.085938 C 694.835938 490.84375 695.625 496.640625 697.191406 501.460938 C 698.757812 506.289062 700.816406 510.320312 703.371094 513.582031 C 705.921875 516.832031 708.851562 519.410156 712.148438 521.308594 C 715.449219 523.207031 718.808594 524.667969 722.230469 525.699219 C 725.652344 526.734375 729.03125 527.386719 732.367188 527.679688 C 735.703125 527.96875 738.699219 528.109375 741.332031 528.109375 L 760.625 528.109375 C 763.265625 528.109375 766.253906 527.96875 769.589844 527.679688 C 772.925781 527.386719 776.328125 526.734375 779.789062 525.699219 C 783.253906 524.667969 786.613281 523.207031 789.867188 521.308594 C 793.125 519.410156 796.046875 516.832031 798.648438 513.582031 C 801.246094 510.320312 803.328125 506.289062 804.894531 501.460938 C 806.460938 496.640625 807.238281 490.84375 807.238281 484.085938 L 807.238281 440.4375 Z M 783.871094 452.042969 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 883.898438 415.507812 L 906.882812 428.148438 L 883.898438 400.566406 L 860.917969 428.148438 Z M 883.898438 415.507812 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 931.605469 439.015625 L 920 460.746094 L 859.402344 460.746094 L 859.402344 472.90625 L 920 472.90625 L 920 493.410156 L 859.402344 493.410156 L 859.402344 504.953125 L 920 504.953125 L 931.605469 526.6875 L 836.195312 526.6875 L 836.195312 439.015625 Z M 931.605469 439.015625 "/>
+<path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 213.050781 408.152344 L 213.050781 494.359375 L 148.394531 515.910156 L 213.050781 537.460938 L 213.050781 623.667969 L 277.703125 559.011719 L 234.601562 515.910156 L 277.703125 472.804688 Z M 213.050781 408.152344 "/>
+<path fill-rule="nonzero" fill="rgb(0%, 33.699036%, 64.299011%)" fill-opacity="1" d="M 326.195312 515.910156 L 385.460938 408.152344 L 256.152344 515.910156 L 385.460938 623.667969 Z M 326.195312 515.910156 "/>
+</svg></a>
+    <div>Itumbiara · GO · Atendemos todo o Brasil</div>
+    <a href="https://instagram.com/kaueuniformes.itumbiara" target="_blank" rel="noopener">@kaueuniformes.itumbiara</a>
+    <p class="demo">Versão de aprovação de layout · fotos, números e cases são ilustrativos e serão substituídos pelo conteúdo real.</p>
+  </div>
+</footer>
+
+<div class="mbar" id="mbar"><a href="#pedido" class="btn btn-cta">Montar meu pedido em 2 min</a></div>
+
+<!-- ===== MODAL DO CASE ===== -->
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="csTitle">
+  <div class="sheet-bg" data-close></div>
+  <div class="sheet-panel" id="sheetPanel"></div>
+</div>
+
+<script>
+/* ======================================================
+   CONFIGURAÇÃO (trocar aqui)
+   ====================================================== */
+const WHATSAPP = "5564999999999";      // número comercial da Kauê (fictício)
+const WEBHOOK  = "";                     // URL do n8n / Alda CRM (vazio = só demonstração)
+const MIN_PECAS = 30;
+
+/* ======================================================
+   MOCKUPS DE PEÇAS (SVG)
+   ====================================================== */
+function shade(hex, amt){let c=hex.replace('#','');if(c.length===3)c=c.split('').map(x=>x+x).join('');let n=parseInt(c,16),r=(n>>16)+amt,g=(n>>8&255)+amt,b=(n&255)+amt;r=Math.max(0,Math.min(255,r));g=Math.max(0,Math.min(255,g));b=Math.max(0,Math.min(255,b));return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1)}
+let gid=0;
+function shirt(type, c1, c2, ini, txt){
+  const id='g'+(gid++); c2=c2||c1; const ink=txt||'#fff';
+  const d=shade(c1,-28), l=shade(c1,22);
+  const defs=`<defs><linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="${d}"/><stop offset=".45" stop-color="${c1}"/><stop offset="1" stop-color="${shade(c1,-18)}"/></linearGradient><linearGradient id="${id}s" x1="0" x2="1"><stop offset="0" stop-color="${shade(c2,-30)}"/><stop offset="1" stop-color="${c2}"/></linearGradient><linearGradient id="${id}h" y1="0" y2="1" x1="0" x2="0"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>`;
+  const badge=`<g transform="translate(142 92)"><circle r="13" fill="${c2}" stroke="${ink}" stroke-opacity=".5" stroke-width="1.5"/><text y="4.5" text-anchor="middle" font-family="Saira,sans-serif" font-weight="800" font-size="11" fill="${ink}">${ini||'K'}</text></g>`;
+  const seam='stroke="rgba(0,0,0,.18)" stroke-width="1.4" fill="none" stroke-dasharray="3 3"';
+  let s='';
+  if(type==='uv'){ // camisa UV manga longa, raglan
+    s=`<path d="M86 24 Q120 44 154 24 L182 74 L184 250 Q120 258 56 250 L58 74 Z" fill="url(#${id})"/>
+    <path d="M86 24 L58 74 L58 100 L30 186 L4 178 L36 42 Q60 28 86 24 Z" fill="url(#${id}s)"/>
+    <path d="M154 24 L182 74 L182 100 L210 186 L236 178 L204 42 Q180 28 154 24 Z" fill="url(#${id}s)"/>
+    <path d="M4 178 L30 186 L28 196 L2 188 Z M236 178 L210 186 L212 196 L238 188 Z" fill="${shade(c2,-40)}"/>
+    <path d="M86 24 Q120 46 154 24 Q150 18 146 16 Q120 34 94 16 Q90 18 86 24 Z" fill="${shade(c2,-35)}"/>
+    <path d="M86 24 L58 74 M154 24 L182 74" ${seam}/>
+    <path d="M56 250 Q120 258 184 250 L184 240 Q120 248 56 240 Z" fill="rgba(0,0,0,.12)"/>
+    <rect x="62" y="130" width="10" height="34" rx="2" fill="${c2}" opacity=".9"/>
+    <text x="196" y="140" transform="rotate(68 196 140)" font-family="Saira,sans-serif" font-weight="800" font-size="9" letter-spacing="1" fill="${ink}" opacity=".85">UV 50+</text>`;
+  } else if(type==='polo'){
+    s=`<path d="M84 24 L156 24 L184 76 L184 250 Q120 258 56 250 L56 76 Z" fill="url(#${id})"/>
+    <path d="M84 24 L56 76 L56 112 L16 104 L34 44 Q58 28 84 24 Z" fill="url(#${id})"/>
+    <path d="M156 24 L184 76 L184 112 L224 104 L206 44 Q182 28 156 24 Z" fill="url(#${id})"/>
+    <path d="M16 104 L56 112 L56 120 L14 112 Z M224 104 L184 112 L184 120 L226 112 Z" fill="${c2}"/>
+    <path d="M84 24 L120 52 L156 24 L150 14 L120 34 L90 14 Z" fill="${c2}"/>
+    <path d="M84 24 L120 52 L104 62 L80 30 Z" fill="${shade(c2,-20)}"/><path d="M156 24 L120 52 L136 62 L160 30 Z" fill="${shade(c2,-10)}"/>
+    <rect x="114" y="52" width="12" height="44" rx="2" fill="${shade(c1,-12)}"/>
+    <circle cx="120" cy="64" r="2.4" fill="${ink}" opacity=".8"/><circle cx="120" cy="78" r="2.4" fill="${ink}" opacity=".8"/>
+    <path d="M56 250 Q120 258 184 250 L184 240 Q120 248 56 240 Z" fill="rgba(0,0,0,.12)"/>`;
+  } else if(type==='social'){
+    s=`<path d="M86 24 L154 24 L182 74 L184 250 Q120 258 56 250 L58 74 Z" fill="url(#${id})"/>
+    <path d="M86 24 L58 74 L58 100 L30 186 L4 178 L36 42 Q60 28 86 24 Z" fill="url(#${id})"/>
+    <path d="M154 24 L182 74 L182 100 L210 186 L236 178 L204 42 Q180 28 154 24 Z" fill="url(#${id})"/>
+    <path d="M4 178 L30 186 L28 200 L2 192 Z M236 178 L210 186 L212 200 L238 192 Z" fill="${shade(c1,-25)}"/>
+    <path d="M86 24 L120 46 L100 60 L80 30 Z" fill="${l}"/><path d="M154 24 L120 46 L140 60 L160 30 Z" fill="${shade(c1,10)}"/>
+    <path d="M86 24 Q120 36 154 24 L150 16 Q120 26 90 16 Z" fill="${shade(c1,-20)}"/>
+    <line x1="120" y1="46" x2="120" y2="252" stroke="rgba(0,0,0,.2)" stroke-width="1.5"/>
+    ${[70,100,130,160,190,220].map(y=>`<circle cx="124" cy="${y}" r="2.2" fill="rgba(255,255,255,.7)"/>`).join('')}
+    <path d="M66 96 h32 v30 q-16 6 -32 0 Z" fill="none" stroke="rgba(0,0,0,.18)" stroke-width="1.4"/>`;
+  } else if(type==='camiseta'){
+    s=`<path d="M88 24 Q120 42 152 24 L184 76 L184 250 Q120 258 56 250 L56 76 Z" fill="url(#${id})"/>
+    <path d="M88 24 L56 76 L56 114 L14 104 L34 44 Q60 28 88 24 Z" fill="url(#${id})"/>
+    <path d="M152 24 L184 76 L184 114 L226 104 L206 44 Q180 28 152 24 Z" fill="url(#${id})"/>
+    <path d="M88 24 Q120 42 152 24 Q148 18 144 17 Q120 32 96 17 Q92 18 88 24 Z" fill="${c2}"/>
+    <path d="M56 250 Q120 258 184 250 L184 240 Q120 248 56 240 Z" fill="rgba(0,0,0,.12)"/>`;
+  } else if(type==='calca'){
+    return `<svg viewBox="0 0 240 260" xmlns="http://www.w3.org/2000/svg">${defs}
+    <path d="M62 14 H178 L186 250 H134 L120 96 L106 250 H54 Z" fill="url(#${id})"/>
+    <rect x="62" y="14" width="116" height="16" fill="${shade(c1,-25)}"/>
+    ${[78,104,136,162].map(x=>`<rect x="${x}" y="12" width="5" height="20" rx="1.5" fill="${shade(c1,-40)}"/>`).join('')}
+    <path d="M70 40 Q86 60 100 42 M170 40 Q154 60 140 42" stroke="rgba(0,0,0,.25)" stroke-width="2" fill="none"/>
+    <rect x="58" y="120" width="40" height="44" rx="4" fill="${shade(c1,-12)}" stroke="rgba(0,0,0,.2)"/>
+    <rect x="142" y="120" width="40" height="44" rx="4" fill="${shade(c1,-12)}" stroke="rgba(0,0,0,.2)"/>
+    <rect x="58" y="196" width="44" height="10" fill="${c2}" opacity=".9"/><rect x="138" y="196" width="44" height="10" fill="${c2}" opacity=".9"/>
+    <path d="M120 30 V96" stroke="rgba(0,0,0,.25)" stroke-width="1.5"/>
+    <path d="M62 14 H178 L186 250 H134 L120 96 L106 250 H54 Z" fill="url(#${id}h)"/></svg>`;
+  } else if(type==='jaleco'){
+    s=`<path d="M86 24 L154 24 L182 74 L188 252 L126 252 L120 60 L114 252 L52 252 L58 74 Z" fill="url(#${id})"/>
+    <path d="M86 24 L58 74 L58 100 L30 186 L4 178 L36 42 Q60 28 86 24 Z" fill="url(#${id})"/>
+    <path d="M154 24 L182 74 L182 100 L210 186 L236 178 L204 42 Q180 28 154 24 Z" fill="url(#${id})"/>
+    <path d="M86 24 L120 60 L96 92 L74 40 Z" fill="${shade(c1,-12)}"/><path d="M154 24 L120 60 L144 92 L166 40 Z" fill="${shade(c1,-18)}"/>
+    <path d="M120 60 L120 252" stroke="rgba(0,0,0,.2)" stroke-width="2"/>
+    <rect x="68" y="176" width="38" height="34" rx="3" fill="none" stroke="rgba(0,0,0,.2)" stroke-width="1.5"/><rect x="134" y="176" width="38" height="34" rx="3" fill="none" stroke="rgba(0,0,0,.2)" stroke-width="1.5"/>
+    <rect x="134" y="104" width="30" height="5" rx="2" fill="${c2}"/>`;
+  }
+  return `<svg viewBox="0 0 240 260" xmlns="http://www.w3.org/2000/svg">${defs}${s}
+  <path d="M60 80 L60 245" stroke="rgba(255,255,255,.08)" stroke-width="10"/>
+  ${type==='jaleco'?`<g transform="translate(-8 4)">${badge}</g>`:badge}
+  <path d="M56 70 Q120 90 184 70 L184 250 Q120 258 56 250 Z" fill="url(#${id}h)" opacity=".7"/></svg>`;
+}
+
+/* ======================================================
+   CENAS (fotos ilustrativas em SVG — substituir por fotos reais)
+   ====================================================== */
+function scene(motif, c1, sid){
+  const id='sc'+(gid++); const g=c1||'#0056a4';
+  const sky=`<defs><linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#012a3d"/><stop offset=".55" stop-color="${shade(g,-10)}"/><stop offset="1" stop-color="#f0c27a"/></linearGradient><radialGradient id="${id}u" cx=".72" cy=".42" r=".5"><stop offset="0" stop-color="#ffe7b0" stop-opacity=".95"/><stop offset=".25" stop-color="#ffcf7a" stop-opacity=".5"/><stop offset="1" stop-color="#ffcf7a" stop-opacity="0"/></radialGradient><filter id="${id}n"><feTurbulence baseFrequency=".9" numOctaves="2" seed="${sid||3}"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .09 0"/></filter></defs>
+  <rect width="800" height="500" fill="url(#${id}s)"/><rect width="800" height="500" fill="url(#${id}u)"/><circle cx="576" cy="214" r="34" fill="#fff3d6" opacity=".9"/>`;
+  const ground=shade(g,-60), ground2=shade(g,-80);
+  let m='';
+  if(motif==='lavoura'){
+    m=`<path d="M0 260 Q200 236 400 250 T800 244 V500 H0Z" fill="${ground}"/>`;
+    for(let i=-14;i<=14;i++){m+=`<path d="M${400+i*6} 252 L${400+i*70} 500" stroke="${i%2?'#2c5a2e':'#3d7a3a'}" stroke-width="${6+Math.abs(i)}" opacity=".85"/>`}
+    m+=`<path d="M0 252 Q200 238 400 248 T800 242" stroke="#1d3a20" stroke-width="10" fill="none" opacity=".6"/>
+    <g transform="translate(150 230)" fill="#0b1820"><rect x="0" y="-26" width="70" height="26" rx="4"/><rect x="40" y="-46" width="30" height="22" rx="3"/><circle cx="14" cy="4" r="14"/><circle cx="58" cy="2" r="10"/><rect x="-60" y="-14" width="62" height="6"/></g>`;
+  } else if(motif==='pasto'){
+    m=`<path d="M0 270 Q220 230 420 262 T800 250 V500 H0Z" fill="#4c6b34"/><path d="M0 330 Q260 300 520 330 T800 320 V500 H0Z" fill="#3b5528"/>`;
+    for(let i=0;i<9;i++){const x=40+i*95;m+=`<rect x="${x}" y="330" width="8" height="${110+i*4}" fill="#2a1d12"/>`}
+    m+=`<path d="M0 360 L800 350 M0 395 L800 388" stroke="#2a1d12" stroke-width="6"/>`;
+    [[470,286],[540,292],[610,282],[690,290]].forEach(([x,y],i)=>{m+=`<g transform="translate(${x} ${y}) scale(${.8+i*.08})" fill="#14110d"><ellipse cx="0" cy="0" rx="26" ry="13"/><rect x="-20" y="6" width="5" height="16"/><rect x="14" y="6" width="5" height="16"/><ellipse cx="26" cy="-6" rx="9" ry="7"/></g>`});
+  } else if(motif==='cafe'){
+    m=`<path d="M0 230 Q200 190 420 226 T800 210 V500 H0Z" fill="#3b5a2c"/>`;
+    for(let r=0;r<7;r++){const y=250+r*38, rr=10+r*4;for(let x=-20;x<820;x+=rr*1.9){m+=`<circle cx="${x+(r%2)*rr}" cy="${y+Math.sin(x/90)*8}" r="${rr}" fill="${r%2?'#1f3b1c':'#28482a'}"/>`}}
+    m+=`<path d="M0 260 Q300 240 520 268 T800 256" stroke="#7a5b32" stroke-width="3" fill="none" opacity=".5"/>`;
+  } else if(motif==='silo'){
+    m=`<path d="M0 300 H800 V500 H0Z" fill="#5a5340"/><path d="M0 300 H800" stroke="#3d3828" stroke-width="6"/>`;
+    [[380,90],[470,110],[560,90]].forEach(([x,w])=>{m+=`<rect x="${x}" y="150" width="${w*0.8}" height="160" fill="#8c98a0"/><path d="M${x} 150 Q${x+w*.4} 110 ${x+w*.8} 150Z" fill="#a9b4ba"/>${[0,1,2,3,4,5,6].map(k=>`<line x1="${x}" x2="${x+w*.8}" y1="${170+k*20}" y2="${170+k*20}" stroke="#6f7b82" stroke-width="2"/>`).join('')}`});
+    m+=`<rect x="80" y="210" width="260" height="100" fill="#d9d4c4"/><path d="M70 214 L210 160 L350 214Z" fill="#9b2f24"/><rect x="170" y="250" width="70" height="60" fill="#3b3a35"/>
+    <g transform="translate(600 300)" fill="#0b1820"><rect x="0" y="-38" width="140" height="34" rx="3"/><rect x="140" y="-30" width="40" height="26" rx="3"/><circle cx="24" cy="2" r="11"/><circle cx="110" cy="2" r="11"/><circle cx="160" cy="2" r="11"/></g>`;
+  } else if(motif==='aviao'){
+    m=`<path d="M0 300 Q220 286 420 296 T800 290 V500 H0Z" fill="#3f6a33"/>`;
+    for(let i=-12;i<=12;i++){m+=`<path d="M${400+i*7} 298 L${400+i*75} 500" stroke="${i%2?'#2f5a2a':'#467a3c'}" stroke-width="${5+Math.abs(i)}" opacity=".8"/>`}
+    m+=`<g transform="translate(250 170) rotate(-4)" fill="#f2f2f0"><path d="M0 0 L150 -6 L170 0 L150 8 Z"/><path d="M60 -2 L80 -60 L100 -60 L96 -2 Z"/><path d="M60 4 L80 60 L100 60 L96 4Z"/><path d="M0 -2 L-10 -22 L4 -22 L16 -2Z"/><rect x="165" y="-5" width="6" height="10" fill="#e35205"/></g>
+    <path d="M300 186 Q240 230 120 250 M330 186 Q300 240 200 268" stroke="#fff" stroke-width="10" opacity=".18" fill="none" stroke-linecap="round"/>`;
+  } else if(motif==='loja'){
+    m=`<path d="M0 320 H800 V500 H0Z" fill="#6b6455"/><path d="M0 400 H800" stroke="#fff" stroke-width="4" stroke-dasharray="40 30" opacity=".4"/>
+    <rect x="120" y="150" width="520" height="170" fill="#e8e3d6"/><rect x="120" y="130" width="520" height="34" fill="${g}"/><text x="380" y="154" text-anchor="middle" font-family="Saira,sans-serif" font-weight="800" font-size="20" fill="#fff" letter-spacing="4">INSUMOS AGRÍCOLAS</text>
+    ${[0,1,2,3,4].map(k=>`<path d="M${130+k*102} 168 h92 l-8 26 h-76z" fill="${k%2?'#fff':g}" opacity=".9"/>`).join('')}
+    <rect x="160" y="210" width="120" height="110" fill="#2b3a40"/><rect x="320" y="210" width="120" height="80" fill="#5b7d8c" opacity=".7"/><rect x="480" y="210" width="120" height="80" fill="#5b7d8c" opacity=".7"/>
+    <g transform="translate(560 360)" fill="#0b1820"><rect x="0" y="-40" width="150" height="34" rx="6"/><rect x="20" y="-62" width="80" height="26" rx="6"/><circle cx="30" cy="0" r="14"/><circle cx="120" cy="0" r="14"/></g>`;
+  }
+  return `<svg class="scene" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">${sky}${m}<rect width="800" height="500" filter="url(#${id}n)"/></svg>`;
+}
+
+/* ======================================================
+   DADOS
+   ====================================================== */
+const ICON={
+ sun:'<path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/><circle cx="12" cy="12" r="4"/>',
+ users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.3-6 6.5-6s5.9 2.4 6.5 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14c2 .6 3.3 2.9 3.6 6"/>',
+ shield:'<path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+ eye:'<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+ truck:'<path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>',
+ flag:'<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>',
+ store:'<path d="M4 9l1.5-5h13L20 9M4 9v11h16V9M4 9h16M9 20v-6h6v6"/>',
+ refresh:'<path d="M20 11a8 8 0 0 0-14.6-4.5L4 8M4 4v4h4M4 13a8 8 0 0 0 14.6 4.5L20 16M20 20v-4h-4"/>'
+};
+const ic=n=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICON[n]}</svg>`;
+
+const DORES={
+ produtor:[
+  {i:'sun',q:'Sol de 40 graus na lida',p:'Das 10h às 16h o campo cobra caro. Camiseta comum não segura e o peão cansa mais cedo.',f:'Camisa UV manga longa, leve e que respira'},
+  {i:'users',q:'Safrista misturado com fixo',p:'Na safra a equipe quase dobra e ninguém sabe quem é tratorista, apoio ou terceiro.',f:'Cor e identificação por função'},
+  {i:'shield',q:'Camisa que não dura a safra',p:'Graxa, poeira, galho e lavagem pesada. Em dois meses a camisa já foi.',f:'Costura reforçada e malha pro uso bruto'},
+  {i:'eye',q:'Visita chegando na porteira',p:'Comprador, banco, certificadora, trading. A primeira coisa que eles veem é a sua equipe.',f:'Fazenda organizada aparece na roupa'}
+ ],
+ empresa:[
+  {i:'truck',q:'RTV chegando na fazenda',p:'Técnico com camisa de brinde de fornecedor divulga a marca dos outros, não a sua.',f:'Camisa UV e polo com a sua marca'},
+  {i:'flag',q:'Dia de campo, feira e evento',p:'Equipe padronizada vira vitrine. E logo de parceiro na manga ajuda a pagar o kit.',f:'Kit evento com patrocínio na peça'},
+  {i:'store',q:'Loja, armazém e escritório',p:'Cada setor com um fornecedor e um padrão diferente. A marca fica bagunçada.',f:'Uma linha só, do balcão à diretoria'},
+  {i:'refresh',q:'Equipe que cresce na safra',p:'Contratou gente nova e o uniforme não tem reposição igual ao primeiro pedido.',f:'Lista padrão e logo arquivada pra recompra'}
+ ]
+};
+
+const PRODS=[
+ {id:'uv',nome:'Camisa UV manga longa',where:'Lavoura e campo',p:'Protege do sol na lida, seca rápido e não esquenta. A queridinha de quem passa o dia no talhão.',feat:['Proteção UV','Manga longa','Gola ou capuz'],c:['#2f6b3a','#1d4426']},
+ {id:'polo',nome:'Camisa polo',where:'RTV, loja e evento',p:'Presença de empresa séria na visita, no balcão e no dia de campo, sem perder o conforto.',feat:['Piquet ou dry','Bordado','Manga curta'],c:['#0056a4','#002535']},
+ {id:'social',nome:'Camisa social',where:'Escritório e gestão',p:'Pro administrativo, a gerência e a diretoria. A mesma marca, com acabamento de escritório.',feat:['Manga curta ou longa','Bordado','Tecido misto'],c:['#e9eef2','#0056a4'],t:'#002535'},
+ {id:'camiseta',nome:'Camiseta operacional',where:'Oficina, armazém e curral',p:'Resistente e barata de repor. Ideal pra turma da operação e pra kits de evento.',feat:['Algodão ou dry','Silk ou DTF','Nome e função'],c:['#6b7378','#2b3236']},
+ {id:'calca',nome:'Calça operacional',where:'Maquinário e manutenção',p:'Brim ou sarja que aguenta o tranco, com bolsos de verdade e reforço onde mais gasta.',feat:['Brim ou sarja','Bolsos reforçados','Faixa opcional'],c:['#2c3e50','#e0a23a']},
+ {id:'jaleco',nome:'Jaleco',where:'Laboratório e veterinária',p:'Pra análise de solo e semente, laboratório e equipe veterinária. Limpo e identificado.',feat:['Gabardine','Bolsos','Nome bordado'],c:['#f5f7f8','#0056a4'],t:'#002535'}
+];
+
+const CASES=[
+ {id:'santa-helena',ativ:'Soja e milho',seg:'produtor',cliente:'Fazenda Santa Helena',local:'Rio Verde · GO',atividade:'Soja e milho · 2.400 ha',equipe:'38 fixos + 32 safristas',motif:'lavoura',cores:['#2f6b3a','#d9a400'],ini:'SH',
+  titulo:'38 fixos, 32 safristas e ninguém sabia quem era quem no talhão.',
+  resumo:'Camisa UV por função e kit safrista entregue antes do plantio.',
+  desafio:'Na safra, a equipe da Santa Helena quase dobra. Cada um chegava com a própria roupa, quase sempre camiseta de algodão que não segura o sol das 10h às 16h. O gerente perdia tempo pra identificar operador, apoio e terceirizado, e a fazenda recebe visita de trading e de comprador toda semana.',
+  porque:[['Proteger do sol','Reclamação de calor e cansaço no meio da tarde, principalmente na turma do apoio.'],['Saber quem é quem de longe','Identificar a função de dentro da caminhonete, sem precisar parar e perguntar.'],['Imagem pra quem visita','A fazenda queria mostrar o mesmo padrão que mostra na lavoura.']],
+  fez:['Camisa UV manga longa em 3 cores por função: verde pra máquinas, cinza pro apoio e marinho pra gestão.','Nome e função bordados no peito, logo da fazenda grande nas costas, visível da cabine.','Kit safrista com 2 camisas por pessoa, separado por nome e entregue 9 dias antes do plantio.','Polo pra gerência e escritório da fazenda, na mesma identidade.'],
+  pecas:[['Camisa UV manga longa',140],['Calça operacional',70],['Camisa polo',24]],
+  res:[['3','cores, 3 funções'],['9 dias','antes do plantio'],['+60','peças na safrinha']],
+  dep:['Antes eu chegava no talhão e precisava perguntar quem era quem. Hoje eu bato o olho de dentro da caminhonete.','Marcos A.','Gerente agrícola'],
+  mk:['uv','polo'],gal:['Turma de máquinas no talhão','Kit safrista separado por nome','Logo nas costas na colheitadeira']},
+
+ {id:'boa-vista',ativ:'Pecuária',seg:'produtor',cliente:'Agropecuária Boa Vista',local:'Barra do Garças · MT',atividade:'Pecuária de corte · confinamento',equipe:'26 colaboradores',motif:'pasto',cores:['#7a3e1d','#e8c27a'],ini:'BV',
+  titulo:'Curral, poeira e comprador de boi olhando a operação.',
+  resumo:'Peças reforçadas em cor terra e padrão pra receber frigorífico e auditoria.',
+  desafio:'O confinamento recebe frigorífico, comprador e veterinário toda semana. Os vaqueiros trabalhavam com roupa rasgada e a camisa durava uns dois meses no curral. Pra quem vem de fora, parecia uma operação sem gestão, mesmo com indicador bom.',
+  porque:[['Imagem pro comprador','O dono queria que a equipe mostrasse o nível da operação logo na chegada.'],['Durabilidade no curral','Galho, cerca, poeira e lavagem toda hora acabavam com a roupa.'],['Proteção na lida','Manga longa contra sol e arranhão no manejo.']],
+  fez:['Camisa UV manga longa em tom terra, que disfarça a poeira e mantém a cara de nova por mais tempo.','Calça em brim pesado com reforço nos bolsos e na barra.','Camisa social manga longa pro escritório, balança e recepção de compradores.','Reposição semestral programada com a lista guardada.'],
+  pecas:[['Camisa UV manga longa',104],['Calça operacional',52],['Camisa social',12]],
+  res:[['4×','mais durabilidade'],['168','peças na 1ª entrega'],['2×','reposição no ano']],
+  dep:['O boi não liga pra roupa, mas quem compra o boi liga. A primeira coisa que o comprador vê é a equipe.','Rogério P.','Proprietário'],
+  mk:['uv','calca'],gal:['Vaqueiros no manejo','Equipe na recepção do comprador','Detalhe do reforço na calça']},
+
+ {id:'serra-alta',ativ:'Café',seg:'produtor',cliente:'Café Serra Alta',local:'Patrocínio · MG',atividade:'Café especial · colheita',equipe:'18 fixos + 45 na colheita',motif:'cafe',cores:['#6b1f2a','#c99a5b'],ini:'SA',
+  titulo:'45 pessoas na colheita do café e uma turma que virou time.',
+  resumo:'Numeração por turma, manga longa que todo mundo usa e polo pra visitação.',
+  desafio:'A colheita traz muita gente nova todo ano e quase ninguém usava manga longa, mesmo com o sol de maio. A fazenda trabalha com certificação de boas práticas e precisava de equipe identificada. Ainda recebe visitas de compradores de café especial.',
+  porque:[['Adesão à manga longa','Uma peça leve e bonita, que o colhedor quisesse vestir.'],['Controle por turma','Saber de longe qual turma está em qual talhão.'],['Vitrine do café especial','Visitante e comprador conhecem a marca pela equipe.']],
+  fez:['Camisa UV leve em vinho, com número nas costas e cor de faixa por turma (A, B e C).','Polo pra equipe de visitação, provas e venda do café na fazenda.','Layout com o grão de café da marca bordado na manga.'],
+  pecas:[['Camisa UV manga longa',135],['Camisa polo',30]],
+  res:[['~100%','usando manga longa'],['3','turmas identificadas'],['1º','brinde de fim de safra']],
+  dep:['O colhedor pediu pra ficar com a camisa no fim da safra. Aí eu soube que tinha acertado.','Juliana M.','Gestora da fazenda'],
+  mk:['uv','polo'],gal:['Turma A na colheita','Número nas costas por turma','Equipe da visitação']},
+
+ {id:'agrocampos',ativ:'Revenda de insumos',seg:'empresa',cliente:'AgroCampos Insumos',local:'Sorriso · MT',atividade:'Revenda de insumos · 4 lojas',equipe:'22 RTVs · 60 colaboradores',motif:'loja',cores:['#0d5c63','#f2b705'],ini:'AC',
+  titulo:'22 RTVs rodando fazenda com a camisa que quisessem.',
+  resumo:'Marca própria em toda visita e patrocínio pagando parte do kit do dia de campo.',
+  desafio:'Cada técnico usava a camisa que tinha, quase sempre brinde de multinacional. Na frente do produtor, a marca da revenda sumia. As 4 lojas também não tinham padrão, e o dia de campo anual juntava mais de 300 pessoas sem uma identidade clara.',
+  porque:[['A marca da revenda na porteira','O produtor precisava lembrar da AgroCampos, não do brinde.'],['Padrão nas 4 lojas','Balcão, depósito e gerência com a mesma cara.'],['Dia de campo como vitrine','Evento grande, com parceiros querendo aparecer.']],
+  fez:['Camisa UV manga longa pro RTV, com logo no peito e na manga e nome bordado.','Polo pro balcão e camisa social pra gerência das lojas.','Kit dia de campo com logos dos parceiros na manga: o patrocínio cobriu parte do pedido.','Grade e lista por loja, com entrega separada.'],
+  pecas:[['Camisa UV manga longa',88],['Camisa polo',120],['Camisa social',24],['Camiseta dia de campo',300]],
+  res:[['100%','das visitas com a marca'],['~40%','do kit pago por parceiros'],['532','peças em 1 projeto']],
+  dep:['O produtor agora lembra da AgroCampos, não da marca do brinde. A camisa entrou na nossa estratégia comercial.','Fernanda L.','Gerente de marketing'],
+  mk:['uv','polo'],gal:['RTV na visita técnica','Balcão da loja','Dia de campo com parceiros']},
+
+ {id:'aeroverde',ativ:'Prestador de serviço',seg:'empresa',cliente:'AeroVerde Aviação Agrícola',local:'Luís Eduardo Magalhães · BA',atividade:'Pulverização aérea · 9 aeronaves',equipe:'35 colaboradores',motif:'aviao',cores:['#e35205','#1b1b1b'],ini:'AV',
+  titulo:'Pilotos, equipe de solo e uma pista no meio da fazenda.',
+  resumo:'Alta visibilidade pra quem trabalha do lado da aeronave e padrão pra auditoria.',
+  desafio:'A equipe de solo trabalha ao lado da aeronave em pistas de fazenda, com poeira e sol. Precisava ser vista de longe. Os grandes grupos que contratam o serviço começaram a exigir equipe identificada nas auditorias de segurança.',
+  porque:[['Ser visto na pista','Segurança de quem abastece e carrega a aeronave.'],['Exigência do contratante','Auditoria pedindo equipe identificada por função.'],['Imagem de empresa grande','Concorrer com operadores maiores na hora do contrato.']],
+  fez:['Camisa UV laranja de alta visibilidade pra equipe de solo, com função nas costas.','Polo marinho pros pilotos, com o brevê bordado no peito.','Calça operacional pra mecânicos do hangar.'],
+  pecas:[['Camisa UV manga longa',70],['Camisa polo',20],['Calça operacional',30]],
+  res:[['100%','da equipe identificada'],['OK','na auditoria do cliente'],['2ª','base com o mesmo padrão']],
+  dep:['Na pista, ser visto é segurança. E pro cliente, equipe uniformizada é sinal de empresa séria.','Cmte. André S.','Diretor de operações'],
+  mk:['uv','polo'],gal:['Equipe de solo na pista','Pilotos antes do voo','Hangar e manutenção']},
+
+ {id:'coopercerrado',ativ:'Cooperativa',seg:'empresa',cliente:'Coopercerrado',local:'Cristalina · GO',atividade:'Cooperativa · 1.200 cooperados',equipe:'180 colaboradores',motif:'silo',cores:['#1e3a2f','#8dc63f'],ini:'CC',
+  titulo:'Uma cooperativa, três realidades e 30 anos pra comemorar.',
+  resumo:'Cinco fornecedores viraram um, com linha única do armazém à diretoria.',
+  desafio:'Armazém com pó e calor, equipe técnica no campo, administrativo e lojas. Cada setor comprava de um lugar e a cooperativa tinha cinco padrões diferentes. Ainda tinha a festa de 30 anos chegando, com cooperados e famílias.',
+  porque:[['Um padrão só','A mesma marca do armazém à diretoria.'],['Peça certa por setor','O armazém não pode usar a mesma camisa do escritório.'],['Festa de 30 anos','Edição comemorativa pros cooperados.']],
+  fez:['Camiseta e calça operacional pro armazém e a recepção de grãos.','Camisa UV pros técnicos de campo e polo e social pro administrativo.','Edição comemorativa de 30 anos pros cooperados.','Entrega em 4 lotes, por setor, sem parar a operação.'],
+  pecas:[['Camiseta operacional',260],['Calça operacional',120],['Camisa UV manga longa',60],['Polo e social',90],['Camiseta 30 anos',400]],
+  res:[['5 → 1','fornecedores'],['930','peças entregues'],['9','unidades no padrão']],
+  dep:['Saímos de cinco fornecedores pra um. Hoje o uniforme do armazém e o da diretoria contam a mesma história.','Paulo R.','Gerente administrativo'],
+  mk:['camiseta','social'],gal:['Recepção de grãos','Técnicos de campo','Festa de 30 anos']}
+];
+
+const ATIV={produtor:['Soja e milho','Pecuária','Café','Cana','Algodão','Hortifrúti','Granja','Outra'],empresa:['Revenda de insumos','Cooperativa','Prestador de serviço','Armazém e logística','Máquinas e peças','Outra']};
+const PERSO=['Bordado','Silk / estampa','Nome e função','Numeração','Logo de parceiros','Não sei ainda'];
+const CMP=['Tecido pensado pro sol e a poeira do campo','Cor e identificação por função','Layout pra aprovar antes de produzir','Logo vetorizada e guardada pra recompra','Lista padrão de nomes e tamanhos, sem erro','Faturamento em boleto para CNPJ'];
+const FAQ=[
+ ['Qual é o pedido mínimo?','A partir de 30 peças. Dá pra misturar modelos, cores e tamanhos dentro do mesmo pedido.'],
+ ['Qual é o prazo?','Até 30 dias corridos, contados depois que o layout e a lista de nomes e tamanhos estão aprovados. Tem data de safra ou evento? Fala no pré-pedido que a gente avalia o prazo express.'],
+ ['Vocês atendem a minha região?','Sim. A Kauê fica em Itumbiara (GO) e envia pra todo o Brasil por transportadora ou Correios. O frete é calculado e mostrado separado na proposta.'],
+ ['Minha logo está só em foto ou print. Serve?','Serve. A gente vetoriza a sua logo e guarda o arquivo no seu cadastro. Nas próximas compras, não cobra de novo.'],
+ ['Posso ver como vai ficar antes de produzir?','Pode e deve. Você recebe o layout pra aprovar, com duas rodadas de ajuste inclusas. Pra pedidos a partir de 50 peças, dá pra fazer um teste de cor no tecido.'],
+ ['Como funciona o pagamento?','O padrão é 50% na aprovação e 50% na entrega, no Pix ou cartão em até 3x. Para CNPJ, há faturamento em boleto conforme análise de crédito.'],
+ ['E se vier algum defeito?','Toda peça tem 90 dias de garantia contra defeito de fabricação: costura, tecido e personalização.']
+];
+const TESTI=[
+ ['Antes eu precisava perguntar quem era quem no talhão. Hoje eu bato o olho de dentro da caminhonete.','Marcos A.','Fazenda Santa Helena · GO'],
+ ['O produtor agora lembra da nossa marca, não da marca do brinde. A camisa entrou na estratégia comercial.','Fernanda L.','AgroCampos Insumos · MT'],
+ ['Saímos de cinco fornecedores pra um. O armazém e a diretoria contam a mesma história.','Paulo R.','Coopercerrado · GO'],
+ ['Quem compra o boi repara na equipe. Hoje a gente recebe comprador com orgulho.','Rogério P.','Agropecuária Boa Vista · MT']
+];
+const UFS='AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO'.split(' ');
+
+/* ======================================================
+   RENDER
+   ====================================================== */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// hero
+$('#heroBg').innerHTML=scene('lavoura','#0056a4',7);
+$('#hs1').innerHTML=shirt('polo','#0056a4','#002535','K');
+$('#hs2').innerHTML=shirt('social','#eef2f5','#0056a4','K','#002535');
+$('#hs3').innerHTML=shirt('uv','#0a4a73','#0056a4','K');
+$('#finalArt').innerHTML=shirt('uv','#0056a4','#002535','K');
+
+// palavra giratória
+const WORDS=['a lavoura','a colheita','o curral','a revenda','o dia de campo','o escritório'];
+(function(){
+  const strip=$('#pillStrip'), pill=$('#pill'); const all=[...WORDS,WORDS[0]];
+  strip.innerHTML=all.map(w=>`<span>${w}</span>`).join('');
+  const spans=[...strip.children]; let i=0;
+  const lh=()=>pill.getBoundingClientRect().height;
+  const fit=k=>{pill.style.width=(spans[k].scrollWidth+parseFloat(getComputedStyle(pill).paddingLeft)*2)+'px';spans.forEach((s,j)=>s.style.opacity=j===k?1:.15)};
+  (document.fonts?document.fonts.ready:Promise.resolve()).then(()=>{fit(0);
+    if(reduce)return;
+    setInterval(()=>{i++;strip.style.transition='';strip.style.transform=`translateY(${-i*lh()}px)`;fit(i);
+      if(i===all.length-1){setTimeout(()=>{strip.style.transition='none';i=0;strip.style.transform='translateY(0)';fit(0)},600)}},1900);
+  });
+})();
+
+// dores
+['produtor','empresa'].forEach(k=>{$(k==='produtor'?'#dorProd':'#dorEmp').innerHTML=DORES[k].map(d=>`<article class="dor"><div class="ic">${ic(d.i)}</div><q>${d.q}</q><p>${d.p}</p><div class="fix">→ ${d.f}</div></article>`).join('')});
+
+// camadas
+$('#layers').innerHTML=[
+ ['Campo e operação','Quem pega no pesado','Lavoura, curral, oficina, armazém. Proteção, resistência e identificação.',['Camisa UV','Camiseta','Calça'],shirt('uv','#2f6b3a','#1d4426','K')],
+ ['Técnico e comercial','Quem representa a marca','RTV, agrônomo, vendedor e equipe de evento. Presença sem perder o conforto.',['Polo','Camisa UV','Boné'],shirt('polo','#0056a4','#002535','K')],
+ ['Escritório e gestão','Quem decide','Administrativo, gerência e diretoria. Acabamento de escritório.',['Camisa social','Polo','Jaleco'],shirt('social','#eef2f5','#0056a4','K','#002535')]
+].map((l,i)=>`<div class="layer"><span class="lv">Camada 0${i+1} · ${l[0]}</span><h3 class="display">${l[1]}</h3><p>${l[2]}</p><ul>${l[3].map(x=>`<li>${x}</li>`).join('')}</ul><div class="ls">${l[4]}</div></div>`).join('');
+
+// produtos
+$('#prods').innerHTML=PRODS.map(p=>`<article class="prod reveal"><div class="prod-art"><span class="where">${p.where}</span>${shirt(p.id,p.c[0],p.c[1],'K',p.t)}</div><div class="prod-body"><h3>${p.nome}</h3><p>${p.p}</p><ul class="feat">${p.feat.map(f=>`<li>${f}</li>`).join('')}</ul><button class="add" data-add="${p.id}">+ Adicionar ao pedido</button></div></article>`).join('');
+
+// cases
+const total=c=>c.pecas.reduce((a,b)=>a+b[1],0);
+$('#cases-grid').innerHTML=CASES.map((c,i)=>`<button class="case" data-case="${c.id}" data-seg="${c.seg}" aria-label="Abrir case ${c.cliente}">
+  <div class="case-img">${scene(c.motif,c.cores[0],i+2)}<div class="mk">${shirt(c.mk[0],c.cores[0],c.cores[1],c.ini)}</div><span class="seg">${c.seg==='produtor'?'Produtor rural':'Empresa do agro'}</span><span class="photo-tag">foto ilustrativa</span></div>
+  <div class="case-body"><span class="who">${c.cliente} · ${c.local}</span><h3>${c.titulo}</h3>
+  <div class="case-kpis"><div><b>${total(c)}</b><span>peças</span></div><div><b>${c.res[0][0]}</b><span>${c.res[0][1]}</span></div></div>
+  <span class="case-open">Ver o case completo <i>→</i></span></div></button>`).join('');
+$('#ctAll').textContent=CASES.length;$('#ctP').textContent=CASES.filter(c=>c.seg==='produtor').length;$('#ctE').textContent=CASES.filter(c=>c.seg==='empresa').length;
+function filterCases(f){$$('.case-tabs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.filter===f));$$('.case').forEach(c=>{c.hidden=!(f==='todos'||c.dataset.seg===f)})}
+$$('.case-tabs button').forEach(b=>b.onclick=()=>filterCases(b.dataset.filter));
+
+// modal
+let lastFocus=null;
+function openCase(id){
+  const c=CASES.find(x=>x.id===id); if(!c)return; const t=total(c), mx=Math.max(...c.pecas.map(p=>p[1]));
+  $('#sheetPanel').innerHTML=`<button class="sheet-close" data-close aria-label="Fechar">✕</button>
+  <div class="cs-hero">${scene(c.motif,c.cores[0],11)}<div class="mks">${shirt(c.mk[0],c.cores[0],c.cores[1],c.ini)}${shirt(c.mk[1],c.cores[0],c.cores[1],c.ini)}</div>
+   <div class="cs-hero-txt"><p class="eyebrow light">Case · ${c.seg==='produtor'?'Produtor rural':'Empresa do agro'}</p><h2 class="display" id="csTitle">${c.titulo}</h2></div></div>
+  <div class="cs-meta"><div><small>Cliente</small><b>${c.cliente}</b></div><div><small>Onde</small><b>${c.local}</b></div><div><small>Operação</small><b>${c.atividade}</b></div><div><small>Equipe</small><b>${c.equipe}</b></div></div>
+  <div class="cs-body"><div>
+    <div class="blk"><h3>O desafio</h3><p>${c.desafio}</p></div>
+    <div class="blk"><h3>Por que eles queriam uniforme</h3><ul class="cs-why">${c.porque.map((p,i)=>`<li><span class="n">${i+1}</span><span><b>${p[0]}</b>${p[1]}</span></li>`).join('')}</ul></div>
+    <div class="blk"><h3>O que a Kauê fez</h3><ul class="cs-do">${c.fez.map(f=>`<li>${f}</li>`).join('')}</ul></div>
+    <div class="blk"><h3>Resultado</h3><div class="cs-res">${c.res.map(r=>`<div><b>${r[0]}</b><span>${r[1]}</span></div>`).join('')}</div></div>
+    <div class="blk"><h3>Na prática</h3><div class="gal">${c.gal.map((g,i)=>`<div>${scene(c.motif,c.cores[0],20+i)}<span>📷 ${g}</span></div>`).join('')}</div></div>
+  </div><aside>
+    <div class="cs-quote"><p>${c.dep[0]}</p><div class="who-row"><span class="av">${c.dep[1].split(' ').map(x=>x[0]).join('')}</span><div><b>${c.dep[1]}</b><small>${c.dep[2]} · ${c.cliente}</small></div></div></div>
+    <div class="side-card" style="margin-top:16px"><h3>O pedido</h3>${c.pecas.map(p=>`<div class="pc-row"><span>${p[0]}</span><b>${p[1]}</b><div class="pc-bar"><i style="width:${p[1]/mx*100}%"></i></div></div>`).join('')}<div class="pc-total"><span>Total</span><span>${t} peças</span></div></div>
+    <div class="side-card"><h3>Cores do projeto</h3><div class="swatches">${c.cores.map(x=>`<i style="background:${x}"></i>`).join('')}<i style="background:#fff"></i></div></div>
+  </aside></div>
+  <div class="cs-cta"><div><h4>Quer um projeto assim?</h4><p>A gente monta o seu pré-pedido com base nesse case.</p></div><button class="btn btn-cta" data-usecase="${c.id}">Usar esse case como base</button></div>
+  <p class="demo-note">Case ilustrativo para aprovação de layout. Substituir por um case real com fotos e autorização do cliente.</p>`;
+  lastFocus=document.activeElement; $('#sheet').classList.add('open'); document.body.style.overflow='hidden'; $('#sheetPanel').scrollTop=0; $('.sheet-close').focus();
+  history.replaceState(null,'','#case-'+c.id);
+}
+function closeCase(){ $('#sheet').classList.remove('open'); document.body.style.overflow=''; history.replaceState(null,'',location.pathname+location.search); lastFocus&&lastFocus.focus(); }
+document.addEventListener('click',e=>{
+  const cs=e.target.closest('[data-case]'); if(cs){openCase(cs.dataset.case);return}
+  if(e.target.closest('[data-close]')){closeCase();return}
+  const uc=e.target.closest('[data-usecase]'); if(uc){useCase(uc.dataset.usecase)}
+  const ad=e.target.closest('[data-add]'); if(ad){addPeca(ad.dataset.add)}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#sheet').classList.contains('open'))closeCase()});
+
+// segmento
+function setSeg(s,scroll){
+  document.body.dataset.seg=s;
+  $$('[data-pick]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.pick===s));
+  const btn=$(`.seg-toggle [data-pick="${s}"]`), k=$('#knob'); k.style.left=btn.offsetLeft+'px'; k.style.width=btn.offsetWidth+'px';
+  filterCases(s);
+  if(scroll){const r=$(`input[name=perfil][value="${s==='produtor'?'Produtor rural':'Empresa do agro'}"]`); if(r){r.checked=true;renderAtiv();updSum()}}
+  if(scroll)$('#dores').scrollIntoView({behavior:reduce?'auto':'smooth'});
+}
+$$('[data-pick]').forEach(b=>b.addEventListener('click',()=>setSeg(b.dataset.pick,b.classList.contains('seg-card'))));
+
+// comparativo
+$('#cmp').insertAdjacentHTML('beforeend',CMP.map(t=>`<div class="cmp-row"><span class="lbl">${t}</span><span class="c x"><svg viewBox="0 0 30 30"><path d="M10 10l10 10M20 10L10 20" stroke="#a5b0b6" stroke-width="2.6" stroke-linecap="round"/></svg></span><span class="c v"><svg viewBox="0 0 30 30"><circle cx="15" cy="15" r="13" fill="#0056a4"/><path d="M9 15.5l4 4 8-9" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>`).join(''));
+
+// depoimentos stack
+(function(){
+  const st=$('#stack');
+  st.innerHTML=TESTI.map(t=>`<div class="tcard"><div class="stars">${'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.5L12 17.3 6.1 20.5l1.3-6.5L2.5 9.4l6.6-.8z"/></svg>'.repeat(5)}</div><p>${t[0]}</p><div class="who-row"><span class="av">${t[1].split(' ').map(x=>x[0]).join('')}</span><div><b>${t[1]}</b><small>${t[2]}</small></div></div></div>`).join('');
+  const cards=[...st.children]; let order=cards.map((_,i)=>i);
+  function lay(){order.forEach((ci,pos)=>{const c=cards[ci];c.classList.toggle('front',pos===0);c.style.zIndex=10-pos;c.style.transform=`translateY(${-pos*24}px) scale(${1-pos*.06})`;c.style.filter=`brightness(${1-pos*.08})`;c.style.opacity=pos>3?0:1})}
+  lay(); if(reduce)return;
+  let vis=false; new IntersectionObserver(e=>vis=e[0].isIntersecting).observe(st);
+  setInterval(()=>{if(!vis||document.hidden)return;const f=cards[order[0]];f.classList.add('out');setTimeout(()=>{f.classList.remove('out');order.push(order.shift());f.style.transition='none';lay();f.offsetHeight;f.style.transition=''},600);setTimeout(()=>{order.slice(0).forEach(()=>{});lay()},20)},3200);
+})();
+
+// FAQ
+$('#faq').innerHTML=FAQ.map(f=>`<details><summary>${f[0]}<i>+</i></summary><p>${f[1]}</p></details>`).join('');
+
+/* ======================================================
+   FORMULÁRIO
+   ====================================================== */
+const form=$('#form'); let step=1; const qty={};
+$('#uf').insertAdjacentHTML('beforeend',UFS.map(u=>`<option>${u}</option>`).join(''));
+function renderAtiv(){const p=form.perfil.value==='Empresa do agro'?'empresa':'produtor';const cur=form.atividade&&form.atividade.value;
+  $('#atividades').innerHTML=ATIV[p].map((a,i)=>`<div class="opt"><input type="radio" name="atividade" id="at${i}" value="${a}" ${a===cur?'checked':''}><label for="at${i}">${a}</label></div>`).join('')}
+renderAtiv();
+$('#persos').innerHTML=PERSO.map((a,i)=>`<div class="opt"><input type="checkbox" name="perso" id="ps${i}" value="${a}"><label for="ps${i}">${a}</label></div>`).join('');
+$('#qtyList').innerHTML=PRODS.map(p=>`<div class="qty" data-q="${p.id}"><span class="mini">${shirt(p.id,p.c[0],p.c[1],'K',p.t)}</span><span><b>${p.nome}</b><small>${p.where}</small></span><span class="stepper"><button type="button" data-d="-10" aria-label="Menos 10 ${p.nome}">−</button><input type="number" min="0" step="1" value="0" aria-label="Quantidade de ${p.nome}"><button type="button" data-d="10" aria-label="Mais 10 ${p.nome}">+</button></span></div>`).join('');
+$$('.qty').forEach(row=>{const id=row.dataset.q, inp=row.querySelector('input');
+  row.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{setQty(id,(qty[id]||0)+ +b.dataset.d)});
+  inp.oninput=()=>setQty(id,parseInt(inp.value)||0,true)});
+function setQty(id,v,fromInput){v=Math.max(0,Math.min(9999,v));qty[id]=v;const row=$(`.qty[data-q="${id}"]`);if(!fromInput)row.querySelector('input').value=v;row.classList.toggle('has',v>0);updMeter();updSum()}
+function totalQ(){return Object.values(qty).reduce((a,b)=>a+b,0)}
+function updMeter(){const t=totalQ(),m=$('#meter');m.classList.toggle('short',t<MIN_PECAS);$('#mmBar').style.width=Math.min(100,t/MIN_PECAS*100)+'%';$('#mmN').textContent=`${t}/${MIN_PECAS}`;$('#mmTxt').textContent=t>=MIN_PECAS?'Pedido mínimo atingido ✓':`Faltam ${MIN_PECAS-t} peças para o pedido mínimo`}
+function addPeca(id){if(!qty[id])setQty(id,MIN_PECAS);$('#pedido').scrollIntoView({behavior:reduce?'auto':'smooth'});toast(`${PRODS.find(p=>p.id===id).nome} no seu pedido`)}
+function useCase(id){const c=CASES.find(x=>x.id===id);closeCase();setSeg(c.seg);
+  const p=$(`input[name=perfil][value="${c.seg==='produtor'?'Produtor rural':'Empresa do agro'}"]`);p.checked=true;renderAtiv();const at=$(`input[name=atividade][value="${c.ativ}"]`);if(at)at.checked=true;
+  const map={'Camisa UV manga longa':'uv','Camisa polo':'polo','Camisa social':'social','Calça operacional':'calca','Camiseta operacional':'camiseta','Polo e social':'polo'};
+  c.pecas.forEach(([n,q])=>{const k=map[n]||(n.toLowerCase().includes('camiseta')?'camiseta':null);if(k)setQty(k,(qty[k]||0)+Math.round(q/10)*10||q)});
+  $('#obs').value=`Quero algo parecido com o case ${c.cliente}.`;
+  updSum();$('#pedido').scrollIntoView({behavior:reduce?'auto':'smooth'});toast('Pedido montado com base no case')}
+
+function updSum(){
+  const rows=[];const f=new FormData(form);
+  if(f.get('perfil'))rows.push(['Perfil',f.get('perfil')]);
+  if(f.get('atividade'))rows.push(['Atividade',f.get('atividade')]);
+  if(f.get('equipe'))rows.push(['Pessoas',f.get('equipe')]);
+  PRODS.forEach(p=>{if(qty[p.id])rows.push([p.nome,qty[p.id]+' un.'])});
+  const ps=f.getAll('perso');if(ps.length)rows.push(['Personalização',ps.join(', ')]);
+  if(f.get('prazo'))rows.push(['Prazo',f.get('prazo').split(' (')[0]]);
+  $('#sumRows').innerHTML=rows.length?rows.map(r=>`<div class="sum-row"><span>${r[0]}</span><b>${r[1]}</b></div>`).join(''):'<p class="sum-empty">Comece escolhendo o perfil ao lado.</p>';
+  const tb=$('#sumTotal'),t=totalQ(); if(tb.textContent!=t){tb.textContent=t;tb.animate&&!reduce&&tb.animate([{transform:'scale(1.25)'},{transform:'scale(1)'}],{duration:300,easing:'cubic-bezier(.34,1.56,.64,1)'})}
+}
+form.addEventListener('change',e=>{if(e.target.name==='perfil'){renderAtiv();setSeg(e.target.value==='Empresa do agro'?'empresa':'produtor')}updSum()});
+
+function goto(n){step=n;$$('.fstep[data-step]').forEach(s=>s.classList.toggle('on',+s.dataset.step===n));
+  $('#stepN').textContent=n;$('#stepLeft').textContent=n===4?'última etapa':`faltam ${4-n} etapas`;$('#fbar').style.width=(n/4*100)+'%';
+  $$('.fsteps span').forEach((s,i)=>s.classList.toggle('on',i<n));$('#back').hidden=n===1;
+  $('#next').firstChild.textContent=n===4?'Enviar pré-pedido ':'Continuar ';
+  if(window.innerWidth<960)$('#fprog').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'})}
+function need(msg){toast(msg);return false}
+function valid(){const f=new FormData(form);
+  if(step===1){if(!f.get('perfil'))return need('Escolha se é produtor ou empresa do agro');if(!f.get('atividade'))return need('Escolha a atividade')}
+  if(step===2){if(totalQ()<1)return need('Adicione pelo menos uma peça')}
+  if(step===4){let ok=true;const n=$('#nome').value.trim();$('#f-nome').classList.toggle('bad',!n);if(!n)ok=false;
+    const w=$('#whats').value.replace(/\D/g,'');const wb=w.length<10||w.length>13;$('#f-whats').classList.toggle('bad',wb);if(wb)ok=false;return ok}
+  return true}
+$('#next').onclick=()=>{if(!valid())return;if(step<4)goto(step+1);else submit()};
+$('#back').onclick=()=>goto(step-1);
+$('#whats').addEventListener('input',e=>{let v=e.target.value.replace(/\D/g,'').slice(0,11);e.target.value=v.length>6?`(${v.slice(0,2)}) ${v.slice(2,v.length-4)}-${v.slice(-4)}`:v.length>2?`(${v.slice(0,2)}) ${v.slice(2)}`:v});
+
+function submit(){
+  const f=new FormData(form);
+  const data={perfil:f.get('perfil'),atividade:f.get('atividade'),equipe:f.get('equipe'),pecas:Object.fromEntries(PRODS.filter(p=>qty[p.id]).map(p=>[p.nome,qty[p.id]])),total:totalQ(),personalizacao:f.getAll('perso'),logo:f.get('logo'),prazo:f.get('prazo'),obs:f.get('obs'),nome:f.get('nome'),empresa:f.get('empresa'),cidade:f.get('cidade'),uf:f.get('uf'),whatsapp:f.get('whats'),origem:'LP Agro',utm:Object.fromEntries(new URLSearchParams(location.search))};
+  if(WEBHOOK)fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).catch(()=>{});
+  else console.log('Pré-pedido (demonstração):',data);
+  const msg=`Olá, Kauê! Fiz o pré-pedido pelo site.\n\n*${data.nome}*${data.empresa?' · '+data.empresa:''}\n${[data.cidade,data.uf].filter(Boolean).join(' / ')}\n\nPerfil: ${data.perfil} · ${data.atividade}\nPeças:\n${Object.entries(data.pecas).map(([k,v])=>`• ${v}× ${k}`).join('\n')}\nTotal: ${data.total} peças\nPersonalização: ${data.personalizacao.join(', ')||'a definir'}\nLogo: ${data.logo||'a definir'}\nPrazo: ${data.prazo||'a definir'}${data.obs?'\nObs.: '+data.obs:''}`;
+  $('#waBtn').href=`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+  $$('.fstep').forEach(s=>s.style.display='none');$('#fprog').style.display='none';$('#done').classList.add('on');confetti();
+}
+
+function confetti(){if(reduce)return;const cv=$('#confetti'),x=cv.getContext('2d');let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+  const P=[...Array(44)].map(()=>({x:200,y:200,vx:(rnd()-.5)*9,vy:-rnd()*9-2,r:rnd()*6,c:['#0056a4','#7fb4ec','#002535','#f2a81d','#3ddc84'][Math.floor(rnd()*5)],s:rnd()*4+3,a:1}));
+  let t=0;(function f(){x.clearRect(0,0,400,400);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.28;p.r+=.15;p.a-=.012;x.save();x.globalAlpha=Math.max(0,p.a);x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);x.restore()});if(++t<90)requestAnimationFrame(f)})()}
+
+function toast(m){let t=$('#toast');if(!t){t=document.createElement('div');t.id='toast';t.setAttribute('role','status');t.style.cssText='position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#002535;color:#fff;padding:12px 18px;border-radius:12px;font-weight:700;font-size:14px;z-index:200;box-shadow:0 10px 30px -10px #000;transition:opacity .3s;max-width:90vw;text-align:center';document.body.appendChild(t)}
+  t.textContent=m;t.style.opacity=1;clearTimeout(t._h);t._h=setTimeout(()=>t.style.opacity=0,2400)}
+
+/* ======================================================
+   MOTION: números, reveal, caminho, comparativo, topo
+   ====================================================== */
+function countUp(el){const to=+el.dataset.count,pre=el.dataset.pre||'',suf=el.dataset.suf||'',k=el.dataset.fmt==='k';const d=1800,t0=performance.now();
+  const fmt=v=>k?(v>=1000?Math.round(v/1000)+' mil':Math.round(v)):Math.round(v).toLocaleString('pt-BR');
+  if(reduce){el.textContent=pre+fmt(to)+suf;return}
+  (function f(t){const p=Math.min(1,(t-t0)/d),e=p===1?1:1-Math.pow(2,-10*p);el.textContent=pre+fmt(to*e)+suf;if(p<1)requestAnimationFrame(f)})(t0)}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target;io.unobserve(el);
+  if(el.dataset.count)countUp(el);else if(el.id==='steps')runPath();else if(el.id==='cmp')runCmp();else el.classList.add('in')}),{threshold:.2});
+$$('[data-count],.reveal').forEach(el=>io.observe(el));io.observe($('#steps'));io.observe($('#cmp'));
+
+function runPath(){const prg=$('#prg'),tip=$('#tip'),L=prg.getTotalLength(),steps=$$('.step');const pts=[.04,.33,.66,.96];
+  $('#nodes').innerHTML=pts.map((p,i)=>{const q=prg.getPointAtLength(L*p);return `<g transform="translate(${q.x} ${q.y})"><circle r="16" fill="#002535" stroke="rgba(255,255,255,.25)" stroke-width="2" class="nd"/><path d="M-6 0l4 4 8-8" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="20" stroke-dashoffset="20" class="ck"/></g>`}).join('');
+  const nds=$$('#nodes g');prg.style.strokeDasharray=L;prg.style.strokeDashoffset=L;
+  if(reduce||getComputedStyle($('.how svg.path')).display==='none'){steps.forEach(s=>s.classList.add('on'));$('#live').classList.add('on');prg.style.strokeDashoffset=0;return}
+  const t0=performance.now(),D=3200;(function f(t){const p=Math.min(1,(t-t0)/D),e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;prg.style.strokeDashoffset=L*(1-e);const q=prg.getPointAtLength(L*e);tip.setAttribute('cx',q.x);tip.setAttribute('cy',q.y);
+    pts.forEach((pp,i)=>{if(e>=pp&&!steps[i].classList.contains('on')){steps[i].classList.add('on');const c=nds[i];c.querySelector('circle').animate([{transform:'scale(.6)'},{transform:'scale(1.15)'},{transform:'scale(1)'}],{duration:450,easing:'cubic-bezier(.34,1.56,.64,1)'});c.querySelector('circle').setAttribute('fill','#0056a4');c.querySelector('.ck').style.transition='stroke-dashoffset .4s';c.querySelector('.ck').style.strokeDashoffset=0}});
+    if(p<1)requestAnimationFrame(f);else $('#live').classList.add('on')})(t0)}
+function runCmp(){const c=$('#cmp');c.classList.add('on');$$('#cmp .cmp-row:not(.cmp-head)').forEach((r,i)=>setTimeout(()=>r.classList.add('on'),reduce?0:300+i*380))}
+// fallback mobile: steps visíveis quando caminho oculto
+if(innerWidth<900)$$('.step').forEach(s=>s.classList.add('on'));
+
+const topBar=$('#top'),mbar=$('#mbar');
+addEventListener('scroll',()=>{const y=scrollY;topBar.classList.toggle('solid',y>40);const f=$('#pedido').getBoundingClientRect();mbar.classList.toggle('on',y>innerHeight*.8&&(f.top>innerHeight||f.bottom<0))},{passive:true});
+
+// segmento inicial: ?seg=empresa (anúncio) ou #case-xxx
+(function(){const q=new URLSearchParams(location.search).get('seg');
+  requestAnimationFrame(()=>{setSeg(q==='empresa'?'empresa':'produtor');filterCases(q==='empresa'||q==='produtor'?q:'todos');
+    const h=location.hash.match(/^#case-(.+)/);if(h)openCase(h[1])})})();
+addEventListener('resize',()=>{const b=$(`.seg-toggle [data-pick="${document.body.dataset.seg}"]`),k=$('#knob');k.style.left=b.offsetLeft+'px';k.style.width=b.offsetWidth+'px'});
+</script>
+</body>
+</html>

@@ -136,17 +136,30 @@ body[data-seg="produtor"] [data-for="produtor"],body[data-seg="empresa"] [data-f
 body[data-seg="produtor"] .grid-dor[data-for="produtor"],body[data-seg="empresa"] .grid-dor[data-for="empresa"]{display:grid}
 
 /* ===== Dores ===== */
-.grid-dor{grid-template-columns:repeat(4,1fr);gap:16px}
-.dor{background:#fff;border-radius:var(--r);padding:26px 22px;border:1px solid var(--line);position:relative;overflow:hidden;animation:rise .6s var(--ease) both}
-.dor:nth-child(2){animation-delay:.07s}.dor:nth-child(3){animation-delay:.14s}.dor:nth-child(4){animation-delay:.21s}
-@keyframes rise{from{opacity:0;transform:translateY(18px)}}
-.dor .ic{width:46px;height:46px;border-radius:13px;background:var(--navy);color:var(--sky);display:grid;place-items:center;margin-bottom:18px}
-.dor .ic svg{width:24px;height:24px}
-.dor q{display:block;font-family:var(--display);font-variation-settings:"wdth" 110;font-weight:800;font-size:20px;line-height:1.15;margin-bottom:10px;quotes:none}
-.dor p{font-size:15px;color:var(--ink-2)}
-.dor .fix{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);font-size:13.5px;font-weight:700;color:var(--blue);display:flex;gap:8px}
-@media (max-width:980px){.grid-dor{grid-template-columns:1fr 1fr}}
-@media (max-width:560px){.grid-dor{grid-template-columns:1fr}}
+.dor-layout{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:72px;align-items:start}
+.dor-left{position:sticky;top:104px}
+.dor-left .sec-head{margin-bottom:28px}
+.dor-left .sec-head h2{font-size:clamp(32px,4vw,50px)}
+.dor-left .seg-toggle{margin-bottom:26px}
+.dor-cta{display:inline-flex;align-items:center;gap:10px;font-weight:800;color:var(--navy);text-decoration:none;border-bottom:2px solid var(--blue);padding-bottom:4px;min-height:44px}
+.dor-cta span{transition:transform .3s var(--ease)}.dor-cta:hover span{transform:translateX(5px)}
+.grid-dor{grid-template-columns:1fr;gap:0;counter-reset:dor}
+.dor{display:grid;grid-template-columns:72px minmax(0,1fr) 148px;gap:24px;align-items:start;padding:30px 0;border-top:1px solid var(--line);position:relative;animation:rise .6s var(--ease) both}
+.dor:last-child{border-bottom:1px solid var(--line)}
+.dor:nth-child(2){animation-delay:.08s}.dor:nth-child(3){animation-delay:.16s}.dor:nth-child(4){animation-delay:.24s}
+.dor::before{content:"";position:absolute;left:0;top:-1px;height:2px;width:0;background:var(--blue);transition:width .6s var(--ease)}
+.dor:hover::before{width:100%}
+.dor .n{font-family:var(--display);font-variation-settings:"wdth" 125;font-weight:800;font-size:46px;line-height:.9;color:transparent;-webkit-text-stroke:1.5px rgba(0,37,53,.35);transition:-webkit-text-stroke-color .3s,color .3s}
+.dor:hover .n{color:var(--navy);-webkit-text-stroke-color:var(--navy)}
+.dor q{display:block;font-family:var(--display);font-variation-settings:"wdth" 112;font-weight:800;font-size:clamp(22px,2.2vw,27px);line-height:1.1;margin-bottom:10px;quotes:none;letter-spacing:-.01em}
+.dor p{font-size:16px;color:var(--ink-2);max-width:440px}
+.dor .fix{display:flex;align-items:baseline;gap:10px;margin-top:16px;font-size:15px;font-weight:700;color:var(--navy)}
+.dor .fix small{flex:none;font-family:var(--display);font-variation-settings:"wdth" 125;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--blue);padding:4px 8px;border-radius:6px;font-weight:800}
+.dor .ph{width:148px;aspect-ratio:4/5;border-radius:16px;overflow:hidden;background:var(--paper-2)}
+.dor .ph img{width:100%;height:100%;object-fit:cover;filter:saturate(.85);transition:transform .7s var(--ease),filter .4s}
+.dor:hover .ph img{transform:scale(1.06);filter:none}
+@media (max-width:980px){.dor-layout{grid-template-columns:1fr;gap:28px}.dor-left{position:static}}
+@media (max-width:600px){.dor{grid-template-columns:minmax(0,1fr) 96px;gap:14px;padding:24px 0}.dor .n{grid-column:1/-1;font-size:34px}.dor .ph{width:96px}.dor .fix{flex-direction:column;gap:6px}}
 
 /* ===== Camadas ===== */
 .layers{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.1)}
@@ -673,6 +686,8 @@ body[data-seg="produtor"] .grid-dor[data-for="produtor"],body[data-seg="empresa"
 <!-- ===== DORES ===== -->
 <section class="sec" id="dores">
   <div class="wrap">
+    <div class="dor-layout">
+    <div class="dor-left">
     <div class="sec-head reveal">
       <p class="eyebrow">A gente conhece a lida</p>
       <h2 class="display" data-for="produtor">Na fazenda, uniforme não é enfeite. É ferramenta de trabalho.</h2>
@@ -685,8 +700,13 @@ body[data-seg="produtor"] .grid-dor[data-for="produtor"],body[data-seg="empresa"
       <button data-pick="produtor" aria-pressed="true">Produtor rural</button>
       <button data-pick="empresa" aria-pressed="false">Empresa do agro</button>
     </div>
+    <a href="#pedido" class="dor-cta">Montar o pedido da minha equipe <span>→</span></a>
+    </div>
+    <div class="dor-right">
     <div class="grid-dor" data-for="produtor" id="dorProd"></div>
     <div class="grid-dor" data-for="empresa" id="dorEmp"></div>
+    </div>
+    </div>
     <div class="ba-wrap reveal">
       <div class="ba-head"><p class="eyebrow">Antes e depois</p><h3 class="display">Do "cada um com a sua roupa" pra uma equipe só.</h3><p>Uniforme muda a cara da operação na hora: quem chega na porteira enxerga organização, e a equipe se sente parte do time.</p><span class="ba-hint">↔ Arraste a barra pra comparar</span></div>
       <div class="ba" id="ba">
@@ -1133,16 +1153,16 @@ const ic=n=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-w
 
 const DORES={
  produtor:[
-  {i:'sun',q:'Sol de 40 graus na lida',p:'Das 10h às 16h o campo cobra caro. Camiseta comum não segura e o peão cansa mais cedo.',f:'Camisa UV manga longa, leve e que respira'},
-  {i:'users',q:'Safrista misturado com fixo',p:'Na safra a equipe quase dobra e ninguém sabe quem é tratorista, apoio ou terceiro.',f:'Cor e identificação por função'},
-  {i:'shield',q:'Camisa que não dura a safra',p:'Graxa, poeira, galho e lavagem pesada. Em dois meses a camisa já foi.',f:'Costura reforçada e malha pro uso bruto'},
-  {i:'eye',q:'Visita chegando na porteira',p:'Comprador, banco, certificadora, trading. A primeira coisa que eles veem é a sua equipe.',f:'Fazenda organizada aparece na roupa'}
+  {img:'img/hero-campo.jpg',pos:'62% 30%',i:'sun',q:'Sol de 40 graus na lida',p:'Das 10h às 16h o campo cobra caro. Camiseta comum não segura e o peão cansa mais cedo.',f:'Camisa UV manga longa, leve e que respira'},
+  {img:'https://images.unsplash.com/photo-1635174815483-81657b67ec48?auto=format&fit=crop&w=400&q=70',pos:'50% 50%',i:'users',q:'Safrista misturado com fixo',p:'Na safra a equipe quase dobra e ninguém sabe quem é tratorista, apoio ou terceiro.',f:'Cor e identificação por função'},
+  {img:'img/uv-preta.jpg',pos:'50% 40%',i:'shield',q:'Camisa que não dura a safra',p:'Graxa, poeira, galho e lavagem pesada. Em dois meses a camisa já foi.',f:'Costura reforçada e malha pro uso bruto'},
+  {img:'img/equipe-fazenda.jpg',pos:'60% 50%',i:'eye',q:'Visita chegando na porteira',p:'Comprador, banco, certificadora, trading. A primeira coisa que eles veem é a sua equipe.',f:'Fazenda organizada aparece na roupa'}
  ],
  empresa:[
-  {i:'truck',q:'RTV chegando na fazenda',p:'Técnico com camisa de brinde de fornecedor divulga a marca dos outros, não a sua.',f:'Camisa UV e polo com a sua marca'},
-  {i:'flag',q:'Dia de campo, feira e evento',p:'Equipe padronizada vira vitrine. E logo de parceiro na manga ajuda a pagar o kit.',f:'Kit evento com patrocínio na peça'},
-  {i:'store',q:'Loja, armazém e escritório',p:'Cada setor com um fornecedor e um padrão diferente. A marca fica bagunçada.',f:'Uma linha só, do balcão à diretoria'},
-  {i:'refresh',q:'Equipe que cresce na safra',p:'Contratou gente nova e o uniforme não tem reposição igual ao primeiro pedido.',f:'Lista padrão e logo arquivada pra recompra'}
+  {img:'img/agronoma-tablet.jpg',pos:'50% 40%',i:'truck',q:'RTV chegando na fazenda',p:'Técnico com camisa de brinde de fornecedor divulga a marca dos outros, não a sua.',f:'Camisa UV e polo com a sua marca'},
+  {img:'https://images.unsplash.com/photo-1635174815450-337f1f0abf5a?auto=format&fit=crop&w=400&q=70',pos:'50% 50%',i:'flag',q:'Dia de campo, feira e evento',p:'Equipe padronizada vira vitrine. E logo de parceiro na manga ajuda a pagar o kit.',f:'Kit evento com patrocínio na peça'},
+  {img:'img/camisa-tecnica.jpg',pos:'50% 50%',i:'store',q:'Loja, armazém e escritório',p:'Cada setor com um fornecedor e um padrão diferente. A marca fica bagunçada.',f:'Uma linha só, do balcão à diretoria'},
+  {img:'img/equipe-tres.jpg',pos:'100% 40%',i:'refresh',q:'Equipe que cresce na safra',p:'Contratou gente nova e o uniforme não tem reposição igual ao primeiro pedido.',f:'Lista padrão e logo arquivada pra recompra'}
  ]
 };
 
@@ -1269,7 +1289,7 @@ const WORDS=['a lavoura','a colheita','o curral','a revenda','o dia de campo','o
 })();
 
 // dores
-['produtor','empresa'].forEach(k=>{$(k==='produtor'?'#dorProd':'#dorEmp').innerHTML=DORES[k].map(d=>`<article class="dor"><div class="ic">${ic(d.i)}</div><q>${d.q}</q><p>${d.p}</p><div class="fix">→ ${d.f}</div></article>`).join('')});
+['produtor','empresa'].forEach(k=>{$(k==='produtor'?'#dorProd':'#dorEmp').innerHTML=DORES[k].map((d,i)=>`<article class="dor"><span class="n">0${i+1}</span><div><q>${d.q}</q><p>${d.p}</p><div class="fix"><small>Kauê resolve</small><span>${d.f}</span></div></div><div class="ph"><img src="${d.img}" alt="" loading="lazy" style="object-position:${d.pos}"></div></article>`).join('')});
 
 // camadas
 $('#layers').innerHTML=[

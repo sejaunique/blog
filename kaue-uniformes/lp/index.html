@@ -670,37 +670,6 @@ body[data-seg="produtor"] .grid-dor[data-for="produtor"],body[data-seg="empresa"
   </div>
 </section>
 
-<!-- ===== RESULTADOS (motion 03 + 05) ===== -->
-<section class="sec res-sec" id="resultados">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <p class="eyebrow">Resultados no campo</p>
-      <h2 class="display">Quem veste Kauê volta a cada safra.</h2>
-      <p>Pedido aprovado, equipe uniformizada e recompra programada. <span class="tag-demo">dados de exemplo</span></p>
-    </div>
-    <div class="res-grid" id="resGrid">
-      <div class="tile t-phone">
-        <div class="phone" aria-label="Exemplo de notificações de pedidos"><div class="ph-glow"></div><div class="island"></div>
-          <div class="ph-date">quinta-feira, 12 de novembro</div><div class="ph-time">9:41</div>
-          <div class="notifs" id="notifs"></div></div>
-        <div class="ph-card"><span>Peças aprovadas hoje</span><b id="phCount">0</b>
-          <svg class="spark" viewBox="0 0 110 44"><path id="sparkP" d="M0 40" fill="none" stroke="#0056a4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle id="sparkDot" r="4" fill="#0056a4" cx="0" cy="40"/></svg></div>
-      </div>
-      <div class="tile t-ring"><div class="ring-w"><svg viewBox="0 0 120 120"><circle class="rg-bg" cx="60" cy="60" r="50"/><circle class="rg" id="rg" cx="60" cy="60" r="50"/></svg><b id="rgN">0%</b></div>
-        <h4>dos clientes do agro voltam pra recompra</h4><span class="chip">+12% na última safra</span></div>
-      <div class="tile t-bars" id="tBars"><span class="t-l">Peças entregues</span><b class="big" id="barsN">0</b>
-        <div class="bars"><i style="--h:28%"></i><i style="--h:36%"></i><i style="--h:44%"></i><i style="--h:52%"></i><i style="--h:63%"></i><i style="--h:78%"></i><i style="--h:100%"></i></div><span class="t-s">2020 → 2026</span></div>
-      <div class="tile t-rate"><span class="t-l">Nota dos clientes</span><b class="big" id="rateN">0,0</b><div class="stars5" id="stars5"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.5L12 17.3 6.1 20.5l1.3-6.5L2.5 9.4l6.6-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.5L12 17.3 6.1 20.5l1.3-6.5L2.5 9.4l6.6-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.5L12 17.3 6.1 20.5l1.3-6.5L2.5 9.4l6.6-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.5L12 17.3 6.1 20.5l1.3-6.5L2.5 9.4l6.6-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.5L12 17.3 6.1 20.5l1.3-6.5L2.5 9.4l6.6-.8z"/></svg></div><span class="t-s">média das avaliações</span></div>
-      <div class="tile t-line" id="tLine"><span class="t-l">Pedidos do agro por mês</span>
-        <div class="lw"><svg viewBox="0 0 600 150" preserveAspectRatio="none"><defs><linearGradient id="lnG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0056a4" stop-opacity=".22"/><stop offset="1" stop-color="#0056a4" stop-opacity="0"/></linearGradient></defs>
-          <path class="ln-area" d="M0 120 C60 118 90 104 140 108 S230 92 280 86 S370 80 420 62 S520 40 600 27 L600 150 L0 150Z" fill="url(#lnG)"/>
-          <path class="ln" id="lnP" d="M0 120 C60 118 90 104 140 108 S230 92 280 86 S370 80 420 62 S520 40 600 27"/></svg>
-          <span class="ln-dot"></span><span class="ln-tip">+38% em pedidos do agro</span></div>
-        <div class="ln-x"><span>jan</span><span>mar</span><span>mai</span><span>jul</span><span>set</span><span>nov</span></div></div>
-    </div>
-  </div>
-</section>
-
 <!-- ===== DORES ===== -->
 <section class="sec" id="dores">
   <div class="wrap">
@@ -1473,7 +1442,7 @@ $$('[data-count],.reveal').forEach(el=>io.observe(el));
 const VIS={};
 const io2=new IntersectionObserver(es=>es.forEach(e=>{const id=e.target.id;VIS[id]=e.isIntersecting;if(!e.isIntersecting)return;
   if(id==='steps')runPath();else if(id==='cmp')runCmp();else if(id==='resGrid')runRes();else if(id==='featGrid')runFeat();else if(id==='ba')runBA()}),{threshold:.25});
-['steps','cmp','resGrid','featGrid','ba'].forEach(id=>io2.observe($('#'+id)));
+['steps','cmp','featGrid','ba'].forEach(id=>io2.observe($('#'+id)));
 
 let pathBusy=false;function runPath(){if(pathBusy)return;pathBusy=true;setTimeout(()=>pathBusy=false,4200);const prg=$('#prg'),tip=$('#tip'),L=prg.getTotalLength(),steps=$$('.step');const pts=[.04,.33,.66,.96];
   if(innerWidth>=900){steps.forEach(s=>s.classList.remove('on'));$('#live').classList.remove('on')}

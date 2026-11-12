@@ -69,8 +69,9 @@ section{position:relative}
 .hero{min-height:100svh;background:var(--navy);color:#fff;padding:120px 0 64px;overflow:hidden;display:flex;align-items:center}
 .hero-bg{position:absolute;inset:0;z-index:0}
 .hero-bg svg{width:100%;height:100%;object-fit:cover}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,37,53,.96) 0%,rgba(0,37,53,.82) 45%,rgba(0,37,53,.35) 100%);z-index:0}
-.hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.12fr .88fr;gap:40px;align-items:center}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,37,53,.94) 0%,rgba(0,37,53,.78) 45%,rgba(0,37,53,.25) 100%),linear-gradient(0deg,rgba(0,37,53,.7),transparent 40%);z-index:0}
+.hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,760px);gap:40px;align-items:center}
 .hero h1{font-size:clamp(40px,6.4vw,80px);margin:18px 0 20px}
 .hero h1 em{font-style:normal;color:var(--sky)}
 .rot{display:inline-flex;align-items:center;gap:12px;font-family:var(--display);font-variation-settings:"wdth" 112;font-weight:700;font-size:clamp(18px,2.2vw,24px);color:#dbe8f1}
@@ -106,7 +107,7 @@ section{position:relative}
   .hero .wrap{grid-template-columns:1fr}
   .hero-art{height:340px;order:-1;margin:-10px auto -10px;width:min(440px,100%)}
   .hero{padding-top:92px}
-  .hero::after{background:linear-gradient(180deg,rgba(0,37,53,.55) 0%,rgba(0,37,53,.95) 45%)}
+  .hero::after{background:linear-gradient(180deg,rgba(0,37,53,.5) 0%,rgba(0,37,53,.92) 55%)}
 }
 @media (max-width:560px){
   .choose{grid-template-columns:1fr}
@@ -422,7 +423,8 @@ body[data-seg="produtor"] .grid-dor[data-for="produtor"],body[data-seg="empresa"
 
 /* ===== CTA final + rodapé ===== */
 .final{background:var(--navy);color:#fff;overflow:hidden}
-.final .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}
+.final{position:relative}.final-bg,.final-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.final::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,37,53,.95),rgba(0,37,53,.6))}
+.final .wrap{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,680px);gap:30px;align-items:center;padding:40px 0}
 .final h2{font-size:clamp(34px,5vw,60px)}
 .final p{color:#a9bfcc;font-size:18px;margin:16px 0 28px;max-width:540px}
 .final-art{position:relative;height:320px}
@@ -511,13 +513,7 @@ body[data-seg="produtor"] .grid-dor[data-for="produtor"],body[data-seg="empresa"
         <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Enviamos pra todo o Brasil</span>
       </div>
     </div>
-    <div class="hero-art" aria-hidden="true">
-      <div class="shirt s1" id="hs1"></div>
-      <div class="shirt s2" id="hs2"></div>
-      <div class="shirt s3" id="hs3"></div>
-      <div class="tag-float tf1"><i>☀</i><div>Camisa UV manga longa<small>pra lida no sol forte</small></div></div>
-      <div class="tag-float tf2"><i>✦</i><div>Sua logo bordada<small>vetor guardado pra recompra</small></div></div>
-    </div>
+
   </div>
 </section>
 
@@ -768,7 +764,7 @@ body[data-seg="produtor"] .grid-dor[data-for="produtor"],body[data-seg="empresa"
 </section>
 
 <!-- ===== CTA FINAL ===== -->
-<section class="sec final">
+<section class="sec final"><div class="final-bg" id="finalBg" aria-hidden="true"></div>
   <div class="wrap">
     <div>
       <p class="eyebrow light">Próxima safra começa agora</p>
@@ -776,7 +772,6 @@ body[data-seg="produtor"] .grid-dor[data-for="produtor"],body[data-seg="empresa"
       <p>Monte o pré-pedido em 2 minutos. A gente devolve com o layout da sua marca e a proposta.</p>
       <a href="#pedido" class="btn btn-cta">Montar meu pedido <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
-    <div class="final-art" id="finalArt" aria-hidden="true"></div>
   </div>
 </section>
 </main>
@@ -804,7 +799,7 @@ body[data-seg="produtor"] .grid-dor[data-for="produtor"],body[data-seg="empresa"
 </svg></a>
     <div>Itumbiara · GO · Atendemos todo o Brasil</div>
     <a href="https://instagram.com/kaueuniformes.itumbiara" target="_blank" rel="noopener">@kaueuniformes.itumbiara</a>
-    <p class="demo">Versão de aprovação de layout · fotos, números e cases são ilustrativos e serão substituídos pelo conteúdo real.</p>
+    <p class="demo">Versão de aprovação de layout · fotos de banco de imagens (Unsplash), números e cases são ilustrativos e serão substituídos pelo conteúdo real.</p>
   </div>
 </footer>
 
@@ -901,6 +896,7 @@ function shirt(type, c1, c2, ini, txt){
 /* ======================================================
    CENAS (fotos ilustrativas em SVG — substituir por fotos reais)
    ====================================================== */
+function photo(id,w,alt){return `<img class="scene" src="https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w||1200}&q=72" alt="${alt||''}" loading="lazy" decoding="async" style="object-fit:cover">`}
 function scene(motif, c1, sid){
   const id='sc'+(gid++); const g=c1||'#0056a4';
   const sky=`<defs><linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#012a3d"/><stop offset=".55" stop-color="${shade(g,-10)}"/><stop offset="1" stop-color="#f0c27a"/></linearGradient><radialGradient id="${id}u" cx=".72" cy=".42" r=".5"><stop offset="0" stop-color="#ffe7b0" stop-opacity=".95"/><stop offset=".25" stop-color="#ffcf7a" stop-opacity=".5"/><stop offset="1" stop-color="#ffcf7a" stop-opacity="0"/></radialGradient><filter id="${id}n"><feTurbulence baseFrequency=".9" numOctaves="2" seed="${sid||3}"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .09 0"/></filter></defs>
@@ -981,7 +977,7 @@ const PRODS=[
 ];
 
 const CASES=[
- {id:'santa-helena',ativ:'Soja e milho',seg:'produtor',cliente:'Fazenda Santa Helena',local:'Rio Verde · GO',atividade:'Soja e milho · 2.400 ha',equipe:'38 fixos + 32 safristas',motif:'lavoura',cores:['#2f6b3a','#d9a400'],ini:'SH',
+ {id:'santa-helena',foto:'1635174815483-81657b67ec48',fotos:['1632723893457-47e3abc47526', '1600747476229-ceb7f3493f60', '1635174815612-fd9636f70146'],ativ:'Soja e milho',seg:'produtor',cliente:'Fazenda Santa Helena',local:'Rio Verde · GO',atividade:'Soja e milho · 2.400 ha',equipe:'38 fixos + 32 safristas',motif:'lavoura',cores:['#2f6b3a','#d9a400'],ini:'SH',
   titulo:'38 fixos, 32 safristas e ninguém sabia quem era quem no talhão.',
   resumo:'Camisa UV por função e kit safrista entregue antes do plantio.',
   desafio:'Na safra, a equipe da Santa Helena quase dobra. Cada um chegava com a própria roupa, quase sempre camiseta de algodão que não segura o sol das 10h às 16h. O gerente perdia tempo pra identificar operador, apoio e terceirizado, e a fazenda recebe visita de trading e de comprador toda semana.',
@@ -992,7 +988,7 @@ const CASES=[
   dep:['Antes eu chegava no talhão e precisava perguntar quem era quem. Hoje eu bato o olho de dentro da caminhonete.','Marcos A.','Gerente agrícola'],
   mk:['uv','polo'],gal:['Turma de máquinas no talhão','Kit safrista separado por nome','Logo nas costas na colheitadeira']},
 
- {id:'boa-vista',ativ:'Pecuária',seg:'produtor',cliente:'Agropecuária Boa Vista',local:'Barra do Garças · MT',atividade:'Pecuária de corte · confinamento',equipe:'26 colaboradores',motif:'pasto',cores:['#7a3e1d','#e8c27a'],ini:'BV',
+ {id:'boa-vista',foto:'1650397306390-86caaefce1a3',fotos:['1635857771563-2124c086d656', '1680392407814-839d12078647', '1783594166711-114fa219a31d'],ativ:'Pecuária',seg:'produtor',cliente:'Agropecuária Boa Vista',local:'Barra do Garças · MT',atividade:'Pecuária de corte · confinamento',equipe:'26 colaboradores',motif:'pasto',cores:['#7a3e1d','#e8c27a'],ini:'BV',
   titulo:'Curral, poeira e comprador de boi olhando a operação.',
   resumo:'Peças reforçadas em cor terra e padrão pra receber frigorífico e auditoria.',
   desafio:'O confinamento recebe frigorífico, comprador e veterinário toda semana. Os vaqueiros trabalhavam com roupa rasgada e a camisa durava uns dois meses no curral. Pra quem vem de fora, parecia uma operação sem gestão, mesmo com indicador bom.',
@@ -1003,7 +999,7 @@ const CASES=[
   dep:['O boi não liga pra roupa, mas quem compra o boi liga. A primeira coisa que o comprador vê é a equipe.','Rogério P.','Proprietário'],
   mk:['uv','calca'],gal:['Vaqueiros no manejo','Equipe na recepção do comprador','Detalhe do reforço na calça']},
 
- {id:'serra-alta',ativ:'Café',seg:'produtor',cliente:'Café Serra Alta',local:'Patrocínio · MG',atividade:'Café especial · colheita',equipe:'18 fixos + 45 na colheita',motif:'cafe',cores:['#6b1f2a','#c99a5b'],ini:'SA',
+ {id:'serra-alta',foto:'1746623691157-c4c7a3bad0c4',fotos:['1642613630414-1d9938f4fe02', '1677125671399-65852c6dfb05', '1670758611084-e216510c5433'],ativ:'Café',seg:'produtor',cliente:'Café Serra Alta',local:'Patrocínio · MG',atividade:'Café especial · colheita',equipe:'18 fixos + 45 na colheita',motif:'cafe',cores:['#6b1f2a','#c99a5b'],ini:'SA',
   titulo:'45 pessoas na colheita do café e uma turma que virou time.',
   resumo:'Numeração por turma, manga longa que todo mundo usa e polo pra visitação.',
   desafio:'A colheita traz muita gente nova todo ano e quase ninguém usava manga longa, mesmo com o sol de maio. A fazenda trabalha com certificação de boas práticas e precisava de equipe identificada. Ainda recebe visitas de compradores de café especial.',
@@ -1014,7 +1010,7 @@ const CASES=[
   dep:['O colhedor pediu pra ficar com a camisa no fim da safra. Aí eu soube que tinha acertado.','Juliana M.','Gestora da fazenda'],
   mk:['uv','polo'],gal:['Turma A na colheita','Número nas costas por turma','Equipe da visitação']},
 
- {id:'agrocampos',ativ:'Revenda de insumos',seg:'empresa',cliente:'AgroCampos Insumos',local:'Sorriso · MT',atividade:'Revenda de insumos · 4 lojas',equipe:'22 RTVs · 60 colaboradores',motif:'loja',cores:['#0d5c63','#f2b705'],ini:'AC',
+ {id:'agrocampos',foto:'1761839257870-06874bda71b5',fotos:['1635174815450-337f1f0abf5a', '1781451481212-e5485f8fae45', '1580982327559-c1202864eb05'],ativ:'Revenda de insumos',seg:'empresa',cliente:'AgroCampos Insumos',local:'Sorriso · MT',atividade:'Revenda de insumos · 4 lojas',equipe:'22 RTVs · 60 colaboradores',motif:'loja',cores:['#0d5c63','#f2b705'],ini:'AC',
   titulo:'22 RTVs rodando fazenda com a camisa que quisessem.',
   resumo:'Marca própria em toda visita e patrocínio pagando parte do kit do dia de campo.',
   desafio:'Cada técnico usava a camisa que tinha, quase sempre brinde de multinacional. Na frente do produtor, a marca da revenda sumia. As 4 lojas também não tinham padrão, e o dia de campo anual juntava mais de 300 pessoas sem uma identidade clara.',
@@ -1025,7 +1021,7 @@ const CASES=[
   dep:['O produtor agora lembra da AgroCampos, não da marca do brinde. A camisa entrou na nossa estratégia comercial.','Fernanda L.','Gerente de marketing'],
   mk:['uv','polo'],gal:['RTV na visita técnica','Balcão da loja','Dia de campo com parceiros']},
 
- {id:'aeroverde',ativ:'Prestador de serviço',seg:'empresa',cliente:'AeroVerde Aviação Agrícola',local:'Luís Eduardo Magalhães · BA',atividade:'Pulverização aérea · 9 aeronaves',equipe:'35 colaboradores',motif:'aviao',cores:['#e35205','#1b1b1b'],ini:'AV',
+ {id:'aeroverde',foto:'1662392491854-a5891028250f',fotos:['1658003919878-6ba3ddc61d07', '1656407410275-e63e689bcd90', '1627920769541-daa658ed6b59'],ativ:'Prestador de serviço',seg:'empresa',cliente:'AeroVerde Aviação Agrícola',local:'Luís Eduardo Magalhães · BA',atividade:'Pulverização aérea · 9 aeronaves',equipe:'35 colaboradores',motif:'aviao',cores:['#e35205','#1b1b1b'],ini:'AV',
   titulo:'Pilotos, equipe de solo e uma pista no meio da fazenda.',
   resumo:'Alta visibilidade pra quem trabalha do lado da aeronave e padrão pra auditoria.',
   desafio:'A equipe de solo trabalha ao lado da aeronave em pistas de fazenda, com poeira e sol. Precisava ser vista de longe. Os grandes grupos que contratam o serviço começaram a exigir equipe identificada nas auditorias de segurança.',
@@ -1036,7 +1032,7 @@ const CASES=[
   dep:['Na pista, ser visto é segurança. E pro cliente, equipe uniformizada é sinal de empresa séria.','Cmte. André S.','Diretor de operações'],
   mk:['uv','polo'],gal:['Equipe de solo na pista','Pilotos antes do voo','Hangar e manutenção']},
 
- {id:'coopercerrado',ativ:'Cooperativa',seg:'empresa',cliente:'Coopercerrado',local:'Cristalina · GO',atividade:'Cooperativa · 1.200 cooperados',equipe:'180 colaboradores',motif:'silo',cores:['#1e3a2f','#8dc63f'],ini:'CC',
+ {id:'coopercerrado',foto:'1762291323534-b265fc616412',fotos:['1774655852740-7cbe1fd4ba02', '1782852580207-11c100a628e2', '1627052428109-576e839d100a'],ativ:'Cooperativa',seg:'empresa',cliente:'Coopercerrado',local:'Cristalina · GO',atividade:'Cooperativa · 1.200 cooperados',equipe:'180 colaboradores',motif:'silo',cores:['#1e3a2f','#8dc63f'],ini:'CC',
   titulo:'Uma cooperativa, três realidades e 30 anos pra comemorar.',
   resumo:'Cinco fornecedores viraram um, com linha única do armazém à diretoria.',
   desafio:'Armazém com pó e calor, equipe técnica no campo, administrativo e lojas. Cada setor comprava de um lugar e a cooperativa tinha cinco padrões diferentes. Ainda tinha a festa de 30 anos chegando, com cooperados e famílias.',
@@ -1075,11 +1071,8 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // hero
-$('#heroBg').innerHTML=scene('lavoura','#0056a4',7);
-$('#hs1').innerHTML=shirt('polo','#0056a4','#002535','K');
-$('#hs2').innerHTML=shirt('social','#eef2f5','#0056a4','K','#002535');
-$('#hs3').innerHTML=shirt('uv','#0a4a73','#0056a4','K');
-$('#finalArt').innerHTML=shirt('uv','#0056a4','#002535','K');
+$('#heroBg').innerHTML=photo('1632723893457-47e3abc47526',1800,'Colheita na lavoura').replace('loading="lazy"','fetchpriority="high"');
+$('#finalBg').innerHTML=photo('1717702576954-c07131c54169',1800,'Trator preparando a terra ao pôr do sol');
 
 // palavra giratória
 const WORDS=['a lavoura','a colheita','o curral','a revenda','o dia de campo','o escritório'];
@@ -1112,7 +1105,7 @@ $('#prods').innerHTML=PRODS.map(p=>`<article class="prod reveal"><div class="pro
 // cases
 const total=c=>c.pecas.reduce((a,b)=>a+b[1],0);
 $('#cases-grid').innerHTML=CASES.map((c,i)=>`<button class="case" data-case="${c.id}" data-seg="${c.seg}" aria-label="Abrir case ${c.cliente}">
-  <div class="case-img">${scene(c.motif,c.cores[0],i+2)}<div class="mk">${shirt(c.mk[0],c.cores[0],c.cores[1],c.ini)}</div><span class="seg">${c.seg==='produtor'?'Produtor rural':'Empresa do agro'}</span><span class="photo-tag">foto ilustrativa</span></div>
+  <div class="case-img">${photo(c.foto,800,c.cliente)}<span class="seg">${c.seg==='produtor'?'Produtor rural':'Empresa do agro'}</span><span class="photo-tag">foto de banco de imagens</span></div>
   <div class="case-body"><span class="who">${c.cliente} · ${c.local}</span><h3>${c.titulo}</h3>
   <div class="case-kpis"><div><b>${total(c)}</b><span>peças</span></div><div><b>${c.res[0][0]}</b><span>${c.res[0][1]}</span></div></div>
   <span class="case-open">Ver o case completo <i>→</i></span></div></button>`).join('');
@@ -1125,7 +1118,7 @@ let lastFocus=null;
 function openCase(id){
   const c=CASES.find(x=>x.id===id); if(!c)return; const t=total(c), mx=Math.max(...c.pecas.map(p=>p[1]));
   $('#sheetPanel').innerHTML=`<button class="sheet-close" data-close aria-label="Fechar">✕</button>
-  <div class="cs-hero">${scene(c.motif,c.cores[0],11)}<div class="mks">${shirt(c.mk[0],c.cores[0],c.cores[1],c.ini)}${shirt(c.mk[1],c.cores[0],c.cores[1],c.ini)}</div>
+  <div class="cs-hero">${photo(c.foto,1600,c.cliente)}
    <div class="cs-hero-txt"><p class="eyebrow light">Case · ${c.seg==='produtor'?'Produtor rural':'Empresa do agro'}</p><h2 class="display" id="csTitle">${c.titulo}</h2></div></div>
   <div class="cs-meta"><div><small>Cliente</small><b>${c.cliente}</b></div><div><small>Onde</small><b>${c.local}</b></div><div><small>Operação</small><b>${c.atividade}</b></div><div><small>Equipe</small><b>${c.equipe}</b></div></div>
   <div class="cs-body"><div>
@@ -1133,7 +1126,7 @@ function openCase(id){
     <div class="blk"><h3>Por que eles queriam uniforme</h3><ul class="cs-why">${c.porque.map((p,i)=>`<li><span class="n">${i+1}</span><span><b>${p[0]}</b>${p[1]}</span></li>`).join('')}</ul></div>
     <div class="blk"><h3>O que a Kauê fez</h3><ul class="cs-do">${c.fez.map(f=>`<li>${f}</li>`).join('')}</ul></div>
     <div class="blk"><h3>Resultado</h3><div class="cs-res">${c.res.map(r=>`<div><b>${r[0]}</b><span>${r[1]}</span></div>`).join('')}</div></div>
-    <div class="blk"><h3>Na prática</h3><div class="gal">${c.gal.map((g,i)=>`<div>${scene(c.motif,c.cores[0],20+i)}<span>📷 ${g}</span></div>`).join('')}</div></div>
+    <div class="blk"><h3>Na prática</h3><div class="gal">${c.gal.map((g,i)=>`<div>${photo(c.fotos[i],i?600:1000,g)}<span>📷 ${g}</span></div>`).join('')}</div></div>
   </div><aside>
     <div class="cs-quote"><p>${c.dep[0]}</p><div class="who-row"><span class="av">${c.dep[1].split(' ').map(x=>x[0]).join('')}</span><div><b>${c.dep[1]}</b><small>${c.dep[2]} · ${c.cliente}</small></div></div></div>
     <div class="side-card" style="margin-top:16px"><h3>O pedido</h3>${c.pecas.map(p=>`<div class="pc-row"><span>${p[0]}</span><b>${p[1]}</b><div class="pc-bar"><i style="width:${p[1]/mx*100}%"></i></div></div>`).join('')}<div class="pc-total"><span>Total</span><span>${t} peças</span></div></div>

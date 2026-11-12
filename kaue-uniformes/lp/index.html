@@ -69,8 +69,10 @@ section{position:relative}
 .hero{min-height:100svh;background:var(--navy);color:#fff;padding:120px 0 64px;overflow:hidden;display:flex;align-items:center}
 .hero-bg{position:absolute;inset:0;z-index:0}
 .hero-bg svg{width:100%;height:100%;object-fit:cover}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,37,53,.94) 0%,rgba(0,37,53,.78) 45%,rgba(0,37,53,.25) 100%),linear-gradient(0deg,rgba(0,37,53,.7),transparent 40%);z-index:0}
-.hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#002535 0%,rgba(0,37,53,.97) 30%,rgba(0,37,53,.55) 52%,rgba(0,37,53,.05) 80%),linear-gradient(0deg,rgba(0,37,53,.7),transparent 40%);z-index:0}
+.hero-bg img{position:absolute;top:0;bottom:0;right:0;left:26%;width:74%;height:100%;object-fit:cover;object-position:55% 30%}
+.hero-bg::before{content:"";position:absolute;inset:0;background:#0a2f2a}
+@media (max-width:980px){.hero-bg img{left:0;width:100%;object-position:62% 20%}}
 .hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,760px);gap:40px;align-items:center}
 .hero h1{font-size:clamp(40px,6.4vw,80px);margin:18px 0 20px}
 .hero h1 em{font-style:normal;color:var(--sky)}
@@ -155,17 +157,18 @@ body[data-seg="produtor"] .grid-dor[data-for="produtor"],body[data-seg="empresa"
 .layer p{color:#b3c8d5;font-size:15px;margin-bottom:14px}
 .layer ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
 .layer li{font-size:12.5px;font-weight:700;background:rgba(255,255,255,.08);border-radius:999px;padding:5px 11px}
-.layer .ls{margin-top:auto;width:72%;align-self:center;translate:0 18%;transition:translate .5s var(--ease)}
-.layer:hover .ls{translate:0 6%}
-@media (max-width:860px){.layers{grid-template-columns:1fr}.layer .ls{width:52%}}
+.layer{padding-bottom:26px}.layer .lp{margin-top:auto;border-radius:16px;overflow:hidden;aspect-ratio:4/3}
+.layer .lp img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.layer:hover .lp img{transform:scale(1.05)}
+@media (max-width:860px){.layers{grid-template-columns:1fr}}
 
 /* ===== Peças ===== */
 .prods{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .prod{background:#fff;border-radius:22px;overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column;transition:transform .3s var(--ease),box-shadow .3s}
 .prod:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
-.prod-art{background:radial-gradient(120% 90% at 50% 100%,var(--sky-2),#eef3f7 60%);height:230px;display:grid;place-items:center;position:relative}
-.prod-art svg{height:190px;width:auto;transition:transform .5s var(--ease)}
-.prod:hover .prod-art svg{transform:scale(1.05) rotate(-2deg)}
+.prod-art{background:var(--paper-2);height:260px;position:relative;overflow:hidden}
+.prod-art img{width:100%;height:100%;object-fit:cover;transform:scale(var(--z,1));transition:transform .7s var(--ease)}
+.prod:hover .prod-art img{transform:scale(calc(var(--z,1) * 1.06))}
 .prod-art .where{position:absolute;left:14px;top:14px;font-size:11.5px;font-weight:800;background:#fff;border-radius:999px;padding:5px 10px;color:var(--navy)}
 .prod-body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
 .prod h3{font-family:var(--display);font-variation-settings:"wdth" 112;font-size:21px;font-weight:800}
@@ -175,7 +178,7 @@ body[data-seg="produtor"] .grid-dor[data-for="produtor"],body[data-seg="empresa"
 .prod .add{margin-top:14px;font-weight:800;font-size:14px;color:var(--navy);display:flex;align-items:center;gap:8px;min-height:44px}
 .prod .add:hover{color:var(--blue)}
 @media (max-width:980px){.prods{grid-template-columns:1fr 1fr}}
-@media (max-width:600px){.prods{grid-template-columns:1fr}.prod-art{height:200px}}
+@media (max-width:600px){.prods{grid-template-columns:1fr}.prod-art{height:240px}}
 
 /* ===== Cases ===== */
 .cases-sec{background:var(--sand);overflow:hidden}
@@ -294,6 +297,11 @@ body[data-seg="produtor"] .grid-dor[data-for="produtor"],body[data-seg="empresa"
 @media (max-width:520px){.how-steps{grid-template-columns:1fr}}
 
 /* ===== Comparativo ===== */
+.detail{position:relative;border-radius:24px;overflow:hidden;margin-bottom:20px;aspect-ratio:21/8}
+.detail img{width:100%;height:100%;object-fit:cover}
+.detail figcaption{position:absolute;left:0;bottom:0;right:0;padding:40px 28px 24px;color:#fff;background:linear-gradient(0deg,rgba(0,37,53,.85),transparent);font-size:16px;max-width:none}
+.detail figcaption b{display:block;font-family:var(--display);font-variation-settings:'wdth' 115;font-size:24px}
+@media (max-width:600px){.detail{aspect-ratio:4/3}}
 .cmp{background:#fff;border-radius:24px;border:1px solid var(--line);overflow:hidden;position:relative}
 .cmp-row{display:grid;grid-template-columns:1.6fr .7fr .7fr;align-items:center;border-bottom:1px solid var(--line);min-height:62px}
 .cmp-row:last-child{border:0}
@@ -361,8 +369,8 @@ body[data-seg="produtor"] .grid-dor[data-for="produtor"],body[data-seg="empresa"
 .qty-list{display:grid;gap:10px}
 .qty{display:grid;grid-template-columns:58px 1fr auto;align-items:center;gap:14px;border:1.5px solid var(--line);border-radius:16px;padding:8px 12px 8px 8px;transition:border-color .2s,background .2s}
 .qty.has{border-color:var(--blue);background:#f4f9fe}
-.qty .mini{width:58px;height:58px;border-radius:12px;background:var(--paper);display:grid;place-items:center}
-.qty .mini svg{height:48px;width:auto}
+.qty .mini{width:58px;height:58px;border-radius:12px;background:var(--paper);overflow:hidden}
+.qty .mini img{width:100%;height:100%;object-fit:cover}
 .qty b{display:block;font-size:15px}
 .qty small{color:var(--ink-3);font-size:12.5px;font-weight:600}
 .stepper{display:flex;align-items:center;gap:4px;background:var(--paper);border-radius:999px;padding:4px}
@@ -410,7 +418,7 @@ body[data-seg="produtor"] .grid-dor[data-for="produtor"],body[data-seg="empresa"
 .done p{color:var(--ink-2);max-width:460px;margin:10px auto 22px}
 .confetti{position:absolute;inset:0;pointer-events:none;overflow:visible}
 @media (max-width:960px){.fwrap{grid-template-columns:1fr}.sum{position:static;order:-1;padding:20px}.sum-perks{display:none}}
-@media (max-width:560px){.fstep,.fprog{padding-left:18px;padding-right:18px}.opts.three{grid-template-columns:1fr 1fr}.row2{grid-template-columns:1fr}.qty{grid-template-columns:46px 1fr;row-gap:8px}.qty .mini{width:46px;height:46px}.qty .mini svg{height:38px}.stepper{grid-column:1/-1;justify-self:end}.fsteps span{font-size:10.5px}}
+@media (max-width:560px){.fstep,.fprog{padding-left:18px;padding-right:18px}.opts.three{grid-template-columns:1fr 1fr}.row2{grid-template-columns:1fr}.qty{grid-template-columns:46px 1fr;row-gap:8px}.qty .mini{width:46px;height:46px}.stepper{grid-column:1/-1;justify-self:end}.fsteps span{font-size:10.5px}}
 
 /* ===== FAQ ===== */
 .faq{max-width:840px}
@@ -624,6 +632,7 @@ body[data-seg="produtor"] .grid-dor[data-for="produtor"],body[data-seg="empresa"
       <p class="eyebrow">Por que a Kauê</p>
       <h2 class="display">Malharia comum faz camiseta. A Kauê faz uniforme pro agro.</h2>
     </div>
+    <figure class="detail reveal"><img src="img/bordado.jpg" alt="Detalhe de bordado em camisa de campo" loading="lazy"><figcaption><b>Detalhe que se vê de perto.</b> Bordado com acabamento firme, costura reforçada e a sua marca no lugar certo.</figcaption></figure>
     <div class="cmp" id="cmp">
       <div class="cmp-hl"></div>
       <div class="cmp-row cmp-head on"><span class="lbl" style="opacity:1;transform:none">O que importa</span><span class="c">Malharia comum</span><span class="c us">Kauê</span></div>
@@ -799,7 +808,7 @@ body[data-seg="produtor"] .grid-dor[data-for="produtor"],body[data-seg="empresa"
 </svg></a>
     <div>Itumbiara · GO · Atendemos todo o Brasil</div>
     <a href="https://instagram.com/kaueuniformes.itumbiara" target="_blank" rel="noopener">@kaueuniformes.itumbiara</a>
-    <p class="demo">Versão de aprovação de layout · fotos de banco de imagens (Unsplash), números e cases são ilustrativos e serão substituídos pelo conteúdo real.</p>
+    <p class="demo">Versão de aprovação de layout · fotos de referência e de banco de imagens (Unsplash), números e cases são ilustrativos e serão substituídos pelo conteúdo real.</p>
   </div>
 </footer>
 
@@ -968,12 +977,12 @@ const DORES={
 };
 
 const PRODS=[
- {id:'uv',nome:'Camisa UV manga longa',where:'Lavoura e campo',p:'Protege do sol na lida, seca rápido e não esquenta. A queridinha de quem passa o dia no talhão.',feat:['Proteção UV','Manga longa','Gola ou capuz'],c:['#2f6b3a','#1d4426']},
- {id:'polo',nome:'Camisa polo',where:'RTV, loja e evento',p:'Presença de empresa séria na visita, no balcão e no dia de campo, sem perder o conforto.',feat:['Piquet ou dry','Bordado','Manga curta'],c:['#0056a4','#002535']},
- {id:'social',nome:'Camisa social',where:'Escritório e gestão',p:'Pro administrativo, a gerência e a diretoria. A mesma marca, com acabamento de escritório.',feat:['Manga curta ou longa','Bordado','Tecido misto'],c:['#e9eef2','#0056a4'],t:'#002535'},
- {id:'camiseta',nome:'Camiseta operacional',where:'Oficina, armazém e curral',p:'Resistente e barata de repor. Ideal pra turma da operação e pra kits de evento.',feat:['Algodão ou dry','Silk ou DTF','Nome e função'],c:['#6b7378','#2b3236']},
- {id:'calca',nome:'Calça operacional',where:'Maquinário e manutenção',p:'Brim ou sarja que aguenta o tranco, com bolsos de verdade e reforço onde mais gasta.',feat:['Brim ou sarja','Bolsos reforçados','Faixa opcional'],c:['#2c3e50','#e0a23a']},
- {id:'jaleco',nome:'Jaleco',where:'Laboratório e veterinária',p:'Pra análise de solo e semente, laboratório e equipe veterinária. Limpo e identificado.',feat:['Gabardine','Bolsos','Nome bordado'],c:['#f5f7f8','#0056a4'],t:'#002535'}
+ {id:'uv',img:'uv-brasil.jpg',pos:'50% 30%',nome:'Camisa UV manga longa',where:'Lavoura e campo',p:'Protege do sol na lida, seca rápido e não esquenta. A queridinha de quem passa o dia no talhão.',feat:['Proteção UV','Manga longa','Gola ou capuz'],c:['#2f6b3a','#1d4426']},
+ {id:'polo',img:'equipe-tres.jpg',pos:'0% 0%',z:2,o:'12% 22%',nome:'Camisa polo',where:'RTV, loja e evento',p:'Presença de empresa séria na visita, no balcão e no dia de campo, sem perder o conforto.',feat:['Piquet ou dry','Bordado','Manga curta'],c:['#0056a4','#002535']},
+ {id:'social',img:'camisa-tecnica.jpg',pos:'50% 55%',nome:'Camisa social',where:'Escritório e gestão',p:'Pro administrativo, a gerência e a diretoria. A mesma marca, com acabamento de escritório.',feat:['Manga curta ou longa','Bordado','Tecido misto'],c:['#e9eef2','#0056a4'],t:'#002535'},
+ {id:'camiseta',img:'equipe-tres.jpg',pos:'100% 0%',z:2,o:'88% 28%',nome:'Camiseta operacional',where:'Oficina, armazém e curral',p:'Resistente e barata de repor. Ideal pra turma da operação e pra kits de evento.',feat:['Algodão ou dry','Silk ou DTF','Nome e função'],c:['#6b7378','#2b3236']},
+ {id:'calca',img:'equipe-tres.jpg',pos:'50% 100%',z:2.2,o:'50% 98%',nome:'Calça operacional',where:'Maquinário e manutenção',p:'Brim ou sarja que aguenta o tranco, com bolsos de verdade e reforço onde mais gasta.',feat:['Brim ou sarja','Bolsos reforçados','Faixa opcional'],c:['#2c3e50','#e0a23a']},
+ {id:'jaleco',img:'agronomo-soja.jpg',pos:'35% 40%',nome:'Jaleco',where:'Laboratório e veterinária',p:'Pra análise de solo e semente, laboratório e equipe veterinária. Limpo e identificado.',feat:['Gabardine','Bolsos','Nome bordado'],c:['#f5f7f8','#0056a4'],t:'#002535'}
 ];
 
 const CASES=[
@@ -1071,8 +1080,8 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // hero
-$('#heroBg').innerHTML=photo('1632723893457-47e3abc47526',1800,'Colheita na lavoura').replace('loading="lazy"','fetchpriority="high"');
-$('#finalBg').innerHTML=photo('1717702576954-c07131c54169',1800,'Trator preparando a terra ao pôr do sol');
+$('#heroBg').innerHTML='<img src="img/hero-campo.jpg" alt="Produtor com camisa de campo na lavoura de soja" fetchpriority="high">';
+$('#finalBg').innerHTML='<img src="img/casal-milho.jpg" alt="Equipe uniformizada na lavoura de milho" loading="lazy" style="object-position:70% 40%">';
 
 // palavra giratória
 const WORDS=['a lavoura','a colheita','o curral','a revenda','o dia de campo','o escritório'];
@@ -1094,13 +1103,13 @@ const WORDS=['a lavoura','a colheita','o curral','a revenda','o dia de campo','o
 
 // camadas
 $('#layers').innerHTML=[
- ['Campo e operação','Quem pega no pesado','Lavoura, curral, oficina, armazém. Proteção, resistência e identificação.',['Camisa UV','Camiseta','Calça'],shirt('uv','#2f6b3a','#1d4426','K')],
- ['Técnico e comercial','Quem representa a marca','RTV, agrônomo, vendedor e equipe de evento. Presença sem perder o conforto.',['Polo','Camisa UV','Boné'],shirt('polo','#0056a4','#002535','K')],
- ['Escritório e gestão','Quem decide','Administrativo, gerência e diretoria. Acabamento de escritório.',['Camisa social','Polo','Jaleco'],shirt('social','#eef2f5','#0056a4','K','#002535')]
-].map((l,i)=>`<div class="layer"><span class="lv">Camada 0${i+1} · ${l[0]}</span><h3 class="display">${l[1]}</h3><p>${l[2]}</p><ul>${l[3].map(x=>`<li>${x}</li>`).join('')}</ul><div class="ls">${l[4]}</div></div>`).join('');
+ ['Campo e operação','Quem pega no pesado','Lavoura, curral, oficina, armazém. Proteção, resistência e identificação.',['Camisa UV','Camiseta','Calça'],'uv-preta.jpg','50% 30%'],
+ ['Técnico e comercial','Quem representa a marca','RTV, agrônomo, vendedor e equipe de evento. Presença sem perder o conforto.',['Polo','Camisa de campo','Chapéu e boné'],'agronoma-tablet.jpg','50% 30%'],
+ ['Escritório e gestão','Quem decide','Administrativo, gerência e diretoria. A mesma identidade da equipe inteira.',['Camisa social','Polo','Jaleco'],'equipe-fazenda.jpg','50% 40%']
+].map((l,i)=>`<div class="layer"><span class="lv">Camada 0${i+1} · ${l[0]}</span><h3 class="display">${l[1]}</h3><p>${l[2]}</p><ul>${l[3].map(x=>`<li>${x}</li>`).join('')}</ul><div class="lp"><img src="img/${l[4]}" alt="${l[1]}" loading="lazy" style="object-position:${l[5]}"></div></div>`).join('');
 
 // produtos
-$('#prods').innerHTML=PRODS.map(p=>`<article class="prod reveal"><div class="prod-art"><span class="where">${p.where}</span>${shirt(p.id,p.c[0],p.c[1],'K',p.t)}</div><div class="prod-body"><h3>${p.nome}</h3><p>${p.p}</p><ul class="feat">${p.feat.map(f=>`<li>${f}</li>`).join('')}</ul><button class="add" data-add="${p.id}">+ Adicionar ao pedido</button></div></article>`).join('');
+$('#prods').innerHTML=PRODS.map(p=>`<article class="prod reveal"><div class="prod-art"><img src="img/${p.img}" alt="${p.nome}" loading="lazy" style="object-position:${p.pos};--z:${p.z||1};transform-origin:${p.o||'50% 50%'}"><span class="where">${p.where}</span></div><div class="prod-body"><h3>${p.nome}</h3><p>${p.p}</p><ul class="feat">${p.feat.map(f=>`<li>${f}</li>`).join('')}</ul><button class="add" data-add="${p.id}">+ Adicionar ao pedido</button></div></article>`).join('');
 
 // cases
 const total=c=>c.pecas.reduce((a,b)=>a+b[1],0);
@@ -1183,7 +1192,7 @@ function renderAtiv(){const p=form.perfil.value==='Empresa do agro'?'empresa':'p
   $('#atividades').innerHTML=ATIV[p].map((a,i)=>`<div class="opt"><input type="radio" name="atividade" id="at${i}" value="${a}" ${a===cur?'checked':''}><label for="at${i}">${a}</label></div>`).join('')}
 renderAtiv();
 $('#persos').innerHTML=PERSO.map((a,i)=>`<div class="opt"><input type="checkbox" name="perso" id="ps${i}" value="${a}"><label for="ps${i}">${a}</label></div>`).join('');
-$('#qtyList').innerHTML=PRODS.map(p=>`<div class="qty" data-q="${p.id}"><span class="mini">${shirt(p.id,p.c[0],p.c[1],'K',p.t)}</span><span><b>${p.nome}</b><small>${p.where}</small></span><span class="stepper"><button type="button" data-d="-10" aria-label="Menos 10 ${p.nome}">−</button><input type="number" min="0" step="1" value="0" aria-label="Quantidade de ${p.nome}"><button type="button" data-d="10" aria-label="Mais 10 ${p.nome}">+</button></span></div>`).join('');
+$('#qtyList').innerHTML=PRODS.map(p=>`<div class="qty" data-q="${p.id}"><span class="mini"><img src="img/${p.img}" alt="" loading="lazy" style="object-position:${p.pos};transform:scale(${p.z||1});transform-origin:${p.o||'50% 50%'}"></span><span><b>${p.nome}</b><small>${p.where}</small></span><span class="stepper"><button type="button" data-d="-10" aria-label="Menos 10 ${p.nome}">−</button><input type="number" min="0" step="1" value="0" aria-label="Quantidade de ${p.nome}"><button type="button" data-d="10" aria-label="Mais 10 ${p.nome}">+</button></span></div>`).join('');
 $$('.qty').forEach(row=>{const id=row.dataset.q, inp=row.querySelector('input');
   row.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{setQty(id,(qty[id]||0)+ +b.dataset.d)});
   inp.oninput=()=>setQty(id,parseInt(inp.value)||0,true)});

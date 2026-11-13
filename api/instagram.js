@@ -102,7 +102,7 @@ async function manda(conta, recipient, isca) {
 
 async function registra(x) {
   console.log('[ig]', JSON.stringify(x));
-  try { await redis([['LPUSH', 'ig:log', JSON.stringify({ ...x, em: new Date().toISOString() })], ['LTRIM', 'ig:log', 0, 199]]); } catch (e) {}
+  try { await redis([['LPUSH', 'ig:log', JSON.stringify({ ...x, em: new Date().toISOString() })], ['LTRIM', 'ig:log', 0, 199], ['EXPIRE', 'ig:log', 60 * 60 * 24 * 30]]); } catch (e) {}
 }
 
 async function primeiraVez(id) {

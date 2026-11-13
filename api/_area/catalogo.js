@@ -200,5 +200,22 @@ module.exports = {
         criado: '2026-10-14T04:00:00.000Z'
       }
     ]
+  },
+  alfaiatariadeuniformes: {
+    nome: 'Alfaiataria de Uniformes',
+    paginas: [
+      {
+        id: 'analise-atendimento',
+        tipo: 'relatorio',
+        titulo: 'Análise de atendimento e vendas',
+        descricao: 'Tempo de resposta, avaliação de cada vendedor, leads sem dono, vendas perdidas por atendimento e a pauta da reunião comercial. 16 mil mensagens de WhatsApp de ago a nov/2026.',
+        url: '/clientes/alfaiatariadeuniformes/analise-atendimento/',
+        capa: '/assets/og/alfaiatariadeuniformes-analise-atendimento.jpg',
+        chamada: 'Vendas perdidas fora da conversa',
+        grifo: 'fora da conversa',
+        publico: true,
+        data: '2026-11-13'
+      }
+    ]
   }
 };

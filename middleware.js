@@ -11,6 +11,9 @@ const URL_DB = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
 const ROBO = /whatsapp|facebookexternalhit|facebot|meta-externalagent|instagram|linkedinbot|twitterbot|slackbot|telegrambot|discordbot|skypeuripreview|pinterest|embedly|google-pagerenderer|applebot|iframely|vkshare|redditbot/i;
 
+// Páginas de cliente públicas por padrão (marcadas com publico: true em api/_area/catalogo.js). Formato: '<empresa>/<pagina>'.
+const PUBLICAS_FIXAS = new Set(['alfaiatariadeuniformes/analise-atendimento']);
+
 const segue = () => new Response(null, { headers: { 'x-middleware-next': '1' } });
 const vai = (url, destino) => new Response(null, { status: 302, headers: { Location: new URL(destino, url).toString(), 'Cache-Control': 'no-store' } });
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -74,6 +77,7 @@ export default async function middleware(req) {
   const pasta = (partes[3] || '').toLowerCase();
   const volta = '/area/?volta=' + encodeURIComponent(url.pathname);
   if (!slug) return vai(req.url, '/area/');
+  if (pasta && PUBLICAS_FIXAS.has(slug + '/' + pasta)) return segue();
   if (!URL_DB || !TOKEN) return vai(req.url, volta);
 
   const t = cookie(req, 'ua_sess');

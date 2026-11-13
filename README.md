@@ -85,6 +85,7 @@ Menu lateral com: Painel (controle e gestão), CRM (Kanban), Notificações (apr
 - Toda página em `/clientes/<slug>/<pagina>/` ganha sozinha (via `casco.js` -> `assets/interacao.js`) o bloco "Conversa sobre esta entrega": curtir, comentar, compartilhar e a chave "Página pública".
 - No painel do cliente, cada entrega mostra ♥, 💬 e o selo "Pública", e abre o mesmo bloco.
 - Página pública: o cliente da empresa ou o Carlos ligam a chave; aí o link abre sem senha. Comentários continuam só para a empresa.
+- Página pública por padrão: `publico: true` no catálogo + `<empresa>/<pagina>` em `PUBLICAS_FIXAS` no `middleware.js` (ex.: `alfaiatariadeuniformes/analise-atendimento`).
 - Página fechada compartilhada: o WhatsApp/Instagram/LinkedIn recebem só título, descrição e capa (o `middleware.js` reconhece os robôs de prévia); quem clica cai no login, que mostra a página que vai abrir, já preenche a empresa e volta para ela depois de entrar.
 - Comentários novos dos clientes aparecem no admin em "Comentários recentes".
 

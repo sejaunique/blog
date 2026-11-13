@@ -310,7 +310,7 @@ async function conteudo(slug) {
       i.curtidas = r[1 + k * 2] || 0;
       i.comentarios = r[2 + k * 2] || 0;
       i.pasta = pastaDe(slug, i);
-      i.publico = !!(i.pasta && pub[i.pasta] === '1');
+      i.publico = !!(i.pasta && (pub[i.pasta] === '1' || i.publico === true));
     });
   }
   const [modH, mstH] = await redis([['HGETALL', 'area:modelos'], ['HGETALL', 'area:mst:' + slug]]);

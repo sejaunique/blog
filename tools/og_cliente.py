@@ -89,6 +89,9 @@ EXTRAS = [
     {"arquivo": "pressao.jpg", "rotulo": "Material · Follow-up com condicional", "pill": "Material gratuito",
      "titulo": "Pressão", "chamada": "Chega de venda frouxa: toda oferta tem data", "grifo": "tem data",
      "descricao": "As 13 mecânicas de condicional com mensagens prontas, gerador de follow-up, cadência até o prazo e checklist."},
+    {"arquivo": "mesa-aberta.jpg", "rotulo": "Material · Network e indicação", "pill": "Material gratuito",
+     "titulo": "Mesa Aberta", "chamada": "Network não é cartão. É mesa que se abre", "grifo": "mesa que se abre",
+     "descricao": "Raio-x da sua rede, quanto vale uma indicação, mapa das 30 pessoas-chave e gerador de pedido de indicação."},
 ]
 
 def chamada_html(p):

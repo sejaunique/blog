@@ -66,6 +66,13 @@ const MATERIAIS = {
     tag: 'Comissão OTE',
     aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
   },
+  'mesa-aberta': {
+    titulo: 'Mesa Aberta · Kit de Network',
+    descricao: 'Raio-x da sua rede, calculadora de quanto vale uma indicação, mapa das 30 pessoas-chave, gerador de pedido de indicação e roteiro do 1 a 1.',
+    url: '/mesa-aberta/',
+    tag: 'Mesa Aberta',
+    aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
+  },
   'pressao': {
     titulo: 'Pressão · 13 mecânicas de condicional',
     descricao: 'As 13 mecânicas de condicional com data para o follow-up: regra da troca, mensagens prontas, gerador de follow-up, cadência até o prazo e checklist.',

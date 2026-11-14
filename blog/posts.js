@@ -61,6 +61,78 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 
 window.POSTS = [
   {
+    slug: "mesas-que-se-abrem",
+    capa: "assets/capa-mesas-que-se-abrem.jpg",
+    titulo: "Network não é cartão. É ==mesa que se abre==.",
+    data: "2026-11-14",
+    categoria: "Network",
+    resumo: "Ninguém fecha negócio grande sozinho. Quem te apresenta para a pessoa certa vale mais que qualquer anúncio. Como transformar contato em mesa aberta, com rotina, pedido certo e retorno.",
+    texto: `
+Olha essa foto.
+
+![Da esquerda para a direita: Getúlio, Carlos e Diogo](assets/mesa-getulio-carlos-diogo.jpg)
+
+Da esquerda para a direita: o Getúlio, eu e o Diogo. Nós três nos conhecemos num grupo de networking. E eu nem quero falar do grupo. Quero falar do que aconteceu depois.
+
+Porque o que muda a vida de um empresário não é o evento. ==É a mesa que se abre.==
+
+## Contato não é relacionamento
+
+Todo mundo tem uma agenda cheia de contatos. Cartão de visita na gaveta, grupo de WhatsApp com 200 pessoas, conexão no LinkedIn que nunca trocou uma mensagem.
+
+Isso não é network. É coleção.
+
+Network é quando alguém senta numa mesa em que você não estava e fala o seu nome. É quando um amigo liga para um cliente dele e diz: "você precisa conhecer esse cara". Você não estava lá. E mesmo assim entrou.
+
+> A melhor venda que você vai fazer este ano começa com alguém falando de você quando você não está na sala.
+
+## Por que a mesa se abre
+
+A indicação chega com uma coisa que nenhum anúncio compra: **confiança emprestada**.
+
+Quando o Getúlio me apresenta para alguém, eu não chego como mais um consultor. Eu chego como "o cara que o Getúlio confia". A primeira conversa já começa no meio. Não preciso provar quem eu sou, só preciso não decepcionar quem me indicou.
+
+É por isso que venda por indicação fecha mais rápido, discute menos preço e o cliente fica mais tempo. Não é mágica. É a confiança de outra pessoa trabalhando por você.
+
+## O erro de quem "faz network"
+
+O erro é chegar pedindo.
+
+O sujeito vai no evento, distribui cartão, fala do produto dele por dez minutos e vai embora. Depois reclama que "network não funciona".
+
+Network funciona ao contrário:
+
+- **Primeiro você dá.** Indica, apresenta, ajuda, divulga. Sem cobrar.
+- **Depois você entende.** Quem é o cliente ideal do outro? O que seria uma indicação perfeita para ele?
+- **Só então você pede.** E pede específico.
+
+"Se souber de alguém, me indica" não gera nada. Ninguém lembra de "alguém".
+
+"Você conhece o dono de uma confecção em Goiânia que está com o comercial travado e quer crescer no atacado?" Isso a pessoa consegue responder. ==Pedido específico abre mesa. Pedido genérico abre nada.==
+
+## Network é rotina, não sorte
+
+Eu trato network igual trato o comercial: com rotina.
+
+- Um café ou um 1 a 1 por semana com alguém da rede.
+- Uma indicação dada por semana, antes de pedir qualquer coisa.
+- Toda indicação recebida tem resposta em até 24 horas.
+- E quem me indicou fica sabendo do resultado. Sempre. Fechou ou não fechou.
+
+Esse último ponto é o que quase ninguém faz. E é o que faz a pessoa te indicar de novo. Quem indica quer saber que valeu a pena.
+
+## Quem está na sua mesa?
+
+Pega o celular agora e responde: quem são as cinco pessoas que falariam o seu nome numa mesa em que você não está? Quando foi a última vez que você fez alguma coisa por elas?
+
+Se você não sabe responder, o seu comercial depende só de você. E isso tem limite.
+
+Montei um kit com a ferramenta que eu uso: o raio-x da sua rede, a calculadora de quanto vale uma indicação no seu negócio, o mapa das suas 30 pessoas-chave, o gerador de pedido de indicação específico e o roteiro do 1 a 1.
+
+[material: Mesa Aberta · Kit de Network | Transforme contato em indicação, com rotina, pedido certo e retorno. | assets/mesa-getulio-carlos-diogo.jpg | Raio-x da sua rede em 2 minutos; Calculadora: quanto vale uma indicação; Mapa das 30 pessoas-chave; Gerador de pedido de indicação específico; Roteiro do 1 a 1 e rotina semanal | Quero o kit de network](/mesa-aberta/)
+`
+  },
+  {
     slug: "chega-de-venda-frouxa",
     capa: "assets/capa-chega-de-venda-frouxa.jpg",
     titulo: "Chega de venda ==frouxa==.",

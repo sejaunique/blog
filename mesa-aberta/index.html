@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<script src="/assets/tema.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mesa Aberta · Kit de Network · Unique</title>
+<meta name="description" content="Network não é cartão, é mesa que se abre. Raio-x da sua rede, calculadora de quanto vale uma indicação, mapa das 30 pessoas-chave, gerador de pedido de indicação e roteiro do 1 a 1. Gratuito para cadastrados.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Unique Consultoria">
+<meta property="og:title" content="Mesa Aberta · Kit de Network">
+<meta property="og:description" content="Transforme contato em indicação: raio-x da rede, calculadora, mapa das 30 pessoas-chave e gerador de pedido. Gratuito para cadastrados.">
+<meta property="og:url" content="https://sejaunique.com/mesa-aberta/">
+<meta property="og:image" content="https://sejaunique.com/assets/og/mesa-aberta.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+.w{max-width:1080px;margin-inline:auto;padding-inline:clamp(20px,4vw,36px)}
+.leve{font-weight:200;font-style:italic}
+.spaced{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--verde-txt)}
+.gate{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px);margin:clamp(32px,5vw,56px) auto;padding:clamp(24px,4vw,40px);border:2px solid var(--fg,#0b0b0c);border-radius:28px}
+.gate h2{font-size:clamp(1.6rem,3.6vw,2.3rem);line-height:1.08;letter-spacing:-.03em;margin:10px 0 14px}
+.gate ul{margin:16px 0 0;padding-left:20px;line-height:1.8}
+form{display:flex;flex-direction:column;gap:10px}
+input,textarea,select{font:inherit;font-size:1rem;padding:13px 15px;border-radius:14px;border:1.5px solid var(--line,#ddd);background:var(--bg,#fff);color:inherit;width:100%}
+textarea{min-height:230px;line-height:1.55;resize:vertical}
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.isca{position:absolute;left:-9999px}
+.aceite{display:flex;gap:10px;font-size:.78rem;line-height:1.5;opacity:.85}.aceite input{width:auto;margin-top:3px}
+button{font:inherit;font-weight:800;font-size:1rem;padding:15px 22px;border-radius:999px;border:0;background:#00e676;color:#0b0b0c;cursor:pointer}
+.msg{font-size:.85rem;min-height:1.2em;margin:0}
+#conteudo,.ok{display:none}
+body.liberado .gate{display:none}body.liberado #conteudo{display:block}body.liberado .ok{display:block}
+.ok{margin:32px auto 0;padding:22px 26px;border-radius:20px;background:#00e676;color:#0b0b0c}
+.ok b{font-size:1.15rem}
+.sec{margin-top:clamp(48px,7vw,80px)}
+.sec>h2{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.05;letter-spacing:-.03em;margin:8px 0 10px}
+.sec>p.lead{font-size:1.05rem;line-height:1.6;color:var(--muted);max-width:68ch;margin:0 0 22px}
+.sec>h2{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.05;letter-spacing:-.03em;margin:8px 0 10px}
+.sec>p.lead{font-size:1.05rem;line-height:1.6;color:var(--muted);max-width:68ch;margin:0 0 22px}
+.ex{margin-top:12px;padding:18px 22px;border-radius:18px;background:var(--soft);font-size:1.05rem;line-height:1.55}
+.checks{display:flex;flex-direction:column;gap:2px;border:1px solid var(--line);border-radius:22px;padding:14px 18px;background:var(--card)}
+.checks label{display:flex;gap:12px;align-items:flex-start;padding:10px 4px;border-radius:8px;cursor:pointer;font-size:1rem;line-height:1.45}
+.checks input{width:22px;height:22px;margin-top:1px;accent-color:#00c864;flex:none;padding:0}
+.checks input:checked+span{color:var(--muted);text-decoration:line-through}
+.nunca{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.nunca div{border-radius:20px;padding:20px 22px;border:2px solid var(--magenta-txt)}
+.nunca b{display:block;color:var(--magenta-txt);font-size:1.05rem;margin-bottom:6px}
+.nunca p{margin:0;font-size:.95rem;line-height:1.5;color:var(--muted)}
+.hero{background:#0b0b0c;color:#fff;padding:clamp(56px,9vw,110px) 0 clamp(48px,7vw,80px);overflow:hidden}
+.hero .in{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(24px,4vw,56px);align-items:center}
+.hero .k{font-size:.78rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#00e676}
+.hero h1{font-size:clamp(2.4rem,6.2vw,4.6rem);line-height:.98;letter-spacing:-.04em;margin:18px 0 20px;font-weight:900;text-wrap:balance}
+.hero h1 .x{color:#ff3d8b;text-decoration:line-through;text-decoration-thickness:6px}
+.hero p{font-size:clamp(1.05rem,2vw,1.25rem);line-height:1.6;max-width:600px;opacity:.85;margin:0}
+.passos3{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.passos3 span{font-size:.8rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:10px 15px;border-radius:999px;background:var(--c);color:#fff}
+.passos3 span.e{color:#0b0b0c}
+.foto{position:relative;justify-self:center;width:100%;max-width:380px;margin:0}
+.foto .ph{position:relative}.foto img{width:100%;height:auto;display:block;border-radius:28px;aspect-ratio:3/4;object-fit:cover}
+.foto .tag{position:absolute;bottom:18px;font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:7px 11px;border-radius:999px;background:#fff;color:#0b0b0c;transform:translateX(-50%);white-space:nowrap}
+.foto .tag.eu{background:#00e676}
+.foto figcaption{font-size:.8rem;opacity:.6;margin-top:10px;text-align:center}
+.mesa3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.mesa3 div{border-radius:22px;padding:24px;background:var(--c);color:#fff}
+.mesa3 div.e{color:#0b0b0c}
+.mesa3 b{display:block;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;opacity:.8;margin-bottom:10px}
+.mesa3 span{font-size:clamp(1.3rem,2.6vw,1.7rem);font-weight:800;line-height:1.15;letter-spacing:-.02em}
+.mesa3 small{display:block;margin-top:12px;font-size:.92rem;line-height:1.45;opacity:.92}
+.box{border:2px solid var(--fg);border-radius:28px;padding:clamp(20px,3vw,32px)}
+.perg{display:flex;flex-direction:column}
+.perg .q{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.perg .q:last-child{border-bottom:0}
+.perg .q p{margin:0;font-size:1rem;line-height:1.45}
+.seg{display:flex;gap:6px}
+.seg button{font-size:.78rem;padding:9px 13px;background:transparent;border:1.5px solid var(--line);color:var(--fg)}
+.seg button[aria-pressed=true][data-v="2"]{background:#00c864;border-color:#00c864;color:#0b0b0c}
+.seg button[aria-pressed=true][data-v="1"]{background:#2b3384;border-color:#2b3384;color:#fff}
+.seg button[aria-pressed=true][data-v="0"]{background:#e0055e;border-color:#e0055e;color:#fff}
+.placar{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;margin-top:22px;padding:22px;border-radius:22px;background:var(--soft)}
+.placar .nota{font-size:clamp(3rem,8vw,4.6rem);font-weight:900;letter-spacing:-.05em;line-height:1;color:var(--c,var(--fg))}
+.placar .nota small{font-size:1.1rem;font-weight:600;opacity:.6}
+.placar h3{margin:0 0 6px;font-size:1.3rem;color:var(--c,var(--fg))}
+.placar p{margin:0;line-height:1.5}
+.placar ul{margin:10px 0 0;padding-left:18px;line-height:1.6}
+.barra{height:10px;border-radius:999px;background:var(--line);overflow:hidden;margin-top:12px}
+.barra i{display:block;height:100%;width:0;background:var(--c,#00c864);transition:width .6s}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.calc label,.ger label{display:flex;flex-direction:column;gap:6px;font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.res{display:flex;flex-direction:column;gap:10px}
+.res div{border-radius:20px;padding:18px 20px;background:var(--soft)}
+.res div.forte{background:#00e676;color:#0b0b0c}
+.res b{display:block;font-size:clamp(1.6rem,4vw,2.3rem);letter-spacing:-.03em;line-height:1.05}
+.res span{font-size:.85rem;line-height:1.45;opacity:.85}
+.obs{font-size:.82rem;color:var(--muted);margin:14px 0 0}
+.mapa-topo{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.mapa-topo .cont{font-weight:800}
+.linhas{display:flex;flex-direction:column;gap:8px}
+.linha{display:grid;grid-template-columns:28px 1.3fr 1fr 1fr 36px;gap:8px;align-items:center}
+.linha .n{font-size:.8rem;font-weight:800;color:var(--muted);text-align:right}
+.linha input,.linha select{padding:10px 12px;font-size:.92rem;border-radius:12px}
+.linha .x{padding:0;width:36px;height:36px;background:transparent;border:1.5px solid var(--line);color:var(--muted);font-size:1rem}
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-bottom:18px}
+.cats div{border:1px solid var(--line);background:var(--card);border-radius:18px;padding:16px}
+.cats b{display:block;margin-bottom:4px}
+.cats p{margin:0;font-size:.88rem;line-height:1.45;color:var(--muted)}
+.bt2{background:transparent;border:1.5px solid var(--fg);color:var(--fg);font-size:.85rem;padding:11px 16px}
+.abas{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.abas button{font-size:.8rem;padding:9px 14px;background:transparent;border:1.5px solid var(--line);color:var(--fg)}
+.abas button[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.ger{display:grid;grid-template-columns:.9fr 1.1fr;gap:16px}
+.ger .saida{display:flex;flex-direction:column;gap:10px}
+.ger .alerta{font-size:.85rem;color:var(--magenta-txt);min-height:1.2em;margin:0}
+.ger .bts{display:flex;flex-wrap:wrap;gap:8px}
+.ger .campo[hidden]{display:none}
+.ruim{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+.ruim div{border-radius:18px;padding:16px 18px}
+.ruim .no{border:2px solid var(--magenta-txt)}.ruim .no b{color:var(--magenta-txt)}
+.ruim .si{border:2px solid var(--verde-txt)}.ruim .si b{color:var(--verde-txt)}
+.ruim b{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+.ruim p{margin:0;line-height:1.5}
+.tres{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tres>div{border:1px solid var(--line);background:var(--card);border-radius:22px;padding:22px}
+.tres h3{margin:0 0 4px;font-size:1.25rem}
+.tres .q2{font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--verde-txt)}
+.tres ol,.tres ul{margin:10px 0 0;padding-left:20px;line-height:1.55;font-size:.95rem}
+.tres li{margin-bottom:6px}
+.nunca p{margin:0;font-size:.95rem;line-height:1.5;color:var(--muted)}
+.diag{margin-top:96px;display:grid;grid-template-columns:1fr 1fr;background:var(--ink);color:var(--ink-fg);overflow:hidden;border-radius:28px}
+.diag .txt{padding:clamp(32px,5vw,64px);display:grid;gap:18px;align-content:center}
+.diag .spaced{color:var(--ink-muted)}
+.diag h2{font-size:clamp(2rem,4.4vw,3.2rem);line-height:1;font-weight:800;letter-spacing:-.04em;margin:0;text-wrap:balance}
+.diag p{color:var(--ink-muted);margin:0;max-width:46ch}
+.diag .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.diag .ctas .btn:not(.verde){color:var(--ink-fg)}
+.diag figure{margin:0;position:relative;min-height:360px}
+.diag figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1);-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%);mask-image:linear-gradient(90deg,transparent,#000 35%)}
+.alda{margin-top:72px;background:#fff;border-top:1px solid #e4e4e7;border-bottom:1px solid #e4e4e7;color:#2e2e2e;overflow:hidden}
+.alda-in{display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:center;padding-block:44px}
+.alda-pato{width:110px;height:auto;align-self:end;margin-bottom:-44px}
+.alda h2{margin:0 0 8px;font-size:clamp(1.6rem,3vw,2.3rem);font-weight:900;letter-spacing:-.035em;line-height:1.05;color:#2e2e2e}
+.alda h2 span{font-weight:300;font-style:italic}
+.alda p{margin:0;max-width:60ch;color:#4a4a4a}
+.alda-bts{display:grid;gap:10px}
+.alda-bt{background:#2e2e2e;color:#fff;border-color:#2e2e2e}
+.alda-bt2{color:#2e2e2e;border-color:#2e2e2e}
+@media (max-width:860px){.hero .in,.gate,.diag,.alda-in,.ger,.calc{grid-template-columns:1fr}.alda-pato{display:none}.diag figure{min-height:240px}.mesa3,.nunca,.tres,.ruim{grid-template-columns:1fr}.foto{max-width:300px}}
+@media (max-width:640px){.duas{grid-template-columns:1fr}.perg .q{grid-template-columns:1fr}.linha{grid-template-columns:22px 1fr 36px}.linha select{grid-column:2/3}.linha .x{grid-row:1}.linha .x{grid-column:3}}
+</style>
+</head>
+<body>
+<script src="/assets/casco.js"></script>
+<main>
+<section class="hero" id="hero"><div class="w in">
+  <div>
+    <span class="k">Mesa Aberta · Kit de Network da Unique</span>
+    <h1>Network não é <span class="x">cartão</span>. <span class="leve" style="color:#00e676">É mesa que se abre.</span></h1>
+    <p>A ferramenta para transformar contato em indicação: medir a sua rede, saber quanto vale uma indicação no seu negócio, mapear as 30 pessoas-chave e pedir do jeito certo.</p>
+    <div class="passos3"><span class="e" style="--c:#00e676">1 · Dar</span><span style="--c:#2b3384">2 · Entender</span><span style="--c:#e0055e">3 · Pedir específico</span></div>
+  </div>
+  <figure class="foto">
+    <div class="ph"><img src="/blog/assets/mesa-getulio-carlos-diogo.jpg" alt="Getúlio, Carlos e Diogo sorrindo juntos num evento, com crachás" width="960" height="1280">
+    <span class="tag" style="left:22%">Getúlio</span><span class="tag eu" style="left:52%">Carlos</span><span class="tag" style="left:82%">Diogo</span></div>
+    <figcaption>Três empresários que se conheceram num grupo de networking.</figcaption>
+  </figure>
+</div></section>
+
+<div class="w">
+  <div class="gate" id="liberar">
+    <div>
+      <span class="spaced">Gratuito para cadastrados</span>
+      <h2>Libere o kit <span class="leve">e marque o primeiro café desta semana.</span></h2>
+      <p>Preencha e o kit abre aqui mesmo. O que você preencher fica salvo neste aparelho.</p>
+      <ul>
+        <li>Raio-x da sua rede em 2 minutos, com nota</li>
+        <li>Calculadora: quanto vale uma indicação no seu negócio</li>
+        <li>Mapa das 30 pessoas-chave, com status de cada uma</li>
+        <li>Gerador de pedido de indicação, convite e retorno</li>
+        <li>Roteiro do 1 a 1 e rotina semanal</li>
+      </ul>
+    </div>
+    <form id="f-lib" novalidate>
+      <div class="duas">
+        <input name="nome" autocomplete="name" placeholder="Seu nome" aria-label="Seu nome" maxlength="80" required>
+        <input name="empresa" autocomplete="organization" placeholder="Empresa" aria-label="Empresa" maxlength="80" required>
+      </div>
+      <input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="WhatsApp com DDD" aria-label="WhatsApp com DDD" maxlength="30" required>
+      <input name="email" type="email" autocomplete="email" placeholder="Seu melhor e-mail" aria-label="Seu e-mail" maxlength="120" required>
+      <input class="isca" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label class="aceite"><input type="checkbox" name="aceite" required><span>Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a <a href="/privacidade/" target="_blank" rel="noopener">Política de Privacidade</a>. Posso cancelar quando quiser.</span></label>
+      <button type="submit">Liberar o kit de network →</button>
+      <p class="msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+
+  <div class="ok"><b id="ok-t">Kit liberado!</b><p id="ok-p" style="margin:6px 0 0"></p></div>
+
+  <div id="conteudo">
+    <section class="sec">
+      <span class="spaced">A regra da mesa</span>
+      <h2>Primeiro você dá. <span class="leve">Depois você pede.</span></h2>
+      <p class="lead">Quem chega no evento distribuindo cartão e falando do próprio produto sai sem nada. A mesa se abre na ordem certa.</p>
+      <div class="mesa3">
+        <div class="e" style="--c:#00e676"><b>1 · Dar</b><span>Indique, apresente, divulgue.</span><small>Antes de pedir qualquer coisa, gere valor para a pessoa. Sem cobrar.</small></div>
+        <div style="--c:#2b3384"><b>2 · Entender</b><span>Quem é o cliente ideal dele?</span><small>Você só indica bem quem você entende. Pergunte o que seria uma indicação perfeita.</small></div>
+        <div style="--c:#e0055e"><b>3 · Pedir específico</b><span>Cargo, tipo de empresa, momento.</span><small>"Me indica alguém" não gera nada. Um pedido que a pessoa consegue responder, sim.</small></div>
+      </div>
+    </section>
+
+    <section class="sec" id="raiox">
+      <span class="spaced">Ferramenta 1</span>
+      <h2>Raio-x <span class="leve">da sua rede.</span></h2>
+      <p class="lead">Dez perguntas, resposta honesta. A nota mostra se você tem uma rede que trabalha por você ou só uma agenda cheia de contatos.</p>
+      <div class="box">
+        <div class="perg" id="perg"></div>
+        <div class="placar" id="placar"><div class="nota" id="nota">0<small>/100</small></div><div><h3 id="nivel">Responda as perguntas</h3><p id="nivel-p">A nota aparece conforme você responde.</p><div class="barra"><i id="barra"></i></div><ul id="focos"></ul></div></div>
+      </div>
+    </section>
+
+    <section class="sec" id="calc">
+      <span class="spaced">Ferramenta 2</span>
+      <h2>Quanto vale <span class="leve">uma indicação?</span></h2>
+      <p class="lead">Coloque os números do seu negócio. A conta mostra por que um café por semana pode valer mais que muito anúncio.</p>
+      <div class="box calc">
+        <div>
+          <label>Ticket médio por compra (R$)<input id="cTicket" type="number" min="0" step="100" value="5000"></label>
+          <label>Compras por cliente por ano<input id="cCompras" type="number" min="0" step="1" value="3"></label>
+          <label>Anos que um cliente fica com você<input id="cAnos" type="number" min="0" step="1" value="3"></label>
+          <label>De cada 10 indicações, quantas fecham?<input id="cConv" type="number" min="0" max="10" step="1" value="4"></label>
+          <label>Indicações que você recebe por mês hoje<input id="cInd" type="number" min="0" step="1" value="1"></label>
+        </div>
+        <div class="res">
+          <div><span>Um cliente vale, no tempo em que fica com você</span><b id="rLtv">—</b></div>
+          <div><span>Cada indicação recebida vale, em média</span><b id="rInd">—</b></div>
+          <div><span>As indicações de hoje trazem por ano (primeiro ano)</span><b id="rAno">—</b></div>
+          <div class="forte"><span>Se você ganhar só +1 indicação por semana, o primeiro ano soma mais</span><b id="rMais">—</b></div>
+        </div>
+      </div>
+      <p class="obs">Os números que já vêm preenchidos são só um exemplo. Troque pelos seus. A conta é uma estimativa simples: não considera margem nem custos.</p>
+    </section>
+
+    <section class="sec" id="mapa">
+      <span class="spaced">Ferramenta 3</span>
+      <h2>O mapa das <span class="leve">30 pessoas-chave.</span></h2>
+      <p class="lead">Network que funciona tem nome e sobrenome. Liste as pessoas que podem abrir mesa para você e acompanhe o que já fez com cada uma.</p>
+      <div class="cats">
+        <div><b>Cliente fã</b><p>Já comprou, gostou e fala bem. É a indicação mais quente que existe.</p></div>
+        <div><b>Parceiro com o mesmo cliente</b><p>Vende outra coisa para o mesmo público que você. Contador, advogado, agência, fornecedor.</p></div>
+        <div><b>Fornecedor</b><p>Conhece dezenas de empresas do seu setor e quer que você cresça.</p></div>
+        <div><b>Ex-cliente</b><p>Saiu bem. Pode voltar e pode indicar.</p></div>
+        <div><b>Empresário amigo</b><p>Do grupo, da associação, da igreja, do esporte. Confia em você.</p></div>
+        <div><b>Conector</b><p>Aquela pessoa que conhece todo mundo. Vale ouro: trate com cuidado.</p></div>
+      </div>
+      <div class="box">
+        <div class="mapa-topo"><span class="cont" id="mCont">0 de 30 pessoas</span><span style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="bt2" id="mAdd">+ Pessoa</button><button type="button" class="bt2" id="mCopia">Copiar lista</button></span></div>
+        <div class="barra" style="margin:0 0 16px"><i id="mBarra" style="--c:#00c864"></i></div>
+        <div class="linhas" id="mLinhas"></div>
+      </div>
+    </section>
+
+    <section class="sec" id="gerador">
+      <span class="spaced">Ferramenta 4</span>
+      <h2>O pedido <span class="leve">que abre mesa.</span></h2>
+      <p class="lead">Escolha a mensagem, preencha e mande. O gerador avisa o que ainda falta trocar.</p>
+      <div class="ruim">
+        <div class="no"><b>Pedido genérico</b><p>"Se souber de alguém que precise, me indica."</p></div>
+        <div class="si"><b>Pedido específico</b><p>"Você conhece o dono de uma confecção em Goiânia que está com o comercial travado e quer crescer no atacado?"</p></div>
+      </div>
+      <div class="box ger" style="margin-top:16px">
+        <div>
+          <div class="abas" id="gAbas"></div>
+          <label>Nome do contato<input id="gNome" placeholder="Ex.: Getúlio"></label>
+          <label class="campo" data-c="pedido">Quem você quer conhecer (cargo)<input id="gCargo" placeholder="Ex.: o dono"></label>
+          <label class="campo" data-c="pedido">De que tipo de empresa<input id="gTipo" placeholder="Ex.: uma confecção de uniformes"></label>
+          <label class="campo" data-c="pedido">Onde<input id="gOnde" placeholder="Ex.: Goiânia"></label>
+          <label class="campo" data-c="pedido">Em que momento ou com qual dor<input id="gDor" placeholder="Ex.: está com o comercial travado"></label>
+          <label class="campo" data-c="pedido convite">O que você faz, em uma frase<input id="gFaco" placeholder="Ex.: organizo o comercial de empresas que vendem pelo WhatsApp"></label>
+          <label class="campo" data-c="retorno">Quem foi indicado<input id="gIndicado" placeholder="Ex.: Marcos, da Confecção X"></label>
+          <label class="campo" data-c="retorno">O que aconteceu<select id="gRes"><option value="fechou">Fechou negócio</option><option value="andamento">Está em andamento</option><option value="nao">Não fechou agora</option></select></label>
+        </div>
+        <div class="saida">
+          <textarea id="gTxt" aria-label="Mensagem gerada"></textarea>
+          <p class="alerta" id="gAlerta"></p>
+          <input id="gZap" type="tel" inputmode="tel" placeholder="WhatsApp do contato (opcional)" aria-label="WhatsApp do contato">
+          <div class="bts"><button type="button" id="gCopiar">Copiar mensagem</button><button type="button" class="bt2" id="gZapBt">Abrir no WhatsApp</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="roteiro">
+      <span class="spaced">Ferramenta 5</span>
+      <h2>O roteiro <span class="leve">do 1 a 1.</span></h2>
+      <p class="lead">Um café de 40 minutos bem feito vale mais que dez eventos. Antes, durante e depois.</p>
+      <div class="tres">
+        <div><span class="q2">Antes · 10 min</span><h3>Chegue sabendo</h3><ul><li>Olhe o Instagram, o site e o LinkedIn da pessoa.</li><li>Pense em uma pessoa que você pode apresentar para ela.</li><li>Leve a sua frase de apresentação pronta.</li></ul></div>
+        <div><span class="q2">Durante · 40 min</span><h3>Pergunte mais do que fala</h3><ol><li>Como você começou?</li><li>O que você mais gosta de fazer no seu trabalho?</li><li>Quem é o seu cliente ideal?</li><li>O que faz uma indicação ser perfeita para você?</li><li>Que empresa você queria muito atender?</li><li>Quem você quer conhecer este mês?</li><li>Como eu te apresento numa frase?</li><li>Como posso te ajudar agora?</li></ol></div>
+        <div><span class="q2">Depois · 24 horas</span><h3>Feche o ciclo</h3><ul><li>Mande uma mensagem agradecendo e repetindo o que entendeu.</li><li>Faça uma apresentação ou indicação para ela na semana.</li><li>Registre no CRM: quem é, o que ela procura, próximo contato.</li><li>Atualize o status no mapa das 30 pessoas.</li></ul></div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <span class="spaced">Rotina semanal</span>
+      <h2>Network é rotina, <span class="leve">não sorte.</span></h2>
+      <div class="checks" id="checks">
+        <label><input type="checkbox" id="ck-0"><span>Um café ou 1 a 1 marcado com alguém do mapa</span></label>
+        <label><input type="checkbox" id="ck-1"><span>Uma indicação ou apresentação dada, antes de pedir</span></label>
+        <label><input type="checkbox" id="ck-2"><span>Um pedido de indicação específico enviado</span></label>
+        <label><input type="checkbox" id="ck-3"><span>Toda indicação recebida respondida em até 24 horas</span></label>
+        <label><input type="checkbox" id="ck-4"><span>Quem me indicou ficou sabendo do resultado</span></label>
+        <label><input type="checkbox" id="ck-5"><span>Indicações registradas no CRM com a origem</span></label>
+      </div>
+      <p class="obs"><button type="button" class="bt2" id="ckZera" style="font-size:.78rem;padding:8px 12px">Começar nova semana</button></p>
+    </section>
+
+    <section class="sec">
+      <span class="spaced">O que fecha a mesa</span>
+      <h2>Quatro erros <span class="leve">que matam a indicação.</span></h2>
+      <div class="nunca">
+        <div><b>Chegar pedindo</b><p>Distribuir cartão e falar do produto por dez minutos. Ninguém indica quem só pensa em si.</p></div>
+        <div><b>Pedido genérico</b><p>"Me indica alguém." Ninguém lembra de alguém. Diga o cargo, o tipo de empresa e o momento.</p></div>
+        <div><b>Sumir depois da indicação</b><p>Quem indicou emprestou a confiança dele. Conte o resultado, fechando ou não.</p></div>
+        <div><b>Só aparecer quando precisa</b><p>Rede é cultivada toda semana. Quem só liga quando está sem venda já chega devendo.</p></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<section class="w" aria-label="Diagnóstico comercial">
+  <div class="diag">
+    <div class="txt">
+      <span class="spaced">Próximo passo</span>
+      <h2>Qual é o score comercial <span class="leve">da sua empresa?</span></h2>
+      <p>Faça o diagnóstico. Em 10 a 15 minutos você responde sobre os 4 pilares do seu comercial e recebe um relatório com o score, os gargalos e um plano de ação.</p>
+      <div class="ctas"><a class="btn verde" href="/diagnostico/">Faça seu diagnóstico comercial <i class="ic" style="--i:var(--ic-seta)"></i></a>
+      <a class="btn" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Vi%20o%20kit%20Mesa%20Aberta%20e%20quero%20conversar%20sobre%20o%20comercial%20da%20minha%20empresa." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Falar com o Carlos</a></div>
+    </div>
+    <figure><img src="/assets/fotos/palco.jpg" alt="Carlos Ribeiro em palestra, com microfone" width="1280" height="853" loading="lazy"></figure>
+  </div>
+</section>
+
+<section class="alda" aria-labelledby="h-alda">
+  <div class="w alda-in">
+    <img class="alda-pato" src="/diagnostico/relatorio/alda-pato.png" alt="" width="134" height="238" loading="lazy">
+    <div class="alda-tx">
+      <span class="spaced" style="display:block;margin-bottom:10px;color:#5e5e66">Alda.CRM</span>
+      <h2 id="h-alda">Nenhuma indicação <span>esquecida no WhatsApp.</span></h2>
+      <p>Cada indicação vira negócio no funil, com origem, quem indicou, tarefa de retorno e follow-up organizado numa plataforma feita para quem vende pelo WhatsApp. A ferramenta que a Unique usa para tirar o plano do papel.</p>
+    </div>
+    <div class="alda-bts">
+      <a class="btn alda-bt" href="https://aldacrm.com" target="_blank" rel="noopener">Conhecer o Alda.CRM <i class="ic" style="--i:var(--ic-seta-up)"></i></a>
+      <a class="btn alda-bt2" href="https://wa.me/5511920781458?text=Ol%C3%A1%21%20Vim%20pelo%20kit%20Mesa%20Aberta%20da%20Unique%20e%20quero%20conhecer%20o%20Alda.CRM." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Falar com o Alda</a>
+    </div>
+  </div>
+</section>
+</main>
+<script>
+(function(){
+var store={get:function(k){try{return JSON.parse(localStorage.getItem(k)||'null');}catch(e){return null;}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});};
+var $=function(s,c){return (c||document).querySelector(s);};
+function copiar(txt,b,lab){var done=function(t){b.textContent=t;setTimeout(function(){b.textContent=lab;},1500);};try{navigator.clipboard.writeText(txt).then(function(){done('Copiado');},function(){done('Copie à mão');});}catch(err){done('Copie à mão');}}
+var brl=function(v){return 'R$ '+Math.round(v).toLocaleString('pt-BR');};
+
+/* 1. raio-x */
+var P=[
+ ['Consigo citar 5 pessoas que me indicariam hoje, sem eu pedir.','Liste as 5 pessoas no mapa e marque um café com a primeira.'],
+ ['Recebi pelo menos uma indicação no último mês.','Mande dois pedidos específicos esta semana com o gerador.'],
+ ['Dei pelo menos uma indicação para alguém no último mês.','Comece dando: faça uma apresentação para alguém do mapa.'],
+ ['Sei qual é o cliente ideal dos meus 5 parceiros principais.','Use as perguntas do roteiro do 1 a 1 para descobrir.'],
+ ['Tenho uma frase clara de como quero ser apresentado.','Escreva a sua frase no campo "O que você faz" do gerador.'],
+ ['Faço pelo menos um café ou 1 a 1 por semana com alguém da rede.','Coloque um café fixo na agenda toda semana.'],
+ ['Respondo toda indicação em até 24 horas.','Indicação esfria rápido: crie a regra das 24 horas.'],
+ ['Conto o resultado para quem me indicou, fechando ou não.','Use a mensagem de retorno do gerador.'],
+ ['Registro as indicações (quem indicou, quem foi indicado, resultado).','Registre a origem de cada negócio no CRM.'],
+ ['Participo com frequência de um grupo, associação ou evento de empresários.','Escolha um grupo e vá com constância, não uma vez.']
+];
+var R=store.get('ua_mesa_raiox')||{};
+var perg=$('#perg');
+perg.innerHTML=P.map(function(p,i){return '<div class="q"><p>'+esc(p[0])+'</p><div class="seg" data-i="'+i+'"><button type="button" data-v="2" aria-pressed="false">Sim</button><button type="button" data-v="1" aria-pressed="false">Em parte</button><button type="button" data-v="0" aria-pressed="false">Não</button></div></div>';}).join('');
+function nota(){
+  var n=0,resp=0,f=[];
+  P.forEach(function(p,i){var v=R[i];var seg=perg.querySelector('[data-i="'+i+'"]');seg.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',String(v!=null&&+b.dataset.v===v));});if(v!=null){resp++;n+=v*5;if(v<2)f.push([v,p[1]]);}});
+  var pl=$('#placar'),c,t,d;
+  if(!resp){c='';t='Responda as perguntas';d='A nota aparece conforme você responde.';}
+  else if(n<40){c='#e0055e';t='Rede de coleção';d='Muitos contatos, pouca mesa aberta. Hoje o seu comercial depende quase só de você.';}
+  else if(n<70){c='#2b3384';t='Rede morna';d='A base existe, mas falta rotina. Com constância, as indicações começam a vir sozinhas.';}
+  else{c='#00a956';t='Mesa aberta';d='A sua rede trabalha por você. Agora é medir e crescer com método.';}
+  pl.style.setProperty('--c',c||'');$('#nota').innerHTML=n+'<small>/100</small>';$('#nivel').textContent=t;$('#nivel-p').textContent=d+(resp<P.length&&resp?' ('+resp+' de '+P.length+' respondidas)':'');
+  $('#barra').style.width=n+'%';
+  f.sort(function(a,b){return a[0]-b[0];});
+  $('#focos').innerHTML=f.slice(0,3).map(function(x){return '<li>'+esc(x[1])+'</li>';}).join('');
+}
+perg.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var i=b.parentNode.dataset.i;R[i]=+b.dataset.v;store.set('ua_mesa_raiox',R);nota();});
+nota();
+
+/* 2. calculadora */
+var C=store.get('ua_mesa_calc');var ids=['cTicket','cCompras','cAnos','cConv','cInd'];
+if(C)ids.forEach(function(k){if(C[k]!=null)$('#'+k).value=C[k];});
+function calc(){
+  var v={};ids.forEach(function(k){v[k]=Math.max(0,parseFloat($('#'+k).value)||0);});
+  var conv=Math.min(v.cConv,10)/10, ano=v.cTicket*v.cCompras, ltv=ano*v.cAnos;
+  $('#rLtv').textContent=brl(ltv);
+  $('#rInd').textContent=brl(ltv*conv);
+  $('#rAno').textContent=brl(v.cInd*12*conv*ano);
+  $('#rMais').textContent='+ '+brl(52*conv*ano);
+  store.set('ua_mesa_calc',v);
+}
+ids.forEach(function(k){$('#'+k).addEventListener('input',calc);});calc();
+
+/* 3. mapa */
+var CAT=['Cliente fã','Parceiro com o mesmo cliente','Fornecedor','Ex-cliente','Empresário amigo','Conector'];
+var ST=['Ainda não falei','Café marcado','Café feito','Dei indicação','Recebi indicação'];
+var MP=store.get('ua_mesa_mapa')||[{n:'',c:0,s:0},{n:'',c:0,s:0},{n:'',c:0,s:0},{n:'',c:0,s:0},{n:'',c:0,s:0}];
+var lin=$('#mLinhas');
+function opts(arr,sel){return arr.map(function(x,i){return '<option value="'+i+'"'+(i===sel?' selected':'')+'>'+x+'</option>';}).join('');}
+function desenha(){
+  lin.innerHTML=MP.map(function(p,i){return '<div class="linha" data-i="'+i+'"><span class="n">'+(i+1)+'</span><input data-k="n" value="'+esc(p.n)+'" placeholder="Nome e empresa" aria-label="Nome da pessoa '+(i+1)+'"><select data-k="c" aria-label="Categoria">'+opts(CAT,p.c)+'</select><select data-k="s" aria-label="Status">'+opts(ST,p.s)+'</select><button type="button" class="x" aria-label="Remover">×</button></div>';}).join('');
+  conta();
+}
+function conta(){var n=MP.filter(function(p){return p.n.trim();}).length;$('#mCont').textContent=n+' de 30 pessoas';$('#mBarra').style.width=Math.min(100,n/30*100)+'%';$('#mAdd').disabled=MP.length>=30;}
+lin.addEventListener('input',function(e){var el=e.target,l=el.closest('.linha');if(!l)return;var p=MP[+l.dataset.i];p[el.dataset.k]=el.dataset.k==='n'?el.value:+el.value;store.set('ua_mesa_mapa',MP);conta();});
+lin.addEventListener('change',function(e){lin.dispatchEvent(new Event('input'));});
+lin.addEventListener('click',function(e){var b=e.target.closest('.x');if(!b)return;MP.splice(+b.parentNode.dataset.i,1);store.set('ua_mesa_mapa',MP);desenha();});
+$('#mAdd').addEventListener('click',function(){if(MP.length<30){MP.push({n:'',c:0,s:0});store.set('ua_mesa_mapa',MP);desenha();var ins=lin.querySelectorAll('input');ins[ins.length-1].focus();}});
+$('#mCopia').addEventListener('click',function(){var t=MP.filter(function(p){return p.n.trim();}).map(function(p,i){return (i+1)+'. '+p.n.trim()+' · '+CAT[p.c]+' · '+ST[p.s];}).join('\n');copiar(t||'Lista vazia',this,'Copiar lista');});
+desenha();
+
+/* 4. gerador */
+var MOD={
+ pedido:{n:'Pedido de indicação',t:function(v){return '[Nome], tudo bem? Uma pergunta rápida: você conhece '+v.cargo+' de '+v.tipo+' em '+v.onde+' que '+v.dor+'?\n\nEu '+v.faco+'. Se vier alguém na cabeça, você me apresenta? Eu cuido do resto e te conto como foi.';}},
+ convite:{n:'Convite para café',t:function(v){return '[Nome], quero te conhecer melhor e entender quem é o cliente ideal para você, para eu saber te indicar. Eu '+v.faco+'.\n\nUm café de 40 minutos na semana que vem? Terça ou quinta de manhã fica bom pra você?';}},
+ retorno:{n:'Retorno para quem indicou',t:function(v){var r={fechou:'Fechamos negócio! Obrigado de verdade pela confiança.',andamento:'Já conversamos e a proposta está em andamento. Te conto o desfecho.',nao:'Conversamos e agora não deu certo, mas a porta ficou aberta. Obrigado pela confiança.'}[v.res];return '[Nome], passando para te dar retorno da indicação do '+v.indicado+'. '+r+'\n\nE me fala: quem você quer conhecer este mês? Quero retribuir.';}}
+};
+var aba='pedido',gT=$('#gTxt'),gA=$('#gAlerta');
+$('#gAbas').innerHTML=Object.keys(MOD).map(function(k){return '<button type="button" data-a="'+k+'" aria-pressed="'+(k===aba)+'">'+MOD[k].n+'</button>';}).join('');
+var G=store.get('ua_mesa_ger')||{};['gNome','gCargo','gTipo','gOnde','gDor','gFaco','gIndicado'].forEach(function(k){if(G[k])$('#'+k).value=G[k];});
+function val(id,ph){var x=$('#'+id).value.trim();return x||ph;}
+function monta(){
+  document.querySelectorAll('.ger .campo').forEach(function(c){c.hidden=c.dataset.c.split(' ').indexOf(aba)<0;});
+  var v={cargo:val('gCargo','[cargo]'),tipo:val('gTipo','[tipo de empresa]'),onde:val('gOnde','[cidade]'),dor:val('gDor','[momento ou dor]'),faco:val('gFaco','[o que você faz]'),indicado:val('gIndicado','[quem foi indicado]'),res:$('#gRes').value};
+  gT.value=MOD[aba].t(v).replace(/\[Nome\]/g,val('gNome','[Nome]'));
+  confere();
+  var s={};['gNome','gCargo','gTipo','gOnde','gDor','gFaco','gIndicado'].forEach(function(k){s[k]=$('#'+k).value;});store.set('ua_mesa_ger',s);
+}
+function confere(){var f=(gT.value.match(/\[[^\]]+\]/g)||[]);gA.textContent=f.length?'Falta trocar: '+f.join(', '):'Pronta para enviar.';gA.style.color=f.length?'':'var(--verde-txt)';}
+$('#gAbas').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;aba=b.dataset.a;this.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b));});monta();});
+document.querySelectorAll('.ger input:not(#gZap),.ger select').forEach(function(el){el.addEventListener('input',monta);el.addEventListener('change',monta);});
+gT.addEventListener('input',confere);
+$('#gCopiar').addEventListener('click',function(){copiar(gT.value,this,'Copiar mensagem');});
+$('#gZapBt').addEventListener('click',function(){var n=$('#gZap').value.replace(/\D/g,'');if(n&&n.length<=11)n='55'+n;window.open('https://wa.me/'+(n||'')+'?text='+encodeURIComponent(gT.value),'_blank','noopener');});
+monta();
+
+/* rotina */
+var saved=store.get('ua_mesa_checks')||{};
+var cks=document.querySelectorAll('#checks input');
+cks.forEach(function(cb){cb.checked=!!saved[cb.id];cb.addEventListener('change',function(){saved[cb.id]=cb.checked;store.set('ua_mesa_checks',saved);});});
+$('#ckZera').addEventListener('click',function(){saved={};store.set('ua_mesa_checks',saved);cks.forEach(function(cb){cb.checked=false;});});
+
+/* cadastro: mesmo fluxo das outras iscas (api/material.js) */
+var MAT='mesa-aberta', K='ua_mat_'+MAT;
+function libera(d,novo){
+  document.body.classList.add('liberado');
+  var pn=(d&&d.nome||'').split(' ')[0];
+  $('#ok-t').textContent=novo?(pn?pn+', o':'O')+' kit de network está liberado!':'Bem-vindo de volta'+(pn?', '+pn:'')+'!';
+  $('#ok-p').textContent=novo?'Comece pelo raio-x e depois liste as 5 primeiras pessoas no mapa. Você também recebe cada post novo do blog no seu e-mail.':'O seu kit continua aqui, do jeito que você deixou.';
+}
+var salvo=store.get(K); if(salvo) libera(salvo,false);
+fetch('/api/material?a=adm&material='+MAT,{credentials:'same-origin',cache:'no-store'}).then(function(r){return r.json();}).then(function(r){ if(r&&r.admin) libera({nome:'Carlos'},false); else if(r&&r.cliente) libera({nome:r.nome||''},false); }).catch(function(){});
+var f=$('#f-lib'), msg=$('.msg',f), bt=$('button',f);
+f.addEventListener('submit',function(e){
+  e.preventDefault();
+  var d={nome:f.nome.value.trim(),empresa:f.empresa.value.trim(),whatsapp:f.whatsapp.value.trim(),email:f.email.value.trim()};
+  if(d.nome.length<2){msg.textContent='Informe o seu nome.';return;}
+  if(d.empresa.length<2){msg.textContent='Informe o nome da empresa.';return;}
+  if(d.whatsapp.replace(/\D/g,'').length<10){msg.textContent='Confira o seu WhatsApp com DDD.';return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)){msg.textContent='Confira o seu e-mail.';return;}
+  if(!f.aceite.checked){msg.textContent='Para liberar, marque que concorda com os termos.';return;}
+  bt.disabled=true; msg.textContent='';
+  fetch('/api/material',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({a:'liberar',material:MAT,nome:d.nome,empresa:d.empresa,whatsapp:d.whatsapp,email:d.email,aceite:true,site:f.site.value})})
+    .then(function(r){return r.json().catch(function(){return {};});})
+    .then(function(r){
+      if(!r||!r.ok){bt.disabled=false;msg.textContent=(r&&r.erro)||'Não deu certo agora. Tente de novo.';return;}
+      var vv={nome:d.nome,empresa:d.empresa,data:new Date().toISOString()}; store.set(K,vv); libera(vv,true);
+      window.scrollTo({top:$('.ok').offsetTop-90,behavior:'smooth'});
+    })
+    .catch(function(){bt.disabled=false;msg.textContent='Sem conexão. Tente de novo.';});
+});
+})();
+</script>
+</body>
+</html>

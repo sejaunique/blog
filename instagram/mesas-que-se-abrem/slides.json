@@ -1,0 +1,124 @@
+{
+ "estilo": "cracha",
+ "arroba": "@soucarlosribeiro",
+ "capa_blog": "capa-mesas-que-se-abrem.jpg",
+ "legenda": "Da esquerda para a direita: Getúlio, eu e o Diogo. 🤝\n\nNós três nos conhecemos num grupo de networking. Mas eu nem quero falar do grupo. Quero falar do que vem depois: as mesas que se abrem.\n\nNetwork não é cartão na gaveta, grupo de WhatsApp com 200 pessoas ou conexão no LinkedIn que nunca trocou uma mensagem. Isso é coleção.\n\nNetwork é quando alguém senta numa mesa em que você não estava e fala o seu nome. A indicação chega com o que nenhum anúncio compra: confiança emprestada.\n\nE funciona numa ordem:\n→ Primeiro você dá\n→ Depois você entende quem é o cliente ideal do outro\n→ Só então você pede. E pede específico.\n\n\"Me indica alguém\" não gera nada. Ninguém lembra de \"alguém\".\n\n📌 Comente MESA que eu te mando o Kit de Network: raio-x da sua rede, calculadora de quanto vale uma indicação, mapa das 30 pessoas-chave, gerador de pedido de indicação e roteiro do 1 a 1.\n\nO texto completo está no blog: sejaunique.com/blog/mesas-que-se-abrem/\n\nMarca aqui quem já abriu uma mesa pra você. 👇\n\n#networking #network #indicacao #vendas #empresarios #empreendedorismo #gestaocomercial #consultoriadevendas #sejaunique",
+ "slides": [
+  {
+   "tipo": "capa",
+   "img": "blog/assets/mesa-getulio-carlos-diogo.jpg",
+   "nomes": [
+    [
+     "Getúlio",
+     23
+    ],
+    [
+     "Carlos",
+     51
+    ],
+    [
+     "Diogo",
+     81
+    ]
+   ],
+   "kicker": "Network",
+   "titulo": "Network não é ~~cartão~~. //É mesa que se abre.//"
+  },
+  {
+   "tipo": "frase",
+   "kicker": "Getúlio · Carlos · Diogo",
+   "frase": "Nós três nos conhecemos num grupo de networking.\n//Mas o que mudou o jogo// ==não foi o evento.==",
+   "apoio": "Foi o que aconteceu depois: as mesas que se abriram."
+  },
+  {
+   "tipo": "versus",
+   "kicker": "Coleção × rede",
+   "titulo": "Contato //não é// relacionamento.",
+   "colunas": [
+    "Coleção",
+    "Rede de verdade"
+   ],
+   "linhas": [
+    [
+     "Cartão de visita na gaveta",
+     "Alguém fala o seu nome numa mesa"
+    ],
+    [
+     "Grupo com 200 pessoas",
+     "5 pessoas que te indicam sem você pedir"
+    ],
+    [
+     "Conexão que nunca trocou mensagem",
+     "Um café por semana com quem importa"
+    ],
+    [
+     "Só aparece quando precisa",
+     "Dá antes de pedir"
+    ]
+   ]
+  },
+  {
+   "tipo": "frase",
+   "kicker": "Confiança emprestada",
+   "aspas": true,
+   "frase": "A melhor venda do ano começa com alguém falando de você ==quando você não está na sala.==",
+   "apoio": "Quem chega indicado não precisa provar quem é. Só precisa não decepcionar quem indicou."
+  },
+  {
+   "tipo": "passos",
+   "kicker": "A regra da mesa",
+   "titulo": "Network funciona //nessa ordem.//",
+   "passos": [
+    {
+     "cor": "verde",
+     "t": "Dar",
+     "sub": "Indique, apresente, divulgue. Sem cobrar."
+    },
+    {
+     "cor": "marinho",
+     "t": "Entender",
+     "sub": "Quem é o cliente ideal do outro?"
+    },
+    {
+     "cor": "magenta",
+     "t": "Pedir específico",
+     "sub": "Cargo, tipo de empresa e momento."
+    }
+   ]
+  },
+  {
+   "tipo": "chat",
+   "kicker": "O pedido",
+   "titulo": "Ninguém lembra //de “alguém”.//",
+   "rot_no": "Pedido genérico",
+   "no": "Se souber de alguém que precise, me indica.",
+   "rot_si": "Pedido específico",
+   "si": "Você conhece o dono de uma confecção em Goiânia que está com o comercial travado?",
+   "nota": "Pedido específico **abre mesa**. Pedido genérico abre nada."
+  },
+  {
+   "tipo": "lista",
+   "kicker": "Rotina, não sorte",
+   "titulo": "Toda semana:",
+   "itens": [
+    "Um café ou 1 a 1 com alguém da rede",
+    "Uma indicação dada, antes de pedir",
+    "Indicação recebida respondida em 24h",
+    "Quem indicou fica sabendo do resultado"
+   ]
+  },
+  {
+   "tipo": "cta",
+   "kicker": "Kit de Network",
+   "titulo": "Comente a palavra:",
+   "palavra": "MESA",
+   "itens": [
+    "Raio-x da sua rede, com nota",
+    "Quanto vale uma indicação no seu negócio",
+    "Mapa das 30 pessoas-chave",
+    "Gerador de pedido de indicação e roteiro do 1 a 1"
+   ],
+   "obs": "Eu te mando o link no direct."
+  }
+ ]
+}

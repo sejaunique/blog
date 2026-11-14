@@ -42,6 +42,10 @@
   ],
   "rewrites": [
     {
+      "source": "/tv/:slug",
+      "destination": "/tv/index.html"
+    },
+    {
       "source": "/page/aluban/site",
       "destination": "https://aluban-site.vercel.app/"
     },
@@ -56,6 +60,21 @@
     {
       "source": "/page/aluban2/(.*)",
       "destination": "https://aluban2.vercel.app/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/tv/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<script src="/assets/tema.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vídeo · Unique</title>
+<meta name="description" content="Vídeo enviado pela Unique Consultoria.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<meta property="og:type" content="video.other">
+<meta property="og:site_name" content="Unique Consultoria">
+<meta property="og:title" content="Vídeo da Unique para você">
+<meta property="og:description" content="Clique para assistir. Link privado, enviado só para você.">
+<meta property="og:image" content="https://sejaunique.com/assets/og-site.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+.tv{max-width:1080px;margin-inline:auto;padding:36px 20px 64px}
+.tv .spaced{color:var(--muted);display:block;margin-bottom:10px}
+.tv h1{font-size:clamp(1.4rem,3.4vw,2.2rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:0 0 6px;text-wrap:balance}
+.tv .meta{color:var(--muted);font-size:.86rem;margin:0 0 20px}
+.tvplayer{position:relative;background:#000;border-radius:18px;overflow:hidden;aspect-ratio:16/9;box-shadow:0 24px 70px rgba(0,0,0,.35)}
+.tvplayer video{width:100%;height:100%;display:block;background:#000}
+.tv [hidden]{display:none!important}
+.tvaviso{position:absolute;inset:0;display:grid;place-content:center;text-align:center;color:#f5f5f5;padding:24px;gap:12px}
+.tvaviso b{font-size:1.1rem}
+.tvaviso p{margin:0;color:#a1a1a8;max-width:42ch}
+.giro{width:38px;height:38px;border-radius:50%;border:3px solid #333;border-top-color:var(--verde);margin:0 auto;animation:g 1s linear infinite}
+@keyframes g{to{transform:rotate(360deg)}}
+.acoes{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;align-items:center}
+.acoes .vel{display:flex;gap:4px}
+.acoes .vel button{font:inherit;font-size:.74rem;font-weight:600;border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:999px;padding:7px 11px;cursor:pointer}
+.acoes .vel button.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.priv{margin-top:26px;font-size:.78rem;color:var(--muted);display:flex;gap:8px;align-items:flex-start;max-width:70ch}
+.priv svg{flex:none;margin-top:2px}
+</style>
+</head>
+<body class="leitura">
+<script src="/assets/casco.js"></script>
+<main class="tv">
+  <span class="spaced">Unique TV</span>
+  <h1 id="titulo">Carregando vídeo…</h1>
+  <p class="meta" id="meta">&nbsp;</p>
+  <div class="tvplayer">
+    <video id="v" controls playsinline preload="metadata" controlsList="nodownload" disablePictureInPicture="false" hidden></video>
+    <div class="tvaviso" id="aviso"><div class="giro"></div></div>
+  </div>
+  <div class="acoes" id="acoes" hidden>
+    <button class="btn sm" id="copiar" type="button">Copiar link</button>
+    <div class="vel" id="vel" aria-label="Velocidade">
+      <button data-v="1" class="on">1×</button><button data-v="1.25">1,25×</button><button data-v="1.5">1,5×</button><button data-v="2">2×</button>
+    </div>
+  </div>
+  <p class="priv"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+    Link privado: este vídeo não aparece em buscas nem em listas. Pode conter dados do seu atendimento — não encaminhe para quem não deve ver.</p>
+</main>
+<script>
+(function(){
+  var API = 'https://ovlhfnzfqhmanzjpfdgj.supabase.co/functions/v1/tv';
+  var slug = (location.pathname.match(/\/tv\/([A-Za-z0-9]+)/) || [])[1] || new URLSearchParams(location.search).get('v') || '';
+  var v = document.getElementById('v'), aviso = document.getElementById('aviso');
+  var tentativas = 0, carregado = false;
+  function msg(t, p, giro){ aviso.hidden = false; aviso.innerHTML = (giro ? '<div class="giro"></div>' : '') + '<b>' + t + '</b>' + (p ? '<p>' + p + '</p>' : ''); }
+  function dur(ms){ var s = Math.round((ms||0)/1000); return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); }
+  function data(iso){ try { return new Date(iso).toLocaleDateString('pt-BR', { day:'2-digit', month:'long', year:'numeric' }); } catch(e){ return ''; } }
+  if (!slug) { document.getElementById('titulo').textContent = 'Unique TV'; msg('Nenhum vídeo informado', 'Abra o link completo que você recebeu.'); return; }
+
+  function carregar(retomar){
+    fetch(API + '?v=' + encodeURIComponent(slug), { cache: 'no-store' }).then(function(r){ return r.json().then(function(j){ return { ok: r.ok, j: j }; }); })
+    .then(function(x){
+      var j = x.j;
+      if (!x.ok) { document.getElementById('titulo').textContent = 'Vídeo indisponível'; msg('Vídeo não encontrado', j.erro || 'O link pode ter sido desativado.'); return; }
+      document.getElementById('titulo').textContent = j.titulo || 'Vídeo';
+      document.title = (j.titulo || 'Vídeo') + ' · Unique';
+      if (j.status === 'enviando') {
+        msg('O vídeo está terminando de subir…', 'Esta página atualiza sozinha. Pode deixar aberta.', true);
+        if (tentativas++ < 240) setTimeout(carregar, 5000);
+        return;
+      }
+      document.getElementById('meta').textContent = [data(j.criado_em), j.duracao_ms ? dur(j.duracao_ms) : ''].filter(Boolean).join(' · ');
+      var t = retomar ? v.currentTime : 0, tocando = retomar && !v.paused;
+      if (j.capa) v.poster = j.capa;
+      v.src = j.url;
+      v.hidden = false; aviso.hidden = true;
+      document.getElementById('acoes').hidden = false;
+      if (retomar) v.addEventListener('loadedmetadata', function(){ v.currentTime = t; if (tocando) v.play(); }, { once: true });
+      carregado = true;
+      // renova o link do arquivo antes de expirar
+      setTimeout(function(){ carregar(true); }, Math.max(60, (j.validade_s || 14400) - 300) * 1000);
+    })
+    .catch(function(){ msg('Sem conexão', 'Verifique a internet e recarregue a página.'); });
+  }
+  // se o link temporário do arquivo expirar, pede um novo (no máximo a cada 30 s)
+  var ultimoErro = 0, erros = 0;
+  v.addEventListener('error', function(){
+    if (!carregado) return;
+    var agora = Date.now();
+    if (agora - ultimoErro < 30000 || ++erros > 4) { v.hidden = true; msg('Não foi possível tocar o vídeo', 'Recarregue a página. Se continuar, peça um novo link.'); return; }
+    ultimoErro = agora; carregar(true);
+  });
+  document.getElementById('vel').addEventListener('click', function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    v.playbackRate = +b.dataset.v;
+    this.querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x === b); });
+  });
+  document.getElementById('copiar').addEventListener('click', function(){
+    var b = this;
+    navigator.clipboard.writeText(location.origin + '/tv/' + slug).then(function(){ b.textContent = 'Link copiado ✓'; setTimeout(function(){ b.textContent = 'Copiar link'; }, 2000); });
+  });
+  carregar(false);
+})();
+</script>
+</body>
+</html>

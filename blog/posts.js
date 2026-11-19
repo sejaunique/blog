@@ -61,6 +61,56 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 
 window.POSTS = [
   {
+    slug: "ia-dentro-do-navegador",
+    capa: "assets/capa-ia-dentro-do-navegador.jpg",
+    titulo: "Sua empresa não precisa de mais uma ferramenta. Precisa de ==alguém que use as que você já tem==.",
+    data: "2026-11-19",
+    categoria: "IA nos negócios",
+    resumo: "Falei de IA no palco da Imersão 360 da Textil Club. O ponto não é ter mais um aplicativo aberto: é ter uma IA que trabalha dentro do CRM, do WhatsApp Web e da planilha que você já usa.",
+    texto: `
+Hoje eu subi no palco da Imersão 360 da Textil Club para falar de um assunto que eu vivo todo dia: inteligência artificial dentro do comercial.
+
+![Eu no palco da Imersão 360 da Textil Club, com a sala cheia de empresários.](assets/imersao-360-textil-club.jpg)
+
+E eu comecei com uma pergunta para a sala: quantos aqui já usaram IA essa semana? Quase todo mundo levantou a mão.
+
+Aí veio a segunda: e quantos usaram a IA para **fazer** alguma coisa no sistema da empresa? Para atualizar o CRM, montar a proposta, responder o cliente no WhatsApp? A sala ficou quieta.
+
+## IA não é um site que você visita
+
+A maioria dos empresários usa IA como usava o Google: abre, pergunta, copia, fecha. Isso ajuda. Mas é o primeiro degrau.
+
+O empresário não tem problema de falta de ferramenta. Ele tem CRM, tem planilha, tem WhatsApp Web, tem e-mail, tem site de fornecedor. O problema é que ==ninguém tem tempo de usar tudo isso direito==.
+
+> Sua empresa não precisa de mais uma ferramenta. Precisa de alguém que use as que você já tem.
+
+## A IA que senta do seu lado
+
+Foi aí que eu mostrei a extensão do Claude no Google Chrome. Ela abre um painel ao lado de qualquer site e trabalha ali dentro: lê a página, clica, preenche, passa de uma aba para outra, usando os logins que você já tem.
+
+Na prática, eu peço coisas assim:
+
+- "Lê a conversa com esse cliente no WhatsApp Web e me diz em que etapa ele está."
+- "Pega os dados desse e-mail e cadastra o lead no CRM."
+- "Compara os três fornecedores dessas abas e me diz qual compensa."
+- "Monta a proposta com a nossa tabela e uma condição que vale até sexta."
+
+Não é mágica e não é para soltar a IA sozinha. É como ter um assistente novo e muito rápido: no começo ele pede permissão para cada passo, você confere, e a confiança vem com o uso. Quem responde pelo que vai para o cliente continua sendo você.
+
+## O que muda no comercial
+
+O vendedor não perde mais meia hora atualizando CRM no fim do dia. A proposta sai no mesmo dia da reunião, e não três dias depois. O follow-up acontece porque alguém lembrou de fazer.
+
+==IA no comercial não é sobre tecnologia. É sobre execução.== E eu já falei aqui várias vezes: faça o feito antes do perfeito.
+
+## Começa hoje
+
+Prometi para a turma da Imersão um passo a passo, e ele está pronto: como criar a conta, instalar o Claude no Chrome, ensinar a IA sobre a sua empresa, um gerador de proposta comercial e 14 prompts prontos para o comercial.
+
+[material: Claude na Empresa · Tutorial da Imersão 360 | Da primeira conta à IA trabalhando dentro do seu navegador. | assets/imersao-360-textil-club.jpg | Criar a conta do Claude do zero; Instalar o Claude no Google Chrome; Projeto da empresa: a IA aprende o seu negócio; Gerador de proposta comercial; 14 prompts prontos e plano de 7 dias | Quero o tutorial](/claude-na-empresa/)
+`
+  },
+  {
     slug: "mesas-que-se-abrem",
     capa: "assets/capa-mesas-que-se-abrem.jpg",
     titulo: "Network não é cartão. É ==mesa que se abre==.",

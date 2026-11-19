@@ -32,6 +32,13 @@ const RESERVA = [{
   botao: 'Quero as 13 mecânicas',
   publica: 'Te mandei no direct! 📩',
   tag: 'Pressão'
+}, {
+  palavras: ['claude'],
+  link: 'https://sejaunique.com/claude-na-empresa/',
+  direct: 'Aqui está o tutorial Claude na Empresa 👇 Conta, Claude no Chrome, projeto da empresa, gerador de proposta e 14 prompts prontos para o comercial.',
+  botao: 'Quero o tutorial',
+  publica: 'Te mandei no direct! 📩',
+  tag: 'Claude na Empresa'
 }];
 
 async function redis(cmds) {

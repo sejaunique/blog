@@ -1,0 +1,126 @@
+{
+ "estilo": "navegador",
+ "arroba": "@soucarlosribeiro",
+ "url_base": "sejaunique.com/imersao-360",
+ "capa_blog": "capa-ia-dentro-do-navegador.jpg",
+ "legenda": "Hoje eu subi no palco da Imersão 360 da Textil Club pra falar de IA nos negócios. 🎤\n\nPerguntei pra sala: quem usou IA essa semana? Quase todo mundo levantou a mão.\n\nAí veio a segunda: quem usou a IA pra FAZER alguma coisa no sistema da empresa? Atualizar o CRM, montar a proposta, responder o cliente? Silêncio.\n\nA maioria usa IA como usava o Google: abre, pergunta, copia, fecha. É o primeiro degrau.\n\nO empresário não tem falta de ferramenta. Tem CRM, planilha, WhatsApp Web, e-mail. Falta alguém com tempo de usar tudo isso direito.\n\nFoi aí que eu mostrei o Claude dentro do Google Chrome: um painel ao lado de qualquer site que lê a página, clica, preenche e passa de uma aba pra outra. Começa pedindo permissão a cada passo. A confiança vem com o uso.\n\nIA no comercial não é sobre tecnologia. É sobre execução.\n\n📌 Comente CLAUDE que eu te mando o tutorial completo: criar a conta, instalar no Chrome, ensinar a IA sobre a sua empresa, gerador de proposta e 14 prompts prontos pro comercial.\n\nO texto completo está no blog: sejaunique.com/blog/ia-dentro-do-navegador/\n\nObrigado, Textil Club e turma da Imersão! 🙌\n\n#inteligenciaartificial #ia #vendas #gestaocomercial #empresarios #produtividade #textilclub #consultoriadevendas #sejaunique",
+ "slides": [
+  {
+   "tipo": "capa",
+   "aba": "Imersão 360 · Textil Club",
+   "img": "blog/assets/imersao-360-textil-club.jpg",
+   "tag": "Ao vivo · Imersão 360",
+   "titulo": "Sua empresa não precisa de --mais uma ferramenta--.",
+   "sub": "Precisa de alguém que use ==as que você já tem==."
+  },
+  {
+   "tipo": "frase",
+   "aba": "A pergunta",
+   "kicker": "Perguntei pra sala",
+   "frase": "Quem usou IA essa semana? //Quase todo mundo.//\n\nQuem usou a IA pra **fazer** algo no sistema da empresa? --Silêncio.--",
+   "apoio": "Abrir, perguntar, copiar e fechar ajuda. Mas é só o primeiro degrau."
+  },
+  {
+   "tipo": "degraus",
+   "aba": "Os 3 degraus",
+   "kicker": "Os 3 degraus da IA",
+   "titulo": "Onde a sua empresa //parou?//",
+   "degraus": [
+    {
+     "cor": "verde",
+     "t": "Chat",
+     "sub": "Pensa com você: escreve, resume, revisa."
+    },
+    {
+     "cor": "marinho",
+     "t": "Projeto",
+     "sub": "Conhece a sua empresa: tabela, tom, condições."
+    },
+    {
+     "cor": "magenta",
+     "t": "Chrome",
+     "sub": "Age onde você trabalha: CRM, WhatsApp, planilha."
+    }
+   ]
+  },
+  {
+   "tipo": "painel",
+   "aba": "CRM · Negócios",
+   "url": "seucrm.com/negocios",
+   "site": "CRM · Negócios",
+   "cards": [
+    {
+     "etapa": "Lead",
+     "nome": "Confecção Aurora · 120 jalecos"
+    },
+    {
+     "etapa": "Orçamento",
+     "nome": "Escola Ipê · 400 camisetas"
+    },
+    {
+     "etapa": "Negociação",
+     "nome": "Lojas Maria · 300 polos",
+     "alvo": true
+    },
+    {
+     "etapa": "Vendido",
+     "nome": "Clínica Sol · 80 scrubs"
+    }
+   ],
+   "pedido": "Lê a conversa com a Maria no WhatsApp, atualiza o CRM e me sugere a próxima mensagem.",
+   "resposta": "Ela aprovou a cor e pediu prazo. Sugestão: “Maria, entrego dia 12 se fecharmos até sexta. Te mando o pedido?”",
+   "feito": [
+    "Li a conversa no WhatsApp Web",
+    "Movi o negócio para Negociação",
+    "Anotei o pedido de prazo"
+   ]
+  },
+  {
+   "tipo": "lista",
+   "aba": "O que eu peço",
+   "kicker": "Na prática, eu peço assim",
+   "titulo": "IA que //senta do seu lado.//",
+   "itens": [
+    "Pega os dados desse e-mail e **cadastra o lead** no CRM.",
+    "Compara os 3 fornecedores dessas abas e me diz **qual compensa**.",
+    "Monta a **proposta** com a nossa tabela e uma condição até sexta.",
+    "Acha os orçamentos parados há 5 dias e escreve o **follow-up**."
+   ]
+  },
+  {
+   "tipo": "regra",
+   "aba": "A regra",
+   "kicker": "Não é mágica",
+   "titulo": "Não é pra soltar a IA //sozinha.//",
+   "colunas": [
+    {
+     "rot": "No começo",
+     "t": "Ela pede permissão a cada passo. Você confere tudo.",
+     "tag": "Permitir?"
+    },
+    {
+     "rot": "Com o tempo",
+     "t": "A confiança vem com o uso. Você libera mais.",
+     "tag": "Feito ✓"
+    }
+   ],
+   "fim": "IA no comercial não é sobre tecnologia. ==É sobre execução.=="
+  },
+  {
+   "tipo": "cta",
+   "aba": "Tutorial gratuito",
+   "url": "sejaunique.com/claude-na-empresa",
+   "kicker": "Tutorial da palestra",
+   "titulo": "Comente a palavra:",
+   "palavra": "CLAUDE",
+   "caixa": "Adicione um comentário…",
+   "itens": [
+    "Criar a conta do zero",
+    "Instalar o Claude no Google Chrome",
+    "Ensinar a IA sobre a sua empresa",
+    "Gerador de proposta + 14 prompts prontos"
+   ],
+   "obs": "Te mando o link no direct. Texto completo no blog."
+  }
+ ]
+}

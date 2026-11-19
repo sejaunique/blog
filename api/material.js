@@ -80,6 +80,13 @@ const MATERIAIS = {
     tag: 'Quanto custa cada venda',
     aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
   },
+  'claude-na-empresa': {
+    titulo: 'Claude na Empresa · Tutorial da Imersão 360',
+    descricao: 'Criar a conta do Claude, instalar no Google Chrome, montar o projeto da empresa, gerador de proposta, 14 prompts prontos para o comercial e plano de 7 dias.',
+    url: '/claude-na-empresa/',
+    tag: 'Claude na Empresa',
+    aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
+  },
   'pressao': {
     titulo: 'Pressão · 13 mecânicas de condicional',
     descricao: 'As 13 mecânicas de condicional com data para o follow-up: regra da troca, mensagens prontas, gerador de follow-up, cadência até o prazo e checklist.',

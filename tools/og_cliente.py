@@ -95,6 +95,9 @@ EXTRAS = [
     {"arquivo": "mesa-aberta.jpg", "rotulo": "Material · Network e indicação", "pill": "Material gratuito",
      "titulo": "Mesa Aberta", "chamada": "Network não é cartão. É mesa que se abre", "grifo": "mesa que se abre",
      "descricao": "Raio-x da sua rede, quanto vale uma indicação, mapa das 30 pessoas-chave e gerador de pedido de indicação."},
+    {"arquivo": "claude-na-empresa.jpg", "rotulo": "Tutorial · IA no comercial", "pill": "Material gratuito",
+     "titulo": "Claude na Empresa", "chamada": "A IA que trabalha dentro do seu navegador", "grifo": "dentro do seu navegador",
+     "descricao": "Conta, Claude no Chrome, projeto da empresa, gerador de proposta e 14 prompts prontos para o comercial."},
 ]
 
 def chamada_html(p):

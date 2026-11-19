@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<script src="/assets/tema.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude na Empresa · Tutorial da Imersão 360 · Unique</title>
+<meta name="description" content="Tutorial da palestra na Imersão 360 Textil Club: crie a conta do Claude, instale no Google Chrome, monte o projeto da sua empresa e use a IA para propostas, CRM e follow-up. Gratuito para cadastrados.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Unique Consultoria">
+<meta property="og:title" content="Claude na Empresa · Tutorial passo a passo">
+<meta property="og:description" content="Da primeira conta à IA trabalhando dentro do seu navegador: Chrome, projeto da empresa, gerador de proposta e prompts prontos para o comercial.">
+<meta property="og:url" content="https://sejaunique.com/claude-na-empresa/">
+<meta property="og:image" content="https://sejaunique.com/assets/og/claude-na-empresa.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+.w{max-width:1080px;margin-inline:auto;padding-inline:clamp(20px,4vw,36px)}
+.leve{font-weight:200;font-style:italic}
+.spaced{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--verde-txt)}
+.gate{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px);margin:clamp(32px,5vw,56px) auto;padding:clamp(24px,4vw,40px);border:2px solid var(--fg,#0b0b0c);border-radius:28px}
+.gate h2{font-size:clamp(1.6rem,3.6vw,2.3rem);line-height:1.08;letter-spacing:-.03em;margin:10px 0 14px}
+.gate ul{margin:16px 0 0;padding-left:20px;line-height:1.8}
+form{display:flex;flex-direction:column;gap:10px}
+input,textarea,select{font:inherit;font-size:1rem;padding:13px 15px;border-radius:14px;border:1.5px solid var(--line,#ddd);background:var(--bg,#fff);color:inherit;width:100%}
+textarea{min-height:120px;line-height:1.55;resize:vertical}
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.isca{position:absolute;left:-9999px}
+.aceite{display:flex;gap:10px;font-size:.78rem;line-height:1.5;opacity:.85}.aceite input{width:auto;margin-top:3px}
+button{font:inherit;font-weight:800;font-size:1rem;padding:15px 22px;border-radius:999px;border:0;background:#00e676;color:#0b0b0c;cursor:pointer}
+button.sec2{background:transparent;border:2px solid var(--fg);color:var(--fg);padding:11px 18px;font-size:.9rem}
+.msg{font-size:.85rem;min-height:1.2em;margin:0}
+#conteudo,.ok{display:none}
+body.liberado .gate{display:none}body.liberado #conteudo{display:block}body.liberado .ok{display:block}
+.ok{margin:32px auto 0;padding:22px 26px;border-radius:20px;background:#00e676;color:#0b0b0c}
+.ok b{font-size:1.15rem}
+.sec{margin-top:clamp(56px,8vw,96px)}
+.sec>h2{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.05;letter-spacing:-.03em;margin:8px 0 10px}
+.sec>p.lead{font-size:1.05rem;line-height:1.6;color:var(--muted);max-width:68ch;margin:0 0 22px}
+.num{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#2b3384;color:#fff;font-weight:900;margin-right:10px;vertical-align:middle;font-size:1.1rem}
+/* hero */
+.hero{background:#0b0b0c;color:#fff;padding:clamp(48px,8vw,96px) 0 clamp(40px,6vw,72px);overflow:hidden}
+.hero .k{font-size:.78rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#00e676}
+.hero h1{font-size:clamp(2.4rem,6.4vw,4.8rem);line-height:.98;letter-spacing:-.045em;margin:18px 0 20px;font-weight:900;text-wrap:balance;max-width:16ch}
+.hero p{font-size:clamp(1.05rem,2vw,1.25rem);line-height:1.6;max-width:640px;opacity:.85;margin:0}
+.hero figure{margin:clamp(28px,4vw,44px) 0 0}
+.hero figure img{width:100%;height:auto;display:block;border-radius:28px;aspect-ratio:16/8;object-fit:cover;object-position:center 40%}
+.hero figcaption{font-size:.8rem;opacity:.6;margin-top:10px}
+.pilulas{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.pilulas span{font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:10px 15px;border-radius:999px;background:var(--c);color:#fff}
+.pilulas span.e{color:#0b0b0c}
+/* 3 cards */
+.tres{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tres div{border-radius:22px;padding:24px;background:var(--c);color:#fff}
+.tres div.e{color:#0b0b0c}
+.tres b{display:block;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;opacity:.8;margin-bottom:10px}
+.tres span{font-size:clamp(1.3rem,2.6vw,1.6rem);font-weight:800;line-height:1.15;letter-spacing:-.02em}
+.tres small{display:block;margin-top:12px;font-size:.93rem;line-height:1.45;opacity:.92}
+/* passos */
+.passos{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;counter-reset:p}
+.passos li{counter-increment:p;display:grid;grid-template-columns:48px 1fr;gap:16px;align-items:start;padding:18px 20px;border:1px solid var(--line);border-radius:20px;background:var(--card)}
+.passos li::before{content:counter(p);display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:var(--soft);font-weight:900;font-size:1.1rem}
+.passos b{display:block;font-size:1.05rem;margin-bottom:4px}
+.passos p{margin:0;color:var(--muted);line-height:1.55}
+.passos a{color:var(--verde-txt);font-weight:700}
+.dica{margin-top:14px;padding:16px 20px;border-radius:18px;border-left:5px solid #00e676;background:var(--soft);line-height:1.55}
+.alerta{border-left-color:#e0055e}
+/* navegador (ilustração) */
+.nav{border-radius:18px;overflow:hidden;border:1px solid #2a2a30;background:#1d1d22;color:#e9e9ee;box-shadow:0 30px 60px rgba(0,0,0,.25);margin:22px 0 6px;font-size:.82rem}
+.nav .abas{display:flex;gap:6px;align-items:flex-end;padding:10px 12px 0;background:#121216}
+.nav .abas i{width:11px;height:11px;border-radius:50%;background:#e0055e;display:inline-block;margin-right:6px}
+.nav .abas i+i{background:#f5c400}.nav .abas i+i+i{background:#00e676}
+.nav .aba{padding:9px 16px;border-radius:12px 12px 0 0;background:#1d1d22;font-weight:700;white-space:nowrap}
+.nav .aba.f{background:transparent;opacity:.55}
+.nav .barra{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid #2a2a30}
+.nav .url{flex:1;background:#121216;border-radius:999px;padding:8px 14px;opacity:.85}
+.nav .ext{width:30px;height:30px;border-radius:9px;background:#d97757;display:grid;place-items:center;font-weight:900;color:#fff}
+.nav .corpo{display:grid;grid-template-columns:1.4fr 1fr;min-height:300px}
+.nav .site{padding:18px;display:flex;flex-direction:column;gap:10px;background:#f4f4f6;color:#222}
+.nav .site .lin{height:12px;border-radius:6px;background:#dcdce3}
+.nav .site .cartao{border-radius:12px;background:#fff;padding:12px;display:flex;flex-direction:column;gap:8px;border:1px solid #e3e3ea}
+.nav .site .cartao b{font-size:.85rem}
+.nav .site .bt{align-self:flex-start;background:#2b3384;color:#fff;border-radius:999px;padding:6px 12px;font-weight:700;font-size:.75rem;outline:3px dashed #00e676;outline-offset:3px}
+.nav .painel{border-left:1px solid #2a2a30;padding:14px;display:flex;flex-direction:column;gap:10px}
+.nav .painel .t{font-weight:800;opacity:.8}
+.nav .bal{padding:10px 12px;border-radius:14px;line-height:1.45}
+.nav .bal.eu{background:#2b3384;align-self:flex-end;border-bottom-right-radius:4px;max-width:92%}
+.nav .bal.ia{background:#2a2a30;border-bottom-left-radius:4px}
+.nav .bal.ia b{color:#00e676}
+/* geradores */
+.ger{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,3vw,28px);border:2px solid var(--fg);border-radius:28px;padding:clamp(18px,3vw,30px)}
+.ger .campos{display:flex;flex-direction:column;gap:10px}
+.ger label{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:-4px}
+.ger .saida{display:flex;flex-direction:column;gap:10px}
+.ger .saida textarea{flex:1;min-height:380px;font-size:.92rem;background:var(--soft)}
+.bts{display:flex;flex-wrap:wrap;gap:8px}
+/* prompts */
+.filtros{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.filtros button{background:transparent;border:1.5px solid var(--line);color:var(--fg);padding:9px 15px;font-size:.85rem}
+.filtros button[aria-pressed="true"]{background:#2b3384;border-color:#2b3384;color:#fff}
+.prompts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.pr{border:1px solid var(--line);border-radius:22px;padding:20px;background:var(--card);display:flex;flex-direction:column;gap:10px}
+.pr .cat{font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--c)}
+.pr b{font-size:1.08rem;line-height:1.25}
+.pr pre{white-space:pre-wrap;font:inherit;font-size:.9rem;line-height:1.5;margin:0;padding:14px;border-radius:14px;background:var(--soft);color:var(--fg)}
+.pr .onde{font-size:.8rem;color:var(--muted)}
+.pr button{align-self:flex-start;padding:9px 16px;font-size:.85rem}
+/* nunca */
+.nunca{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.nunca div{border-radius:20px;padding:20px 22px;border:2px solid var(--magenta-txt)}
+.nunca b{display:block;color:var(--magenta-txt);font-size:1.05rem;margin-bottom:6px}
+.nunca p{margin:0;font-size:.95rem;line-height:1.5;color:var(--muted)}
+/* checklist */
+.checks{display:flex;flex-direction:column;gap:2px;border:1px solid var(--line);border-radius:22px;padding:14px 18px;background:var(--card)}
+.checks label{display:flex;gap:12px;align-items:flex-start;padding:10px 4px;border-radius:8px;cursor:pointer;font-size:1rem;line-height:1.45}
+.checks input{width:22px;height:22px;margin-top:1px;accent-color:#00c864;flex:none;padding:0}
+.checks input:checked+span{color:var(--muted);text-decoration:line-through}
+.checks .dia{font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--verde-txt);display:block}
+.barra-p{height:10px;border-radius:999px;background:var(--soft);overflow:hidden;margin:0 0 14px}
+.barra-p i{display:block;height:100%;width:0;background:#00e676;transition:width .3s}
+/* cta */
+.fim{margin-top:clamp(56px,8vw,96px);border-radius:32px;background:#2b3384;color:#fff;padding:clamp(28px,5vw,56px);display:grid;grid-template-columns:1.3fr .7fr;gap:24px;align-items:center}
+.fim h2{font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.04;letter-spacing:-.035em;margin:10px 0 14px}
+.fim p{opacity:.85;line-height:1.6;margin:0}
+.fim .btn{display:inline-flex;gap:10px;align-items:center;justify-content:center;background:#00e676;color:#0b0b0c;font-weight:900;border-radius:999px;padding:18px 26px;text-decoration:none}
+@media (max-width:760px){.gate,.ger,.fim{grid-template-columns:1fr}.tres,.prompts,.nunca{grid-template-columns:1fr}.duas{grid-template-columns:1fr}.nav .corpo{grid-template-columns:1fr}.nav .site{display:none}.nav .painel{border-left:0}}
+</style>
+</head>
+<body>
+<script src="/assets/casco.js"></script>
+<main>
+<section class="hero"><div class="w">
+  <span class="k">Imersão 360 · Textil Club · Tutorial da palestra</span>
+  <h1>A IA que trabalha <span class="leve" style="color:#00e676">dentro</span> do seu navegador.</h1>
+  <p>O passo a passo do que eu mostrei no palco: criar a conta do Claude, instalar no Google Chrome, ensinar a IA sobre a sua empresa e colocar ela para montar proposta, atualizar CRM e fazer follow-up com você.</p>
+  <div class="pilulas"><span class="e" style="--c:#00e676">1 · Conta</span><span style="--c:#2b3384">2 · Projeto da empresa</span><span style="--c:#e0055e">3 · Chrome</span><span style="--c:#2b3384">4 · Propostas</span></div>
+  <figure><img src="/blog/assets/imersao-360-textil-club.jpg" alt="Carlos Ribeiro de braços abertos no palco da Imersão 360, com a plateia de empresários de mãos para cima ao fundo" width="2000" height="1126">
+  <figcaption>Imersão 360 da Textil Club, 19 de novembro de 2026.</figcaption></figure>
+</div></section>
+
+<div class="w">
+  <div class="gate" id="liberar">
+    <div>
+      <span class="spaced">Gratuito para cadastrados</span>
+      <h2>Libere o tutorial <span class="leve">e coloque a IA para trabalhar ainda hoje.</span></h2>
+      <p>Preencha e o tutorial abre aqui mesmo. O que você preencher nos geradores fica salvo neste aparelho.</p>
+      <ul>
+        <li>Criar a conta do Claude do zero, com o plano certo</li>
+        <li>Instalar o Claude no Google Chrome e usar o painel lateral</li>
+        <li>Gerador do “Projeto da empresa”: a IA aprende o seu negócio</li>
+        <li>Gerador de pedido de proposta comercial</li>
+        <li>14 prompts prontos para o comercial, para copiar</li>
+        <li>Regras de segurança e plano dos primeiros 7 dias</li>
+      </ul>
+    </div>
+    <form id="f-lib" novalidate>
+      <div class="duas">
+        <input name="nome" autocomplete="name" placeholder="Seu nome" aria-label="Seu nome" maxlength="80" required>
+        <input name="empresa" autocomplete="organization" placeholder="Empresa" aria-label="Empresa" maxlength="80" required>
+      </div>
+      <input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="WhatsApp com DDD" aria-label="WhatsApp com DDD" maxlength="30" required>
+      <input name="email" type="email" autocomplete="email" placeholder="Seu melhor e-mail" aria-label="Seu e-mail" maxlength="120" required>
+      <input class="isca" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label class="aceite"><input type="checkbox" name="aceite" required><span>Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a <a href="/privacidade/" target="_blank" rel="noopener">Política de Privacidade</a>. Posso cancelar quando quiser.</span></label>
+      <button type="submit">Liberar o tutorial →</button>
+      <p class="msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+
+  <div class="ok"><b id="ok-t">Tutorial liberado!</b><p id="ok-p" style="margin:6px 0 0"></p></div>
+
+  <div id="conteudo">
+    <section class="sec">
+      <span class="spaced">Antes de começar</span>
+      <h2>Três jeitos de usar. <span class="leve">Um degrau por vez.</span></h2>
+      <p class="lead">A maioria das empresas para no primeiro degrau: abre o chat, pergunta qualquer coisa e acha que IA é isso. O ganho de verdade está nos outros dois.</p>
+      <div class="tres">
+        <div class="e" style="--c:#00e676"><b>Degrau 1 · Chat</b><span>Pensa com você.</span><small>Escreve, resume, revisa, organiza ideia, responde objeção. Funciona até no plano gratuito.</small></div>
+        <div style="--c:#2b3384"><b>Degrau 2 · Projeto</b><span>Conhece a sua empresa.</span><small>Você explica uma vez quem é, o que vende, o tom e as condições. Toda conversa já começa sabendo.</small></div>
+        <div style="--c:#e0055e"><b>Degrau 3 · Chrome</b><span>Age onde você trabalha.</span><small>Lê a página aberta, clica, preenche e navega entre abas: CRM, WhatsApp Web, Gmail, planilha, site do fornecedor.</small></div>
+      </div>
+    </section>
+
+    <section class="sec" id="conta">
+      <span class="spaced">Passo 1</span>
+      <h2>Crie a sua conta <span class="leve">em 5 minutos.</span></h2>
+      <p class="lead">Faça isso no computador. Depois o mesmo login vale no celular.</p>
+      <ol class="passos">
+        <li><div><b>Acesse claude.ai</b><p>Entre em <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> e clique em <b style="display:inline">Continuar com Google</b> ou digite o seu e-mail. Use o e-mail da empresa: fica tudo organizado no mesmo lugar.</p></div></li>
+        <li><div><b>Confirme o código</b><p>Se entrou com e-mail, chega um código ou link de acesso na caixa de entrada. Abra e confirme.</p></div></li>
+        <li><div><b>Diga como quer ser chamado</b><p>Preencha o nome e responda as perguntas iniciais. Leva menos de um minuto.</p></div></li>
+        <li><div><b>Escolha o plano</b><p>O <b style="display:inline">Free</b> serve para testar o chat. Para usar o Claude <b style="display:inline">dentro do Google Chrome</b> é preciso um plano pago (Pro, Max, Team ou Enterprise). Para um time inteiro, olhe o <b style="display:inline">Team</b>: cada pessoa tem o próprio acesso e você controla tudo num painel.</p></div></li>
+        <li><div><b>Baixe os apps</b><p>Instale o app do Claude no celular (iPhone ou Android) e, se quiser, o app de computador. É o mesmo login e as mesmas conversas.</p></div></li>
+        <li><div><b>Preencha o seu perfil</b><p>Em <b style="display:inline">Configurações → Perfil</b>, escreva quem você é, o que faz e como gosta das respostas (curtas, em tópicos, sem enrolação). A IA passa a responder do seu jeito.</p></div></li>
+      </ol>
+      <div class="dica"><b>Dica de palco:</b> fale com ele como falaria com um assistente novo e bom. Contexto, objetivo e formato. “Escreve um e-mail” dá um e-mail genérico. “Escreve um e-mail curto para um lojista que pediu orçamento há 5 dias e sumiu, tom amigável, com uma condição que vale até sexta” dá um e-mail que vende.</div>
+    </section>
+
+    <section class="sec" id="projeto">
+      <span class="spaced">Passo 2</span>
+      <h2>Ensine a IA sobre <span class="leve">a sua empresa.</span></h2>
+      <p class="lead">No Claude, um <b>Projeto</b> é uma pasta com instruções e arquivos que valem para todas as conversas dentro dela. Monte as instruções aqui embaixo, copie e cole no projeto.</p>
+      <ol class="passos" style="margin-bottom:18px">
+        <li><div><b>Abra Projetos</b><p>No menu da esquerda, clique em <b style="display:inline">Projetos → Novo projeto</b>. Dê o nome da empresa, por exemplo “Comercial · Minha Confecção”.</p></div></li>
+        <li><div><b>Cole as instruções</b><p>Em <b style="display:inline">Instruções do projeto</b>, cole o texto que o gerador abaixo monta.</p></div></li>
+        <li><div><b>Suba os arquivos</b><p>Catálogo, tabela de preços, modelo de proposta, política comercial, perguntas frequentes. Quanto melhor o material, melhor a resposta.</p></div></li>
+      </ol>
+      <div class="ger">
+        <div class="campos" id="pj">
+          <label for="pjEmp">Empresa</label><input id="pjEmp" placeholder="Ex.: Confecção Aurora">
+          <label for="pjSeg">Segmento e cidade</label><input id="pjSeg" placeholder="Ex.: uniformes profissionais, Goiânia (GO)">
+          <label for="pjVende">O que vende</label><textarea id="pjVende" style="min-height:80px" placeholder="Ex.: uniformes para indústria, saúde e escolas; pedido mínimo de 30 peças"></textarea>
+          <label for="pjCli">Cliente ideal</label><input id="pjCli" placeholder="Ex.: empresas com 20 a 300 funcionários; quem decide é o RH ou o dono">
+          <label for="pjDif">Diferenciais</label><input id="pjDif" placeholder="Ex.: prazo de 15 dias, prova de peça, bordado próprio">
+          <label for="pjCond">Condições comerciais</label><input id="pjCond" placeholder="Ex.: 50% no pedido e 50% na entrega; frete grátis acima de R$ 3 mil">
+          <label for="pjTom">Tom de voz</label><select id="pjTom"><option>próximo e direto, sem ser informal demais</option><option>formal e técnico</option><option>leve, animado e com emojis na medida</option></select>
+          <label for="pjNunca">O que a IA nunca deve fazer</label><input id="pjNunca" placeholder="Ex.: prometer prazo sem consultar a produção; dar desconto acima de 5%">
+        </div>
+        <div class="saida">
+          <label for="pjOut">Instruções do projeto (pronto para colar)</label>
+          <textarea id="pjOut" readonly></textarea>
+          <div class="bts"><button type="button" id="pjCopiar">Copiar instruções</button><button type="button" class="sec2" id="pjAbrir">Abrir o Claude</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="chrome">
+      <span class="spaced">Passo 3</span>
+      <h2>Coloque o Claude <span class="leve">dentro do Google Chrome.</span></h2>
+      <p class="lead">É aqui que a plateia fez “uau”. A extensão abre o Claude num painel ao lado do site. Ele lê a página, clica, preenche formulário e passa de uma aba para outra usando os logins que você já tem.</p>
+      <div class="nav" aria-hidden="true">
+        <div class="abas"><span style="padding:0 6px 10px"><i></i><i></i><i></i></span><span class="aba">CRM · Negócios</span><span class="aba f">WhatsApp</span><span class="aba f">Gmail</span></div>
+        <div class="barra"><span class="url">seucrm.com/negocios/lojas-maria</span><span class="ext">✳</span></div>
+        <div class="corpo">
+          <div class="site"><div class="lin" style="width:40%"></div><div class="cartao"><b>Lojas Maria · Orçamento 300 camisetas</b><div class="lin" style="width:80%"></div><div class="lin" style="width:55%"></div><span class="bt">Mover para Negociação</span></div><div class="cartao"><div class="lin" style="width:70%"></div><div class="lin" style="width:45%"></div></div></div>
+          <div class="painel"><span class="t">Claude</span><div class="bal eu">Lê a conversa com a Maria no WhatsApp, atualiza o negócio no CRM e me sugere a próxima mensagem.</div><div class="bal ia">Ela aprovou a cor e pediu prazo. Movi o negócio para <b>Negociação</b> e anotei. Sugestão: “Maria, consigo entregar dia 12 se fecharmos até sexta. Te mando o pedido?”</div></div>
+        </div>
+      </div>
+      <ol class="passos" style="margin-top:22px">
+        <li><div><b>Use o Google Chrome no computador</b><p>A extensão funciona no Chrome. Não funciona no celular nem em outros navegadores.</p></div></li>
+        <li><div><b>Instale pela Chrome Web Store</b><p>Abra a <a href="https://chromewebstore.google.com/search/Claude%20Anthropic" target="_blank" rel="noopener">Chrome Web Store</a>, procure “Claude” (da Anthropic) e clique em <b style="display:inline">Usar no Chrome / Adicionar ao Chrome</b>.</p></div></li>
+        <li><div><b>Entre com a sua conta</b><p>Faça login com a mesma conta do passo 1. Precisa ser um plano pago.</p></div></li>
+        <li><div><b>Fixe o ícone</b><p>Clique no ícone de quebra-cabeça no canto do Chrome e no alfinete ao lado de “Claude”. O ícone fica sempre à vista.</p></div></li>
+        <li><div><b>Abra o painel lateral</b><p>Clique no ícone do Claude. O painel abre do lado direito e fica aberto enquanto você navega.</p></div></li>
+        <li><div><b>Comece com ele pedindo permissão</b><p>Nos primeiros dias, deixe o Claude perguntar antes de cada ação. Você vê o que ele vai fazer e aprova. Quando pegar confiança, libera mais.</p></div></li>
+      </ol>
+      <div class="dica"><b>Primeiro teste:</b> abra o site de um cliente ou fornecedor e peça “Resume esta página em 5 tópicos e me diz 3 perguntas que eu deveria fazer na próxima reunião”. Depois abra o seu CRM e peça para ele cadastrar um lead com os dados de um e-mail aberto em outra aba.</div>
+    </section>
+
+    <section class="sec" id="proposta">
+      <span class="spaced">Passo 4</span>
+      <h2>Proposta bonita, <span class="leve">clara e com prazo.</span></h2>
+      <p class="lead">Preencha o que o cliente pediu e as condições. O gerador monta o pedido perfeito para colar no Claude, de preferência dentro do Projeto da empresa (aí ele já usa a sua tabela e o seu modelo).</p>
+      <div class="ger">
+        <div class="campos">
+          <label for="prCli">Cliente e empresa</label><input id="prCli" placeholder="Ex.: Maria, Lojas Maria">
+          <label for="prPed">O que ele pediu</label><textarea id="prPed" style="min-height:80px" placeholder="Ex.: 300 camisetas polo bordadas, 3 cores, para a equipe de vendas"></textarea>
+          <div class="duas"><div><label for="prVal">Valor</label><input id="prVal" placeholder="Ex.: R$ 14.700"></div><div><label for="prPag">Pagamento</label><input id="prPag" placeholder="Ex.: 50% + 50%"></div></div>
+          <div class="duas"><div><label for="prPrazo">Prazo de entrega</label><input id="prPrazo" placeholder="Ex.: 15 dias úteis"></div><div><label for="prVal2">Validade</label><input id="prVal2" type="date"></div></div>
+          <label for="prCond">Condição para fechar até a validade</label><input id="prCond" placeholder="Ex.: bordado do logo nas costas sem custo">
+          <label for="prFmt">Formato</label><select id="prFmt"><option value="doc">Documento de proposta (para PDF)</option><option value="zap">Mensagem de WhatsApp</option><option value="mail">E-mail</option></select>
+        </div>
+        <div class="saida">
+          <label for="prOut">Pedido pronto para colar no Claude</label>
+          <textarea id="prOut" readonly></textarea>
+          <div class="bts"><button type="button" id="prCopiar">Copiar pedido</button><button type="button" class="sec2" id="prAbrir">Abrir o Claude</button></div>
+        </div>
+      </div>
+      <div class="dica">Depois que ele gerar, peça: <b>“Agora revise como se fosse o cliente: o que ficou confuso e que objeção eu vou ouvir?”</b> Proposta boa responde a objeção antes de ela aparecer.</div>
+    </section>
+
+    <section class="sec" id="prompts">
+      <span class="spaced">Prompts prontos</span>
+      <h2>14 pedidos para <span class="leve">o comercial da sua empresa.</span></h2>
+      <p class="lead">Troque o que está entre colchetes. Os marcados com “Chrome” funcionam com a extensão, direto na página aberta.</p>
+      <div class="filtros" id="fl"></div>
+      <div class="prompts" id="lista"></div>
+    </section>
+
+    <section class="sec" id="seguranca">
+      <span class="spaced">Regras da casa</span>
+      <h2>IA rápida, <span class="leve">dono atento.</span></h2>
+      <p class="lead">A IA erra com confiança. Quem responde pelo que sai para o cliente continua sendo você.</p>
+      <div class="nunca">
+        <div><b>Nunca envie sem ler</b><p>Valor, prazo, nome do cliente e quantidade: confira tudo antes de mandar. Peça para ele destacar os números.</p></div>
+        <div><b>Nunca entregue senha nem dados bancários</b><p>Não cole senhas, cartões ou dados de conta. E não deixe a extensão agir sozinha em banco e pagamento.</p></div>
+        <div><b>Nunca cole dado sensível à toa</b><p>CPF, documentos e informações pessoais do cliente só quando forem realmente necessários para a tarefa.</p></div>
+        <div><b>Nunca libere tudo no primeiro dia</b><p>No Chrome, comece com ele pedindo permissão a cada ação. Confiança se ganha com uso.</p></div>
+      </div>
+    </section>
+
+    <section class="sec" id="plano">
+      <span class="spaced">Plano de 7 dias</span>
+      <h2>Do cadastro ao hábito <span class="leve">em uma semana.</span></h2>
+      <p class="lead">Marque conforme fizer. Fica salvo neste aparelho.</p>
+      <div class="barra-p"><i id="pp"></i></div>
+      <div class="checks" id="checks"></div>
+      <p style="margin-top:12px"><button type="button" class="sec2" id="ckZera">Recomeçar o plano</button></p>
+    </section>
+
+    <section class="fim">
+      <div>
+        <span class="spaced" style="color:#00e676">Unique Consultoria Comercial</span>
+        <h2>Quer a IA trabalhando <span class="leve">no comercial da sua empresa?</span></h2>
+        <p>Eu implanto com o seu time: projeto da empresa, propostas, CRM, follow-up e automações. Do jeito que eu mostrei na Imersão, só que no seu processo.</p>
+      </div>
+      <a class="btn" href="https://wa.me/5562996007574?text=Ol%C3%A1%20Carlos%21%20Vim%20pelo%20tutorial%20Claude%20na%20Empresa%20e%20quero%20implantar%20IA%20no%20meu%20comercial." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Falar com o Carlos</a>
+    </section>
+  </div>
+</div>
+</main>
+<script>
+(function(){
+var $=function(s,c){return (c||document).querySelector(s);};
+var store={get:function(k){try{return JSON.parse(localStorage.getItem(k)||'null');}catch(e){return null;}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});};
+function copiar(txt,b,lab){var done=function(t){b.textContent=t;setTimeout(function(){b.textContent=lab;},1500);};try{navigator.clipboard.writeText(txt).then(function(){done('Copiado');},function(){done('Copie à mão');});}catch(err){done('Copie à mão');}}
+function abrir(){window.open('https://claude.ai/new','_blank','noopener');}
+var v=function(id,ph){var x=($('#'+id).value||'').trim();return x||ph;};
+
+/* gerador do projeto */
+var PJ=['pjEmp','pjSeg','pjVende','pjCli','pjDif','pjCond','pjTom','pjNunca'];
+var sp=store.get('ua_claude_pj')||{};PJ.forEach(function(k){if(sp[k])$('#'+k).value=sp[k];});
+function pj(){
+  var t='Você é o assistente comercial da '+v('pjEmp','[empresa]')+', que atua com '+v('pjSeg','[segmento e cidade]')+'.\n\n'+
+  'O QUE VENDEMOS\n'+v('pjVende','[produtos e serviços]')+'\n\n'+
+  'NOSSO CLIENTE IDEAL\n'+v('pjCli','[quem compra e quem decide]')+'\n\n'+
+  'NOSSOS DIFERENCIAIS\n'+v('pjDif','[diferenciais]')+'\n\n'+
+  'CONDIÇÕES COMERCIAIS\n'+v('pjCond','[pagamento, frete, pedido mínimo]')+'\n\n'+
+  'COMO ESCREVER\n- Tom '+v('pjTom','próximo e direto')+'.\n- Português do Brasil, frases curtas, sem jargão.\n- Toda mensagem para cliente termina com um próximo passo claro e, quando fizer sentido, uma data.\n- Use os arquivos deste projeto (catálogo, tabela, modelo de proposta) antes de qualquer outra fonte. Se faltar informação, pergunte em vez de inventar.\n\n'+
+  'NUNCA\n- '+v('pjNunca','[o que não pode prometer ou fazer]')+'.\n- Inventar preço, prazo ou estoque.\n- Enviar nada ao cliente sem a minha aprovação.';
+  $('#pjOut').value=t;
+  var s={};PJ.forEach(function(k){s[k]=$('#'+k).value;});store.set('ua_claude_pj',s);
+}
+PJ.forEach(function(k){$('#'+k).addEventListener('input',pj);$('#'+k).addEventListener('change',pj);});pj();
+$('#pjCopiar').addEventListener('click',function(){copiar($('#pjOut').value,this,'Copiar instruções');});
+$('#pjAbrir').addEventListener('click',abrir);
+
+/* gerador de proposta */
+var PR=['prCli','prPed','prVal','prPag','prPrazo','prVal2','prCond','prFmt'];
+var spr=store.get('ua_claude_pr')||{};PR.forEach(function(k){if(spr[k])$('#'+k).value=spr[k];});
+function dataBr(s){if(!s)return '[data]';var p=s.split('-');return p[2]+'/'+p[1]+'/'+p[0];}
+function pr(){
+  var f=$('#prFmt').value, fmt={doc:'um documento de proposta comercial, pronto para eu salvar em PDF, com: título, resumo do que o cliente pediu em 2 linhas, tabela com itens, quantidades e valores, condição de pagamento, prazo, validade, a condição especial em destaque e um próximo passo claro no final',
+    zap:'uma mensagem de WhatsApp curta (até 8 linhas), sem parecer robô, com o valor, o prazo, a condição especial com a data e uma pergunta de fechamento no final',
+    mail:'um e-mail com assunto e corpo curto, com o resumo do pedido, valores, prazo, a condição especial com a data e um próximo passo claro'}[f];
+  var t='Monte '+fmt+'.\n\n'+
+  'Cliente: '+v('prCli','[nome e empresa]')+'\n'+
+  'O que pediu: '+v('prPed','[produto, quantidade, detalhes]')+'\n'+
+  'Valor: '+v('prVal','[valor]')+'\n'+
+  'Pagamento: '+v('prPag','[condição]')+'\n'+
+  'Prazo de entrega: '+v('prPrazo','[prazo]')+'\n'+
+  'Validade da proposta: '+dataBr($('#prVal2').value)+'\n'+
+  'Condição especial se fechar até a validade: '+v('prCond','[benefício]')+'\n\n'+
+  'Regras: use o tom e as informações do projeto da empresa; não invente nenhum número que eu não passei; destaque em negrito valor, prazo e validade; deixe claro o que acontece se o cliente fechar até a data. No final, liste para mim (fora da proposta) os números que eu preciso conferir.';
+  $('#prOut').value=t;
+  var s={};PR.forEach(function(k){s[k]=$('#'+k).value;});store.set('ua_claude_pr',s);
+}
+PR.forEach(function(k){$('#'+k).addEventListener('input',pr);$('#'+k).addEventListener('change',pr);});pr();
+$('#prCopiar').addEventListener('click',function(){copiar($('#prOut').value,this,'Copiar pedido');});
+$('#prAbrir').addEventListener('click',abrir);
+
+/* prompts */
+var CAT={atend:['Atendimento','#00a956'],prop:['Propostas','#2b3384'],crm:['CRM e gestão','#e0055e'],chrome:['Chrome','#d97757']};
+var P=[
+ ['chrome','Ler a conversa e dizer a etapa','Leia a conversa aberta no WhatsApp Web com [cliente]. Me diga em que etapa da venda ele está, qual a objeção principal e escreva a próxima mensagem com uma condição que vale até [data].','No WhatsApp Web aberto no Chrome'],
+ ['chrome','Cadastrar lead no CRM','Pegue os dados do e-mail aberto na aba do Gmail (nome, empresa, telefone, o que pediu) e cadastre como lead novo no meu CRM, na aba ao lado. Me mostre antes de salvar.','Gmail + CRM em abas do Chrome'],
+ ['chrome','Pesquisar o cliente antes da visita','Analise o site e o Instagram abertos desta empresa. Me diga o que ela vende, para quem, o tamanho aparente, 3 dores prováveis que a gente resolve e 5 perguntas para a reunião.','Site do cliente aberto no Chrome'],
+ ['chrome','Comparar fornecedores','Compare os produtos abertos nas 3 abas: preço, prazo, pedido mínimo, frete e condições. Monte uma tabela e diga qual compensa para [quantidade].','Abas dos fornecedores no Chrome'],
+ ['chrome','Atualizar a planilha de follow-up','Na planilha aberta, encontre os orçamentos com mais de 5 dias sem resposta e escreva na coluna "Próxima mensagem" um follow-up curto para cada um, com data.','Google Planilhas no Chrome'],
+ ['atend','Responder objeção de preço','O cliente [nome] disse: "[objeção]". Escreva 3 respostas diferentes: uma que valoriza o produto, uma que oferece condição com data e uma que faz pergunta para entender melhor. Sem dar desconto de cara.',''],
+ ['atend','Reativar cliente sumido','Escreva uma mensagem de WhatsApp para [cliente], que comprava [produto] e não compra há [tempo]. Sem cobrança, sem pitch: reconheça o tempo, traga uma novidade útil e termine com uma pergunta simples.',''],
+ ['atend','Roteiro de ligação','Monte um roteiro de ligação de 3 minutos para [tipo de cliente] que pediu orçamento de [produto]: abertura, 4 perguntas de qualificação, como apresentar o preço e como fechar o próximo passo.',''],
+ ['prop','Transformar anotação em proposta','Tenho estas anotações da reunião: [cole aqui]. Transforme em uma proposta comercial organizada, no tom da empresa, com os itens, valores, prazo e um próximo passo. Liste o que faltou eu informar.',''],
+ ['prop','Revisar a proposta como o cliente','Leia esta proposta como se fosse o comprador: [cole aqui]. O que ficou confuso, que objeção eu vou ouvir e o que eu deveria mudar para fechar mais rápido?',''],
+ ['prop','Condição com data','Para o pedido de [cliente] de [valor], sugira 5 condições para fechar até [data] que não sejam desconto em dinheiro (brinde, prazo, frete, bônus em mercadoria, prioridade na produção). Diga o custo aproximado de cada uma.',''],
+ ['crm','Resumo da semana do time','Com estes números da semana: [leads, orçamentos, vendas, valor por vendedor], monte um resumo para a reunião de segunda: o que melhorou, o que piorou, quem precisa de ajuda e 3 ações para a semana.',''],
+ ['crm','Script do vendedor novo','Crie o roteiro de treinamento do primeiro dia de um vendedor novo na [empresa]: o que vendemos, para quem, as 5 perguntas que ele sempre faz, as 5 objeções mais comuns e as respostas.',''],
+ ['crm','Meta da semana','Minha meta do mês é [valor], o ticket médio é [valor] e a conversão de orçamento em venda é [%]. Quantos orçamentos e quantos atendimentos por dia o time precisa fazer? Monte a conta passo a passo.','']
+];
+var fil='todos';
+function lista(){
+  $('#lista').innerHTML=P.filter(function(p){return fil==='todos'||p[0]===fil;}).map(function(p,i){var c=CAT[p[0]];
+    return '<div class="pr" style="--c:'+c[1]+'"><span class="cat">'+c[0]+'</span><b>'+esc(p[1])+'</b><pre>'+esc(p[2])+'</pre>'+(p[3]?'<span class="onde">Onde: '+esc(p[3])+'</span>':'')+'<button type="button" data-t="'+esc(p[2])+'">Copiar</button></div>';}).join('');
+}
+$('#fl').innerHTML='<button type="button" data-f="todos" aria-pressed="true">Todos</button>'+Object.keys(CAT).map(function(k){return '<button type="button" data-f="'+k+'" aria-pressed="false">'+CAT[k][0]+'</button>';}).join('');
+$('#fl').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;fil=b.dataset.f;this.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b));});lista();});
+$('#lista').addEventListener('click',function(e){var b=e.target.closest('button');if(b)copiar(b.dataset.t,b,'Copiar');});
+lista();
+
+/* plano de 7 dias */
+var D=[['Dia 1','Criar a conta, preencher o perfil e baixar o app no celular'],['Dia 1','Fazer 3 perguntas reais do seu comercial no chat'],['Dia 2','Montar o Projeto da empresa com as instruções do gerador'],['Dia 2','Subir catálogo, tabela de preços e modelo de proposta no projeto'],['Dia 3','Assinar um plano pago e instalar o Claude no Chrome'],['Dia 3','Fazer o primeiro teste: resumir o site de um cliente'],['Dia 4','Gerar uma proposta real com o gerador e enviar depois de revisar'],['Dia 5','Usar 3 prompts prontos com clientes de verdade'],['Dia 6','Pedir para a extensão atualizar o CRM ou a planilha de follow-up'],['Dia 7','Anotar quanto tempo economizou e escolher a próxima tarefa para a IA']];
+var sv=store.get('ua_claude_checks')||{};
+$('#checks').innerHTML=D.map(function(d,i){return '<label><input type="checkbox" id="c'+i+'"><span><span class="dia">'+d[0]+'</span>'+esc(d[1])+'</span></label>';}).join('');
+var cks=document.querySelectorAll('#checks input');
+function prog(){var n=0;cks.forEach(function(c){if(c.checked)n++;});$('#pp').style.width=(n/cks.length*100)+'%';}
+cks.forEach(function(cb){cb.checked=!!sv[cb.id];cb.addEventListener('change',function(){sv[cb.id]=cb.checked;store.set('ua_claude_checks',sv);prog();});});prog();
+$('#ckZera').addEventListener('click',function(){sv={};store.set('ua_claude_checks',sv);cks.forEach(function(cb){cb.checked=false;});prog();});
+
+/* cadastro: mesmo fluxo das outras iscas (api/material.js) */
+var MAT='claude-na-empresa', K='ua_mat_'+MAT;
+function libera(d,novo){
+  document.body.classList.add('liberado');
+  var pn=(d&&d.nome||'').split(' ')[0];
+  $('#ok-t').textContent=novo?(pn?pn+', o':'O')+' tutorial está liberado!':'Bem-vindo de volta'+(pn?', '+pn:'')+'!';
+  $('#ok-p').textContent=novo?'Comece pelo passo 1 e siga o plano de 7 dias no final. Você também recebe cada post novo do blog no seu e-mail.':'O seu tutorial continua aqui, do jeito que você deixou.';
+}
+var salvo=store.get(K); if(salvo) libera(salvo,false);
+fetch('/api/material?a=adm&material='+MAT,{credentials:'same-origin',cache:'no-store'}).then(function(r){return r.json();}).then(function(r){ if(r&&r.admin) libera({nome:'Carlos'},false); else if(r&&r.cliente) libera({nome:r.nome||''},false); }).catch(function(){});
+var f=$('#f-lib'), msg=$('.msg',f), bt=$('button',f);
+f.addEventListener('submit',function(e){
+  e.preventDefault();
+  var d={nome:f.nome.value.trim(),empresa:f.empresa.value.trim(),whatsapp:f.whatsapp.value.trim(),email:f.email.value.trim()};
+  if(d.nome.length<2){msg.textContent='Informe o seu nome.';return;}
+  if(d.empresa.length<2){msg.textContent='Informe o nome da empresa.';return;}
+  if(d.whatsapp.replace(/\D/g,'').length<10){msg.textContent='Confira o seu WhatsApp com DDD.';return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)){msg.textContent='Confira o seu e-mail.';return;}
+  if(!f.aceite.checked){msg.textContent='Para liberar, marque que concorda com os termos.';return;}
+  bt.disabled=true; msg.textContent='';
+  fetch('/api/material',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({a:'liberar',material:MAT,nome:d.nome,empresa:d.empresa,whatsapp:d.whatsapp,email:d.email,aceite:true,site:f.site.value})})
+    .then(function(r){return r.json().catch(function(){return {};});})
+    .then(function(r){
+      if(!r||!r.ok){bt.disabled=false;msg.textContent=(r&&r.erro)||'Não deu certo agora. Tente de novo.';return;}
+      var vv={nome:d.nome,empresa:d.empresa,data:new Date().toISOString()}; store.set(K,vv); libera(vv,true);
+      window.scrollTo({top:$('.ok').offsetTop-90,behavior:'smooth'});
+    })
+    .catch(function(){bt.disabled=false;msg.textContent='Sem conexão. Tente de novo.';});
+});
+})();
+</script>
+</body>
+</html>

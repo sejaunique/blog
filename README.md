@@ -11,6 +11,19 @@ Site oficial da Unique Consultoria Comercial e o Blog Seja Unique.
 
 Cada envio para a branch `main` é publicado automaticamente na Vercel.
 
+## Posts arquivados (prontos, mas não publicados)
+
+- Ficam em `window.POSTS_ARQUIVADOS`, no fim de `blog/posts.js`. Não aparecem no blog, na home, nos links, na newsletter nem em /instagram/.
+- Prévia: `https://sejaunique.com/blog/?previa#<slug>` (mostra a faixa "Post arquivado · prévia").
+- Para publicar: mova o post para dentro de `window.POSTS` com a data do dia e rode `python3 tools/gerar_paginas.py` e `python3 tools/instagram_pagina.py`.
+
+## Calculadora "Quanto custa cada venda?" (`/quanto-custa-cada-venda/`)
+
+- `quanto-custa-cada-venda/index.html`: página com cabeçalho e rodapé do site e o cadastro (material `quanto-custa-cada-venda` em `api/material.js`).
+- `quanto-custa-cada-venda/app/`: a calculadora em tela cheia (uma pergunta por tela). Abre para quem já se cadastrou neste aparelho, para clientes logados e para o admin; os outros voltam para o cadastro.
+- Seções com link direto: `app/#cac`, `#comissao`, `#final`, `#ote`, `#bonificacao`, `#trabalhista`.
+- Post arquivado: `quanto-custa-cada-venda`. Carrossel: `instagram/quanto-custa-cada-venda/` (palavra CONTA).
+
 ## Prévia dos links (WhatsApp, Instagram, LinkedIn)
 
 Depois de publicar ou editar um post, rode `python3 tools/gerar_paginas.py`.

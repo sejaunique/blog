@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calculadora · Quanto custa cada venda? · Unique</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Calculadora da Unique: CAC, desperdício de leads, margem, modelos de comissão, OTE com meta, gatilho e curva, bonificação comportamental e cuidados trabalhistas.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>
+/* acesso: liberado para cadastrados (mesmo cadastro das outras iscas da Unique) */
+(function(){
+  var K='ua_mat_quanto-custa-cada-venda', ok=false;
+  try{ ok=!!localStorage.getItem(K); }catch(e){}
+  if(ok || location.protocol==='file:') return;
+  document.documentElement.style.visibility='hidden';
+  fetch('/api/material?a=adm&material=quanto-custa-cada-venda',{credentials:'same-origin',cache:'no-store'})
+    .then(function(r){return r.json();})
+    .then(function(r){ if(r&&(r.admin||r.cliente)){ document.documentElement.style.visibility=''; } else location.replace('/quanto-custa-cada-venda/#liberar'); })
+    .catch(function(){ location.replace('/quanto-custa-cada-venda/#liberar'); });
+})();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0c0d10; --panel:#15171c; --line:#262a33; --txt:#f2f1ec; --mut:#8e94a0;
+    --amber:#f5b301; --red:#ff5a4e; --green:#35d08a;
+    --display:'Bricolage Grotesque',system-ui,sans-serif; --body:'Inter',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0}
+  html,body{height:100%}
+  body{background:var(--ink);color:var(--txt);font-family:var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .num{font-variant-numeric:tabular-nums}
+
+  /* Topo: progresso + taxímetro */
+  header{position:fixed;inset:0 0 auto 0;z-index:5;background:linear-gradient(var(--ink) 70%,transparent)}
+  .bar{height:4px;background:var(--line)}
+  .bar i{display:block;height:100%;width:0;background:var(--amber);transition:width .5s cubic-bezier(.2,.8,.2,1)}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;max-width:760px;margin:0 auto}
+  .back{background:none;border:1px solid var(--line);color:var(--mut);width:44px;height:44px;border-radius:50%;font-size:1.1rem;cursor:pointer;flex:none}
+  .back:disabled{opacity:0;pointer-events:none}
+  .chap{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);flex:1}
+  .taxi{text-align:right;line-height:1.1}
+  .taxi span{display:block;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+  .taxi b{font-family:var(--display);font-size:1.15rem;color:var(--red)}
+  .taxi.hide{visibility:hidden}
+
+  /* Telas */
+  main{min-height:100%;display:flex;align-items:center;justify-content:center;padding:140px 20px 120px}
+  .screen{width:100%;max-width:720px;animation:in .55s cubic-bezier(.2,.8,.2,1) both}
+  .screen.out{animation:out .25s ease both}
+  @keyframes in{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+  @keyframes out{to{opacity:0;transform:translateY(-18px)}}
+  .step{font-family:var(--display);color:var(--amber);font-size:.95rem;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .step:after{content:'→';opacity:.7}
+  h1,h2{font-family:var(--display);font-weight:800;letter-spacing:-.02em;line-height:1.05}
+  h1{font-size:clamp(2.3rem,7vw,4.2rem)}
+  h2{font-size:clamp(1.6rem,5vw,2.5rem);margin-bottom:10px}
+  .lead{color:var(--mut);font-size:1.05rem;line-height:1.5;max-width:46ch}
+
+  .field{display:flex;align-items:baseline;gap:10px;border-bottom:2px solid var(--line);margin-top:30px;padding-bottom:8px;transition:border-color .2s}
+  .field:focus-within{border-color:var(--amber)}
+  .field .pre,.field .suf{font-family:var(--display);font-size:clamp(1.4rem,4vw,2rem);color:var(--mut)}
+  .field input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--txt);font-family:var(--display);font-weight:700;font-size:clamp(2.4rem,8vw,3.6rem);font-variant-numeric:tabular-nums;padding:0}
+  .err{color:var(--red);font-size:.9rem;margin-top:8px;min-height:1.2em}
+
+  /* Comentário ácido */
+  .acid{margin-top:22px;border-left:3px solid var(--red);background:linear-gradient(90deg,rgba(255,90,78,.10),transparent);padding:16px 18px;border-radius:0 12px 12px 0;animation:in .45s cubic-bezier(.2,.8,.2,1) both}
+  .acid small{display:block;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px;font-weight:600}
+  .acid p{font-size:1.12rem;line-height:1.45}
+  .acid b{color:var(--txt)}
+
+  /* Botão principal fixo perto do polegar */
+  .cta{position:fixed;left:0;right:0;bottom:0;padding:16px 20px calc(16px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--ink) 35%);z-index:5}
+  .cta .in{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:14px}
+  .btn{background:var(--amber);color:#111;border:0;border-radius:14px;min-height:56px;padding:0 28px;font-family:var(--display);font-size:1.15rem;font-weight:800;cursor:pointer;transition:transform .12s}
+  .btn:active,.btn2:active{transform:scale(.97)}
+  .btn2{background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:14px;min-height:56px;padding:0 18px;font-family:var(--display);font-size:1.05rem;font-weight:700;cursor:pointer;flex:none;transition:transform .12s}
+  .btn2.hide{display:none}
+  @media (max-width:380px){.btn2 span{display:none}}
+  .tapedit{color:var(--mut);font-size:.8rem;margin-top:6px}
+  .kbd{color:var(--mut);font-size:.8rem}
+  @media (max-width:560px){.btn{flex:1}.kbd{display:none}}
+
+  /* Revelações */
+  .hero{font-family:var(--display);font-weight:800;font-size:clamp(3.2rem,13vw,6.5rem);letter-spacing:-.03em;line-height:1;margin:18px 0 6px}
+  .hero.red{color:var(--red)} .hero.green{color:var(--green)} .hero.amber{color:var(--amber)}
+  .heroSub{color:var(--mut);font-size:1rem}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:26px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .stat span{display:block;font-size:.75rem;color:var(--mut);margin-bottom:4px}
+  .stat b{font-family:var(--display);font-size:1.45rem}
+  .stat small{display:block;color:var(--mut);font-size:.75rem;margin-top:2px}
+  .quote{font-family:var(--display);font-size:clamp(1.2rem,3.6vw,1.6rem);font-weight:700;line-height:1.25;margin-top:26px;max-width:28ch}
+  .quote em{font-style:normal;color:var(--amber)}
+
+  /* Modelos */
+  .models{display:grid;gap:10px;margin-top:18px}
+  .model{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .model .l{grid-row:span 2;font-family:var(--display);font-weight:800;font-size:1.8rem;line-height:1}
+  .model h3{font-family:var(--display);font-size:1.05rem}
+  .model h3 .tag{font-family:var(--body);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-left:6px;vertical-align:middle}
+  .model p{color:var(--mut);font-size:.9rem;line-height:1.45}
+  .mA .l,.mA .tag{color:var(--red)} .mA .tag{background:rgba(255,90,78,.14)}
+  .mB .l{color:var(--mut)} .mB .tag{background:rgba(142,148,160,.16);color:var(--mut)}
+  .mC{border-color:rgba(53,208,138,.5)} .mC .l,.mC .tag{color:var(--green)} .mC .tag{background:rgba(53,208,138,.14)}
+  table{width:100%;border-collapse:collapse;margin-top:18px;font-size:.88rem}
+  th,td{padding:10px 6px;text-align:right;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left;color:var(--mut)}
+  thead th{font-family:var(--display);font-size:1rem}
+  thead .a{color:var(--red)} thead .c{color:var(--green)}
+  td:not(:first-child){white-space:nowrap}
+  @media (max-width:560px){table{font-size:.76rem} th,td{padding:9px 3px} tr.big td{font-size:.84rem}}
+  tr.sec td{color:var(--amber);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding-top:16px;font-weight:600}
+  tr.big td{font-family:var(--display);font-weight:700;font-size:1rem}
+  .neg{color:var(--red)!important} .pos{color:var(--green)!important}
+
+  /* Grande final */
+  .act{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1);margin-top:34px}
+  .act.on{opacity:1;transform:none}
+  .act h4{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .vs .stat b{font-size:clamp(1.4rem,5vw,2rem)}
+  .burn{font-family:var(--display);font-weight:800;color:var(--red);font-size:clamp(3rem,12vw,5.5rem);letter-spacing:-.03em;line-height:1}
+  .punch{font-family:var(--display);font-size:clamp(1.3rem,4vw,1.8rem);font-weight:800;margin-top:16px}
+  .punch em{font-style:normal;color:var(--green)}
+  .closing{margin-top:40px;padding-top:28px;border-top:1px solid var(--line)}
+  .closing p{font-family:var(--display);font-weight:800;font-size:clamp(1.8rem,6vw,3rem);line-height:1.05;letter-spacing:-.02em}
+  .closing p em{font-style:normal;color:var(--amber)}
+  .closing small{display:block;color:var(--mut);margin-top:12px;font-size:1rem}
+  .ghost{background:none;border:1px solid var(--line);color:var(--txt);border-radius:14px;min-height:48px;padding:0 20px;font-family:var(--body);font-size:.95rem;cursor:pointer;margin-top:24px}
+  .inline{display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--line);max-width:240px;margin-top:16px}
+  .inline input{width:100%;background:none;border:0;outline:0;color:var(--txt);font-family:var(--display);font-weight:700;font-size:2rem}
+  .inline span{color:var(--mut);font-family:var(--display);font-size:1.4rem}
+  .amberTxt{color:var(--amber);font-style:normal}
+  .formula{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:6px 16px;margin-top:24px}
+  .fr{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:.92rem}
+  .fr:last-child{border:0} .fr span{color:var(--mut)} .fr.tot{border-bottom:1px solid var(--mut)} .fr.tot b{color:var(--amber)}
+  .faixas{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}
+  .fx{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px}
+  .fx b{font-family:var(--display);font-size:1.3rem;display:block} .fx span{font-size:.72rem;color:var(--mut)} .fx p{font-size:.8rem;margin-top:6px;line-height:1.35}
+  @media (max-width:560px){.faixas{grid-template-columns:1fr 1fr}}
+  .chart{width:100%;height:auto;margin-top:22px;display:block}
+  .chart .ax{font-size:12px;fill:var(--mut);font-family:var(--body)} .chart .zl{font-size:11px;font-family:var(--body);letter-spacing:.05em}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.8rem;margin-top:8px}
+  .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px} .legend .mut{color:var(--mut)}
+  .pers{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:16px}
+  .pc{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .pc h3{font-family:var(--display);font-size:1.25rem} .pc .pd{color:var(--mut);font-size:.85rem;margin:2px 0 8px}
+  .pc:last-child{border-color:rgba(53,208,138,.5)}
+  .bsec{font-family:var(--display);font-size:1.15rem;margin:34px 0 4px}
+  .hint2{color:var(--mut);font-size:.88rem;margin-bottom:12px}
+  .ghost.sm{margin-top:10px;min-height:44px;font-size:.9rem}
+  .crow{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px 10px;margin-bottom:8px}
+  .crow.off .ctext{color:var(--mut);text-decoration:line-through}
+  .ctext{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--txt);font-size:.95rem;padding:8px 0;font-family:var(--body);resize:none;field-sizing:content;line-height:1.35}
+  .rm{background:none;border:0;color:var(--mut);font-size:1.4rem;width:44px;height:44px;cursor:pointer;flex:none}
+  .rm.txt{font-size:.85rem;width:auto;height:auto;padding:8px 0;margin-top:6px;color:var(--red)}
+  .tg{position:relative;width:44px;height:26px;flex:none;cursor:pointer}
+  .tg input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+  .tg span{position:absolute;inset:0;background:var(--line);border-radius:20px;transition:background .2s}
+  .tg span:after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--mut);transition:transform .2s,background .2s}
+  .tg input:checked+span{background:rgba(245,179,1,.35)}
+  .tg input:checked+span:after{transform:translateX(18px);background:var(--amber)}
+  .tg input:focus-visible+span{outline:2px solid var(--amber);outline-offset:2px}
+  .bi{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:8px;overflow:hidden}
+  .bi.off{opacity:.55}
+  .bh{display:flex;align-items:center;gap:12px;padding:10px 14px}
+  .bt{flex:1;min-width:0;background:none;border:0;color:var(--txt);text-align:left;cursor:pointer;padding:6px 0;font-family:var(--body)}
+  .bt b{display:block;font-size:1rem} .bt small{display:block;color:var(--mut);font-size:.78rem;margin-top:2px}
+  .bv{font-family:var(--display);font-weight:700;color:var(--amber);white-space:nowrap}
+  .bv small{color:var(--mut);font-family:var(--body);font-weight:400;font-size:.72rem}
+  .bb{display:none;padding:4px 14px 14px;border-top:1px solid var(--line)}
+  .bi.open .bb{display:block}
+  .bgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px}
+  .bgrid .full{grid-column:1/-1}
+  @media (max-width:560px){.bgrid{grid-template-columns:1fr 1fr}}
+  .bgrid label{display:block;font-size:.72rem;color:var(--mut);margin-bottom:4px}
+  .bgrid textarea{resize:none;field-sizing:content;line-height:1.35;min-height:44px}
+  .bgrid input,.bgrid select,.bgrid textarea{width:100%;background:var(--ink);border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:11px 10px;font-size:.95rem;font-family:var(--body)}
+  .bgrid textarea:focus,.bgrid input:focus,.bgrid select:focus{outline:none;border-color:var(--amber)}
+  .simrow{display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px dashed var(--line);cursor:pointer;min-height:44px}
+  .simrow input{width:20px;height:20px;accent-color:var(--amber);flex:none}
+  .simrow span{flex:1} .simrow.gate{color:var(--amber)}
+  .simtot{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:14px}
+  .simtot span{color:var(--mut)} .simtot b{font-family:var(--display);font-size:2rem}
+  .regua{background:var(--panel);border:1px dashed var(--mut);border-radius:14px;padding:16px;font-size:.92rem;line-height:1.55}
+  .legal{color:var(--mut);font-size:.8rem;margin-top:24px;line-height:1.5}
+  .warnbtn{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:rgba(255,90,78,.08);border:1px solid rgba(255,90,78,.45);color:var(--txt);border-radius:14px;padding:16px;margin-top:22px;cursor:pointer;font-family:var(--body)}
+  .warnbtn .ic{font-size:1.4rem;flex:none}
+  .warnbtn b{display:block;font-family:var(--display);font-size:1.05rem}
+  .warnbtn small{display:block;color:var(--mut);font-size:.85rem;margin-top:2px}
+  .warnbtn .ar{margin-left:auto;color:var(--red);font-size:1.3rem}
+  .dsr{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media (max-width:560px){.dsr{grid-template-columns:1fr 1fr}.dsr .dsrf:first-child{grid-column:1/-1}}
+  .dsrf label{display:block;font-size:.72rem;color:var(--mut);margin-bottom:4px}
+  .dsrf input{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:12px;font-size:1.1rem;font-family:var(--display);font-weight:700}
+  .dsrf input:focus{outline:none;border-color:var(--amber)}
+  .dsrcalc{color:var(--mut);font-size:.88rem;margin-top:14px}
+  .lck{display:flex;gap:14px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:8px;cursor:pointer}
+  .lck input{width:22px;height:22px;accent-color:var(--green);flex:none;margin-top:2px}
+  .lck b{display:block;font-size:.98rem;line-height:1.35}
+  .lck p{color:var(--mut);font-size:.86rem;line-height:1.45;margin-top:4px}
+  .lck.ok{border-color:rgba(53,208,138,.45)} .lck.ok b{color:var(--green)}
+  .lck.sm{padding:12px 16px}
+  .lprog{margin-top:22px} .lprog span{color:var(--mut);font-size:.85rem}
+  .lbar{height:6px;background:var(--line);border-radius:6px;margin-bottom:8px;overflow:hidden}
+  .lbar i{display:block;height:100%;background:var(--green);transition:width .3s}
+  .menu{display:flex;gap:6px;overflow-x:auto;padding:0 18px 10px;max-width:760px;margin:0 auto;scrollbar-width:none}
+  .menu::-webkit-scrollbar{display:none}
+  .menu button{flex:none;background:var(--panel);border:1px solid var(--line);color:var(--mut);border-radius:20px;min-height:36px;padding:0 14px;font-family:var(--body);font-size:.82rem;font-weight:600;cursor:pointer;white-space:nowrap}
+  .menu button.on{background:var(--amber);border-color:var(--amber);color:#111}
+  ::selection{background:rgba(245,179,1,.35);color:var(--txt)}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar"><i id="bar"></i></div>
+  <div class="top">
+    <button class="back" id="back" aria-label="Voltar">←</button>
+    <div class="chap" id="chap"></div>
+    <div class="taxi hide" id="taxi"><span>Custo do comercial</span><b class="num" id="taxiV">R$ 0</b></div>
+  </div>
+  <nav class="menu" id="menu" aria-label="Seções"></nav>
+</header>
+
+<main><div class="screen" id="screen"></div></main>
+
+<div class="cta"><div class="in">
+  <button class="btn2" id="prev" aria-label="Voltar">←<span> Voltar</span></button>
+  <button class="btn" id="next">Começar</button>
+  <span class="kbd" id="kbd">aperte <b>Enter ↵</b></span>
+</div></div>
+
+<script>
+/* ---------- Utilidades ---------- */
+const $ = id => document.getElementById(id);
+const R = n => (n<0?'-':'') + 'R$ ' + Math.abs(Math.round(n)).toLocaleString('pt-BR');
+const P = n => (isFinite(n)?n:0).toLocaleString('pt-BR',{maximumFractionDigits:1}) + '%';
+const N = n => Math.round(n).toLocaleString('pt-BR');
+// Aceita "3000", "3.000", "R$ 3.000,00", "12,5%"
+function parse(s){
+  s = String(s).replace(/[R$\s%]/gi,'');
+  if(s.includes(',')) s = s.replace(/\./g,'').replace(',','.');
+  else if(/^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g,'');
+  const n = parseFloat(s); return isNaN(n) ? null : n;
+}
+function countUp(el, to, fmt=R, dur=1300){
+  const t0 = performance.now();
+  const f = t => { const p = Math.min((t-t0)/dur,1); el.textContent = fmt(to*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(f); };
+  requestAnimationFrame(f);
+}
+
+/* ---------- Dados ---------- */
+const d = {estrutura:3000, ferramentas:800, equip:600, salarios:7500, encargos:4500, outros:1600, vendedores:3,
+           mkt:6000, leads:300, vendas:30, ticket:2000, cmv:45, imp:8, pA:5, pB:10, metaConv:12, bonus:40, convNova:12,
+           ote:4000, lucroVend:3000, acel:2, teto:150};
+const MIX_FIXO = 0.6; // 60% fixo / 40% variável
+
+/* Parte 2: OTE, meta reversa, gatilho e curva (por vendedor) */
+function calc2(){
+  const c = calc();
+  const nv = d.vendedores || 1;
+  const fixo = d.ote*MIX_FIXO, varAlvo = d.ote*(1-MIX_FIXO);
+  const mktVend = d.mkt/nv;
+  const mv = c.mv;
+  const meta = mv>0 ? Math.max(1, Math.ceil((c.cadeira + mktVend + varAlvo + d.lucroVend)/mv)) : 0;
+  const gat = mv>0 ? Math.min(meta, Math.ceil((c.cadeira + mktVend)/mv)) : 0;
+  const varDe = v => {
+    if(!meta || v < gat) return 0;
+    let at = v/meta;
+    if(d.teto > 0) at = Math.min(at, d.teto/100);
+    return at <= 1 ? varAlvo*at : varAlvo + varAlvo*(at-1)*d.acel;
+  };
+  const ganho = v => fixo + varDe(v);
+  const empresa = v => v*mv - c.cadeira - mktVend - varDe(v);
+  return {c, nv, fixo, varAlvo, mktVend, mv, meta, gat, varDe, ganho, empresa};
+}
+
+function calc(vendas = d.vendas){
+  const fixo = d.estrutura+d.ferramentas+d.equip+d.salarios+d.encargos+d.outros;
+  const cadeira = d.vendedores ? fixo/d.vendedores : 0;
+  const cpl = d.leads ? d.mkt/d.leads : 0;
+  const conv = d.leads ? vendas/d.leads*100 : 0;
+  const cac = vendas ? (fixo+d.mkt)/vendas : 0;
+  const perdidos = Math.max(d.leads-vendas,0);
+  const desp = perdidos*cpl;
+  const fat = d.ticket*vendas;
+  const mv = d.ticket*(1-d.cmv/100-d.imp/100);
+  const mt = mv*vendas;
+  const antes = mt - fixo - d.mkt;
+  const bateu = conv >= d.metaConv;
+  const com = { A: fat*d.pA/100, B: Math.max(mt,0)*d.pB/100,
+                C: Math.max(mt-desp,0)*d.pB/100 + (bateu ? d.bonus*vendas : 0) };
+  return {fixo,cadeira,cpl,conv,cac,perdidos,desp,fat,mv,mt,antes,bateu,com,vendas};
+}
+
+/* ---------- Roteiro ---------- */
+const C11='11 · A bonificação';
+const C7='7 · A promessa', C8='8 · O alvo', C9='9 · O gatilho', C10='10 · A curva';
+const C1='1 · O custo de existir', C2='2 · O custo de chegar', C3='3 · O desperdício', C4='4 · A margem', C5='5 · A regra do jogo', C6='6 · O ano inteiro';
+const S = [
+  {t:'intro'},
+  {t:'q', ch:C1, k:'estrutura', pre:'R$', q:'Quanto o comercial custa de estrutura por mês?', h:'Aluguel da sala, energia, internet, café. A parte do espaço que é do time de vendas.',
+    a:v=>`O ar-condicionado está ligado, a internet não cai e o café está quente. Para o vendedor, tudo isso é de graça. Para você, são <b>${R(v)}</b> todo mês, para ele reclamar que o Wi-Fi está lento.`},
+  {t:'q', ch:C1, k:'ferramentas', pre:'R$', q:'E em ferramentas? CRM, WhatsApp, softwares.', h:'Tudo o que você assina para o time vender.',
+    a:v=>`<b>${R(v)}</b> por mês em CRM. Pergunte ao seu vendedor quando foi a última vez que ele atualizou um card. Ele atende pelo WhatsApp pessoal e o CRM vira um <b>enfeite caro</b>.`},
+  {t:'q', ch:C1, k:'equip', pre:'R$', q:'Computador e celular da empresa: quanto pesa por mês?', h:'Some a parcela ou a depreciação dos equipamentos.',
+    a:v=>`Notebook rápido para abrir o Instagram e o YouTube. O celular da empresa sabe mais da vida dele do que dos clientes. <b>${R(v)}</b> por mês.`},
+  {t:'q', ch:C1, k:'salarios', pre:'R$', q:'Quanto você paga de salário fixo para o time?', h:'Só o fixo, somando todos os vendedores.',
+    a:v=>`<b>${R(v)}</b> garantidos, vendendo ou não. No dia 5 cai na conta dele. No seu dia 5, quem cai é o boleto.`},
+  {t:'q', ch:C1, k:'encargos', pre:'R$', q:'E os encargos e benefícios em cima disso?', h:'INSS, FGTS, férias, 13º, vale-transporte, vale-alimentação.',
+    a:v=>`A cada R$ 100 de salário, você paga mais <b>${R(d.salarios?v/d.salarios*100:0)}</b> que o vendedor nem sabe que existe. Para ele, salário é o que cai na conta. Para você, é bem mais.`},
+  {t:'q', ch:C1, k:'outros', pre:'R$', q:'Contador, tributos da folha, outros custos do comercial?', h:'Aquilo que ninguém comemora no grupo do time.',
+    a:v=>`<b>${R(v)}</b>. É a parte da conta que nunca aparece no print de "bati a meta, chefe!".`},
+  {t:'q', ch:C1, k:'vendedores', pre:'', suf:'vendedores', q:'Quantos vendedores dividem essa conta?', h:'Conte todo mundo que vende, inclusive quem só "atende".',
+    a:v=>{const c=calc();return `Cada cadeira custa <b>${R(c.cadeira)}</b> por mês. Isso é <b>antes de vender o primeiro uniforme</b>.`}},
+  {t:'r1', ch:C1},
+  {t:'q', ch:C2, k:'mkt', pre:'R$', q:'Quanto você investe por mês para o cliente chegar?', h:'Tráfego pago, agência, feira, evento, brinde.',
+    a:v=>`Você paga para o lead chegar quente. Ele manda "boa tarde, qual o valor?". O vendedor responde três horas depois com <b>"oi, tudo bem?"</b>.`},
+  {t:'q', ch:C2, k:'leads', pre:'', suf:'leads', q:'Quantos leads chegam por mês?', h:'Todo contato que perguntou preço, pediu orçamento ou chamou no direct.',
+    a:v=>`Cada lead custou <b>${R(v?d.mkt/v:0)}</b>. Cada "só queria saber o preço" custou isso. Cada vácuo também.`},
+  {t:'q', ch:C2, k:'vendas', pre:'', suf:'vendas', q:'E quantos viraram venda?', h:'Pedidos fechados no mês.',
+    a:v=>{const c=calc(v); const perd=Math.max(0,Math.round(10-c.conv/10));return `Conversão de <b>${P(c.conv)}</b>. A cada 10 pessoas que chegaram, <b>${perd} foram embora</b>, e o vendedor dormiu tranquilo.`}},
+  {t:'r2', ch:C2},
+  {t:'r3', ch:C3},
+  {t:'q', ch:C4, k:'ticket', pre:'R$', q:'Qual é o ticket médio de um pedido?', h:'O valor médio de cada venda fechada.',
+    a:v=>`<b>${R(v)}</b> de ticket. Na cabeça do vendedor, isso é <b>${R(v)} de lucro</b>. Na sua, é o começo da conta.`},
+  {t:'q', ch:C4, k:'cmv', pre:'', suf:'% do ticket', q:'Quanto custa produzir esse pedido?', h:'Tecido, aviamento, costura, bordado, silk, frete. Em % do ticket.',
+    a:v=>`<b>${R(d.ticket*v/100)}</b> vão embora só em produção. E o vendedor dá 10% de desconto como se o dinheiro fosse dele, porque <b>a comissão dele nem sente</b>.`},
+  {t:'q', ch:C4, k:'imp', pre:'', suf:'%', q:'E de imposto sobre a venda?', h:'Simples, ICMS, o que incidir sobre a nota.',
+    a:v=>`O governo é o único sócio que <b>nunca perde</b>. Ele leva o dele antes de todo mundo.`},
+  {t:'r4', ch:C4},
+  {t:'q', ch:C5, k:'pA', pre:'', suf:'% do faturamento', q:'Hoje, quanto você paga de comissão sobre o faturamento?', h:'O modelo tradicional: vendeu, ganhou.',
+    a:v=>{const c=calc();return `<b>${R(c.com.A)}</b> por mês para o time. Ele ganha até nos meses em que <b>você perde</b>.`}},
+  {t:'q', ch:C5, k:'pB', pre:'', suf:'% da margem', q:'E se a comissão fosse sobre a margem, quantos % seriam justos?', h:'A margem é o que sobra depois da produção e dos impostos.',
+    a:v=>`Agora o desconto dói no bolso dele também. É a primeira vez que <b>ele enxerga o seu custo</b>.`},
+  {t:'q', ch:C5, k:'metaConv', pre:'', suf:'% de conversão', q:'Qual conversão merece um bônus?', h:'A meta de conversão para o time ganhar um extra.',
+    a:v=>{const c=calc();return `Hoje o time converte <b>${P(c.conv)}</b>. ${c.bateu?'Já bateria a meta.':'Ainda não chega lá.'} Converter melhor passa a valer dinheiro.`}},
+  {t:'q', ch:C5, k:'bonus', pre:'R$', suf:'por venda', q:'Quanto de bônus por venda se bater essa meta?', h:'Um valor fixo por pedido fechado no mês em que o time bater a conversão.',
+    a:v=>`Pronto. Agora o vendedor tem um motivo para <b>não deixar lead no vácuo</b>.`},
+  {t:'cmp', ch:C5},
+  {t:'fin', ch:C6},
+  {t:'p2', ch:C7, p2:1},
+  {t:'q', ch:C7, p2:1, k:'ote', pre:'R$', q:'Quanto um vendedor deve ganhar por mês batendo 100% da meta?', h:'Esse é o OTE: fixo + variável no alvo. Aqui o mix é 60% fixo e 40% variável.',
+    a:v=>`Fixo de <b>${R(v*MIX_FIXO)}</b> e variável de <b>${R(v*(1-MIX_FIXO))}</b> no alvo. Hoje ele ganha a mesma coisa vendendo 5 ou 25. A partir de agora, <b>ele sabe exatamente quanto ganha se bater</b>. E sabe quanto perde se não bater.`},
+  {t:'q', ch:C8, p2:1, k:'lucroVend', pre:'R$', q:'Quanto de lucro cada vendedor precisa deixar por mês?', h:'Depois de pagar a cadeira dele, o marketing que ele usa e a comissão. É o seu número.',
+    a:v=>`<b>${R(v)}</b> por cadeira. Se ele não deixa isso, ele não é vendedor. <b>É um custo que fala bem.</b>`},
+  {t:'meta', ch:C8, p2:1},
+  {t:'gat', ch:C9, p2:1},
+  {t:'q', ch:C10, p2:1, k:'acel', pre:'', suf:'× acima da meta', q:'Acima da meta, quanto vale cada venda a mais?', h:'O acelerador. 2× quer dizer que cada ponto acima de 100% paga o dobro do variável.',
+    a:v=>`Cada venda acima da meta vale <b>${N(v*10)/10}×</b>. O Fera não pede aumento. <b>Ele bate meta.</b> E você agradece, porque essa venda extra já não carrega cadeira nem estrutura.`},
+  {t:'q', ch:C10, p2:1, k:'teto', pre:'', suf:'% da meta', q:'Tem teto? Até quantos % da meta o acelerador paga?', h:'Coloque 0 para não ter teto.',
+    a:v=> v>0 ? `Acima de <b>${N(v)}%</b> da meta, o variável para de crescer. É uma proteção para mês fora da curva, não um castigo para quem é bom.` : `Sem teto. Quanto mais ele vende, mais ganha, e <b>mais você ganha junto</b>. Só confira se a produção dá conta.`},
+  {t:'curva', ch:C10, p2:1},
+  {t:'bintro', ch:C11, p2:1},
+  {t:'bonus', ch:C11, p2:1},
+  {t:'legal', ch:'Cuidados trabalhistas', p2:1}
+];
+
+/* ---------- Motor ---------- */
+let i = 0, answered = false, revealed = false;
+const TOUCH = matchMedia('(pointer:coarse)').matches;
+const screen = $('screen'), btn = $('next');
+
+function taxi(){
+  // Soma o custo do comercial preenchido até agora (até a tela atual)
+  const keys=['estrutura','ferramentas','equip','salarios','encargos','outros','mkt'];
+  const seen = new Set(S.slice(0,i+1).filter(s=>s.k).map(s=>s.k));
+  if(answered && S[i].k) seen.add(S[i].k); else if(S[i].k) seen.delete(S[i].k);
+  const tot = keys.filter(k=>seen.has(k)).reduce((a,k)=>a+d[k],0);
+  $('taxi').classList.toggle('hide', i===0 || tot===0 || !!S[i].p2);
+  countUp($('taxiV'), tot, n=>R(n)+'/mês', 700);
+}
+
+function go(n){
+  screen.classList.add('out');
+  setTimeout(()=>{ i = Math.max(0,Math.min(S.length-1,n)); answered=false; revealed=false; render(); screen.classList.remove('out'); window.scrollTo(0,0); },220);
+}
+
+function render(){
+  const s = S[i];
+  $('bar').style.width = (i/(S.length-1)*100)+'%';
+  $('chap').textContent = s.ch || '';
+  $('back').disabled = i===0;
+  $('prev').classList.toggle('hide', i===0);
+  $('kbd').style.display = '';
+  screen.style.animation='none'; void screen.offsetWidth; screen.style.animation='';
+  const f = {intro, q, r1, r2, r3, r4, cmp, fin, p2, meta, gat, curva, bintro, bonus, legal}[s.t];
+  f(s);
+  taxi();
+  drawMenu();
+}
+
+function intro(){
+  screen.innerHTML = `<div class="step"><a href="/" style="color:inherit;text-decoration:none">Unique Consultoria</a></div>
+    <h1>Quanto custa<br>cada venda<br>da sua empresa?</h1>
+    <p class="lead" style="margin-top:18px">Responda algumas perguntas rápidas com os números da sua confecção. No fim, você vai ver quem está pagando a conta e quem só está recebendo.</p>`;
+  btn.textContent='Começar';
+}
+
+function q(s){
+  const qn = S.slice(0,i+1).filter(x=>x.t==='q').length;
+  screen.innerHTML = `<div class="step">${qn}</div>
+    <h2>${s.q}</h2><p class="lead">${s.h}</p>
+    <label class="field">${s.pre?`<span class="pre">${s.pre}</span>`:''}
+      <input id="inp" inputmode="decimal" enterkeyhint="done" autocomplete="off" value="${d[s.k].toLocaleString('pt-BR',{maximumFractionDigits:2})}" aria-label="${s.q}">
+      ${s.suf?`<span class="suf">${s.suf}</span>`:''}</label>
+    <div class="err" id="err"></div><div id="acid"></div>`;
+  btn.textContent='OK ✓';
+  const inp=$('inp');
+  if(!TOUCH) setTimeout(()=>{inp.focus(); inp.select();},300);
+  else { inp.addEventListener('focus',()=>setTimeout(()=>inp.select(),50)); $('err').insertAdjacentHTML('beforebegin','<p class="tapedit">Toque no número para trocar. Se o exemplo serve, é só apertar OK.</p>'); }
+  inp.addEventListener('input',()=>{ if(answered){answered=false; $('acid').innerHTML=''; btn.textContent='OK ✓'; taxi();} $('err').textContent=''; });
+}
+
+function submitQ(){
+  const s=S[i], v=parse($('inp').value);
+  if(v===null || v<0){ $('err').textContent='Coloque um número, pode ser do jeito que quiser: 3000, 3.000 ou R$ 3.000,00.'; return; }
+  if(s.k==='vendedores' && v<1){ $('err').textContent='Precisa de pelo menos 1 vendedor.'; return; }
+  if(s.k==='vendas' && v>d.leads){ $('err').textContent=`Vendas não podem passar dos ${N(d.leads)} leads.`; return; }
+  d[s.k]=v; answered=true;
+  $('acid').innerHTML=`<div class="acid"><small>Enquanto isso, na cabeça do vendedor…</small><p>${s.a(v)}</p></div>`;
+  btn.textContent='Próxima →'; taxi();
+  $('inp').blur();
+  setTimeout(()=>{ const a=document.querySelector('.acid'); if(a) a.scrollIntoView({behavior:'smooth',block:'center'}); },TOUCH?350:50);
+}
+
+function r1(){
+  const c=calc();
+  screen.innerHTML = `<div class="step">Primeira conta</div>
+    <h2>Cada cadeira de vendedor custa</h2>
+    <div class="hero amber num" id="h">R$ 0</div>
+    <p class="heroSub">por mês, por vendedor. Antes da primeira venda.</p>
+    <div class="stats">
+      <div class="stat"><span>Custo fixo do comercial</span><b class="num">${R(c.fixo)}</b><small>por mês</small></div>
+      <div class="stat"><span>No ano</span><b class="num">${R(c.fixo*12)}</b><small>vendendo ou não</small></div>
+      <div class="stat"><span>Por cadeira, no ano</span><b class="num">${R(c.cadeira*12)}</b></div>
+    </div>
+    <p class="quote">Ele senta na cadeira. <em>Você paga a cadeira.</em></p>`;
+  countUp($('h'), c.cadeira); btn.textContent='Continuar →';
+}
+
+function r2(){
+  const c=calc();
+  screen.innerHTML = `<div class="step">O CAC</div>
+    <h2>Cada venda custou para você</h2>
+    <div class="hero amber num" id="h">R$ 0</div>
+    <p class="heroSub">de estrutura e marketing, antes de pagar um centavo de comissão.</p>
+    <div class="stats">
+      <div class="stat"><span>Custo por lead</span><b class="num">${R(c.cpl)}</b></div>
+      <div class="stat"><span>Conversão</span><b class="num">${P(c.conv)}</b></div>
+      <div class="stat"><span>Custo total do comercial no mês</span><b class="num">${R(c.fixo+d.mkt)}</b></div>
+    </div>
+    <p class="quote">O vendedor comemora a venda. <em>Ninguém comemora o CAC.</em></p>`;
+  countUp($('h'), c.cac); btn.textContent='E o que sobrou? →';
+}
+
+function r3(){
+  const c=calc();
+  screen.innerHTML = `<div class="step">O desperdício</div>
+    <h2>Ele fez a venda.<br>Mas quanto queimou para chegar nela?</h2>
+    <div class="hero red num" id="h">R$ 0</div>
+    <p class="heroSub">jogados fora por mês em ${N(c.perdidos)} leads que não compraram.</p>
+    <div class="stats">
+      <div class="stat"><span>Leads perdidos no ano</span><b class="num">${N(c.perdidos*12)}</b></div>
+      <div class="stat"><span>Queimado no ano</span><b class="num neg">${R(c.desp*12)}</b></div>
+      <div class="stat"><span>Desperdício por venda fechada</span><b class="num">${R(c.vendas?c.desp/c.vendas:0)}</b></div>
+    </div>
+    <p class="quote">Quanto disso o vendedor pagou? <em>Nada.</em></p>`;
+  countUp($('h'), c.desp); btn.textContent='Continuar →';
+}
+
+function r4(){
+  const c=calc();
+  screen.innerHTML = `<div class="step">A margem</div>
+    <h2>Faturamento não é seu dinheiro. Do que entra, sobra para a empresa</h2>
+    <div class="hero ${c.antes<0?'red':'green'} num" id="h">R$ 0</div>
+    <p class="heroSub">por mês, depois de produção, impostos, estrutura e marketing. <b style="color:var(--txt)">E ainda falta pagar a comissão.</b></p>
+    <div class="stats">
+      <div class="stat"><span>Faturamento no mês</span><b class="num">${R(c.fat)}</b><small>${R(c.fat*12)} no ano</small></div>
+      <div class="stat"><span>Margem por venda</span><b class="num">${R(c.mv)}</b><small>de ${R(d.ticket)} de ticket</small></div>
+      <div class="stat"><span>Sobra no ano</span><b class="num ${c.antes<0?'neg':''}">${R(c.antes*12)}</b></div>
+    </div>`;
+  countUp($('h'), c.antes); btn.textContent='Agora, a comissão →';
+}
+
+function cmp(){
+  const c=calc(), nv=d.vendedores||1, k=['A','B','C'];
+  const emp=m=>c.antes-c.com[m];
+  const td=(x,b)=>`<td class="num ${x<0?'neg':''}">${R(x)}</td>`;
+  const row=(l,f,big)=>`<tr${big?' class="big"':''}><td>${l}</td>${k.map(m=>td(f(m))).join('')}</tr>`;
+  const txt=(l,f)=>`<tr><td>${l}</td>${k.map(m=>`<td>${f(m)}</td>`).join('')}</tr>`;
+  const sec=t=>`<tr class="sec"><td colspan="4">${t}</td></tr>`;
+  screen.innerHTML = `<div class="step">Três jeitos de comissionar</div>
+    <h2>Mesmo time, mesmas vendas. Só muda a regra do jogo.</h2>
+    <div class="models">
+      <div class="model mA"><div class="l">A</div><h3>Sobre o faturamento <span class="tag">Tradicional</span></h3>
+        <p>Vendeu, ganhou. Não importa o desconto, a margem ou o lead queimado. Ele é sócio só do lado bom.</p></div>
+      <div class="model mB"><div class="l">B</div><h3>Sobre a margem <span class="tag">Primeiro passo</span></h3>
+        <p>A comissão sai do que sobra depois da produção e dos impostos. Agora o desconto dói no bolso dele também.</p></div>
+      <div class="model mC"><div class="l">C</div><h3>Margem − desperdício + bônus <span class="tag">Modelo Unique</span></h3>
+        <p>Desconta os leads queimados e paga bônus quando o time bate a conversão. É sócio do lucro e do custo.</p></div>
+    </div>
+    <table>
+      <thead><tr><th></th><th class="a">A</th><th>B</th><th class="c">C</th></tr></thead>
+      <tbody>
+        ${sec('No mês')}${row('Comissão do time',m=>c.com[m])}${row('Empresa fica com',emp,true)}
+        ${sec('No ano')}${row('Comissão do time',m=>c.com[m]*12)}${row('Por vendedor',m=>c.com[m]*12/nv)}${row('Empresa fica com',m=>emp(m)*12,true)}
+        ${sec('Regra do jogo')}
+        ${txt('Enxerga a margem?',m=>m==='A'?'Não':'Sim')}
+        ${txt('Paga o desperdício?',m=>m==='C'?'Sim':'Não')}
+        ${txt('Premia conversão?',m=>m==='C'?(c.bateu?'Sim ✓':'Sim'):'Não')}
+      </tbody>
+    </table>`;
+  btn.textContent='Ver o ano inteiro →';
+}
+
+function fin(){
+  screen.innerHTML = `<div class="step">O grande final</div>
+    <h1 style="font-size:clamp(2rem,6.5vw,3.4rem)">Mesmos leads.<br>Mesmo marketing.<br>Mesmo time.</h1>
+    <p class="lead" style="margin-top:14px">O que muda em 12 meses quando o vendedor vira sócio do custo e o time converte:</p>
+    <div class="inline"><input id="cn" inputmode="decimal" value="${d.convNova.toLocaleString('pt-BR',{maximumFractionDigits:2})}" aria-label="Conversão do time"><span>%</span></div>
+    <div id="acts"></div>`;
+  btn.textContent='Revelar o ano';
+  $('kbd').style.display='';
+  $('cn').addEventListener('input',()=>{ const v=parse($('cn').value); if(v!==null) d.convNova=v; revealed=false; btn.textContent='Revelar o ano'; });
+}
+
+function reveal(){
+  const a=calc(), n=calc(Math.min(d.leads,Math.round(d.leads*d.convNova/100)));
+  const comA=a.com.A*12, empA=(a.antes-a.com.A)*12, burn=a.desp*12;
+  const comC=n.com.C*12, empC=(n.antes-n.com.C)*12, dCom=comC-comA, dEmp=empC-empA;
+  let punch;
+  if(dCom>=0 && dEmp>=0){
+    punch = `Os dois ganham.${comA>0?` O time leva <em>+${P(dCom/comA*100)}</em>.`:''}${empA>0?` A empresa fica com <em>${(empC/empA).toLocaleString('pt-BR',{maximumFractionDigits:1})}× mais</em>.`:` A empresa ganha <em>+${R(dEmp)}</em>.`}`;
+  } else punch = `Com essa conversão ainda não fecha. Teste um número maior: o modelo só paga quando o time converte melhor.`;
+  $('acts').innerHTML = `
+    <div class="act" id="a1"><h4>Ato 1 · O modelo tradicional, em um ano</h4>
+      <div class="vs"><div class="stat"><span>O time levou de comissão</span><b class="num" id="x1">R$ 0</b></div>
+      <div class="stat"><span>A empresa ficou com</span><b class="num ${empA<0?'neg':''}" id="x2">R$ 0</b></div></div></div>
+    <div class="act" id="a2"><h4>Ato 2 · A conta que ninguém viu</h4>
+      <p class="lead">Dinheiro queimado em leads que não compraram:</p>
+      <div class="burn num" id="x3">R$ 0</div>
+      <p class="punch">Quanto disso o vendedor pagou? Nada.</p></div>
+    <div class="act" id="a3"><h4>Ato 3 · Modelo Unique, com ${P(d.convNova)} de conversão</h4>
+      <div class="vs"><div class="stat"><span>O time leva</span><b class="num pos" id="x4">R$ 0</b><small>${dCom>=0?'+':''}${R(dCom)} vs. tradicional</small></div>
+      <div class="stat"><span>A empresa fica com</span><b class="num pos" id="x5">R$ 0</b><small>${dEmp>=0?'+':''}${R(dEmp)} vs. tradicional</small></div></div>
+      <p class="punch">${punch}</p>
+      <div class="closing"><p>Vendedor que é sócio do lucro<br><em>tem que ser sócio do custo.</em></p>
+      <small>Aí ele para de vender a qualquer preço e começa a vender certo.</small>
+      <button class="ghost" onclick="go(1)">Refazer com outros números</button></div></div>`;
+  const on=(id,fn,t)=>setTimeout(()=>{$(id).classList.add('on'); fn(); $(id).scrollIntoView({behavior:'smooth',block:'center'});},t);
+  on('a1',()=>{countUp($('x1'),comA,R,1500);countUp($('x2'),empA,R,1500);},100);
+  on('a2',()=>countUp($('x3'),burn,R,1800),2600);
+  on('a3',()=>{countUp($('x4'),comC,R,1500);countUp($('x5'),empC,R,1500);},5400);
+  const at=i; setTimeout(()=>{ if(i===at){ revealed=true; btn.textContent='Parte 2: o OTE →'; } },5600);
+}
+
+/* ---------- Parte 2 ---------- */
+function p2(){
+  screen.innerHTML = `<div class="step">Parte 2</div>
+    <h1>Agora que você sabe quanto custa,<br><em class="amberTxt">quanto ele deve ganhar?</em></h1>
+    <p class="lead" style="margin-top:18px">Vamos montar o OTE do seu vendedor: a promessa, o alvo, o gatilho e a curva. Tudo calculado com os números que você acabou de colocar.</p>`;
+  btn.textContent='Montar o OTE →';
+}
+
+function meta(){
+  const o=calc2();
+  const parts=[['Custo da cadeira',o.c.cadeira],['Marketing que ele usa',o.mktVend],['Variável no alvo',o.varAlvo],['Lucro que você quer',d.lucroVend]];
+  const tot=parts.reduce((a,p)=>a+p[1],0);
+  screen.innerHTML = `<div class="step">A meta reversa</div>
+    <h2>Para pagar tudo isso e deixar o seu lucro, cada vendedor precisa fechar</h2>
+    <div class="hero amber num" id="h">0</div>
+    <p class="heroSub">por mês. São ${R(o.meta*d.ticket)} de faturamento e ${R(o.meta*o.mv)} de margem.</p>
+    <div class="formula">
+      ${parts.map(p=>`<div class="fr"><span>${p[0]}</span><b class="num">${R(p[1])}</b></div>`).join('')}
+      <div class="fr tot"><span>Precisa gerar de margem</span><b class="num">${R(tot)}</b></div>
+      <div class="fr"><span>÷ margem por venda</span><b class="num">${R(o.mv)}</b></div>
+    </div>
+    <p class="quote">A meta não é chute. <em>É conta.</em></p>`;
+  countUp($('h'), o.meta, n=>N(n)+' vendas'); btn.textContent='E o mínimo? →';
+}
+
+function gat(){
+  const o=calc2(), pc=o.meta?o.gat/o.meta*100:0;
+  screen.innerHTML = `<div class="step">O gatilho mínimo</div>
+    <h2>O variável só começa a ser pago a partir de</h2>
+    <div class="hero red num" id="h">0</div>
+    <p class="heroSub">no mês, que é ${P(pc)} da meta. É o ponto em que ele paga a própria cadeira e o marketing que usou.</p>
+    <div class="stats">
+      <div class="stat"><span>Abaixo de ${N(o.gat)} vendas</span><b>Só o fixo</b><small>${R(o.fixo)}</small></div>
+      <div class="stat"><span>Com ${N(Math.max(o.gat-1,0))} vendas, a empresa</span><b class="num ${o.empresa(o.gat-1)<0?'neg':''}">${R(o.empresa(Math.max(o.gat-1,0)))}</b><small>por mês, com esse vendedor</small></div>
+    </div>
+    <div class="acid"><small>Enquanto isso, na cabeça do vendedor…</small><p>"Bati 60% da meta, então mereço 60% da comissão." <b>Não.</b> Abaixo do gatilho, quem está pagando para ele trabalhar é você.</p></div>`;
+  countUp($('h'), o.gat, n=>N(n)+' vendas'); btn.textContent='Desenhar a curva →';
+}
+
+function chartSVG(o, pers){
+  const W=Math.round(Math.min(680,Math.max(340,screen.clientWidth||680))),H=W<500?300:330,L=46,Rr=10,T=18,B=26;
+  const xMax=Math.max(Math.ceil(o.meta*1.8), (pers[2]?.v||0)+2);
+  const xs=[...Array(xMax+1).keys()];
+  const g=xs.map(o.ganho), e=xs.map(o.empresa);
+  const yMin=Math.min(0,...e), yMax=Math.max(...g,...e)*1.08;
+  const X=v=>L+(W-L-Rr)*v/xMax, Y=v=>T+(H-T-B)*(1-(v-yMin)/(yMax-yMin));
+  const path=arr=>arr.map((y,k)=>`${k?'L':'M'}${X(k).toFixed(1)},${Y(y).toFixed(1)}`).join('');
+  const ticks=[...Array(5)].map((_,k)=>yMin+(yMax-yMin)*k/4);
+  const kfmt=v=>(Math.abs(v)>=1000?(v/1000).toLocaleString('pt-BR',{maximumFractionDigits:1})+'k':Math.round(v));
+  return `<svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="Curva de ganho do vendedor e resultado da empresa por número de vendas">
+    <rect x="${X(0)}" y="${T}" width="${X(o.gat)-X(0)}" height="${H-T-B}" fill="rgba(255,90,78,.08)"/>
+    
+    ${ticks.map(t=>`<line x1="${L}" x2="${W-Rr}" y1="${Y(t)}" y2="${Y(t)}" stroke="var(--line)"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end" class="ax">${kfmt(t)}</text>`).join('')}
+    <line x1="${L}" x2="${W-Rr}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--mut)" stroke-width="1"/>
+    ${[[o.gat,'gatilho','var(--red)'],[o.meta,'meta','var(--amber)']].map(([v,l,c])=>`<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${H-B}" stroke="${c}" stroke-dasharray="4 4"/><text x="${X(v)+5}" y="${l==='meta'?T+14:T+30}" class="zl" fill="${c}">${l} · ${v}</text>`).join('')}
+    ${xs.filter(v=>v%Math.max(1,Math.round(xMax/8))===0).map(v=>`<text x="${X(v)}" y="${H-B+15}" text-anchor="middle" class="ax">${v}</text>`).join('')}
+    <path d="${path(e)}" fill="none" stroke="var(--green)" stroke-width="2.5"/>
+    <path d="${path(g)}" fill="none" stroke="var(--amber)" stroke-width="3"/>
+    ${pers.map(p=>`<circle cx="${X(p.v)}" cy="${Y(o.ganho(p.v))}" r="6" fill="var(--amber)" stroke="var(--ink)" stroke-width="2"/><circle cx="${X(p.v)}" cy="${Y(o.empresa(p.v))}" r="6" fill="var(--green)" stroke="var(--ink)" stroke-width="2"/>`).join('')}
+  </svg>
+  <div class="legend"><span><i style="background:var(--amber)"></i>Quanto o vendedor ganha</span><span><i style="background:var(--green)"></i>Quanto a empresa fica</span><span class="mut">eixo: vendas no mês</span></div>`;
+}
+
+function curva(){
+  const o=calc2();
+  const pers=[
+    {n:'Acomodado', v:Math.max(o.gat-1,0), d:'Faz o suficiente para não ser demitido.'},
+    {n:'Regular', v:o.meta, d:'Bate a meta. Nem mais, nem menos.'},
+    {n:'Fera', v:Math.ceil(o.meta*1.5), d:'Vende como se a empresa fosse dele.'}
+  ];
+  const tetoTxt = d.teto>0 ? `até ${N(d.teto)}% da meta` : 'sem teto';
+  const reg=o.empresa(o.meta), fera=pers[2];
+  const ganhoMais = o.ganho(o.meta)>0 ? (o.ganho(fera.v)/o.ganho(o.meta)-1)*100 : 0;
+  const empMult = reg>0 ? o.empresa(fera.v)/reg : 0;
+  screen.innerHTML = `<div class="step">A curva</div>
+    <h2>O OTE completo do seu vendedor</h2>
+    <div class="faixas">
+      <div class="fx"><b class="neg">0 a ${N(Math.max(o.gat-1,0))}</b><span>vendas</span><p>Só o fixo, ${R(o.fixo)}</p></div>
+      <div class="fx"><b>${N(o.gat)} a ${N(o.meta)}</b><span>vendas</span><p>Variável proporcional à meta</p></div>
+      <div class="fx"><b class="amberTxt">${N(o.meta)}</b><span>a meta</span><p>OTE de ${R(d.ote)}</p></div>
+      <div class="fx"><b class="pos">${N(o.meta+1)}+</b><span>vendas</span><p>Acelerador ${N(d.acel*10)/10}×, ${tetoTxt}</p></div>
+    </div>
+    ${chartSVG(o,pers)}
+    <h2 style="margin-top:34px">Três vendedores. Quem merece ganhar mais?</h2>
+    <div class="pers">
+      ${pers.map(p=>{const em=o.empresa(p.v);return `<div class="pc">
+        <h3>${p.n}</h3><p class="pd">${p.d}</p>
+        <div class="fr"><span>Vendas</span><b class="num">${N(p.v)} · ${P(o.meta?p.v/o.meta*100:0)}</b></div>
+        <div class="fr"><span>Ele ganha</span><b class="num amberTxt">${R(o.ganho(p.v))}</b></div>
+        <div class="fr"><span>A empresa fica</span><b class="num ${em<0?'neg':'pos'}">${R(em)}</b></div></div>`}).join('')}
+    </div>
+    <div class="closing">
+      <p>O Fera ganha <em>${P(ganhoMais)} a mais</em> que o Regular.${empMult>0?`<br>E deixa <em>${empMult.toLocaleString('pt-BR',{maximumFractionDigits:1})}× mais lucro</em>.`:''}</p>
+      <small>OTE bem feito não é custo. É o único salário que se paga sozinho.</small>
+    </div>`;
+  btn.textContent='Parte 3: bonificação →';
+}
+
+/* ---------- Parte 3: Bonificação comportamental ---------- */
+const FREQ = {semanal:{l:'Semanal',m:52/12}, mensal:{l:'Mensal',m:1}, trimestral:{l:'Trimestral',m:1/3}};
+const PAG  = {fixo:'Valor fixo se cumprir', ocorrencia:'Por ocorrência (até o limite)', proporcional:'Proporcional ao cumprido'};
+const CMP  = {min:'no mínimo', max:'no máximo', exato:'exatamente'};
+const UNITS = ['%','vezes','leads','pedidos','contatos','dias','erros','exceções','avaliações','indicações'];
+const B = {
+  conds:[
+    {on:true,  t:'Atingiu o gatilho mínimo de vendas do mês'},
+    {on:true,  t:'Nenhuma bandeira vermelha no período'},
+    {on:false, t:'Nenhuma falta injustificada no período'}
+  ],
+  items:[
+    {on:true,  nome:'CRM em dia', medida:'Leads registrados e atualizados em até 24h', cmp:'min', qtd:100, un:'%', freq:'mensal', pag:'fixo', valor:150},
+    {on:true,  nome:'Resposta rápida', medida:'Leads respondidos em até 15 min no horário comercial', cmp:'min', qtd:90, un:'%', freq:'mensal', pag:'fixo', valor:150},
+    {on:true,  nome:'Follow-up de orçamento', medida:'Orçamentos sem resposta com follow-up em até 48h', cmp:'min', qtd:100, un:'%', freq:'mensal', pag:'fixo', valor:100},
+    {on:true,  nome:'Pedido sem retrabalho', medida:'Pedidos com ficha completa: grade, cores e arte aprovada', cmp:'max', qtd:0, un:'erros', freq:'mensal', pag:'fixo', valor:150},
+    {on:true,  nome:'Venda sem desconto fora da regra', medida:'Vendas com desconto acima do permitido', cmp:'max', qtd:0, un:'exceções', freq:'mensal', pag:'fixo', valor:150},
+    {on:false, nome:'Reativação de clientes', medida:'Contatos com clientes sem pedido há mais de 90 dias', cmp:'min', qtd:20, un:'contatos', freq:'mensal', pag:'fixo', valor:100},
+    {on:false, nome:'Indicações', medida:'Indicações recebidas de clientes', cmp:'min', qtd:5, un:'indicações', freq:'mensal', pag:'ocorrencia', valor:20},
+    {on:false, nome:'Avaliação no Google', medida:'Avaliações de clientes atendidos', cmp:'min', qtd:3, un:'avaliações', freq:'mensal', pag:'fixo', valor:50},
+    {on:false, nome:'Rotina do time', medida:'Presença na reunião diária de vendas', cmp:'min', qtd:95, un:'%', freq:'mensal', pag:'fixo', valor:50},
+    {on:false, nome:'Meta do time no trimestre', medida:'Meta coletiva de margem do trimestre', cmp:'min', qtd:100, un:'%', freq:'trimestral', pag:'fixo', valor:600}
+  ],
+  sim:{gate:true, done:{}}
+};
+let openCard = -1;
+try{ const sv = JSON.parse(localStorage.getItem('unique_bonus')||'null'); if(sv && sv.items) Object.assign(B, sv); }catch(e){}
+const saveB = () => { try{ localStorage.setItem('unique_bonus', JSON.stringify(B)); }catch(e){} };
+const esc = s => String(s??'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const maxPer = it => it.pag==='ocorrencia' ? (+it.valor||0)*(+it.qtd||0) : (+it.valor||0);
+const mensal = it => maxPer(it)*(FREQ[it.freq]?.m||1);
+const opts = (o,sel) => Object.entries(o).map(([k,v])=>`<option value="${k}"${k===sel?' selected':''}>${typeof v==='string'?v:v.l}</option>`).join('');
+
+function bintro(){
+  screen.innerHTML = `<div class="step">Parte 3</div>
+    <h1>A comissão paga a venda.<br><em class="amberTxt">O bônus paga o comportamento.</em></h1>
+    <p class="lead" style="margin-top:18px">Tem coisa que a comissão não enxerga: CRM atualizado, cliente respondido rápido, pedido sem retrabalho, venda sem desconto fora da regra. Vamos montar a sua régua de bonificação comportamental. Você liga, desliga e edita cada item do seu jeito.</p>
+    <div class="acid"><small>Enquanto isso, na cabeça do vendedor…</small><p>"CRM é burocracia. Eu tenho tudo no meu WhatsApp." <b>Até o dia em que ele sai da empresa e leva a sua carteira de clientes junto.</b></p></div>`;
+  btn.textContent='Montar a régua →';
+}
+
+function regraTxt(it){
+  const pag = it.pag==='ocorrencia' ? `${R(it.valor)} por ocorrência, até ${N(it.qtd)} ${it.un}` :
+              it.pag==='proporcional' ? `até ${R(it.valor)}, proporcional ao cumprido` : `${R(it.valor)}`;
+  return `${it.nome}: ${pag} quando ${it.cmp==='max'?'tiver':'atingir'} ${CMP[it.cmp]} ${N(it.qtd)}${it.un==='%'?'%':' '+it.un} em "${it.medida}". Apuração ${FREQ[it.freq].l.toLowerCase()}.`;
+}
+
+function bonus(){
+  screen.innerHTML = `<div class="step">Bonificação comportamental</div>
+    <h2>Monte a sua régua</h2>
+    <p class="lead">Edite os nomes, as metas e os valores. Os itens desligados não entram na conta.</p>
+    <h3 class="bsec">1 · Só paga bônus se…</h3>
+    <p class="hint2">Condições que liberam qualquer bônus. Sem elas, nada é pago.</p>
+    <div id="conds"></div>
+    <button class="ghost sm" id="addCond">+ Adicionar condição</button>
+    <h3 class="bsec">2 · Comportamentos que valem bônus</h3>
+    <p class="hint2">Toque no item para editar quantidade, frequência e valor.</p>
+    <div id="items"></div>
+    <button class="ghost sm" id="addItem">+ Criar comportamento</button>
+    <h3 class="bsec">3 · Quanto isso custa</h3>
+    <div id="bsum"></div>
+    <h3 class="bsec">4 · Simule um mês</h3>
+    <p class="hint2">Marque o que o vendedor cumpriu e veja quanto ele recebe.</p>
+    <div id="bsim"></div>
+    <h3 class="bsec">5 · A régua que o vendedor recebe</h3>
+    <p class="hint2">Se o vendedor não entende a régua em 1 minuto, ela não está pronta.</p>
+    <div class="regua" id="regua"></div>
+    <button class="ghost sm" id="copyR">Copiar régua</button>
+    <button class="warnbtn" id="goLegal"><span class="ic">⚠️</span><span><b>Cuidado com processo trabalhista</b><small>Abra o checklist do que levar ao contador e ao advogado, e entenda o DSR sobre comissão.</small></span><span class="ar">→</span></button>`;
+  btn.textContent='Cuidados trabalhistas →';
+  $('kbd').style.display='none';
+  drawConds(); drawItems(); drawSum();
+  $('goLegal').onclick=()=>go(S.findIndex(x=>x.t==='legal'));
+  $('addCond').onclick=()=>{ B.conds.push({on:true,t:'Nova condição'}); drawConds(); drawSum(); saveB(); };
+  $('addItem').onclick=()=>{ B.items.push({on:true,nome:'Novo comportamento',medida:'Como você vai medir',cmp:'min',qtd:1,un:'vezes',freq:'mensal',pag:'fixo',valor:100}); openCard=B.items.length-1; drawItems(); drawSum(); saveB(); };
+  $('copyR').onclick=async()=>{ const t=$('regua').innerText; try{ await navigator.clipboard.writeText(t); $('copyR').textContent='Régua copiada ✓'; }catch(e){ $('copyR').textContent='Selecione o texto e copie'; } };
+}
+
+function drawConds(){
+  $('conds').innerHTML = B.conds.map((c,k)=>`<div class="crow${c.on?'':' off'}">
+    <label class="tg"><input type="checkbox" data-c="${k}" data-f="on"${c.on?' checked':''} aria-label="Ativar condição"><span></span></label>
+    <textarea class="ctext" data-c="${k}" data-f="t" rows="1" aria-label="Condição">${esc(c.t)}</textarea>
+    <button class="rm" data-rmc="${k}" aria-label="Remover condição">×</button></div>`).join('');
+}
+
+function drawItems(){
+  $('items').innerHTML = B.items.map((it,k)=>`<div class="bi${it.on?'':' off'}${openCard===k?' open':''}">
+    <div class="bh">
+      <label class="tg"><input type="checkbox" data-k="${k}" data-f="on"${it.on?' checked':''} aria-label="Ativar ${esc(it.nome)}"><span></span></label>
+      <button class="bt" data-open="${k}"><b>${esc(it.nome)}</b><small>${FREQ[it.freq].l} · ${CMP[it.cmp]} ${N(it.qtd)}${it.un==='%'?'%':' '+esc(it.un)}</small></button>
+      <span class="bv num" id="bv${k}">${R(mensal(it))}<small>/mês</small></span>
+    </div>
+    <div class="bb">
+      <div class="bgrid">
+        <div class="full"><label>Nome do comportamento</label><input data-k="${k}" data-f="nome" value="${esc(it.nome)}"></div>
+        <div class="full"><label>Como medir</label><textarea data-k="${k}" data-f="medida" rows="1">${esc(it.medida)}</textarea></div>
+        <div><label>Condição</label><select data-k="${k}" data-f="cmp">${opts(CMP,it.cmp)}</select></div>
+        <div><label>Quantidade</label><input data-k="${k}" data-f="qtd" inputmode="decimal" value="${esc(it.qtd)}"></div>
+        <div><label>Unidade</label><input data-k="${k}" data-f="un" list="units" value="${esc(it.un)}"></div>
+        <div><label>Frequência</label><select data-k="${k}" data-f="freq">${opts(FREQ,it.freq)}</select></div>
+        <div class="full"><label>Como paga</label><select data-k="${k}" data-f="pag">${opts(PAG,it.pag)}</select></div>
+        <div><label>Valor (R$)</label><input data-k="${k}" data-f="valor" inputmode="decimal" value="${esc(it.valor)}"></div>
+      </div>
+      <button class="rm txt" data-rmi="${k}">Remover este item</button>
+    </div></div>`).join('') + `<datalist id="units">${UNITS.map(u=>`<option value="${u}">`).join('')}</datalist>`;
+}
+
+function drawSum(){
+  const act = B.items.filter(it=>it.on);
+  const nv = d.vendedores||1, varAlvo = d.ote*(1-MIX_FIXO);
+  const mes = act.reduce((a,it)=>a+mensal(it),0);
+  const pctVar = varAlvo ? mes/varAlvo*100 : 0;
+  $('bsum').innerHTML = `<div class="stats" style="margin-top:4px">
+      <div class="stat"><span>Bônus máximo por vendedor</span><b class="num">${R(mes)}</b><small>por mês · ${R(mes*12)} no ano</small></div>
+      <div class="stat"><span>Time inteiro no ano</span><b class="num">${R(mes*12*nv)}</b><small>${N(nv)} vendedores</small></div>
+      <div class="stat"><span>Comparado ao variável do OTE</span><b class="num ${pctVar>100?'neg':''}">${P(pctVar)}</b><small>variável no alvo: ${R(varAlvo)}</small></div>
+    </div>
+    ${pctVar>100?`<div class="acid"><small>Atenção</small><p>O bônus máximo passou do variável de vendas. <b>Ele vai preferir cumprir checklist a vender.</b> Comportamento é meio, venda é fim.</p></div>`:''}`;
+  // simulação
+  const conds = B.conds.filter(c=>c.on);
+  const gateOk = conds.length===0 || B.sim.gate;
+  const pago = gateOk ? act.reduce((a,it)=>{ const k=B.items.indexOf(it); return a + (B.sim.done[k]===false?0:mensal(it)); },0) : 0;
+  $('bsim').innerHTML = `${conds.length?`<label class="simrow gate"><input type="checkbox" id="simGate"${B.sim.gate?' checked':''}><span>Cumpriu as condições do item 1</span></label>`:''}
+    ${act.map(it=>{const k=B.items.indexOf(it);return `<label class="simrow"><input type="checkbox" data-sim="${k}"${B.sim.done[k]===false?'':' checked'}><span>${esc(it.nome)}</span><b class="num">${R(mensal(it))}</b></label>`}).join('')||'<p class="hint2">Ligue pelo menos um comportamento.</p>'}
+    <div class="simtot"><span>Ele recebe de bônus neste mês</span><b class="num ${gateOk?'pos':'neg'}">${R(pago)}</b></div>
+    ${!gateOk?`<p class="hint2" style="color:var(--red)">Não cumpriu as condições: não recebe nenhum bônus, mesmo cumprindo o checklist.</p>`:''}`;
+  // régua
+  $('regua').innerHTML = `<b>RÉGUA DE BONIFICAÇÃO COMPORTAMENTAL</b><br><br>`+
+    (conds.length?`Só recebe bônus quem cumprir todas as condições:<br>${conds.map(c=>'• '+esc(c.t)).join('<br>')}<br><br>`:'')+
+    (act.length?`Comportamentos que valem bônus:<br>${act.map(it=>'• '+esc(regraTxt(it))).join('<br>')}<br><br>Bônus máximo por mês: ${R(mes)}.`:'Nenhum comportamento ativo.');
+}
+
+function bonusInput(e){
+  const t=e.target; if(!$('items')) return;
+  if(t.dataset.c!==undefined){ const c=B.conds[+t.dataset.c]; if(t.dataset.f==='on'){c.on=t.checked; t.closest('.crow').classList.toggle('off',!c.on);} else c.t=t.value; drawSum(); saveB(); return; }
+  if(t.dataset.k!==undefined){
+    const k=+t.dataset.k, it=B.items[k], f=t.dataset.f;
+    if(f==='on'){ it.on=t.checked; t.closest('.bi').classList.toggle('off',!it.on); }
+    else if(f==='qtd'||f==='valor'){ const v=parse(t.value); if(v!==null) it[f]=v; }
+    else it[f]=t.value;
+    const card=t.closest('.bi');
+    card.querySelector('.bt b').textContent=it.nome;
+    card.querySelector('.bt small').textContent=`${FREQ[it.freq].l} · ${CMP[it.cmp]} ${N(it.qtd)}${it.un==='%'?'%':' '+it.un}`;
+    $('bv'+k).innerHTML=`${R(mensal(it))}<small>/mês</small>`;
+    drawSum(); saveB(); return;
+  }
+  if(t.id==='simGate'){ B.sim.gate=t.checked; drawSum(); saveB(); return; }
+  if(t.dataset.sim!==undefined){ B.sim.done[+t.dataset.sim]=t.checked; drawSum(); saveB(); }
+}
+document.addEventListener('input',bonusInput);
+document.addEventListener('change',bonusInput);
+document.addEventListener('click',e=>{
+  const o=e.target.closest('[data-open]'); if(o){ const k=+o.dataset.open; openCard = openCard===k?-1:k; drawItems(); return; }
+  const rc=e.target.closest('[data-rmc]'); if(rc){ B.conds.splice(+rc.dataset.rmc,1); drawConds(); drawSum(); saveB(); return; }
+  const ri=e.target.closest('[data-rmi]'); if(ri){ B.items.splice(+ri.dataset.rmi,1); B.sim.done={}; openCard=-1; drawItems(); drawSum(); saveB(); }
+});
+
+/* ---------- Cuidados trabalhistas ---------- */
+const LEG = {
+  dsr:{ dias:25, desc:5 },
+  cont:[
+    {t:'Quanto custa de verdade cada R$ 100 de comissão?', w:'Comissão integra o salário (CLT, art. 457 §1º). Ela gera reflexo em férias + 1/3, 13º, FGTS, INSS e aviso prévio. O custo real é bem maior que o valor no holerite.'},
+    {t:'O DSR sobre comissões está sendo calculado na folha?', w:'O vendedor comissionado tem direito ao descanso semanal remunerado sobre as comissões (Súmula 27 do TST e Lei 605/1949). É o direito que quase ninguém paga.'},
+    {t:'O bônus comportamental pode ser lançado como prêmio?', w:'Prêmio por desempenho acima do esperado não integra o salário (CLT, art. 457 §2º e §4º). Mas, se for pago por meta comum, pode ser tratado como salário, com encargos.'},
+    {t:'Qual o custo real da cadeira com o novo fixo (60/40)?', w:'Mudou o fixo, mudam os encargos. Refaça o custo da cadeira com o contador antes de fechar a meta reversa.'},
+    {t:'Como entram as médias de variável em férias e 13º?', w:'Com variável na remuneração, férias e 13º são calculados pela média. Isso pesa no mês de pagamento: precisa estar no seu caixa.'}
+  ],
+  adv:[
+    {t:'A mudança de plano pode reduzir a remuneração de alguém?', w:'Alteração que prejudica o empregado, mesmo com acordo, é vedada (CLT, art. 468). Precisa de aditivo assinado e de uma regra de transição que proteja quem bate meta.'},
+    {t:'O "desconto do desperdício" está desenhado do jeito certo?', w:'A empresa não pode transferir o risco do negócio ao empregado (CLT, art. 2º). A regra deve definir a base de cálculo da comissão, e não descontar comissão depois de paga.'},
+    {t:'Bônus e comissão estão separados na régua?', w:'Se o bônus for, na prática, comissão com outro nome, a Justiça pode reclassificar e cobrar os reflexos de anos para trás.'},
+    {t:'A régua está escrita, assinada e com critérios objetivos?', w:'Diga quem apura, com qual fonte (CRM, sistema), quando paga e o que acontece em férias, afastamento e desligamento no meio do mês. Regra de boca vira processo.'},
+    {t:'Quando a comissão é devida: venda fechada, faturada ou paga?', w:'A comissão é exigível depois de ultimada a transação (CLT, art. 466). Defina isso por escrito, inclusive para o caso de cancelamento.'},
+    {t:'O que diz a convenção coletiva da categoria?', w:'Comerciários e vestuário podem ter regras próprias sobre comissão, DSR e prazos. A convenção pode valer mais do que a sua régua.'}
+  ],
+  docs:['Holerites dos últimos 12 meses','Plano de comissão atual (mesmo que de boca, escreva)','A régua nova: OTE, meta, gatilho, curva e bônus','Histórico de vendas por vendedor','Convenção coletiva da categoria'],
+  done:{}
+};
+try{ const sv=JSON.parse(localStorage.getItem('unique_legal')||'null'); if(sv){ LEG.done=sv.done||{}; if(sv.dsr) LEG.dsr=sv.dsr; } }catch(e){}
+const saveL=()=>{ try{ localStorage.setItem('unique_legal',JSON.stringify({done:LEG.done,dsr:LEG.dsr})); }catch(e){} };
+
+function legal(){
+  const o=calc2();
+  const com = o.varAlvo; // variável no alvo como exemplo de comissão do mês
+  const chk=(g,arr)=>arr.map((x,k)=>{const id=g+k;return `<label class="lck${LEG.done[id]?' ok':''}"><input type="checkbox" data-l="${id}"${LEG.done[id]?' checked':''}><div><b>${x.t}</b><p>${x.w}</p></div></label>`}).join('');
+  screen.innerHTML = `<div class="step">Cuidados trabalhistas</div>
+    <h1 style="font-size:clamp(2rem,6.5vw,3.4rem)">A régua errada<br><em class="amberTxt">vira processo.</em></h1>
+    <p class="lead" style="margin-top:14px">E o processo chega depois que o vendedor sai, cobrando os últimos 5 anos. Antes de colocar a régua para rodar, leve este checklist ao seu contador e ao seu advogado trabalhista.</p>
+
+    <h3 class="bsec">O direito que ninguém paga: DSR sobre comissão</h3>
+    <p class="hint2">DSR é o Descanso Semanal Remunerado. Não é imposto, é um direito do vendedor. O fixo já paga o domingo dele. A comissão, não. Por isso, todo mês, a empresa deve um valor a mais, proporcional aos domingos e feriados.</p>
+    <div class="dsr">
+      <div class="dsrf"><label>Comissão do mês (R$)</label><input id="dsrC" inputmode="decimal" value="${com.toLocaleString('pt-BR',{maximumFractionDigits:2})}"></div>
+      <div class="dsrf"><label>Dias úteis (seg. a sáb.)</label><input id="dsrD" inputmode="decimal" value="${LEG.dsr.dias}"></div>
+      <div class="dsrf"><label>Domingos + feriados</label><input id="dsrF" inputmode="decimal" value="${LEG.dsr.desc}"></div>
+    </div>
+    <div class="dsrres" id="dsrRes"></div>
+    <div class="acid"><small>Enquanto isso, na cabeça do dono…</small><p>"Eu já pago a comissão certinha." Paga a comissão. <b>O DSR em cima dela, quase ninguém paga.</b> E é exatamente o que aparece primeiro na reclamação trabalhista.</p></div>
+
+    <h3 class="bsec">Leve para o contador</h3>
+    <p class="hint2">Ele cuida da folha: quanto custa e como lançar.</p>
+    ${chk('c',LEG.cont)}
+
+    <h3 class="bsec">Leve para o advogado trabalhista</h3>
+    <p class="hint2">Ele cuida da regra: o que pode, o que não pode e como escrever.</p>
+    ${chk('a',LEG.adv)}
+
+    <h3 class="bsec">Documentos para levar</h3>
+    ${LEG.docs.map((t,k)=>{const id='d'+k;return `<label class="lck sm${LEG.done[id]?' ok':''}"><input type="checkbox" data-l="${id}"${LEG.done[id]?' checked':''}><div><b>${t}</b></div></label>`}).join('')}
+
+    <div class="lprog" id="lprog"></div>
+    <button class="ghost sm" id="copyL">Copiar checklist para mandar</button>
+    <p class="legal">Este material é orientativo e não substitui a análise do seu contador e do seu advogado. Regras de convenção coletiva e decisões judiciais podem mudar o cálculo.</p>`;
+  btn.textContent='Voltar ao início';
+  $('kbd').style.display='none';
+  drawDSR(); drawLProg();
+  ['dsrC','dsrD','dsrF'].forEach(id=>$(id).addEventListener('input',drawDSR));
+  $('copyL').onclick=async()=>{
+    const linhas=['CHECKLIST TRABALHISTA — RÉGUA DE COMISSÃO E BÔNUS','','CONTADOR:',...LEG.cont.map(x=>'[ ] '+x.t),'','ADVOGADO TRABALHISTA:',...LEG.adv.map(x=>'[ ] '+x.t),'','DOCUMENTOS:',...LEG.docs.map(x=>'[ ] '+x)];
+    try{ await navigator.clipboard.writeText(linhas.join('\n')); $('copyL').textContent='Checklist copiado ✓'; }catch(e){ $('copyL').textContent='Não deu para copiar aqui'; }
+  };
+}
+
+function drawDSR(){
+  const c=parse($('dsrC').value)||0, dd=parse($('dsrD').value)||0, f=parse($('dsrF').value)||0;
+  LEG.dsr={dias:dd,desc:f}; saveL();
+  const dsr = dd ? c/dd*f : 0, nv=d.vendedores||1;
+  $('dsrRes').innerHTML = `<div class="dsrcalc">(${R(c)} ÷ ${N(dd)} dias úteis) × ${N(f)} domingos e feriados =</div>
+    <div class="stats" style="margin-top:8px">
+      <div class="stat"><span>DSR por vendedor no mês</span><b class="num amberTxt">${R(dsr)}</b><small>${P(c?dsr/c*100:0)} a mais sobre a comissão</small></div>
+      <div class="stat"><span>Por vendedor no ano</span><b class="num">${R(dsr*12)}</b></div>
+      <div class="stat"><span>Time inteiro no ano</span><b class="num neg">${R(dsr*12*nv)}</b><small>${N(nv)} vendedores, fora os reflexos</small></div>
+    </div>`;
+}
+
+function drawLProg(){
+  const tot=LEG.cont.length+LEG.adv.length+LEG.docs.length;
+  const ok=Object.values(LEG.done).filter(Boolean).length;
+  $('lprog').innerHTML=`<div class="lbar"><i style="width:${ok/tot*100}%"></i></div><span>${ok} de ${tot} itens resolvidos</span>`;
+}
+
+document.addEventListener('change',e=>{
+  const t=e.target; if(t.dataset.l===undefined) return;
+  LEG.done[t.dataset.l]=t.checked; t.closest('.lck').classList.toggle('ok',t.checked); drawLProg(); saveL();
+});
+
+/* ---------- Menu de seções ---------- */
+const SECS=[['CAC','intro','cac'],['Comissão','cmp','comissao'],['Grande final','fin','final'],['OTE','p2','ote'],['Bonificação','bintro','bonificacao'],['Trabalhista','legal','trabalhista']];
+const secIdx=t=>S.findIndex(s=>s.t===t);
+function drawMenu(){
+  const starts=SECS.map(x=>secIdx(x[1]));
+  let cur=0; starts.forEach((st,k)=>{ if(i>=st) cur=k; });
+  $('menu').innerHTML=SECS.map((x,k)=>`<button data-sec="${k}" class="${k===cur?'on':''}">${x[0]}</button>`).join('');
+  const on=$('menu').querySelector('.on'); if(on) on.scrollIntoView({inline:'center',block:'nearest'});
+}
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-sec]'); if(b){ const x=SECS[+b.dataset.sec]; history.replaceState(null,'','#'+x[2]); go(secIdx(x[1])); } });
+function next(){
+  const s=S[i];
+  if(s.t==='q'){ if(!answered) return submitQ(); return go(i+1); }
+  if(s.t==='fin' && !revealed) return reveal();
+  if(s.t==='legal') return go(0);
+  go(i+1);
+}
+btn.addEventListener('click',next);
+$('back').addEventListener('click',()=>go(i-1));
+$('prev').addEventListener('click',()=>go(i-1));
+document.addEventListener('keydown',e=>{ if(e.key==='Enter' && S[i].t!=='bonus' && S[i].t!=='legal'){ e.preventDefault(); next(); } });
+{ const h=location.hash.slice(1); const x=SECS.find(z=>z[2]===h); if(x) i=secIdx(x[1]); }
+render();
+</script>
+</body>
+</html>

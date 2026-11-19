@@ -73,6 +73,13 @@ const MATERIAIS = {
     tag: 'Mesa Aberta',
     aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
   },
+  'quanto-custa-cada-venda': {
+    titulo: 'Quanto custa cada venda? · Calculadora CAC, OTE e bônus',
+    descricao: 'Custo da cadeira, CAC, leads queimados, margem, 3 modelos de comissão, OTE com meta reversa, gatilho e curva, régua de bônus de comportamento e checklist trabalhista com DSR.',
+    url: '/quanto-custa-cada-venda/',
+    tag: 'Quanto custa cada venda',
+    aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
+  },
   'pressao': {
     titulo: 'Pressão · 13 mecânicas de condicional',
     descricao: 'As 13 mecânicas de condicional com data para o follow-up: regra da troca, mensagens prontas, gerador de follow-up, cadência até o prazo e checklist.',

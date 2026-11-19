@@ -1,0 +1,141 @@
+{
+ "legenda": "Pergunte para o seu vendedor quanto custa a cadeira dele.\n\nEle não sabe. Ninguém nunca mostrou essa conta.\n\nNuma confecção com 3 vendedores e ticket de R$ 2.000:\n• Cada cadeira custa R$ 6.000 por mês, antes da primeira venda\n• Cada lead custa R$ 20\n• 270 de 300 leads não compram: R$ 64.800 queimados no ano\n\nE com 5% sobre o faturamento, o time leva R$ 3.000 e a empresa fica com R$ 1.200.\n\nO vendedor ganhou mais que o dono.\n\nO vendedor comissionado sobre faturamento é sócio do lucro. Mas não paga o custo.\n\nO caminho:\n1. Comissão sobre a margem, não sobre o faturamento\n2. Meta calculada de trás para frente, com gatilho mínimo\n3. Acelerador só sobre o que passou da meta\n4. Bônus para o comportamento que faz a venda do mês que vem\n\nE antes de mudar: DSR sobre comissão. Régua errada vira processo.\n\nMontei uma calculadora para você fazer a conta da sua empresa. Comente CONTA que eu te mando o link. 👇\n\n#vendas #comissao #remuneracaovariavel #gestaocomercial #confeccao #uniformes #consultoriadevendas #sejaunique",
+ "slides": [
+  {
+   "tipo": "capa",
+   "selo": "Comissão e OTE",
+   "nome": "Carlos Ribeiro",
+   "local": "Unique · Confecções",
+   "img": "blog/assets/carlos-palestra-confeccoes.jpg",
+   "pos": "center 30%",
+   "destaque": "64,8 mil",
+   "destaque_tx": "reais queimados em\nleads em um ano",
+   "titulo": "Sócio do lucro.\n//--Não do custo.--//",
+   "texto": "Seu vendedor ganha em cima do faturamento. ==Quem paga a conta é você.==",
+   "tam": 100
+  },
+  {
+   "tipo": "lista",
+   "selo": "O que ele não vê",
+   "titulo": "A cadeira dele\n//tem preço.//",
+   "tam": 104,
+   "itens": [
+    {
+     "icone": "users",
+     "cor": "marinho",
+     "titulo": "Salário e encargos",
+     "texto": "Cai todo dia 5, vendendo ou não"
+    },
+    {
+     "icone": "database",
+     "cor": "claro",
+     "titulo": "CRM e ferramentas",
+     "texto": "Pago todo mês, atualizado quase nunca"
+    },
+    {
+     "icone": "coin",
+     "cor": "magenta",
+     "titulo": "Estrutura",
+     "texto": "Sala, energia, internet e café"
+    }
+   ],
+   "nota": "Cada cadeira custa ==R$ 6.000 por mês.==\nAntes da primeira venda."
+  },
+  {
+   "tipo": "numero",
+   "selo": "O desperdício",
+   "pct": 90,
+   "rotulo": "dos leads não compram",
+   "titulo": "Cada lead custou R$ 20.\n//--Cada vácuo também.--//",
+   "texto": "300 leads, 30 vendas: R$ 5.400 queimados por mês. Quanto disso o vendedor pagou? **Nada.**",
+   "tam": 68
+  },
+  {
+   "tipo": "frase",
+   "icone": "cash-off",
+   "texto": "5% sobre o faturamento:\no time leva **R$ 3.000**.\nA empresa fica com\n//--R$ 1.200.--//",
+   "assina": "Exemplo de uma confecção com 3 vendedores",
+   "tam": 84
+  },
+  {
+   "tipo": "versus",
+   "titulo": "Mesmo time.\n//Outra regra.//",
+   "tam": 84,
+   "antes": {
+    "selo": "Tradicional",
+    "titulo": "% sobre o faturamento",
+    "texto": "Vendeu, ganhou. Desconto, margem e lead queimado não são problema dele."
+   },
+   "depois": {
+    "selo": "Modelo Unique",
+    "titulo": "Margem − desperdício + bônus",
+    "texto": "Converteu 12% em vez de 10%: o time leva ==43% a mais== e a empresa, ==4,6× mais==.",
+    "img": "blog/assets/carlos-explicando.jpg",
+    "pos": "center 25%"
+   }
+  },
+  {
+   "tipo": "passos",
+   "selo": "O OTE",
+   "titulo": "A meta não é chute.\n//++É conta.++//",
+   "tam": 80,
+   "itens": [
+    {
+     "icone": "target",
+     "cor": "marinho",
+     "titulo": "Meta reversa",
+     "texto": "Cadeira + marketing + variável + o seu lucro, ÷ margem por venda"
+    },
+    {
+     "icone": "stairs-up",
+     "cor": "magenta",
+     "titulo": "Gatilho mínimo",
+     "texto": "Variável só a partir de onde ele paga a própria cadeira"
+    },
+    {
+     "icone": "trending-up",
+     "cor": "verde",
+     "titulo": "Acelerador",
+     "texto": "Paga mais só sobre o que passou da meta"
+    }
+   ],
+   "top": 560
+  },
+  {
+   "tipo": "lista",
+   "selo": "Antes de mudar",
+   "titulo": "Régua errada\n//--vira processo.--//",
+   "tam": 104,
+   "itens": [
+    {
+     "icone": "clock-exclamation",
+     "cor": "magenta",
+     "titulo": "DSR sobre comissão",
+     "texto": "O direito que quase ninguém paga"
+    },
+    {
+     "icone": "coin",
+     "cor": "marinho",
+     "titulo": "Reflexos",
+     "texto": "Férias, 13º, FGTS e INSS em cima do variável"
+    },
+    {
+     "icone": "check",
+     "cor": "verde",
+     "titulo": "Régua assinada",
+     "texto": "Com o contador e o advogado trabalhista"
+    }
+   ],
+   "nota": "Sócio do lucro ==tem que ser\nsócio do custo.=="
+  },
+  {
+   "tipo": "cta",
+   "selo": "Calculadora gratuita",
+   "titulo": "Faça a conta\n//da sua empresa.//",
+   "tam": 104,
+   "texto": "CAC, desperdício, margem, 3 modelos de comissão, OTE, bônus e checklist trabalhista. Uma pergunta por tela.",
+   "botao": "Comente CONTA",
+   "url": "sejaunique.com/quanto-custa-cada-venda"
+  }
+ ]
+}

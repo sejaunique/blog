@@ -1485,3 +1485,83 @@ Fonte da notícia: [Meio & Mensagem](https://www.meioemensagem.com.br/midia/como
 `
   }
 ];
+
+/* ---------------------------------------------------------
+   POSTS ARQUIVADOS
+   Ficam fora do blog, da home, da newsletter e do Instagram.
+   Prévia: https://sejaunique.com/blog/?previa#<slug>
+   Para publicar: mova o post para dentro de window.POSTS (com a data do dia)
+   e rode  python3 tools/gerar_paginas.py  e  python3 tools/instagram_pagina.py
+   --------------------------------------------------------- */
+window.POSTS_ARQUIVADOS = [
+  {
+    slug: "quanto-custa-cada-venda",
+    capa: "assets/capa-quanto-custa-cada-venda.jpg",
+    titulo: "Seu vendedor é sócio do lucro. ==E do custo?==",
+    data: "2026-11-19",
+    categoria: "Gestão",
+    resumo: "Comissão sobre faturamento faz o vendedor ganhar até no mês em que a empresa perde. Quanto custa cada venda, quanto você queima em leads e como montar comissão, OTE e bônus que só pagam mais quando a empresa ganha junto.",
+    texto: `
+Pergunte para o seu vendedor quanto custa a cadeira dele.
+
+Ele não sabe. E não é culpa dele: ninguém nunca mostrou essa conta.
+
+Para ele, o ar-condicionado é de graça, a internet cai do céu e o CRM é um enfeite caro. O salário cai todo dia 5, vendendo ou não. E a comissão vem em cima do faturamento, sem descontar nada.
+
+> O vendedor comissionado sobre faturamento é sócio do lucro. Mas não paga o custo.
+
+## A conta que ninguém faz
+
+Vou usar o exemplo de uma confecção de uniformes. Três vendedores, ticket médio de R$ 2.000.
+
+- Custo fixo do comercial: R$ 18.000 por mês, entre estrutura, ferramentas, salários e encargos
+- Cada cadeira custa R$ 6.000 por mês, antes da primeira venda
+- R$ 6.000 de marketing trouxeram 300 leads: R$ 20 cada um
+- 30 viraram venda. Conversão de 10%
+
+O CAC dessa empresa é **R$ 800 por venda**, antes de pagar um centavo de comissão.
+
+E os 270 leads que não compraram? São ==R$ 5.400 queimados por mês==. R$ 64.800 no ano. Quanto disso o vendedor pagou? Nada.
+
+## Faturamento não é seu dinheiro
+
+Desses R$ 2.000 de ticket, 45% vão para a produção: tecido, aviamento, costura, bordado. Mais 8% de imposto. Sobram R$ 940 de margem por venda.
+
+No mês, a margem é de R$ 28.200. Tirando estrutura e marketing, sobram R$ 4.200. E ainda falta pagar a comissão.
+
+Com 5% sobre o faturamento, o time leva R$ 3.000. A empresa fica com R$ 1.200.
+
+**O vendedor ganhou mais que o dono.**
+
+## Três jeitos de comissionar
+
+- **Tradicional:** % sobre o faturamento. Vendeu, ganhou. Desconto, margem e lead queimado não são problema dele.
+- **Sobre a margem:** a comissão sai do que sobra depois da produção e do imposto. Agora o desconto dói no bolso dele também.
+- **Modelo Unique:** sobre a margem, descontando o desperdício, com bônus quando o time bate a meta de conversão. Sócio do lucro e do custo.
+
+No exemplo, se o time converte 12% em vez de 10%, com os mesmos leads e o mesmo marketing, ele leva 43% a mais no ano. E a empresa fica com 4,6 vezes mais. ==Os dois ganham.==
+
+## OTE: a promessa
+
+OTE é quanto o vendedor ganha batendo 100% da meta: fixo mais variável. Eu gosto de 60% fixo e 40% variável.
+
+A meta não é chute. É conta: o custo da cadeira, mais o marketing que ele usa, mais o variável, mais o lucro que você quer, dividido pela margem de cada venda. No exemplo, dá 14 vendas por mês.
+
+O variável só começa a ser pago a partir do **gatilho**, o ponto em que o vendedor paga a própria cadeira. Abaixo dele, quem está pagando para ele trabalhar é você. Acima da meta, o acelerador paga mais, mas só sobre o que passou da meta.
+
+> Vendedor que é sócio do lucro tem que ser sócio do custo.
+
+## Comportamento também se paga
+
+A comissão paga a venda. O bônus paga o que faz a venda do mês que vem acontecer: CRM em dia, resposta rápida, follow-up de orçamento, pedido sem retrabalho e venda sem desconto fora da regra.
+
+## Antes de colocar para rodar
+
+Comissão integra o salário e gera reflexo em férias, 13º, FGTS e INSS. E tem um direito que quase ninguém paga: o **DSR sobre a comissão**, o descanso semanal remunerado. Régua errada vira processo. Leve a sua para o contador e para o advogado trabalhista antes de mudar qualquer coisa no time.
+
+Montei uma calculadora com tudo isso. Você coloca os números da sua empresa, uma pergunta por tela, e sai com a conta, o OTE, a régua de bônus e o checklist trabalhista.
+
+[material: Quanto custa cada venda? | Faça a conta da sua empresa e monte comissão, OTE e bônus que pagam mais só quando a empresa ganha junto. | assets/carlos-palestra-confeccoes.jpg | Custo da cadeira, CAC e leads queimados; 3 modelos de comissão no mês e no ano; OTE com meta, gatilho e acelerador; Régua de bônus de comportamento; Checklist trabalhista com DSR | Quero fazer a conta](/quanto-custa-cada-venda/)
+`
+  }
+];

@@ -22,7 +22,7 @@ Cada envio para a branch `main` é publicado automaticamente na Vercel.
 - `quanto-custa-cada-venda/index.html`: página com cabeçalho e rodapé do site e o cadastro (material `quanto-custa-cada-venda` em `api/material.js`).
 - `quanto-custa-cada-venda/app/`: a calculadora em tela cheia (uma pergunta por tela). Abre para quem já se cadastrou neste aparelho, para clientes logados e para o admin; os outros voltam para o cadastro.
 - Seções com link direto: `app/#cac`, `#comissao`, `#final`, `#ote`, `#bonificacao`, `#trabalhista`.
-- Post arquivado: `quanto-custa-cada-venda`. Carrossel: `instagram/quanto-custa-cada-venda/` (palavra CONTA).
+- Post arquivado: `quanto-custa-cada-venda`. Carrossel: `instagram/quanto-custa-cada-venda/`, estilo planilha (`tools/carrossel_planilha.py`), palavra CONTA.
 
 ## Prévia dos links (WhatsApp, Instagram, LinkedIn)
 
@@ -51,6 +51,10 @@ Gerador atual: `tools/carrossel.py`, na pegada do bloco do Alda.CRM no relatóri
 - `tools/carrossel_holerite.py`: fundo escuro com grade, holerite em papel claro com borda picotada, pontilhado até o valor e carimbo; tipos capa, soma, versus, pilares, regras, numero, cta. Gera também a capa do blog 16:9 (`capa_blog` no slides.json). Usado em `voce-paga-pela-venda`.
 
 - `tools/carrossel_cracha.py`: fundo marinho pontilhado, cada slide é um crachá de evento pendurado num cordão verde; capa com foto e etiquetas de nome; tipos capa, frase, versus, passos, chat, lista, cta. Gera a capa do blog 16:9 (`capa_blog`). Usado em `mesas-que-se-abrem` (network, isca `/mesa-aberta/`, palavra MESA).
+
+- `tools/carrossel_planilha.py`: cada slide é uma aba de planilha (.xlsx): barra de fórmula, grade com letras e números, célula selecionada com alça, gráfico inserido, comentário de célula amarelo e as abas embaixo marcando a parte do carrossel; tipos capa, tabela, grafico, versus, formula, checklist, cta. Usado em `quanto-custa-cada-venda` (palavra CONTA).
+
+**Regra do Carlos (19/11): nenhum carrossel repete o estilo de outro.** Cada carrossel novo ganha um gerador novo, com conceito ligado ao tema; só as cores e a tipografia da Unique se mantêm.
 
 Modelo APROVADO pelo Carlos em 11/10: carrossel da Dra. Laura Scher (maslow-e-o-poder-da-imagem). Todos os próximos carrosséis seguem este gerador. Máximo de 2 fotos por carrossel.
 

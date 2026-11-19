@@ -1,141 +1,304 @@
 {
  "legenda": "Pergunte para o seu vendedor quanto custa a cadeira dele.\n\nEle não sabe. Ninguém nunca mostrou essa conta.\n\nNuma confecção com 3 vendedores e ticket de R$ 2.000:\n• Cada cadeira custa R$ 6.000 por mês, antes da primeira venda\n• Cada lead custa R$ 20\n• 270 de 300 leads não compram: R$ 64.800 queimados no ano\n\nE com 5% sobre o faturamento, o time leva R$ 3.000 e a empresa fica com R$ 1.200.\n\nO vendedor ganhou mais que o dono.\n\nO vendedor comissionado sobre faturamento é sócio do lucro. Mas não paga o custo.\n\nO caminho:\n1. Comissão sobre a margem, não sobre o faturamento\n2. Meta calculada de trás para frente, com gatilho mínimo\n3. Acelerador só sobre o que passou da meta\n4. Bônus para o comportamento que faz a venda do mês que vem\n\nE antes de mudar: DSR sobre comissão. Régua errada vira processo.\n\nMontei uma calculadora para você fazer a conta da sua empresa. Comente CONTA que eu te mando o link. 👇\n\n#vendas #comissao #remuneracaovariavel #gestaocomercial #confeccao #uniformes #consultoriadevendas #sejaunique",
+ "abas": [
+  "Capa",
+  "Cadeira",
+  "Leads",
+  "Margem",
+  "Regra",
+  "OTE",
+  "CLT",
+  "Conta"
+ ],
  "slides": [
   {
    "tipo": "capa",
+   "ref": "B2",
+   "formula": "=LUCRO_DO_VENDEDOR − CUSTO_DO_VENDEDOR",
+   "cor_aba": "magenta",
    "selo": "Comissão e OTE",
-   "nome": "Carlos Ribeiro",
-   "local": "Unique · Confecções",
-   "img": "blog/assets/carlos-palestra-confeccoes.jpg",
-   "pos": "center 30%",
-   "destaque": "64,8 mil",
-   "destaque_tx": "reais queimados em\nleads em um ano",
+   "erro": "#CUSTO!",
    "titulo": "Sócio do lucro.\n//--Não do custo.--//",
-   "texto": "Seu vendedor ganha em cima do faturamento. ==Quem paga a conta é você.==",
-   "tam": 100
+   "tam": 128,
+   "destaque": "R$ 64.800",
+   "destaque_tx": "queimados em leads em um ano",
+   "nota": "A planilha que o seu vendedor ==nunca viu==.",
+   "nota_autor": "Comentário · Carlos Ribeiro",
+   "img": "blog/assets/carlos-palestra-confeccoes.jpg",
+   "pos": "center 30%"
   },
   {
-   "tipo": "lista",
-   "selo": "O que ele não vê",
+   "tipo": "tabela",
+   "ref": "H11",
+   "formula": "=SOMA(F4:F9) / 3 vendedores",
    "titulo": "A cadeira dele\n//tem preço.//",
-   "tam": 104,
-   "itens": [
+   "tam": 96,
+   "linhas": [
     {
-     "icone": "users",
-     "cor": "marinho",
-     "titulo": "Salário e encargos",
-     "texto": "Cai todo dia 5, vendendo ou não"
+     "rotulo": "Estrutura: sala, energia, internet",
+     "valor": "R$ 3.000"
     },
     {
-     "icone": "database",
-     "cor": "claro",
-     "titulo": "CRM e ferramentas",
-     "texto": "Pago todo mês, atualizado quase nunca"
+     "rotulo": "CRM, WhatsApp e softwares",
+     "valor": "R$ 800"
     },
     {
-     "icone": "coin",
-     "cor": "magenta",
-     "titulo": "Estrutura",
-     "texto": "Sala, energia, internet e café"
+     "rotulo": "Computador e celular",
+     "valor": "R$ 600"
+    },
+    {
+     "rotulo": "Salários fixos",
+     "valor": "R$ 7.500"
+    },
+    {
+     "rotulo": "Encargos e benefícios",
+     "valor": "R$ 4.500"
+    },
+    {
+     "rotulo": "Contador e outros",
+     "valor": "R$ 1.600"
+    },
+    {
+     "rotulo": "Custo fixo do comercial",
+     "valor": "R$ 18.000",
+     "forte": true
+    },
+    {
+     "rotulo": "Por cadeira, todo mês",
+     "valor": "R$ 6.000",
+     "forte": true,
+     "sel": true,
+     "cor": "magenta"
     }
    ],
-   "nota": "Cada cadeira custa ==R$ 6.000 por mês.==\nAntes da primeira venda."
+   "nota": "Antes do ==primeiro uniforme== vendido.",
+   "nota_linha": 13,
+   "nota_x": 470,
+   "nota_w": 540
   },
   {
-   "tipo": "numero",
-   "selo": "O desperdício",
-   "pct": 90,
-   "rotulo": "dos leads não compram",
-   "titulo": "Cada lead custou R$ 20.\n//--Cada vácuo também.--//",
-   "texto": "300 leads, 30 vendas: R$ 5.400 queimados por mês. Quanto disso o vendedor pagou? **Nada.**",
-   "tam": 68
+   "tipo": "grafico",
+   "ref": "C9",
+   "formula": "=R$ 6.000 / 300 leads  →  R$ 20 por lead",
+   "cor_aba": "magenta",
+   "titulo": "Cada lead: R$ 20.\n//--Cada vácuo também.--//",
+   "tam": 96,
+   "grafico": "Leads do mês",
+   "barras": [
+    {
+     "nome": "Chegaram",
+     "valor": 300,
+     "cor": "marinho"
+    },
+    {
+     "nome": "Compraram",
+     "valor": 30,
+     "cor": "verde"
+    },
+    {
+     "nome": "Sumiram",
+     "valor": 270,
+     "cor": "magenta"
+    }
+   ],
+   "nota": "R$ 5.400 queimados por mês. Quanto disso o vendedor pagou? **Nada.**",
+   "nota_linha": 12,
+   "nota_x": 330,
+   "nota_w": 680
   },
   {
-   "tipo": "frase",
-   "icone": "cash-off",
-   "texto": "5% sobre o faturamento:\no time leva **R$ 3.000**.\nA empresa fica com\n//--R$ 1.200.--//",
-   "assina": "Exemplo de uma confecção com 3 vendedores",
-   "tam": 84
+   "tipo": "tabela",
+   "ref": "H10",
+   "formula": "=F8 − F9",
+   "cor_aba": "magenta",
+   "titulo": "5% parece pouco.\n//Até a última linha.//",
+   "tam": 92,
+   "linhas": [
+    {
+     "rotulo": "Faturamento: 30 vendas × R$ 2.000",
+     "valor": "R$ 60.000"
+    },
+    {
+     "rotulo": "Produção (45%)",
+     "valor": "− R$ 27.000"
+    },
+    {
+     "rotulo": "Impostos (8%)",
+     "valor": "− R$ 4.800"
+    },
+    {
+     "rotulo": "Estrutura e marketing",
+     "valor": "− R$ 24.000"
+    },
+    {
+     "rotulo": "Sobra antes da comissão",
+     "valor": "R$ 4.200",
+     "forte": true
+    },
+    {
+     "rotulo": "Comissão: 5% do faturamento",
+     "valor": "− R$ 3.000",
+     "cor": "magenta"
+    },
+    {
+     "rotulo": "A empresa fica com",
+     "valor": "R$ 1.200",
+     "forte": true,
+     "sel": true,
+     "cor": "magenta"
+    }
+   ],
+   "nota": "O vendedor ganhou ==mais que o dono==.",
+   "nota_linha": 12,
+   "nota_x": 470,
+   "nota_w": 540
   },
   {
    "tipo": "versus",
-   "titulo": "Mesmo time.\n//Outra regra.//",
-   "tam": 84,
-   "antes": {
-    "selo": "Tradicional",
-    "titulo": "% sobre o faturamento",
-    "texto": "Vendeu, ganhou. Desconto, margem e lead queimado não são problema dele."
-   },
-   "depois": {
-    "selo": "Modelo Unique",
-    "titulo": "Margem − desperdício + bônus",
-    "texto": "Converteu 12% em vez de 10%: o time leva ==43% a mais== e a empresa, ==4,6× mais==.",
-    "img": "blog/assets/carlos-explicando.jpg",
-    "pos": "center 25%"
-   }
-  },
-  {
-   "tipo": "passos",
-   "selo": "O OTE",
-   "titulo": "A meta não é chute.\n//++É conta.++//",
-   "tam": 80,
-   "itens": [
+   "ref": "H9",
+   "formula": "=SE(conversão ≥ 12%; bônus; 0)",
+   "cor_aba": "verde",
+   "titulo": "Mesmo time.\n//++Outra regra.++//",
+   "tam": 104,
+   "colunas": [
+    "Tradicional",
+    "Modelo Unique"
+   ],
+   "linhas": [
     {
-     "icone": "target",
-     "cor": "marinho",
-     "titulo": "Meta reversa",
-     "texto": "Cadeira + marketing + variável + o seu lucro, ÷ margem por venda"
+     "rotulo": "Paga sobre",
+     "a": "Faturamento",
+     "b": "Margem − desperdício"
     },
     {
-     "icone": "stairs-up",
-     "cor": "magenta",
-     "titulo": "Gatilho mínimo",
-     "texto": "Variável só a partir de onde ele paga a própria cadeira"
+     "rotulo": "Bônus",
+     "a": "Não tem",
+     "b": "Se converter 12%"
     },
     {
-     "icone": "trending-up",
-     "cor": "verde",
-     "titulo": "Acelerador",
-     "texto": "Paga mais só sobre o que passou da meta"
+     "rotulo": "Time no ano",
+     "a": "R$ 36.000",
+     "b": "R$ 51.552",
+     "peso": 800,
+     "tam": 30
+    },
+    {
+     "rotulo": "Empresa no ano",
+     "a": "R$ 14.400",
+     "b": "R$ 66.528",
+     "peso": 900,
+     "tam": 34,
+     "sel": true
     }
    ],
-   "top": 560
+   "nota": "Mesmos leads, mesmo marketing. O time leva ==43% a mais==. A empresa, ==4,6× mais==.",
+   "nota_linha": 10,
+   "nota_x": 90,
+   "nota_w": 900
   },
   {
-   "tipo": "lista",
-   "selo": "Antes de mudar",
+   "tipo": "formula",
+   "ref": "H9",
+   "formula": "=(CADEIRA + MKT + VARIÁVEL + LUCRO) / MARGEM",
+   "titulo": "A meta não é chute.\n//++É conta.++//",
+   "tam": 92,
+   "parcelas": [
+    {
+     "op": " ",
+     "rotulo": "Custo da cadeira",
+     "valor": "R$ 6.000"
+    },
+    {
+     "op": "+",
+     "rotulo": "Marketing que ele usa",
+     "valor": "R$ 2.000"
+    },
+    {
+     "op": "+",
+     "rotulo": "Variável no alvo (OTE 60/40)",
+     "valor": "R$ 1.600"
+    },
+    {
+     "op": "+",
+     "rotulo": "O lucro que você quer",
+     "valor": "R$ 3.000"
+    },
+    {
+     "op": "÷",
+     "rotulo": "Margem por venda",
+     "valor": "R$ 940"
+    }
+   ],
+   "resultado_rotulo": "Meta por vendedor",
+   "resultado": "14 vendas",
+   "extras": [
+    {
+     "rotulo": "Gatilho: 9",
+     "texto": "Abaixo disso, só o fixo. Ele ainda não pagou a cadeira.",
+     "cor": "magenta"
+    },
+    {
+     "rotulo": "Acelerador",
+     "texto": "Paga mais só sobre o que passou da meta.",
+     "cor": "verde"
+    }
+   ]
+  },
+  {
+   "tipo": "checklist",
+   "ref": "H4",
+   "formula": "=SE(DSR_PAGO; \"ok\"; \"processo\")",
+   "cor_aba": "magenta",
    "titulo": "Régua errada\n//--vira processo.--//",
    "tam": 104,
    "itens": [
     {
-     "icone": "clock-exclamation",
-     "cor": "magenta",
-     "titulo": "DSR sobre comissão",
-     "texto": "O direito que quase ninguém paga"
+     "titulo": "DSR sobre a comissão",
+     "texto": "O descanso semanal remunerado que quase ninguém paga",
+     "ok": false,
+     "sel": true
     },
     {
-     "icone": "coin",
-     "cor": "marinho",
-     "titulo": "Reflexos",
-     "texto": "Férias, 13º, FGTS e INSS em cima do variável"
+     "titulo": "Reflexo em férias e 13º",
+     "texto": "Comissão integra o salário: FGTS e INSS também",
+     "ok": false
     },
     {
-     "icone": "check",
-     "cor": "verde",
-     "titulo": "Régua assinada",
-     "texto": "Com o contador e o advogado trabalhista"
+     "titulo": "Régua escrita e assinada",
+     "texto": "Quem apura, quando paga, o que acontece no desligamento",
+     "ok": false
+    },
+    {
+     "titulo": "Validada com contador e advogado",
+     "texto": "Antes de mudar qualquer coisa no time",
+     "ok": false
     }
    ],
-   "nota": "Sócio do lucro ==tem que ser\nsócio do custo.=="
+   "nota": "Sócio do lucro ==tem que ser sócio do custo==.",
+   "nota_linha": 13,
+   "nota_x": 330,
+   "nota_w": 680
   },
   {
    "tipo": "cta",
-   "selo": "Calculadora gratuita",
+   "ref": "B11",
+   "formula": "=FAÇA_A_CONTA(sua_empresa)",
+   "cor_aba": "verde",
    "titulo": "Faça a conta\n//da sua empresa.//",
    "tam": 104,
-   "texto": "CAC, desperdício, margem, 3 modelos de comissão, OTE, bônus e checklist trabalhista. Uma pergunta por tela.",
+   "itens": [
+    "Custo da cadeira e CAC",
+    "Leads queimados e margem",
+    "3 modelos de comissão",
+    "OTE com meta, gatilho e curva",
+    "Régua de bônus de comportamento"
+   ],
    "botao": "Comente CONTA",
-   "url": "sejaunique.com/quanto-custa-cada-venda"
+   "url": "ou acesse sejaunique.com/quanto-custa-cada-venda",
+   "nota": "Calculadora gratuita. Uma pergunta por tela.",
+   "nota_x": 90,
+   "nota_w": 620,
+   "nota_linha": 13
   }
  ]
 }

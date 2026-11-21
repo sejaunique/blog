@@ -82,6 +82,7 @@ body.vg-app{background:var(--soft);min-height:100vh;display:block}
 .cand .contato a{color:var(--fg);font-weight:600}
 .cand .selos{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 0}
 .cand .resp{white-space:pre-wrap;font-size:.94rem;line-height:1.65;margin:14px 0 0;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
+.cand .resp b.perg{display:block;font-size:.78rem;letter-spacing:.02em;color:var(--muted);font-weight:700;margin-bottom:-14px}
 .cand .resp.aberta{display:block;-webkit-line-clamp:unset}
 .cand .mais{font:inherit;font-size:.8rem;font-weight:700;background:none;border:0;padding:6px 0 0;cursor:pointer;color:var(--fg);text-decoration:underline}
 .cand video,.cand iframe{width:100%;border-radius:14px;background:#000;aspect-ratio:16/9;border:0}
@@ -340,6 +341,9 @@ function aplicaAnalogia(nova){
   troca('beneficios',ant&&ant.beneficios,an.beneficios.slice());
   troca('desafio_video',ant&&ant.desafio,an.desafio);
   troca('encerramento',ant&&ant.encerramento,an.encerramento);
+  troca('frase',ant&&ant.frase,an.frase);
+  troca('pergunta3',ant&&ant.pergunta3,an.pergunta3);
+  if(!V.pergunta2) V.pergunta2=VG.P2;
   if(!V.subtitulo) V.subtitulo=VG.SUB;
   if(!V.titulo||(ant&&(V.titulo===ant.pergunta||V.titulo===ant.titulo(V.cargo_real)))) V.titulo=an.pergunta;
 }
@@ -357,7 +361,7 @@ async function editor(id){
     V=r.data; var s=await sb.from('vg_segredos').select('palavra').eq('vaga_id',id).maybeSingle(); PAL=(s.data&&s.data.palavra)||'';
   } else {
     V={empresa_id:EMP.id,status:'rascunho',empresa_nome:EMP.nome,empresa_sobre:EMP.sobre||sobrePadrao(),empresa_logo:EMP.logo_url||'',cidade:EMP.cidade||'',
-      analogia:'',cargo_real:'',titulo:'',promessa:'',tarefas:[],perfil:'',perfil_lista:[],local:EMP.cidade||'',horario:'Segunda a sexta, das 8h às 18h',modelo:'Presencial',
+      analogia:'',cargo_real:'',titulo:'',promessa:'',tarefas:[],perfil:'',perfil_lista:[],local:EMP.cidade||'',horario:'Segunda a sexta, das 8h às 18h',modelo:'Presencial',contratacao:'CLT',
       beneficios:[],remun_tipo:'escadinha',remun_texto:'',escadinha:[1500,1600,1700],remun_final:2500,video_url:'',desafio_video:'',palavra_onde:'perfil',min_caracteres:300,slug:''};
     PAL=VG.palavra();
     aplicaAnalogia('atleta');
@@ -447,10 +451,11 @@ var PASSOS={
       campo('Título principal','f-tit',V.titulo,'Ex.: Você tem mente de atleta?')+
       campo('Subtítulo','f-sub',V.subtitulo,VG.SUB)+
       area('Texto de abertura (promessa lúdica)','f-prom',V.promessa||(an?an.promessa:''))+
+      campo('Frase de impacto (aparece grande sobre a foto)','f-frase',V.frase,an?an.frase:'')+
       (an?'<button type="button" class="btn sm" id="breg">↺ Voltar aos textos da analogia</button>':'');
-    var b=document.getElementById('breg'); if(b) b.onclick=function(){ document.getElementById('f-tit').value=an.pergunta; document.getElementById('f-sub').value=VG.SUB; document.getElementById('f-prom').value=an.promessa; };
+    var b=document.getElementById('breg'); if(b) b.onclick=function(){ document.getElementById('f-tit').value=an.pergunta; document.getElementById('f-sub').value=VG.SUB; document.getElementById('f-prom').value=an.promessa; document.getElementById('f-frase').value=an.frase; };
     document.getElementById('f-prom').style.minHeight='180px';
-    COL=function(){ V.titulo=val('f-tit'); V.subtitulo=val('f-sub'); V.promessa=val('f-prom'); };
+    COL=function(){ V.titulo=val('f-tit'); V.subtitulo=val('f-sub'); V.promessa=val('f-prom'); V.frase=val('f-frase'); };
   },
   tarefas:function(p){
     p.innerHTML='<h2>Tradução técnica</h2><p class="ajuda">Agora traduza a analogia em <b>tarefas concretas do dia a dia</b>. Quem leu a promessa precisa entender exatamente o que vai fazer.</p>'+
@@ -470,7 +475,7 @@ var PASSOS={
     ligaLista('l-perf','Ex.: Sente agonia ao ver um post-it parado na parede'); ligaSug('l-perf'); document.getElementById('f-perf').style.minHeight='220px';
     function mostra(){
       var o=V.palavra_onde; document.getElementById('pal-box').hidden=o==='nenhuma';
-      document.getElementById('pal-ex').innerHTML=o==='perfil'?'Vai aparecer no meio do perfil: <i>"Se você leu até aqui, escreva a palavra <b>'+esc(val('f-pal')||'…')+'</b> em algum lugar da sua resposta."</i>':
+      document.getElementById('pal-ex').innerHTML=o==='perfil'?'Vai aparecer no meio do perfil: <i>"Um detalhe para quem lê com atenção: quando for responder à primeira pergunta do formulário, comece a sua resposta com a palavra <b>'+esc(val('f-pal')||'…')+'</b>."</i>':
         'Fale no vídeo da vaga (por exemplo, perto do minuto 18): <i>"Quem chegou até aqui, escreva a palavra <b>'+esc(val('f-pal')||'…')+'</b> na resposta."</i> Ela não aparece escrita na página.';
     }
     p.querySelectorAll('#o-pal button').forEach(function(b){ b.onclick=function(){ V.palavra_onde=b.dataset.v; p.querySelectorAll('#o-pal button').forEach(function(x){x.setAttribute('aria-pressed',x===b);}); mostra(); }; });
@@ -480,8 +485,10 @@ var PASSOS={
   rotina:function(p){
     p.innerHTML='<h2>Responsabilidades e rotina</h2><p class="ajuda">Onde, quando e como. Sem surpresa depois da contratação.</p>'+
       '<div class="opcoes" id="o-mod">'+['Presencial','Híbrido','Remoto','Externo'].map(function(m){return '<button type="button" data-v="'+m+'" aria-pressed="'+(V.modelo===m)+'">'+m+'</button>';}).join('')+'</div>'+
+      '<label style="font-size:.78rem;font-weight:600;display:block;margin:4px 0 8px">Contratação</label><div class="opcoes" id="o-ct" style="margin-bottom:18px">'+['CLT','PJ','Estágio','Freelancer','A combinar'].map(function(m){return '<button type="button" data-v="'+m+'" aria-pressed="'+((V.contratacao||'CLT')===m)+'">'+m+'</button>';}).join('')+'</div>'+
       campo('Local','f-loc',V.local,'Ex.: Setor Bueno, Goiânia')+campo('Horário','f-hor',V.horario,'Ex.: Segunda a sexta, 8h às 18h · sábado até 12h');
     p.querySelectorAll('#o-mod button').forEach(function(b){ b.onclick=function(){ V.modelo=b.dataset.v; p.querySelectorAll('#o-mod button').forEach(function(x){x.setAttribute('aria-pressed',x===b);}); }; });
+    p.querySelectorAll('#o-ct button').forEach(function(b){ b.onclick=function(){ V.contratacao=b.dataset.v; p.querySelectorAll('#o-ct button').forEach(function(x){x.setAttribute('aria-pressed',x===b);}); }; });
     COL=function(){ V.local=val('f-loc'); V.horario=val('f-hor'); };
   },
   beneficios:function(p){
@@ -520,11 +527,14 @@ var PASSOS={
     };
   },
   filtros:function(p){
-    p.innerHTML='<h2>Vídeo da vaga e filtros</h2><p class="ajuda">A pergunta <b>"Por que esta vaga deve ser sua?"</b> substitui o currículo. O envio do vídeo só libera depois que o candidato responde.</p>'+
+    var an=A[V.analogia]||{};
+    p.innerHTML='<h2>Perguntas, vídeo e filtros</h2><p class="ajuda">Três perguntas substituem o currículo. O envio do vídeo (etapa 2) só libera depois que o candidato responde.</p>'+
+      '<div class="campo"><label>Pergunta 1 (fixa)</label><input value="'+esc(VG.P1)+'" disabled></div>'+
+      campo('Pergunta 2','f-p2',V.pergunta2||VG.P2)+campo('Pergunta 3','f-p3',V.pergunta3||an.pergunta3||'')+
       campo('Vídeo da vaga no YouTube (opcional)','f-vid',V.video_url,'https://youtube.com/watch?v=…')+
       area('Desafio em vídeo para o candidato','f-des',V.desafio_video,'Ex.: Grave um vídeo de até 2 minutos me vendendo uma caneta como se fosse o último produto da loja.')+
       '<div class="campo"><label for="f-min">Tamanho mínimo da resposta (caracteres)</label><input id="f-min" type="number" min="0" max="2000" step="50" value="'+esc(V.min_caracteres==null?300:V.min_caracteres)+'"></div>';
-    COL=function(){ V.video_url=val('f-vid'); V.desafio_video=val('f-des'); V.min_caracteres=Math.min(2000,Math.max(0,+val('f-min')||0)); };
+    COL=function(){ V.pergunta2=val('f-p2'); V.pergunta3=val('f-p3'); V.video_url=val('f-vid'); V.desafio_video=val('f-des'); V.min_caracteres=Math.min(2000,Math.max(0,+val('f-min')||0)); };
   },
   publicar:function(p){
     if(!V.slug) V.slug=VG.slugify((V.empresa_nome||'')+'-'+(V.cargo_real||V.titulo||'vaga'));
@@ -546,8 +556,8 @@ var PASSOS={
 
 async function salvar(fim){
   if(!V.slug) V.slug=VG.slugify((V.empresa_nome||'')+'-'+(V.cargo_real||V.titulo||'vaga'))||('vaga-'+Date.now().toString(36));
-  V.palavra_dica=(V.palavra_onde==='perfil'&&PAL)?'Se você leu até aqui, escreva a palavra '+PAL+' em algum lugar da sua resposta.':'';
-  var d={}; ['empresa_id','slug','status','empresa_nome','empresa_sobre','empresa_logo','cidade','cargo_real','analogia','titulo','subtitulo','encerramento','promessa','tarefas','perfil','perfil_lista','local','horario','modelo','beneficios','remun_tipo','remun_texto','escadinha','remun_final','video_url','desafio_video','palavra_onde','palavra_dica','min_caracteres'].forEach(function(k){ d[k]=V[k]; });
+  V.palavra_dica=(V.palavra_onde==='perfil'&&PAL)?'Um detalhe para quem lê com atenção: quando for responder à primeira pergunta do formulário, comece a sua resposta com a palavra '+PAL+'. Quem chegou até aqui vai entender o porquê.':'';
+  var d={}; ['empresa_id','slug','status','empresa_nome','empresa_sobre','empresa_logo','cidade','cargo_real','analogia','titulo','subtitulo','encerramento','frase','contratacao','pergunta2','pergunta3','promessa','tarefas','perfil','perfil_lista','local','horario','modelo','beneficios','remun_tipo','remun_texto','escadinha','remun_final','video_url','desafio_video','palavra_onde','palavra_dica','min_caracteres'].forEach(function(k){ d[k]=V[k]; });
   if(!d.titulo) d.titulo=V.analogia?A[V.analogia].pergunta:(V.cargo_real||'Nova vaga');
   if(!V.id){
     var livre=await sb.rpc('vg_slug_livre',{s:d.slug});
@@ -578,7 +588,7 @@ async function salvar(fim){
 var FILTRO='todos', BUSCA='';
 async function candidatos(id){
   h('<p class="muted">Carregando candidatos…</p>');
-  var v=await sb.from('vg_vagas').select('id,slug,titulo,status,palavra_onde,cargo_real').eq('id',id).single();
+  var v=await sb.from('vg_vagas').select('id,slug,titulo,status,palavra_onde,cargo_real,analogia,pergunta2,pergunta3').eq('id',id).single();
   if(v.error){ location.hash='#/'; return; }
   var seg=await sb.from('vg_segredos').select('palavra').eq('vaga_id',id).maybeSingle();
   var palavra=(seg.data&&seg.data.palavra)||'';
@@ -614,12 +624,14 @@ async function candidatos(id){
     var yt=VG.ytId(c.video_link), vid=c.video_path&&URLS[c.video_path]?'<video controls preload="metadata" src="'+esc(URLS[c.video_path])+'"></video>':
       (yt?'<iframe src="https://www.youtube-nocookie.com/embed/'+yt+'" allowfullscreen loading="lazy"></iframe>':(c.video_link?'<a class="btn sm" target="_blank" rel="noopener" href="'+esc(c.video_link)+'">🎥 Abrir vídeo ↗</a>':'<div class="sem-video">Sem vídeo</div>'));
     var data=new Date(c.created_at).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
-    var longa=String(c.resposta||'').length>420;
+    var an=A[v.data.analogia]||{}, P=[VG.P1,v.data.pergunta2||VG.P2,v.data.pergunta3||an.pergunta3||'Pergunta 3'];
+    var resp=[c.resposta,c.resposta2,c.resposta3].map(function(t,i){ return t?'<b class="perg">'+(i+1)+'. '+esc(P[i])+'</b>\n'+esc(t):''; }).filter(Boolean).join('\n\n');
+    var longa=resp.length>420;
     return '<article class="card cand" data-id="'+c.id+'"><div>'+
       '<div class="quem"><span class="ava'+(c.atento?' ok':'')+'">'+esc(iniciais(c.nome))+'</span><div><h3>'+esc(c.nome)+'</h3><div class="contato">'+
       (c.whatsapp?'<a target="_blank" rel="noopener" href="'+VG.zap(c.whatsapp)+'">WhatsApp '+esc(c.whatsapp)+'</a>':'')+(c.email?'<a href="mailto:'+esc(c.email)+'">'+esc(c.email)+'</a>':'')+(c.cidade?'<span>'+esc(c.cidade)+'</span>':'')+'<span>'+data+'</span></div></div></div>'+
       '<div class="selos">'+(c.atento?'<span class="vg-pill ok">✓ Leu até o fim</span>':(v.data.palavra_onde!=='nenhuma'?'<span class="vg-pill">Não achou a palavra</span>':''))+(temVid(c)?'<span class="vg-pill">🎥 Vídeo</span>':'')+'</div>'+
-      '<p class="resp">'+esc(c.resposta)+'</p>'+(longa?'<button type="button" class="mais">Ler resposta completa</button>':'')+'</div>'+
+      '<p class="resp">'+resp+'</p>'+(longa?'<button type="button" class="mais">Ler resposta completa</button>':'')+'</div>'+
       '<div class="lado">'+vid+'<label class="mini">Etapa</label><select data-k="status">'+['novo','triagem','entrevista','aprovado','recusado'].map(function(s){return '<option value="'+s+'"'+(c.status===s?' selected':'')+'>'+ROT[s]+'</option>';}).join('')+'</select>'+
       '<label class="mini">Sua nota</label><div class="estrelas">'+[1,2,3,4,5].map(function(i){return '<button type="button" aria-label="Nota '+i+'" data-nota="'+i+'" class="'+((c.nota||0)>=i?'on':'')+'">★</button>';}).join('')+'</div>'+
       '<textarea data-k="obs" placeholder="Anotações sobre este candidato">'+esc(c.obs||'')+'</textarea></div></article>';
@@ -653,7 +665,7 @@ async function candidatos(id){
     VG.toast(novo==='encerrada'?'Vaga encerrada':'Vaga reaberta'); candidatos(id);
   };
   document.getElementById('bcsv').onclick=function(){
-    var cols=['nome','whatsapp','email','cidade','atento','status','nota','resposta','video_link','obs','created_at'];
+    var cols=['nome','whatsapp','email','cidade','atento','status','nota','resposta','resposta2','resposta3','video_link','obs','created_at'];
     var q=function(s){ return '"'+String(s==null?'':s).replace(/"/g,'""')+'"'; };
     var csv='﻿'+cols.join(';')+'\n'+C.map(function(c){ return cols.map(function(k){ return q(k==='atento'?(c.atento?'sim':'não'):k==='status'?ROT[c.status]:c[k]); }).join(';'); }).join('\n');
     var a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})); a.download='candidatos-'+v.data.slug+'.csv'; a.click();

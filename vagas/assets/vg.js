@@ -6,9 +6,13 @@
   var sb=window.supabase.createClient(URL_SB,CHAVE,{auth:{persistSession:true,storageKey:'vg_sessao'}});
 
   var SUB='A **{empresa}** está contratando um(a) **{cargo}** para o nosso time.';
+  var P1='Por que essa vaga deve ser sua?', P2='O que mais te impactou no descritivo dessa vaga?';
   var ANALOGIAS={
     atleta:{
-      nome:'Atleta', emoji:'🏃', cor:'#00e676',
+      nome:'Atleta', emoji:'🏃', cor:'#ff5b1f',
+      fotos:['atleta-1','atleta-2','atleta-3'],
+      frase:'Não é sobre a largada. É sobre quem ainda está correndo no quilômetro 30.',
+      pergunta3:'Qual foi a venda (ou conquista) mais desafiadora da sua vida — e como você venceu?',
       resumo:'Para quem vive de meta, treino e placar.',
       pergunta:'Você tem mente de atleta?',
       titulo:function(c){return 'Atleta de alta performance'+(c?' · '+c:'');},
@@ -22,6 +26,9 @@
     },
     lapidador:{
       nome:'Lapidário de diamantes', emoji:'💎', cor:'#ff2e88',
+      fotos:['lapidario-1','lapidario-2','lapidario-3'],
+      frase:'Todo diamante já foi uma pedra bruta. A diferença está em quem teve paciência para lapidar.',
+      pergunta3:'Conte uma conversa que parecia perdida e que você transformou em venda. O que você fez?',
       resumo:'Closer, SDR e social selling: primeiro atendimento e primeira venda.',
       pergunta:'Você transforma conversa em venda?',
       titulo:function(c){return 'Lapidário(a) de diamantes'+(c?' · '+c:'');},
@@ -35,6 +42,9 @@
     },
     explorador:{
       nome:'Desbravador', emoji:'🧭', cor:'#ffb020',
+      fotos:['desbravador-1','desbravador-2','desbravador-3'],
+      frase:'O caminho não existe. Ele aparece quando alguém tem coragem de andar.',
+      pergunta3:'Conte a vez em que você abriu uma porta que todo mundo dizia que estava fechada.',
       resumo:'Hunter de prospecção pesada: abre caminho onde ninguém passou.',
       pergunta:'Você abre caminho onde ninguém passou?',
       titulo:function(c){return 'Desbravador(a) de mercado'+(c?' · '+c:'');},
@@ -47,7 +57,10 @@
       desafio:'Grave um vídeo de até 2 minutos fazendo uma abordagem fria: você ligou para um dono de empresa que nunca ouviu falar da gente. Como você abre essa conversa?'
     },
     estrategista:{
-      nome:'Estrategista', emoji:'♟️', cor:'#2f6bff',
+      nome:'Estrategista', emoji:'♟️', cor:'#3b82f6',
+      fotos:['estrategista-1','estrategista-2','estrategista-3'],
+      frase:'Quem pensa uma jogada à frente vence a partida. Quem pensa três, vence o campeonato.',
+      pergunta3:'Qual foi a negociação mais complexa que você conduziu — e qual foi a jogada decisiva?',
       resumo:'Xadrez de alto ticket: conduz negócios grandes e vendas complexas.',
       pergunta:'Você pensa três jogadas à frente?',
       titulo:function(c){return 'Estrategista de negócios'+(c?' · '+c:'');},
@@ -60,7 +73,10 @@
       desafio:'Grave um vídeo de até 2 minutos contando a maior venda (ou negociação) que você já conduziu: quem estava envolvido, o que estava em jogo e como você fechou.'
     },
     tecnico:{
-      nome:'Técnico', emoji:'📋', cor:'#7c4dff',
+      nome:'Técnico', emoji:'📋', cor:'#8b5cf6',
+      fotos:['atleta-2','atleta-1','atleta-3'],
+      frase:'Nenhum time é campeão por acaso. Por trás dele, sempre tem um técnico.',
+      pergunta3:'Conte a vez em que você fez uma pessoa do seu time sair do pior momento para o melhor resultado.',
       resumo:'Treinador do time: supervisor ou diretor de vendas.',
       pergunta:'Você faz o time jogar melhor?',
       titulo:function(c){return 'Técnico(a) do time comercial'+(c?' · '+c:'');},
@@ -107,5 +123,5 @@
     return m||'Algo deu errado. Tente de novo.';
   }
 
-  window.VG={SUB:SUB,texto:texto,palavra:palavra,URL:URL_SB,CHAVE:CHAVE,sb:sb,ANALOGIAS:ANALOGIAS,esc:esc,slugify:slugify,brl:brl,ytId:ytId,zap:zap,toast:toast,erroPt:erroPt};
+  window.VG={P1:P1,P2:P2,SUB:SUB,texto:texto,palavra:palavra,URL:URL_SB,CHAVE:CHAVE,sb:sb,ANALOGIAS:ANALOGIAS,esc:esc,slugify:slugify,brl:brl,ytId:ytId,zap:zap,toast:toast,erroPt:erroPt};
 })();

@@ -61,6 +61,57 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 
 window.POSTS = [
   {
+    slug: "estoque-parado",
+    titulo: "Estoque parado é ==dinheiro dormindo==",
+    data: "2026-11-21",
+    categoria: "Estratégia",
+    resumo: "Antes do desconto, o diagnóstico. A idade do estoque e o motivo do encalhe dizem qual é a ação certa. Com semáforo, frentes de ação e plano de 30 dias.",
+    texto: `
+Estoque parado não é patrimônio. É ==custo que corre todo mês==: dinheiro empatado, espaço ocupado, seguro, desvalorização.
+
+E a primeira reação de quase todo dono é a mesma: dar desconto. Só que desconto sem diagnóstico queima margem e, muitas vezes, nem resolve.
+
+> Antes do desconto, o diagnóstico.
+
+## Cada segmento encalha de um jeito
+
+- **Indústria:** lote produzido acima da demanda
+- **Atacado:** compra grande feita na promoção do fornecedor
+- **Confecção:** grade quebrada e coleção passada
+
+O motivo do encalhe muda a ação. Grade quebrada não se resolve igual a lote grande demais.
+
+## O semáforo do estoque
+
+Separe tudo pelo tempo sem saída:
+
+- **60 a 90 dias: atenção.** Ainda dá para girar com ação comercial simples.
+- **90 a 180 dias: alerta.** Precisa de oferta com condição e prazo.
+- **Mais de 180 dias: queima.** Cada mês parado custa mais do que o desconto.
+
+## Do mais barato ao último recurso
+
+A ordem importa. Comece pelas ações que não mexem na margem: oferecer para a base que já compra, montar kits, ativar o time comercial com meta específica de giro. O desconto agressivo é o ==último recurso==, não o primeiro.
+
+E faça a conta antes de decidir: quanto custa manter esse estoque por mais um mês? Às vezes o desconto de hoje sai mais barato do que segurar.
+
+## O plano de 30 dias
+
+- **Semana 1:** raio-x e semáforo
+- **Semana 2:** ações na base e kits
+- **Semana 3:** ofertas com condição e prazo
+- **Semana 4:** queima final do que sobrou
+
+E depois, a regra mais importante: criar critérios para não voltar a encalhar.
+
+## O material completo
+
+Montei um material gratuito com trilhas para indústria, atacado e confecção: raio-x com semáforo, mais de 20 ações por frente, plano de 30 dias com checklist, 3 calculadoras (custo de manter, desconto agora ou segurar, meta de giro), planejamento para imprimir e mensagens prontas.
+
+[Liberar o material Estoque parado](https://sejaunique.com/estoque-parado/)
+`
+  },
+  {
     slug: "rota-do-atendimento",
     titulo: "A rota do atendimento: ==do lead ao vendido==",
     data: "2026-11-21",

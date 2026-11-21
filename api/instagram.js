@@ -98,7 +98,9 @@ async function ig(caminho, corpo) {
 
 // direct com botão; se a Meta recusar o botão, manda texto com o link
 async function manda(conta, recipient, isca) {
-  const texto = (isca.direct || 'Aqui está 👇').slice(0, 600);
+  const AVISO = '📱 Abra pelo celular: o botão com o link só aparece no app do Instagram.';
+  let texto = (isca.direct || 'Aqui está 👇').slice(0, 520);
+  if (!/celular/i.test(texto)) texto += '\n\n' + AVISO;
   const b = await ig('/' + conta + '/messages', { recipient, message: { attachment: { type: 'template', payload: { template_type: 'button', text: texto, buttons: [{ type: 'web_url', url: isca.link, title: isca.botao }] } } } });
   if (b.ok) return b;
   const t = await ig('/' + conta + '/messages', { recipient, message: { text: texto + '\n\n' + isca.link } });

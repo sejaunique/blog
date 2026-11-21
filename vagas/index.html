@@ -138,6 +138,11 @@
     var b=this.querySelector('button[type=submit]'); b.disabled=true;
     sb.auth.signUp({email:email,password:senha,options:{data:d,emailRedirectTo:location.origin+'/vagas/painel/'}}).then(function(r){
       if(r.error){ b.disabled=false; return msg('m-cad',VG.erroPt(r.error)); }
+      try{ localStorage.setItem('vg_cadastro',JSON.stringify(d)); }catch(e){}
+      if(r.data.user&&r.data.user.identities&&r.data.user.identities.length===0){
+        b.disabled=false; aba(false); $('e-email').value=email;
+        return msg('m-entrar','Este e-mail já tem conta na Unique. Entre com a senha que você já usa (ou clique em "Esqueceu a senha?").');
+      }
       if(!r.data.session){ b.disabled=false; return msg('m-cad','Conta criada! Enviamos um e-mail para '+email+'. Clique no link para confirmar e entrar.',true); }
       return sb.from('vg_empresas').insert({owner:r.data.user.id,nome:d.empresa,responsavel:d.nome,whatsapp:d.whatsapp,cidade:d.cidade}).then(function(){ location.replace('/vagas/painel/'); });
     });

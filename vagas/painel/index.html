@@ -87,7 +87,8 @@ sb.auth.getSession().then(async function(r){
   EMP=e.data;
   if(!EMP){
     var md=U.user_metadata||{};
-    var ins=await sb.from('vg_empresas').insert({owner:U.id,nome:md.empresa||U.email,responsavel:md.nome||'',whatsapp:md.whatsapp||'',cidade:md.cidade||''}).select().single();
+    try{ var lc=JSON.parse(localStorage.getItem('vg_cadastro')||'null'); if(lc&&lc.empresa&&!md.empresa) md=lc; }catch(x){}
+    var ins=await sb.from('vg_empresas').insert({owner:U.id,nome:md.empresa||'Minha empresa',responsavel:md.nome||'',whatsapp:md.whatsapp||'',cidade:md.cidade||''}).select().single();
     EMP=ins.data;
   }
   if(!EMP) return h('<div class="estado"><h1>Não foi possível abrir sua conta</h1><p class="muted">Tente sair e entrar de novo.</p><button class="btn" id="bs">Sair</button></div>'), document.getElementById('bs').onclick=sair;

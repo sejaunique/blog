@@ -1,0 +1,29 @@
+/* Vagas por Propósito · complementos ao casco da Unique */
+[hidden]{display:none!important}
+.vg-wrap{max-width:1120px;width:100%;margin:0 auto;padding:40px 20px 80px;box-sizing:border-box}
+.vg-h1{font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.04;font-weight:700;letter-spacing:-.035em;margin:0 0 14px;text-wrap:balance}
+.vg-sub{color:var(--muted);font-size:1.02rem;max-width:60ch;margin:0}
+.vg-card{background:var(--card,var(--bg));border:1px solid var(--line);border-radius:var(--r,22px);padding:22px}
+.vg-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.vg-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.vg-pill{display:inline-flex;align-items:center;gap:6px;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border-radius:999px;padding:5px 10px;border:1px solid var(--line);color:var(--muted)}
+.vg-pill.ok{background:#00e676;color:#000;border-color:#00e676}
+.vg-pill.warn{background:#ffb020;color:#000;border-color:#ffb020}
+.vg-pill.mag{background:#ff2e88;color:#fff;border-color:#ff2e88}
+.vg-pill.dark{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.vg-toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;background:var(--fg);color:var(--bg);padding:12px 18px;border-radius:14px;font-size:.9rem;font-weight:600;z-index:99;transition:.25s;max-width:90vw;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.vg-toast.on{opacity:1;transform:translate(-50%,0)}
+.vg-toast.erro{background:#ff2e88;color:#fff}
+.vg-vazio{text-align:center;color:var(--muted);padding:48px 20px;border:1px dashed var(--line);border-radius:var(--r,22px)}
+.vg-lista-ed{display:grid;gap:8px;margin-bottom:10px}
+.vg-lista-ed .it{display:grid;grid-template-columns:1fr auto;gap:8px}
+.vg-lista-ed input{font:inherit;font-size:.95rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.vg-x{border:1px solid var(--line);background:none;color:var(--muted);border-radius:12px;width:42px;cursor:pointer;font-size:1.1rem}
+.vg-x:hover{color:#ff2e88;border-color:#ff2e88}
+.vg-escada{display:flex;align-items:flex-end;gap:10px;height:180px;padding:14px 0 0}
+.vg-escada .deg{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;height:100%}
+.vg-escada .bar{width:100%;border-radius:12px 12px 4px 4px;background:var(--fg);opacity:.85;transition:height .3s}
+.vg-escada .deg.fim .bar{background:#00e676;opacity:1}
+.vg-escada b{font-size:.82rem;font-variant-numeric:tabular-nums}
+.vg-escada small{font-size:.68rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+@media (max-width:760px){.vg-grid2{grid-template-columns:1fr}}

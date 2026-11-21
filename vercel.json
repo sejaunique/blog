@@ -42,6 +42,10 @@
   ],
   "rewrites": [
     {
+      "source": "/vagas/v/:slug",
+      "destination": "/vagas/v/index.html"
+    },
+    {
       "source": "/tv/:slug",
       "destination": "/tv/index.html"
     },

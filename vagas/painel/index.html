@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<script src="/assets/tema.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Minhas vagas · Unique Consultoria</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<link rel="stylesheet" href="/assets/casco.css">
+<link rel="stylesheet" href="/vagas/assets/vg.css">
+<style>
+.topo{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.topo h1{font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:700;letter-spacing:-.03em;margin:4px 0 0;line-height:1.1}
+.topo .spaced{color:var(--muted)}
+.vagas{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.vaga h3{margin:10px 0 4px;font-size:1.1rem;line-height:1.3}
+.vaga .meta{color:var(--muted);font-size:.84rem}
+.vaga .nums{display:flex;gap:18px;margin:14px 0;font-size:.82rem;color:var(--muted)}
+.vaga .nums b{display:block;font-size:1.4rem;color:var(--fg);font-variant-numeric:tabular-nums;line-height:1.1}
+.vaga .vg-row .btn{flex:1}
+/* editor */
+.ed{display:grid;grid-template-columns:240px 1fr;gap:28px;align-items:start}
+.etapas{position:sticky;top:96px;display:grid;gap:4px}
+.etapas button{font:inherit;text-align:left;font-size:.86rem;border:0;background:none;color:var(--muted);padding:10px 12px;border-radius:12px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.etapas button span{font-size:.62rem;letter-spacing:.2em;font-variant-numeric:tabular-nums;width:22px}
+.etapas button[aria-current="step"]{background:var(--fg);color:var(--bg)}
+.etapas button.feito{color:var(--fg)}
+.passo h2{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin:0 0 6px}
+.passo .ajuda{color:var(--muted);margin:0 0 22px;font-size:.93rem;max-width:62ch}
+.passo .ajuda b{color:var(--fg)}
+.analogias{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.analogia{border:2px solid var(--line);border-radius:18px;padding:18px;cursor:pointer;background:var(--bg);text-align:left;font:inherit;color:inherit}
+.analogia .e{font-size:1.8rem}
+.analogia b{display:block;font-size:1.05rem;margin-top:6px}
+.analogia small{color:var(--muted)}
+.analogia[aria-pressed="true"]{border-color:var(--fg);box-shadow:0 0 0 3px color-mix(in srgb,var(--fg) 15%,transparent)}
+.opcoes{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.opcoes button{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:9px 16px;background:none;color:var(--muted);cursor:pointer}
+.opcoes button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.nav-ed{display:flex;justify-content:space-between;gap:10px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line);flex-wrap:wrap}
+.sug{display:flex;gap:6px;flex-wrap:wrap;margin:-4px 0 14px}
+.sug button{font:inherit;font-size:.76rem;border:1px dashed var(--line);border-radius:999px;padding:6px 12px;background:none;color:var(--muted);cursor:pointer}
+.sug button:hover{color:var(--fg);border-color:var(--fg)}
+.titulo-prev{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;padding:16px 18px;border-radius:16px;background:var(--soft);margin-bottom:16px}
+/* candidatos */
+.filtros{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.cands{display:grid;gap:12px}
+.cand{display:grid;grid-template-columns:1fr 300px;gap:20px}
+.cand h3{margin:0;font-size:1.1rem}
+.cand .resp{white-space:pre-wrap;font-size:.93rem;line-height:1.6;margin:12px 0 0;max-height:220px;overflow:auto;padding-right:6px}
+.cand video{width:100%;border-radius:14px;background:#000;max-height:360px}
+.cand .lado{display:grid;gap:10px;align-content:start}
+.estrelas button{font-size:1.3rem;background:none;border:0;cursor:pointer;color:var(--line);padding:0 2px}
+.estrelas button.on{color:#ffb020}
+.cand select,.cand textarea{font:inherit;font-size:.88rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:9px 11px;width:100%;box-sizing:border-box}
+.cand textarea{min-height:70px;resize:vertical}
+.estado{max-width:560px;margin:60px auto;text-align:center}
+.estado h1{font-size:2rem;letter-spacing:-.03em}
+@media (max-width:860px){.ed{grid-template-columns:1fr}.etapas{position:static;grid-auto-flow:column;overflow-x:auto;grid-auto-columns:max-content}.cand{grid-template-columns:1fr}.analogias{grid-template-columns:1fr}}
+</style>
+</head>
+<body data-casco="area">
+<script src="/assets/casco.js"></script>
+<main class="vg-wrap" id="app"><p class="muted">Carregando…</p></main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/vagas/assets/vg.js"></script>
+<script>
+(function(){
+var sb=VG.sb, esc=VG.esc, A=VG.ANALOGIAS, app=document.getElementById('app');
+var U=null, EMP=null, ADMIN=false, VAGAS=[], CONT={};
+
+function h(s){ app.innerHTML=s; window.scrollTo(0,0); }
+function sair(){ sb.auth.signOut().then(function(){ location.replace('/vagas/'); }); }
+
+/* ---------- início ---------- */
+sb.auth.getSession().then(async function(r){
+  if(/nova-senha/.test(location.search)) return telaNovaSenha();
+  if(!r.data.session) return location.replace('/vagas/');
+  U=r.data.session.user;
+  var a=await sb.rpc('vg_is_admin'); ADMIN=!!a.data;
+  var e=await sb.from('vg_empresas').select('*').eq('owner',U.id).maybeSingle();
+  EMP=e.data;
+  if(!EMP){
+    var md=U.user_metadata||{};
+    var ins=await sb.from('vg_empresas').insert({owner:U.id,nome:md.empresa||U.email,responsavel:md.nome||'',whatsapp:md.whatsapp||'',cidade:md.cidade||''}).select().single();
+    EMP=ins.data;
+  }
+  if(!EMP) return h('<div class="estado"><h1>Não foi possível abrir sua conta</h1><p class="muted">Tente sair e entrar de novo.</p><button class="btn" id="bs">Sair</button></div>'), document.getElementById('bs').onclick=sair;
+  if(EMP.status!=='aprovada') return telaPendente();
+  window.addEventListener('hashchange',rota); rota();
+});
+
+function telaNovaSenha(){
+  h('<div class="estado vg-card" style="text-align:left"><h2>Crie uma nova senha</h2><div class="campo"><label>Nova senha</label><input id="ns" type="password" minlength="8" autocomplete="new-password"></div><button class="btn solid" id="bns">Salvar</button></div>');
+  document.getElementById('bns').onclick=function(){
+    var s=document.getElementById('ns').value; if(s.length<8) return VG.toast('Mínimo de 8 caracteres','erro');
+    sb.auth.updateUser({password:s}).then(function(r){ if(r.error) return VG.toast(VG.erroPt(r.error),'erro'); location.replace('/vagas/painel/'); });
+  };
+}
+function telaPendente(){
+  var bloq=EMP.status==='bloqueada';
+  var wa='https://wa.me/5562996007574?text='+encodeURIComponent('Olá, Carlos! Criei a conta da '+EMP.nome+' no Vagas por Propósito e quero liberar o acesso.');
+  h('<div class="estado"><span class="vg-pill '+(bloq?'mag':'warn')+'">'+(bloq?'Acesso suspenso':'Aguardando liberação')+'</span>'+
+    '<h1>'+(bloq?'O acesso da '+esc(EMP.nome)+' está suspenso.':'Recebemos o cadastro da '+esc(EMP.nome)+'.')+'</h1>'+
+    '<p class="muted">'+(bloq?'Fale com a Unique para entender o que aconteceu.':'A Unique confere e libera o seu acesso. Enquanto isso, assista aos vídeos do método: eles explicam cada filtro que você vai usar.')+'</p>'+
+    '<div class="vg-row" style="justify-content:center;margin-top:20px"><a class="btn verde" href="'+wa+'" target="_blank" rel="noopener">Avisar no WhatsApp</a><a class="btn" href="/vagas/metodo/">Ver o método</a><button class="btn" id="bs">Sair</button></div></div>');
+  document.getElementById('bs').onclick=sair;
+}
+
+/* ---------- rotas ---------- */
+function rota(){
+  var p=location.hash.replace(/^#\/?/,'').split('/');
+  if(p[0]==='nova') return editor(null);
+  if(p[0]==='editar'&&p[1]) return editor(p[1]);
+  if(p[0]==='candidatos'&&p[1]) return candidatos(p[1]);
+  if(p[0]==='empresa') return telaEmpresa();
+  lista();
+}
+
+/* ---------- lista de vagas ---------- */
+async function lista(){
+  h('<p class="muted">Carregando vagas…</p>');
+  var r=await sb.from('vg_vagas').select('id,slug,status,titulo,cargo_real,analogia,views,updated_at').eq('empresa_id',EMP.id).order('updated_at',{ascending:false});
+  VAGAS=r.data||[];
+  var ids=VAGAS.map(function(v){return v.id;}); CONT={};
+  if(ids.length){
+    var c=await sb.from('vg_candidatos').select('vaga_id,atento').in('vaga_id',ids);
+    (c.data||[]).forEach(function(x){ var o=CONT[x.vaga_id]||(CONT[x.vaga_id]={t:0,a:0}); o.t++; if(x.atento) o.a++; });
+  }
+  var ST={rascunho:['Rascunho',''],publicada:['No ar','ok'],pausada:['Pausada','warn'],encerrada:['Encerrada','dark']};
+  var cards=VAGAS.map(function(v){
+    var s=ST[v.status]||ST.rascunho, c=CONT[v.id]||{t:0,a:0}, an=A[v.analogia];
+    return '<article class="vg-card vaga"><div class="vg-row"><span class="vg-pill '+s[1]+'">'+s[0]+'</span>'+(an?'<span class="vg-pill">'+an.emoji+' '+an.nome+'</span>':'')+'</div>'+
+      '<h3>'+esc(v.titulo||v.cargo_real||'Vaga sem título')+'</h3><div class="meta">sejaunique.com/vagas/v/'+esc(v.slug)+'</div>'+
+      '<div class="nums"><span><b>'+(v.views||0)+'</b>visitas</span><span><b>'+c.t+'</b>candidatos</span><span><b>'+c.a+'</b>✓ atentos</span></div>'+
+      '<div class="vg-row"><a class="btn sm solid" href="#/candidatos/'+v.id+'">Candidatos</a><a class="btn sm" href="#/editar/'+v.id+'">Editar</a>'+
+      '<button class="btn sm" data-link="'+esc(v.slug)+'">Copiar link</button></div></article>';
+  }).join('');
+  h('<div class="topo"><div><span class="spaced">'+esc(EMP.nome)+'</span><h1>Suas vagas</h1></div><div class="vg-row">'+
+    (ADMIN?'<a class="btn sm" href="/vagas/admin/">Admin Unique</a>':'')+
+    '<a class="btn sm" href="/vagas/metodo/">Método</a><a class="btn sm" href="#/empresa">Empresa</a><button class="btn sm" id="bs">Sair</button><a class="btn verde" href="#/nova">+ Nova vaga</a></div></div>'+
+    (cards?'<div class="vagas">'+cards+'</div>':'<div class="vg-vazio"><h2 style="margin:0 0 8px">Crie a sua primeira vaga</h2><p>Leva poucos minutos: escolha a analogia e o criador escreve os textos com você.</p><a class="btn verde" href="#/nova">+ Nova vaga</a></div>'));
+  document.getElementById('bs').onclick=sair;
+  app.querySelectorAll('[data-link]').forEach(function(b){ b.onclick=function(){ copiar(location.origin+'/vagas/v/'+b.dataset.link); }; });
+}
+function copiar(t){ (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){VG.toast('Link copiado');},function(){prompt('Copie o link:',t);}); }
+
+/* ---------- empresa ---------- */
+function telaEmpresa(){
+  h('<div class="topo"><div><span class="spaced">Configurações</span><h1>Sua empresa</h1></div><a class="btn sm" href="#/">← Voltar</a></div>'+
+    '<div class="vg-card" style="max-width:640px">'+
+    campo('Nome da empresa','em-nome',EMP.nome)+campo('Responsável','em-resp',EMP.responsavel)+
+    '<div class="vg-grid2">'+campo('WhatsApp','em-whats',EMP.whatsapp)+campo('Cidade','em-cid',EMP.cidade)+'</div>'+
+    campo('Link do logo (imagem)','em-logo',EMP.logo_url,'https://…')+
+    area('Sobre a empresa e o propósito','em-sobre',EMP.sobre,'O que vocês fazem, por que existem e o que acreditam.')+
+    '<button class="btn solid" id="bse">Salvar</button></div>');
+  document.getElementById('bse').onclick=async function(){
+    var d={nome:val('em-nome'),responsavel:val('em-resp'),whatsapp:val('em-whats'),cidade:val('em-cid'),logo_url:val('em-logo'),sobre:val('em-sobre')};
+    var r=await sb.from('vg_empresas').update(d).eq('id',EMP.id).select().single();
+    if(r.error) return VG.toast(VG.erroPt(r.error),'erro'); EMP=r.data; VG.toast('Empresa salva'); location.hash='#/';
+  };
+}
+function campo(l,id,v,ph,tipo){ return '<div class="campo"><label for="'+id+'">'+l+'</label><input id="'+id+'" type="'+(tipo||'text')+'" value="'+esc(v||'')+'" placeholder="'+esc(ph||'')+'"></div>'; }
+function area(l,id,v,ph){ return '<div class="campo"><label for="'+id+'">'+l+'</label><textarea id="'+id+'" placeholder="'+esc(ph||'')+'">'+esc(v||'')+'</textarea></div>'; }
+function val(id){ var e=document.getElementById(id); return e?e.value.trim():''; }
+
+/* ---------- editor (criador) ---------- */
+var ETAPAS=[
+  ['empresa','Empresa'],['analogia','Analogia'],['promessa','Promessa'],['tarefas','Tarefas'],['perfil','Perfil'],
+  ['rotina','Rotina'],['beneficios','Benefícios'],['remuneracao','Remuneração'],['filtros','Filtros'],['publicar','Publicar']
+];
+var V=null, PAL='', EI=0;
+
+async function editor(id){
+  h('<p class="muted">Abrindo o criador…</p>');
+  if(id){
+    var r=await sb.from('vg_vagas').select('*').eq('id',id).single();
+    if(r.error) { VG.toast('Vaga não encontrada','erro'); location.hash='#/'; return; }
+    V=r.data; var s=await sb.from('vg_segredos').select('palavra').eq('vaga_id',id).maybeSingle(); PAL=(s.data&&s.data.palavra)||'';
+  } else {
+    V={empresa_id:EMP.id,status:'rascunho',empresa_nome:EMP.nome,empresa_sobre:EMP.sobre||'',empresa_logo:EMP.logo_url||'',cidade:EMP.cidade||'',
+      analogia:'',cargo_real:'',titulo:'',promessa:'',tarefas:[],perfil:'',perfil_lista:[],local:EMP.cidade||'',horario:'',modelo:'Presencial',
+      beneficios:[],remun_tipo:'combinar',remun_texto:'',escadinha:[1500,1600,1700],remun_final:5000,video_url:'',desafio_video:'',palavra_onde:'perfil',min_caracteres:300,slug:''};
+    PAL='';
+  }
+  EI=0; desenha();
+}
+function desenha(){
+  var nav=ETAPAS.map(function(e,i){ return '<button type="button" data-i="'+i+'"'+(i===EI?' aria-current="step"':'')+(i<EI?' class="feito"':'')+'><span>'+String(i+1).padStart(2,'0')+'</span>'+e[1]+'</button>'; }).join('');
+  h('<div class="topo"><div><span class="spaced">'+(V.id?'Editando vaga':'Nova vaga')+'</span><h1>'+esc(V.titulo||'Criador de vaga')+'</h1></div>'+
+    '<div class="vg-row"><a class="btn sm" href="#/">← Minhas vagas</a>'+(V.id?'<a class="btn sm" target="_blank" href="/vagas/v/'+esc(V.slug)+'">Ver página</a>':'')+'<button class="btn sm" id="bsalva">Salvar rascunho</button></div></div>'+
+    '<div class="ed"><nav class="etapas">'+nav+'</nav><section class="vg-card passo" id="passo"></section></div>');
+  app.querySelectorAll('.etapas button').forEach(function(b){ b.onclick=function(){ coleta(); EI=+b.dataset.i; desenha(); }; });
+  document.getElementById('bsalva').onclick=function(){ coleta(); salvar(); };
+  PASSOS[ETAPAS[EI][0]](document.getElementById('passo'));
+  var p=document.getElementById('passo');
+  p.insertAdjacentHTML('beforeend','<div class="nav-ed">'+(EI>0?'<button class="btn" id="bant">← Voltar</button>':'<span></span>')+
+    (EI<ETAPAS.length-1?'<button class="btn solid" id="bprox">Continuar →</button>':'')+'</div>');
+  var ba=document.getElementById('bant'), bp=document.getElementById('bprox');
+  if(ba) ba.onclick=function(){ coleta(); EI--; desenha(); };
+  if(bp) bp.onclick=function(){ coleta(); if(!valida()) return; EI++; desenha(); };
+}
+var COL=function(){};
+function coleta(){ COL(); }
+function valida(){
+  var k=ETAPAS[EI][0];
+  if(k==='analogia'&&(!V.analogia||!V.cargo_real)){ VG.toast('Escolha a analogia e diga o cargo real','erro'); return false; }
+  return true;
+}
+
+function listaEd(id,itens,ph){
+  return '<div class="vg-lista-ed" id="'+id+'">'+(itens.length?itens:['']).map(function(t){ return '<div class="it"><input value="'+esc(t)+'" placeholder="'+esc(ph)+'"><button type="button" class="vg-x" title="Remover">×</button></div>'; }).join('')+
+    '</div><button type="button" class="btn sm" data-add="'+id+'">+ Adicionar</button>';
+}
+function ligaLista(id,ph){
+  var box=document.getElementById(id);
+  box.addEventListener('click',function(e){ if(e.target.classList.contains('vg-x')){ e.target.parentNode.remove(); if(!box.children.length) addIt(box,'',ph); } });
+  document.querySelector('[data-add="'+id+'"]').onclick=function(){ addIt(box,'',ph).querySelector('input').focus(); };
+}
+function addIt(box,t,ph){ var d=document.createElement('div'); d.className='it'; d.innerHTML='<input value="'+esc(t)+'" placeholder="'+esc(ph||'')+'"><button type="button" class="vg-x" title="Remover">×</button>'; box.appendChild(d); return d; }
+function leLista(id){ return Array.prototype.map.call(document.querySelectorAll('#'+id+' input'),function(i){return i.value.trim();}).filter(Boolean); }
+function sugestoes(id,lista){
+  return '<div class="sug">'+lista.map(function(t){ return '<button type="button" data-sug="'+id+'">+ '+esc(t)+'</button>'; }).join('')+'</div>';
+}
+function ligaSug(id){
+  document.querySelectorAll('[data-sug="'+id+'"]').forEach(function(b){ b.onclick=function(){
+    var box=document.getElementById(id), t=b.textContent.replace(/^\+ /,'');
+    var vazio=Array.prototype.find.call(box.querySelectorAll('input'),function(i){return !i.value.trim();});
+    if(vazio) vazio.value=t; else addIt(box,t); b.remove();
+  }; });
+}
+
+var PASSOS={
+  empresa:function(p){
+    p.innerHTML='<h2>Quem está contratando</h2><p class="ajuda">O candidato precisa se conectar com a <b>empresa</b> antes do cargo. Conte quem vocês são e por que existem.</p>'+
+      campo('Nome da empresa','f-en',V.empresa_nome)+campo('Link do logo (opcional)','f-el',V.empresa_logo,'https://…')+campo('Cidade','f-ec',V.cidade)+
+      area('Sobre a empresa e o propósito','f-es',V.empresa_sobre,'Ex.: Somos uma fábrica de uniformes que veste 300 empresas em Goiás. Acreditamos que…');
+    COL=function(){ V.empresa_nome=val('f-en'); V.empresa_logo=val('f-el'); V.cidade=val('f-ec'); V.empresa_sobre=val('f-es'); };
+  },
+  analogia:function(p){
+    p.innerHTML='<h2>Escolha a analogia</h2><p class="ajuda">O nome do cargo define o valor percebido. Em vez de "Vendedor", a página fala com um <b>Atleta</b>; em vez de "Gerente de Marketing", com um <b>Lapidador de diamantes</b>. Isso tira a vaga do leilão de salário e leva para o desafio.</p>'+
+      '<div class="analogias">'+Object.keys(A).map(function(k){ var a=A[k]; return '<button type="button" class="analogia" data-a="'+k+'" aria-pressed="'+(V.analogia===k)+'"><span class="e">'+a.emoji+'</span><b>'+a.nome+'</b><small>'+a.resumo+'</small></button>'; }).join('')+'</div>'+
+      campo('Qual é o cargo real?','f-cargo',V.cargo_real,'Ex.: Vendedor externo, Gerente de marketing, Assistente administrativo')+
+      '<label style="font-size:.78rem;font-weight:600">Título que aparece na página</label><div class="titulo-prev" id="tprev" contenteditable="true">'+esc(V.titulo||'Escolha a analogia')+'</div>';
+    var tp=document.getElementById('tprev'), manual=!!V.titulo;
+    function gera(){ if(manual||!V.analogia) return; tp.textContent=A[V.analogia].titulo(val('f-cargo')); }
+    p.querySelectorAll('.analogia').forEach(function(b){ b.onclick=function(){
+      var mudou=V.analogia!==b.dataset.a; V.analogia=b.dataset.a; manual=false;
+      p.querySelectorAll('.analogia').forEach(function(x){x.setAttribute('aria-pressed',x===b);});
+      if(mudou){ var an=A[V.analogia]; if(!V.promessa||Object.keys(A).some(function(k){return A[k].promessa===V.promessa;})) V.promessa=an.promessa; }
+      gera();
+    }; });
+    document.getElementById('f-cargo').oninput=gera; tp.oninput=function(){manual=true;};
+    COL=function(){ V.cargo_real=val('f-cargo'); var t=tp.textContent.trim(); V.titulo=(t==='Escolha a analogia')?'':t; };
+  },
+  promessa:function(p){
+    var an=A[V.analogia];
+    p.innerHTML='<h2>A promessa lúdica</h2><p class="ajuda">É a primeira coisa que o candidato lê. Fala do <b>desafio</b> e da <b>transformação</b>, não de salário. O texto abaixo nasceu da analogia: ajuste com o jeito da sua empresa.</p>'+
+      area('Promessa','f-prom',V.promessa||(an?an.promessa:''))+(an?'<button type="button" class="btn sm" id="breg">↺ Voltar ao texto da analogia</button>':'');
+    var b=document.getElementById('breg'); if(b) b.onclick=function(){ document.getElementById('f-prom').value=an.promessa; };
+    document.getElementById('f-prom').style.minHeight='160px';
+    COL=function(){ V.promessa=val('f-prom'); };
+  },
+  tarefas:function(p){
+    p.innerHTML='<h2>Tradução técnica</h2><p class="ajuda">Agora traduza a analogia em <b>tarefas concretas do dia a dia</b>. Quem leu a promessa precisa entender exatamente o que vai fazer.</p>'+
+      listaEd('l-tar',V.tarefas||[],'Ex.: Visitar 8 clientes por dia na região metropolitana');
+    ligaLista('l-tar','Ex.: Atender os leads do WhatsApp em até 5 minutos');
+    COL=function(){ V.tarefas=leLista('l-tar'); };
+  },
+  perfil:function(p){
+    var an=A[V.analogia]||{perfil:[]};
+    p.innerHTML='<h2>Perfil comportamental</h2><p class="ajuda">Quem você procura, no comportamento. Aqui também mora o <b>teste de atenção</b>: a palavra secreta.</p>'+
+      area('Texto do perfil','f-perf',V.perfil,'Ex.: Procuramos alguém que não espera mandarem…')+
+      '<label style="font-size:.78rem;font-weight:600;display:block;margin-bottom:6px">Características</label>'+
+      listaEd('l-perf',V.perfil_lista||[],'Característica')+sugestoes('l-perf',an.perfil.filter(function(t){return (V.perfil_lista||[]).indexOf(t)<0;}))+
+      '<div class="vg-card" style="background:var(--soft);margin-top:22px"><b>🔑 Palavra secreta</b><p class="ajuda" style="margin:6px 0 14px">Quem seguir a instrução aparece como <b>✓ Atento</b> no painel. Escolha onde ela fica escondida.</p>'+
+      '<div class="opcoes" id="o-pal">'+[['perfil','No texto do perfil'],['video','No vídeo da vaga'],['nenhuma','Sem palavra']].map(function(o){return '<button type="button" data-v="'+o[0]+'" aria-pressed="'+(V.palavra_onde===o[0])+'">'+o[1]+'</button>';}).join('')+'</div>'+
+      '<div id="pal-box">'+campo('Palavra secreta','f-pal',PAL,'Ex.: GIRASSOL')+'<p class="ajuda" id="pal-ex" style="margin:0"></p></div></div>';
+    ligaLista('l-perf','Característica'); ligaSug('l-perf');
+    function mostra(){
+      var o=V.palavra_onde; document.getElementById('pal-box').hidden=o==='nenhuma';
+      document.getElementById('pal-ex').innerHTML=o==='perfil'?'Vai aparecer no meio do perfil: <i>"Se você leu até aqui, escreva a palavra <b>'+esc(val('f-pal')||'…')+'</b> em algum lugar da sua resposta."</i>':
+        'Fale no vídeo da vaga (por exemplo, perto do minuto 18): <i>"Quem chegou até aqui, escreva a palavra <b>'+esc(val('f-pal')||'…')+'</b> na resposta."</i> Ela não aparece escrita na página.';
+    }
+    p.querySelectorAll('#o-pal button').forEach(function(b){ b.onclick=function(){ V.palavra_onde=b.dataset.v; p.querySelectorAll('#o-pal button').forEach(function(x){x.setAttribute('aria-pressed',x===b);}); mostra(); }; });
+    document.getElementById('f-pal').oninput=mostra; mostra();
+    COL=function(){ V.perfil=val('f-perf'); V.perfil_lista=leLista('l-perf'); PAL=val('f-pal').replace(/\s+/g,' ').toUpperCase(); };
+  },
+  rotina:function(p){
+    p.innerHTML='<h2>Responsabilidades e rotina</h2><p class="ajuda">Onde, quando e como. Sem surpresa depois da contratação.</p>'+
+      '<div class="opcoes" id="o-mod">'+['Presencial','Híbrido','Remoto','Externo'].map(function(m){return '<button type="button" data-v="'+m+'" aria-pressed="'+(V.modelo===m)+'">'+m+'</button>';}).join('')+'</div>'+
+      campo('Local','f-loc',V.local,'Ex.: Setor Bueno, Goiânia')+campo('Horário','f-hor',V.horario,'Ex.: Segunda a sexta, 8h às 18h · sábado até 12h');
+    p.querySelectorAll('#o-mod button').forEach(function(b){ b.onclick=function(){ V.modelo=b.dataset.v; p.querySelectorAll('#o-mod button').forEach(function(x){x.setAttribute('aria-pressed',x===b);}); }; });
+    COL=function(){ V.local=val('f-loc'); V.horario=val('f-hor'); };
+  },
+  beneficios:function(p){
+    var an=A[V.analogia]||{beneficios:[]};
+    p.innerHTML='<h2>Benefícios intangíveis</h2><p class="ajuda">Vêm <b>antes</b> do salário na página. Crescimento, aprendizado, reconhecimento, ambiente: o que dinheiro não compra.</p>'+
+      listaEd('l-ben',V.beneficios||[],'Ex.: Mentoria semanal com o dono')+sugestoes('l-ben',an.beneficios.filter(function(t){return (V.beneficios||[]).indexOf(t)<0;}));
+    ligaLista('l-ben','Benefício'); ligaSug('l-ben');
+    COL=function(){ V.beneficios=leLista('l-ben'); };
+  },
+  remuneracao:function(p){
+    p.innerHTML='<h2>Remuneração</h2><p class="ajuda">Na <b>escadinha</b>, o salário sobe mês a mês no período de experiência até chegar ao valor cheio, conforme os resultados aparecem.</p>'+
+      '<div class="opcoes" id="o-rem">'+[['escadinha','Escadinha'],['fixa','Valor / faixa'],['combinar','A combinar']].map(function(o){return '<button type="button" data-v="'+o[0]+'" aria-pressed="'+(V.remun_tipo===o[0])+'">'+o[1]+'</button>';}).join('')+'</div>'+
+      '<div id="r-esc"><label style="font-size:.78rem;font-weight:600;display:block;margin-bottom:6px">Valores do período de experiência (R$ por mês)</label><div class="vg-lista-ed" id="l-esc"></div><button type="button" class="btn sm" id="badd-m">+ Mês</button>'+
+      '<div class="campo" style="margin-top:14px"><label>Salário cheio (R$)</label><input id="f-rf" type="number" min="0" step="50" value="'+esc(V.remun_final||'')+'"></div><div class="vg-escada" id="graf"></div></div>'+
+      '<div id="r-fix">'+campo('Texto da remuneração','f-rt',V.remun_texto,'Ex.: R$ 2.500 fixo + comissão de 3% (média de R$ 4.800)')+'</div>'+
+      '<div id="r-texto">'+area('Observação (opcional)','f-robs',V.remun_tipo==='escadinha'?V.remun_texto:'','Ex.: + comissão sobre vendas a partir do 2º mês')+'</div>';
+    var box=document.getElementById('l-esc');
+    (V.escadinha&&V.escadinha.length?V.escadinha:[1500]).forEach(function(n,i){ addMes(n); });
+    function addMes(n){ var d=document.createElement('div'); d.className='it'; d.innerHTML='<input type="number" min="0" step="50" value="'+esc(n||'')+'"><button type="button" class="vg-x">×</button>'; box.appendChild(d); }
+    box.addEventListener('click',function(e){ if(e.target.classList.contains('vg-x')&&box.children.length>1){ e.target.parentNode.remove(); graf(); } });
+    box.addEventListener('input',graf); document.getElementById('f-rf').oninput=graf;
+    document.getElementById('badd-m').onclick=function(){ var ins=box.querySelectorAll('input'); addMes(ins.length?(+ins[ins.length-1].value||0)+100:1500); graf(); };
+    function graf(){
+      var m=Array.prototype.map.call(box.querySelectorAll('input'),function(i){return +i.value||0;}), f=+val('f-rf')||0, mx=Math.max.apply(null,m.concat([f,1]));
+      document.getElementById('graf').innerHTML=m.map(function(v,i){return '<div class="deg"><b>'+VG.brl(v)+'</b><div class="bar" style="height:'+Math.max(6,v/mx*120)+'px"></div><small>Mês '+(i+1)+'</small></div>';}).join('')+
+        (f?'<div class="deg fim"><b>'+VG.brl(f)+'</b><div class="bar" style="height:'+Math.max(6,f/mx*120)+'px"></div><small>Salário cheio</small></div>':'');
+    }
+    function mostra(){ var t=V.remun_tipo; document.getElementById('r-esc').hidden=t!=='escadinha'; document.getElementById('r-fix').hidden=t!=='fixa'; document.getElementById('r-texto').hidden=t!=='escadinha'; graf(); }
+    p.querySelectorAll('#o-rem button').forEach(function(b){ b.onclick=function(){ V.remun_tipo=b.dataset.v; p.querySelectorAll('#o-rem button').forEach(function(x){x.setAttribute('aria-pressed',x===b);}); mostra(); }; });
+    mostra();
+    COL=function(){
+      V.escadinha=Array.prototype.map.call(box.querySelectorAll('input'),function(i){return +i.value||0;}).filter(Boolean);
+      V.remun_final=+val('f-rf')||null;
+      V.remun_texto=V.remun_tipo==='fixa'?val('f-rt'):(V.remun_tipo==='escadinha'?val('f-robs'):'');
+    };
+  },
+  filtros:function(p){
+    p.innerHTML='<h2>Vídeo da vaga e filtros</h2><p class="ajuda">A pergunta <b>"Por que esta vaga deve ser sua?"</b> substitui o currículo. O envio do vídeo só libera depois que o candidato responde.</p>'+
+      campo('Vídeo da vaga no YouTube (opcional)','f-vid',V.video_url,'https://youtube.com/watch?v=…')+
+      area('Desafio em vídeo para o candidato','f-des',V.desafio_video,'Ex.: Grave um vídeo de até 2 minutos me vendendo uma caneta como se fosse o último produto da loja.')+
+      '<div class="campo"><label for="f-min">Tamanho mínimo da resposta (caracteres)</label><input id="f-min" type="number" min="0" max="2000" step="50" value="'+esc(V.min_caracteres==null?300:V.min_caracteres)+'"></div>';
+    COL=function(){ V.video_url=val('f-vid'); V.desafio_video=val('f-des'); V.min_caracteres=Math.min(2000,Math.max(0,+val('f-min')||0)); };
+  },
+  publicar:function(p){
+    if(!V.slug) V.slug=VG.slugify((V.empresa_nome||'')+'-'+(V.cargo_real||V.titulo||'vaga'));
+    var ST=[['publicada','No ar'],['rascunho','Rascunho'],['pausada','Pausada'],['encerrada','Encerrada']];
+    var falta=[]; if(!V.analogia) falta.push('analogia'); if(!V.promessa) falta.push('promessa'); if(!(V.tarefas||[]).length) falta.push('tarefas');
+    if(V.palavra_onde!=='nenhuma'&&!PAL) falta.push('palavra secreta');
+    p.innerHTML='<h2>Publicar</h2><p class="ajuda">Escolha o endereço da página e coloque a vaga no ar. Você pode pausar ou encerrar quando quiser.</p>'+
+      (falta.length?'<div class="aviso" style="border-color:#ffb020">Ainda falta: <b>'+falta.join(', ')+'</b>. Dá para salvar assim, mas a página fica mais forte completa.</div>':'')+
+      '<div class="campo"><label for="f-slug">Endereço da página</label><div class="vg-row" style="flex-wrap:nowrap"><span class="muted" style="font-size:.85rem;white-space:nowrap">sejaunique.com/vagas/v/</span><input id="f-slug" value="'+esc(V.slug)+'"></div></div>'+
+      '<div class="opcoes" id="o-st">'+ST.map(function(o){return '<button type="button" data-v="'+o[0]+'" aria-pressed="'+((V.status==='rascunho'&&!V.id&&o[0]==='publicada')||(V.id&&V.status===o[0]))+'">'+o[1]+'</button>';}).join('')+'</div>'+
+      '<button class="btn verde" id="bpub" style="margin-top:10px">Salvar e publicar</button>';
+    var st=V.id?V.status:'publicada';
+    p.querySelectorAll('#o-st button').forEach(function(b){ b.onclick=function(){ st=b.dataset.v; p.querySelectorAll('#o-st button').forEach(function(x){x.setAttribute('aria-pressed',x===b);}); document.getElementById('bpub').textContent=st==='publicada'?'Salvar e publicar':'Salvar'; }; });
+    document.getElementById('f-slug').oninput=function(){ this.value=VG.slugify(this.value); };
+    document.getElementById('bpub').onclick=function(){ coleta(); V.status=st; salvar(true); };
+    COL=function(){ V.slug=VG.slugify(val('f-slug'))||V.slug; };
+  }
+};
+
+async function salvar(fim){
+  if(!V.slug) V.slug=VG.slugify((V.empresa_nome||'')+'-'+(V.cargo_real||V.titulo||'vaga'))||('vaga-'+Date.now().toString(36));
+  V.palavra_dica=(V.palavra_onde==='perfil'&&PAL)?'Se você leu até aqui, escreva a palavra '+PAL+' em algum lugar da sua resposta.':'';
+  var d={}; ['empresa_id','slug','status','empresa_nome','empresa_sobre','empresa_logo','cidade','cargo_real','analogia','titulo','promessa','tarefas','perfil','perfil_lista','local','horario','modelo','beneficios','remun_tipo','remun_texto','escadinha','remun_final','video_url','desafio_video','palavra_onde','palavra_dica','min_caracteres'].forEach(function(k){ d[k]=V[k]; });
+  if(!d.titulo) d.titulo=V.analogia?A[V.analogia].titulo(V.cargo_real):(V.cargo_real||'Nova vaga');
+  if(!V.id){
+    var livre=await sb.rpc('vg_slug_livre',{s:d.slug});
+    if(livre.data===false){ d.slug=d.slug+'-'+Math.random().toString(36).slice(2,6); }
+  }
+  var r=V.id?await sb.from('vg_vagas').update(d).eq('id',V.id).select().single():await sb.from('vg_vagas').insert(d).select().single();
+  if(r.error) return VG.toast(VG.erroPt(r.error),'erro');
+  V=r.data;
+  var s=await sb.from('vg_segredos').upsert({vaga_id:V.id,palavra:V.palavra_onde==='nenhuma'?null:(PAL||null)});
+  if(s.error) VG.toast('A vaga foi salva, mas a palavra secreta não: '+VG.erroPt(s.error),'erro');
+  if(fim){
+    VG.toast(V.status==='publicada'?'Vaga no ar!':'Vaga salva');
+    var url=location.origin+'/vagas/v/'+V.slug;
+    h('<div class="estado"><span class="vg-pill '+(V.status==='publicada'?'ok':'')+'">'+(V.status==='publicada'?'No ar':'Salva')+'</span><h1>'+esc(V.titulo)+'</h1>'+
+      '<p class="muted">Divulgue este link no Instagram, nos grupos e no WhatsApp:</p><p><a href="'+url+'" target="_blank" style="font-weight:700;word-break:break-all">'+url+'</a></p>'+
+      '<div class="vg-row" style="justify-content:center;margin-top:18px"><button class="btn solid" id="bcp">Copiar link</button>'+
+      '<a class="btn verde" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(V.titulo+' · '+url)+'">Enviar no WhatsApp</a><a class="btn" href="#/">Minhas vagas</a></div></div>');
+    document.getElementById('bcp').onclick=function(){ copiar(url); };
+    history.replaceState(null,'','#/editar/'+V.id);
+  } else {
+    VG.toast('Rascunho salvo');
+    if(location.hash!=='#/editar/'+V.id) history.replaceState(null,'','#/editar/'+V.id);
+    desenha();
+  }
+}
+
+/* ---------- candidatos ---------- */
+var FILTRO='todos';
+async function candidatos(id){
+  h('<p class="muted">Carregando candidatos…</p>');
+  var v=await sb.from('vg_vagas').select('id,slug,titulo,status,palavra_onde').eq('id',id).single();
+  if(v.error){ location.hash='#/'; return; }
+  var r=await sb.from('vg_candidatos').select('*').eq('vaga_id',id).order('created_at',{ascending:false});
+  var C=r.data||[];
+  var paths=C.filter(function(c){return c.video_path;}).map(function(c){return c.video_path;}), URLS={};
+  if(paths.length){ var su=await sb.storage.from('vagas-videos').createSignedUrls(paths,3600); (su.data||[]).forEach(function(x){ if(x.signedUrl) URLS[x.path]=x.signedUrl; }); }
+  var n={todos:C.length,atentos:C.filter(function(c){return c.atento;}).length,video:C.filter(function(c){return c.video_path||c.video_link;}).length};
+  ['novo','triagem','entrevista','aprovado','recusado'].forEach(function(s){ n[s]=C.filter(function(c){return c.status===s;}).length; });
+  var NOMES={todos:'Todos',atentos:'✓ Atentos',video:'Com vídeo',novo:'Novos',triagem:'Triagem',entrevista:'Entrevista',aprovado:'Aprovados',recusado:'Recusados'};
+  function render(){
+    var L=C.filter(function(c){ return FILTRO==='todos'||(FILTRO==='atentos'&&c.atento)||(FILTRO==='video'&&(c.video_path||c.video_link))||c.status===FILTRO; });
+    document.getElementById('lista-c').innerHTML=L.length?L.map(card).join(''):'<div class="vg-vazio">Nenhum candidato '+(FILTRO==='todos'?'ainda. Divulgue o link da vaga!':'neste filtro.')+'</div>';
+    document.querySelectorAll('.filtros button').forEach(function(b){ b.setAttribute('aria-pressed',b.dataset.f===FILTRO); });
+  }
+  function card(c){
+    var yt=VG.ytId(c.video_link), vid=c.video_path&&URLS[c.video_path]?'<video controls preload="metadata" src="'+esc(URLS[c.video_path])+'"></video>':
+      (yt?'<iframe style="width:100%;aspect-ratio:16/9;border:0;border-radius:14px" src="https://www.youtube-nocookie.com/embed/'+yt+'" allowfullscreen></iframe>':(c.video_link?'<a class="btn sm" target="_blank" rel="noopener" href="'+esc(c.video_link)+'">Abrir vídeo</a>':'<span class="muted" style="font-size:.85rem">Sem vídeo</span>'));
+    var data=new Date(c.created_at).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+    return '<article class="vg-card cand" data-id="'+c.id+'"><div><div class="vg-row">'+(c.atento?'<span class="vg-pill ok">✓ Atento</span>':(v.data.palavra_onde!=='nenhuma'?'<span class="vg-pill">Não achou a palavra</span>':''))+'<span class="muted" style="font-size:.8rem">'+data+'</span></div>'+
+      '<h3 style="margin-top:10px">'+esc(c.nome)+'</h3><div class="vg-row" style="font-size:.86rem;margin-top:4px">'+
+      (c.whatsapp?'<a target="_blank" rel="noopener" href="'+VG.zap(c.whatsapp)+'">WhatsApp '+esc(c.whatsapp)+'</a>':'')+(c.email?'<a href="mailto:'+esc(c.email)+'">'+esc(c.email)+'</a>':'')+(c.cidade?'<span class="muted">'+esc(c.cidade)+'</span>':'')+'</div>'+
+      '<p class="resp">'+esc(c.resposta)+'</p></div>'+
+      '<div class="lado">'+vid+'<select data-k="status">'+['novo','triagem','entrevista','aprovado','recusado'].map(function(s){return '<option value="'+s+'"'+(c.status===s?' selected':'')+'>'+{novo:'Novo',triagem:'Triagem',entrevista:'Entrevista',aprovado:'Aprovado',recusado:'Recusado'}[s]+'</option>';}).join('')+'</select>'+
+      '<div class="estrelas">'+[1,2,3,4,5].map(function(i){return '<button type="button" data-nota="'+i+'" class="'+((c.nota||0)>=i?'on':'')+'">★</button>';}).join('')+'</div>'+
+      '<textarea data-k="obs" placeholder="Anotações sobre este candidato">'+esc(c.obs||'')+'</textarea></div></article>';
+  }
+  h('<div class="topo"><div><span class="spaced">Candidatos</span><h1>'+esc(v.data.titulo)+'</h1></div><div class="vg-row"><a class="btn sm" href="#/">← Minhas vagas</a><a class="btn sm" href="#/editar/'+id+'">Editar vaga</a><a class="btn sm" target="_blank" href="/vagas/v/'+esc(v.data.slug)+'">Ver página</a><button class="btn sm" id="bcsv">Baixar planilha</button></div></div>'+
+    '<div class="filtros opcoes">'+Object.keys(NOMES).filter(function(k){return k==='todos'||n[k];}).map(function(k){return '<button type="button" data-f="'+k+'">'+NOMES[k]+' · '+n[k]+'</button>';}).join('')+'</div><div class="cands" id="lista-c"></div>');
+  document.querySelectorAll('.filtros button').forEach(function(b){ b.onclick=function(){ FILTRO=b.dataset.f; render(); }; });
+  if(!n[FILTRO]&&FILTRO!=='todos') FILTRO='todos';
+  render();
+  var lc=document.getElementById('lista-c');
+  async function atualiza(cid,d){ var r=await sb.from('vg_candidatos').update(d).eq('id',cid); if(r.error) VG.toast(VG.erroPt(r.error),'erro'); else { var c=C.find(function(x){return x.id===cid;}); Object.assign(c,d); VG.toast('Salvo'); } }
+  lc.addEventListener('change',function(e){ var a=e.target.closest('.cand'); if(!a) return; var k=e.target.dataset.k; if(k) atualiza(a.dataset.id,(function(){var o={};o[k]=e.target.value;return o;})()); });
+  lc.addEventListener('click',function(e){ var b=e.target.closest('[data-nota]'); if(!b) return; var a=b.closest('.cand'), nt=+b.dataset.nota;
+    a.querySelectorAll('[data-nota]').forEach(function(x){ x.classList.toggle('on',+x.dataset.nota<=nt); }); atualiza(a.dataset.id,{nota:nt}); });
+  document.getElementById('bcsv').onclick=function(){
+    var cols=['nome','whatsapp','email','cidade','atento','status','nota','resposta','video_link','obs','created_at'];
+    var q=function(s){ return '"'+String(s==null?'':s).replace(/"/g,'""')+'"'; };
+    var csv='﻿'+cols.join(';')+'\n'+C.map(function(c){ return cols.map(function(k){ return q(k==='atento'?(c.atento?'sim':'não'):c[k]); }).join(';'); }).join('\n');
+    var a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})); a.download='candidatos-'+v.data.slug+'.csv'; a.click();
+  };
+}
+})();
+</script>
+</body>
+</html>

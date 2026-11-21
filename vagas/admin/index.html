@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<script src="/assets/tema.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Admin · Vagas por Propósito</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<link rel="stylesheet" href="/assets/casco.css">
+<link rel="stylesheet" href="/vagas/assets/vg.css">
+<style>
+.topo{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.topo h1{font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:700;letter-spacing:-.03em;margin:4px 0 0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
+.kpis b{display:block;font-size:2rem;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.kpis span{color:var(--muted);font-size:.82rem}
+.emp{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;margin-bottom:10px}
+.emp h3{margin:6px 0 2px;font-size:1.05rem}
+.emp .meta{color:var(--muted);font-size:.84rem}
+.emp .vagas{margin-top:8px;font-size:.84rem;display:flex;gap:10px;flex-wrap:wrap}
+h2.sec{font-size:1.1rem;margin:30px 0 12px}
+@media (max-width:700px){.kpis{grid-template-columns:1fr 1fr}.emp{grid-template-columns:1fr}}
+</style>
+</head>
+<body data-casco="area">
+<script src="/assets/casco.js"></script>
+<main class="vg-wrap" id="app"><p class="muted">Carregando…</p></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/vagas/assets/vg.js"></script>
+<script>
+(async function(){
+  var sb=VG.sb, esc=VG.esc, app=document.getElementById('app');
+  var s=await sb.auth.getSession(); if(!s.data.session) return location.replace('/vagas/');
+  var a=await sb.rpc('vg_is_admin');
+  if(!a.data){ app.innerHTML='<div class="vg-vazio"><h2>Área restrita</h2><p>Esta página é só da Unique.</p><a class="btn" href="/vagas/painel/">Ir para minhas vagas</a></div>'; return; }
+
+  async function carrega(){
+    var e=await sb.from('vg_empresas').select('*').order('created_at',{ascending:false});
+    var v=await sb.from('vg_vagas').select('id,empresa_id,slug,titulo,status,views');
+    var c=await sb.from('vg_candidatos').select('vaga_id,atento');
+    var E=e.data||[], VV=v.data||[], C=c.data||[];
+    var porVaga={}; C.forEach(function(x){ var o=porVaga[x.vaga_id]||(porVaga[x.vaga_id]={t:0,a:0}); o.t++; if(x.atento) o.a++; });
+    var pend=E.filter(function(x){return x.status==='pendente';});
+    function card(x){
+      var vs=VV.filter(function(v){return v.empresa_id===x.id;});
+      var st={pendente:['Pendente','warn'],aprovada:['Aprovada','ok'],bloqueada:['Bloqueada','mag']}[x.status];
+      var wa=VG.zap(x.whatsapp);
+      var msgOk=encodeURIComponent('Olá, '+(x.responsavel||'').split(' ')[0]+'! Seu acesso ao Vagas por Propósito da Unique foi liberado. Entre em https://sejaunique.com/vagas/ e crie a página da sua vaga.');
+      return '<article class="vg-card emp"><div><span class="vg-pill '+st[1]+'">'+st[0]+'</span><h3>'+esc(x.nome)+'</h3>'+
+        '<div class="meta">'+esc(x.responsavel||'')+(x.whatsapp?' · '+esc(x.whatsapp):'')+(x.cidade?' · '+esc(x.cidade):'')+' · desde '+new Date(x.created_at).toLocaleDateString('pt-BR')+'</div>'+
+        (vs.length?'<div class="vagas">'+vs.map(function(v){ var k=porVaga[v.id]||{t:0,a:0}; return '<a target="_blank" href="/vagas/v/'+esc(v.slug)+'">'+esc(v.titulo||v.slug)+'</a><span class="muted">'+v.status+' · '+(v.views||0)+' visitas · '+k.t+' cand. · '+k.a+' ✓</span>'; }).join('')+'</div>':'')+
+        '</div><div class="vg-row">'+
+        (x.status!=='aprovada'?'<button class="btn sm verde" data-st="aprovada" data-id="'+x.id+'">Aprovar</button>':'')+
+        (x.status==='aprovada'&&wa?'<a class="btn sm" target="_blank" rel="noopener" href="'+wa+'?text='+msgOk+'">Avisar no WhatsApp</a>':'')+
+        (x.status!=='bloqueada'?'<button class="btn sm" data-st="bloqueada" data-id="'+x.id+'">Bloquear</button>':'')+
+        '</div></article>';
+    }
+    app.innerHTML='<div class="topo"><div><span class="spaced" style="color:var(--muted)">Unique · Admin</span><h1>Vagas por Propósito</h1></div><div class="vg-row"><a class="btn sm" href="/vagas/painel/">Minhas vagas</a></div></div>'+
+      '<div class="kpis"><div class="vg-card"><b>'+E.length+'</b><span>empresas</span></div><div class="vg-card"><b>'+pend.length+'</b><span>aguardando aprovação</span></div>'+
+      '<div class="vg-card"><b>'+VV.filter(function(v){return v.status==='publicada';}).length+'</b><span>vagas no ar</span></div><div class="vg-card"><b>'+C.length+'</b><span>candidatos ('+C.filter(function(x){return x.atento;}).length+' ✓ atentos)</span></div></div>'+
+      (pend.length?'<h2 class="sec">Aguardando aprovação</h2>'+pend.map(card).join(''):'')+
+      '<h2 class="sec">Todas as empresas</h2>'+(E.filter(function(x){return x.status!=='pendente';}).map(card).join('')||'<div class="vg-vazio">Nenhuma empresa ainda.</div>');
+    app.querySelectorAll('[data-st]').forEach(function(b){ b.onclick=async function(){
+      b.disabled=true; var r=await sb.from('vg_empresas').update({status:b.dataset.st}).eq('id',b.dataset.id);
+      if(r.error){ b.disabled=false; return VG.toast(VG.erroPt(r.error),'erro'); }
+      VG.toast(b.dataset.st==='aprovada'?'Empresa aprovada':'Empresa bloqueada'); carrega();
+    }; });
+  }
+  carrega();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<script src="/assets/tema.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vagas por Propósito · Unique Consultoria</title>
+<meta name="description" content="Crie em poucos minutos a página da sua vaga, com filtro automático: só chega até você quem leu e se conectou com a sua empresa.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Unique Consultoria">
+<meta property="og:title" content="Vagas por Propósito · Unique Consultoria">
+<meta property="og:description" content="A página da sua vaga com filtro automático: sem currículo, com pergunta, vídeo e palavra secreta.">
+<meta property="og:url" content="https://sejaunique.com/vagas/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<link rel="stylesheet" href="/assets/casco.css">
+<link rel="stylesheet" href="/vagas/assets/vg.css">
+<style>
+.acesso{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:72px;align-items:center;max-width:1120px;width:100%;margin:0 auto;padding:56px 20px;box-sizing:border-box}
+.lado{display:flex;flex-direction:column;gap:24px}
+.lado .spaced{color:var(--muted)}
+.lado ul{list-style:none;margin:6px 0 0;padding:0;border-top:1px solid var(--line);max-width:520px}
+.lado li{display:flex;gap:16px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.lado li span{font-size:.66rem;letter-spacing:.3em;color:var(--muted);font-variant-numeric:tabular-nums}
+.metodo-link{display:flex;gap:14px;align-items:center;border:1px solid var(--line);border-radius:18px;padding:14px 16px;text-decoration:none;color:inherit;max-width:520px;background:var(--soft)}
+.metodo-link .play{width:44px;height:44px;border-radius:50%;background:#ff2e88;display:grid;place-items:center;color:#fff;flex-shrink:0;font-size:1rem}
+.metodo-link b{display:block}
+.metodo-link small{color:var(--muted)}
+.caixa{width:100%;max-width:420px;margin-inline:auto}
+.abas{display:flex;gap:4px;border:1px solid var(--line);border-radius:999px;padding:4px;margin-bottom:28px}
+.abas button{flex:1;font:inherit;font-size:.8rem;font-weight:600;border:0;border-radius:999px;padding:10px;background:none;color:var(--muted);cursor:pointer}
+.abas button[aria-selected="true"]{background:var(--fg);color:var(--bg)}
+.caixa h2{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin:0 0 6px}
+.caixa .sub{color:var(--muted);margin:0 0 22px;font-size:.92rem}
+.caixa .btn.solid{width:100%;margin-top:6px}
+.dica{font-size:.8rem;color:var(--muted);margin-top:16px}
+.dica button{font:inherit;font-weight:600;background:none;border:0;color:var(--fg);text-decoration:underline;cursor:pointer;padding:0}
+.passos{max-width:1120px;margin:0 auto;padding:0 20px 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;box-sizing:border-box}
+.passos .vg-card h3{margin:8px 0 6px;font-size:1.05rem}
+.passos .vg-card p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.55}
+.passos .n{font-size:.66rem;letter-spacing:.3em;color:var(--muted)}
+@media (max-width:900px){.acesso{grid-template-columns:1fr;gap:44px;padding-top:28px}.passos{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.passos{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<script src="/assets/casco.js"></script>
+<main>
+<section class="acesso">
+  <div class="lado">
+    <span class="spaced">Recrutamento por propósito</span>
+    <h1 class="vg-h1">Pare de receber currículo. <span class="grifo">Venda a sua vaga.</span></h1>
+    <p class="vg-sub">Em poucos minutos você cria a página da sua vaga, com filtro automático: só chega até você quem realmente leu e se conectou com a sua empresa.</p>
+    <ul>
+      <li><span>01</span>Uma analogia que transforma o cargo em desafio</li>
+      <li><span>02</span>Pergunta no lugar do currículo e vídeo do candidato</li>
+      <li><span>03</span>Palavra secreta: o painel marca quem é "✓ Atento"</li>
+      <li><span>04</span>Escadinha salarial e painel com todos os candidatos</li>
+    </ul>
+    <a class="metodo-link" href="/vagas/metodo/"><span class="play">▶</span><span><b>Assista aos vídeos e leia o manual do método</b><small>3 vídeos e 6 capítulos que explicam cada filtro</small></span></a>
+  </div>
+
+  <div class="caixa">
+    <div class="abas" role="tablist">
+      <button type="button" role="tab" id="t-entrar" aria-selected="true">Entrar</button>
+      <button type="button" role="tab" id="t-cad" aria-selected="false">Criar conta</button>
+    </div>
+
+    <form id="f-entrar" novalidate>
+      <h2>Bem-vindo de volta</h2>
+      <p class="sub">Entre para criar e acompanhar as suas vagas.</p>
+      <div class="aviso" id="m-entrar" hidden></div>
+      <div class="campo"><label for="e-email">E-mail</label><input id="e-email" type="email" autocomplete="username" required></div>
+      <div class="campo"><label for="e-senha">Senha</label><input id="e-senha" type="password" autocomplete="current-password" required></div>
+      <button class="btn solid" type="submit">Entrar</button>
+      <p class="dica">Esqueceu a senha? <button type="button" id="b-esqueci">Receber link por e-mail</button></p>
+    </form>
+
+    <form id="f-cad" novalidate hidden>
+      <h2>Crie a conta da empresa</h2>
+      <p class="sub">Depois do cadastro, a Unique libera o seu acesso. Você recebe o aviso por WhatsApp.</p>
+      <div class="aviso" id="m-cad" hidden></div>
+      <div class="campo"><label for="c-empresa">Empresa</label><input id="c-empresa" autocomplete="organization" required></div>
+      <div class="campo"><label for="c-nome">Seu nome</label><input id="c-nome" autocomplete="name" required></div>
+      <div class="campo"><label for="c-whats">WhatsApp</label><input id="c-whats" type="tel" autocomplete="tel" placeholder="(62) 99999-9999" required></div>
+      <div class="campo"><label for="c-cidade">Cidade</label><input id="c-cidade" placeholder="Goiânia, GO"></div>
+      <div class="campo"><label for="c-email">E-mail</label><input id="c-email" type="email" autocomplete="email" required></div>
+      <div class="campo"><label for="c-senha">Crie uma senha</label><input id="c-senha" type="password" autocomplete="new-password" minlength="8" required placeholder="Mínimo de 8 caracteres"></div>
+      <button class="btn solid" type="submit">Criar conta</button>
+    </form>
+  </div>
+</section>
+
+<section class="passos">
+  <div class="vg-card"><span class="n">01</span><h3>Escolha a analogia</h3><p>Atleta, Lapidador, Estrategista ou Explorador. Os textos da página nascem dela.</p></div>
+  <div class="vg-card"><span class="n">02</span><h3>Traduza o cargo</h3><p>Promessa, tarefas concretas, perfil, rotina e benefícios, nessa ordem.</p></div>
+  <div class="vg-card"><span class="n">03</span><h3>Ligue os filtros</h3><p>Pergunta no lugar do currículo, vídeo do candidato e a palavra secreta.</p></div>
+  <div class="vg-card"><span class="n">04</span><h3>Receba só os atentos</h3><p>Painel com respostas, vídeos, status e quem passou no teste de atenção.</p></div>
+</section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/vagas/assets/vg.js"></script>
+<script>
+(function(){
+  var sb=VG.sb, $=function(i){return document.getElementById(i);};
+  sb.auth.getSession().then(function(r){ if(r.data.session) location.replace('/vagas/painel/'); });
+
+  function aba(cad){
+    $('t-entrar').setAttribute('aria-selected',!cad); $('t-cad').setAttribute('aria-selected',cad);
+    $('f-entrar').hidden=cad; $('f-cad').hidden=!cad;
+  }
+  $('t-entrar').onclick=function(){aba(false);}; $('t-cad').onclick=function(){aba(true);};
+  if(location.hash==='#cadastro') aba(true);
+  function msg(id,t,ok){ var m=$(id); m.hidden=!t; m.textContent=t||''; m.style.borderColor=ok?'#00e676':(t?'#ff2e88':''); }
+
+  $('f-entrar').onsubmit=function(ev){
+    ev.preventDefault(); var b=this.querySelector('button[type=submit]'); b.disabled=true; msg('m-entrar','');
+    sb.auth.signInWithPassword({email:$('e-email').value.trim(),password:$('e-senha').value}).then(function(r){
+      b.disabled=false; if(r.error) return msg('m-entrar',VG.erroPt(r.error));
+      location.replace('/vagas/painel/');
+    });
+  };
+  $('b-esqueci').onclick=function(){
+    var em=$('e-email').value.trim(); if(!em) return msg('m-entrar','Digite seu e-mail acima e clique de novo.');
+    sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+'/vagas/painel/?nova-senha'}).then(function(r){
+      msg('m-entrar',r.error?VG.erroPt(r.error):'Enviamos um link para '+em+'. Abra o e-mail para criar uma nova senha.',!r.error);
+    });
+  };
+  $('f-cad').onsubmit=function(ev){
+    ev.preventDefault(); msg('m-cad','');
+    var d={empresa:$('c-empresa').value.trim(),nome:$('c-nome').value.trim(),whatsapp:$('c-whats').value.trim(),cidade:$('c-cidade').value.trim()};
+    var email=$('c-email').value.trim(), senha=$('c-senha').value;
+    if(!d.empresa||!d.nome||!d.whatsapp||!email) return msg('m-cad','Preencha empresa, nome, WhatsApp e e-mail.');
+    if(senha.length<8) return msg('m-cad','A senha precisa ter pelo menos 8 caracteres.');
+    var b=this.querySelector('button[type=submit]'); b.disabled=true;
+    sb.auth.signUp({email:email,password:senha,options:{data:d,emailRedirectTo:location.origin+'/vagas/painel/'}}).then(function(r){
+      if(r.error){ b.disabled=false; return msg('m-cad',VG.erroPt(r.error)); }
+      if(!r.data.session){ b.disabled=false; return msg('m-cad','Conta criada! Enviamos um e-mail para '+email+'. Clique no link para confirmar e entrar.',true); }
+      return sb.from('vg_empresas').insert({owner:r.data.user.id,nome:d.empresa,responsavel:d.nome,whatsapp:d.whatsapp,cidade:d.cidade}).then(function(){ location.replace('/vagas/painel/'); });
+    });
+  };
+})();
+</script>
+</body>
+</html>

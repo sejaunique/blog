@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<script src="/assets/tema.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vaga · Recrutamento por propósito</title>
+<meta name="description" content="Uma vaga para quem lê até o fim. Sem currículo: responda, grave o seu vídeo e mostre por que esta vaga deve ser sua.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Uma vaga para quem lê até o fim">
+<meta property="og:description" content="Sem currículo: responda, grave o seu vídeo e mostre por que esta vaga deve ser sua.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<link rel="stylesheet" href="/assets/casco.css">
+<link rel="stylesheet" href="/vagas/assets/vg.css">
+<style>
+:root{--ac:#00e676}
+body{display:block}
+.pg{max-width:820px;margin:0 auto;padding:0 20px 60px;box-sizing:border-box}
+.barra{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 0;border-bottom:1px solid var(--line)}
+.barra .emp{display:flex;align-items:center;gap:12px;font-weight:700}
+.barra img{height:40px;max-width:140px;object-fit:contain}
+.hero{padding:56px 0 30px}
+.hero .tag{display:inline-flex;gap:8px;align-items:center;font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;border-radius:999px;padding:7px 14px;background:var(--ac);color:#000}
+.hero h1{font-size:clamp(2.2rem,6vw,3.8rem);line-height:1.02;font-weight:800;letter-spacing:-.04em;margin:18px 0 20px;text-wrap:balance}
+.hero .prom{font-size:clamp(1.1rem,2.4vw,1.3rem);line-height:1.6;margin:0;white-space:pre-line}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.chips span{font-size:.8rem;border:1px solid var(--line);border-radius:999px;padding:7px 12px;color:var(--muted)}
+.sec{padding:40px 0;border-top:1px solid var(--line)}
+.sec .n{font-size:.66rem;letter-spacing:.3em;color:var(--muted);font-weight:600;text-transform:uppercase}
+.sec h2{font-size:clamp(1.5rem,3.4vw,2rem);letter-spacing:-.03em;margin:8px 0 18px;line-height:1.15}
+.sec p{white-space:pre-line}
+.lista{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.lista li{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:var(--soft)}
+.lista li::before{content:"";flex-shrink:0;width:10px;height:10px;border-radius:50%;background:var(--ac);margin-top:.55em}
+.dica{font-style:italic;color:var(--muted)}
+.video{aspect-ratio:16/9;width:100%;border:0;border-radius:20px;background:#000}
+.form{background:var(--fg);color:var(--bg);border-radius:28px;padding:32px;margin-top:20px}
+.form h2{color:var(--bg)}
+.form .campo label{color:var(--bg)}
+.form .campo input,.form .campo textarea{background:var(--bg);color:var(--fg);border-color:transparent}
+.form .campo textarea{min-height:200px}
+.cont{font-size:.8rem;opacity:.75;text-align:right;margin-top:-8px;margin-bottom:12px}
+.cont.ok{color:var(--ac);opacity:1;font-weight:700}
+.trava{border:2px dashed color-mix(in srgb,var(--bg) 40%,transparent);border-radius:20px;padding:22px;margin:10px 0 18px;transition:.3s}
+.trava.fechada{opacity:.45;pointer-events:none}
+.trava h3{margin:0 0 6px}
+.trava p{margin:0 0 14px;opacity:.8;font-size:.92rem}
+.trava input[type=file]{font:inherit;font-size:.85rem;color:var(--bg);width:100%}
+.form .btn.env{width:100%;background:var(--ac);color:#000;border-color:var(--ac);font-size:.95rem;padding:16px}
+.form .aviso{color:var(--fg)}
+.fim{text-align:center;padding:40px 10px}
+.fim h2{font-size:2rem;letter-spacing:-.03em;color:var(--bg)}
+.rodape{text-align:center;color:var(--muted);font-size:.78rem;padding:30px 0 10px}
+.rodape a{color:inherit;font-weight:600}
+.oculto{position:absolute;left:-9999px}
+@media (max-width:600px){.form{padding:22px;border-radius:22px}}
+</style>
+</head>
+<body>
+<div class="pg" id="pg"><p class="muted" style="padding:60px 0">Carregando a vaga…</p></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/vagas/assets/vg.js"></script>
+<script>
+(async function(){
+  var sb=VG.sb, esc=VG.esc, pg=document.getElementById('pg');
+  var slug=(location.pathname.match(/\/vagas\/v\/([a-z0-9-]+)/)||[])[1]||new URLSearchParams(location.search).get('s')||'';
+  if(!slug){ pg.innerHTML='<div class="fim" style="color:var(--fg)"><h2 style="color:var(--fg)">Vaga não encontrada</h2></div>'; return; }
+  var r=await sb.from('vg_vagas').select('*').eq('slug',slug).maybeSingle();
+  var V=r.data;
+  if(!V){ pg.innerHTML='<div style="padding:80px 0;text-align:center"><h1 class="vg-h1">Esta vaga não está disponível</h1><p class="muted">Ela pode ter sido encerrada. Obrigado pelo interesse!</p></div>'; return; }
+  var an=VG.ANALOGIAS[V.analogia]||{nome:'',emoji:'',cor:'#00e676'};
+  document.documentElement.style.setProperty('--ac',an.cor);
+  document.title=(V.titulo||'Vaga')+' · '+(V.empresa_nome||'');
+  if(V.status==='publicada') sb.rpc('vg_visita',{s:slug});
+  var aberta=V.status==='publicada';
+
+  function lista(a){ return '<ul class="lista">'+(a||[]).map(function(t){return '<li>'+esc(t)+'</li>';}).join('')+'</ul>'; }
+  var n=0; function sec(titulo,html){ n++; return '<section class="sec"><span class="n">'+String(n).padStart(2,'0')+'</span><h2>'+titulo+'</h2>'+html+'</section>'; }
+
+  // perfil com a palavra secreta escondida no meio do texto
+  var perfilHtml='';
+  if(V.perfil||(V.perfil_lista||[]).length||V.palavra_dica){
+    var txt=V.perfil||'', dica=V.palavra_dica?'<span class="dica"> '+esc(V.palavra_dica)+' </span>':'';
+    var partes=txt.split(/(?<=[.!?])\s+/), meio=Math.ceil(partes.length/2);
+    perfilHtml=(txt?'<p>'+esc(partes.slice(0,meio).join(' '))+dica+esc(partes.slice(meio).join(' '))+'</p>':(dica?'<p>'+dica+'</p>':''));
+    var pl=(V.perfil_lista||[]).slice();
+    if(pl.length) perfilHtml+=lista(pl);
+  }
+  var yt=VG.ytId(V.video_url);
+  var rot=[V.modelo,V.local,V.horario].filter(Boolean);
+
+  var remHtml='';
+  if(V.remun_tipo==='escadinha'&&(V.escadinha||[]).length){
+    var m=V.escadinha, f=+V.remun_final||0, mx=Math.max.apply(null,m.concat([f,1]));
+    remHtml='<p>Aqui o salário cresce junto com você. No período de experiência ele sobe mês a mês, até chegar ao valor cheio quando os seus resultados aparecerem.</p><div class="vg-escada">'+
+      m.map(function(v,i){return '<div class="deg"><b>'+VG.brl(v)+'</b><div class="bar" style="height:'+Math.max(8,v/mx*130)+'px"></div><small>Mês '+(i+1)+'</small></div>';}).join('')+
+      (f?'<div class="deg fim"><b>'+VG.brl(f)+'</b><div class="bar" style="height:'+Math.max(8,f/mx*130)+'px;background:var(--ac)"></div><small>Salário cheio</small></div>':'')+'</div>'+
+      (V.remun_texto?'<p class="muted">'+esc(V.remun_texto)+'</p>':'');
+  } else if(V.remun_tipo==='fixa'&&V.remun_texto){ remHtml='<p style="font-size:1.2rem;font-weight:700">'+esc(V.remun_texto)+'</p>'; }
+  else remHtml='<p>A remuneração é conversada na entrevista, de acordo com a sua experiência e o seu resultado.</p>';
+
+  var min=V.min_caracteres||0;
+  pg.innerHTML=
+    '<header class="barra"><div class="emp">'+(V.empresa_logo?'<img src="'+esc(V.empresa_logo)+'" alt="'+esc(V.empresa_nome)+'">':'<span>'+esc(V.empresa_nome)+'</span>')+'</div>'+
+      '<span data-tema></span></header>'+
+    (V.status!=='publicada'?'<div class="aviso" style="margin-top:16px">Prévia: esta vaga está como <b>'+esc(V.status)+'</b> e só você está vendo.</div>':'')+
+    '<section class="hero">'+(an.nome?'<span class="tag">'+an.emoji+' Procuramos um(a) '+esc(an.nome)+'</span>':'')+'<h1>'+esc(V.titulo)+'</h1>'+
+      (V.promessa?'<p class="prom">'+esc(V.promessa)+'</p>':'')+
+      '<div class="chips">'+(V.cargo_real?'<span>Cargo: '+esc(V.cargo_real)+'</span>':'')+(V.modelo?'<span>'+esc(V.modelo)+'</span>':'')+(V.cidade?'<span>'+esc(V.cidade)+'</span>':'')+'</div></section>'+
+    (yt?'<section class="sec"><iframe class="video" src="https://www.youtube-nocookie.com/embed/'+yt+'?rel=0" title="Vídeo da vaga" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe><p class="muted" style="font-size:.9rem">Assista com atenção, até o fim.</p></section>':'')+
+    (V.empresa_sobre?sec('Quem somos','<p>'+esc(V.empresa_sobre)+'</p>'):'')+
+    ((V.tarefas||[]).length?sec('O que você vai fazer, na prática',lista(V.tarefas)):'')+
+    (perfilHtml?sec('Quem nós procuramos',perfilHtml):'')+
+    (rot.length?sec('Onde e quando',lista(rot)):'')+
+    ((V.beneficios||[]).length?sec('O que você ganha (além do salário)',lista(V.beneficios)):'')+
+    sec('Remuneração',remHtml)+
+    '<section class="form" id="inscricao">'+(aberta?
+      '<span class="n" style="color:inherit;opacity:.6;font-size:.66rem;letter-spacing:.3em;font-weight:600">SEM CURRÍCULO</span><h2 style="font-size:clamp(1.6rem,4vw,2.2rem);letter-spacing:-.03em;margin:8px 0 6px">Por que esta vaga deve ser sua?</h2>'+
+      '<p style="opacity:.8;margin:0 0 22px">Não queremos o seu currículo. Queremos saber quem você é. Responda com calma: o vídeo libera depois da resposta.</p>'+
+      '<form id="f" novalidate><div class="aviso" id="msg" hidden></div>'+
+      '<div class="vg-grid2"><div class="campo"><label for="c-nome">Nome completo</label><input id="c-nome" autocomplete="name" required maxlength="120"></div>'+
+      '<div class="campo"><label for="c-whats">WhatsApp</label><input id="c-whats" type="tel" autocomplete="tel" required maxlength="40" placeholder="(62) 99999-9999"></div>'+
+      '<div class="campo"><label for="c-email">E-mail</label><input id="c-email" type="email" autocomplete="email" maxlength="160"></div>'+
+      '<div class="campo"><label for="c-cid">Cidade</label><input id="c-cid" autocomplete="address-level2" maxlength="120"></div></div>'+
+      '<div class="campo"><label for="c-resp">Por que esta vaga deve ser sua?</label><textarea id="c-resp" maxlength="6000" required placeholder="Conte a sua história, o que você já fez e por que se conectou com a gente."></textarea></div>'+
+      '<div class="cont" id="cont"></div>'+
+      '<div class="trava'+(min?' fechada':'')+'" id="trava"><h3>🎥 Seu vídeo</h3><p>'+esc(V.desafio_video||'Grave um vídeo curto (até 2 minutos) se apresentando e mostrando por que você é a pessoa certa.')+'</p>'+
+        '<div class="campo"><label for="c-vid">Enviar o arquivo do vídeo (até 200 MB)</label><input id="c-vid" type="file" accept="video/*"></div>'+
+        '<div class="campo" style="margin:0"><label for="c-link">ou cole um link (YouTube, Drive, Instagram)</label><input id="c-link" type="url" maxlength="500" placeholder="https://"></div></div>'+
+      '<div class="oculto" aria-hidden="true"><input id="c-site" tabindex="-1" autocomplete="off"></div>'+
+      '<button class="btn env" type="submit" id="benv">Enviar minha candidatura →</button></form>'
+      :'<div class="fim"><h2>Inscrições encerradas</h2><p style="opacity:.8">Esta vaga não está recebendo candidaturas agora.</p></div>')+'</section>'+
+    '<footer class="rodape">Recrutamento por propósito · <a href="https://sejaunique.com/vagas/" target="_blank" rel="noopener">Unique Consultoria</a></footer>';
+
+  var slot=pg.querySelector('[data-tema]'); if(window.UniqueTema) slot.replaceWith(window.UniqueTema.botao()); else slot.remove();
+  if(!aberta) return;
+
+  var $=function(i){return document.getElementById(i);};
+  function conta(){
+    var l=$('c-resp').value.trim().length, ok=l>=min;
+    $('cont').textContent=min?(ok?'✓ Resposta completa. O vídeo foi liberado.':l+' de '+min+' caracteres para liberar o vídeo'):l+' caracteres';
+    $('cont').classList.toggle('ok',ok&&min>0); $('trava').classList.toggle('fechada',!ok);
+  }
+  $('c-resp').oninput=conta; conta();
+  function msg(t,ok){ var m=$('msg'); m.hidden=!t; m.textContent=t||''; m.style.borderColor=ok?'var(--ac)':'#ff2e88'; if(t) m.scrollIntoView({behavior:'smooth',block:'center'}); }
+
+  $('f').onsubmit=async function(ev){
+    ev.preventDefault(); msg('');
+    if($('c-site').value) return;
+    var d={vaga_id:V.id,nome:$('c-nome').value.trim(),whatsapp:$('c-whats').value.trim(),email:$('c-email').value.trim()||null,cidade:$('c-cid').value.trim()||null,resposta:$('c-resp').value.trim(),video_link:$('c-link').value.trim()||null};
+    if(d.nome.length<2||!d.whatsapp) return msg('Preencha seu nome e WhatsApp.');
+    if(d.resposta.length<Math.max(min,1)) return msg('Sua resposta precisa ter pelo menos '+min+' caracteres.');
+    var arq=$('c-vid').files[0];
+    if(arq&&arq.size>200*1024*1024) return msg('O vídeo passou de 200 MB. Envie um link do YouTube ou do Drive.');
+    var b=$('benv'); b.disabled=true;
+    try{
+      if(arq){
+        b.textContent='Enviando o vídeo… não feche a página';
+        var ext=(arq.name.split('.').pop()||'mp4').toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,5)||'mp4';
+        var caminho=V.id+'/'+(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random().toString(36).slice(2))+'.'+ext;
+        var up=await sb.storage.from('vagas-videos').upload(caminho,arq,{contentType:arq.type||'video/mp4',upsert:false});
+        if(up.error) throw up.error;
+        d.video_path=caminho;
+      }
+      b.textContent='Enviando…';
+      var ins=await sb.from('vg_candidatos').insert(d);
+      if(ins.error) throw ins.error;
+      $('inscricao').innerHTML='<div class="fim"><h2>Candidatura enviada! 🎉</h2><p style="opacity:.85;max-width:44ch;margin:0 auto">Obrigado, '+esc(d.nome.split(' ')[0])+'. A '+esc(V.empresa_nome||'empresa')+' vai ler a sua resposta com atenção e, se fizer sentido, entra em contato pelo WhatsApp.</p></div>';
+      $('inscricao').scrollIntoView({behavior:'smooth'});
+    }catch(e){ b.disabled=false; b.textContent='Enviar minha candidatura →'; msg(VG.erroPt(e)); }
+  };
+})();
+</script>
+</body>
+</html>

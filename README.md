@@ -230,3 +230,15 @@ Botão ✦ no canto de qualquer tela do admin (atalho Ctrl+J) e a página **Hoje
 
 - `claude-na-empresa/`: tutorial "Claude na Empresa" (https://sejaunique.com/claude-na-empresa/), isca do post `ia-dentro-do-navegador` (palestra na Imersão 360 da Textil Club, 19/11/2026). Cadastro com aceite LGPD libera: 3 degraus (chat, projeto, Chrome), criar conta, gerador das instruções do Projeto da empresa, instalação do Claude no Chrome, gerador de pedido de proposta, 14 prompts com filtro, regras de segurança e plano de 7 dias (salvos no aparelho, `ua_claude_*`). Lead entra no CRM com a etiqueta **Claude na Empresa**. Capa: `assets/og/claude-na-empresa.jpg`. Palavra-chave do Instagram: CLAUDE.
 - `tools/carrossel_navegador.py`: cada slide é uma janela do Chrome (abas, barra de endereço, painel da IA) sobre papel de parede escuro com brilhos; tipos capa, frase, degraus, painel, lista, regra, cta. Usado em `ia-dentro-do-navegador`.
+
+## Vagas por Propósito (`/vagas/`)
+
+Plataforma de recrutamento por propósito (substitui a antiga em lobanja.site/vagas). Tudo no Supabase **Seja Unique** (tabelas `vg_*`, bucket `vagas-videos`).
+
+- `/vagas/`: apresentação + entrar / criar conta (Supabase Auth, e-mail e senha). A empresa nasce como **pendente**.
+- `/vagas/admin/`: o Carlos aprova ou bloqueia empresas e vê vagas, visitas e candidatos. Admin = e-mail confirmado em `vg_admin_emails` (contato@sejaunique.com e carlosrfilho@gmail.com).
+- `/vagas/painel/`: o empresário cria as vagas no criador em 10 etapas (empresa, analogia, promessa, tarefas, perfil + palavra secreta, rotina, benefícios, remuneração com escadinha, vídeo e filtros, publicar) e vê os candidatos (✓ Atento, vídeo, status, nota, anotações, planilha CSV).
+- `/vagas/v/<slug>`: página pública da vaga (identidade da empresa, cor da analogia). Pergunta no lugar do currículo; o vídeo libera depois da resposta mínima; upload de até 200 MB ou link.
+- `/vagas/metodo/`: os 3 vídeos e o manual de 6 capítulos.
+- Segurança: RLS em todas as tabelas. A palavra secreta fica em `vg_segredos` (só o dono lê) e o "✓ Atento" é calculado no banco (trigger `vg_candidato_guard`), o candidato não consegue marcar.
+- Arquivos comuns: `vagas/assets/vg.js` (cliente Supabase, textos das 4 analogias) e `vagas/assets/vg.css`.

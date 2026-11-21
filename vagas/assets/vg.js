@@ -7,6 +7,9 @@
 
   var ANALOGIAS={
     atleta:{
+      tarefas:['Cumprir a rotina diária de contatos e atendimentos com disciplina','Acompanhar as próprias metas e o placar do dia, da semana e do mês','Participar dos treinamentos e reuniões de alinhamento do time','Registrar cada atendimento e cada resultado no sistema da empresa','Buscar evolução constante: aprender com cada "não" e com cada venda'],
+      perfilTexto:'Procuramos alguém que não espera mandarem. Que trata meta como placar e treino como rotina. Que gosta de evoluir, aceita feedback como o atleta aceita o técnico e comemora o resultado do time tanto quanto o próprio.',
+      desafio:'Grave um vídeo de até 2 minutos contando a maior meta que você já bateu (no trabalho, no esporte ou na vida) e o que fez para chegar lá.',
       nome:'Atleta', emoji:'🏃', cor:'#00e676',
       resumo:'Para quem vive de meta, treino e placar.',
       titulo:function(c){return 'Atleta de alta performance'+(c?' · '+c:'');},
@@ -15,6 +18,9 @@
       beneficios:['Plano de evolução com metas claras e acompanhamento','Treinamentos e mentoria dentro da empresa','Reconhecimento público de quem bate a meta','Um time que comemora junto']
     },
     lapidador:{
+      tarefas:['Cuidar de cada detalhe do trabalho até ele ficar do jeito certo','Organizar processos, informações e entregas para que nada se perca','Melhorar continuamente o jeito de fazer, com técnica e capricho','Acompanhar cada demanda do começo ao fim, sem deixar pontas soltas','Registrar o que foi feito para que o time aprenda junto'],
+      perfilTexto:'Procuramos alguém que enxerga valor onde os outros veem só a pedra bruta. Que tem paciência para fazer bem feito, olho para o detalhe e orgulho do resultado final. Gente que não se contenta com o "tá bom".',
+      desafio:'Grave um vídeo de até 2 minutos mostrando algo que você melhorou ou organizou (um processo, um projeto, um espaço) e como ficou antes e depois.',
       nome:'Lapidador', emoji:'💎', cor:'#ff2e88',
       resumo:'Para quem transforma o bruto em valioso, com técnica e paciência.',
       titulo:function(c){return 'Lapidador(a) de diamantes'+(c?' · '+c:'');},
@@ -23,6 +29,9 @@
       beneficios:['Liberdade para aperfeiçoar o próprio método','Contato direto com quem decide','Projetos que ficam com a sua assinatura','Ambiente que valoriza qualidade']
     },
     estrategista:{
+      tarefas:['Analisar números e indicadores para entender o que está funcionando','Planejar as próximas ações e organizar prioridades da semana','Acompanhar a execução do plano junto com o time','Propor melhorias com base em dados, não só em opinião','Apresentar resultados de forma clara para a liderança'],
+      perfilTexto:'Procuramos alguém que enxerga o tabuleiro inteiro antes de mexer a peça. Que gosta de números, pensa antes de agir e sabe explicar o plano para todo mundo entender. Gente calma quando o jogo muda.',
+      desafio:'Grave um vídeo de até 2 minutos explicando como você planejaria os seus primeiros 30 dias nesta vaga.',
       nome:'Estrategista', emoji:'♟️', cor:'#2f6bff',
       resumo:'Para quem enxerga o tabuleiro inteiro antes de mexer a peça.',
       titulo:function(c){return 'Estrategista'+(c?' · '+c:'');},
@@ -31,6 +40,9 @@
       beneficios:['Participação nas decisões da empresa','Acesso aos números e ao planejamento','Desafios intelectuais de verdade','Crescimento para posições de liderança']
     },
     explorador:{
+      tarefas:['Prospectar e abrir novos clientes, mercados ou oportunidades','Conversar com pessoas novas todos os dias e criar relacionamento','Testar abordagens diferentes e trazer o que funcionou','Mapear a região, os concorrentes e as oportunidades que ninguém viu','Registrar cada contato e cada descoberta para o time'],
+      perfilTexto:'Procuramos alguém que se anima com o mapa em branco. Que tem iniciativa, conversa fácil com gente nova e não desanima com o primeiro "não". Gente com autonomia para se organizar e coragem para testar o novo.',
+      desafio:'Grave um vídeo de até 2 minutos contando uma vez em que você abriu um caminho novo sozinho(a): um cliente, um projeto ou uma oportunidade.',
       nome:'Explorador', emoji:'🧭', cor:'#ffb020',
       resumo:'Para quem gosta de mapa em branco e território novo.',
       titulo:function(c){return 'Explorador(a) de novos territórios'+(c?' · '+c:'');},
@@ -40,6 +52,8 @@
     }
   };
 
+  var PALAVRAS=['GIRASSOL','FAROL','BÚSSOLA','DIAMANTE','HORIZONTE','ÂNCORA','TROFÉU','SEMENTE','COMETA','MONTANHA'];
+  function palavra(){ return PALAVRAS[Math.floor(Math.random()*PALAVRAS.length)]; }
   function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
   function slugify(s){return String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60);}
   function brl(v){var n=Number(v); if(!isFinite(n)||!v) return ''; return n.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});}
@@ -63,5 +77,5 @@
     return m||'Algo deu errado. Tente de novo.';
   }
 
-  window.VG={URL:URL_SB,CHAVE:CHAVE,sb:sb,ANALOGIAS:ANALOGIAS,esc:esc,slugify:slugify,brl:brl,ytId:ytId,zap:zap,toast:toast,erroPt:erroPt};
+  window.VG={palavra:palavra,URL:URL_SB,CHAVE:CHAVE,sb:sb,ANALOGIAS:ANALOGIAS,esc:esc,slugify:slugify,brl:brl,ytId:ytId,zap:zap,toast:toast,erroPt:erroPt};
 })();

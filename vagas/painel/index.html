@@ -223,6 +223,24 @@ function area(l,id,v,ph){ return '<div class="campo"><label for="'+id+'">'+l+'</
 function val(id){ var e=document.getElementById(id); return e?e.value.trim():''; }
 
 /* ---------- editor (criador) ---------- */
+function sobrePadrao(){
+  var n=EMP.nome&&EMP.nome!=='Minha empresa'?EMP.nome:'nossa empresa';
+  return 'A '+n+(EMP.cidade?', de '+EMP.cidade+',':'')+' acredita que resultado de verdade nasce de gente comprometida. Aqui cada pessoa sabe o seu papel, tem meta clara e cresce junto com a empresa. Mais do que preencher uma vaga, queremos alguém que vista a camisa e construa essa história com a gente.';
+}
+// preenche com o padrão da analogia tudo o que estiver vazio ou ainda igual ao padrão da analogia anterior
+function aplicaAnalogia(nova){
+  var ant=A[V.analogia], an=A[nova]; V.analogia=nova; if(!an) return;
+  function igual(a,b){ return JSON.stringify(a||'')===JSON.stringify(b||''); }
+  function troca(campo,valAnt,valNovo){ var at=V[campo]; if(at==null||at===''||(Array.isArray(at)&&!at.length)||(ant&&igual(at,valAnt))) V[campo]=valNovo; }
+  troca('promessa',ant&&ant.promessa,an.promessa);
+  troca('tarefas',ant&&ant.tarefas,an.tarefas.slice());
+  troca('perfil',ant&&ant.perfilTexto,an.perfilTexto);
+  troca('perfil_lista',ant&&ant.perfil,an.perfil.slice());
+  troca('beneficios',ant&&ant.beneficios,an.beneficios.slice());
+  troca('desafio_video',ant&&ant.desafio,an.desafio);
+  var tAnt=ant?ant.titulo(V.cargo_real):'';
+  if(!V.titulo||V.titulo===tAnt) V.titulo=an.titulo(V.cargo_real);
+}
 var ETAPAS=[
   ['empresa','Empresa'],['analogia','Analogia'],['promessa','Promessa'],['tarefas','Tarefas'],['perfil','Perfil'],
   ['rotina','Rotina'],['beneficios','Benefícios'],['remuneracao','Remuneração'],['filtros','Filtros'],['publicar','Publicar']
@@ -236,10 +254,11 @@ async function editor(id){
     if(r.error) { VG.toast('Vaga não encontrada','erro'); location.hash='#/'; return; }
     V=r.data; var s=await sb.from('vg_segredos').select('palavra').eq('vaga_id',id).maybeSingle(); PAL=(s.data&&s.data.palavra)||'';
   } else {
-    V={empresa_id:EMP.id,status:'rascunho',empresa_nome:EMP.nome,empresa_sobre:EMP.sobre||'',empresa_logo:EMP.logo_url||'',cidade:EMP.cidade||'',
-      analogia:'',cargo_real:'',titulo:'',promessa:'',tarefas:[],perfil:'',perfil_lista:[],local:EMP.cidade||'',horario:'',modelo:'Presencial',
-      beneficios:[],remun_tipo:'combinar',remun_texto:'',escadinha:[1500,1600,1700],remun_final:5000,video_url:'',desafio_video:'',palavra_onde:'perfil',min_caracteres:300,slug:''};
-    PAL='';
+    V={empresa_id:EMP.id,status:'rascunho',empresa_nome:EMP.nome,empresa_sobre:EMP.sobre||sobrePadrao(),empresa_logo:EMP.logo_url||'',cidade:EMP.cidade||'',
+      analogia:'',cargo_real:'',titulo:'',promessa:'',tarefas:[],perfil:'',perfil_lista:[],local:EMP.cidade||'',horario:'Segunda a sexta, das 8h às 18h',modelo:'Presencial',
+      beneficios:[],remun_tipo:'escadinha',remun_texto:'',escadinha:[1500,1600,1700],remun_final:2500,video_url:'',desafio_video:'',palavra_onde:'perfil',min_caracteres:300,slug:''};
+    PAL=VG.palavra();
+    aplicaAnalogia('atleta');
   }
   EI=0; desenha();
 }
@@ -301,13 +320,14 @@ var PASSOS={
       '<div class="analogias">'+Object.keys(A).map(function(k){ var a=A[k]; return '<button type="button" class="analogia" data-a="'+k+'" aria-pressed="'+(V.analogia===k)+'"><span class="e">'+a.emoji+'</span><b>'+a.nome+'</b><small>'+a.resumo+'</small></button>'; }).join('')+'</div>'+
       campo('Qual é o cargo real?','f-cargo',V.cargo_real,'Ex.: Vendedor externo, Gerente de marketing, Assistente administrativo')+
       '<label style="font-size:.78rem;font-weight:600">Título que aparece na página</label><div class="titulo-prev" id="tprev" contenteditable="true">'+esc(V.titulo||'Escolha a analogia')+'</div>';
-    var tp=document.getElementById('tprev'), manual=!!V.titulo;
+    var tp=document.getElementById('tprev'), manual=!!V.titulo&&!!A[V.analogia]&&V.titulo!==A[V.analogia].titulo(V.cargo_real);
     function gera(){ if(manual||!V.analogia) return; tp.textContent=A[V.analogia].titulo(val('f-cargo')); }
     p.querySelectorAll('.analogia').forEach(function(b){ b.onclick=function(){
-      var mudou=V.analogia!==b.dataset.a; V.analogia=b.dataset.a; manual=false;
+      var t=tp.textContent.trim(), tAnt=A[V.analogia]?A[V.analogia].titulo(val('f-cargo')):'';
+      V.cargo_real=val('f-cargo'); V.titulo=(manual&&t!==tAnt)?t:'';
+      aplicaAnalogia(b.dataset.a); manual=V.titulo!==A[V.analogia].titulo(V.cargo_real);
       p.querySelectorAll('.analogia').forEach(function(x){x.setAttribute('aria-pressed',x===b);});
-      if(mudou){ var an=A[V.analogia]; if(!V.promessa||Object.keys(A).some(function(k){return A[k].promessa===V.promessa;})) V.promessa=an.promessa; }
-      gera();
+      tp.textContent=V.titulo;
     }; });
     document.getElementById('f-cargo').oninput=gera; tp.oninput=function(){manual=true;};
     COL=function(){ V.cargo_real=val('f-cargo'); var t=tp.textContent.trim(); V.titulo=(t==='Escolha a analogia')?'':t; };

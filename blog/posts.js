@@ -64,7 +64,7 @@ window.POSTS = [
     slug: "black-zona",
     capa: "assets/capa-black-zona.jpg",
     titulo: "Black Friday sem ==queimar margem==",
-    data: "2026-11-21",
+    data: "2026-10-30",
     categoria: "Estratégia",
     resumo: "Desconto qualquer um dá. Vender na Black com condição, prazo e rotina é o que separa quem fatura de quem só gira estoque no prejuízo. As 4 regras da Black Zona.",
     texto: `
@@ -103,7 +103,7 @@ A Black Friday é sexta, 27/11, e a Cyber Monday, 30/11. O feriado de 20/11 come
     slug: "comercial-atleta",
     capa: "assets/capa-comercial-atleta.jpg",
     titulo: "Seu comercial treina ou ==só joga em dia de jogo?==",
-    data: "2026-11-21",
+    data: "2026-10-17",
     categoria: "Gestão",
     resumo: "Atleta não vira campeão no dia da final. Comercial também não. Os 4 pilares, a rotina de treino e o placar que separam o time que vende do time que torce.",
     texto: `
@@ -147,7 +147,7 @@ Ninguém precisa mudar tudo de uma vez. Precisa de 30 dias de rotina repetida, t
     slug: "estoque-parado",
     capa: "assets/capa-estoque-parado.jpg",
     titulo: "Estoque parado é ==dinheiro dormindo==",
-    data: "2026-11-21",
+    data: "2026-10-28",
     categoria: "Estratégia",
     resumo: "Antes do desconto, o diagnóstico. A idade do estoque e o motivo do encalhe dizem qual é a ação certa. Com semáforo, frentes de ação e plano de 30 dias.",
     texto: `

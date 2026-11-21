@@ -61,6 +61,62 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 
 window.POSTS = [
   {
+    slug: "rota-do-atendimento",
+    titulo: "A rota do atendimento: ==do lead ao vendido==",
+    data: "2026-11-21",
+    categoria: "Técnica",
+    resumo: "Venda não é sorte, é rota. As 7 paradas do funil, do lead ao vendido, e o kit gratuito com checklist, mensagens prontas e roteiro de qualificação.",
+    texto: `
+Todo vendedor sabe o destino: o **vendido**. O que quase ninguém tem é a ==rota==.
+
+Sem rota, cada atendimento vira improviso. O cliente chega pelo WhatsApp, o vendedor responde do jeito que dá, manda um orçamento e fica esperando. Às vezes fecha. Na maioria das vezes, some.
+
+Rota é o caminho que todo atendimento percorre, com paradas claras e um próximo passo definido em cada uma.
+
+## As 7 paradas da rota
+
+- **Lead:** alguém chegou. Ainda não é cliente, é uma oportunidade.
+- **Qualificação:** descobrir se ele tem dor, decisão, prazo e dinheiro. Sem isso, orçamento é tiro no escuro.
+- **Orçamento:** a proposta certa para quem foi qualificado, não para todo mundo que pediu preço.
+- **Negociação:** ajustar condição, prazo e escopo sem destruir a margem.
+- **Objeção:** o "vou pensar", o "está caro", o "depois eu vejo". Cada um tem resposta.
+- **Perdido:** registrar o motivo. Perda sem motivo é aprendizado jogado fora.
+- **Vendido:** o destino. E o começo da próxima venda.
+
+> Todo atendimento precisa sair de uma parada com o próximo passo combinado.
+
+## Onde o vendedor se perde
+
+Os vendedores raramente se perdem na estrada inteira. Eles se perdem em dois pontos:
+
+- **Pulam a qualificação** e mandam orçamento para curioso
+- **Abandonam na objeção** e chamam de "cliente frio" o que era falta de follow-up
+
+É por isso que a rota precisa de três coisas: ==perguntas certas, mensagens prontas e cadência==.
+
+## A rotina que sustenta a rota
+
+Rota sem rotina vira intenção. Todo dia o vendedor precisa saber:
+
+- Quantos leads novos entraram
+- Quem está esperando resposta
+- Quais orçamentos precisam de follow-up hoje
+- Quanto falta para a meta da semana
+
+## O Kit do Vendedor
+
+Montei um kit gratuito com tudo isso pronto para usar no WhatsApp, na ligação e na rotina:
+
+- Checklist de cada etapa do funil
+- Mensagens prontas
+- Roteiro com 6 perguntas de qualificação
+- Matriz de objeções e cadência de follow-up
+- Rotina diária e calculadora de meta semanal
+
+[Liberar o Kit do Vendedor · Rota do Atendimento](https://sejaunique.com/rota-do-atendimento/)
+`
+  },
+  {
     slug: "ia-dentro-do-navegador",
     capa: "assets/capa-ia-dentro-do-navegador.jpg",
     titulo: "Sua empresa não precisa de mais uma ferramenta. Precisa de ==alguém que use as que você já tem==.",

@@ -319,7 +319,7 @@ var PASSOS={
     COL=function(){ V.empresa_nome=val('f-en'); V.empresa_logo=val('f-el'); V.cidade=val('f-ec'); V.empresa_sobre=val('f-es'); };
   },
   analogia:function(p){
-    p.innerHTML='<h2>Escolha a analogia</h2><p class="ajuda">O nome do cargo define o valor percebido. Em vez de "Vendedor", a página fala com um <b>Atleta</b>; em vez de "Gerente de Marketing", com um <b>Lapidador de diamantes</b>. Isso tira a vaga do leilão de salário e leva para o desafio.</p>'+
+    p.innerHTML='<h2>Escolha a analogia</h2><p class="ajuda">O nome do cargo define o valor percebido. Em vez de "Vendedor", a página fala com um <b>Atleta</b>; em vez de "SDR", com um <b>Lapidário de diamantes</b>; em vez de "Supervisor", com um <b>Técnico</b>. Isso tira a vaga do leilão de salário e leva para o desafio.</p>'+
       '<div class="analogias">'+Object.keys(A).map(function(k){ var a=A[k]; return '<button type="button" class="analogia" data-a="'+k+'" aria-pressed="'+(V.analogia===k)+'"><span class="e">'+a.emoji+'</span><b>'+a.nome+'</b><small>'+a.resumo+'</small></button>'; }).join('')+'</div>'+
       campo('Qual é o cargo real?','f-cargo',V.cargo_real,'Ex.: Vendedor externo, Gerente de marketing, Assistente administrativo')+
       '<p class="ajuda" style="margin:-4px 0 0">O cargo real entra no subtítulo e nos textos onde aparece <b>{cargo}</b>.</p>';

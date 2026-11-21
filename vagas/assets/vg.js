@@ -21,44 +21,58 @@
       desafio:'Grave um vídeo de até 2 minutos contando a maior meta que você já bateu (no trabalho, no esporte ou na vida) e o que fez para chegar lá.'
     },
     lapidador:{
-      nome:'Lapidador', emoji:'💎', cor:'#ff2e88',
-      resumo:'Para quem transforma o bruto em valioso, com técnica e paciência.',
-      pergunta:'Você enxerga o brilho antes de todo mundo?',
-      titulo:function(c){return 'Lapidador(a) de diamantes'+(c?' · '+c:'');},
-      promessa:'Tem gente que olha uma pedra bruta e vê só pedra. E tem gente que já enxerga o diamante lá dentro, e sabe exatamente onde cortar.\n\nAqui na **{empresa}**, temos muitas pedras brutas valiosas: clientes, ideias, processos. Falta quem tenha **técnica, paciência e olho de joalheiro** para fazer cada uma brilhar. Procuramos um(a) **{cargo}** que trate o trabalho como ofício.',
-      tarefas:['Cuidar de cada detalhe do trabalho até ele ficar do jeito certo','Organizar processos, informações e entregas para que nada se perca','Melhorar continuamente o jeito de fazer, com técnica e capricho','Acompanhar cada demanda do começo ao fim, sem deixar pontas soltas','Registrar o que foi feito para que o time aprenda junto'],
-      perfilTexto:'Aqui na {empresa}, a gente não quer quem faz "mais ou menos". Queremos **alguém que tenha orgulho do acabamento.**\n\nO trabalho pede atenção: cada detalhe conta, e o cliente percebe quando algo foi feito com cuidado. Você vai precisar de calma para fazer bem feito e firmeza para não aceitar o "tá bom".\n\nTambém vai precisar de organização. São várias pedras sendo lapidadas ao mesmo tempo, e **nenhuma pode ficar esquecida na bancada**.',
-      perfil:['Repara no detalhe torto que ninguém mais viu','Prefere refazer a entregar pela metade','Organiza a própria rotina sem precisar de cobrança','Gosta de aprender técnica e se aprofundar no assunto','Sente orgulho quando o resultado final fica bonito'],
-      beneficios:['Liberdade para aperfeiçoar o próprio método','Contato direto com quem decide','Projetos que ficam com a sua assinatura','Ambiente que valoriza qualidade e capricho'],
-      encerramento:'Se você enxergou o brilho, essa vaga é sua. Comece agora.',
-      desafio:'Grave um vídeo de até 2 minutos mostrando algo que você melhorou ou organizou (um processo, um projeto, um espaço) e como ficou antes e depois.'
+      nome:'Lapidário de diamantes', emoji:'💎', cor:'#ff2e88',
+      resumo:'Closer, SDR e social selling: primeiro atendimento e primeira venda.',
+      pergunta:'Você transforma conversa em venda?',
+      titulo:function(c){return 'Lapidário(a) de diamantes'+(c?' · '+c:'');},
+      promessa:'Todo lead chega bruto. Uma mensagem solta, uma curiosidade, um “quanto custa?”. A maioria deixa passar. O lapidário enxerga o diamante ali dentro — e sabe exatamente onde cortar.\n\nAqui na **{empresa}**, o primeiro atendimento é onde a venda nasce. Estamos buscando alguém que transforme interesse em conversa e conversa em fechamento: um(a) **lapidário(a) de oportunidades**.',
+      tarefas:['Responder os leads em minutos, com um atendimento que encanta desde a primeira mensagem','Qualificar cada contato: entender a dor, o momento e o potencial de compra','Conduzir a conversa até a primeira venda ou até a reunião com o especialista','Gerar conversas pelo Instagram, LinkedIn e WhatsApp (social selling)','Registrar cada lead e cada etapa no CRM, sem deixar nenhum para trás','Fazer follow-up com elegância até ter uma resposta clara'],
+      perfilTexto:'Aqui na {empresa}, a gente não quer quem só responde mensagem. Queremos **alguém que transforma um “oi” em cliente.**\n\nO ritmo é rápido. Os leads chegam de todo lado e cada minuto conta: quem responde primeiro, com clareza e simpatia, sai na frente.\n\nVocê vai precisar de escuta afiada — entender o que o cliente quer de verdade, mesmo quando ele não sabe explicar — e de **técnica pra conduzir sem empurrar**.\n\nSocial selling aqui não é postar por postar. É **gerar conversa, construir confiança e abrir portas**.\n\nGostamos de quem tem paciência de joalheiro e pressa de vendedor — que cuida de cada detalhe, mas não deixa a oportunidade esfriar.',
+      perfil:['Fica inquieto(a) com um lead sem resposta há mais de 5 minutos','Faz perguntas antes de oferecer qualquer coisa','Sabe a hora exata de pedir o fechamento','Escreve mensagens que dá vontade de responder','Comemora a primeira compra de um cliente como se fosse sua'],
+      beneficios:['Aprender técnicas de venda e atendimento na prática','Ver o resultado do seu trabalho na hora, em cada fechamento','Um time que valoriza quem abre a porta da venda','Caminho claro para crescer na carreira comercial'],
+      encerramento:'Tem um diamante esperando por você. Comece a lapidar agora.',
+      desafio:'Grave um vídeo de até 2 minutos respondendo um cliente que mandou: “Oi, quanto custa?”. Mostre como você conduziria essa conversa até a venda.'
+    },
+    explorador:{
+      nome:'Desbravador', emoji:'🧭', cor:'#ffb020',
+      resumo:'Hunter de prospecção pesada: abre caminho onde ninguém passou.',
+      pergunta:'Você abre caminho onde ninguém passou?',
+      titulo:function(c){return 'Desbravador(a) de mercado'+(c?' · '+c:'');},
+      promessa:'Tem gente que espera o cliente bater na porta. E tem gente que pega a mochila, escolhe a direção e vai buscar — mesmo onde ninguém nunca foi.\n\nAqui na **{empresa}**, tem muito território para conquistar. Estamos buscando alguém com coragem, fôlego e método para abrir mercado: um(a) **hunter de verdade**.',
+      tarefas:['Prospectar empresas e clientes novos todos os dias, por ligação, WhatsApp, LinkedIn e visita','Montar e trabalhar listas de prospecção por região e segmento','Fazer abordagens frias com confiança e transformar desconhecidos em reuniões','Mapear concorrentes, oportunidades e regiões que ninguém explorou','Bater a meta semanal de contatos e reuniões agendadas','Registrar cada tentativa no CRM e aprender com os números'],
+      perfilTexto:'Aqui na {empresa}, a gente não quer quem espera o lead cair do céu. Queremos **alguém que vá buscar.**\n\nA prospecção é pesada e diária. São muitos contatos, muitas portas fechadas e algumas que se abrem — e são essas que mudam o jogo.\n\nVocê vai ouvir muitos “nãos”. Quem desbrava de verdade **não leva para o pessoal**: ajusta a abordagem, liga para o próximo e segue em frente.\n\nA autonomia é grande — e por isso pede **disciplina de ferro**: rota organizada, meta de atividade e constância, mesmo nos dias difíceis.\n\nGostamos de quem tem sangue de caçador e cabeça fria — que vai com tudo, mas sabe exatamente onde está pisando.',
+      perfil:['Liga para um desconhecido sem pensar duas vezes','Encara o “não” como parte do caminho até o “sim”','Se anima com uma lista de prospecção nova','Conta os contatos do dia e quer bater o próprio recorde','Volta da rua sempre com uma oportunidade nova'],
+      beneficios:['Autonomia para montar a própria rota e abordagem','Comissão e reconhecimento para quem abre mercado','Liberdade para testar novos canais e estratégias','Crescimento junto com a expansão da empresa'],
+      encerramento:'O mapa está em branco. Seja o primeiro a chegar.',
+      desafio:'Grave um vídeo de até 2 minutos fazendo uma abordagem fria: você ligou para um dono de empresa que nunca ouviu falar da gente. Como você abre essa conversa?'
     },
     estrategista:{
       nome:'Estrategista', emoji:'♟️', cor:'#2f6bff',
-      resumo:'Para quem enxerga o tabuleiro inteiro antes de mexer a peça.',
+      resumo:'Xadrez de alto ticket: conduz negócios grandes e vendas complexas.',
       pergunta:'Você pensa três jogadas à frente?',
-      titulo:function(c){return 'Estrategista'+(c?' · '+c:'');},
-      promessa:'Tem gente que joga no impulso. E tem gente que olha o tabuleiro inteiro, calcula o próximo movimento e só então mexe a peça.\n\nAqui na **{empresa}**, cada decisão tem peso. Estamos buscando um(a) **{cargo}** que goste de **números, planos e de antecipar o jogo**, alguém que não vai só executar, mas pensar junto.',
-      tarefas:['Analisar números e indicadores para entender o que está funcionando','Planejar as próximas ações e organizar as prioridades da semana','Acompanhar a execução do plano junto com o time','Propor melhorias com base em dados, não só em opinião','Apresentar resultados de forma clara para a liderança'],
-      perfilTexto:'Aqui na {empresa}, a gente não quer quem só apaga incêndio. Queremos **alguém que evite o incêndio antes dele começar.**\n\nVocê vai lidar com números, prazos e pessoas ao mesmo tempo. Vai precisar priorizar o que move o resultado e ter clareza para explicar o plano de um jeito que todo mundo entenda.\n\nQuando o jogo mudar (e ele muda), você mantém a calma, **recalcula a rota e segue em frente**.',
-      perfil:['Antes de agir, já pensou em dois ou três cenários','Abre a planilha antes de dar opinião','Explica uma ideia complexa em poucas palavras','Fica tranquilo(a) quando o plano precisa mudar','Gosta de ver o resultado aparecer no número'],
-      beneficios:['Participação nas decisões da empresa','Acesso aos números e ao planejamento','Desafios intelectuais de verdade','Crescimento para posições de liderança'],
-      encerramento:'O tabuleiro está montado. Faça a sua jogada agora.',
-      desafio:'Grave um vídeo de até 2 minutos explicando como você planejaria os seus primeiros 30 dias nesta vaga.'
+      titulo:function(c){return 'Estrategista de negócios'+(c?' · '+c:'');},
+      promessa:'Em venda grande, ninguém ganha no impulso. Ganha quem lê o tabuleiro, entende cada peça e faz o movimento certo na hora certa.\n\nAqui na **{empresa}**, cada negócio tem peso, prazo longo e muita gente envolvida. Estamos buscando alguém que conduza vendas complexas com calma e precisão: um(a) **estrategista de alto ticket**.',
+      tarefas:['Conduzir negociações de alto valor, do diagnóstico ao contrato assinado','Mapear decisores, influenciadores e o processo de compra de cada cliente','Montar propostas sob medida, com números que fazem sentido para o cliente','Apresentar e negociar com donos e diretores de empresa','Acompanhar o funil das grandes contas e prever o fechamento com precisão','Cuidar do relacionamento depois da venda para gerar renovação e indicação'],
+      perfilTexto:'Aqui na {empresa}, a gente não quer quem só tira pedido. Queremos **alguém que construa negócios.**\n\nVenda de alto ticket é jogo longo. São várias reuniões, várias pessoas para convencer e decisões que levam semanas — às vezes meses.\n\nVocê vai precisar de **paciência estratégica**: saber quando avançar, quando esperar e quando mudar a jogada.\n\nVai sentar à mesa com donos e diretores. Por isso precisa de postura, preparo e **segurança para falar de valor, não de desconto**.\n\nGostamos de quem pensa como dono do negócio do cliente — que entende o problema dele melhor do que ele mesmo e mostra o caminho.',
+      perfil:['Estuda o cliente antes de qualquer reunião','Fala de retorno e valor antes de falar de preço','Não se apavora quando a negociação demora','Sabe exatamente quem decide em cada conta','Prefere um contrato grande bem feito a dez pequenos sem futuro'],
+      beneficios:['Negócios relevantes, com impacto real na empresa','Contato direto com donos e diretores do mercado','Comissões à altura de vendas de alto valor','Autonomia para conduzir as suas contas'],
+      encerramento:'O tabuleiro está montado. A sua jogada é agora.',
+      desafio:'Grave um vídeo de até 2 minutos contando a maior venda (ou negociação) que você já conduziu: quem estava envolvido, o que estava em jogo e como você fechou.'
     },
-    explorador:{
-      nome:'Explorador', emoji:'🧭', cor:'#ffb020',
-      resumo:'Para quem gosta de mapa em branco e território novo.',
-      pergunta:'Você se anima com um mapa em branco?',
-      titulo:function(c){return 'Explorador(a) de novos territórios'+(c?' · '+c:'');},
-      promessa:'Tem gente que precisa de trilha pronta. E tem gente que pega a bússola, escolhe a direção e abre o próprio caminho.\n\nAqui na **{empresa}**, tem muito território para conquistar: mercados, clientes e oportunidades que ninguém explorou ainda. Procuramos um(a) **{cargo}** com **coragem, curiosidade e fôlego** para ir aonde o time ainda não chegou.',
-      tarefas:['Prospectar e abrir novos clientes, mercados ou oportunidades','Conversar com pessoas novas todos os dias e criar relacionamento','Testar abordagens diferentes e trazer o que funcionou','Mapear a região, os concorrentes e as oportunidades que ninguém viu','Registrar cada contato e cada descoberta para o time'],
-      perfilTexto:'Aqui na {empresa}, a gente não quer quem espera o cliente aparecer. Queremos **alguém que vá até ele.**\n\nVocê vai ter autonomia, e autonomia pede disciplina: organizar a própria rota, cumprir o combinado e voltar sempre com uma história (e um resultado).\n\nVai ouvir muitos "nãos" pelo caminho. Quem explora de verdade **não desanima com o primeiro obstáculo**: aprende, ajusta a rota e segue.',
-      perfil:['Puxa conversa com desconhecidos sem esforço','Não espera mandarem para começar','Trata o "não" como parte do caminho','Gosta de testar o novo e contar o que aprendeu','Se organiza sozinho(a) quando está na rua'],
-      beneficios:['Autonomia para abrir novos caminhos','Liberdade para testar ideias','Visibilidade direta do seu resultado','Crescimento junto com a expansão da empresa'],
-      encerramento:'O mapa está aberto. Comece a sua expedição agora.',
-      desafio:'Grave um vídeo de até 2 minutos contando uma vez em que você abriu um caminho novo sozinho(a): um cliente, um projeto ou uma oportunidade.'
+    tecnico:{
+      nome:'Técnico', emoji:'📋', cor:'#7c4dff',
+      resumo:'Treinador do time: supervisor ou diretor de vendas.',
+      pergunta:'Você faz o time jogar melhor?',
+      titulo:function(c){return 'Técnico(a) do time comercial'+(c?' · '+c:'');},
+      promessa:'Craque sozinho ganha jogo. Time bem treinado ganha campeonato. E por trás de todo time campeão tem um técnico que enxerga cada jogador, monta a estratégia e cobra resultado com respeito.\n\nAqui na **{empresa}**, o comercial é o coração da empresa. Estamos buscando alguém que forme, lidere e leve o time ao próximo nível: um(a) **técnico(a) de vendas**.',
+      tarefas:['Liderar o time comercial no dia a dia, com metas claras e acompanhamento próximo','Treinar os vendedores em abordagem, negociação e fechamento','Conduzir reuniões de resultado, feedbacks individuais e planos de desenvolvimento','Acompanhar os indicadores do funil e agir rápido quando algo sai do ritmo','Recrutar e integrar novos vendedores no padrão da empresa','Construir processos e rotinas que fazem o time vender sem depender de heróis'],
+      perfilTexto:'Aqui na {empresa}, a gente não quer um chefe que só cobra planilha. Queremos **alguém que faça cada vendedor jogar melhor.**\n\nVocê vai estar à beira do campo todos os dias: observando, corrigindo, motivando e, quando precisar, entrando em campo para mostrar como se faz.\n\nVai precisar ler números e pessoas ao mesmo tempo. **O indicador mostra onde está o problema; a conversa mostra o porquê.**\n\nLiderar aqui é ter coragem para dar o feedback difícil e generosidade para comemorar cada vitória do time.\n\nGostamos de quem forma gente — de quem mede o próprio sucesso pelo crescimento de quem está ao lado.',
+      perfil:['Sente orgulho quando um vendedor do time bate a meta','Dá feedback direto, sem rodeios e sem humilhar','Sabe de cabeça os números do funil da semana','Ensina pelo exemplo antes de cobrar','Transforma o pior dia do time em aprendizado'],
+      beneficios:['Autonomia para montar o time e o método de trabalho','Participação nas decisões estratégicas da empresa','Ver pessoas crescendo por causa da sua liderança','Remuneração ligada ao resultado do time'],
+      encerramento:'O time está pronto para treinar. Só falta o técnico.',
+      desafio:'Grave um vídeo de até 2 minutos contando como você recuperaria um vendedor que está há dois meses abaixo da meta.'
     }
+
   };
   // {empresa}, {cargo} e **negrito** nos textos da vaga
   function texto(s,v){

@@ -13,39 +13,122 @@
 <link rel="stylesheet" href="/assets/casco.css">
 <link rel="stylesheet" href="/vagas/assets/vg.css">
 <style>
-.topo{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:28px}
-.topo h1{font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:700;letter-spacing:-.03em;margin:4px 0 0;line-height:1.1}
-.topo .spaced{color:var(--muted)}
-.vagas{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
-.vaga h3{margin:10px 0 4px;font-size:1.1rem;line-height:1.3}
-.vaga .meta{color:var(--muted);font-size:.84rem}
-.vaga .nums{display:flex;gap:18px;margin:14px 0;font-size:.82rem;color:var(--muted)}
-.vaga .nums b{display:block;font-size:1.4rem;color:var(--fg);font-variant-numeric:tabular-nums;line-height:1.1}
-.vaga .vg-row .btn{flex:1}
-/* editor */
-.ed{display:grid;grid-template-columns:240px 1fr;gap:28px;align-items:start}
-.etapas{position:sticky;top:96px;display:grid;gap:4px}
-.etapas button{font:inherit;text-align:left;font-size:.86rem;border:0;background:none;color:var(--muted);padding:10px 12px;border-radius:12px;cursor:pointer;display:flex;gap:10px;align-items:center}
-.etapas button span{font-size:.62rem;letter-spacing:.2em;font-variant-numeric:tabular-nums;width:22px}
-.etapas button[aria-current="step"]{background:var(--fg);color:var(--bg)}
-.etapas button.feito{color:var(--fg)}
-.passo h2{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin:0 0 6px}
-.passo .ajuda{color:var(--muted);margin:0 0 22px;font-size:.93rem;max-width:62ch}
-.passo .ajuda b{color:var(--fg)}
-.analogias{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
-.analogia{border:2px solid var(--line);border-radius:18px;padding:18px;cursor:pointer;background:var(--bg);text-align:left;font:inherit;color:inherit}
-.analogia .e{font-size:1.8rem}
-.analogia b{display:block;font-size:1.05rem;margin-top:6px}
-.analogia small{color:var(--muted)}
-.analogia[aria-pressed="true"]{border-color:var(--fg);box-shadow:0 0 0 3px color-mix(in srgb,var(--fg) 15%,transparent)}
-.opcoes{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-.opcoes button{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:9px 16px;background:none;color:var(--muted);cursor:pointer}
+/* ===== App Vagas por Propósito ===== */
+body.vg-app{background:var(--soft);min-height:100vh;display:block}
+.vg-app .foot{display:none}
+.barra{position:sticky;top:0;z-index:40;background:#0b0b0c;color:#f5f5f5;padding-top:env(safe-area-inset-top,0px)}
+.barra .in{max-width:1180px;margin:0 auto;padding:0 20px;height:60px;display:flex;align-items:center;gap:18px}
+.barra .marca{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none;min-width:0}
+.barra .marca svg{height:15px;width:auto;flex-shrink:0}
+.barra .marca span{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:#a1a1a8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.barra nav{margin-left:auto;display:flex;align-items:center;gap:4px}
+.barra nav a,.barra nav button{font:inherit;font-size:.8rem;font-weight:600;color:#d4d4d8;text-decoration:none;background:none;border:0;padding:9px 12px;border-radius:10px;cursor:pointer;white-space:nowrap}
+.barra nav a:hover,.barra nav button:hover{background:#1c1c20;color:#fff}
+.barra nav a[aria-current="page"]{color:#fff;background:#1c1c20}
+.barra .emp{font-size:.8rem;color:#a1a1a8;padding-left:12px;border-left:1px solid #26262a;margin-left:6px;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.barra .tema-bt{width:34px;height:34px;margin-left:6px;border-color:#3f3f46;color:#d4d4d8}
+.wrap-app{max-width:1180px;margin:0 auto;padding:34px 20px 120px;box-sizing:border-box}
+.cab{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap;margin-bottom:22px}
+.cab h1{font-size:clamp(1.8rem,4vw,2.7rem);font-weight:800;letter-spacing:-.04em;line-height:1.05;margin:0;text-wrap:balance}
+.cab .sobre{color:var(--muted);margin:10px 0 0;max-width:64ch;font-size:.98rem;line-height:1.55}
+.cab .sobre b{color:var(--fg)}
+.olho{font-size:.68rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;display:block}
+.acoes{display:flex;gap:8px;flex-wrap:wrap}
+.acoes .btn{background:var(--card);padding:11px 16px;font-size:.8rem}
+.acoes .btn.solid{background:var(--fg);color:var(--bg)}
+.acoes .btn.verde{background:#00e676;color:#000;border-color:#00e676}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px}
+.vg-card{background:var(--card)}
+/* lista de vagas */
+.vagas{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.vaga{padding:22px;display:flex;flex-direction:column;gap:6px;transition:border-color .2s,transform .2s}
+.vaga:hover{border-color:color-mix(in srgb,var(--fg) 30%,var(--line))}
+.vaga h3{margin:8px 0 0;font-size:1.15rem;line-height:1.3;letter-spacing:-.01em}
+.vaga .meta{color:var(--muted);font-size:.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vaga .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 14px;padding:14px 0;border-block:1px solid var(--line)}
+.vaga .nums span{font-size:.74rem;color:var(--muted)}
+.vaga .nums b{display:block;font-size:1.5rem;color:var(--fg);font-variant-numeric:tabular-nums;line-height:1.1;letter-spacing:-.02em}
+.vaga .vg-row{margin-top:auto}
+.vaga .vg-row{flex-wrap:nowrap}
+.vaga .vg-row .btn{flex:1;white-space:nowrap;padding-inline:10px}
+.nova-card{display:grid;place-items:center;text-align:center;min-height:250px;border:2px dashed var(--line);border-radius:20px;color:var(--muted);text-decoration:none;font-weight:600;gap:6px;padding:20px;transition:.2s}
+.nova-card:hover{border-color:var(--fg);color:var(--fg)}
+.nova-card i{font-style:normal;font-size:2rem;width:56px;height:56px;border-radius:50%;background:#00e676;color:#000;display:grid;place-items:center;margin:0 auto 6px}
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0 18px}
+.kpi{font:inherit;text-align:left;color:inherit;cursor:pointer;padding:18px 20px;border-radius:18px;border:1px solid var(--line);background:var(--card);transition:transform .15s,border-color .2s}
+.kpi:hover{transform:translateY(-1px);border-color:color-mix(in srgb,var(--fg) 30%,var(--line))}
+.kpi b{display:block;font-size:2.2rem;font-weight:800;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.kpi span{display:block;margin-top:8px;font-size:.82rem;color:var(--muted)}
+.kpi.forte{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.kpi.forte span{color:color-mix(in srgb,var(--bg) 75%,transparent)}
+.kpi[aria-pressed="true"]{box-shadow:0 0 0 3px #00e676}
+.status-linha{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:12px 0 16px;font-size:.9rem;color:var(--muted)}
+.status-linha b{color:var(--fg);letter-spacing:.06em}
+.ferr{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:14px}
+.ferr .busca{font:inherit;font-size:.86rem;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:11px 18px;min-width:240px}
+.opcoes{display:flex;gap:8px;flex-wrap:wrap}
+.opcoes button{font:inherit;font-size:.82rem;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:9px 16px;background:var(--card);color:var(--fg);cursor:pointer}
 .opcoes button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
-.nav-ed{display:flex;justify-content:space-between;gap:10px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line);flex-wrap:wrap}
+.opcoes button small{opacity:.55;margin-left:4px;font-variant-numeric:tabular-nums}
+/* candidatos */
+.cands{display:grid;gap:12px}
+.cand{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:24px;padding:22px}
+.cand .quem{display:flex;gap:14px;align-items:flex-start}
+.ava{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:.95rem;background:var(--soft);border:1px solid var(--line);flex-shrink:0}
+.ava.ok{background:#00e676;border-color:#00e676;color:#000}
+.cand h3{margin:0;font-size:1.12rem;letter-spacing:-.01em}
+.cand .contato{display:flex;gap:6px 14px;flex-wrap:wrap;font-size:.82rem;color:var(--muted);margin-top:2px}
+.cand .contato a{color:var(--fg);font-weight:600}
+.cand .selos{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 0}
+.cand .resp{white-space:pre-wrap;font-size:.94rem;line-height:1.65;margin:14px 0 0;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
+.cand .resp.aberta{display:block;-webkit-line-clamp:unset}
+.cand .mais{font:inherit;font-size:.8rem;font-weight:700;background:none;border:0;padding:6px 0 0;cursor:pointer;color:var(--fg);text-decoration:underline}
+.cand video,.cand iframe{width:100%;border-radius:14px;background:#000;aspect-ratio:16/9;border:0}
+.cand .lado{display:grid;gap:10px;align-content:start}
+.cand .sem-video{display:grid;place-items:center;aspect-ratio:16/9;border-radius:14px;border:1px dashed var(--line);color:var(--muted);font-size:.82rem}
+.cand label.mini{font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.estrelas{display:flex;gap:2px}
+.estrelas button{font-size:1.35rem;background:none;border:0;cursor:pointer;color:var(--line);padding:2px;line-height:1}
+.estrelas button.on{color:#ffb020}
+.cand select,.cand textarea{font:inherit;font-size:.88rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;width:100%;box-sizing:border-box}
+.cand textarea{min-height:70px;resize:vertical}
+.vazio-c{text-align:center;padding:54px 20px}
+.vazio-c h2{margin:0 0 8px;font-size:1.4rem;letter-spacing:-.02em}
+.vazio-c p{color:var(--muted);margin:0 auto 18px;max-width:46ch}
+/* criador */
+.estrategia{display:flex;align-items:center;gap:16px;background:#0b0b0c;color:#f5f5f5;border-radius:20px;padding:18px 20px;margin-bottom:18px}
+.estrategia .play{width:48px;height:48px;border-radius:14px;background:#ff2e88;display:grid;place-items:center;flex-shrink:0;color:#fff;font-size:1.05rem}
+.estrategia b{display:block;font-size:.98rem}
+.estrategia small{color:#a1a1a8;font-size:.82rem;line-height:1.45;display:block;margin-top:2px}
+.estrategia a{margin-left:auto;background:#fff;color:#000;border-radius:12px;padding:11px 16px;font-size:.8rem;font-weight:700;text-decoration:none;white-space:nowrap}
+.progresso{height:4px;border-radius:999px;background:var(--line);overflow:hidden;margin-bottom:12px}
+.progresso i{display:block;height:100%;background:#00e676;border-radius:999px;transition:width .35s}
+.etapas{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:14px;scrollbar-width:none}
+.etapas::-webkit-scrollbar{display:none}
+.etapas button{font:inherit;font-size:.8rem;font-weight:600;border:1px solid var(--line);background:var(--card);color:var(--muted);padding:10px 16px;border-radius:999px;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.etapas button.feito{color:var(--fg);background:color-mix(in srgb,#00e676 12%,var(--card));border-color:color-mix(in srgb,#00e676 45%,var(--line))}
+.etapas button[aria-current="step"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.passo{padding:28px}
+.ph{display:flex;align-items:center;gap:12px;margin-bottom:8px;flex-wrap:wrap}
+.ph .num{width:32px;height:32px;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-weight:800;font-size:.85rem;flex-shrink:0}
+.ph h2{font-size:1.5rem;font-weight:800;letter-spacing:-.03em;margin:0}
+.ph a{margin-left:auto;font-size:.8rem;font-weight:600;color:var(--muted)}
+.passo .ajuda{color:var(--muted);margin:0 0 22px;font-size:.94rem;max-width:66ch;line-height:1.6}
+.passo .ajuda b{color:var(--fg)}
+.analogias{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-bottom:20px}
+.analogia{border:2px solid var(--line);border-radius:18px;padding:18px;cursor:pointer;background:var(--bg);text-align:left;font:inherit;color:inherit;transition:border-color .15s}
+.analogia .e{font-size:1.7rem}
+.analogia b{display:block;font-size:1.02rem;margin-top:6px}
+.analogia small{color:var(--muted);font-size:.82rem;line-height:1.45;display:block;margin-top:2px}
+.analogia[aria-pressed="true"]{border-color:var(--fg);box-shadow:0 0 0 3px color-mix(in srgb,var(--fg) 12%,transparent)}
+.rodape-ed{position:sticky;bottom:0;z-index:20;margin-top:16px;padding:12px 0 calc(12px + env(safe-area-inset-bottom,0px));background:linear-gradient(transparent,var(--soft) 30%);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.rodape-ed .conta{font-size:.84rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.rodape-ed .btn{min-height:48px;padding-inline:22px}
+.rodape-ed .vazio{width:110px}
 .sug{display:flex;gap:6px;flex-wrap:wrap;margin:-4px 0 14px}
 .sug button{font:inherit;font-size:.76rem;border:1px dashed var(--line);border-radius:999px;padding:6px 12px;background:none;color:var(--muted);cursor:pointer}
 .sug button:hover{color:var(--fg);border-color:var(--fg)}
-.titulo-prev{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;padding:16px 18px;border-radius:16px;background:var(--soft);margin-bottom:16px}
 .logo-up{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
 .logo-prev{width:140px;height:84px;border:1px dashed var(--line);border-radius:14px;display:grid;place-items:center;background:repeating-conic-gradient(var(--soft) 0 25%,var(--bg) 0 50%) 0 0/16px 16px;overflow:hidden;flex-shrink:0}
 .logo-prev img{max-width:90%;max-height:70px;object-fit:contain}
@@ -53,28 +136,31 @@
 .logo-ac{display:flex;gap:8px;align-items:center;flex-wrap:wrap;flex:1;min-width:200px}
 .logo-ac small{flex-basis:100%;font-size:.75rem}
 .logo-ac label.btn{cursor:pointer}
-.dica-fmt{font-size:.82rem;color:var(--muted);background:var(--soft);border-radius:12px;padding:10px 14px;margin:0 0 18px}
+.dica-fmt{font-size:.82rem;color:var(--muted);background:var(--soft);border-left:3px solid var(--fg);border-radius:4px 12px 12px 4px;padding:10px 14px;margin:0 0 18px}
 .dica-fmt code{font-size:.78rem;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
-/* candidatos */
-.filtros{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.cands{display:grid;gap:12px}
-.cand{display:grid;grid-template-columns:1fr 300px;gap:20px}
-.cand h3{margin:0;font-size:1.1rem}
-.cand .resp{white-space:pre-wrap;font-size:.93rem;line-height:1.6;margin:12px 0 0;max-height:220px;overflow:auto;padding-right:6px}
-.cand video{width:100%;border-radius:14px;background:#000;max-height:360px}
-.cand .lado{display:grid;gap:10px;align-content:start}
-.estrelas button{font-size:1.3rem;background:none;border:0;cursor:pointer;color:var(--line);padding:0 2px}
-.estrelas button.on{color:#ffb020}
-.cand select,.cand textarea{font:inherit;font-size:.88rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:9px 11px;width:100%;box-sizing:border-box}
-.cand textarea{min-height:70px;resize:vertical}
 .estado{max-width:560px;margin:60px auto;text-align:center}
 .estado h1{font-size:2rem;letter-spacing:-.03em}
-@media (max-width:860px){.ed{grid-template-columns:1fr}.etapas{position:static;grid-auto-flow:column;overflow-x:auto;grid-auto-columns:max-content}.cand{grid-template-columns:1fr}.analogias{grid-template-columns:1fr}}
+@media (max-width:900px){.kpis{grid-template-columns:1fr 1fr}.cand{grid-template-columns:1fr}.barra .emp,.barra .marca span{display:none}}
+@media (max-width:640px){
+  .wrap-app{padding-top:22px}
+  .barra nav a.opc{display:none}
+  .estrategia{flex-wrap:wrap}.estrategia a{margin-left:0;width:100%;text-align:center}
+  .passo{padding:20px}
+  .rodape-ed .conta{display:none}.rodape-ed .btn{flex:1}.rodape-ed .vazio{display:none}
+  .ferr .busca{width:100%;min-width:0}
+  .analogia{display:grid;grid-template-columns:auto 1fr;column-gap:14px;align-items:center;padding:14px 16px}.analogia .e{grid-row:span 2}.analogia b{margin:0}
+  .ph a{margin-left:0;flex-basis:100%}
+  .barra nav a,.barra nav button{padding:8px 9px}
+  .acoes .btn{flex:1 1 calc(50% - 8px)}
+}
 </style>
 </head>
-<body data-casco="area">
-<script src="/assets/casco.js"></script>
-<main class="vg-wrap" id="app"><p class="muted">Carregando…</p></main>
+<body class="vg-app">
+<header class="barra"><div class="in" data-tema-alvo>
+  <a class="marca" href="#/" aria-label="Minhas vagas"><svg viewBox="0 0 2696 600" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" fill-rule="evenodd" d="M2304 50L2300 56L2301 60L2309 66L2329 73L2338 83L2343 97L2343 395L2338 411L2326 422L2304 430L2301 440L2309 445L2629 444L2635 436L2647 391L2645 380L2637 383L2598 423L2585 430L2564 433L2525 434L2484 430L2458 417L2441 396L2434 363L2435 244L2440 241L2532 241L2554 246L2575 265L2596 301L2603 301L2605 173L2596 171L2568 215L2561 222L2545 229L2438 230L2434 226L2433 69L2441 60L2571 60L2591 63L2605 71L2624 91L2641 116L2647 119L2652 116L2641 52L2636 49ZM1801 52L1801 61L1820 72L1831 90L1833 334L1848 371L1871 399L1899 421L1932 437L1963 446L2007 450L2075 447L2118 438L2155 422L2183 399L2198 379L2206 361L2212 325L2215 85L2225 72L2245 60L2245 53L2242 50L2163 49L2158 53L2159 62L2181 76L2187 92L2189 307L2182 339L2160 366L2128 383L2093 390L2055 392L2004 391L1973 383L1949 368L1936 354L1927 338L1922 314L1922 53L1917 49L1805 49ZM1027 49L1024 53L1025 62L1048 77L1054 92L1055 381L1054 401L1049 414L1042 422L1025 431L1024 440L1029 445L1170 445L1175 440L1175 433L1151 415L1145 394L1145 99L1152 76L1175 61L1175 52L1172 49ZM548 50L545 55L548 63L578 74L592 86L591 405L578 423L562 432L562 441L565 444L642 445L648 440L647 431L624 415L619 400L615 123L620 118L904 435L917 445L927 443L930 438L936 92L944 75L967 61L967 52L964 49L884 49L880 54L883 64L903 75L909 85L911 98L912 288L906 292L682 50ZM51 52L50 60L73 77L79 90L81 333L89 358L98 374L119 399L149 422L183 438L211 446L255 450L323 447L366 438L403 422L431 399L446 379L454 361L460 328L463 85L473 72L493 60L493 53L490 50L411 49L406 55L407 61L413 67L430 77L435 92L437 310L430 339L422 352L408 366L376 383L340 390L303 392L252 391L221 383L197 368L184 354L175 338L170 313L170 53L165 49L56 49ZM1248 158L1232 201L1227 256L1233 298L1249 339L1271 370L1300 398L1350 430L1440 478L1512 510L1579 534L1669 557L1702 560L1796 559L1824 550L1866 524L1915 483L1907 481L1899 487L1870 495L1777 498L1676 496L1588 486L1485 463L1465 453L1459 445L1427 439L1388 416L1362 386L1344 352L1336 328L1328 287L1327 222L1336 172L1353 132L1380 96L1414 71L1432 63L1462 56L1505 56L1537 63L1560 73L1581 87L1605 110L1623 135L1639 172L1648 215L1647 288L1639 322L1615 371L1585 404L1560 422L1522 438L1494 442L1485 446L1498 449L1540 447L1609 430L1659 405L1703 367L1725 337L1742 297L1748 255L1742 196L1725 155L1703 124L1675 98L1634 73L1592 57L1552 48L1466 46L1407 50L1357 65L1310 90L1273 122Z"/></svg><span>Vagas por Propósito</span></a>
+  <nav id="nav"></nav>
+</div></header>
+<main class="wrap-app" id="app"><p class="muted">Carregando…</p></main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/vagas/assets/vg.js"></script>
@@ -84,6 +170,16 @@ var sb=VG.sb, esc=VG.esc, A=VG.ANALOGIAS, app=document.getElementById('app');
 var U=null, EMP=null, ADMIN=false, VAGAS=[], CONT={};
 
 function h(s){ app.innerHTML=s; window.scrollTo(0,0); }
+function navega(){
+  var r=location.hash.replace(/^#\/?/,'').split('/')[0]||'';
+  var n=document.getElementById('nav');
+  n.innerHTML='<a href="#/"'+(r===''||r==='candidatos'?' aria-current="page"':'')+'>Minhas vagas</a>'+
+    '<a class="opc" href="#/empresa"'+(r==='empresa'?' aria-current="page"':'')+'>Empresa</a>'+
+    '<a class="opc" href="/vagas/metodo/" target="_blank" rel="noopener">Método</a>'+
+    (ADMIN?'<a class="opc" href="/vagas/admin/">Admin</a>':'')+
+    '<button type="button" id="bsair">Sair</button>'+(EMP?'<span class="emp">'+esc(EMP.nome)+'</span>':'');
+  document.getElementById('bsair').onclick=sair;
+}
 function sair(){ sb.auth.signOut().then(function(){ location.replace('/vagas/'); }); }
 
 /* ---------- início ---------- */
@@ -113,6 +209,7 @@ function telaNovaSenha(){
   };
 }
 function telaPendente(){
+  navega();
   var bloq=EMP.status==='bloqueada';
   var wa='https://wa.me/5562996007574?text='+encodeURIComponent('Olá, Carlos! Criei a conta da '+EMP.nome+' no Vagas por Propósito e quero liberar o acesso.');
   h('<div class="estado"><span class="vg-pill '+(bloq?'mag':'warn')+'">'+(bloq?'Acesso suspenso':'Aguardando liberação')+'</span>'+
@@ -124,6 +221,7 @@ function telaPendente(){
 
 /* ---------- rotas ---------- */
 function rota(){
+  navega();
   var p=location.hash.replace(/^#\/?/,'').split('/');
   if(p[0]==='nova') return editor(null);
   if(p[0]==='editar'&&p[1]) return editor(p[1]);
@@ -142,28 +240,29 @@ async function lista(){
     var c=await sb.from('vg_candidatos').select('vaga_id,atento').in('vaga_id',ids);
     (c.data||[]).forEach(function(x){ var o=CONT[x.vaga_id]||(CONT[x.vaga_id]={t:0,a:0}); o.t++; if(x.atento) o.a++; });
   }
-  var ST={rascunho:['Rascunho',''],publicada:['No ar','ok'],pausada:['Pausada','warn'],encerrada:['Encerrada','dark']};
+  var ST={rascunho:['Rascunho',''],publicada:['● No ar','ok'],pausada:['Pausada','warn'],encerrada:['Encerrada','dark']};
   var cards=VAGAS.map(function(v){
     var s=ST[v.status]||ST.rascunho, c=CONT[v.id]||{t:0,a:0}, an=A[v.analogia];
-    return '<article class="vg-card vaga"><div class="vg-row"><span class="vg-pill '+s[1]+'">'+s[0]+'</span>'+(an?'<span class="vg-pill">'+an.emoji+' '+an.nome+'</span>':'')+'</div>'+
-      '<h3>'+esc(v.titulo||v.cargo_real||'Vaga sem título')+'</h3><div class="meta">sejaunique.com/vagas/v/'+esc(v.slug)+'</div>'+
-      '<div class="nums"><span><b>'+(v.views||0)+'</b>visitas</span><span><b>'+c.t+'</b>candidatos</span><span><b>'+c.a+'</b>✓ atentos</span></div>'+
-      '<div class="vg-row"><a class="btn sm solid" href="#/candidatos/'+v.id+'">Candidatos</a><a class="btn sm" href="#/editar/'+v.id+'">Editar</a>'+
-      '<button class="btn sm" data-link="'+esc(v.slug)+'">Copiar link</button></div></article>';
+    return '<article class="card vaga"><div class="vg-row"><span class="vg-pill '+s[1]+'">'+s[0]+'</span>'+(an?'<span class="vg-pill">'+an.emoji+' '+esc(an.nome)+'</span>':'')+'</div>'+
+      '<h3>'+esc(limpa(v.titulo)||v.cargo_real||'Vaga sem título')+'</h3><div class="meta">'+(v.cargo_real?esc(v.cargo_real)+' · ':'')+'sejaunique.com/vagas/v/'+esc(v.slug)+'</div>'+
+      '<div class="nums"><span><b>'+(v.views||0)+'</b>visitas</span><span><b>'+c.t+'</b>candidaturas</span><span><b>'+c.a+'</b>✓ atentos</span></div>'+
+      '<div class="vg-row"><a class="btn sm solid" href="#/candidatos/'+v.id+'">Ver candidatos</a><a class="btn sm" href="#/editar/'+v.id+'">Editar</a>'+
+      '<button class="btn sm" data-link="'+esc(v.slug)+'" aria-label="Copiar link da vaga">Copiar link</button></div></article>';
   }).join('');
-  h('<div class="topo"><div><span class="spaced">'+esc(EMP.nome)+'</span><h1>Suas vagas</h1></div><div class="vg-row">'+
-    (ADMIN?'<a class="btn sm" href="/vagas/admin/">Admin Unique</a>':'')+
-    '<a class="btn sm" href="/vagas/metodo/">Método</a><a class="btn sm" href="#/empresa">Empresa</a><button class="btn sm" id="bs">Sair</button><a class="btn verde" href="#/nova">+ Nova vaga</a></div></div>'+
-    (cards?'<div class="vagas">'+cards+'</div>':'<div class="vg-vazio"><h2 style="margin:0 0 8px">Crie a sua primeira vaga</h2><p>Leva poucos minutos: escolha a analogia e o criador escreve os textos com você.</p><a class="btn verde" href="#/nova">+ Nova vaga</a></div>'));
-  document.getElementById('bs').onclick=sair;
+  h('<div class="cab"><div><span class="olho">'+esc(EMP.nome)+'</span><h1>Suas vagas</h1>'+
+    '<p class="sobre">Cada vaga ganha uma página que <b>vende o projeto</b> e filtra sozinha quem leu até o fim.</p></div>'+
+    '<div class="acoes"><a class="btn verde" href="#/nova">+ Nova vaga</a></div></div>'+
+    (VAGAS.length?'':'<div class="estrategia"><span class="play">▶</span><span><b>Antes da primeira vaga, entenda a estratégia</b><small>3 vídeos + o manual: por que não pedir currículo, como nomear o cargo, a escadinha e a palavra secreta.</small></span><a href="/vagas/metodo/" target="_blank" rel="noopener">Ver vídeos e manual ↗</a></div>')+
+    '<div class="vagas">'+cards+'<a class="nova-card" href="#/nova"><span><i>+</i>Criar nova vaga<br><small style="font-weight:400">Leva poucos minutos: os textos já vêm prontos</small></span></a></div>');
   app.querySelectorAll('[data-link]').forEach(function(b){ b.onclick=function(){ copiar(location.origin+'/vagas/v/'+b.dataset.link); }; });
 }
+function limpa(t){ return String(t||'').replace(/\*\*/g,'').replace(/\{empresa\}/gi,EMP?EMP.nome:'').replace(/\{cargo\}/gi,''); }
 function copiar(t){ (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){VG.toast('Link copiado');},function(){prompt('Copie o link:',t);}); }
 
 /* ---------- empresa ---------- */
 function telaEmpresa(){
-  h('<div class="topo"><div><span class="spaced">Configurações</span><h1>Sua empresa</h1></div><a class="btn sm" href="#/">← Voltar</a></div>'+
-    '<div class="vg-card" style="max-width:640px">'+
+  h('<div class="cab"><div><span class="olho">Configurações</span><h1>Sua empresa</h1><p class="sobre">Esses dados entram automaticamente em todas as vagas novas.</p></div></div>'+
+    '<div class="card passo" style="max-width:720px">'+
     campo('Nome da empresa','em-nome',EMP.nome)+campo('Responsável','em-resp',EMP.responsavel)+
     '<div class="vg-grid2">'+campo('WhatsApp','em-whats',EMP.whatsapp)+campo('Cidade','em-cid',EMP.cidade)+'</div>'+
     campoLogo('Logo da empresa','em-logo',EMP.logo_url)+
@@ -265,17 +364,28 @@ async function editor(id){
   }
   EI=0; desenha();
 }
+var GUIA={analogia:'#c2',promessa:'#c2',tarefas:'#c2',perfil:'#c3',beneficios:'#c2',remuneracao:'#c4',filtros:'#c3'};
 function desenha(){
-  var nav=ETAPAS.map(function(e,i){ return '<button type="button" data-i="'+i+'"'+(i===EI?' aria-current="step"':'')+(i<EI?' class="feito"':'')+'><span>'+String(i+1).padStart(2,'0')+'</span>'+e[1]+'</button>'; }).join('');
-  h('<div class="topo"><div><span class="spaced">'+(V.id?'Editando vaga':'Nova vaga')+'</span><h1>'+esc(V.titulo||'Criador de vaga')+'</h1></div>'+
-    '<div class="vg-row"><a class="btn sm" href="#/">← Minhas vagas</a>'+(V.id?'<a class="btn sm" target="_blank" href="/vagas/v/'+esc(V.slug)+'">Ver página</a>':'')+'<button class="btn sm" id="bsalva">Salvar rascunho</button></div></div>'+
-    '<div class="ed"><nav class="etapas">'+nav+'</nav><section class="vg-card passo" id="passo"></section></div>');
+  var nav=ETAPAS.map(function(e,i){ return '<button type="button" data-i="'+i+'"'+(i===EI?' aria-current="step"':'')+(i<EI?' class="feito"':'')+'>'+(i<EI?'✓ ':'')+e[1]+'</button>'; }).join('');
+  var pct=Math.round((EI+1)/ETAPAS.length*100);
+  h('<div class="cab"><div><span class="olho">'+(V.id?'Editando vaga':'Nova vaga')+'</span><h1>'+(V.id?esc(limpa(V.titulo)||'Editar vaga'):'Criar página da vaga')+'</h1>'+
+    '<p class="sobre">Você não está anunciando uma vaga. Está <b>vendendo um projeto</b> para o talento certo. Os textos já vêm prontos: ajuste o que quiser.</p></div>'+
+    '<div class="acoes">'+(V.id?'<a class="btn" target="_blank" href="/vagas/v/'+esc(V.slug)+'">Ver página ↗</a>':'')+'<button class="btn" id="bsalva">Salvar rascunho</button></div></div>'+
+    (EI===0?'<div class="estrategia"><span class="play">▶</span><span><b>Entenda a estratégia antes de começar</b><small>3 vídeos + o manual do método: por que não pedir currículo, como nomear o cargo, a escadinha e a palavra secreta.</small></span><a href="/vagas/metodo/" target="_blank" rel="noopener">Ver vídeos e manual ↗</a></div>':'')+
+    '<div class="progresso" aria-hidden="true"><i style="width:'+pct+'%"></i></div>'+
+    '<nav class="etapas" aria-label="Etapas">'+nav+'</nav><section class="card passo" id="passo"></section>'+
+    '<div class="rodape-ed">'+(EI>0?'<button class="btn" id="bant">← Voltar</button>':'<a class="btn" href="#/">← Minhas vagas</a>')+
+    '<span class="conta">Etapa '+(EI+1)+' de '+ETAPAS.length+'</span>'+
+    (EI<ETAPAS.length-1?'<button class="btn solid" id="bprox">Continuar →</button>':'<span class="vazio"></span>')+'</div>');
+  var at=app.querySelector('.etapas [aria-current]'); if(at&&at.scrollIntoView) at.scrollIntoView({block:'nearest',inline:'center'});
   app.querySelectorAll('.etapas button').forEach(function(b){ b.onclick=function(){ coleta(); EI=+b.dataset.i; desenha(); }; });
   document.getElementById('bsalva').onclick=function(){ coleta(); salvar(); };
-  PASSOS[ETAPAS[EI][0]](document.getElementById('passo'));
   var p=document.getElementById('passo');
-  p.insertAdjacentHTML('beforeend','<div class="nav-ed">'+(EI>0?'<button class="btn" id="bant">← Voltar</button>':'<span></span>')+
-    (EI<ETAPAS.length-1?'<button class="btn solid" id="bprox">Continuar →</button>':'')+'</div>');
+  PASSOS[ETAPAS[EI][0]](p);
+  var h2=p.querySelector('h2');
+  if(h2){ var g=GUIA[ETAPAS[EI][0]], d=document.createElement('div'); d.className='ph';
+    d.innerHTML='<span class="num">'+(EI+1)+'</span><h2>'+h2.innerHTML+'</h2>'+(g?'<a href="/vagas/metodo/'+g+'" target="_blank" rel="noopener">Entenda a estratégia ↗</a>':'');
+    h2.replaceWith(d); }
   var ba=document.getElementById('bant'), bp=document.getElementById('bprox');
   if(ba) ba.onclick=function(){ coleta(); EI--; desenha(); };
   if(bp) bp.onclick=function(){ coleta(); if(!valida()) return; EI++; desenha(); };
@@ -451,10 +561,10 @@ async function salvar(fim){
   if(fim){
     VG.toast(V.status==='publicada'?'Vaga no ar!':'Vaga salva');
     var url=location.origin+'/vagas/v/'+V.slug;
-    h('<div class="estado"><span class="vg-pill '+(V.status==='publicada'?'ok':'')+'">'+(V.status==='publicada'?'No ar':'Salva')+'</span><h1>'+esc(V.titulo)+'</h1>'+
+    h('<div class="estado card" style="padding:40px 24px"><span class="vg-pill '+(V.status==='publicada'?'ok':'')+'">'+(V.status==='publicada'?'● No ar':'Salva')+'</span><h1>'+esc(limpa(V.titulo))+'</h1>'+
       '<p class="muted">Divulgue este link no Instagram, nos grupos e no WhatsApp:</p><p><a href="'+url+'" target="_blank" style="font-weight:700;word-break:break-all">'+url+'</a></p>'+
       '<div class="vg-row" style="justify-content:center;margin-top:18px"><button class="btn solid" id="bcp">Copiar link</button>'+
-      '<a class="btn verde" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(V.titulo+' · '+url)+'">Enviar no WhatsApp</a><a class="btn" href="#/">Minhas vagas</a></div></div>');
+      '<a class="btn verde" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(V.titulo+' · '+url)+'">Enviar no WhatsApp</a><a class="btn" href="#/candidatos/'+V.id+'">Ir para o painel</a></div></div>');
     document.getElementById('bcp').onclick=function(){ copiar(url); };
     history.replaceState(null,'','#/editar/'+V.id);
   } else {
@@ -465,49 +575,87 @@ async function salvar(fim){
 }
 
 /* ---------- candidatos ---------- */
-var FILTRO='todos';
+var FILTRO='todos', BUSCA='';
 async function candidatos(id){
   h('<p class="muted">Carregando candidatos…</p>');
-  var v=await sb.from('vg_vagas').select('id,slug,titulo,status,palavra_onde').eq('id',id).single();
+  var v=await sb.from('vg_vagas').select('id,slug,titulo,status,palavra_onde,cargo_real').eq('id',id).single();
   if(v.error){ location.hash='#/'; return; }
+  var seg=await sb.from('vg_segredos').select('palavra').eq('vaga_id',id).maybeSingle();
+  var palavra=(seg.data&&seg.data.palavra)||'';
   var r=await sb.from('vg_candidatos').select('*').eq('vaga_id',id).order('created_at',{ascending:false});
   var C=r.data||[];
   var paths=C.filter(function(c){return c.video_path;}).map(function(c){return c.video_path;}), URLS={};
   if(paths.length){ var su=await sb.storage.from('vagas-videos').createSignedUrls(paths,3600); (su.data||[]).forEach(function(x){ if(x.signedUrl) URLS[x.path]=x.signedUrl; }); }
-  var n={todos:C.length,atentos:C.filter(function(c){return c.atento;}).length,video:C.filter(function(c){return c.video_path||c.video_link;}).length};
-  ['novo','triagem','entrevista','aprovado','recusado'].forEach(function(s){ n[s]=C.filter(function(c){return c.status===s;}).length; });
-  var NOMES={todos:'Todos',atentos:'✓ Atentos',video:'Com vídeo',novo:'Novos',triagem:'Triagem',entrevista:'Entrevista',aprovado:'Aprovados',recusado:'Recusados'};
+  var temVid=function(c){return c.video_path||c.video_link;};
+  function conta(){ var n={todos:C.length,atentos:0,video:0}; ['novo','triagem','entrevista','aprovado','recusado'].forEach(function(s){n[s]=0;});
+    C.forEach(function(c){ if(c.atento) n.atentos++; if(temVid(c)) n.video++; n[c.status]=(n[c.status]||0)+1; }); return n; }
+  var NOMES={todos:'Todos',atentos:'✓ Atentos',video:'Com vídeo',novo:'Novos',triagem:'Triagem',entrevista:'Entrevista',aprovado:'Aprovados',recusado:'Reprovados'};
+  var ROT={novo:'Novo',triagem:'Triagem',entrevista:'Entrevista',aprovado:'Aprovado',recusado:'Reprovado'};
+  var ST={rascunho:['Rascunho',''],publicada:['● Recebendo candidaturas','ok'],pausada:['Pausada','warn'],encerrada:['Encerrada','dark']}[v.data.status]||['',''];
+  var url=location.origin+'/vagas/v/'+v.data.slug;
+  function iniciais(n){ return String(n||'?').trim().split(/\s+/).slice(0,2).map(function(x){return x[0];}).join('').toUpperCase(); }
   function render(){
-    var L=C.filter(function(c){ return FILTRO==='todos'||(FILTRO==='atentos'&&c.atento)||(FILTRO==='video'&&(c.video_path||c.video_link))||c.status===FILTRO; });
-    document.getElementById('lista-c').innerHTML=L.length?L.map(card).join(''):'<div class="vg-vazio">Nenhum candidato '+(FILTRO==='todos'?'ainda. Divulgue o link da vaga!':'neste filtro.')+'</div>';
-    document.querySelectorAll('.filtros button').forEach(function(b){ b.setAttribute('aria-pressed',b.dataset.f===FILTRO); });
+    var n=conta(), q=BUSCA.toLowerCase();
+    var L=C.filter(function(c){ var f=FILTRO==='todos'||(FILTRO==='atentos'&&c.atento)||(FILTRO==='video'&&temVid(c))||c.status===FILTRO;
+      return f&&(!q||(String(c.nome)+' '+String(c.cidade||'')).toLowerCase().indexOf(q)>=0); });
+    document.getElementById('kpis').innerHTML=
+      '<button type="button" class="kpi" data-f="todos" aria-pressed="'+(FILTRO==='todos')+'"><b>'+n.todos+'</b><span>Candidaturas</span></button>'+
+      '<button type="button" class="kpi forte" data-f="atentos" aria-pressed="'+(FILTRO==='atentos')+'"><b>'+n.atentos+'</b><span>✓ Leram até o fim</span></button>'+
+      '<button type="button" class="kpi" data-f="video" aria-pressed="'+(FILTRO==='video')+'"><b>'+n.video+'</b><span>🎥 Vídeos recebidos</span></button>'+
+      '<button type="button" class="kpi" data-f="aprovado" aria-pressed="'+(FILTRO==='aprovado')+'"><b>'+n.aprovado+'</b><span>Aprovados</span></button>';
+    document.getElementById('chips').innerHTML=['todos','atentos','video','novo','triagem','entrevista','aprovado','recusado'].filter(function(k){return k==='todos'||k==='atentos'||k==='video'||n[k];})
+      .map(function(k){return '<button type="button" data-f="'+k+'" aria-pressed="'+(FILTRO===k)+'">'+NOMES[k]+'<small>'+n[k]+'</small></button>';}).join('');
+    document.getElementById('lista-c').innerHTML=L.length?L.map(card).join(''):
+      (C.length?'<div class="card vazio-c"><h2>Ninguém neste filtro</h2><p>Troque o filtro ou limpe a busca para ver todos.</p></div>':
+      '<div class="card vazio-c"><h2>Nenhuma candidatura ainda</h2><p>Divulgue o link da vaga nas suas redes, grupos e status do WhatsApp. Quem responder aparece aqui na hora.</p>'+
+      '<div class="vg-row" style="justify-content:center"><button class="btn solid" data-cp>Copiar link da vaga</button><a class="btn verde" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(limpa(v.data.titulo)+' · '+url)+'">Enviar no WhatsApp</a></div></div>');
   }
   function card(c){
     var yt=VG.ytId(c.video_link), vid=c.video_path&&URLS[c.video_path]?'<video controls preload="metadata" src="'+esc(URLS[c.video_path])+'"></video>':
-      (yt?'<iframe style="width:100%;aspect-ratio:16/9;border:0;border-radius:14px" src="https://www.youtube-nocookie.com/embed/'+yt+'" allowfullscreen></iframe>':(c.video_link?'<a class="btn sm" target="_blank" rel="noopener" href="'+esc(c.video_link)+'">Abrir vídeo</a>':'<span class="muted" style="font-size:.85rem">Sem vídeo</span>'));
+      (yt?'<iframe src="https://www.youtube-nocookie.com/embed/'+yt+'" allowfullscreen loading="lazy"></iframe>':(c.video_link?'<a class="btn sm" target="_blank" rel="noopener" href="'+esc(c.video_link)+'">🎥 Abrir vídeo ↗</a>':'<div class="sem-video">Sem vídeo</div>'));
     var data=new Date(c.created_at).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
-    return '<article class="vg-card cand" data-id="'+c.id+'"><div><div class="vg-row">'+(c.atento?'<span class="vg-pill ok">✓ Atento</span>':(v.data.palavra_onde!=='nenhuma'?'<span class="vg-pill">Não achou a palavra</span>':''))+'<span class="muted" style="font-size:.8rem">'+data+'</span></div>'+
-      '<h3 style="margin-top:10px">'+esc(c.nome)+'</h3><div class="vg-row" style="font-size:.86rem;margin-top:4px">'+
-      (c.whatsapp?'<a target="_blank" rel="noopener" href="'+VG.zap(c.whatsapp)+'">WhatsApp '+esc(c.whatsapp)+'</a>':'')+(c.email?'<a href="mailto:'+esc(c.email)+'">'+esc(c.email)+'</a>':'')+(c.cidade?'<span class="muted">'+esc(c.cidade)+'</span>':'')+'</div>'+
-      '<p class="resp">'+esc(c.resposta)+'</p></div>'+
-      '<div class="lado">'+vid+'<select data-k="status">'+['novo','triagem','entrevista','aprovado','recusado'].map(function(s){return '<option value="'+s+'"'+(c.status===s?' selected':'')+'>'+{novo:'Novo',triagem:'Triagem',entrevista:'Entrevista',aprovado:'Aprovado',recusado:'Recusado'}[s]+'</option>';}).join('')+'</select>'+
-      '<div class="estrelas">'+[1,2,3,4,5].map(function(i){return '<button type="button" data-nota="'+i+'" class="'+((c.nota||0)>=i?'on':'')+'">★</button>';}).join('')+'</div>'+
+    var longa=String(c.resposta||'').length>420;
+    return '<article class="card cand" data-id="'+c.id+'"><div>'+
+      '<div class="quem"><span class="ava'+(c.atento?' ok':'')+'">'+esc(iniciais(c.nome))+'</span><div><h3>'+esc(c.nome)+'</h3><div class="contato">'+
+      (c.whatsapp?'<a target="_blank" rel="noopener" href="'+VG.zap(c.whatsapp)+'">WhatsApp '+esc(c.whatsapp)+'</a>':'')+(c.email?'<a href="mailto:'+esc(c.email)+'">'+esc(c.email)+'</a>':'')+(c.cidade?'<span>'+esc(c.cidade)+'</span>':'')+'<span>'+data+'</span></div></div></div>'+
+      '<div class="selos">'+(c.atento?'<span class="vg-pill ok">✓ Leu até o fim</span>':(v.data.palavra_onde!=='nenhuma'?'<span class="vg-pill">Não achou a palavra</span>':''))+(temVid(c)?'<span class="vg-pill">🎥 Vídeo</span>':'')+'</div>'+
+      '<p class="resp">'+esc(c.resposta)+'</p>'+(longa?'<button type="button" class="mais">Ler resposta completa</button>':'')+'</div>'+
+      '<div class="lado">'+vid+'<label class="mini">Etapa</label><select data-k="status">'+['novo','triagem','entrevista','aprovado','recusado'].map(function(s){return '<option value="'+s+'"'+(c.status===s?' selected':'')+'>'+ROT[s]+'</option>';}).join('')+'</select>'+
+      '<label class="mini">Sua nota</label><div class="estrelas">'+[1,2,3,4,5].map(function(i){return '<button type="button" aria-label="Nota '+i+'" data-nota="'+i+'" class="'+((c.nota||0)>=i?'on':'')+'">★</button>';}).join('')+'</div>'+
       '<textarea data-k="obs" placeholder="Anotações sobre este candidato">'+esc(c.obs||'')+'</textarea></div></article>';
   }
-  h('<div class="topo"><div><span class="spaced">Candidatos</span><h1>'+esc(v.data.titulo)+'</h1></div><div class="vg-row"><a class="btn sm" href="#/">← Minhas vagas</a><a class="btn sm" href="#/editar/'+id+'">Editar vaga</a><a class="btn sm" target="_blank" href="/vagas/v/'+esc(v.data.slug)+'">Ver página</a><button class="btn sm" id="bcsv">Baixar planilha</button></div></div>'+
-    '<div class="filtros opcoes">'+Object.keys(NOMES).filter(function(k){return k==='todos'||n[k];}).map(function(k){return '<button type="button" data-f="'+k+'">'+NOMES[k]+' · '+n[k]+'</button>';}).join('')+'</div><div class="cands" id="lista-c"></div>');
-  document.querySelectorAll('.filtros button').forEach(function(b){ b.onclick=function(){ FILTRO=b.dataset.f; render(); }; });
-  if(!n[FILTRO]&&FILTRO!=='todos') FILTRO='todos';
+  var aberta=v.data.status==='publicada';
+  h('<div class="cab"><div><span class="olho">Painel de candidatos'+(v.data.cargo_real?' · '+esc(v.data.cargo_real):'')+'</span><h1>'+esc(limpa(v.data.titulo))+'</h1></div></div>'+
+    '<div class="status-linha">'+(ST[0]?'<span class="vg-pill '+ST[1]+'">'+ST[0]+'</span>':'')+(palavra&&v.data.palavra_onde!=='nenhuma'?'<span>Palavra secreta: <b>'+esc(palavra)+'</b></span>':'')+'</div>'+
+    '<div class="acoes"><a class="btn" target="_blank" href="/vagas/v/'+esc(v.data.slug)+'">Ver página ↗</a><a class="btn" target="_blank" rel="noopener" href="/vagas/metodo/">Vídeos e manual</a>'+
+    '<button class="btn" data-cp>Copiar link da vaga</button><a class="btn" href="#/editar/'+id+'">Editar vaga</a><button class="btn" id="bcsv">Baixar planilha</button>'+
+    (v.data.status!=='rascunho'?'<button class="btn solid" id="benc">'+(aberta?'Encerrar vaga':'Reabrir vaga')+'</button>':'')+'</div>'+
+    '<div class="kpis" id="kpis"></div><div class="ferr"><div class="opcoes" id="chips"></div><input class="busca" id="busca" type="search" placeholder="Buscar nome ou cidade…" value="'+esc(BUSCA)+'"></div><div class="cands" id="lista-c"></div>');
+  if(FILTRO!=='todos'&&!conta()[FILTRO]) FILTRO='todos';
   render();
-  var lc=document.getElementById('lista-c');
-  async function atualiza(cid,d){ var r=await sb.from('vg_candidatos').update(d).eq('id',cid); if(r.error) VG.toast(VG.erroPt(r.error),'erro'); else { var c=C.find(function(x){return x.id===cid;}); Object.assign(c,d); VG.toast('Salvo'); } }
-  lc.addEventListener('change',function(e){ var a=e.target.closest('.cand'); if(!a) return; var k=e.target.dataset.k; if(k) atualiza(a.dataset.id,(function(){var o={};o[k]=e.target.value;return o;})()); });
-  lc.addEventListener('click',function(e){ var b=e.target.closest('[data-nota]'); if(!b) return; var a=b.closest('.cand'), nt=+b.dataset.nota;
-    a.querySelectorAll('[data-nota]').forEach(function(x){ x.classList.toggle('on',+x.dataset.nota<=nt); }); atualiza(a.dataset.id,{nota:nt}); });
+  if(app._cl) app.removeEventListener('click',app._cl);
+  app.addEventListener('click',app._cl=function(e){
+    if(!document.getElementById('kpis')) return;
+    var f=e.target.closest('[data-f]'); if(f){ FILTRO=f.dataset.f; render(); return; }
+    if(e.target.closest('[data-cp]')) return copiar(url);
+    var m=e.target.closest('.mais'); if(m){ var rp=m.previousElementSibling; rp.classList.toggle('aberta'); m.textContent=rp.classList.contains('aberta')?'Mostrar menos':'Ler resposta completa'; return; }
+    var b=e.target.closest('[data-nota]'); if(b){ var a=b.closest('.cand'), nt=+b.dataset.nota;
+      a.querySelectorAll('[data-nota]').forEach(function(x){ x.classList.toggle('on',+x.dataset.nota<=nt); }); atualiza(a.dataset.id,{nota:nt}); }
+  });
+  document.getElementById('busca').oninput=function(){ BUSCA=this.value; render(); };
+  async function atualiza(cid,d){ var r=await sb.from('vg_candidatos').update(d).eq('id',cid); if(r.error) VG.toast(VG.erroPt(r.error),'erro'); else { var c=C.find(function(x){return x.id===cid;}); Object.assign(c,d); VG.toast('Salvo'); if(d.status) render(); } }
+  document.getElementById('lista-c').addEventListener('change',function(e){ var a=e.target.closest('.cand'); if(!a) return; var k=e.target.dataset.k; if(k){ var o={}; o[k]=e.target.value; atualiza(a.dataset.id,o); } });
+  var be=document.getElementById('benc');
+  if(be) be.onclick=async function(){
+    var novo=aberta?'encerrada':'publicada';
+    if(aberta&&!confirm('Encerrar a vaga? A página para de receber candidaturas. Você pode reabrir depois.')) return;
+    var r=await sb.from('vg_vagas').update({status:novo}).eq('id',id); if(r.error) return VG.toast(VG.erroPt(r.error),'erro');
+    VG.toast(novo==='encerrada'?'Vaga encerrada':'Vaga reaberta'); candidatos(id);
+  };
   document.getElementById('bcsv').onclick=function(){
     var cols=['nome','whatsapp','email','cidade','atento','status','nota','resposta','video_link','obs','created_at'];
     var q=function(s){ return '"'+String(s==null?'':s).replace(/"/g,'""')+'"'; };
-    var csv='﻿'+cols.join(';')+'\n'+C.map(function(c){ return cols.map(function(k){ return q(k==='atento'?(c.atento?'sim':'não'):c[k]); }).join(';'); }).join('\n');
+    var csv='﻿'+cols.join(';')+'\n'+C.map(function(c){ return cols.map(function(k){ return q(k==='atento'?(c.atento?'sim':'não'):k==='status'?ROT[c.status]:c[k]); }).join(';'); }).join('\n');
     var a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})); a.download='candidatos-'+v.data.slug+'.csv'; a.click();
   };
 }

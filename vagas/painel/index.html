@@ -46,6 +46,13 @@
 .sug button{font:inherit;font-size:.76rem;border:1px dashed var(--line);border-radius:999px;padding:6px 12px;background:none;color:var(--muted);cursor:pointer}
 .sug button:hover{color:var(--fg);border-color:var(--fg)}
 .titulo-prev{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;padding:16px 18px;border-radius:16px;background:var(--soft);margin-bottom:16px}
+.logo-up{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.logo-prev{width:140px;height:84px;border:1px dashed var(--line);border-radius:14px;display:grid;place-items:center;background:repeating-conic-gradient(var(--soft) 0 25%,var(--bg) 0 50%) 0 0/16px 16px;overflow:hidden;flex-shrink:0}
+.logo-prev img{max-width:90%;max-height:70px;object-fit:contain}
+.logo-prev span{font-size:.75rem;color:var(--muted);background:var(--bg);padding:2px 8px;border-radius:999px}
+.logo-ac{display:flex;gap:8px;align-items:center;flex-wrap:wrap;flex:1;min-width:200px}
+.logo-ac small{flex-basis:100%;font-size:.75rem}
+.logo-ac label.btn{cursor:pointer}
 /* candidatos */
 .filtros{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
 .cands{display:grid;gap:12px}
@@ -157,13 +164,58 @@ function telaEmpresa(){
     '<div class="vg-card" style="max-width:640px">'+
     campo('Nome da empresa','em-nome',EMP.nome)+campo('Responsável','em-resp',EMP.responsavel)+
     '<div class="vg-grid2">'+campo('WhatsApp','em-whats',EMP.whatsapp)+campo('Cidade','em-cid',EMP.cidade)+'</div>'+
-    campo('Link do logo (imagem)','em-logo',EMP.logo_url,'https://…')+
+    campoLogo('Logo da empresa','em-logo',EMP.logo_url)+
     area('Sobre a empresa e o propósito','em-sobre',EMP.sobre,'O que vocês fazem, por que existem e o que acreditam.')+
     '<button class="btn solid" id="bse">Salvar</button></div>');
+  ligaLogo('em-logo');
   document.getElementById('bse').onclick=async function(){
     var d={nome:val('em-nome'),responsavel:val('em-resp'),whatsapp:val('em-whats'),cidade:val('em-cid'),logo_url:val('em-logo'),sobre:val('em-sobre')};
     var r=await sb.from('vg_empresas').update(d).eq('id',EMP.id).select().single();
     if(r.error) return VG.toast(VG.erroPt(r.error),'erro'); EMP=r.data; VG.toast('Empresa salva'); location.hash='#/';
+  };
+}
+function campoLogo(l,id,v){
+  return '<div class="campo"><label>'+l+'</label><input type="hidden" id="'+id+'" value="'+esc(v||'')+'">'+
+    '<div class="logo-up" id="'+id+'-box"><div class="logo-prev" id="'+id+'-prev">'+(v?'<img src="'+esc(v)+'" alt="">':'<span>Sem logo</span>')+'</div>'+
+    '<div class="logo-ac"><label class="btn sm solid" for="'+id+'-arq">'+(v?'Trocar imagem':'Anexar imagem')+'</label>'+
+    '<input type="file" id="'+id+'-arq" accept="image/png,image/jpeg,image/webp,image/svg+xml" hidden>'+
+    '<button type="button" class="btn sm" id="'+id+'-rm"'+(v?'':' hidden')+'>Remover</button>'+
+    '<small class="muted">PNG, JPG, WEBP ou SVG · até 5 MB. Fundo transparente fica melhor.</small></div></div></div>';
+}
+function reduz(arq){
+  return new Promise(function(ok){
+    if(/svg|gif/.test(arq.type)) return ok(arq);
+    var img=new Image(), u=URL.createObjectURL(arq);
+    img.onload=function(){
+      var m=800, w=img.width, hh=img.height; if(w<=m&&hh<=m){ URL.revokeObjectURL(u); return ok(arq); }
+      var k=Math.min(m/w,m/hh), c=document.createElement('canvas'); c.width=Math.round(w*k); c.height=Math.round(hh*k);
+      c.getContext('2d').drawImage(img,0,0,c.width,c.height); URL.revokeObjectURL(u);
+      var tipo=arq.type==='image/png'?'image/png':'image/webp';
+      c.toBlob(function(b){ ok(b?new File([b],'logo.'+(tipo==='image/png'?'png':'webp'),{type:tipo}):arq); },tipo,.9);
+    };
+    img.onerror=function(){ ok(arq); }; img.src=u;
+  });
+}
+function ligaLogo(id){
+  var inp=document.getElementById(id), arq=document.getElementById(id+'-arq'), prev=document.getElementById(id+'-prev'), rm=document.getElementById(id+'-rm'), lb=document.querySelector('label[for="'+id+'-arq"]');
+  function mostra(u){ inp.value=u||''; prev.innerHTML=u?'<img src="'+esc(u)+'" alt="">':'<span>Sem logo</span>'; rm.hidden=!u; lb.textContent=u?'Trocar imagem':'Anexar imagem'; }
+  rm.onclick=function(){ mostra(''); };
+  arq.onchange=async function(){
+    var f=arq.files[0]; arq.value=''; if(!f) return;
+    if(!/^image\//.test(f.type)) return VG.toast('Escolha um arquivo de imagem','erro');
+    if(f.size>5*1024*1024) return VG.toast('A imagem passou de 5 MB','erro');
+    lb.textContent='Enviando…'; prev.innerHTML='<span>Enviando…</span>';
+    try{
+      f=await reduz(f);
+      var ext=(f.name.split('.').pop()||'png').toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,4)||'png';
+      var cam=EMP.id+'/'+Date.now().toString(36)+'.'+ext;
+      var up=await sb.storage.from('vagas-logos').upload(cam,f,{contentType:f.type,upsert:false,cacheControl:'31536000'});
+      if(up.error) throw up.error;
+      var url=sb.storage.from('vagas-logos').getPublicUrl(cam).data.publicUrl;
+      mostra(url);
+      if(!EMP.logo_url){ var r=await sb.from('vg_empresas').update({logo_url:url}).eq('id',EMP.id).select().single(); if(r.data) EMP=r.data; }
+      VG.toast('Logo anexado');
+    }catch(e){ mostra(inp.value); VG.toast(VG.erroPt(e),'erro'); }
   };
 }
 function campo(l,id,v,ph,tipo){ return '<div class="campo"><label for="'+id+'">'+l+'</label><input id="'+id+'" type="'+(tipo||'text')+'" value="'+esc(v||'')+'" placeholder="'+esc(ph||'')+'"></div>'; }
@@ -239,8 +291,9 @@ function ligaSug(id){
 var PASSOS={
   empresa:function(p){
     p.innerHTML='<h2>Quem está contratando</h2><p class="ajuda">O candidato precisa se conectar com a <b>empresa</b> antes do cargo. Conte quem vocês são e por que existem.</p>'+
-      campo('Nome da empresa','f-en',V.empresa_nome)+campo('Link do logo (opcional)','f-el',V.empresa_logo,'https://…')+campo('Cidade','f-ec',V.cidade)+
+      campo('Nome da empresa','f-en',V.empresa_nome)+campoLogo('Logo da empresa (opcional)','f-el',V.empresa_logo)+campo('Cidade','f-ec',V.cidade)+
       area('Sobre a empresa e o propósito','f-es',V.empresa_sobre,'Ex.: Somos uma fábrica de uniformes que veste 300 empresas em Goiás. Acreditamos que…');
+    ligaLogo('f-el');
     COL=function(){ V.empresa_nome=val('f-en'); V.empresa_logo=val('f-el'); V.cidade=val('f-ec'); V.empresa_sobre=val('f-es'); };
   },
   analogia:function(p){

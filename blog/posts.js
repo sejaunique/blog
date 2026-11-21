@@ -61,6 +61,45 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 
 window.POSTS = [
   {
+    slug: "black-zona",
+    capa: "assets/capa-black-zona.jpg",
+    titulo: "Black Friday sem ==queimar margem==",
+    data: "2026-11-21",
+    categoria: "Estratégia",
+    resumo: "Desconto qualquer um dá. Vender na Black com condição, prazo e rotina é o que separa quem fatura de quem só gira estoque no prejuízo. As 4 regras da Black Zona.",
+    texto: `
+Todo novembro é a mesma cena: o empresário abre o Instagram, vê todo mundo anunciando 50% off e entra em pânico. Corta preço, queima margem e, em dezembro, descobre que vendeu mais e ganhou menos.
+
+A Black Friday não precisa ser assim. Ela pode ser a ==semana mais lucrativa do ano==, desde que você entre com método, e não com tabela riscada.
+
+## As 4 regras da Black Zona
+
+**1. Condição, não desconto.** Troque o % off por prazo, bônus em mercadoria, upgrade ou frete. O cliente sente o ganho e a sua tabela fica de pé.
+
+**2. Toda oferta tem fim.** Dia e hora para acabar, escritos na mensagem. ==Oferta sem prazo é tabela.==
+
+**3. Comece pela carteira.** Quem já comprou é a venda mais curta. Inativos e orçamentos parados vêm antes de cliente novo.
+
+**4. Rotina todo dia.** Meta de contatos por dia, reunião de 10 minutos às 9h e placar visível. Black é método atleta, não sorte.
+
+> A Black passa. A margem que você queimou, não volta.
+
+## Cada segmento joga de um jeito
+
+- **Indústria e atacado:** kit Black do lojista, bônus em mercadoria, pedido-relâmpago de 48h, janeiro com preço travado e lojista indicando lojista.
+- **Varejo:** lista VIP da Black, leve mais e pague menos, brinde por faixa de compra, crédito para dezembro e resgate de clientes sumidos.
+- **Uniforme personalizado:** reserva da produção de janeiro, kit confraternização, renovação da carteira, upgrade sem custo e orçamentos parados.
+
+Repare: quase nenhuma dessas ações é desconto puro. São condições que fazem o cliente decidir agora, sem ensinar ele a só comprar em promoção.
+
+## O calendário manda
+
+A Black Friday é sexta, 27/11, e a Cyber Monday, 30/11. O feriado de 20/11 come uma semana útil. Quem começa a se mexer na própria semana da Black já chega atrasado: a carteira precisa ser aquecida antes.
+
+[material: Black Zona · 18 ações para a Black | Indústria e atacado, varejo e uniforme personalizado: vender na Black sem queimar margem. | assets/capa-black-zona.jpg | 18 ações com passo a passo e meta; Mensagens prontas para copiar no WhatsApp; Calendário de novembro, semana a semana; Ações por segmento e por pilar; Checklist com progresso para o time | Quero as 18 ações](/black-zona/)
+`
+  },
+  {
     slug: "comercial-atleta",
     capa: "assets/capa-comercial-atleta.jpg",
     titulo: "Seu comercial treina ou ==só joga em dia de jogo?==",

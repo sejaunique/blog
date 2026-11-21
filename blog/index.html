@@ -89,6 +89,14 @@ strong{font-weight:700}
 .chip{font:inherit;font-size:.72rem;font-weight:500;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:7px 16px;cursor:pointer}
 .chip:hover{color:var(--fg);border-color:var(--fg)}
 .chip[aria-pressed="true"]{background:var(--pill);color:var(--pill-fg);border-color:var(--pill)}
+.busca{position:relative;max-width:520px;margin:22px auto 0}
+.busca input{width:100%;font:inherit;font-size:.95rem;padding:14px 44px 14px 46px;border-radius:999px;border:1.5px solid var(--line);background:var(--bg);color:var(--fg);outline:none}
+.busca input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
+.busca input:focus{border-color:var(--fg)}
+.busca svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:18px;height:18px;opacity:.6;pointer-events:none}
+.busca .lp{position:absolute;right:10px;top:50%;transform:translateY(-50%);border:0;background:none;color:var(--muted);font-size:1.3rem;cursor:pointer;padding:4px 8px;display:none}
+.busca.on .lp{display:block}
+.busca-n{text-align:center;font-size:.75rem;color:var(--muted);margin-top:8px;min-height:1em}
 .ordem{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:16px;font-size:.72rem;color:var(--muted)}
 .ordem select{font:inherit;font-size:.72rem;font-weight:600;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:7px 30px 7px 14px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);background-position:calc(100% - 16px) 50%,calc(100% - 11px) 50%;background-size:5px 5px;background-repeat:no-repeat}
 .card .row .n{display:inline-flex;align-items:center;gap:4px}
@@ -443,17 +451,38 @@ try{ setTimeout(function(){ fetch("/api/newsletter?a=verificar",{keepalive:true}
       (L.instagram?'<a class="btn" href="'+L.instagram+'" target="_blank" rel="noopener">Instagram</a>':'')+'</div></div></section>';
   }
 
+  var busca='';
+  function norm(t){ return String(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[=*_#>\[\]]/g,' '); }
+  function visiveis(){
+    var termos=norm(busca).split(/\s+/).filter(Boolean);
+    return POSTS.filter(function(p){
+      if(filtro!=='Todos'&&p.categoria!==filtro) return false;
+      if(!termos.length) return true;
+      var tt=norm(p.titulo)+' '+norm(p.categoria), tx=tt+' '+norm(p.resumo)+' '+norm(p.texto);
+      return termos.every(function(w){return tx.indexOf(w)>-1;});
+    }).slice().sort(ORDENS[ordem][1]);
+  }
+  function grade(){
+    var vis=visiveis(), g=document.getElementById('grade');
+    g.innerHTML=vis.length?'<ul class="grid">'+vis.map(card).join('')+'</ul>':'<p class="empty">'+(busca?'Nenhum post encontrado para “'+esc(busca)+'”. Tente outra palavra.':'Nenhum post nesse assunto ainda.')+'</p>';
+    var n=document.getElementById('busca-n'); if(n) n.textContent=busca?(vis.length+(vis.length===1?' post encontrado':' posts encontrados')):'';
+  }
   function lista(manter){
     var y=window.scrollY;
     var cats=['Todos'].concat(POSTS.map(function(p){return p.categoria;}).filter(function(c,i,a){return c&&a.indexOf(c)===i;}));
-    var vis=POSTS.filter(function(p){return filtro==='Todos'||p.categoria===filtro;}).slice().sort(ORDENS[ordem][1]);
+    var vis=visiveis();
     var h=C.abertura||{};
     app.innerHTML='<div class="view wrap">'+
       '<section class="hero"><span class="tag">'+esc(h.selo||'')+'</span><h1>'+inline(h.titulo||'')+'</h1><p>'+inline(h.texto||'')+'</p>'+
+      '<div class="busca'+(busca?' on':'')+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="busca" type="search" placeholder="Buscar no blog: CRM, indicação, estoque…" aria-label="Buscar posts" value="'+esc(busca)+'" autocomplete="off"><button type="button" class="lp" aria-label="Limpar busca">×</button></div><p class="busca-n" id="busca-n"></p>'+
       '<div class="filters" role="group" aria-label="Filtrar por assunto">'+cats.map(function(c){return '<button class="chip" type="button" aria-pressed="'+(c===filtro)+'" data-cat="'+esc(c)+'">'+esc(c)+'</button>';}).join('')+'</div>'+
       '<label class="ordem">Ordenar por <select id="ordem">'+Object.keys(ORDENS).map(function(k){return '<option value="'+k+'"'+(k===ordem?' selected':'')+'>'+ORDENS[k][0]+'</option>';}).join('')+'</select></label></section>'+
-      (vis.length?'<ul class="grid">'+vis.map(card).join('')+'</ul>':'<p class="empty">Nenhum post nesse assunto ainda.</p>')+
+      '<div id="grade"></div>'+
       sobre()+'</div>';
+    grade();
+    var bi=document.getElementById('busca'), bx=bi.parentNode;
+    bi.oninput=function(){ busca=bi.value.trim(); bx.classList.toggle('on',!!busca); grade(); };
+    bx.querySelector('.lp').onclick=function(){ bi.value=''; busca=''; bx.classList.remove('on'); grade(); bi.focus(); };
     app.querySelectorAll('.chip').forEach(function(b){ b.onclick=function(){ filtro=b.dataset.cat; lista(true); }; });
     document.getElementById('ordem').onchange=function(){ ordem=this.value; lista(true); };
     if(manter) window.scrollTo(0,y);

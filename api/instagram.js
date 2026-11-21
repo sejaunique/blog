@@ -165,6 +165,14 @@ module.exports = async (req, res) => {
       const lista = await iscas();
       return res.status(200).json({ ok: !!me.username, tipo: t.slice(0, 3) + '…(' + t.length + ')', api: IG(), conta: me.username || null, erroConta: me.error && me.error.message, assinatura: s, iscas: lista.map(i => i.palavras.join('/') + ' -> ' + i.link) });
     }
+    if (q.a === 'diag') {
+      if (!verify || q.k !== verify) return res.status(403).json({ ok: false });
+      const t = TK(); const g = u => fetch(IG() + u + (u.includes('?') ? '&' : '?') + 'access_token=' + encodeURIComponent(t)).then(r => r.json()).catch(e => ({ error: { message: String(e) } }));
+      const [me, contas, assin] = await Promise.all([g('/me?fields=id,name'), g('/me/accounts?fields=id,name,instagram_business_account'), g('/' + CONTA() + '/subscribed_apps')]);
+      let pagina = null;
+      if (q.pagina) pagina = await fetch(IG() + '/' + q.pagina + '/subscribed_apps?subscribed_fields=messages,messaging_postbacks,feed&access_token=' + encodeURIComponent(t), { method: 'POST' }).then(r => r.json()).catch(e => ({ error: { message: String(e) } }));
+      return res.status(200).json({ me, contas, assinaturaIG: assin, pagina });
+    }
     return res.status(200).json({ ok: true });
   }
 
@@ -178,6 +186,7 @@ module.exports = async (req, res) => {
     if (ass.length !== esp.length || !crypto.timingSafeEqual(Buffer.from(ass), Buffer.from(esp))) { console.log('[ig] assinatura inválida'); return res.status(401).end(); }
   }
   let b = {}; try { b = JSON.parse(raw || '{}'); } catch (e) {}
+  try { console.log('[ig] aviso', JSON.stringify((b.entry || []).map(e => ({ id: e.id, campos: (e.changes || []).map(c => c.field), msgs: (e.messaging || []).map(m => Object.keys(m).filter(k => k !== 'sender' && k !== 'recipient' && k !== 'timestamp')) })))); } catch (e) {}
   try {
     for (const e of b.entry || []) {
       for (const c of e.changes || []) if (c.field === 'comments') await comentario(e.id, c.value);

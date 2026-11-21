@@ -107,6 +107,28 @@ async function manda(conta, recipient, isca) {
   return t.ok ? { ok: true, aviso: 'sem botão: ' + b.erro } : { ok: false, erro: b.erro + ' | ' + t.erro };
 }
 
+// ---------- portão "precisa me seguir" ----------
+const PERFIL = () => process.env.IG_PERFIL || 'soucarlosribeiro';
+async function segue(igsid) {
+  if (!igsid) return null;
+  try {
+    const r = await fetch(IG() + '/' + igsid + '?fields=is_user_follow_business&access_token=' + encodeURIComponent(TK())).then(x => x.json());
+    return typeof r.is_user_follow_business === 'boolean' ? r.is_user_follow_business : null;
+  } catch (e) { return null; }
+}
+async function portao(conta, recipient, isca, deNovo) {
+  const texto = deNovo
+    ? 'Ainda não apareceu que você me segue 🤔\n\nSegue o @' + PERFIL() + ' e toca de novo em "Já sigo" que o link chega na hora.'
+    : 'Esse material é exclusivo para quem me segue 🔒\n\n1. Segue o @' + PERFIL() + '\n2. Toca em "Já sigo" aqui embaixo\n\nE o link de "' + (isca.tag || 'material') + '" chega na hora 👇';
+  const qr = [{ content_type: 'text', title: 'Já sigo ✅', payload: 'SEGUE|' + isca.tag }];
+  const r = await ig('/' + conta + '/messages', { recipient, message: { text: texto, quick_replies: qr } });
+  if (r.ok) return r;
+  return ig('/' + conta + '/messages', { recipient, message: { text: texto + '\n\n(Responda "SIGO" depois de seguir.)' } });
+}
+async function guardaPendente(igsid, tag) {
+  if (igsid) try { await redis([['SET', 'ig:pend:' + igsid, tag, 'EX', 60 * 60 * 24 * 7]]); } catch (e) {}
+}
+
 async function registra(x) {
   console.log('[ig]', JSON.stringify(x));
   try { await redis([['LPUSH', 'ig:log', JSON.stringify({ ...x, em: new Date().toISOString() })], ['LTRIM', 'ig:log', 0, 199], ['EXPIRE', 'ig:log', 60 * 60 * 24 * 30]]); } catch (e) {}
@@ -125,7 +147,11 @@ async function comentario(contaId, v) {
   const isca = acha(await iscas(), v.text);
   if (!isca) return;
   if (!(await primeiraVez('c:' + v.id))) return;
-  const d = await manda(contaId || CONTA(), { comment_id: v.id }, isca);
+  const quem = v.from && v.from.id;
+  const ok = await segue(quem);
+  let d;
+  if (ok) d = await manda(contaId || CONTA(), { comment_id: v.id }, isca);
+  else { d = await portao(contaId || CONTA(), { comment_id: v.id }, isca, false); await guardaPendente(quem, isca.tag); d.aviso = 'portão (segue=' + ok + ')'; }
   let p = { ok: false, erro: 'sem resposta pública' };
   if (isca.publica) p = await ig('/' + v.id + '/replies', { message: isca.publica });
   await registra({ tipo: 'comentario', usuario: v.from && v.from.username, post: v.media && v.media.id, isca: isca.tag, direct: d.ok ? (d.aviso || 'ok') : d.erro, publica: p.ok ? 'ok' : p.erro });
@@ -135,11 +161,25 @@ async function mensagem(contaId, m) {
   const msg = m && m.message;
   if (!msg || msg.is_echo || !msg.text || !m.sender) return;
   if (String(m.sender.id) === String(contaId)) return;
-  const isca = acha(await iscas(), msg.text);
-  if (!isca) return;
+  const conta = contaId || CONTA(), quem = m.sender.id, lista = await iscas();
+  const pl = String((msg.quick_reply && msg.quick_reply.payload) || '');
+  const confirma = pl.startsWith('SEGUE|') || /^\s*(ja\s+)?sigo\b/.test(norm(msg.text));
+  let isca = null;
+  if (confirma) {
+    let tag = pl.startsWith('SEGUE|') ? pl.slice(6) : '';
+    if (!tag) try { [tag] = await redis([['GET', 'ig:pend:' + quem]]); } catch (e) {}
+    isca = lista.find(i => i.tag === tag) || null;
+    if (!isca) return;
+  } else {
+    isca = acha(lista, msg.text);
+    if (!isca) return;
+  }
   if (!(await primeiraVez('m:' + (msg.mid || m.timestamp)))) return;
-  const d = await manda(contaId || CONTA(), { id: m.sender.id }, isca);
-  await registra({ tipo: 'direct', isca: isca.tag, direct: d.ok ? (d.aviso || 'ok') : d.erro });
+  const ok = await segue(quem);
+  let d;
+  if (ok || (ok === null && confirma)) { d = await manda(conta, { id: quem }, isca); try { await redis([['DEL', 'ig:pend:' + quem]]); } catch (e) {} }
+  else { d = await portao(conta, { id: quem }, isca, confirma); await guardaPendente(quem, isca.tag); d.aviso = 'portão (segue=' + ok + ')'; }
+  await registra({ tipo: confirma ? 'confirmou' : 'direct', isca: isca.tag, direct: d.ok ? (d.aviso || 'ok') : d.erro });
 }
 
 function bruto(req) {

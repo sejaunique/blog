@@ -189,7 +189,7 @@ module.exports = async (req, res) => {
   try { console.log('[ig] aviso', JSON.stringify((b.entry || []).map(e => ({ id: e.id, campos: (e.changes || []).map(c => c.field), msgs: (e.messaging || []).map(m => Object.keys(m).filter(k => k !== 'sender' && k !== 'recipient' && k !== 'timestamp')) })))); } catch (e) {}
   try {
     for (const e of b.entry || []) {
-      for (const c of e.changes || []) if (c.field === 'comments') await comentario(e.id, c.value);
+      for (const c of e.changes || []) { if (c.field === 'comments') await comentario(e.id, c.value); else if (c.field === 'messages') await mensagem(e.id, c.value); }
       for (const m of e.messaging || []) await mensagem(e.id, m);
     }
   } catch (err) { console.log('[ig] erro', err && err.message); }

@@ -165,7 +165,7 @@ function telaEmpresa(){
     campo('Nome da empresa','em-nome',EMP.nome)+campo('Responsável','em-resp',EMP.responsavel)+
     '<div class="vg-grid2">'+campo('WhatsApp','em-whats',EMP.whatsapp)+campo('Cidade','em-cid',EMP.cidade)+'</div>'+
     campoLogo('Logo da empresa','em-logo',EMP.logo_url)+
-    area('Sobre a empresa e o propósito','em-sobre',EMP.sobre,'O que vocês fazem, por que existem e o que acreditam.')+
+    area('Sobre a empresa e o propósito (Slogan)','em-sobre',EMP.sobre,'O que vocês fazem, por que existem e o que acreditam.')+
     '<button class="btn solid" id="bse">Salvar</button></div>');
   ligaLogo('em-logo');
   document.getElementById('bse').onclick=async function(){
@@ -292,7 +292,7 @@ var PASSOS={
   empresa:function(p){
     p.innerHTML='<h2>Quem está contratando</h2><p class="ajuda">O candidato precisa se conectar com a <b>empresa</b> antes do cargo. Conte quem vocês são e por que existem.</p>'+
       campo('Nome da empresa','f-en',V.empresa_nome)+campoLogo('Logo da empresa (opcional)','f-el',V.empresa_logo)+campo('Cidade','f-ec',V.cidade)+
-      area('Sobre a empresa e o propósito','f-es',V.empresa_sobre,'Ex.: Somos uma fábrica de uniformes que veste 300 empresas em Goiás. Acreditamos que…');
+      area('Sobre a empresa e o propósito (Slogan)','f-es',V.empresa_sobre,'Ex.: Somos uma fábrica de uniformes que veste 300 empresas em Goiás. Acreditamos que…');
     ligaLogo('f-el');
     COL=function(){ V.empresa_nome=val('f-en'); V.empresa_logo=val('f-el'); V.cidade=val('f-ec'); V.empresa_sobre=val('f-es'); };
   },

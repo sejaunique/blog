@@ -123,10 +123,17 @@
       location.replace('/vagas/painel/');
     });
   };
+  function fn(dados){
+    return fetch(VG.URL+'/functions/v1/vagas-auth',{method:'POST',headers:{'Content-Type':'application/json','apikey':VG.CHAVE},body:JSON.stringify(dados)})
+      .then(function(r){ return r.json().catch(function(){ return {erro:'Falha de conexão. Tente de novo.'}; }); })
+      .catch(function(){ return {erro:'Sem conexão. Tente de novo.'}; });
+  }
   $('b-esqueci').onclick=function(){
     var em=$('e-email').value.trim(); if(!em) return msg('m-entrar','Digite seu e-mail acima e clique de novo.');
-    sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+'/vagas/painel/?nova-senha'}).then(function(r){
-      msg('m-entrar',r.error?VG.erroPt(r.error):'Enviamos um link para '+em+'. Abra o e-mail para criar uma nova senha.',!r.error);
+    var bt=this; bt.disabled=true;
+    fn({tipo:'recuperar',email:em}).then(function(r){
+      bt.disabled=false;
+      msg('m-entrar',r.erro?r.erro:'Se houver uma conta com '+em+', enviamos um link de contato@sejaunique.com. Confira também o spam.',!r.erro);
     });
   };
   $('f-cad').onsubmit=function(ev){
@@ -136,15 +143,12 @@
     if(!d.empresa||!d.nome||!d.whatsapp||!email) return msg('m-cad','Preencha empresa, nome, WhatsApp e e-mail.');
     if(senha.length<8) return msg('m-cad','A senha precisa ter pelo menos 8 caracteres.');
     var b=this.querySelector('button[type=submit]'); b.disabled=true;
-    sb.auth.signUp({email:email,password:senha,options:{data:d,emailRedirectTo:location.origin+'/vagas/painel/'}}).then(function(r){
-      if(r.error){ b.disabled=false; return msg('m-cad',VG.erroPt(r.error)); }
-      try{ localStorage.setItem('vg_cadastro',JSON.stringify(d)); }catch(e){}
-      if(r.data.user&&r.data.user.identities&&r.data.user.identities.length===0){
-        b.disabled=false; aba(false); $('e-email').value=email;
-        return msg('m-entrar','Este e-mail já tem conta na Unique. Entre com a senha que você já usa (ou clique em "Esqueceu a senha?").');
-      }
-      if(!r.data.session){ b.disabled=false; return msg('m-cad','Conta criada! Enviamos um e-mail para '+email+'. Clique no link para confirmar e entrar.',true); }
-      return sb.from('vg_empresas').insert({owner:r.data.user.id,nome:d.empresa,responsavel:d.nome,whatsapp:d.whatsapp,cidade:d.cidade}).then(function(){ location.replace('/vagas/painel/'); });
+    try{ localStorage.setItem('vg_cadastro',JSON.stringify(d)); }catch(e){}
+    fn({tipo:'cadastro',email:email,senha:senha,dados:d}).then(function(r){
+      b.disabled=false;
+      if(r.existe){ aba(false); $('e-email').value=email; return msg('m-entrar','Este e-mail já tem conta na Unique. Entre com a senha que você já usa (ou toque em "Esqueceu a senha?").'); }
+      if(r.erro) return msg('m-cad',r.erro);
+      msg('m-cad','Conta criada! Enviamos um e-mail de contato@sejaunique.com para '+email+'. Toque no link para confirmar e entrar.',true);
     });
   };
 })();

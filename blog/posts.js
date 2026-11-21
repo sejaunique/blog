@@ -61,6 +61,50 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 
 window.POSTS = [
   {
+    slug: "comercial-atleta",
+    capa: "assets/capa-comercial-atleta.jpg",
+    titulo: "Seu comercial treina ou ==só joga em dia de jogo?==",
+    data: "2026-11-21",
+    categoria: "Gestão",
+    resumo: "Atleta não vira campeão no dia da final. Comercial também não. Os 4 pilares, a rotina de treino e o placar que separam o time que vende do time que torce.",
+    texto: `
+Nenhum atleta vira campeão no dia da final. Ele vira campeão nas segundas-feiras chatas, no treino que ninguém vê, na repetição que ninguém aplaude.
+
+Com o comercial é igual. A maioria dos times só "joga em dia de jogo": quando o cliente chama, quando o mês aperta, quando a meta grita. No resto do tempo, ninguém treina.
+
+> Comportamento Repetido Muda.
+
+## Os 4 pilares do treino
+
+- **Prospecção:** lista de alvos pelo perfil de cliente ideal, abordagem diária (WhatsApp, ligação, LinkedIn, visita), cadência de follow-up com dia e canal e pedido ativo de indicação.
+- **Nutrição:** responder rápido e com padrão, qualificar necessidade, momento e quem decide, e conduzir por etapas com o próximo passo marcado.
+- **Fidelização:** pós-venda com data marcada, recompra antes de o cliente precisar e aumento de ticket com complemento e upgrade.
+- **Recuperação:** ir atrás de inativos e de quem esfriou, com estratégia dedicada aos melhores clientes da curva ABC.
+
+Um time que só faz um pilar é como atleta que só treina perna. Uma hora manca.
+
+## Toda ação comercial tem dia e hora
+
+Pilar sem agenda é intenção. O treino precisa estar no calendário:
+
+- **Todo dia:** abordagem, follow-up e resposta rápida
+- **Toda semana:** reunião comercial de 30 minutos olhando o placar
+- **Todo mês:** revisão da curva ABC, das perdas e do plano do mês seguinte
+
+## O que não é medido não melhora
+
+Atleta sabe o tempo, a carga e a frequência. Vendedor precisa saber quantas abordagens fez, quantos orçamentos mandou, quantos follow-ups ficaram para trás e quanto falta para a meta.
+
+E tem a ==conta do reativo==: o time que só espera o cliente chamar está deixando na mesa todo o dinheiro que viria da prospecção, da recompra e da recuperação.
+
+## 30 dias de rotina
+
+Ninguém precisa mudar tudo de uma vez. Precisa de 30 dias de rotina repetida, todo dia, até o comportamento virar hábito. É aí que o placar começa a mudar.
+
+[material: Comercial Atleta · Plano de treino | Os 4 pilares comerciais, a rotina diária, semanal e mensal, o placar e o desafio de 30 dias. | assets/capa-comercial-atleta.jpg | Os 4 pilares com as ações de cada um; Rotina diária, semanal e mensal; Reunião comercial de 30 minutos; Placar de indicadores e a conta do reativo; Desafio de 30 dias de rotina | Quero o plano de treino](/comercial-atleta/)
+`
+  },
+  {
     slug: "estoque-parado",
     capa: "assets/capa-estoque-parado.jpg",
     titulo: "Estoque parado é ==dinheiro dormindo==",

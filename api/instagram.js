@@ -125,6 +125,33 @@ async function portao(conta, recipient, isca, deNovo) {
   if (r.ok) return r;
   return ig('/' + conta + '/messages', { recipient, message: { text: texto + '\n\n(Responda "SIGO" depois de seguir.)' } });
 }
+// ---------- boas-vindas para quem acabou de seguir + oferta do diagnóstico ----------
+const DIAG = { tag: 'Diagnóstico', link: 'https://sejaunique.com/diagnostico/', botao: 'Fazer o diagnóstico',
+  direct: 'Show! O diagnóstico leva de 10 a 15 minutos e no final você recebe um relatório com o score do seu comercial, os gargalos e o plano de ação 👇' };
+async function boasVindas(conta, igsid) {
+  try { const [r] = await redis([['SET', 'ig:bv:' + igsid, '1', 'NX', 'EX', 60 * 60 * 24 * 365]]); if (r !== undefined && r !== 'OK') return; } catch (e) {}
+  const texto = 'Obrigado por me seguir! 🙌 Espero que meus quadradinhos possam somar na sua empresa e na sua carreira.\n\nE quero aproveitar para entender como está o seu comercial. Podemos fazer um diagnóstico do seu negócio?';
+  await ig('/' + conta + '/messages', { recipient: { id: igsid }, message: { text: texto, quick_replies: [
+    { content_type: 'text', title: 'Quero o diagnóstico', payload: 'DIAG|SIM' },
+    { content_type: 'text', title: 'Agora não', payload: 'DIAG|NAO' }] } });
+  try { await redis([['SET', 'ig:diagpend:' + igsid, '1', 'EX', 60 * 60 * 24 * 7]]); } catch (e) {}
+  await registra({ tipo: 'boas-vindas' });
+}
+async function respostaDiag(conta, igsid, msg) {
+  const pl = String((msg.quick_reply && msg.quick_reply.payload) || '');
+  let pend = null; try { [pend] = await redis([['GET', 'ig:diagpend:' + igsid]]); } catch (e) {}
+  if (!pl.startsWith('DIAG|') && !pend) return false;
+  const t = norm(msg.text);
+  const sim = pl === 'DIAG|SIM' || (!pl && /^(sim|s|quero|pode|bora|claro|vamos|ok|podemos|com certeza)\b/.test(t));
+  const nao = pl === 'DIAG|NAO' || (!pl && /^(nao|agora nao|depois)\b/.test(t));
+  if (!sim && !nao) return false;
+  try { await redis([['DEL', 'ig:diagpend:' + igsid]]); } catch (e) {}
+  if (sim) await manda(conta, { id: igsid }, DIAG);
+  else await ig('/' + conta + '/messages', { recipient: { id: igsid }, message: { text: 'Tranquilo! Quando quiser, é só mandar DIAGNÓSTICO aqui que eu te envio o link 😉' } });
+  await registra({ tipo: 'diagnostico', resposta: sim ? 'sim' : 'nao' });
+  return true;
+}
+
 async function guardaPendente(igsid, tag) {
   if (igsid) try { await redis([['SET', 'ig:pend:' + igsid, tag, 'EX', 60 * 60 * 24 * 7]]); } catch (e) {}
 }
@@ -162,6 +189,8 @@ async function mensagem(contaId, m) {
   if (!msg || msg.is_echo || !msg.text || !m.sender) return;
   if (String(m.sender.id) === String(contaId)) return;
   const conta = contaId || CONTA(), quem = m.sender.id, lista = await iscas();
+  if (await respostaDiag(conta, quem, msg)) return;
+  if (/^\s*diagnostico\b/.test(norm(msg.text))) { await manda(conta, { id: quem }, DIAG); await registra({ tipo: 'diagnostico', resposta: 'palavra' }); return; }
   const pl = String((msg.quick_reply && msg.quick_reply.payload) || '');
   const confirma = pl.startsWith('SEGUE|') || /^\s*(ja\s+)?sigo\b/.test(norm(msg.text));
   let isca = null;
@@ -177,7 +206,7 @@ async function mensagem(contaId, m) {
   if (!(await primeiraVez('m:' + (msg.mid || m.timestamp)))) return;
   const ok = await segue(quem);
   let d;
-  if (ok || (ok === null && confirma)) { d = await manda(conta, { id: quem }, isca); try { await redis([['DEL', 'ig:pend:' + quem]]); } catch (e) {} }
+  if (ok || (ok === null && confirma)) { d = await manda(conta, { id: quem }, isca); try { await redis([['DEL', 'ig:pend:' + quem]]); } catch (e) {} if (confirma) await boasVindas(conta, quem); }
   else { d = await portao(conta, { id: quem }, isca, confirma); await guardaPendente(quem, isca.tag); d.aviso = 'portão (segue=' + ok + ')'; }
   await registra({ tipo: confirma ? 'confirmou' : 'direct', isca: isca.tag, direct: d.ok ? (d.aviso || 'ok') : d.erro });
 }

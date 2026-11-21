@@ -62,6 +62,7 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
 window.POSTS = [
   {
     slug: "estoque-parado",
+    capa: "assets/capa-estoque-parado.jpg",
     titulo: "Estoque parado é ==dinheiro dormindo==",
     data: "2026-11-21",
     categoria: "Estratégia",
@@ -108,63 +109,7 @@ E depois, a regra mais importante: criar critérios para não voltar a encalhar.
 
 Montei um material gratuito com trilhas para indústria, atacado e confecção: raio-x com semáforo, mais de 20 ações por frente, plano de 30 dias com checklist, 3 calculadoras (custo de manter, desconto agora ou segurar, meta de giro), planejamento para imprimir e mensagens prontas.
 
-[Liberar o material Estoque parado](https://sejaunique.com/estoque-parado/)
-`
-  },
-  {
-    slug: "rota-do-atendimento",
-    titulo: "A rota do atendimento: ==do lead ao vendido==",
-    data: "2026-11-21",
-    categoria: "Técnica",
-    resumo: "Venda não é sorte, é rota. As 7 paradas do funil, do lead ao vendido, e o kit gratuito com checklist, mensagens prontas e roteiro de qualificação.",
-    texto: `
-Todo vendedor sabe o destino: o **vendido**. O que quase ninguém tem é a ==rota==.
-
-Sem rota, cada atendimento vira improviso. O cliente chega pelo WhatsApp, o vendedor responde do jeito que dá, manda um orçamento e fica esperando. Às vezes fecha. Na maioria das vezes, some.
-
-Rota é o caminho que todo atendimento percorre, com paradas claras e um próximo passo definido em cada uma.
-
-## As 7 paradas da rota
-
-- **Lead:** alguém chegou. Ainda não é cliente, é uma oportunidade.
-- **Qualificação:** descobrir se ele tem dor, decisão, prazo e dinheiro. Sem isso, orçamento é tiro no escuro.
-- **Orçamento:** a proposta certa para quem foi qualificado, não para todo mundo que pediu preço.
-- **Negociação:** ajustar condição, prazo e escopo sem destruir a margem.
-- **Objeção:** o "vou pensar", o "está caro", o "depois eu vejo". Cada um tem resposta.
-- **Perdido:** registrar o motivo. Perda sem motivo é aprendizado jogado fora.
-- **Vendido:** o destino. E o começo da próxima venda.
-
-> Todo atendimento precisa sair de uma parada com o próximo passo combinado.
-
-## Onde o vendedor se perde
-
-Os vendedores raramente se perdem na estrada inteira. Eles se perdem em dois pontos:
-
-- **Pulam a qualificação** e mandam orçamento para curioso
-- **Abandonam na objeção** e chamam de "cliente frio" o que era falta de follow-up
-
-É por isso que a rota precisa de três coisas: ==perguntas certas, mensagens prontas e cadência==.
-
-## A rotina que sustenta a rota
-
-Rota sem rotina vira intenção. Todo dia o vendedor precisa saber:
-
-- Quantos leads novos entraram
-- Quem está esperando resposta
-- Quais orçamentos precisam de follow-up hoje
-- Quanto falta para a meta da semana
-
-## O Kit do Vendedor
-
-Montei um kit gratuito com tudo isso pronto para usar no WhatsApp, na ligação e na rotina:
-
-- Checklist de cada etapa do funil
-- Mensagens prontas
-- Roteiro com 6 perguntas de qualificação
-- Matriz de objeções e cadência de follow-up
-- Rotina diária e calculadora de meta semanal
-
-[Liberar o Kit do Vendedor · Rota do Atendimento](https://sejaunique.com/rota-do-atendimento/)
+[material: Estoque parado é dinheiro dormindo | Raio-x, ações por frente e plano de 30 dias para indústria, atacado e confecção. | assets/capa-estoque-parado.jpg | Semáforo do estoque por tempo sem saída; Mais de 20 ações, da mais barata à queima; Plano de 30 dias com checklist; 3 calculadoras: custo, desconto e giro; Mensagens prontas e planejamento para imprimir | Quero o material](/estoque-parado/)
 `
   },
   {
@@ -646,7 +591,7 @@ A IA faz a primeira leitura. O time dá atenção para quem merece atenção.
 
 Montei uma tarefa prática para você fazer agora: o ICP certo, o ICP do lixo e o termômetro de leads com pontuação. No final, ela gera o texto pronto para você colar na IA do seu atendimento.
 
-[Fazer a tarefa do ICP e do ICP do lixo](/icp/)
+[material: ICP e ICP do lixo · Tarefa de qualificação | Defina quem é o seu cliente, quem não é, e atenda primeiro quem vai respeitar o seu processo. | assets/capa-icp-do-lixo.jpg | O ICP certo em 6 perguntas; O ICP do lixo: quem eliminar logo; Termômetro de leads com pontuação; Teste com um lead real; Texto pronto para colar na IA | Quero a tarefa](/icp/)
 `
   },
   {

@@ -51,8 +51,8 @@ body{display:block}
 .trava input[type=file]{font:inherit;font-size:.85rem;color:var(--bg);width:100%}
 .form .btn.env{width:100%;background:var(--ac);color:#000;border-color:var(--ac);font-size:.95rem;padding:16px}
 .form .aviso{color:var(--fg)}
-.fim{text-align:center;padding:40px 10px}
-.fim h2{font-size:2rem;letter-spacing:-.03em;color:var(--bg)}
+.ok-fim{text-align:center;padding:40px 10px}
+.ok-fim h2{font-size:2rem;letter-spacing:-.03em;color:var(--bg)}
 .rodape{text-align:center;color:var(--muted);font-size:.78rem;padding:30px 0 10px}
 .rodape a{color:inherit;font-weight:600}
 .oculto{position:absolute;left:-9999px}
@@ -133,7 +133,7 @@ body{display:block}
         '<div class="campo" style="margin:0"><label for="c-link">ou cole um link (YouTube, Drive, Instagram)</label><input id="c-link" type="url" maxlength="500" placeholder="https://"></div></div>'+
       '<div class="oculto" aria-hidden="true"><input id="c-site" tabindex="-1" autocomplete="off"></div>'+
       '<button class="btn env" type="submit" id="benv">Enviar minha candidatura →</button></form>'
-      :'<div class="fim"><h2>Inscrições encerradas</h2><p style="opacity:.8">Esta vaga não está recebendo candidaturas agora.</p></div>')+'</section>'+
+      :'<div class="ok-fim"><h2>Inscrições encerradas</h2><p style="opacity:.8">Esta vaga não está recebendo candidaturas agora.</p></div>')+'</section>'+
     '<footer class="rodape">Recrutamento por propósito · <a href="https://sejaunique.com/vagas/" target="_blank" rel="noopener">Unique Consultoria</a></footer>';
 
   var slot=pg.querySelector('[data-tema]'); if(window.UniqueTema) slot.replaceWith(window.UniqueTema.botao()); else slot.remove();
@@ -169,7 +169,7 @@ body{display:block}
       b.textContent='Enviando…';
       var ins=await sb.from('vg_candidatos').insert(d);
       if(ins.error) throw ins.error;
-      $('inscricao').innerHTML='<div class="fim"><h2>Candidatura enviada! 🎉</h2><p style="opacity:.85;max-width:44ch;margin:0 auto">Obrigado, '+esc(d.nome.split(' ')[0])+'. A '+esc(V.empresa_nome||'empresa')+' vai ler a sua resposta com atenção e, se fizer sentido, entra em contato pelo WhatsApp.</p></div>';
+      $('inscricao').innerHTML='<div class="ok-fim"><h2>Candidatura enviada! 🎉</h2><p style="opacity:.85;max-width:44ch;margin:0 auto">Obrigado, '+esc(d.nome.split(' ')[0])+'. A '+esc(V.empresa_nome||'empresa')+' vai ler a sua resposta com atenção e, se fizer sentido, entra em contato pelo WhatsApp.</p></div>';
       $('inscricao').scrollIntoView({behavior:'smooth'});
     }catch(e){ b.disabled=false; b.textContent='Enviar minha candidatura →'; msg(VG.erroPt(e)); }
   };

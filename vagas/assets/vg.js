@@ -5,52 +5,68 @@
   var CHAVE='sb_publishable_gq2tAtUJWo1YkCv9Pp1ICQ_zG3HGYEt';
   var sb=window.supabase.createClient(URL_SB,CHAVE,{auth:{persistSession:true,storageKey:'vg_sessao'}});
 
+  var SUB='A **{empresa}** está contratando um(a) **{cargo}** para o nosso time.';
   var ANALOGIAS={
     atleta:{
-      tarefas:['Cumprir a rotina diária de contatos e atendimentos com disciplina','Acompanhar as próprias metas e o placar do dia, da semana e do mês','Participar dos treinamentos e reuniões de alinhamento do time','Registrar cada atendimento e cada resultado no sistema da empresa','Buscar evolução constante: aprender com cada "não" e com cada venda'],
-      perfilTexto:'Procuramos alguém que não espera mandarem. Que trata meta como placar e treino como rotina. Que gosta de evoluir, aceita feedback como o atleta aceita o técnico e comemora o resultado do time tanto quanto o próprio.',
-      desafio:'Grave um vídeo de até 2 minutos contando a maior meta que você já bateu (no trabalho, no esporte ou na vida) e o que fez para chegar lá.',
       nome:'Atleta', emoji:'🏃', cor:'#00e676',
       resumo:'Para quem vive de meta, treino e placar.',
+      pergunta:'Você tem mente de atleta?',
       titulo:function(c){return 'Atleta de alta performance'+(c?' · '+c:'');},
-      promessa:'Aqui não tem banco de reservas. Você entra em campo todo dia, com treino, meta clara e um time que joga junto. Se você gosta de placar, de evoluir a cada partida e de comemorar resultado, esta vaga foi escrita para você.',
-      perfil:['Competitivo(a) consigo mesmo(a): quer bater a própria marca','Disciplina de treino: rotina, constância e preparo','Aceita feedback como o atleta aceita o técnico','Joga pelo time, não só pela própria estatística','Mantém o ritmo mesmo quando o placar está contra'],
-      beneficios:['Plano de evolução com metas claras e acompanhamento','Treinamentos e mentoria dentro da empresa','Reconhecimento público de quem bate a meta','Um time que comemora junto']
+      promessa:'Aquele que transforma meta em missão. Que não desiste no meio do caminho. Que tem orgulho do suor da jornada, e não só da linha de chegada.\n\nAqui na **{empresa}**, vender é mais do que bater meta. É se preparar, se adaptar e se conectar. Estamos buscando alguém com esse espírito: um(a) **{cargo} maratonista**.',
+      tarefas:['Prospectar novos clientes todos os dias por WhatsApp, ligação e, quando necessário, presencialmente','Reativar clientes antigos e manter a carteira viva, pulsando','Conduzir negociações do primeiro contato ao fechamento, com foco em recorrência','Gravar vídeos com o celular mostrando lançamentos, promoções e novidades','Usar CRM, WhatsApp, Canva e ChatGPT como aliados da rotina','Fazer follow-up com inteligência para nenhum cliente esfriar'],
+      perfilTexto:'Aqui na {empresa}, a gente não quer apenas mais um vendedor. Queremos **alguém que entre pra história do time.**\n\nA rotina é intensa e cheia de movimento. Você vai precisar ter jogo de cintura, clareza na fala e disposição pra encantar nos primeiros segundos de conversa.\n\nA prospecção é constante. Tem que correr atrás, insistir com classe e saber a hora certa de fechar, com foco total na **recorrência**, não em vitórias de um dia só.\n\nVocê não pode ter vergonha de aparecer. Quem vende de verdade **tem presença, atitude e cara de pau** na medida certa: grava vídeo, puxa conversa e mostra o produto com orgulho.',
+      perfil:['Sente um incômodo real quando um cliente fica sem resposta','Comemora a meta batida e já pergunta qual é a próxima','Prefere ouvir um "não" a ficar na dúvida','Aprende uma ferramenta nova sem esperar alguém ensinar','Tem inteligência emocional para ouvir, adaptar e entregar'],
+      beneficios:['Reconhecimento de verdade por quem entrega resultado','Liberdade pra criar e testar novas abordagens','Ambiente leve, com gente que joga junto','Crescimento junto com uma marca em expansão'],
+      encerramento:'Está pronto(a) para essa maratona? Então comece agora mesmo.',
+      desafio:'Grave um vídeo de até 2 minutos contando a maior meta que você já bateu (no trabalho, no esporte ou na vida) e o que fez para chegar lá.'
     },
     lapidador:{
-      tarefas:['Cuidar de cada detalhe do trabalho até ele ficar do jeito certo','Organizar processos, informações e entregas para que nada se perca','Melhorar continuamente o jeito de fazer, com técnica e capricho','Acompanhar cada demanda do começo ao fim, sem deixar pontas soltas','Registrar o que foi feito para que o time aprenda junto'],
-      perfilTexto:'Procuramos alguém que enxerga valor onde os outros veem só a pedra bruta. Que tem paciência para fazer bem feito, olho para o detalhe e orgulho do resultado final. Gente que não se contenta com o "tá bom".',
-      desafio:'Grave um vídeo de até 2 minutos mostrando algo que você melhorou ou organizou (um processo, um projeto, um espaço) e como ficou antes e depois.',
       nome:'Lapidador', emoji:'💎', cor:'#ff2e88',
       resumo:'Para quem transforma o bruto em valioso, com técnica e paciência.',
+      pergunta:'Você enxerga o brilho antes de todo mundo?',
       titulo:function(c){return 'Lapidador(a) de diamantes'+(c?' · '+c:'');},
-      promessa:'Temos pedras brutas valiosas: clientes, ideias e processos. Falta quem tenha técnica, paciência e olho para transformar cada uma delas em brilho. Não é só um cargo, é um ofício.',
-      perfil:['Atenção aos detalhes que ninguém vê','Paciência para fazer bem feito, não só rápido','Gosto por aprender técnica e se aprofundar','Orgulho do resultado final','Organização para cuidar de várias pedras ao mesmo tempo'],
-      beneficios:['Liberdade para aperfeiçoar o próprio método','Contato direto com quem decide','Projetos que ficam com a sua assinatura','Ambiente que valoriza qualidade']
+      promessa:'Tem gente que olha uma pedra bruta e vê só pedra. E tem gente que já enxerga o diamante lá dentro, e sabe exatamente onde cortar.\n\nAqui na **{empresa}**, temos muitas pedras brutas valiosas: clientes, ideias, processos. Falta quem tenha **técnica, paciência e olho de joalheiro** para fazer cada uma brilhar. Procuramos um(a) **{cargo}** que trate o trabalho como ofício.',
+      tarefas:['Cuidar de cada detalhe do trabalho até ele ficar do jeito certo','Organizar processos, informações e entregas para que nada se perca','Melhorar continuamente o jeito de fazer, com técnica e capricho','Acompanhar cada demanda do começo ao fim, sem deixar pontas soltas','Registrar o que foi feito para que o time aprenda junto'],
+      perfilTexto:'Aqui na {empresa}, a gente não quer quem faz "mais ou menos". Queremos **alguém que tenha orgulho do acabamento.**\n\nO trabalho pede atenção: cada detalhe conta, e o cliente percebe quando algo foi feito com cuidado. Você vai precisar de calma para fazer bem feito e firmeza para não aceitar o "tá bom".\n\nTambém vai precisar de organização. São várias pedras sendo lapidadas ao mesmo tempo, e **nenhuma pode ficar esquecida na bancada**.',
+      perfil:['Repara no detalhe torto que ninguém mais viu','Prefere refazer a entregar pela metade','Organiza a própria rotina sem precisar de cobrança','Gosta de aprender técnica e se aprofundar no assunto','Sente orgulho quando o resultado final fica bonito'],
+      beneficios:['Liberdade para aperfeiçoar o próprio método','Contato direto com quem decide','Projetos que ficam com a sua assinatura','Ambiente que valoriza qualidade e capricho'],
+      encerramento:'Se você enxergou o brilho, essa vaga é sua. Comece agora.',
+      desafio:'Grave um vídeo de até 2 minutos mostrando algo que você melhorou ou organizou (um processo, um projeto, um espaço) e como ficou antes e depois.'
     },
     estrategista:{
-      tarefas:['Analisar números e indicadores para entender o que está funcionando','Planejar as próximas ações e organizar prioridades da semana','Acompanhar a execução do plano junto com o time','Propor melhorias com base em dados, não só em opinião','Apresentar resultados de forma clara para a liderança'],
-      perfilTexto:'Procuramos alguém que enxerga o tabuleiro inteiro antes de mexer a peça. Que gosta de números, pensa antes de agir e sabe explicar o plano para todo mundo entender. Gente calma quando o jogo muda.',
-      desafio:'Grave um vídeo de até 2 minutos explicando como você planejaria os seus primeiros 30 dias nesta vaga.',
       nome:'Estrategista', emoji:'♟️', cor:'#2f6bff',
       resumo:'Para quem enxerga o tabuleiro inteiro antes de mexer a peça.',
+      pergunta:'Você pensa três jogadas à frente?',
       titulo:function(c){return 'Estrategista'+(c?' · '+c:'');},
-      promessa:'Procuramos alguém que enxerga o tabuleiro inteiro antes de mexer a primeira peça. Que gosta de números, de planos e de antecipar o próximo movimento. Aqui você não vai só executar: vai pensar junto.',
-      perfil:['Pensa antes de agir e planeja os próximos passos','Usa dados para decidir, não só a intuição','Comunica o plano com clareza para o time','Sabe priorizar o que move o resultado','Mantém a calma quando o jogo muda'],
-      beneficios:['Participação nas decisões da empresa','Acesso aos números e ao planejamento','Desafios intelectuais de verdade','Crescimento para posições de liderança']
+      promessa:'Tem gente que joga no impulso. E tem gente que olha o tabuleiro inteiro, calcula o próximo movimento e só então mexe a peça.\n\nAqui na **{empresa}**, cada decisão tem peso. Estamos buscando um(a) **{cargo}** que goste de **números, planos e de antecipar o jogo**, alguém que não vai só executar, mas pensar junto.',
+      tarefas:['Analisar números e indicadores para entender o que está funcionando','Planejar as próximas ações e organizar as prioridades da semana','Acompanhar a execução do plano junto com o time','Propor melhorias com base em dados, não só em opinião','Apresentar resultados de forma clara para a liderança'],
+      perfilTexto:'Aqui na {empresa}, a gente não quer quem só apaga incêndio. Queremos **alguém que evite o incêndio antes dele começar.**\n\nVocê vai lidar com números, prazos e pessoas ao mesmo tempo. Vai precisar priorizar o que move o resultado e ter clareza para explicar o plano de um jeito que todo mundo entenda.\n\nQuando o jogo mudar (e ele muda), você mantém a calma, **recalcula a rota e segue em frente**.',
+      perfil:['Antes de agir, já pensou em dois ou três cenários','Abre a planilha antes de dar opinião','Explica uma ideia complexa em poucas palavras','Fica tranquilo(a) quando o plano precisa mudar','Gosta de ver o resultado aparecer no número'],
+      beneficios:['Participação nas decisões da empresa','Acesso aos números e ao planejamento','Desafios intelectuais de verdade','Crescimento para posições de liderança'],
+      encerramento:'O tabuleiro está montado. Faça a sua jogada agora.',
+      desafio:'Grave um vídeo de até 2 minutos explicando como você planejaria os seus primeiros 30 dias nesta vaga.'
     },
     explorador:{
-      tarefas:['Prospectar e abrir novos clientes, mercados ou oportunidades','Conversar com pessoas novas todos os dias e criar relacionamento','Testar abordagens diferentes e trazer o que funcionou','Mapear a região, os concorrentes e as oportunidades que ninguém viu','Registrar cada contato e cada descoberta para o time'],
-      perfilTexto:'Procuramos alguém que se anima com o mapa em branco. Que tem iniciativa, conversa fácil com gente nova e não desanima com o primeiro "não". Gente com autonomia para se organizar e coragem para testar o novo.',
-      desafio:'Grave um vídeo de até 2 minutos contando uma vez em que você abriu um caminho novo sozinho(a): um cliente, um projeto ou uma oportunidade.',
       nome:'Explorador', emoji:'🧭', cor:'#ffb020',
       resumo:'Para quem gosta de mapa em branco e território novo.',
+      pergunta:'Você se anima com um mapa em branco?',
       titulo:function(c){return 'Explorador(a) de novos territórios'+(c?' · '+c:'');},
-      promessa:'Tem mapa em branco aqui. Mercados para abrir, clientes para conquistar e caminhos que ninguém trilhou ainda. Se você se anima com o desconhecido e volta sempre com uma história (e um resultado), seja bem-vindo(a).',
-      perfil:['Curiosidade e iniciativa: não espera mandarem','Resiliência para ouvir "não" e seguir em frente','Facilidade para conversar com gente nova','Autonomia para se organizar sozinho(a)','Gosto por testar, errar rápido e ajustar'],
-      beneficios:['Autonomia para abrir novos caminhos','Liberdade para testar ideias','Visibilidade direta do seu resultado','Crescimento junto com a expansão da empresa']
+      promessa:'Tem gente que precisa de trilha pronta. E tem gente que pega a bússola, escolhe a direção e abre o próprio caminho.\n\nAqui na **{empresa}**, tem muito território para conquistar: mercados, clientes e oportunidades que ninguém explorou ainda. Procuramos um(a) **{cargo}** com **coragem, curiosidade e fôlego** para ir aonde o time ainda não chegou.',
+      tarefas:['Prospectar e abrir novos clientes, mercados ou oportunidades','Conversar com pessoas novas todos os dias e criar relacionamento','Testar abordagens diferentes e trazer o que funcionou','Mapear a região, os concorrentes e as oportunidades que ninguém viu','Registrar cada contato e cada descoberta para o time'],
+      perfilTexto:'Aqui na {empresa}, a gente não quer quem espera o cliente aparecer. Queremos **alguém que vá até ele.**\n\nVocê vai ter autonomia, e autonomia pede disciplina: organizar a própria rota, cumprir o combinado e voltar sempre com uma história (e um resultado).\n\nVai ouvir muitos "nãos" pelo caminho. Quem explora de verdade **não desanima com o primeiro obstáculo**: aprende, ajusta a rota e segue.',
+      perfil:['Puxa conversa com desconhecidos sem esforço','Não espera mandarem para começar','Trata o "não" como parte do caminho','Gosta de testar o novo e contar o que aprendeu','Se organiza sozinho(a) quando está na rua'],
+      beneficios:['Autonomia para abrir novos caminhos','Liberdade para testar ideias','Visibilidade direta do seu resultado','Crescimento junto com a expansão da empresa'],
+      encerramento:'O mapa está aberto. Comece a sua expedição agora.',
+      desafio:'Grave um vídeo de até 2 minutos contando uma vez em que você abriu um caminho novo sozinho(a): um cliente, um projeto ou uma oportunidade.'
     }
   };
+  // {empresa}, {cargo} e **negrito** nos textos da vaga
+  function texto(s,v){
+    var e=function(x){return String(x==null?'':x).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
+    var t=e(s).replace(/\{empresa\}/gi,e(v&&v.empresa_nome||'nossa empresa')).replace(/\{cargo\}/gi,e(v&&v.cargo_real||'profissional'));
+    return t.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+  }
+
 
   var PALAVRAS=['GIRASSOL','FAROL','BÚSSOLA','DIAMANTE','HORIZONTE','ÂNCORA','TROFÉU','SEMENTE','COMETA','MONTANHA'];
   function palavra(){ return PALAVRAS[Math.floor(Math.random()*PALAVRAS.length)]; }
@@ -77,5 +93,5 @@
     return m||'Algo deu errado. Tente de novo.';
   }
 
-  window.VG={palavra:palavra,URL:URL_SB,CHAVE:CHAVE,sb:sb,ANALOGIAS:ANALOGIAS,esc:esc,slugify:slugify,brl:brl,ytId:ytId,zap:zap,toast:toast,erroPt:erroPt};
+  window.VG={SUB:SUB,texto:texto,palavra:palavra,URL:URL_SB,CHAVE:CHAVE,sb:sb,ANALOGIAS:ANALOGIAS,esc:esc,slugify:slugify,brl:brl,ytId:ytId,zap:zap,toast:toast,erroPt:erroPt};
 })();

@@ -53,6 +53,8 @@
 .logo-ac{display:flex;gap:8px;align-items:center;flex-wrap:wrap;flex:1;min-width:200px}
 .logo-ac small{flex-basis:100%;font-size:.75rem}
 .logo-ac label.btn{cursor:pointer}
+.dica-fmt{font-size:.82rem;color:var(--muted);background:var(--soft);border-radius:12px;padding:10px 14px;margin:0 0 18px}
+.dica-fmt code{font-size:.78rem;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 /* candidatos */
 .filtros{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
 .cands{display:grid;gap:12px}
@@ -238,11 +240,12 @@ function aplicaAnalogia(nova){
   troca('perfil_lista',ant&&ant.perfil,an.perfil.slice());
   troca('beneficios',ant&&ant.beneficios,an.beneficios.slice());
   troca('desafio_video',ant&&ant.desafio,an.desafio);
-  var tAnt=ant?ant.titulo(V.cargo_real):'';
-  if(!V.titulo||V.titulo===tAnt) V.titulo=an.titulo(V.cargo_real);
+  troca('encerramento',ant&&ant.encerramento,an.encerramento);
+  if(!V.subtitulo) V.subtitulo=VG.SUB;
+  if(!V.titulo||(ant&&(V.titulo===ant.pergunta||V.titulo===ant.titulo(V.cargo_real)))) V.titulo=an.pergunta;
 }
 var ETAPAS=[
-  ['empresa','Empresa'],['analogia','Analogia'],['promessa','Promessa'],['tarefas','Tarefas'],['perfil','Perfil'],
+  ['empresa','Empresa'],['analogia','Analogia'],['promessa','Textos'],['tarefas','Tarefas'],['perfil','Perfil'],
   ['rotina','Rotina'],['beneficios','Benefícios'],['remuneracao','Remuneração'],['filtros','Filtros'],['publicar','Publicar']
 ];
 var V=null, PAL='', EI=0;
@@ -319,26 +322,25 @@ var PASSOS={
     p.innerHTML='<h2>Escolha a analogia</h2><p class="ajuda">O nome do cargo define o valor percebido. Em vez de "Vendedor", a página fala com um <b>Atleta</b>; em vez de "Gerente de Marketing", com um <b>Lapidador de diamantes</b>. Isso tira a vaga do leilão de salário e leva para o desafio.</p>'+
       '<div class="analogias">'+Object.keys(A).map(function(k){ var a=A[k]; return '<button type="button" class="analogia" data-a="'+k+'" aria-pressed="'+(V.analogia===k)+'"><span class="e">'+a.emoji+'</span><b>'+a.nome+'</b><small>'+a.resumo+'</small></button>'; }).join('')+'</div>'+
       campo('Qual é o cargo real?','f-cargo',V.cargo_real,'Ex.: Vendedor externo, Gerente de marketing, Assistente administrativo')+
-      '<label style="font-size:.78rem;font-weight:600">Título que aparece na página</label><div class="titulo-prev" id="tprev" contenteditable="true">'+esc(V.titulo||'Escolha a analogia')+'</div>';
-    var tp=document.getElementById('tprev'), manual=!!V.titulo&&!!A[V.analogia]&&V.titulo!==A[V.analogia].titulo(V.cargo_real);
-    function gera(){ if(manual||!V.analogia) return; tp.textContent=A[V.analogia].titulo(val('f-cargo')); }
+      '<p class="ajuda" style="margin:-4px 0 0">O cargo real entra no subtítulo e nos textos onde aparece <b>{cargo}</b>.</p>';
     p.querySelectorAll('.analogia').forEach(function(b){ b.onclick=function(){
-      var t=tp.textContent.trim(), tAnt=A[V.analogia]?A[V.analogia].titulo(val('f-cargo')):'';
-      V.cargo_real=val('f-cargo'); V.titulo=(manual&&t!==tAnt)?t:'';
-      aplicaAnalogia(b.dataset.a); manual=V.titulo!==A[V.analogia].titulo(V.cargo_real);
+      V.cargo_real=val('f-cargo'); aplicaAnalogia(b.dataset.a);
       p.querySelectorAll('.analogia').forEach(function(x){x.setAttribute('aria-pressed',x===b);});
-      tp.textContent=V.titulo;
+      VG.toast('Textos de '+A[V.analogia].nome+' aplicados');
     }; });
-    document.getElementById('f-cargo').oninput=gera; tp.oninput=function(){manual=true;};
-    COL=function(){ V.cargo_real=val('f-cargo'); var t=tp.textContent.trim(); V.titulo=(t==='Escolha a analogia')?'':t; };
+    COL=function(){ V.cargo_real=val('f-cargo'); };
   },
   promessa:function(p){
     var an=A[V.analogia];
-    p.innerHTML='<h2>A promessa lúdica</h2><p class="ajuda">É a primeira coisa que o candidato lê. Fala do <b>desafio</b> e da <b>transformação</b>, não de salário. O texto abaixo nasceu da analogia: ajuste com o jeito da sua empresa.</p>'+
-      area('Promessa','f-prom',V.promessa||(an?an.promessa:''))+(an?'<button type="button" class="btn sm" id="breg">↺ Voltar ao texto da analogia</button>':'');
-    var b=document.getElementById('breg'); if(b) b.onclick=function(){ document.getElementById('f-prom').value=an.promessa; };
-    document.getElementById('f-prom').style.minHeight='160px';
-    COL=function(){ V.promessa=val('f-prom'); };
+    p.innerHTML='<h2>Textos de abertura</h2><p class="ajuda">É a primeira coisa que o candidato lê: fala do <b>desafio</b>, não de salário. Já vem pronto pela analogia; ajuste com o jeito da sua empresa.</p>'+
+      '<div class="dica-fmt">Use <code>**palavra**</code> para deixar em <b>negrito</b>. <code>{empresa}</code> e <code>{cargo}</code> são trocados automaticamente.</div>'+
+      campo('Título principal','f-tit',V.titulo,'Ex.: Você tem mente de atleta?')+
+      campo('Subtítulo','f-sub',V.subtitulo,VG.SUB)+
+      area('Texto de abertura (promessa lúdica)','f-prom',V.promessa||(an?an.promessa:''))+
+      (an?'<button type="button" class="btn sm" id="breg">↺ Voltar aos textos da analogia</button>':'');
+    var b=document.getElementById('breg'); if(b) b.onclick=function(){ document.getElementById('f-tit').value=an.pergunta; document.getElementById('f-sub').value=VG.SUB; document.getElementById('f-prom').value=an.promessa; };
+    document.getElementById('f-prom').style.minHeight='180px';
+    COL=function(){ V.titulo=val('f-tit'); V.subtitulo=val('f-sub'); V.promessa=val('f-prom'); };
   },
   tarefas:function(p){
     p.innerHTML='<h2>Tradução técnica</h2><p class="ajuda">Agora traduza a analogia em <b>tarefas concretas do dia a dia</b>. Quem leu a promessa precisa entender exatamente o que vai fazer.</p>'+
@@ -348,14 +350,14 @@ var PASSOS={
   },
   perfil:function(p){
     var an=A[V.analogia]||{perfil:[]};
-    p.innerHTML='<h2>Perfil comportamental</h2><p class="ajuda">Quem você procura, no comportamento. Aqui também mora o <b>teste de atenção</b>: a palavra secreta.</p>'+
-      area('Texto do perfil','f-perf',V.perfil,'Ex.: Procuramos alguém que não espera mandarem…')+
-      '<label style="font-size:.78rem;font-weight:600;display:block;margin-bottom:6px">Características</label>'+
+    p.innerHTML='<h2>Perfil comportamental</h2><p class="ajuda">Quem você procura, no comportamento. Aqui também mora o <b>teste de atenção</b>: a palavra secreta.</p><div class="dica-fmt">Use <code>**palavra**</code> para negrito e <code>{empresa}</code> / <code>{cargo}</code>. A instrução da palavra secreta entra sozinha no meio deste texto.</div>'+
+      area('Como é quem veste a camisa','f-perf',V.perfil,'Ex.: Procuramos alguém que não espera mandarem…')+
+      '<label style="font-size:.78rem;font-weight:600;display:block;margin-bottom:6px">Sinais de que é você</label>'+
       listaEd('l-perf',V.perfil_lista||[],'Característica')+sugestoes('l-perf',an.perfil.filter(function(t){return (V.perfil_lista||[]).indexOf(t)<0;}))+
       '<div class="vg-card" style="background:var(--soft);margin-top:22px"><b>🔑 Palavra secreta</b><p class="ajuda" style="margin:6px 0 14px">Quem seguir a instrução aparece como <b>✓ Atento</b> no painel. Escolha onde ela fica escondida.</p>'+
       '<div class="opcoes" id="o-pal">'+[['perfil','No texto do perfil'],['video','No vídeo da vaga'],['nenhuma','Sem palavra']].map(function(o){return '<button type="button" data-v="'+o[0]+'" aria-pressed="'+(V.palavra_onde===o[0])+'">'+o[1]+'</button>';}).join('')+'</div>'+
       '<div id="pal-box">'+campo('Palavra secreta','f-pal',PAL,'Ex.: GIRASSOL')+'<p class="ajuda" id="pal-ex" style="margin:0"></p></div></div>';
-    ligaLista('l-perf','Característica'); ligaSug('l-perf');
+    ligaLista('l-perf','Ex.: Sente agonia ao ver um post-it parado na parede'); ligaSug('l-perf'); document.getElementById('f-perf').style.minHeight='220px';
     function mostra(){
       var o=V.palavra_onde; document.getElementById('pal-box').hidden=o==='nenhuma';
       document.getElementById('pal-ex').innerHTML=o==='perfil'?'Vai aparecer no meio do perfil: <i>"Se você leu até aqui, escreva a palavra <b>'+esc(val('f-pal')||'…')+'</b> em algum lugar da sua resposta."</i>':
@@ -376,8 +378,9 @@ var PASSOS={
     var an=A[V.analogia]||{beneficios:[]};
     p.innerHTML='<h2>Benefícios intangíveis</h2><p class="ajuda">Vêm <b>antes</b> do salário na página. Crescimento, aprendizado, reconhecimento, ambiente: o que dinheiro não compra.</p>'+
       listaEd('l-ben',V.beneficios||[],'Ex.: Mentoria semanal com o dono')+sugestoes('l-ben',an.beneficios.filter(function(t){return (V.beneficios||[]).indexOf(t)<0;}));
+    p.insertAdjacentHTML('beforeend','<div style="margin-top:22px">'+campo('Frase de encerramento (aparece logo antes da inscrição)','f-enc',V.encerramento,an.encerramento||'')+'</div>');
     ligaLista('l-ben','Benefício'); ligaSug('l-ben');
-    COL=function(){ V.beneficios=leLista('l-ben'); };
+    COL=function(){ V.beneficios=leLista('l-ben'); V.encerramento=val('f-enc'); };
   },
   remuneracao:function(p){
     p.innerHTML='<h2>Remuneração</h2><p class="ajuda">Na <b>escadinha</b>, o salário sobe mês a mês no período de experiência até chegar ao valor cheio, conforme os resultados aparecem.</p>'+
@@ -434,8 +437,8 @@ var PASSOS={
 async function salvar(fim){
   if(!V.slug) V.slug=VG.slugify((V.empresa_nome||'')+'-'+(V.cargo_real||V.titulo||'vaga'))||('vaga-'+Date.now().toString(36));
   V.palavra_dica=(V.palavra_onde==='perfil'&&PAL)?'Se você leu até aqui, escreva a palavra '+PAL+' em algum lugar da sua resposta.':'';
-  var d={}; ['empresa_id','slug','status','empresa_nome','empresa_sobre','empresa_logo','cidade','cargo_real','analogia','titulo','promessa','tarefas','perfil','perfil_lista','local','horario','modelo','beneficios','remun_tipo','remun_texto','escadinha','remun_final','video_url','desafio_video','palavra_onde','palavra_dica','min_caracteres'].forEach(function(k){ d[k]=V[k]; });
-  if(!d.titulo) d.titulo=V.analogia?A[V.analogia].titulo(V.cargo_real):(V.cargo_real||'Nova vaga');
+  var d={}; ['empresa_id','slug','status','empresa_nome','empresa_sobre','empresa_logo','cidade','cargo_real','analogia','titulo','subtitulo','encerramento','promessa','tarefas','perfil','perfil_lista','local','horario','modelo','beneficios','remun_tipo','remun_texto','escadinha','remun_final','video_url','desafio_video','palavra_onde','palavra_dica','min_caracteres'].forEach(function(k){ d[k]=V[k]; });
+  if(!d.titulo) d.titulo=V.analogia?A[V.analogia].pergunta:(V.cargo_real||'Nova vaga');
   if(!V.id){
     var livre=await sb.rpc('vg_slug_livre',{s:d.slug});
     if(livre.data===false){ d.slug=d.slug+'-'+Math.random().toString(36).slice(2,6); }

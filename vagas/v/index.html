@@ -25,17 +25,21 @@ body{display:block}
 .hero{padding:56px 0 30px}
 .hero .tag{display:inline-flex;gap:8px;align-items:center;font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;border-radius:999px;padding:7px 14px;background:var(--ac);color:#000}
 .hero h1{font-size:clamp(2.2rem,6vw,3.8rem);line-height:1.02;font-weight:800;letter-spacing:-.04em;margin:18px 0 20px;text-wrap:balance}
-.hero .prom{font-size:clamp(1.1rem,2.4vw,1.3rem);line-height:1.6;margin:0;white-space:pre-line}
+.hero .sub{font-size:clamp(1.05rem,2.2vw,1.2rem);margin:-6px 0 18px;color:var(--muted)}
+.hero .sub b{color:var(--fg)}
+.hero .prom p{font-size:clamp(1.05rem,2.3vw,1.25rem);line-height:1.6;margin:0 0 14px}
+.encerra{font-size:clamp(1.4rem,3.6vw,2rem);font-weight:800;letter-spacing:-.03em;line-height:1.2;text-align:center;margin:40px 0 0;padding:30px 0 10px;border-top:1px solid var(--line);text-wrap:balance}
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
 .chips span{font-size:.8rem;border:1px solid var(--line);border-radius:999px;padding:7px 12px;color:var(--muted)}
 .sec{padding:40px 0;border-top:1px solid var(--line)}
 .sec .n{font-size:.66rem;letter-spacing:.3em;color:var(--muted);font-weight:600;text-transform:uppercase}
 .sec h2{font-size:clamp(1.5rem,3.4vw,2rem);letter-spacing:-.03em;margin:8px 0 18px;line-height:1.15}
-.sec p{white-space:pre-line}
+.sec p{margin:0 0 14px}
 .lista{list-style:none;padding:0;margin:0;display:grid;gap:10px}
 .lista li{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:var(--soft)}
 .lista li::before{content:"";flex-shrink:0;width:10px;height:10px;border-radius:50%;background:var(--ac);margin-top:.55em}
 .dica{font-style:italic;color:var(--muted)}
+.sinais{font-size:1.05rem;margin:26px 0 12px}
 .video{aspect-ratio:16/9;width:100%;border:0;border-radius:20px;background:#000}
 .form{background:var(--fg);color:var(--bg);border-radius:28px;padding:32px;margin-top:20px}
 .form h2{color:var(--bg)}
@@ -74,21 +78,25 @@ body{display:block}
   if(!V){ pg.innerHTML='<div style="padding:80px 0;text-align:center"><h1 class="vg-h1">Esta vaga não está disponível</h1><p class="muted">Ela pode ter sido encerrada. Obrigado pelo interesse!</p></div>'; return; }
   var an=VG.ANALOGIAS[V.analogia]||{nome:'',emoji:'',cor:'#00e676'};
   document.documentElement.style.setProperty('--ac',an.cor);
-  document.title=(V.titulo||'Vaga')+' · '+(V.empresa_nome||'');
+  document.title=(V.titulo||'Vaga').replace(/\*\*/g,'').replace(/\{empresa\}/g,V.empresa_nome||'').replace(/\{cargo\}/g,V.cargo_real||'')+' · '+(V.empresa_nome||'');
   if(V.status==='publicada') sb.rpc('vg_visita',{s:slug});
   var aberta=V.status==='publicada';
 
-  function lista(a){ return '<ul class="lista">'+(a||[]).map(function(t){return '<li>'+esc(t)+'</li>';}).join('')+'</ul>'; }
+  function tx(t){ return VG.texto(t,V); }
+  function par(t){ return String(t||'').split(/\n\s*\n/).filter(function(x){return x.trim();}).map(function(x){return '<p>'+tx(x.trim()).replace(/\n/g,'<br>')+'</p>';}).join(''); }
+  function lista(a){ return '<ul class="lista">'+(a||[]).map(function(t){return '<li>'+tx(t)+'</li>';}).join('')+'</ul>'; }
   var n=0; function sec(titulo,html){ n++; return '<section class="sec"><span class="n">'+String(n).padStart(2,'0')+'</span><h2>'+titulo+'</h2>'+html+'</section>'; }
 
   // perfil com a palavra secreta escondida no meio do texto
   var perfilHtml='';
   if(V.perfil||(V.perfil_lista||[]).length||V.palavra_dica){
-    var txt=V.perfil||'', dica=V.palavra_dica?'<span class="dica"> '+esc(V.palavra_dica)+' </span>':'';
-    var partes=txt.split(/(?<=[.!?])\s+/), meio=Math.ceil(partes.length/2);
-    perfilHtml=(txt?'<p>'+esc(partes.slice(0,meio).join(' '))+dica+esc(partes.slice(meio).join(' '))+'</p>':(dica?'<p>'+dica+'</p>':''));
+    var dica=V.palavra_dica?'<p class="dica">'+esc(V.palavra_dica)+'</p>':'';
+    var blocos=String(V.perfil||'').split(/\n\s*\n/).filter(function(x){return x.trim();});
+    if(blocos.length>1){ var meio=Math.ceil(blocos.length/2); perfilHtml=par(blocos.slice(0,meio).join('\n\n'))+dica+par(blocos.slice(meio).join('\n\n')); }
+    else if(blocos.length===1){ var fr=blocos[0].split(/(?<=[.!?])\s+/), m2=Math.ceil(fr.length/2); perfilHtml=par(fr.slice(0,m2).join(' '))+dica+par(fr.slice(m2).join(' ')); }
+    else perfilHtml=dica;
     var pl=(V.perfil_lista||[]).slice();
-    if(pl.length) perfilHtml+=lista(pl);
+    if(pl.length) perfilHtml+='<h3 class="sinais">Sinais de que é você</h3>'+lista(pl);
   }
   var yt=VG.ytId(V.video_url);
   var rot=[V.modelo,V.local,V.horario].filter(Boolean);
@@ -108,16 +116,18 @@ body{display:block}
     '<header class="barra"><div class="emp">'+(V.empresa_logo?'<img src="'+esc(V.empresa_logo)+'" alt="'+esc(V.empresa_nome)+'">':'<span>'+esc(V.empresa_nome)+'</span>')+'</div>'+
       '<span data-tema></span></header>'+
     (V.status!=='publicada'?'<div class="aviso" style="margin-top:16px">Prévia: esta vaga está como <b>'+esc(V.status)+'</b> e só você está vendo.</div>':'')+
-    '<section class="hero">'+(an.nome?'<span class="tag">'+an.emoji+' Procuramos um(a) '+esc(an.nome)+'</span>':'')+'<h1>'+esc(V.titulo)+'</h1>'+
-      (V.promessa?'<p class="prom">'+esc(V.promessa)+'</p>':'')+
+    '<section class="hero">'+(an.nome?'<span class="tag">'+an.emoji+' Procuramos um(a) '+esc(an.nome)+'</span>':'')+'<h1>'+tx(V.titulo)+'</h1>'+
+      (V.subtitulo?'<p class="sub">'+tx(V.subtitulo)+'</p>':'')+
+      (V.promessa?'<div class="prom">'+par(V.promessa)+'</div>':'')+
       '<div class="chips">'+(V.cargo_real?'<span>Cargo: '+esc(V.cargo_real)+'</span>':'')+(V.modelo?'<span>'+esc(V.modelo)+'</span>':'')+(V.cidade?'<span>'+esc(V.cidade)+'</span>':'')+'</div></section>'+
     (yt?'<section class="sec"><iframe class="video" src="https://www.youtube-nocookie.com/embed/'+yt+'?rel=0" title="Vídeo da vaga" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe><p class="muted" style="font-size:.9rem">Assista com atenção, até o fim.</p></section>':'')+
-    (V.empresa_sobre?sec('Quem somos','<p>'+esc(V.empresa_sobre)+'</p>'):'')+
-    ((V.tarefas||[]).length?sec('O que você vai fazer, na prática',lista(V.tarefas)):'')+
-    (perfilHtml?sec('Quem nós procuramos',perfilHtml):'')+
+    (V.empresa_sobre?sec('Quem somos',par(V.empresa_sobre)):'')+
+    ((V.tarefas||[]).length?sec('Na prática, você vai…',lista(V.tarefas)):'')+
+    (perfilHtml?sec('Como é quem veste a camisa',perfilHtml):'')+
     (rot.length?sec('Onde e quando',lista(rot)):'')+
-    ((V.beneficios||[]).length?sec('O que você ganha (além do salário)',lista(V.beneficios)):'')+
+    ((V.beneficios||[]).length?sec('O que você ganha além do salário',lista(V.beneficios)):'')+
     sec('Remuneração',remHtml)+
+    (V.encerramento?'<p class="encerra">'+tx(V.encerramento)+'</p>':'')+
     '<section class="form" id="inscricao">'+(aberta?
       '<span class="n" style="color:inherit;opacity:.6;font-size:.66rem;letter-spacing:.3em;font-weight:600">SEM CURRÍCULO</span><h2 style="font-size:clamp(1.6rem,4vw,2.2rem);letter-spacing:-.03em;margin:8px 0 6px">Por que esta vaga deve ser sua?</h2>'+
       '<p style="opacity:.8;margin:0 0 22px">Não queremos o seu currículo. Queremos saber quem você é. Responda com calma: o vídeo libera depois da resposta.</p>'+

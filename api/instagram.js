@@ -25,21 +25,19 @@ const IG = () => (/^IG/.test(TK()) ? 'https://graph.instagram.com' : 'https://gr
 const CONTA = () => process.env.IG_ID || '17841400491820160'; // @soucarlosribeiro
 const PLANILHA = 'https://docs.google.com/spreadsheets/d/1CIt8HtjW8oTE1cxJTTsbDilYH3Zj5StF4uYSBc419Hs/gviz/tq?tqx=out:csv&sheet=Iscas';
 
-const RESERVA = [{
-  palavras: ['pressão', 'pressao'],
-  link: 'https://sejaunique.com/pressao/',
-  direct: 'Aqui estão as 13 mecânicas para nunca mais deixar venda frouxa 👇 Mensagens prontas, gerador de follow-up com data e a cadência até o prazo.',
-  botao: 'Quero as 13 mecânicas',
-  publica: 'Te mandei no direct! 📩',
-  tag: 'Pressão'
-}, {
-  palavras: ['claude'],
-  link: 'https://sejaunique.com/claude-na-empresa/',
-  direct: 'Aqui está o tutorial Claude na Empresa 👇 Conta, Claude no Chrome, projeto da empresa, gerador de proposta e 14 prompts prontos para o comercial.',
-  botao: 'Quero o tutorial',
-  publica: 'Te mandei no direct! 📩',
-  tag: 'Claude na Empresa'
-}];
+// cópia das 10 iscas da planilha: vale quando a planilha não pode ser lida (ex.: não está pública)
+const RESERVA = [
+{ palavras: ["pressão", "pressao"], link: "https://sejaunique.com/pressao/", direct: "Aqui estão as 13 mecânicas para nunca mais deixar venda frouxa 👇 Mensagens prontas, gerador de follow-up com data e a cadência até o prazo.", botao: "Quero as 13 mecânicas", publica: 'Te mandei no direct! 📩', tag: "Pressão" },
+{ palavras: ["orçamento", "orcamento"], link: "https://sejaunique.com/orcamentos-parados/", direct: "O manual para fechar os orçamentos parados do mês 👇", botao: "Quero o manual", publica: 'Te mandei no direct! 📩', tag: "Orçamentos parados" },
+{ palavras: ["rota"], link: "https://sejaunique.com/rota-do-atendimento/", direct: "O kit do vendedor com a rota do atendimento 👇", botao: "Quero o kit", publica: 'Te mandei no direct! 📩', tag: "Rota do Atendimento" },
+{ palavras: ["estoque"], link: "https://sejaunique.com/estoque-parado/", direct: "As estratégias para girar o estoque parado 👇", botao: "Quero as estratégias", publica: 'Te mandei no direct! 📩', tag: "Estoque parado" },
+{ palavras: ["ote", "comissão", "comissao"], link: "https://sejaunique.com/comissao-ote/", direct: "A calculadora de OTE e bônus de comportamento 👇", botao: "Quero a calculadora", publica: 'Te mandei no direct! 📩', tag: "Comissão OTE" },
+{ palavras: ["icp"], link: "https://sejaunique.com/icp/", direct: "A tarefa para definir o seu ICP (e o ICP do lixo) 👇", botao: "Quero a tarefa", publica: 'Te mandei no direct! 📩', tag: "ICP" },
+{ palavras: ["atleta"], link: "https://sejaunique.com/comercial-atleta/", direct: "O material de apoio do Comercial Atleta 👇", botao: "Quero o material", publica: 'Te mandei no direct! 📩', tag: "Comercial Atleta" },
+{ palavras: ["black", "black friday"], link: "https://sejaunique.com/black-zona/", direct: "As ações de Black Friday por segmento 👇", botao: "Quero as ações", publica: 'Te mandei no direct! 📩', tag: "Black Zona" },
+{ palavras: ["mesa"], link: "https://sejaunique.com/mesa-aberta/", direct: "Aqui está o Kit de Network para transformar contato em indicação 👇 Raio-x da sua rede, quanto vale uma indicação, mapa das 30 pessoas-chave e o gerador de pedido.", botao: "Quero o kit de network", publica: 'Te mandei no direct! 📩', tag: "Network" },
+{ palavras: ["claude"], link: "https://sejaunique.com/claude-na-empresa/", direct: "Aqui está o tutorial Claude na Empresa 👇 Criar a conta, instalar no Chrome, ensinar a IA sobre a sua empresa, gerador de proposta e 14 prompts prontos para o comercial.", botao: "Quero o tutorial", publica: 'Te mandei no direct! 📩', tag: "Inteligência Artificial" }
+];
 
 async function redis(cmds) {
   if (!URL_DB || !TOKEN_DB) return [];

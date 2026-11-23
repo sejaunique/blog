@@ -51,6 +51,14 @@ const MATERIAIS = {
     tag: 'Rota do Atendimento',
     aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
   },
+  'catalogo-que-vende': {
+    titulo: 'Catálogo que vende · Varejo e personalizado',
+    descricao: 'Raio-x do catálogo, os 6 tipos de foto e vídeo, gerador da lista de fotos, estrutura página a página, ficha do produto, gerador de case e plano de 4 semanas.',
+    url: '/catalogo-que-vende/',
+    tag: 'Catálogo que vende',
+    segmentos: { varejo: 'Varejo e e-commerce', personalizado: 'Personalizado e uniformes' },
+    aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
+  },
   'estoque-parado': {
     titulo: 'Estoque parado · Estratégias por segmento',
     descricao: 'Raio-x do estoque, ações por frente, plano de 30 dias, calculadoras (custo de segurar, desconto e meta de giro) e mensagens prontas para indústria, atacado e confecção.',

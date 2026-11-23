@@ -98,6 +98,9 @@ EXTRAS = [
     {"arquivo": "claude-na-empresa.jpg", "rotulo": "Tutorial · IA no comercial", "pill": "Material gratuito",
      "titulo": "Claude na Empresa", "chamada": "A IA que trabalha dentro do seu navegador", "grifo": "dentro do seu navegador",
      "descricao": "Conta, Claude no Chrome, projeto da empresa, gerador de proposta e 14 prompts prontos para o comercial."},
+    {"arquivo": "catalogo-que-vende.jpg", "rotulo": "Ferramenta · Varejo e personalizado", "pill": "Material gratuito",
+     "titulo": "Catálogo que vende", "chamada": "Catálogo bonito não vende. Completo vende", "grifo": "Completo vende",
+     "descricao": "O que fotografar e gravar, gerador da lista de fotos, estrutura página a página, ficha do produto e case que fecha venda."},
 ]
 
 def chamada_html(p):

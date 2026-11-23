@@ -24,6 +24,13 @@ Cada envio para a branch `main` é publicado automaticamente na Vercel.
 - Seções com link direto: `app/#cac`, `#comissao`, `#final`, `#ote`, `#bonificacao`, `#trabalhista`.
 - Post arquivado: `quanto-custa-cada-venda`. Carrossel: `instagram/quanto-custa-cada-venda/`, estilo planilha (`tools/carrossel_planilha.py`), palavra CONTA.
 
+## Ferramenta "Catálogo que vende" (`/catalogo-que-vende/`)
+
+- Isca com cadastro (material `catalogo-que-vende` em `api/material.js`), com duas trilhas: `varejo` (varejo e e-commerce) e `personalizado` (personalizado e uniformes). Link direto da trilha: `/catalogo-que-vende/?s=varejo` ou `?s=personalizado`.
+- Seções: raio-x com nota, os 6 tipos de foto e vídeo, gerador da lista de fotos (copia para o fotógrafo), estrutura página a página, ficha do produto com prévia, case que vende (catálogo + case) com prévia e pedido de depoimento, formato e envio, plano de 4 semanas e erros.
+- Todo o conteúdo das trilhas fica no objeto `TRILHAS`, no fim do `index.html`. Base: material do Notion (Modelo Catálogo de Venda, Bella Ravenna, Catálogo Brasil Texana, Tendas Aluban).
+- Capa de compartilhamento: `assets/og/catalogo-que-vende.jpg` (entrada em `tools/og_cliente.py`). Palavra no Instagram: CATÁLOGO (reserva em `api/instagram.js`; incluir também na planilha de iscas).
+
 ## Prévia dos links (WhatsApp, Instagram, LinkedIn)
 
 Depois de publicar ou editar um post, rode `python3 tools/gerar_paginas.py`.

@@ -101,6 +101,9 @@ EXTRAS = [
     {"arquivo": "catalogo-que-vende.jpg", "rotulo": "Ferramenta · Varejo e personalizado", "pill": "Material gratuito",
      "titulo": "Catálogo que vende", "chamada": "Catálogo bonito não vende. Completo vende", "grifo": "Completo vende",
      "descricao": "O que fotografar e gravar, gerador da lista de fotos, estrutura página a página, ficha do produto e case que fecha venda."},
+    {"arquivo": "catalogo-com-ia.jpg", "rotulo": "Manual · Varejo e personalizado", "pill": "Material gratuito",
+     "titulo": "Catálogo com IA", "chamada": "Catálogo com IA: sem estúdio, com o celular", "grifo": "com o celular",
+     "descricao": "Qual IA usar, a foto base no celular, prompts de foto e vídeo para Gemini, ChatGPT e Meta AI, e checklist de conferência."},
 ]
 
 def chamada_html(p):

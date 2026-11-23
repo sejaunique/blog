@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<script src="/assets/tema.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catálogo com IA · Manual para varejo e personalizado · Unique</title>
+<meta name="description" content="Manual para montar o catálogo com IA: qual IA usar (Gemini, ChatGPT, Meta AI e Claude), a foto base no celular, prompts de foto e vídeo prontos, gerador de prompt e checklist para não publicar imagem errada. Trilhas para varejo e personalizado.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Unique Consultoria">
+<meta property="og:title" content="Catálogo com IA · Varejo e personalizado">
+<meta property="og:description" content="Qual IA usar, a foto base no celular, prompts de foto e vídeo prontos, gerador de prompt e checklist de conferência.">
+<meta property="og:url" content="https://sejaunique.com/catalogo-com-ia/">
+<meta property="og:image" content="https://sejaunique.com/assets/og/catalogo-com-ia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://sejaunique.com/assets/og/catalogo-com-ia.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@400;600;700&display=swap">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+
+/* ===== escala do manual: grande, de propósito ===== */
+body.leitura{font-size:1.125rem}
+main{overflow-x:clip}
+.wrap-m{max-width:1240px;margin-inline:auto;padding-inline:clamp(20px,4vw,40px)}
+.mag{color:var(--magenta-txt)}.ver{color:var(--verde-txt)}.mar{color:var(--marinho-txt)}
+.leve{font-weight:200;font-style:italic}
+.grifo{text-decoration:underline;text-decoration-color:var(--grifo);text-decoration-thickness:3px;text-underline-offset:8px}
+
+/* ===== faixa de números ===== */
+.numeros{background:#0b0b0c;color:#f5f5f5;border-top:1px solid #222}
+.numeros .wrap-m{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.numeros div.n4{padding:38px 24px 44px;border-left:1px solid #26262a}
+.numeros div.n4:first-child{border-left:0;padding-left:0}
+.numeros b{display:block;font-size:clamp(3rem,6.4vw,6rem);font-weight:900;letter-spacing:-.06em;line-height:.9;font-variant-numeric:tabular-nums}
+.numeros small{display:block;margin-top:12px;font-size:.95rem;line-height:1.4;color:#a1a1a8;max-width:22ch}
+.numeros .c1 b{color:#ff4d8f}.numeros .c2 b{color:var(--verde)}.numeros .c3 b{color:#fff}.numeros .c4 b{color:#8f98ff}
+
+/* ===== porta (cadastro) ===== */
+.porta{padding-block:clamp(56px,8vw,96px) 0}
+.gate{background:var(--verde);color:#000;border-radius:clamp(24px,3vw,40px);padding:clamp(28px,5vw,64px);display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(28px,4vw,56px);align-items:center;position:relative;overflow:hidden}
+.gate .spaced{color:#000;opacity:.7;font-weight:700}
+.gate h2{margin:14px 0 14px;font-size:clamp(2.4rem,5.4vw,4.6rem);font-weight:900;letter-spacing:-.05em;line-height:.92}
+.gate h2 .leve{display:block;font-weight:200;font-style:italic}
+.gate p{margin:0;font-size:1.08rem;line-height:1.55}
+.gate ul{margin:22px 0 0;padding:0;list-style:none;display:grid;gap:10px;font-size:1.02rem;font-weight:600}
+.gate ul li{display:flex;gap:12px;align-items:center}
+.gate ul li::before{content:"";width:22px;height:22px;flex:none;border-radius:50%;background:#000 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300e676' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/14px no-repeat}
+.gate form{display:grid;gap:12px;background:#0b0b0c;color:#f5f5f5;border-radius:28px;padding:clamp(20px,3vw,32px);box-shadow:0 30px 60px rgba(0,0,0,.25)}
+.gate form .ftit{margin:0 0 4px;font-size:1.25rem;font-weight:800;letter-spacing:-.02em}
+.gate .duas{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gate input{font:inherit;font-size:1.02rem;color:#0b0b0c;background:#fff;border:2px solid #fff;border-radius:14px;padding:15px 18px;width:100%;outline:none}
+.gate input:focus{box-shadow:0 0 0 4px rgba(0,230,118,.5)}
+.gate input::placeholder{color:#6b6b72}
+.gate button{font:inherit;font-weight:900;font-size:1.1rem;background:var(--verde);color:#000;border:0;border-radius:14px;padding:18px 26px;cursor:pointer;display:inline-flex;gap:10px;align-items:center;justify-content:center;transition:transform .15s}
+.gate button:hover{transform:translateY(-2px)}
+.gate button:disabled{opacity:.6;cursor:wait}
+.gate .msg{margin:0;font-weight:700;color:#ff4d8f}.gate .msg:empty{display:none}
+.isca{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+.aceite{display:flex;gap:12px;align-items:flex-start;font-size:.8rem;line-height:1.5;color:#c4c4ca;cursor:pointer}
+.aceite input{appearance:none;-webkit-appearance:none;width:22px!important;height:22px;padding:0!important;border-radius:7px!important;border:2px solid #fff!important;background:transparent!important;flex:none;display:grid;place-items:center;cursor:pointer;margin-top:1px}
+.aceite input:checked{background:var(--verde)!important;border-color:var(--verde)!important}
+.aceite input:checked::after{content:"";width:6px;height:11px;border:solid #000;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.aceite a{color:var(--verde)}
+.gate .tres-i{position:absolute;right:-30px;top:-40px;height:220px;width:170px;opacity:.14}
+.gate .tres-i .I{background:#000}
+body.liberado .gate,body.liberado .nl-banner{display:none}
+.nl-banner{margin:16px 0 0;text-align:center;font-size:.86rem;color:var(--muted)}
+.ok{display:none;border-radius:28px;background:var(--ink);color:#f5f5f5;padding:28px 32px;grid-template-columns:auto 1fr auto;gap:22px;align-items:center}
+body.liberado .ok{display:grid}
+.ok .selo{width:56px;height:56px;border-radius:50%;background:var(--verde);display:grid;place-items:center}
+.ok .selo::after{content:"";width:10px;height:20px;border:solid #000;border-width:0 4px 4px 0;transform:rotate(45deg) translate(-2px,-2px)}
+.ok b{display:block;font-size:1.45rem;font-weight:900;letter-spacing:-.03em}
+.ok p{margin:4px 0 0;color:#c4c4ca}
+.ok .nl-tag{display:inline-flex;gap:8px;align-items:center;font-size:.68rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;margin-top:10px;color:var(--verde)}
+.ok .nl-tag i{width:8px;height:8px;border-radius:50%;background:var(--verde);display:block;animation:pis 1.8s ease-in-out infinite}
+@keyframes pis{50%{opacity:.25}}
+.ok .btn{border-color:var(--verde);background:var(--verde);color:#000}
+.fechado{display:none}
+body.liberado .fechado{display:block}
+#conteudo{display:none}
+body.liberado #conteudo{display:block}
+body.liberado [data-newsletter="site"]{display:none}
+
+/* ===== sumário ===== */
+.sum{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:clamp(48px,6vw,80px);border-top:2px solid var(--fg)}
+.sum a{display:grid;gap:6px;text-decoration:none;color:inherit;padding:20px 18px 22px 0;border-bottom:1px solid var(--line);transition:padding .25s,color .2s}
+.sum a:hover{padding-left:10px;color:var(--verde-txt)}
+.sum b{font-size:clamp(2rem,3.2vw,2.8rem);font-weight:100;letter-spacing:-.04em;line-height:1}
+.sum span{font-weight:800;font-size:1.02rem;line-height:1.25}
+body:not(.liberado) .sum a{pointer-events:none;opacity:.55}
+
+/* ===== seções ===== */
+.sec{padding-block:clamp(80px,11vw,150px) 0}
+.cab{display:grid;grid-template-columns:auto 1fr;gap:clamp(16px,3vw,40px);align-items:start;margin-bottom:clamp(32px,4vw,52px)}
+.cab .num{font-size:clamp(5rem,13vw,12rem);font-weight:900;line-height:.78;letter-spacing:-.07em;color:transparent;-webkit-text-stroke:2px var(--fg);font-variant-numeric:tabular-nums}
+.cab .k{display:block;font-size:.74rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);margin:6px 0 12px}
+.cab h2{margin:0;font-size:clamp(2.4rem,6vw,5.4rem);font-weight:900;letter-spacing:-.055em;line-height:.92;text-wrap:balance;max-width:16ch}
+.cab h2 .leve{display:block;letter-spacing:-.04em}
+.lead{color:var(--muted);max-width:60ch;margin:0 0 36px;font-size:clamp(1.12rem,1.6vw,1.32rem);line-height:1.6}
+.lead strong{color:var(--fg)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:clamp(22px,3vw,34px)}
+
+/* casos: linhas grandes alternadas */
+.caso{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,5vw,72px);align-items:center;padding-block:clamp(28px,4vw,48px);border-top:1px solid var(--line)}
+.caso:nth-child(even) figure{order:2}
+.caso figure{margin:0;border-radius:32px;overflow:hidden;background:#0b141a;aspect-ratio:4/5;cursor:zoom-in;position:relative;box-shadow:0 30px 60px rgba(0,0,0,.18)}
+.caso figure img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .6s}
+.caso:hover figure img{transform:scale(1.04)}
+.caso figure::after{content:"ampliar";position:absolute;right:14px;bottom:14px;font-size:.66rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;background:rgba(0,0,0,.65);color:#fff;padding:7px 11px;border-radius:999px}
+.caso em{font-style:normal;font-size:.76rem;font-weight:800;letter-spacing:.28em;text-transform:uppercase}
+.caso h3{margin:12px 0 16px;font-size:clamp(1.8rem,3.6vw,3rem);font-weight:900;letter-spacing:-.045em;line-height:1}
+.caso p{margin:0;color:var(--muted);font-size:clamp(1.08rem,1.5vw,1.25rem);line-height:1.6;max-width:44ch}
+.caso .big{display:block;margin-top:24px;font-size:clamp(4rem,9vw,7.5rem);font-weight:900;letter-spacing:-.06em;line-height:.85}
+
+/* gráficos */
+.duas-g{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-top:clamp(28px,4vw,48px);align-items:stretch}
+.graf h3{margin:0 0 4px;font-size:1.3rem;font-weight:900;letter-spacing:-.02em}
+.graf .sub{margin:0 0 26px;color:var(--muted);font-size:.95rem}
+.barras{display:grid;gap:16px}
+.barra-l{display:grid;grid-template-columns:140px 1fr 56px;gap:14px;align-items:center;font-size:1rem}
+.barra-l span:first-child{font-weight:700}
+.barra-l .trilho{height:34px;border-radius:10px;background:var(--soft);overflow:hidden}
+.barra-l .trilho i{display:block;height:100%;width:0;border-radius:10px;transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.barra-l b{font-variant-numeric:tabular-nums;text-align:right;font-weight:900;font-size:1.5rem;letter-spacing:-.03em}
+.graf .nota{margin:20px 0 0;font-size:.86rem;color:var(--muted);line-height:1.5}
+.mult{display:grid;gap:22px}
+.mult .l{display:grid;gap:8px}
+.mult .l small{font-size:.74rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.mult .l div{height:42px;border-radius:10px;display:flex;align-items:center;padding-left:14px;font-weight:900;font-size:1.05rem;width:0;transition:width 1.4s cubic-bezier(.2,.8,.2,1);white-space:nowrap;color:#000}
+.mult .x{margin:6px 0 0;font-size:clamp(4rem,8vw,6.5rem);font-weight:900;letter-spacing:-.06em;line-height:.85;color:var(--verde-txt)}
+.mult .x span{display:block;font-size:1rem;font-weight:500;letter-spacing:0;color:var(--muted);margin-top:8px}
+
+/* faixas cheias */
+.faixa{margin-top:clamp(80px,11vw,150px);padding-block:clamp(64px,9vw,120px);position:relative;overflow:hidden}
+.faixa.marinho{background:var(--marinho);color:#f5f5f5}
+.faixa.ink{background:#0b0b0c;color:#f5f5f5}
+.faixa.mag{background:var(--magenta);color:#fff}
+.faixa .grita{margin:0;font-size:clamp(2.8rem,8.4vw,8rem);font-weight:900;letter-spacing:-.06em;line-height:.88;text-wrap:balance;max-width:14ch}
+.faixa .grita .leve{display:block;font-weight:200}
+.faixa .apoio{margin:32px 0 0;max-width:58ch;font-size:clamp(1.08rem,1.6vw,1.3rem);line-height:1.6;opacity:.9}
+.faixa .tres-i{position:absolute;right:clamp(10px,4vw,60px);bottom:-30px;height:clamp(160px,22vw,300px);width:clamp(120px,17vw,230px);opacity:.16}
+.faixa .tres-i .I{background:#fff}
+.mitos{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:clamp(36px,5vw,56px)}
+.mito{border-radius:24px;padding:26px 28px;display:grid;gap:10px}
+.faixa .mito{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14)}
+.mito small{font-size:.72rem;font-weight:800;letter-spacing:.26em;text-transform:uppercase}
+.mito p{margin:0;font-weight:800;font-size:clamp(1.15rem,1.8vw,1.45rem);line-height:1.3;letter-spacing:-.02em}
+.faixa .mito small.a{color:#ff7aa8}.faixa .mito small.b{color:var(--verde)}
+
+/* supervisão */
+.sup{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sup h3{margin:0 0 18px;font-size:clamp(1.5rem,2.4vw,2rem);font-weight:900;letter-spacing:-.03em}
+.lista-x{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.lista-x li{display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:start;font-size:1.1rem;line-height:1.45}
+.lista-x li::before{content:"✕";width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:.85rem;font-weight:900;background:color-mix(in srgb,var(--magenta) 14%,transparent);color:var(--magenta-txt)}
+.lista-x.bom li::before{content:"✓";background:color-mix(in srgb,var(--verde) 22%,transparent);color:var(--verde-txt)}
+.desafio{margin-top:16px;display:grid;grid-template-columns:auto 1fr auto;gap:clamp(18px,3vw,40px);align-items:center;background:var(--magenta);color:#fff;border-radius:32px;padding:clamp(26px,4vw,44px)}
+.desafio b{font-size:clamp(5.5rem,12vw,10rem);font-weight:900;letter-spacing:-.07em;line-height:.8}
+.desafio p{margin:0;font-size:clamp(1.08rem,1.6vw,1.3rem);line-height:1.5}
+.desafio p strong{display:block;font-size:clamp(1.5rem,2.6vw,2.2rem);letter-spacing:-.03em;line-height:1.1;margin-bottom:8px}
+.desafio .btn{background:#fff;color:#000;border-color:#fff;font-size:.95rem;padding:16px 24px}
+.audios{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.audio{display:grid;gap:14px;align-content:start}
+.audio em{font-style:normal;font-size:.74rem;font-weight:800;letter-spacing:.26em;text-transform:uppercase}
+.audio h3{margin:0;font-size:clamp(1.4rem,2.2vw,1.8rem);font-weight:900;letter-spacing:-.03em;line-height:1.1}
+.audio p{margin:0;color:var(--muted);font-size:1.05rem;line-height:1.6}
+.play{display:flex;align-items:center;gap:14px;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:10px 18px 10px 10px}
+.play button{width:52px;height:52px;border-radius:50%;border:0;background:var(--fg);color:var(--bg);display:grid;place-items:center;cursor:pointer;flex:none}
+.play button svg{width:18px;height:18px}
+.play .onda{flex:1;height:32px;display:flex;align-items:center;gap:2px;cursor:pointer}
+.play .onda i{flex:1;background:var(--muted);border-radius:2px;opacity:.45;transition:opacity .2s,background .2s}
+.play .onda i.on{opacity:1;background:var(--verde-txt)}
+.play time{font-size:.85rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--muted);min-width:4ch}
+.curva{margin-top:16px}
+.curva svg{width:100%;height:auto;display:block}
+
+/* separar */
+.casa{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.casa .card{display:grid;gap:14px;align-content:start;padding:clamp(28px,4vw,44px)}
+.casa .emoji{font-size:clamp(3rem,5vw,4.2rem);line-height:1}
+.casa h3{margin:0;font-size:clamp(1.7rem,3vw,2.5rem);font-weight:900;letter-spacing:-.04em;line-height:1}
+.casa p{margin:0;color:var(--muted);line-height:1.6;font-size:1.1rem}
+.casa .card.ink{background:#0b0b0c;color:#f5f5f5;border-color:#0b0b0c}
+.casa .card.ink p{color:#c4c4ca}
+.regra90{margin:16px 0 0;padding:clamp(28px,4vw,44px);border-radius:28px;background:var(--fg);color:var(--bg);font-size:clamp(1.6rem,3.6vw,3rem);font-weight:900;letter-spacing:-.045em;line-height:1.05;text-wrap:balance}
+.regra .leve{font-weight:200}
+
+/* zonas */
+.zonas{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.zona{border-radius:32px;padding:clamp(28px,4vw,44px);display:grid;gap:20px;align-content:start}
+.zona.cli{background:var(--magenta);color:#fff}
+.zona.lea{background:var(--marinho);color:#fff}
+.zona .selo{justify-self:start;font-size:.72rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;padding:9px 14px;border-radius:999px;background:rgba(255,255,255,.16)}
+.zona h3{margin:0;font-size:clamp(1.7rem,3vw,2.5rem);font-weight:900;letter-spacing:-.04em;line-height:1.02}
+.passos{list-style:none;counter-reset:p;margin:0;padding:0;display:grid;gap:16px}
+.passos li{counter-increment:p;display:grid;grid-template-columns:44px 1fr;gap:16px;align-items:start;font-size:1.05rem;line-height:1.5;color:rgba(255,255,255,.88)}
+.passos li::before{content:counter(p);width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:1.1rem;font-weight:900;background:#fff;color:#000}
+.passos li b{display:block;color:#fff;font-size:1.15rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{font-size:.86rem;font-weight:700;border:1px solid currentColor;border-radius:999px;padding:8px 14px;opacity:.9}
+.arvore{margin-top:16px}
+.arvore svg{width:100%;height:auto;display:block}
+.arvore text{font-family:var(--font)}
+
+/* condicional */
+.formula{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:f}
+.formula div{border-radius:28px;padding:clamp(24px,3vw,36px);background:var(--card);border:1px solid var(--line);display:grid;gap:10px;align-content:start;position:relative}
+.formula div:not(:last-child)::after{content:"+";position:absolute;right:-22px;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-size:1.6rem;font-weight:300;z-index:2}
+.formula small{font-size:.74rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.formula b{font-size:clamp(2rem,4vw,3.4rem);font-weight:900;letter-spacing:-.05em;line-height:.95}
+.formula span{color:var(--muted);font-size:1.02rem;line-height:1.5}
+.resultado{margin-top:16px;border-radius:28px;background:var(--verde);color:#000;padding:clamp(24px,3.4vw,40px);display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 20px}
+.resultado small{font-size:.74rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase}
+.resultado b{font-size:clamp(2rem,5vw,4rem);font-weight:900;letter-spacing:-.05em;line-height:1}
+.ex{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.ex .card{display:grid;gap:12px;align-content:start}
+.ex small{font-size:.72rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase}
+.ex p{margin:0;line-height:1.35;font-weight:800;font-size:clamp(1.15rem,1.8vw,1.45rem);letter-spacing:-.02em}
+.ex p.m{font-weight:400;color:var(--muted);font-size:1rem;letter-spacing:0;line-height:1.55}
+
+/* calendário */
+.cal{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:end;min-height:520px}
+.sem{border-radius:28px;padding:clamp(20px,2.4vw,30px);display:grid;gap:10px;align-content:end;color:#fff;height:var(--h)}
+.sem small{font-size:.72rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;opacity:.85}
+.sem b{font-size:clamp(1.3rem,2.2vw,1.9rem);font-weight:900;letter-spacing:-.035em;line-height:1.05}
+.sem p{margin:0;font-size:1rem;line-height:1.45;opacity:.9}
+.sem .grande{font-size:clamp(3rem,6vw,5.4rem);font-weight:900;letter-spacing:-.06em;line-height:.8;opacity:.35}
+.sem.s1{--h:300px;background:var(--marinho)}
+.sem.s2{--h:360px;background:color-mix(in srgb,var(--marinho) 65%,#0b8a52)}
+.sem.s3{--h:430px;background:#078a46}
+.sem.s4{--h:520px;background:var(--magenta)}
+.cal-eixo{display:flex;justify-content:space-between;margin-top:14px;font-size:.8rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.cal-eixo span:last-child{color:var(--magenta-txt)}
+.cuidado{margin-top:16px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start;border-radius:28px;padding:clamp(22px,3vw,32px);background:color-mix(in srgb,var(--alerta) 12%,var(--card));border:1px solid color-mix(in srgb,var(--alerta) 40%,transparent)}
+.cuidado .sinal{width:52px;height:52px;border-radius:50%;background:var(--alerta);color:#fff;display:grid;place-items:center;font-size:1.6rem;font-weight:900}
+.cuidado p{margin:0;line-height:1.6;font-size:1.1rem}
+
+/* bonificação e crm */
+.bonus{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:16px;align-items:stretch}
+.bonus figure{margin:0;border-radius:32px;overflow:hidden;background:#0b141a;cursor:zoom-in;min-height:420px}
+.bonus figure img{width:100%;height:100%;display:block;object-fit:cover;object-position:top}
+.regras-b{display:grid;gap:12px}
+.regras-b div{display:grid;grid-template-columns:64px 1fr;gap:16px;align-items:start;padding:22px 24px;border:1px solid var(--line);border-radius:24px;background:var(--card)}
+.regras-b b{font-size:3.2rem;font-weight:100;line-height:.8;color:var(--verde-txt)}
+.regras-b strong{display:block;font-size:1.25rem;letter-spacing:-.02em;margin-bottom:4px}
+.regras-b span{font-size:1.02rem;color:var(--muted);line-height:1.5}
+.crm3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.crm3 .card{display:grid;gap:10px;align-content:start}
+.crm3 b.cn{font-size:clamp(3rem,5vw,4rem);font-weight:100;line-height:.8;letter-spacing:-.04em}
+.crm3 h3{margin:0;font-size:1.4rem;font-weight:900;letter-spacing:-.03em}
+.crm3 p{margin:0;color:var(--muted);font-size:1.05rem;line-height:1.55}
+.campos{margin-top:16px}
+.campos .chips span{background:var(--soft);border-color:var(--line);color:var(--fg);opacity:1}
+.crm-tit{margin:clamp(64px,8vw,110px) 0 12px;font-size:clamp(2rem,4.6vw,3.8rem);font-weight:900;letter-spacing:-.05em;line-height:.95}
+
+/* oferta Alda.CRM (identidade da marca Alda) */
+.alda{--a-amarelo:#fdd015;--a-laranja:#f49f1c;--a-grafite:#2e2e2e;--a-texto:#4a4a4a;font-family:"Poppins",var(--font);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:36px;background:#fff;color:var(--a-grafite);border-radius:36px;padding:clamp(28px,4.5vw,56px) clamp(24px,4.5vw,56px) 96px;position:relative;overflow:hidden;isolation:isolate;margin-top:16px;border:1px solid #eee}
+.alda::before{content:"";position:absolute;z-index:-1;right:-120px;top:-140px;width:620px;height:520px;border-radius:50%;background:radial-gradient(closest-side,rgba(253,208,21,.6),rgba(253,208,21,0))}
+.alda::after{content:"";position:absolute;z-index:-1;right:10%;bottom:-180px;width:560px;height:360px;border-radius:50%;background:radial-gradient(closest-side,rgba(253,208,21,.35),rgba(253,208,21,0))}
+.alda-caco{position:absolute;z-index:-1;left:0;bottom:0;width:90px;height:86px;background:linear-gradient(160deg,var(--a-amarelo) 0 45%,var(--a-laranja) 45% 60%,#ffc21a 60%);clip-path:polygon(0 18%,22% 0,100% 100%,0 100%)}
+.alda-cab{display:grid;gap:16px;align-content:start;position:relative}
+.alda-selo{justify-self:start;font-size:.76rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--a-grafite);background:var(--a-amarelo);padding:7px 14px;border-radius:6px}
+.alda-logo{width:230px;height:auto;display:block}
+.alda h2{margin:0;font-family:"Poppins",var(--font);font-size:clamp(1.7rem,3.4vw,2.6rem);font-weight:700;letter-spacing:-.02em;line-height:1.12;color:var(--a-grafite);text-wrap:balance}
+.alda p{margin:0;color:var(--a-texto);max-width:46ch;font-size:1.08rem;line-height:1.6}
+.alda .alda-assina{font-size:.84rem;color:#8a8a8a}
+.alda-acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.alda .btn{font-family:"Poppins",var(--font);font-weight:600;border-radius:12px;font-size:1rem;padding:16px 24px}
+.alda .btn.alda-btn{background:var(--a-amarelo);border-color:var(--a-amarelo);color:var(--a-grafite);box-shadow:0 6px 0 #e3b800}
+.alda .btn.alda-btn:hover{opacity:1;transform:translateY(-2px);box-shadow:0 8px 0 #e3b800}
+.alda .btn.alda-link{color:var(--a-grafite);border-color:#e2e2e2;background:#fff}
+.alda-lista{display:grid;gap:12px;align-content:start;position:relative}
+.alda-eyebrow{font-size:.76rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8a8a8a}
+.alda-lista ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.alda-lista li{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid #efefef;border-radius:16px;padding:18px 20px;box-shadow:0 4px 18px rgba(46,46,46,.06);transition:transform .2s,box-shadow .2s}
+.alda-lista li:hover{transform:translateX(4px);box-shadow:0 10px 26px rgba(46,46,46,.10)}
+.alda-lista li div{display:grid;gap:3px}
+.alda-lista strong{font-size:1.05rem;font-weight:600;color:var(--a-grafite)}
+.alda-lista li div span{font-size:.92rem;color:var(--a-texto);line-height:1.45}
+.alda-ic{width:44px;height:44px;border-radius:10px;background:var(--a-amarelo);color:var(--a-grafite);display:grid;place-items:center;flex:none}
+.alda-ic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.alda-pato{position:absolute;right:40px;bottom:-34px;width:76px;height:auto;transform:rotate(-8deg);transition:transform .3s}
+.alda:hover .alda-pato{transform:rotate(0) translateY(-12px)}
+
+/* ===== kit ===== */
+.ferr{display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(56px,7vw,90px)}
+.ferr .btn{font-size:.92rem;padding:14px 22px}
+.placar-geral{position:sticky;top:84px;z-index:5;margin:0 0 22px;background:var(--bg);border:1px solid var(--line);border-radius:22px;padding:16px 20px;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.placar-geral b{font-size:2.4rem;font-weight:900;letter-spacing:-.05em;font-variant-numeric:tabular-nums;line-height:1}
+.placar-geral small{display:block;font-size:.66rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.prog-b{height:14px;border-radius:999px;background:var(--soft);overflow:hidden;border:1px solid var(--line)}
+.prog-b i{display:block;height:100%;width:0;background:var(--verde);transition:width .35s}
+.placar-geral button{font:inherit;font-size:.76rem;font-weight:700;background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:8px 14px;cursor:pointer}
+.etapas{display:grid;gap:14px}
+.etp{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:clamp(22px,3vw,32px);display:grid;grid-template-columns:230px 1fr;gap:26px}
+.etp.feito{border-color:var(--verde-txt);box-shadow:inset 6px 0 0 var(--verde)}
+.etp .h{display:grid;gap:6px;align-content:start}
+.etp .h time{font-size:.72rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.etp .h b{font-size:1.6rem;font-weight:900;letter-spacing:-.035em;line-height:1.05}
+.etp .h small{color:var(--muted);font-size:.95rem;line-height:1.4}
+.etp .mini{height:8px;border-radius:999px;background:var(--soft);overflow:hidden;margin-top:8px}
+.etp .mini i{display:block;height:100%;width:0;background:var(--verde);transition:width .3s}
+.etp .mini-n{font-size:.82rem;font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums}
+.etp.feito .mini-n{color:var(--verde-txt)}
+.chk{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.chk label{display:flex;gap:14px;align-items:flex-start;cursor:pointer;padding:9px 0;line-height:1.45;font-size:1.08rem}
+.chk input{appearance:none;-webkit-appearance:none;width:26px;height:26px;border:2px solid var(--muted);border-radius:8px;flex:none;margin:0;display:grid;place-items:center;cursor:pointer;background:var(--bg)}
+.chk input:checked{background:var(--verde);border-color:var(--verde)}
+.chk input:checked::after{content:"";width:7px;height:13px;border:solid #000;border-width:0 3px 3px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.chk input:checked+span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--verde-txt)}
+.chk span small{display:block;color:var(--muted);font-size:.88rem;margin-top:3px}
+.aud{display:grid;grid-template-columns:repeat(10,1fr);gap:10px}
+.aud button{aspect-ratio:1;border-radius:16px;border:1px solid var(--line);background:var(--card);font:inherit;font-size:1rem;font-weight:900;color:var(--muted);cursor:pointer;transition:transform .15s,background .2s}
+.aud button:hover{transform:scale(1.06)}
+.aud button[data-v="1"]{background:var(--verde);border-color:var(--verde);color:#000}
+.aud button[data-v="2"]{background:var(--magenta);border-color:var(--magenta);color:#fff}
+.aud-res{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+.aud-res div{border-top:3px solid var(--fg);padding-top:12px}
+.aud-res b{display:block;font-size:clamp(3rem,6vw,4.6rem);font-weight:900;letter-spacing:-.06em;line-height:.9;font-variant-numeric:tabular-nums}
+.aud-res small{font-size:.9rem;color:var(--muted);font-weight:700}
+.aud-res div.v b{color:var(--verde-txt)}.aud-res div.m b{color:var(--magenta-txt)}
+.aud-veredito{margin:18px 0 0;font-weight:800;font-size:1.2rem;line-height:1.45}
+.crit{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.crit span{font-size:.9rem;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:8px 14px;background:var(--soft)}
+.calc{display:grid;grid-template-columns:1fr 1.05fr;gap:16px}
+.calc .ent{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start}
+.calc label{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px 20px;display:grid;gap:8px;font-size:.92rem;font-weight:800}
+.calc label small{font-weight:600;color:var(--muted);font-size:.84rem}
+.calc input{font:inherit;font-size:2rem;font-weight:300;letter-spacing:-.03em;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--fg);padding:4px 0;width:100%;outline:none}
+.calc input[type=range]{padding:0;border:0;accent-color:var(--verde-txt)}
+.calc .sai{background:#0b0b0c;color:#f5f5f5;border-radius:28px;padding:clamp(24px,3vw,34px);display:grid;gap:20px;align-content:start}
+.calc .sai small{font-size:.7rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#a1a1a8}
+.calc .sai output{display:block;font-size:clamp(2.4rem,5vw,3.6rem);font-weight:900;letter-spacing:-.05em;font-variant-numeric:tabular-nums;line-height:1}
+.calc .sai .verde{color:var(--verde)}
+.donut-w{display:grid;grid-template-columns:130px 1fr;gap:20px;align-items:center}
+.donut-w svg{width:130px;height:130px}
+.leg{display:grid;gap:10px;font-size:.98rem}
+.leg div{display:flex;gap:10px;align-items:center}
+.leg i{width:14px;height:14px;border-radius:4px;flex:none}
+.leg b{margin-left:auto;font-variant-numeric:tabular-nums}
+.gera{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.gera .op-l{display:grid;gap:14px;align-content:start}
+.gera fieldset{border:1px solid var(--line);border-radius:22px;padding:16px 18px;margin:0;background:var(--card)}
+.gera legend{font-size:.7rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);padding:0 6px}
+.gera .pls{display:flex;flex-wrap:wrap;gap:8px}
+.gera .pls button{font:inherit;font-size:.95rem;font-weight:700;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:999px;padding:10px 15px;cursor:pointer}
+.gera .pls button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.gera .msg-o{background:var(--verde);color:#000;border-radius:28px;padding:clamp(22px,3vw,32px);display:grid;gap:16px;align-content:start}
+.gera .msg-o blockquote{margin:0;padding:20px 22px;background:#fff;border-radius:20px;line-height:1.6;font-size:1.08rem;white-space:pre-line}
+.gera .alerta-o{font-size:.95rem;font-weight:800;margin:0;background:#000;color:#fff;padding:12px 16px;border-radius:14px}
+.gera .alerta-o:empty{display:none}
+.gera .msg-o .btn{background:#000;color:#fff;border-color:#000;justify-self:start}
+.msgs{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.msgs .card{display:grid;gap:14px;align-content:start}
+.msgs h3{margin:0;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;font-weight:800}
+.msgs h3 small{display:block;margin-top:8px;letter-spacing:-.02em;text-transform:none;font-size:1.35rem;font-weight:900;color:var(--fg)}
+.msgs blockquote{margin:0;padding:18px 20px;border-left:4px solid var(--verde);background:var(--soft);border-radius:0 18px 18px 0;line-height:1.6;font-size:1.05rem}
+
+/* diagnóstico */
+.diag{margin-top:clamp(90px,11vw,150px);display:grid;grid-template-columns:1fr 1fr;background:#0b0b0c;color:#f5f5f5;overflow:hidden;border-radius:36px}
+.diag .txt{padding:clamp(32px,5vw,72px);display:grid;gap:20px;align-content:center}
+.diag .spaced{color:#a1a1a8}
+.diag h2{font-size:clamp(2.4rem,5vw,4rem);line-height:.95;font-weight:900;letter-spacing:-.05em;margin:0;text-wrap:balance}
+.diag h2 .leve{font-weight:200}
+.diag p{color:#c4c4ca;margin:0;max-width:46ch;font-size:1.1rem;line-height:1.6}
+.diag .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.diag .ctas .btn{font-size:.95rem;padding:16px 24px}
+.diag .ctas .btn:not(.verde){color:#f5f5f5}
+.diag figure{margin:0;position:relative;min-height:420px}
+.diag figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1);-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%);mask-image:linear-gradient(90deg,transparent,#000 35%)}
+
+/* zoom */
+.zoom{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.9);display:none;place-items:center;padding:20px;cursor:zoom-out}
+.zoom.on{display:grid}
+.zoom img{max-width:min(760px,100%);max-height:92vh;border-radius:16px}
+
+/* revelar */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.vis{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.lupa{transition:none}.etq{animation:none;opacity:1}}
+
+/* ADM */
+.admbar{background:var(--marinho);color:#f5f5f5}
+.admbar .wrap{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between;padding-block:16px}
+.admbar .sel{display:inline-flex;align-items:center;gap:10px;font-size:.68rem;font-weight:800;letter-spacing:.28em;text-transform:uppercase}
+.admbar .sel i{width:8px;height:8px;border-radius:50%;background:var(--verde);display:block;animation:pis 1.8s ease-in-out infinite}
+.admbar .tx{font-size:.85rem;opacity:.85;margin:4px 0 0}
+.admbar .num2{display:flex;gap:22px}
+.admbar .num2 b{display:block;font-size:1.9rem;font-weight:200;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.admbar .num2 small{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;opacity:.75}
+.admbar .acs{display:flex;flex-wrap:wrap;gap:8px}
+.admbar .btn{color:#f5f5f5;border-color:rgba(245,245,245,.5)}
+.admbar .btn.verde{color:#000;border-color:var(--verde)}
+.admbar .lista{display:none;padding-bottom:18px}
+.admbar.aberta .lista{display:block}
+.admbar table{width:100%;border-collapse:collapse;font-size:.85rem}
+.admbar th{text-align:left;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;opacity:.7;padding:8px 10px;border-bottom:1px solid rgba(245,245,245,.3)}
+.admbar td{padding:9px 10px;border-bottom:1px solid rgba(245,245,245,.12)}
+.admbar td a{color:#f5f5f5}
+.admbar .vazio{opacity:.75;font-size:.9rem;margin:6px 0 0}
+.rolar{overflow-x:auto;-webkit-overflow-scrolling:touch}
+body.modo-adm .ok{display:none!important}
+
+@media (max-width:980px){
+  .hero{min-height:0;max-height:none;align-items:start}
+  .hero .foto{position:relative;width:100%;height:56svh;max-height:560px;grid-row:1}
+  .hero .foto::after{background:linear-gradient(0deg,#0b0b0c 0%,rgba(11,11,12,0) 34%)}
+  .hero .tx{grid-row:2;padding-block:8px 64px;margin-top:-40px}
+  .hero .tx>*{max-width:none}
+  .hero h1{font-size:clamp(2.8rem,11vw,4.6rem)}
+  .numeros .wrap-m{grid-template-columns:1fr 1fr}
+  .numeros div.n4{border-left:0;padding-left:0;border-top:1px solid #26262a}
+  .numeros div.n4:nth-child(-n+2){border-top:0}
+  .sum{grid-template-columns:1fr 1fr}
+  .caso{grid-template-columns:1fr}
+  .caso:nth-child(even) figure{order:0}
+  .caso figure{aspect-ratio:1/1;max-height:520px}
+  .duas-g,.sup,.audios,.casa,.zonas,.bonus,.calc,.gera,.gate,.diag,.alda,.mitos,.msgs{grid-template-columns:1fr}
+  .crm3,.ex,.formula{grid-template-columns:1fr}
+  .formula div:not(:last-child)::after{right:50%;top:auto;bottom:-30px;transform:translateX(50%)}
+  .cal{grid-template-columns:1fr 1fr;min-height:0}
+  .sem{height:auto;min-height:220px}
+  .desafio{grid-template-columns:1fr}
+  .diag figure{min-height:260px}
+  .placar-geral{top:72px}
+  .etp{grid-template-columns:1fr;gap:12px}
+}
+@media (max-width:620px){
+  .lupa{width:120px}
+  .cab{grid-template-columns:1fr;gap:4px}
+  .cab .num{font-size:4.6rem}
+  .sum{grid-template-columns:1fr}
+  .aud{grid-template-columns:repeat(6,1fr)}
+  .calc .ent{grid-template-columns:1fr}
+  .barra-l{grid-template-columns:100px 1fr 44px;font-size:.9rem}
+  .gate .duas{grid-template-columns:1fr}
+  .ok{grid-template-columns:auto 1fr}
+  .ok .btn{grid-column:1/-1}
+  .cal{grid-template-columns:1fr}
+  .placar-geral{grid-template-columns:auto 1fr}
+  .placar-geral button{grid-column:1/-1}
+  .donut-w{grid-template-columns:100px 1fr}.donut-w svg{width:100px;height:100px}
+  .alda-pato{width:60px;right:24px}
+}
+@media print{
+  .admbar,.gate,.ok,.ferr,.diag,[data-newsletter],.nl-banner,.placar-geral button,.play,.zoom,.sum,.lupa,.etq,.dica{display:none!important}
+  .fechado,#conteudo{display:block!important}
+  .rv{opacity:1!important;transform:none!important}
+  .card,.etp,.zona,.caso,.graf{break-inside:avoid}
+  .placar-geral{position:static;box-shadow:none}
+  .hero{min-height:0}.hero .foto{display:none}
+  .faixa,.zona,.sem,.desafio{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+/* seletor de segmento */
+.seg-sec{padding-top:clamp(64px,9vw,120px)}
+.seg-cab{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:20px;margin-bottom:clamp(24px,3vw,40px)}
+.seg-cab h2{margin:0;font-size:clamp(2.4rem,6vw,5.2rem);font-weight:900;letter-spacing:-.055em;line-height:.92;max-width:14ch}
+.seg-cab h2 .leve{display:block}
+.seg-cab p{margin:0;color:var(--muted);max-width:40ch;font-size:1.1rem;line-height:1.55}
+.segs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.sg{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-rows:auto auto 1fr auto;gap:16px;border-radius:32px;padding:clamp(24px,3vw,34px);background:var(--card);border:2px solid var(--line);position:relative;overflow:hidden;transition:transform .25s,border-color .25s,box-shadow .25s;min-height:440px}
+.sg:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(0,0,0,.12)}
+.sg:focus-visible{outline:3px solid var(--verde);outline-offset:3px}
+.sg .ico{width:76px;height:76px;border-radius:22px;display:grid;place-items:center;color:#fff}
+.sg .ico svg{width:40px;height:40px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.sg[data-s="industria"] .ico{background:var(--marinho)}
+.sg[data-s="atacado"] .ico{background:var(--magenta)}
+.sg[data-s="confeccao"] .ico{background:#0b0b0c;color:var(--verde)}
+.sg h3{margin:0;font-size:clamp(2.2rem,3.6vw,3.2rem);font-weight:900;letter-spacing:-.05em;line-height:.95}
+.sg h3 small{display:block;font-size:.34em;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.sg p{margin:0;color:var(--muted);font-size:1.02rem;line-height:1.5}
+.sg ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:8px;align-content:start}
+.sg li{display:flex;gap:10px;align-items:flex-start;font-weight:700;font-size:.98rem;line-height:1.35}
+.sg li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--magenta);flex:none;margin-top:.45em}
+.sg .ir{display:inline-flex;align-items:center;justify-content:space-between;gap:10px;font-weight:900;font-size:1.02rem;border-top:1px solid var(--line);padding-top:16px}
+.sg .ir i.seta{width:44px;height:44px;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;transition:transform .25s}
+.sg:hover .ir i.seta{transform:translateX(4px)}
+.sg .ir i.seta::after{content:"";width:16px;height:16px;background:currentColor;-webkit-mask:var(--ic-seta) center/contain no-repeat;mask:var(--ic-seta) center/contain no-repeat}
+.sg .ok-s{position:absolute;right:22px;top:22px;font-size:.64rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;background:var(--verde);color:#000;padding:8px 12px;border-radius:999px;display:none}
+.sg[aria-pressed="true"]{border-color:var(--verde-txt);box-shadow:0 0 0 4px color-mix(in srgb,var(--verde) 30%,transparent)}
+.sg[aria-pressed="true"] .ok-s{display:block}
+
+/* segmento dentro do formulário */
+.seg-f{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.seg-f label{position:relative;cursor:pointer}
+.seg-f input{position:absolute;opacity:0;inset:0;width:100%!important;height:100%;margin:0;cursor:pointer}
+.seg-f span{display:block;text-align:center;font-weight:800;font-size:.92rem;padding:13px 8px;border-radius:14px;border:2px solid #3a3a40;color:#e4e4e7;transition:background .2s,border-color .2s}
+.seg-f input:checked+span{background:var(--verde);border-color:var(--verde);color:#000}
+.seg-f input:focus-visible+span{box-shadow:0 0 0 4px rgba(0,230,118,.5)}
+.gate .flab{font-size:.68rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#a1a1a8;margin:6px 0 -2px}
+
+/* barra da trilha */
+.trilha-w{position:sticky;top:84px;z-index:8;margin-top:clamp(48px,6vw,72px);pointer-events:none}
+.trilha{pointer-events:auto;background:var(--bg);border:1px solid var(--line);border-radius:22px;padding:10px 12px 10px 20px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;box-shadow:0 12px 30px rgba(0,0,0,.08)}
+.trilha .tt{font-size:.66rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.trilha .tt b{display:block;font-size:1.25rem;letter-spacing:-.02em;text-transform:none;color:var(--fg);font-weight:900;margin-top:2px}
+.trilha .pls{display:flex;flex-wrap:wrap;gap:6px}
+.trilha .pls button{font:inherit;font-weight:800;font-size:.9rem;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:10px 16px;cursor:pointer}
+.trilha .pls button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+
+/* plano de 30 dias: reaproveita .etapas/.etp/.chk/.placar-geral */
+
+/* meu planejamento */
+.plan-v{border:2px dashed var(--line);border-radius:28px;padding:clamp(24px,4vw,44px);text-align:center;color:var(--muted);font-size:1.1rem;line-height:1.55}
+.plan-v b{display:block;color:var(--fg);font-size:1.5rem;letter-spacing:-.03em;margin-bottom:6px}
+.plan-l{display:grid;gap:10px}
+.pl{display:grid;grid-template-columns:44px minmax(0,1.6fr) minmax(0,1fr) 170px 44px;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:14px 16px}
+.pl .i{width:44px;height:44px;border-radius:14px;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-weight:900;font-variant-numeric:tabular-nums}
+.pl b{display:block;font-size:1.1rem;letter-spacing:-.02em;line-height:1.2}
+.pl small{color:var(--muted);font-size:.84rem}
+.pl input{font:inherit;font-size:.98rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 12px;width:100%;outline:none}
+.pl input:focus{border-color:var(--verde-txt)}
+.pl .x{font:inherit;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:none;color:var(--muted);cursor:pointer;font-size:1.1rem}
+.pl .x:hover{color:var(--magenta-txt);border-color:var(--magenta-txt)}
+.plan-acs{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.plan-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.plan-meta div{border-top:3px solid var(--fg);padding-top:12px}
+.plan-meta small{display:block;font-size:.7rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.plan-meta b{display:block;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:900;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.copia{font:inherit;font-weight:800;font-size:.86rem;justify-self:start;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:999px;padding:10px 16px;cursor:pointer}
+
+
+/* ================= CATÁLOGO QUE VENDE ================= */
+/* capa: a folha de contato que vai sendo fotografada */
+.capa{position:relative;background:#0b0b0c;color:#fff;overflow:hidden;isolation:isolate}
+.capa .wrap-m{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center;min-height:calc(100svh - 84px);max-height:980px;padding-block:clamp(48px,8vh,96px)}
+.capa .kick{display:inline-flex;align-items:center;gap:12px;font-size:.74rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:#d4d4d8}
+.capa .kick::before{content:"";width:36px;height:2px;background:var(--verde)}
+.capa h1{margin:20px 0 0;font-size:clamp(3rem,6.4vw,6.6rem);line-height:.88;font-weight:900;letter-spacing:-.055em;text-wrap:balance}
+.capa h1 .leve{display:block;margin-top:.14em;font-size:.6em;line-height:1;font-weight:200;letter-spacing:-.035em;color:var(--verde)}
+.capa .sub{margin:28px 0 0;max-width:44ch;font-size:clamp(1.1rem,1.7vw,1.4rem);line-height:1.5;color:#e4e4e7}
+.capa .sub b{color:#fff}
+.capa .acs{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.capa .acs .btn{font-size:.95rem;padding:16px 26px}
+.capa .acs .btn:not(.verde){color:#fff;border-color:rgba(255,255,255,.55)}
+.capa::before{content:"";position:absolute;z-index:-1;right:-10%;top:-20%;width:70%;height:90%;background:radial-gradient(closest-side,rgba(224,5,94,.28),rgba(224,5,94,0))}
+.capa::after{content:"";position:absolute;z-index:-1;right:5%;bottom:-30%;width:60%;height:70%;background:radial-gradient(closest-side,rgba(0,230,118,.16),rgba(0,230,118,0))}
+.folha-w{position:relative}
+.folha{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(8px,1vw,12px);padding:clamp(14px,2vw,24px);border-radius:28px;background:linear-gradient(180deg,#151518,#0f0f11);border:1px solid #26262a;box-shadow:0 40px 80px rgba(0,0,0,.5);position:relative;overflow:hidden}
+.folha::after{content:"";position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+.folha.flash::after{animation:flash .5s ease-out}
+@keyframes flash{0%{opacity:.55}100%{opacity:0}}
+.qd{aspect-ratio:3/4;border-radius:clamp(8px,1vw,12px);border:1px dashed #3a3a40;position:relative;display:grid;place-items:center;overflow:hidden;transition:background .4s,border-color .4s,transform .4s cubic-bezier(.2,1.4,.4,1)}
+.qd svg{position:absolute;left:20%;top:14%;width:60%!important;height:auto!important;opacity:0;transform:scale(.8);transition:opacity .4s,transform .5s cubic-bezier(.2,1.4,.4,1);fill:currentColor}
+.qd .rot{position:absolute;left:6px;right:6px;bottom:6px;font-size:clamp(.5rem,.72vw,.66rem);font-weight:800;letter-spacing:.12em;text-transform:uppercase;text-align:center;color:#6b6b72;transition:color .3s}
+.qd.ok{border-style:solid;transform:scale(1.02)}
+.qd.ok svg{opacity:1;transform:none}
+.qd.ok .rot{color:#000;background:rgba(255,255,255,.85);border-radius:6px;padding:3px 0}
+.qd.ok.c1{background:#f2f2f4;border-color:#f2f2f4;color:#e0055e}
+.qd.ok.c2{background:#e9ebff;border-color:#e9ebff;color:#2b3384}
+.qd.ok.c3{background:#dcfbea;border-color:#dcfbea;color:#0b0b0c}
+.qd.ok.c4{background:#e0055e;border-color:#e0055e;color:#fff}
+.qd.ok.c5{background:#2b3384;border-color:#2b3384;color:#fff}
+.qd.mira{border-color:var(--verde);border-style:solid}
+.qd.mira::before,.qd.mira::after{content:"";position:absolute;width:18px;height:18px;border:2px solid var(--verde)}
+.qd.mira::before{left:6px;top:6px;border-right:0;border-bottom:0}
+.qd.mira::after{right:6px;top:6px;border-left:0;border-bottom:0}
+.folha-leg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.folha-leg div{background:#141417;border:1px solid #26262a;border-radius:18px;padding:14px 18px}
+.folha-leg small{display:block;font-size:.64rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#a1a1a8}
+.folha-leg b{display:block;margin-top:4px;font-size:clamp(1.4rem,2.6vw,2.2rem);font-weight:900;letter-spacing:-.04em;font-variant-numeric:tabular-nums;line-height:1}
+.folha-leg .p b{color:#ff4d8f}.folha-leg .l b{color:var(--verde)}
+.folha-tag{position:absolute;left:-14px;top:-14px;z-index:2;background:#fff;color:#0b0b0c;font-size:.66rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;padding:9px 14px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.folha-tag i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#e0055e;margin-right:8px;animation:pis 1.2s ease-in-out infinite}
+
+/* ícones das trilhas */
+.sg[data-s="varejo"] .ico{background:var(--magenta)}
+.sg[data-s="personalizado"] .ico{background:var(--marinho)}
+.segs.dois{grid-template-columns:repeat(2,1fr)}
+.seg-f.dois{grid-template-columns:repeat(2,1fr)}
+.sg .foco{font-size:.92rem;line-height:1.45;padding:12px 14px;border-radius:14px;background:var(--soft);color:var(--fg)}
+.sg .foco b{display:block;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+
+/* 01 raio-x */
+.rx{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:16px;align-items:start}
+.rx .card h3{margin:0 0 6px;font-size:clamp(1.5rem,2.4vw,2rem);font-weight:900;letter-spacing:-.03em}
+.rx .card>p{margin:0 0 10px;color:var(--muted)}
+.nota{position:sticky;top:170px;background:#0b0b0c;color:#f5f5f5;border-radius:28px;padding:clamp(24px,3vw,34px);display:grid;gap:16px}
+.nota small{font-size:.7rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#a1a1a8}
+.nota .n{font-size:clamp(4.4rem,9vw,7.4rem);font-weight:900;letter-spacing:-.07em;line-height:.8;font-variant-numeric:tabular-nums}
+.nota .n span{font-size:.36em;font-weight:200;letter-spacing:-.03em;color:#a1a1a8}
+.nota .regua{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.nota .regua i{height:12px;border-radius:999px;background:#26262a;transition:background .3s}
+.nota[data-n="1"] .regua i:nth-child(1){background:#ff4d8f}
+.nota[data-n="2"] .regua i:nth-child(-n+2){background:#8f98ff}
+.nota[data-n="3"] .regua i{background:var(--verde)}
+.nota b.v{font-size:clamp(1.5rem,2.6vw,2.1rem);font-weight:900;letter-spacing:-.035em;line-height:1.05}
+.nota p{margin:0;color:#c4c4ca;line-height:1.55}
+
+/* 02 tipos de foto e vídeo */
+.tipos{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tp{background:var(--card);border:1px solid var(--line);border-radius:30px;padding:clamp(22px,2.6vw,30px);display:grid;grid-template-rows:auto auto auto 1fr auto;gap:14px;position:relative;overflow:hidden}
+.tp .tg{display:flex;justify-content:space-between;align-items:center}
+.tp .tg span{font-size:.64rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;padding:7px 12px;border-radius:999px}
+.tp .tg span.foto{background:var(--marinho);color:#fff}
+.tp .tg span.video{background:var(--magenta);color:#fff}
+.tp .tg b{font-size:2.6rem;font-weight:100;letter-spacing:-.06em;line-height:.8;font-variant-numeric:tabular-nums}
+.tp h3{margin:0;color:var(--fg);font-size:clamp(1.5rem,2.4vw,2rem);font-weight:900;letter-spacing:-.04em;line-height:1}
+.tp>p{margin:0;color:var(--muted);line-height:1.55;font-size:1.02rem}
+.tp .pq{font-size:.95rem;line-height:1.5;padding:12px 14px;border-radius:14px;background:var(--soft)}
+.tp .pq b{display:block;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.tp ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;align-content:start}
+.tp li{display:grid;grid-template-columns:18px 1fr;gap:10px;font-size:.98rem;line-height:1.45}
+.tp li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--verde-txt);margin-top:.5em}
+.tp .qt{display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-top:1px solid var(--line);padding-top:14px}
+.tp .qt b{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.tp .qt span{font-weight:900;font-size:1.05rem;letter-spacing:-.02em}
+.tp .rg{font-size:.92rem;font-weight:800;line-height:1.4;color:var(--magenta-txt)}
+
+/* 03 gerador da lista de fotos */
+.lista-g{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:16px;align-items:start}
+.lista-g .ent{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start}
+.lista-g label.n{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px 20px;display:grid;gap:8px;font-size:.92rem;font-weight:800}
+.lista-g label.n small{font-weight:600;color:var(--muted);font-size:.84rem}
+.lista-g label.n input{font:inherit;font-size:2rem;font-weight:300;letter-spacing:-.03em;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--fg);padding:4px 0;width:100%;outline:none}
+.lista-g fieldset{grid-column:1/-1;border:1px solid var(--line);border-radius:22px;padding:16px 18px;margin:0;background:var(--card)}
+.lista-g legend{font-size:.7rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);padding:0 6px}
+.pls2{display:flex;flex-wrap:wrap;gap:8px}
+.pls2 button{font:inherit;font-size:.95rem;font-weight:700;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:999px;padding:10px 15px;cursor:pointer}
+.pls2 button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.lista-o{background:#0b0b0c;color:#f5f5f5;border-radius:28px;padding:clamp(24px,3vw,34px);display:grid;gap:20px;align-content:start;position:sticky;top:170px}
+.lista-o small.k{font-size:.7rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#a1a1a8}
+.lista-o .tot{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.lista-o .tot output{display:block;font-size:clamp(2.2rem,4.6vw,3.4rem);font-weight:900;letter-spacing:-.05em;font-variant-numeric:tabular-nums;line-height:1}
+.lista-o .tot .f output{color:#8f98ff}.lista-o .tot .v output{color:#ff4d8f}.lista-o .tot .h output{color:var(--verde)}
+.bk{display:grid;gap:8px}
+.bk div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;align-items:center;font-size:.98rem}
+.bk div span small{display:block;color:#a1a1a8;font-size:.82rem;margin-top:2px}
+.bk div b{font-size:1.25rem;font-variant-numeric:tabular-nums}
+.bk div i{grid-column:1/-1;height:6px;border-radius:999px;background:#1c1c20;overflow:hidden}
+.bk div i em{display:block;height:100%;border-radius:999px;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.lista-o .v2{margin:0;font-size:1.02rem;line-height:1.55;color:#e4e4e7;border-top:1px solid #2a2a2e;padding-top:16px}
+.lista-o .v2 b{color:#fff}
+.lista-o .btns{display:flex;flex-wrap:wrap;gap:10px}
+.lista-o .btns .btn{color:#f5f5f5;border-color:rgba(245,245,245,.5);font-size:.92rem;padding:14px 20px}
+.lista-o .btns .btn.verde{color:#000;border-color:var(--verde)}
+.porprod{margin-top:16px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.porprod .card h3{margin:0 0 10px;font-size:1.4rem;font-weight:900;letter-spacing:-.03em}
+.porprod .card>p{margin:0 0 12px;color:var(--muted)}
+.arq{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92rem;background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:14px 16px;line-height:1.8;word-break:break-all}
+.arq b{color:var(--magenta-txt)}
+
+/* 04 estrutura página a página */
+.pags{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;counter-reset:pg}
+.pg{aspect-ratio:3/4.2;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 16px 14px;display:grid;grid-template-rows:auto auto 1fr;gap:8px;position:relative;box-shadow:6px 6px 0 var(--soft);transition:transform .25s,box-shadow .25s}
+.pg:hover{transform:translateY(-4px) rotate(-.6deg);box-shadow:10px 10px 0 var(--soft)}
+.pg .pn{font-size:.62rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between}
+.pg h4{margin:0;color:inherit;font-size:1.18rem;font-weight:900;letter-spacing:-.03em;line-height:1.05}
+.pg ul{margin:0;padding:0;list-style:none;display:grid;gap:5px;align-content:start;font-size:.86rem;line-height:1.35;color:var(--muted)}
+.pg ul li::before{content:"— ";color:var(--verde-txt);font-weight:900}
+.pg.cor{background:#0b0b0c;color:#f5f5f5;border-color:#0b0b0c}
+.pg.cor ul{color:#c4c4ca}.pg.cor .pn{color:#a1a1a8}
+.pg.mg{background:var(--magenta);color:#fff;border-color:var(--magenta)}
+.pg.mg ul{color:#ffe0ec}.pg.mg .pn{color:#ffd0e2}.pg.mg ul li::before{color:#fff}
+.pg .chave{position:absolute;right:12px;top:-10px;background:var(--verde);color:#000;font-size:.56rem;font-weight:900;letter-spacing:.18em;text-transform:uppercase;padding:5px 9px;border-radius:999px}
+
+/* 05 ficha e 06 case: gerador com prévia */
+.gp{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px;align-items:start}
+.gp .campos{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-content:start}
+.gp .campos label{display:grid;gap:6px;font-size:.84rem;font-weight:800;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 14px}
+.gp .campos label.l2{grid-column:1/-1}
+.gp .campos label small{font-weight:600;color:var(--muted)}
+.gp .campos input,.gp .campos textarea{font:inherit;font-size:1.02rem;font-weight:500;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--fg);padding:4px 0;width:100%;outline:none;resize:vertical}
+.gp .campos input:focus,.gp .campos textarea:focus{border-bottom-color:var(--verde-txt)}
+.gp .prev-w{position:sticky;top:170px;display:grid;gap:12px}
+.gp .prev-w .k{font-size:.7rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.gp .acs2{display:flex;flex-wrap:wrap;gap:10px}
+/* prévia da ficha */
+.prod{background:#fff;color:#0b0b0c;border-radius:26px;overflow:hidden;display:grid;grid-template-columns:1.05fr 1fr;box-shadow:0 30px 60px rgba(0,0,0,.14);border:1px solid #e9e9ec}
+.prod .fts{display:grid;grid-template-rows:1fr auto;gap:6px;padding:12px;background:#f2f2f4}
+.prod .fts .pri{border-radius:16px;background:linear-gradient(160deg,#e9ebff,#fbe3ee);display:grid;place-items:center;min-height:250px;position:relative}
+.prod .fts .pri svg{width:52%!important;height:auto!important;fill:var(--marinho);opacity:.9}
+.prod .fts .pri span,.prod .fts .min span{position:absolute;left:10px;bottom:10px;font-size:.56rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;background:#fff;padding:4px 8px;border-radius:6px}
+.prod .fts .min{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.prod .fts .min div{aspect-ratio:1;border-radius:10px;background:#e4e4e7;position:relative}
+.prod .fts .min div:nth-child(2){background:#dcfbea}.prod .fts .min div:nth-child(3){background:#2b3384}
+.prod .fts .min span{left:4px;bottom:4px;font-size:.46rem;padding:3px 5px}
+.prod .inf{padding:20px 20px 18px;display:grid;gap:10px;align-content:start}
+.prod .inf .cod{font-size:.62rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#6b6b72}
+.prod .inf h4{margin:0;font-size:1.5rem;font-weight:900;letter-spacing:-.035em;line-height:1.02}
+.prod .inf .ben{margin:0;font-size:.95rem;line-height:1.45;color:#3a3a40}
+.prod .inf .pr{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline}
+.prod .inf .pr b{font-size:1.7rem;font-weight:900;letter-spacing:-.04em;color:#e0055e}
+.prod .inf .pr small{font-size:.82rem;color:#6b6b72;font-weight:700}
+.prod .chips{display:flex;flex-wrap:wrap;gap:5px}
+.prod .chips span{font-size:.74rem;font-weight:800;border:1px solid #d4d4d8;border-radius:999px;padding:4px 9px}
+.prod dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:.84rem;line-height:1.35}
+.prod dt{font-weight:800;color:#6b6b72}
+.prod dd{margin:0}
+.prod .cta{margin-top:4px;background:var(--verde);color:#000;font-weight:900;font-size:.88rem;border-radius:12px;padding:11px 12px;text-align:center}
+/* prévia do case */
+.cs{background:#0b0b0c;color:#f5f5f5;border-radius:26px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.2)}
+.cs .top{padding:24px 26px 18px;background:linear-gradient(120deg,#2b3384,#0b0b0c 70%);display:grid;gap:10px}
+.cs .top .k2{font-size:.62rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--verde)}
+.cs .top h4{margin:0;color:#fff;font-size:clamp(1.5rem,2.6vw,2.1rem);font-weight:900;letter-spacing:-.04em;line-height:1.02}
+.cs .top p{margin:0;color:#c4c4ca;font-size:.92rem}
+.cs .fotos3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:0 26px}
+.cs .fotos3 div{aspect-ratio:4/3;border-radius:10px;background:#1c1c20;border:1px dashed #3a3a40;display:grid;place-items:center;font-size:.54rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#6b6b72;text-align:center;padding:4px}
+.cs .blk{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:18px 26px}
+.cs .blk div{border-top:3px solid #3a3a40;padding-top:10px;display:grid;gap:4px;align-content:start}
+.cs .blk div:nth-child(1){border-color:#ff4d8f}.cs .blk div:nth-child(2){border-color:#8f98ff}.cs .blk div:nth-child(3){border-color:var(--verde)}
+.cs .blk small{font-size:.6rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#a1a1a8}
+.cs .blk p{margin:0;font-size:.9rem;line-height:1.45;color:#e4e4e7}
+.cs .blk .num{font-size:1.6rem;font-weight:900;letter-spacing:-.04em;color:var(--verde);line-height:1}
+.cs blockquote{margin:0 26px 22px;padding:16px 18px;border-left:4px solid var(--verde);background:#141417;border-radius:0 14px 14px 0;font-size:1rem;line-height:1.55;font-style:italic}
+.cs blockquote cite{display:block;margin-top:8px;font-style:normal;font-size:.8rem;font-weight:800;color:#a1a1a8}
+.fusao{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}
+.fusao div{border-radius:24px;padding:22px 24px;display:grid;gap:8px;align-content:start}
+.fusao div:nth-child(1){background:var(--soft);border:1px solid var(--line)}
+.fusao div:nth-child(2){background:var(--marinho);color:#f5f5f5}
+.fusao div:nth-child(3){background:var(--verde);color:#000}
+.fusao small{font-size:.64rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;opacity:.75}
+.fusao b{font-size:1.3rem;font-weight:900;letter-spacing:-.03em;line-height:1.15}
+.fusao p{margin:0;line-height:1.5;font-size:.98rem}
+.vazio-dica{font-size:.84rem;color:var(--muted);margin:0}
+
+/* erros */
+.prev{list-style:none;margin:clamp(32px,4vw,48px) 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.prev li{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:22px 24px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;font-weight:800;font-size:clamp(1.08rem,1.6vw,1.3rem);line-height:1.35;letter-spacing:-.015em}
+.prev li span{font-size:.7rem;font-weight:800;letter-spacing:.2em;color:var(--verde);padding-top:5px}
+/* 07 formato e envio */
+.fmts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.fmt{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:22px 22px 20px;display:grid;grid-template-rows:auto auto 1fr auto;gap:10px}
+.fmt .ic2{width:52px;height:52px;border-radius:16px;background:#0b0b0c;color:var(--verde);display:grid;place-items:center}
+.fmt .ic2 svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.fmt h4{margin:0;font-size:1.3rem;font-weight:900;letter-spacing:-.03em}
+.fmt ul{margin:0;padding:0;list-style:none;display:grid;gap:7px;font-size:.95rem;line-height:1.45;color:var(--muted)}
+.fmt ul li::before{content:"✓ ";color:var(--verde-txt);font-weight:900}
+.fmt .q{font-size:.86rem;line-height:1.4;padding:10px 12px;border-radius:12px;background:var(--soft)}
+.fmt .q b{display:block;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.regra90{margin-top:16px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;background:#0b0b0c;color:#f5f5f5;border-radius:24px;padding:22px 26px}
+.regra90 b{font-size:clamp(2.4rem,4vw,3.4rem);font-weight:900;letter-spacing:-.06em;color:var(--verde);line-height:.9}
+.regra90 p{margin:0;font-size:1.08rem;font-weight:500;letter-spacing:0;line-height:1.55;color:#e4e4e7}
+.regra90 p strong{color:#fff}
+
+@media (max-width:980px){
+  .capa .wrap-m{grid-template-columns:1fr;min-height:0;max-height:none}
+  .folha-w{max-width:560px}
+  .segs.dois,.rx,.tipos,.lista-g,.porprod,.gp,.fusao,.prev{grid-template-columns:1fr}
+  .tipos{grid-template-columns:1fr 1fr}
+  .sg{min-height:0}
+  .pags{grid-template-columns:repeat(3,1fr)}
+  .fmts{grid-template-columns:1fr 1fr}
+  .trilha-w{top:72px}
+  .nota,.lista-o,.gp .prev-w{position:static}
+  .pl{grid-template-columns:44px 1fr 44px}
+}
+@media (max-width:620px){
+  .tipos,.fmts,.gp .campos,.lista-g .ent{grid-template-columns:1fr}
+  .pags{grid-template-columns:1fr 1fr}
+  .pg{aspect-ratio:auto;min-height:220px}
+  .seg-f.dois{grid-template-columns:1fr}
+  .folha-tag{left:8px}
+  .trilha{padding:8px;justify-content:center;border-radius:18px}
+  .trilha .tt{display:none}
+  .trilha .pls button{font-size:.84rem;padding:9px 13px}
+  .prod{grid-template-columns:1fr}
+  .cs .blk{grid-template-columns:1fr}
+  .lista-o .tot{grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .regra90{grid-template-columns:1fr}
+}
+@media print{
+  .capa .folha-w,.capa .acs,.seg-sec,.trilha-w,.lista-o .btns,.gp .acs2,.copia{display:none!important}
+  .capa .wrap-m{min-height:0;grid-template-columns:1fr}
+  .tp,.pg,.fmt,.etp,.prod,.cs{break-inside:avoid}
+  .lista-o,.nota,.cs,.faixa,.pg.cor,.pg.mg,.fusao div{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .nota,.lista-o,.gp .prev-w{position:static}
+}
+
+/* ================= CATÁLOGO COM IA ================= */
+.troca{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:clamp(14px,2vw,22px);border-radius:28px;background:linear-gradient(180deg,#151518,#0f0f11);border:1px solid #26262a;box-shadow:0 40px 80px rgba(0,0,0,.5)}
+.chat{background:#1b1b1f;border:1px solid #2a2a2e;border-radius:20px;padding:14px;display:grid;gap:10px;align-content:start;min-height:320px}
+.chat .eu{justify-self:end;max-width:92%;background:#2b3384;color:#fff;border-radius:16px 16px 4px 16px;padding:12px 14px;font-size:clamp(.72rem,.95vw,.86rem);line-height:1.45;min-height:3em}
+.chat .eu .cur{display:inline-block;width:2px;height:1em;background:var(--verde);vertical-align:-2px;margin-left:2px;animation:pis 1s steps(1) infinite}
+.chat .anexo{justify-self:end;display:flex;gap:8px;align-items:center;font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#a1a1a8;background:#141417;border:1px dashed #3a3a40;border-radius:12px;padding:8px 10px}
+.chat .anexo i{width:22px;height:22px;border-radius:6px;background:#c9b8a3;display:block}
+.chat .ia{justify-self:start;font-size:.66rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--verde)}
+.quadro{border-radius:20px;position:relative;overflow:hidden;min-height:320px;display:grid;place-items:center;transition:background .8s}
+.quadro svg{position:absolute;left:22%;top:22%;width:56%!important;height:auto!important;fill:#e0055e;transition:transform .8s cubic-bezier(.2,1.4,.4,1),filter .8s}
+.quadro .etq2{position:absolute;left:10px;right:10px;bottom:10px;background:rgba(255,255,255,.92);color:#0b0b0c;border-radius:10px;padding:8px 10px;font-size:.66rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase;text-align:center}
+.quadro[data-f="0"]{background:repeating-linear-gradient(115deg,#8c7b68 0 18px,#7a6a58 18px 36px)}
+.quadro[data-f="0"] svg{transform:rotate(-8deg) scale(.86);filter:brightness(.7) saturate(.6)}
+.quadro[data-f="1"]{background:radial-gradient(circle at 50% 45%,#ffffff,#e9e9ec)}
+.quadro[data-f="2"]{background:linear-gradient(180deg,#ffd9a8 0%,#f7a46b 45%,#5a3b2e 46%,#3a2a22 100%)}
+.quadro[data-f="2"] svg{transform:scale(1.06)}
+.quadro[data-f="3"]{background:linear-gradient(160deg,#e9ebff,#dcfbea)}
+.quadro[data-f="3"] svg{fill:#2b3384}
+.troca .rodape{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.troca .rodape span{height:6px;border-radius:999px;background:#26262a;transition:background .4s}
+.troca .rodape span.on{background:var(--verde)}
+
+/* 01 qual IA para quê */
+.ias{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.ia-c{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:22px 20px;display:grid;grid-template-rows:auto auto auto 1fr auto;gap:10px}
+.ia-c .lg{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-weight:900;font-size:1.3rem;color:#fff}
+.ia-c h3{margin:0;font-size:1.35rem;font-weight:900;letter-spacing:-.03em;color:var(--fg)}
+.ia-c .p{font-size:.64rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.ia-c ul{margin:0;padding:0;list-style:none;display:grid;gap:7px;font-size:.95rem;line-height:1.45;color:var(--muted)}
+.ia-c ul li::before{content:"✓ ";color:var(--verde-txt);font-weight:900}
+.ia-c ul li.nao::before{content:"✕ ";color:var(--magenta-txt)}
+.ia-c .como{font-size:.86rem;line-height:1.45;padding:10px 12px;border-radius:12px;background:var(--soft)}
+.ia-c .como b{display:block;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.ia-c.claude{background:#0b0b0c;color:#f5f5f5;border-color:#0b0b0c}
+.ia-c.claude h3{color:#fff}.ia-c.claude ul{color:#c4c4ca}.ia-c.claude .como{background:#1c1c20}
+.aviso{margin-top:14px;font-size:.92rem;color:var(--muted);line-height:1.5}
+
+/* 02 foto base */
+.base{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.base .card h3{margin:0 0 10px;font-size:1.5rem;font-weight:900;letter-spacing:-.03em}
+.base .card>p{margin:0 0 12px;color:var(--muted)}
+.angs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:6px}
+.angs div{aspect-ratio:3/4;border-radius:14px;background:var(--soft);border:1px solid var(--line);display:grid;place-items:center;position:relative}
+.angs svg{width:52%!important;height:auto!important;fill:var(--marinho)}
+.angs div:nth-child(2) svg{transform:scaleX(-1);opacity:.8}
+.angs div:nth-child(3) svg{transform:scaleX(.55)}
+.angs div:nth-child(4) svg{width:30%!important}
+.angs span{position:absolute;bottom:6px;left:6px;right:6px;text-align:center;font-size:.56rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+/* 03 e 05 cartões de prompt */
+.prompts{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:clamp(20px,2.6vw,28px);display:grid;gap:12px;align-content:start}
+.pc .hd{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.pc .hd b{font-size:2.2rem;font-weight:100;letter-spacing:-.06em;line-height:.8;font-variant-numeric:tabular-nums}
+.pc .tgs{display:flex;flex-wrap:wrap;gap:6px}
+.pc .tgs span{font-size:.6rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:6px 10px;border-radius:999px;background:var(--soft);border:1px solid var(--line)}
+.pc .tgs span.v{background:var(--magenta);border-color:var(--magenta);color:#fff}
+.pc .tgs span.f{background:var(--marinho);border-color:var(--marinho);color:#fff}
+.pc h3{margin:0;font-size:clamp(1.4rem,2.2vw,1.8rem);font-weight:900;letter-spacing:-.035em;line-height:1.05;color:var(--fg)}
+.pc>p{margin:0;color:var(--muted);line-height:1.5}
+.pc .prompt{margin:0;padding:16px 18px;background:#0b0b0c;color:#e4e4e7;border-radius:18px;font-size:.95rem;line-height:1.6;white-space:pre-line;position:relative}
+.pc .prompt mark{background:rgba(0,230,118,.18);color:var(--verde);border-radius:4px;padding:0 3px}
+.pc .dp{font-size:.9rem;line-height:1.5;padding:12px 14px;border-radius:14px;background:var(--soft)}
+.pc .dp b{display:block;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.pc .dp ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.pc .al{font-size:.9rem;font-weight:800;line-height:1.4;color:var(--magenta-txt);margin:0}
+.pc .copia{justify-self:start}
+
+/* 04 gerador de prompt */
+.gpr{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px;align-items:start}
+.gpr .campos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gpr .campos label{display:grid;gap:6px;font-size:.84rem;font-weight:800;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 14px}
+.gpr .campos label.l2{grid-column:1/-1}
+.gpr .campos label small{font-weight:600;color:var(--muted)}
+.gpr .campos input,.gpr .campos select{font:inherit;font-size:1.02rem;font-weight:500;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--fg);padding:4px 0;width:100%;outline:none}
+.gpr .campos select option{color:#000}
+.gpr .saida{position:sticky;top:170px;background:var(--verde);color:#000;border-radius:28px;padding:clamp(22px,3vw,32px);display:grid;gap:14px}
+.gpr .saida .k{font-size:.7rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase}
+.gpr .saida h3{margin:0;font-size:1.5rem;font-weight:900;letter-spacing:-.03em;color:#000}
+.gpr .saida blockquote{margin:0;padding:18px 20px;background:#fff;border-radius:18px;line-height:1.6;font-size:1rem;white-space:pre-line}
+.gpr .saida .onde{font-size:.92rem;font-weight:700;line-height:1.45}
+.gpr .saida .btn{background:#000;color:#fff;border-color:#000;justify-self:start}
+
+/* 06 Claude */
+.cl-cab{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;background:#0b0b0c;color:#f5f5f5;border-radius:26px;padding:22px 26px;margin-bottom:16px}
+.cl-cab b{font-size:clamp(1.4rem,2.6vw,2rem);font-weight:900;letter-spacing:-.035em;line-height:1.05}
+.cl-cab p{margin:0;color:#c4c4ca;line-height:1.55}
+.cl-cab p a{color:var(--verde)}
+
+/* volta para o catálogo */
+.volta{margin-top:clamp(80px,11vw,150px);display:grid;grid-template-columns:minmax(0,1.2fr) auto;gap:24px;align-items:center;border:2px solid var(--fg);border-radius:32px;padding:clamp(24px,4vw,44px)}
+.volta h2{margin:0 0 10px;font-size:clamp(2rem,4.4vw,3.4rem);font-weight:900;letter-spacing:-.05em;line-height:.95}
+.volta h2 .leve{display:block}
+.volta p{margin:0;color:var(--muted);max-width:52ch;line-height:1.55}
+
+@media (max-width:980px){
+  .troca{max-width:560px}
+  .ias{grid-template-columns:1fr 1fr}
+  .base,.prompts,.gpr,.volta{grid-template-columns:1fr}
+  .gpr .saida{position:static}
+}
+@media (max-width:620px){
+  .ias,.gpr .campos{grid-template-columns:1fr}
+  .chat,.quadro{min-height:240px}
+  .cl-cab{grid-template-columns:1fr}
+}
+@media print{
+  .troca,.gpr .saida .btn{display:none!important}
+  .pc,.ia-c{break-inside:avoid}
+  .pc .prompt,.gpr .saida,.ia-c.claude,.cl-cab{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body class="leitura">
+<script src="/assets/casco.js"></script>
+<main>
+
+<!-- ============ CAPA ============ -->
+<section class="capa" id="topo" aria-label="Capa">
+  <div class="wrap-m">
+    <div class="tx">
+      <span class="kick">Manual · Catálogo com IA</span>
+      <h1>Sem estúdio, sem fotógrafo. <span class="leve">Com o celular e a IA certa.</span></h1>
+      <p class="sub">Qual IA usar para cada foto e vídeo, a foto base que você mesmo tira, <b>prompts prontos para copiar no Gemini, no ChatGPT e na Meta AI</b>, um gerador de prompt e o checklist para não publicar imagem que engana o cliente.</p>
+      <div class="acs"><a class="btn verde" href="#segmento">Escolher minha trilha <i class="ic" style="--i:var(--ic-seta)"></i></a><a class="btn" href="#liberar">Liberar o manual</a></div>
+    </div>
+    <div class="troca" aria-hidden="true">
+      <div class="chat">
+        <span class="anexo"><i></i>foto-do-celular.jpg</span>
+        <div class="eu" id="cap-txt"><span class="cur"></span></div>
+        <span class="ia" id="cap-ia">IA trabalhando…</span>
+      </div>
+      <div class="quadro" id="cap-q" data-f="0"><svg viewBox="0 0 24 24"><path d="M15 4l6 2v5h-3v9H6v-9H3V6l6-2a3 3 0 0 0 6 0z"/></svg><span class="etq2" id="cap-e">Foto do celular</span></div>
+      <div class="rodape"><span class="on"></span><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</section>
+
+<section class="numeros" aria-label="O que tem no manual">
+  <div class="wrap-m">
+    <div class="n4 c3"><b>5</b><small>ferramentas explicadas: o que cada IA faz e o que não faz</small></div>
+    <div class="n4 c2"><b>12</b><small>prompts de foto e vídeo prontos para copiar, por trilha</small></div>
+    <div class="n4 c1"><b>1</b><small>gerador de prompt com o seu produto, cor e cenário</small></div>
+    <div class="n4 c4"><b>7</b><small>passos, da foto no celular ao catálogo publicado</small></div>
+  </div>
+</section>
+
+<div class="wrap-m">
+
+<!-- ============ SELETOR ============ -->
+<section class="seg-sec" id="segmento" aria-labelledby="seg-t">
+  <div class="seg-cab">
+    <h2 id="seg-t">O que você <span class="leve">vende?</span></h2>
+    <p>A IA trabalha diferente para produto pronto e para produto personalizado. Escolha a sua trilha e os prompts abrem do jeito certo.</p>
+  </div>
+  <div class="segs dois">
+    <button class="sg" type="button" data-s="varejo" aria-pressed="false">
+      <span class="ok-s">Escolhido</span>
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></span>
+      <h3><small>Trilha 01</small>Varejo e e-commerce</h3>
+      <ul><li>Foto do celular virando foto de estúdio</li><li>A sua peça vestida em modelo, em vários ângulos</li><li>Foto conceito, capa e vídeo 360° a partir da foto</li></ul>
+      <div class="foco"><b>O cuidado</b>A peça tem que sair idêntica: cor, tecido, estampa e caimento.</div>
+      <span class="ir">Abrir a trilha do varejo <i class="seta"></i></span>
+    </button>
+    <button class="sg" type="button" data-s="personalizado" aria-pressed="false">
+      <span class="ok-s">Escolhido</span>
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M15 4l6 2v5h-3v8a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-8H3V6l6-2a3 3 0 0 0 6 0"/><path d="M10 12h4"/></svg></span>
+      <h3><small>Trilha 02</small>Personalizado e uniformes</h3>
+      <ul><li>Modelo base em fundo de estúdio</li><li>Simulação com a logo do cliente para o orçamento</li><li>Equipe uniformizada no ambiente de cada nicho</li></ul>
+      <div class="foco"><b>O cuidado</b>Simulação é simulação. Case e acabamento são sempre foto real.</div>
+      <span class="ir">Abrir a trilha do personalizado <i class="seta"></i></span>
+    </button>
+  </div>
+</section>
+
+<!-- ============ CADASTRO ============ -->
+<div class="porta">
+  <div class="gate" id="liberar">
+    <div>
+      <span class="spaced">Exclusivo para cadastrados · gratuito</span>
+      <h2>Libere o manual <span class="leve" id="g-seg">da sua trilha.</span></h2>
+      <p>Preencha e tudo abre aqui mesmo: é só copiar os prompts e colar na IA, no celular ou no computador. Você pode trocar de trilha quando quiser.</p>
+      <ul>
+        <li>Qual IA usar para cada foto e vídeo</li>
+        <li>Como tirar a foto base no celular</li>
+        <li>Prompts de foto e vídeo prontos para copiar</li>
+        <li>Gerador de prompt com o seu produto</li>
+        <li>Checklist para não publicar imagem errada</li>
+      </ul>
+    </div>
+    <form id="f-lib" novalidate>
+      <p class="ftit">Seus dados</p>
+      <p class="flab">Sua trilha</p>
+      <div class="seg-f dois" role="radiogroup" aria-label="Sua trilha">
+        <label><input type="radio" name="segmento" value="varejo"><span>Varejo e e-commerce</span></label>
+        <label><input type="radio" name="segmento" value="personalizado"><span>Personalizado e uniformes</span></label>
+      </div>
+      <div class="duas">
+        <input name="nome" autocomplete="name" placeholder="Seu nome" aria-label="Seu nome" maxlength="80" required>
+        <input name="empresa" autocomplete="organization" placeholder="Empresa" aria-label="Empresa" maxlength="80" required>
+      </div>
+      <input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="WhatsApp com DDD" aria-label="WhatsApp com DDD" maxlength="30" required>
+      <input name="email" type="email" autocomplete="email" placeholder="Seu melhor e-mail" aria-label="Seu e-mail" maxlength="120" required>
+      <input class="isca" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label class="aceite"><input type="checkbox" name="aceite" required><span>Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a <a href="/privacidade/" target="_blank" rel="noopener">Política de Privacidade</a>. Posso cancelar quando quiser.</span></label>
+      <button type="submit">Liberar o manual <i class="ic" style="--i:var(--ic-seta)"></i></button>
+      <p class="msg" role="status" aria-live="polite"></p>
+    </form>
+    <div class="tres-i" aria-hidden="true"><div class="I"></div><div class="I"></div><div class="I"></div></div>
+  </div>
+  <p class="nl-banner">Quem libera o manual entra automaticamente na newsletter Unique. Cancele quando quiser, com um clique.</p>
+
+  <div class="ok" role="status" aria-live="polite">
+    <div class="selo"></div>
+    <div>
+      <b id="ok-t">Manual liberado!</b>
+      <p id="ok-p">E você já está na newsletter Unique: cada post novo do blog chega direto no seu e-mail.</p>
+      <span class="nl-tag"><i></i>Newsletter Unique · inscrição ativa</span>
+    </div>
+    <a class="btn" href="#ias">Começar <i class="ic" style="--i:var(--ic-seta)"></i></a>
+  </div>
+</div>
+
+</div><!-- /wrap-m -->
+
+<div class="fechado">
+<div class="trilha-w"><div class="wrap-m">
+  <div class="trilha" role="group" aria-label="Trilha">
+    <span class="tt">Você está na trilha<b id="t-nome">Varejo e e-commerce</b></span>
+    <div class="pls">
+      <button type="button" data-t="varejo" aria-pressed="false">Varejo e e-commerce</button>
+      <button type="button" data-t="personalizado" aria-pressed="false">Personalizado</button>
+    </div>
+  </div>
+</div></div>
+<div class="wrap-m">
+
+  <nav class="sum" aria-label="Neste manual">
+    <a href="#ias"><b>01</b><span>Qual IA para quê</span></a>
+    <a href="#base"><b>02</b><span>A foto base no celular</span></a>
+    <a href="#foto"><b>03</b><span>Prompts de foto</span></a>
+    <a href="#gerador"><b>04</b><span>Gerador de prompt</span></a>
+    <a href="#video"><b>05</b><span>Prompts de vídeo</span></a>
+    <a href="#claude"><b>06</b><span>Claude: textos e prompts</span></a>
+    <a href="#conferir"><b>07</b><span>Conferir antes de publicar</span></a>
+    <a href="#passos"><b>08</b><span>Passo a passo</span></a>
+  </nav>
+
+  <!-- 01 -->
+  <section class="sec" id="ias">
+    <div class="cab"><span class="num">01</span><div><span class="k">Qual IA para quê</span><h2>Cada ferramenta <span class="leve">tem um trabalho.</span></h2></div></div>
+    <p class="lead">Ninguém precisa dominar todas. <strong>Escolha uma para imagem, uma para texto e um editor de vídeo</strong>, e use sempre as mesmas: o resultado fica com a mesma cara do começo ao fim do catálogo.</p>
+    <div class="ias" id="ias-l"></div>
+    <p class="aviso">Planos, limites e nomes de recursos mudam com frequência. Na data deste manual, gerar vídeo no Gemini é recurso dos planos pagos, e os recursos da Meta AI variam de conta para conta no Brasil. Se um botão não aparecer, é o plano ou a conta, não você.</p>
+  </section>
+
+  <!-- 02 -->
+  <section class="sec" id="base">
+    <div class="cab"><span class="num">02</span><div><span class="k">A foto base no celular</span><h2>A IA só é tão boa <span class="leve">quanto a foto que recebe.</span></h2></div></div>
+    <p class="lead">Nunca peça para a IA inventar a sua peça. <strong>Ela parte de uma foto real, tirada por você</strong>, e só troca o que está em volta. Cinco minutos por produto resolvem.</p>
+    <div class="base">
+      <div class="card rv">
+        <h3>Como tirar a foto base</h3>
+        <p id="b-p"></p>
+        <ul class="chk" id="b-chk"></ul>
+      </div>
+      <div class="card rv">
+        <h3 id="b-a-t">Os ângulos de cada peça</h3>
+        <p id="b-a-p"></p>
+        <div class="angs" id="b-angs"></div>
+        <h3 style="margin-top:22px">O que mandar junto</h3>
+        <ul class="chk" id="b-junto"></ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="faixa ink" aria-label="A regra">
+  <div class="wrap-m">
+    <p class="grita">A IA muda o cenário. <span class="leve">Nunca muda a peça.</span></p>
+    <p class="apoio">Se o cliente recebe uma cor, um tecido ou um bordado diferente do que viu, o problema não é a IA: é propaganda enganosa pelo Código de Defesa do Consumidor, e vira troca, devolução e reclamação. Use IA para fundo, modelo, cenário e movimento. A peça, o acabamento e o case são sempre de verdade.</p>
+    <div class="tres-i" aria-hidden="true"><div class="I"></div><div class="I"></div><div class="I"></div></div>
+  </div>
+</section>
+
+<div class="wrap-m">
+  <!-- 03 -->
+  <section class="sec" id="foto">
+    <div class="cab"><span class="num">03</span><div><span class="k">Prompts de foto</span><h2>Anexe a foto, <span class="leve">cole o prompt.</span></h2></div></div>
+    <p class="lead">Troque só o que está <strong>destacado em verde</strong>. Mande sempre a foto base junto e faça um pedido por vez: primeiro o fundo, depois a modelo, depois o cenário.</p>
+    <div class="prompts" id="p-foto"></div>
+  </section>
+
+  <!-- 04 -->
+  <section class="sec" id="gerador">
+    <div class="cab"><span class="num">04</span><div><span class="k">Gerador de prompt</span><h2>O prompt com <span class="leve">o seu produto.</span></h2></div></div>
+    <p class="lead">Preencha uma vez e escolha o tipo de foto. <strong>O prompt sai pronto para copiar</strong>, com as travas que impedem a IA de mexer na peça.</p>
+    <div class="gpr">
+      <div class="campos" id="g-campos"></div>
+      <div class="saida" aria-live="polite">
+        <span class="k">Seu prompt</span>
+        <h3 id="g-tit"></h3>
+        <blockquote id="g-out"></blockquote>
+        <p class="onde" id="g-onde"></p>
+        <button class="btn" type="button" id="g-cop">Copiar prompt</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="sec" id="video">
+    <div class="cab"><span class="num">05</span><div><span class="k">Prompts de vídeo</span><h2>Da foto pronta <span class="leve">ao vídeo de 8 segundos.</span></h2></div></div>
+    <p class="lead" id="v-lead"></p>
+    <div class="prompts" id="p-video"></div>
+  </section>
+
+  <!-- 06 -->
+  <section class="sec" id="claude">
+    <div class="cab"><span class="num">06</span><div><span class="k">Claude: textos e prompts</span><h2>O Claude não desenha. <span class="leve">Ele escreve e organiza.</span></h2></div></div>
+    <div class="cl-cab rv"><b>Claude não gera imagem nem vídeo.</b><p>Ele é a IA de texto e de organização: transforma a sua planilha em fichas, escreve os prompts de foto em lote para você colar no Gemini ou no ChatGPT, escreve os cases e revisa o catálogo pronto como se fosse um cliente. Para começar do zero, veja o tutorial <a href="/claude-na-empresa/">Claude na Empresa</a>.</p></div>
+    <div class="prompts" id="p-claude"></div>
+  </section>
+
+  <!-- 07 -->
+  <section class="sec" id="conferir">
+    <div class="cab"><span class="num">07</span><div><span class="k">Conferir antes de publicar</span><h2>Toda imagem de IA <span class="leve">passa por aqui.</span></h2></div></div>
+    <p class="lead">A IA erra de um jeito previsível. <strong>Coloque a imagem gerada ao lado da foto base</strong> e confira item por item. Uma imagem só entra no catálogo com tudo marcado.</p>
+    <div class="placar-geral"><div><small>Conferido</small><b id="cf-n">0%</b></div><div class="prog-b"><i id="cf-b"></i></div><button type="button" id="cf-zera">Próxima imagem</button></div>
+    <div class="card rv"><ul class="chk" id="cf"></ul></div>
+  </section>
+
+  <!-- 08 -->
+  <section class="sec" id="passos">
+    <div class="cab"><span class="num">08</span><div><span class="k">Passo a passo</span><h2>Do celular ao catálogo <span class="leve">em 7 passos.</span></h2></div></div>
+    <p class="lead">Marque o que for feito: o progresso fica salvo no seu aparelho.</p>
+    <div class="placar-geral"><div><small>Feito</small><b id="pg-n">0%</b></div><div class="prog-b"><i id="pg-b"></i></div><button type="button" id="pg-zera">Recomeçar</button></div>
+    <div class="etapas" id="etapas"></div>
+  </section>
+</div>
+
+<section class="faixa marinho" id="erros" aria-labelledby="er-t">
+  <div class="wrap-m">
+    <p class="grita" id="er-t">Os erros de quem <span class="leve">começa com IA.</span></p>
+    <p class="apoio">Cada um deles já virou troca, devolução ou cliente desconfiado.</p>
+    <ul class="prev" id="prev"></ul>
+    <div class="tres-i" aria-hidden="true"><div class="I"></div><div class="I"></div><div class="I"></div></div>
+  </div>
+</section>
+
+<div class="wrap-m">
+  <div class="volta rv">
+    <div>
+      <span class="spaced">Ferramenta irmã</span>
+      <h2>Fotos prontas? <span class="leve">Agora monte o catálogo.</span></h2>
+      <p>O que fotografar, a lista de fotos do seu mix, a estrutura página a página, a ficha do produto e o case que fecha venda.</p>
+    </div>
+    <a class="btn verde" id="volta-l" href="/catalogo-que-vende/">Abrir o Catálogo que vende <i class="ic" style="--i:var(--ic-seta)"></i></a>
+  </div>
+
+  <section class="alda rv" aria-labelledby="alda-t" style="margin-top:clamp(60px,8vw,110px)">
+    <div class="alda-cab">
+      <span class="alda-selo">Para quem leu este material</span>
+      <img class="alda-logo" src="/diagnostico/relatorio/alda-logo.png" alt="Alda CRM" width="520" height="203">
+      <h2 id="alda-t">Catálogo novo na mão? Saiba quem recebeu e quem precisa de retorno</h2>
+      <p>Uma demonstração do Alda.CRM montada com o seu funil de vendas, com a implantação acompanhada pela Unique.</p>
+      <p class="alda-assina">Implantado pela Unique Consultoria Comercial</p>
+      <div class="alda-acts">
+        <a class="btn alda-btn" href="https://wa.me/5511920781458?text=Ol%C3%A1%21%20Li%20o%20manual%20Cat%C3%A1logo%20com%20IA%20da%20Unique%20e%20quero%20conhecer%20o%20Alda.CRM." target="_blank" rel="noopener">Quero conhecer o Alda.CRM</a>
+        <a class="btn alda-link" href="https://aldacrm.com" target="_blank" rel="noopener">Ver o site</a>
+      </div>
+    </div>
+    <div class="alda-lista">
+      <span class="alda-eyebrow">Depois do catálogo, o Alda ajuda em</span>
+      <ul>
+        <li><span class="alda-ic"><svg viewBox="0 0 24 24"><path d="M4 5h16l-6 8v6l-4 2v-8z"/></svg></span><div><strong>Lista de quem pediu o catálogo</strong><span>Cada contato com etiqueta do que procurou, para a oferta certa chegar à pessoa certa.</span></div></li>
+        <li><span class="alda-ic"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 4v4h-4M20 12a8 8 0 0 1-14 5.3M4 20v-4h4"/></svg></span><div><strong>Follow-up com data</strong><span>Catálogo enviado sem resposta vira tarefa para o vendedor, antes de o lead esfriar.</span></div></li>
+        <li><span class="alda-ic"><svg viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-7z"/></svg></span><div><strong>Disparo de lançamento</strong><span>Coleção nova ou case novo vai para a lista do perfil certo, sem mandar para todo mundo.</span></div></li>
+        <li><span class="alda-ic"><svg viewBox="0 0 24 24"><path d="M5 18v-6a7 7 0 0 1 14 0v6"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/></svg></span><div><strong>Supervisão do time</strong><span>Veja se o catálogo está sendo enviado com a pergunta de fechamento, e não solto.</span></div></li>
+      </ul>
+    </div>
+    <img class="alda-pato" src="/diagnostico/relatorio/alda-pato.png" alt="" aria-hidden="true" width="134" height="238">
+    <span class="alda-caco" aria-hidden="true"></span>
+  </section>
+</div>
+
+</div><!-- /fechado -->
+
+<div class="wrap-m" id="proximo">
+  <div class="diag">
+    <div class="txt">
+      <span class="spaced">Próximo passo</span>
+      <h2>A IA faz a foto. <span class="leve">Quem fecha a venda é o seu comercial.</span></h2>
+      <p>Faça o diagnóstico. Em 10 a 15 minutos você responde sobre os 4 pilares do seu comercial e recebe um relatório com o score, os gargalos e um plano de ação.</p>
+      <div class="ctas"><a class="btn verde" href="/diagnostico/">Faça seu diagnóstico comercial <i class="ic" style="--i:var(--ic-seta)"></i></a>
+      <a class="btn" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Li%20o%20manual%20Cat%C3%A1logo%20com%20IA%20e%20quero%20conversar%20sobre%20o%20comercial%20da%20minha%20empresa." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Falar com o Carlos</a></div>
+    </div>
+    <figure><img src="/assets/fotos/palco.jpg" alt="Carlos Ribeiro em palestra, com microfone" width="1280" height="853" loading="lazy"></figure>
+  </div>
+</div>
+</main>
+<script>
+/* ================= conteúdo do manual de IA ================= */
+var FIEL='Mantenha a {produto} exatamente como na foto anexada: mesma cor, mesmo tecido, mesma estampa, mesmas costuras, mesmo comprimento e mesmo caimento. Não invente detalhes, não acrescente logotipos e não mude nada na peça.';
+var FORMATOS_IMG=[['vertical 4:5','Vertical 4:5 (catálogo e feed)'],['vertical 9:16','Vertical 9:16 (stories e Reels)'],['quadrado 1:1','Quadrado 1:1 (WhatsApp e site)']];
+var IAS=[
+  {n:'Gemini',lg:'G',cor:'var(--marinho)',p:'Google',l:['Editar a sua foto mantendo a peça','Trocar o fundo, vestir em modelo, criar cenário','Vídeo de 8 segundos a partir da foto (planos pagos)'],x:['Texto longo dentro da imagem pode sair com erro'],c:'Abra o app ou gemini.google.com, anexe a foto pelo +, cole o prompt e peça um ajuste por vez.'},
+  {n:'ChatGPT',lg:'C',cor:'#0b0b0c',p:'OpenAI',l:['Gerar e editar imagens em todos os planos','Capa, flat lay e banner com texto','Guardar fotos de referência para usar de novo'],x:['Pode mudar detalhes pequenos: confira sempre'],c:'Anexe a foto pelo +, cole o prompt e continue na mesma conversa para manter o padrão.'},
+  {n:'Meta AI',lg:'M',cor:'var(--magenta)',p:'WhatsApp e Instagram',l:['Rápida, dentro do WhatsApp','Ideias de cenário, posts e figurinhas','Animar uma imagem pronta'],x:['Menos controle para manter a peça idêntica','Recursos variam de conta para conta no Brasil'],c:'Abra a conversa com a Meta AI e comece com "imagine", ou anexe a foto e descreva a mudança.'},
+  {n:'Claude',lg:'C',cor:'#d97757',p:'Anthropic',cls:'claude',l:['Escrever fichas, descrições e cases','Criar prompts em lote para as outras IAs','Revisar o catálogo pronto'],x:['Não gera imagem nem vídeo'],c:'Cole a planilha ou anexe o PDF e use os prompts da seção 06.'},
+  {n:'Editor de vídeo',lg:'▶',cor:'#1c1c20',p:'CapCut ou o editor do Instagram',l:['Juntar os vídeos de 8 segundos','Legenda automática e música','Cortar e exportar na vertical'],x:['Não cria a imagem: só monta'],c:'Importe os vídeos na ordem do roteiro e exporte em 9:16.'}
+];
+var CONF_BASE=['A cor está igual à da peça real, vista lado a lado na tela','A estampa, as costuras e os botões são os mesmos da foto base','Nenhuma etiqueta, logo ou detalhe apareceu do nada','O comprimento e o caimento batem com a peça real','Mãos, dedos, rosto e cabelo parecem naturais','Todo texto na imagem está escrito certo, letra por letra','Fundo, luz e enquadramento iguais aos dos outros produtos'];
+var TRILHAS={
+varejo:{
+  nome:'Varejo e e-commerce', de:'do varejo', curto:'Varejo',
+  bP:'Vale para celular simples ou caro. O que muda o resultado é luz, fundo e enquadramento, não a câmera.',
+  bChk:['Fundo liso: parede, lençol ou papel branco ou cinza claro','Luz de janela de lado, sem sol direto e sem flash','Peça passada, sem fiapo e sem etiqueta aparecendo','Celular apoiado ou no tripé, na altura do meio da peça','Peça inteira no quadro, com sobra nas bordas','Modo retrato desligado: ele borra a peça','Uma foto por cor: a IA não deve inventar cor'],
+  bA:'Fotografe estes quatro em cada cor. São as fotos que você anexa nos prompts.',
+  angs:['Frente','Costas','Lado','Detalhe'],
+  junto:['A foto base da peça, uma por pedido','Para o look completo: uma foto de cada peça','Para a capa: o logo da marca em PNG','Para a modelo: a descrição de quem é o seu cliente'],
+  campos:[
+    {k:'produto',t:'Nome da peça',v:'legging de cintura alta'},
+    {k:'cor',t:'Cor',v:'preta'},
+    {k:'tecido',t:'Tecido',v:'suplex com elastano'},
+    {k:'acao',t:'O que a modelo faz',v:'amarrando o tênis'},
+    {k:'modelo',t:'Quem veste',s:'o seu cliente',v:'mulher de 30 anos, pele morena, cabelo cacheado preso, corpo real, manequim 40',l2:1},
+    {k:'cenario',t:'Cenário',v:'academia moderna com luz natural da manhã',l2:1},
+    {k:'colecao',t:'Nome da coleção',v:'Coleção Power'}
+  ],
+  fotos:[
+    {t:'Fundo de estúdio',ia:'Gemini · ChatGPT',q:'Foto de lookbook e cadastro no site, sem modelo.',p:'Recorte a {produto} da foto anexada e coloque sobre um fundo branco liso de estúdio, com uma sombra suave embaixo e luz difusa vinda da esquerda. Peça inteira, centralizada, formato {formato}, foto realista em alta resolução.\n'+FIEL,dp:['Agora faça o mesmo com a foto das costas, com a mesma luz e o mesmo enquadramento.','Deixe a cor idêntica à peça real: {cor}.']},
+    {t:'Melhorar a foto do celular',ia:'Gemini · ChatGPT',q:'Quando a foto saiu escura, amarelada ou com fundo bagunçado.',p:'Melhore esta foto tirada com o celular: corrija a luz e o balanço de branco para a cor ficar fiel à peça real ({cor}), deixe o fundo liso e limpo e tire fiapos, poeira e amassados leves. Não mude a cor, o tecido, a forma nem nenhum detalhe da {produto}. Formato {formato}.'},
+    {t:'A peça vestida em modelo',ia:'Gemini · ChatGPT',q:'Mostrar caimento sem contratar modelo.',p:'Vista a {produto} da foto anexada em uma modelo: {modelo}. Ela está em pé, de frente, corpo inteiro, postura natural e expressão leve, sobre fundo cinza claro liso de estúdio, com luz suave. Foto realista, sem cara de ilustração, formato {formato}.\n'+FIEL,dp:['Agora a mesma modelo, com a mesma peça, de costas.','Agora de lado, mostrando o caimento.','Agora em 3/4, com uma mão na cintura.'],al:'Use a mesma modelo em todas as fotos do produto: peça tudo na mesma conversa.'},
+    {t:'Foto conceito',ia:'Gemini · ChatGPT',q:'Capa, abertura da coleção e redes sociais.',p:'Coloque a mesma modelo, vestindo a mesma {produto}, em {cenario}. Ela está {acao}, de forma espontânea. Estilo fotografia lifestyle, câmera na altura dos olhos, fundo levemente desfocado, luz natural. Formato {formato}.\n'+FIEL},
+    {t:'Look completo (flat lay)',ia:'ChatGPT · Gemini',q:'Página de looks combinados e venda casada.',p:'Monte um flat lay visto de cima com as peças das fotos anexadas formando um look completo, sobre um fundo de linho bege claro, com espaço vazio do lado direito para texto. Luz suave e uniforme, sem sombras duras, formato {formato}. Cada peça deve aparecer exatamente como na sua foto: mesma cor, estampa e proporção.',al:'Anexe uma foto de cada peça do look.'},
+    {t:'Capa da coleção',ia:'ChatGPT · Gemini',q:'A primeira página do catálogo.',p:'Crie a capa vertical de um catálogo usando a foto anexada da modelo como imagem principal, ocupando a página inteira. No topo, o título "{colecao}" em letras grandes, fonte sem serifa moderna, na cor branca. No rodapé, o logo anexado da marca, pequeno e centralizado. Não altere a roupa da modelo.',al:'A IA ainda erra letras. Confira o título letra por letra, ou coloque o texto depois no Canva.'}
+  ],
+  vLead:'Funciona melhor partindo de uma foto já aprovada na seção 03. <strong>Vídeo de IA é para movimento e clima. Prova de qualidade é sempre gravada de verdade</strong>: tecido esticando, transparência contra a luz, lavagem. Junte 3 ou 4 vídeos de 8 segundos no editor, com legenda e música.',
+  videos:[
+    {t:'Rodadinha 360°',ia:'Gemini (Veo) · ChatGPT',q:'O vídeo lookbook, sem estúdio.',p:'A partir da foto anexada, a modelo gira devagar 360 graus no próprio eixo, mostrando a frente, o lado e as costas da {produto}. Câmera parada, mesmo fundo e mesma luz da foto. Vídeo vertical 9:16, 8 segundos. A roupa não muda de cor, de forma nem de tamanho durante o vídeo.'},
+    {t:'Caminhada',ia:'Gemini (Veo) · ChatGPT',q:'Mostrar o caimento em movimento.',p:'A modelo da foto anexada caminha em direção à câmera, com passos naturais, e para no final olhando para a lente. O tecido se movimenta de forma realista. Câmera parada na altura do peito, vertical 9:16, 8 segundos. A {produto} continua idêntica do começo ao fim.'},
+    {t:'Aproximação no detalhe',ia:'Gemini (Veo)',q:'Chamar atenção para o acabamento.',p:'A câmera se aproxima devagar, do corpo inteiro da modelo até o detalhe da {produto} (costura, estampa ou acabamento), e termina em close. Movimento suave e contínuo, vertical 9:16, 8 segundos. Nenhum detalhe da peça pode mudar.',al:'O detalhe tem que existir na peça real. Se não existe, não entra.'},
+    {t:'Cena conceito',ia:'Gemini (Veo) · Meta AI',q:'Abertura do Reels e anúncio.',p:'A partir da foto anexada, a modelo está em {cenario} e faz um movimento natural: {acao}. Luz natural, câmera levemente em movimento, clima de vídeo de marca, vertical 9:16, 8 segundos. A roupa não muda.'}
+  ],
+  claude:[
+    {t:'Planilha vira ficha',q:'Escrever todas as fichas de uma vez.',p:'Vou colar abaixo a planilha dos meus produtos, com código, nome, tecido, cores, tamanhos e preço. Para cada produto, escreva a ficha do catálogo com: nome comercial, benefício em uma frase, 3 tópicos curtos e uma chamada para o WhatsApp. Tom: [o tom da sua marca]. Não invente nenhuma informação que não esteja na planilha; se faltar algo, me avise no final.\n\n[cole a planilha aqui]'},
+    {t:'Prompts de foto em lote',q:'Não escrever prompt por prompt.',p:'Para cada produto da planilha abaixo, escreva dois prompts para eu colar no Gemini junto com a foto do produto: um para fundo branco de estúdio e outro para foto conceito em [seu cenário]. Use este modelo e só troque o nome, a cor e o tecido de cada peça:\n\n[cole aqui um prompt da seção 03]\n\n[cole a planilha aqui]'},
+    {t:'Revisar como cliente',q:'Antes de mandar o catálogo.',p:'Anexei o PDF do meu catálogo. Leia como um cliente que nunca comprou comigo e quer comprar sem perguntar nada no WhatsApp. Página por página, liste o que falta (preço, medida, cor, prazo, como comprar), o que está confuso e o que eu deveria cortar. No final, as 5 correções mais importantes, em ordem.'},
+    {t:'Roteiro do Reels',q:'Juntar os vídeos de 8 segundos.',p:'Escreva o roteiro de um Reels de 30 segundos para lançar a [nome da coleção], juntando 4 vídeos de 8 segundos: abertura com gancho, a peça em movimento, um detalhe de qualidade e a chamada para o catálogo. Para cada cena, diga o que aparece, o texto na tela e a legenda. Público: [quem é o seu cliente].'}
+  ],
+  conf:['É a mesma modelo em todas as fotos deste produto','Onde a cena é inventada, está marcado como imagem ilustrativa','Nenhum rosto de pessoa real sem autorização'],
+  passos:[
+    ['Passo 1','Foto base','No celular, 5 minutos por peça',['Fundo liso, luz de janela de lado','Frente, costas, lado e detalhe de cada cor','Conferir a cor na tela com a peça na mão']],
+    ['Passo 2','Planilha e textos','Com o Claude',['Planilha com código, cores, tamanhos e preço','Fichas escritas pelo Claude (seção 06)','Prompts em lote prontos para colar']],
+    ['Passo 3','Fundo de estúdio','No Gemini ou no ChatGPT',['Prompt "Fundo de estúdio" em todas as peças','Mesmo fundo e mesma luz para o catálogo inteiro']],
+    ['Passo 4','Modelo e conceito','Mesma modelo, mesma conversa',['Peça vestida de frente, costas e lado','2 ou 3 fotos conceito por categoria','Capa da coleção']],
+    ['Passo 5','Vídeos','A partir das fotos aprovadas',['Rodadinha 360° dos carros-chefe','Vídeo de detalhe gravado de verdade','Juntar no editor com legenda e música']],
+    ['Passo 6','Conferência','Seção 07, imagem por imagem',['Toda imagem conferida ao lado da foto base','Imagem ilustrativa marcada como tal']],
+    ['Passo 7','Catálogo no ar','Na ferramenta Catálogo que vende',['Montar na estrutura página a página','Exportar o PDF leve e publicar o link','Mandar para a base com condição e prazo']]
+  ],
+  erros:['Pedir para a IA criar a peça do zero, sem a foto real','Gerar uma cor que você não fotografou','Usar vídeo de IA como prova de qualidade do tecido','Uma modelo diferente em cada foto do mesmo produto','Publicar texto da IA sem revisar letra por letra','Fundo e luz diferentes em cada produto','Rosto de pessoa real ou de influenciador sem autorização','Esconder do cliente que a cena foi gerada']
+},
+personalizado:{
+  nome:'Personalizado e uniformes', de:'do personalizado', curto:'Personalizado',
+  bP:'Vale para celular simples ou caro. Para o personalizado, o close da técnica pesa tanto quanto a peça inteira.',
+  bChk:['Fundo liso: parede, lençol ou papel branco ou cinza claro','Luz de janela de lado, sem sol direto e sem flash','Modelo base passado, com a etiqueta da sua marca','Celular apoiado ou no tripé, na altura do meio da peça','Close de cada técnica com luz de lado, para o relevo aparecer','Modo retrato desligado: ele borra a peça','Uma foto por cor base: a IA não deve inventar cor'],
+  bA:'Fotografe estes quatro em cada modelo. São as fotos que você anexa nos prompts.',
+  angs:['Frente','Costas','Lado','Técnica'],
+  junto:['A foto base do modelo','A logo do cliente em PNG ou PDF, com autorização','Para a capa: o logo da sua empresa','Para o ambiente: a descrição do nicho'],
+  campos:[
+    {k:'produto',t:'Modelo da peça',v:'camisa polo piquet'},
+    {k:'cor',t:'Cor',v:'azul-marinho'},
+    {k:'tecido',t:'Tecido',v:'piquet de algodão'},
+    {k:'tecnica',t:'Técnica',v:'bordado'},
+    {k:'logo',t:'Logo',v:'a logo anexada da Clínica Vida',l2:1},
+    {k:'posicao',t:'Posição e tamanho',v:'no peito esquerdo, com 8 cm de largura',l2:1},
+    {k:'nicho',t:'Ambiente do nicho',v:'recepção de clínica moderna, com balcão claro',l2:1},
+    {k:'nicho_t',t:'Nicho da capa',v:'clínicas e consultórios'},
+    {k:'titulo',t:'Título da capa',v:'Uniformes para a saúde'},
+    {k:'tecidos',t:'Tecidos da cartela',v:'Piquet 210 g/m², Malha PV 160 g/m², Dry fit 130 g/m²',l2:1}
+  ],
+  fotos:[
+    {t:'Modelo base em estúdio',ia:'Gemini · ChatGPT',q:'A página de cada modelo no catálogo.',p:'Recorte a {produto} da foto anexada e coloque sobre um fundo branco liso de estúdio, com uma sombra suave embaixo e luz difusa vinda da esquerda. Peça inteira, centralizada, formato {formato}, foto realista em alta resolução.\n'+FIEL,dp:['Agora faça o mesmo com a foto das costas, com a mesma luz e o mesmo enquadramento.']},
+    {t:'Simulação com a logo do cliente',ia:'Gemini · ChatGPT',q:'Mandar junto com o orçamento.',p:'Aplique {logo} na {produto} da foto anexada, em {tecnica}, {posicao}. A logo deve ficar exatamente igual ao arquivo: mesmas cores, letras e proporções, com a textura real de {tecnica} sobre {tecido}. Não mude a cor, o tecido nem a modelagem da peça. Fundo branco liso, formato {formato}.',dp:['Agora mostre a mesma peça de costas, com a logo menor na nuca.','Agora aumente a logo para 10 cm, mantendo todo o resto igual.'],al:'É simulação para orçamento: escreva "simulação" na mensagem. Nunca use como foto de entrega.'},
+    {t:'Equipe no ambiente do nicho',ia:'Gemini · ChatGPT',q:'Abrir a página de cada nicho.',p:'Crie uma foto realista de uma equipe de 5 pessoas diversas, de idades e tipos físicos diferentes, vestindo a {produto} da foto anexada, em {nicho}. Elas estão trabalhando de forma natural, luz ambiente, estilo foto corporativa, formato {formato}. A peça deve manter exatamente a cor, o tecido, a modelagem e a aplicação da foto.',al:'Imagem ilustrativa: identifique assim no catálogo. Case de cliente é sempre foto real, com autorização.'},
+    {t:'Peça no manequim',ia:'Gemini · ChatGPT',q:'Mostrar a modelagem sem modelo.',p:'Coloque a {produto} da foto anexada em um manequim de loja sem cabeça, em fundo cinza claro de estúdio, iluminação suave, de frente, formato {formato}.\n'+FIEL},
+    {t:'Página de tecidos',ia:'ChatGPT · Gemini',q:'A cartela de tecidos do catálogo.',p:'Monte uma página de catálogo com as fotos de tecido anexadas em quadrados iguais, numa grade de 3 colunas. Embaixo de cada quadrado, escreva o nome e a gramatura, nesta ordem: {tecidos}. Fundo branco, fonte sem serifa, título "Tecidos" no topo. Não altere a textura nem a cor dos tecidos.',al:'Use foto real de cada tecido e confira cada nome e número na imagem.'},
+    {t:'Capa por nicho',ia:'ChatGPT · Gemini',q:'Uma versão do catálogo para cada nicho.',p:'Crie a capa vertical de um catálogo de uniformes para {nicho_t}, usando a foto anexada da equipe uniformizada como imagem principal. No topo, o título "{titulo}" em letras grandes, fonte sem serifa moderna. No rodapé, o logo anexado da sua empresa. Não altere os uniformes.',al:'A IA ainda erra letras. Confira o título letra por letra.'}
+  ],
+  vLead:'Funciona melhor partindo de uma foto já aprovada na seção 03. <strong>Vídeo de IA é para movimento e clima. Processo de produção, teste de lavagem e depoimento são sempre gravados de verdade.</strong> Junte 3 ou 4 vídeos de 8 segundos no editor, com legenda e música.',
+  videos:[
+    {t:'Giro no manequim',ia:'Gemini (Veo) · ChatGPT',q:'Mostrar a peça inteira em movimento.',p:'A câmera faz um movimento circular lento ao redor da {produto} no manequim, começando pelas costas e terminando de frente, parando na logo em {tecnica}. Fundo de estúdio, luz suave, vertical 9:16, 8 segundos. A peça e a logo não mudam.'},
+    {t:'Revelação da logo',ia:'Gemini (Veo)',q:'Abertura de Reels e de proposta.',p:'Close na {produto} dobrada sobre uma mesa clara; uma mão desdobra a peça e revela a logo em {tecnica} no peito. Movimento lento, luz suave, vertical 9:16, 8 segundos. A logo continua idêntica ao arquivo durante todo o vídeo.',al:'Com logo de cliente, é simulação: só com autorização e avisando que é simulação.'},
+    {t:'Equipe em ação',ia:'Gemini (Veo) · Meta AI',q:'Clima do nicho no anúncio.',p:'A equipe da foto anexada se movimenta de forma natural em {nicho}: atende, conversa e sorri. Câmera passeando devagar, luz ambiente, vertical 9:16, 8 segundos. Os uniformes não mudam.',al:'Ilustrativo. Para case, use a gravação real da entrega.'},
+    {t:'Tecido em movimento',ia:'Gemini (Veo)',q:'Mostrar caimento e leveza.',p:'A {produto} pendurada em um cabide balança levemente com uma brisa, mostrando o caimento do {tecido}. Fundo de estúdio, luz suave, câmera lenta, vertical 9:16, 8 segundos.'}
+  ],
+  claude:[
+    {t:'Planilha vira ficha',q:'Escrever a ficha de cada modelo.',p:'Vou colar abaixo a planilha dos meus modelos, com código, tecido, gramatura, técnicas, cores base, tamanhos, pedido mínimo e prazo. Para cada modelo, escreva a ficha do catálogo com: nome comercial, para quem é indicado em uma frase, 3 tópicos curtos e a chamada "peça seu orçamento". Tom: [o tom da sua empresa]. Não invente nada que não esteja na planilha; se faltar algo, me avise no final.\n\n[cole a planilha aqui]'},
+    {t:'Prompts de simulação em lote',q:'Simulação para todos os orçamentos abertos.',p:'Para cada orçamento da lista abaixo, escreva um prompt para eu colar no Gemini junto com a foto do modelo e a logo do cliente. Use este modelo e só troque a peça, a técnica, a posição e o tamanho da logo:\n\n[cole aqui o prompt "Simulação com a logo do cliente"]\n\n[cole a lista: cliente, peça, técnica, posição]'},
+    {t:'Case a partir das anotações',q:'Transformar entrega em case.',p:'Vou colar as minhas anotações sobre um uniforme que entregamos. Escreva o case no formato: cliente e nicho, desafio, solução (peças, tecido e técnica), resultado em número e um pedido de depoimento para eu mandar ao cliente. Use só o que está nas anotações; o que faltar, deixe entre colchetes.\n\n[cole as anotações aqui]'},
+    {t:'Revisar como cliente',q:'Antes de mandar o catálogo.',p:'Anexei o PDF do meu catálogo de uniformes. Leia como o comprador de uma empresa que nunca comprou comigo. Página por página, liste o que falta para ele pedir o orçamento sem perguntar nada (mínimo, prazo, tecido, técnica, processo, prova), o que está confuso e o que eu deveria cortar. No final, as 5 correções mais importantes, em ordem.'}
+  ],
+  conf:['A logo está idêntica ao arquivo: cores, letras e proporção','O tamanho da aplicação é o que a sua produção entrega','Simulação marcada como simulação; ambiente gerado, como ilustrativo','Nenhum rosto real ou logo de cliente sem autorização'],
+  passos:[
+    ['Passo 1','Foto base','No celular, modelo por modelo',['Cada modelo em fundo liso: frente, costas e lado','Close real de cada técnica, mais a foto a 1 metro','Fotos reais de entrega dos cases, com autorização']],
+    ['Passo 2','Planilha e textos','Com o Claude',['Planilha de modelos, tecidos, técnicas, mínimo e prazo','Fichas e cases escritos pelo Claude (seção 06)','Prompts em lote prontos para colar']],
+    ['Passo 3','Estúdio','No Gemini ou no ChatGPT',['Prompt "Modelo base em estúdio" em todos os modelos','Página de tecidos']],
+    ['Passo 4','Simulações e nichos','Para orçamento e para ilustrar',['Simulação com a logo para os orçamentos abertos','Equipe no ambiente de cada nicho, marcada como ilustrativa','Capa por nicho']],
+    ['Passo 5','Vídeos','A partir das fotos aprovadas',['Giro no manequim e revelação da logo','Processo e teste gravados de verdade','Juntar no editor com legenda e música']],
+    ['Passo 6','Conferência','Seção 07, imagem por imagem',['Toda imagem conferida ao lado da foto base','Simulação e ilustração marcadas como tal']],
+    ['Passo 7','Catálogo no ar','Na ferramenta Catálogo que vende',['Montar na estrutura página a página','Cases reais na frente; simulação só no orçamento','Versão por nicho e envio para os orçamentos parados']]
+  ],
+  erros:['Mostrar simulação como se fosse uniforme entregue','Usar a logo de cliente sem autorização','Bordado "perfeito" na IA que a produção não entrega','Tamanho de aplicação que a sua máquina não faz','Equipe gerada no lugar do case real','Vídeo de IA no lugar do processo e do teste de lavagem','Página de tecidos sem revisar nomes e números','Um prompt diferente para cada modelo: o catálogo perde o padrão']
+}
+};
+var CAMISA='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l6 2v5h-3v9H6v-9H3V6l6-2a3 3 0 0 0 6 0z"/></svg>';
+</script>
+<script>
+(function(){
+  var MAT='catalogo-com-ia', K='ua_mat_'+MAT, KT='ua_ia_trilha';
+  var ls={get:function(k){try{return JSON.parse(localStorage.getItem(k)||'null');}catch(e){return null;}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+  var $=function(s,el){return (el||document).querySelector(s);}, $$=function(s,el){return [].slice.call((el||document).querySelectorAll(s));};
+  var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+  var reduz=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- capa: o prompt que troca o cenário ---------- */
+  (function(){
+    var tx=$('#cap-txt'), q=$('#cap-q'), et=$('#cap-e'), ia=$('#cap-ia'), rd=$$('.troca .rodape span'); if(!tx) return;
+    var P=[['Coloque esta peça em fundo branco de estúdio, sem mudar nada nela.',1,'Fundo de estúdio'],['Agora vista em uma modelo, numa rua ao entardecer, luz dourada.',2,'Foto conceito'],['Agora uma versão para a capa da coleção.',3,'Capa da coleção']];
+    var cur='<span class="cur"></span>';
+    if(reduz){ tx.innerHTML=esc(P[0][0]); q.dataset.f=1; et.textContent=P[0][2]; ia.textContent='Pronto'; rd.forEach(function(r,i){r.classList.toggle('on',i<=1);}); return; }
+    var i=0;
+    function passo(){
+      if(i>=P.length){ q.dataset.f=0; et.textContent='Foto do celular'; rd.forEach(function(r,j){r.classList.toggle('on',j===0);}); tx.innerHTML=cur; ia.textContent='IA esperando…'; i=0; setTimeout(passo,1500); return; }
+      var s=P[i][0], n=0; ia.textContent='Você digitando…';
+      var t=setInterval(function(){ if(document.hidden) return; n+=2; tx.innerHTML=esc(s.slice(0,n))+cur; if(n>=s.length){ clearInterval(t); ia.textContent='IA gerando…';
+        setTimeout(function(){ q.dataset.f=P[i][1]; et.textContent=P[i][2]; rd.forEach(function(r,j){r.classList.toggle('on',j<=P[i][1]);}); ia.textContent='Pronto ✓'; i++; setTimeout(passo,2200); },1100); } },45);
+    }
+    passo();
+  })();
+
+  /* ---------- revelar ao rolar ---------- */
+  var io='IntersectionObserver' in window ? new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}});},{threshold:.12}) : null;
+  var observa=function(root){ $$('.rv:not(.vis)',root).forEach(function(el){ if(io) io.observe(el); else el.classList.add('vis'); }); };
+  observa(document);
+
+  /* ---------- trilha ---------- */
+  var q=(location.search.match(/[?&]s=(varejo|personalizado)/)||[])[1] || (location.hash.match(/^#(varejo|personalizado)$/)||[])[1];
+  var T=q||ls.get(KT)||null;
+  function marcaSel(t){
+    $$('.sg').forEach(function(b){ b.setAttribute('aria-pressed',b.dataset.s===t?'true':'false'); });
+    $$('.trilha .pls button').forEach(function(b){ b.setAttribute('aria-pressed',b.dataset.t===t?'true':'false'); });
+    $$('.seg-f input').forEach(function(r){ r.checked=(r.value===t); });
+    $('#g-seg').textContent=t?TRILHAS[t].de+'.':'da sua trilha.';
+  }
+  function escolhe(t,rola){
+    T=t; ls.set(KT,t); marcaSel(t); render();
+    if(rola){ var alvo=document.body.classList.contains('liberado')?$('#ias'):$('#liberar'); if(alvo) alvo.scrollIntoView({behavior:reduz?'auto':'smooth',block:'start'}); }
+  }
+  $$('.sg').forEach(function(b){ b.addEventListener('click',function(){ escolhe(b.dataset.s,true); }); });
+  $$('.trilha .pls button').forEach(function(b){ b.addEventListener('click',function(){ escolhe(b.dataset.t,false); }); });
+  $$('.seg-f input').forEach(function(r){ r.addEventListener('change',function(){ if(r.checked){ T=r.value; ls.set(KT,T); marcaSel(T); render(); } }); });
+  var KS=function(n){ return 'ua_ia_'+n+'_'+T; };
+
+  /* ---------- preencher prompts ---------- */
+  function valores(){ var D=TRILHAS[T], s=ls.get(KS('g'))||{}, o={}; D.campos.forEach(function(c){ o[c.k]=(s[c.k]!=null&&s[c.k]!=='')?s[c.k]:c.v; }); o.formato=s.formato||'vertical 4:5'; return o; }
+  function preenche(tpl,v,marca){
+    var h=marca?esc(tpl):tpl;
+    h=h.replace(/\{(\w+)\}/g,function(m,k){ var x=v[k]!=null?v[k]:k; return marca?'<mark>'+esc(x)+'</mark>':x; });
+    if(marca) h=h.replace(/\[([^\]]+)\]/g,'<mark>[$1]</mark>');
+    return h;
+  }
+  function cartoes(lst,tipo,v){
+    return lst.map(function(p,i){
+      var tags=(p.ia?'<span class="'+(tipo==='video'?'v':'f')+'">'+esc(p.ia)+'</span>':'<span>Claude</span>');
+      return '<article class="pc rv"><div class="hd"><div class="tgs">'+tags+'</div><b>'+String(i+1).padStart(2,'0')+'</b></div><h3>'+esc(p.t)+'</h3><p>'+esc(p.q)+'</p>'+
+        '<blockquote class="prompt" data-tpl="'+tipo+'-'+i+'">'+preenche(p.p,v,true)+'</blockquote>'+
+        (p.dp?'<div class="dp"><b>Depois, na mesma conversa</b><ul>'+p.dp.map(function(x){return '<li>'+preenche(x,v,true)+'</li>';}).join('')+'</ul></div>':'')+
+        (p.al?'<p class="al">'+esc(p.al)+'</p>':'')+
+        '<button class="copia" type="button" data-cp="'+tipo+'-'+i+'">Copiar prompt</button></article>';
+    }).join('');
+  }
+  function tpl(id){ var p=id.split('-'), D=TRILHAS[T]; return ({foto:D.fotos,video:D.videos,claude:D.claude})[p[0]][+p[1]]; }
+
+  /* ---------- render ---------- */
+  function render(){
+    if(!T) return;
+    var D=TRILHAS[T], v=valores();
+    $('#t-nome').textContent=D.nome;
+    $('#volta-l').href='/catalogo-que-vende/?s='+T;
+
+    $('#ias-l').innerHTML=IAS.map(function(a){ return '<div class="ia-c rv'+(a.cls?' '+a.cls:'')+'"><span class="lg" style="background:'+a.cor+'">'+esc(a.lg)+'</span><div><span class="p">'+esc(a.p)+'</span><h3>'+esc(a.n)+'</h3></div><ul>'+a.l.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+a.x.map(function(x){return '<li class="nao">'+esc(x)+'</li>';}).join('')+'</ul><div></div><div class="como"><b>Como usar</b>'+esc(a.c)+'</div></div>'; }).join('');
+
+    $('#b-p').textContent=D.bP;
+    $('#b-chk').innerHTML=D.bChk.map(function(x){ return '<li><label><input type="checkbox"><span>'+esc(x)+'</span></label></li>'; }).join('');
+    $('#b-a-p').textContent=D.bA;
+    $('#b-angs').innerHTML=D.angs.map(function(a){ return '<div>'+CAMISA+'<span>'+esc(a)+'</span></div>'; }).join('');
+    $('#b-junto').innerHTML=D.junto.map(function(x){ return '<li><label><input type="checkbox"><span>'+esc(x)+'</span></label></li>'; }).join('');
+
+    $('#p-foto').innerHTML=cartoes(D.fotos,'foto',v);
+
+    // gerador
+    var opts=D.fotos.map(function(p,i){return ['foto-'+i,'Foto · '+p.t];}).concat(D.videos.map(function(p,i){return ['video-'+i,'Vídeo · '+p.t];}));
+    var s=ls.get(KS('g'))||{}, sel=s.tipo&&opts.some(function(o){return o[0]===s.tipo;})?s.tipo:opts[0][0];
+    $('#g-campos').innerHTML='<label class="l2" for="g-tipo">O que você quer criar<select id="g-tipo" data-g="tipo">'+opts.map(function(o){return '<option value="'+o[0]+'"'+(o[0]===sel?' selected':'')+'>'+esc(o[1])+'</option>';}).join('')+'</select></label>'+
+      D.campos.map(function(c){ var val=s[c.k]!=null?s[c.k]:c.v; return '<label'+(c.l2?' class="l2"':'')+' for="g-'+c.k+'">'+esc(c.t)+(c.s?' <small>'+esc(c.s)+'</small>':'')+'<input id="g-'+c.k+'" data-g="'+c.k+'" value="'+esc(val)+'" maxlength="160"></label>'; }).join('')+
+      '<label class="l2" for="g-formato">Formato da imagem<select id="g-formato" data-g="formato">'+FORMATOS_IMG.map(function(f){return '<option value="'+f[0]+'"'+(v.formato===f[0]?' selected':'')+'>'+esc(f[1])+'</option>';}).join('')+'</select></label>';
+    gera();
+
+    $('#v-lead').innerHTML=D.vLead;
+    $('#p-video').innerHTML=cartoes(D.videos,'video',v);
+    $('#p-claude').innerHTML=cartoes(D.claude,'claude',v);
+
+    var cf=ls.get(KS('cf'))||{}, itens=CONF_BASE.concat(D.conf);
+    $('#cf').innerHTML=itens.map(function(x,i){ return '<li><label><input type="checkbox" data-cf="'+i+'"'+(cf[i]?' checked':'')+'><span>'+esc(x)+'</span></label></li>'; }).join('');
+    contaCf();
+
+    var pl=ls.get(KS('plano'))||{};
+    $('#etapas').innerHTML=D.passos.map(function(st,si){
+      return '<div class="etp rv"><div class="h"><time>'+esc(st[0])+'</time><b>'+esc(st[1])+'</b><small>'+esc(st[2])+'</small><div class="mini"><i></i></div><span class="mini-n"></span></div><ul class="chk">'+
+        st[3].map(function(x,xi){ var id=si+'-'+xi; return '<li><label><input type="checkbox" data-p="'+id+'"'+(pl[id]?' checked':'')+'><span>'+esc(x)+'</span></label></li>'; }).join('')+'</ul></div>';
+    }).join('');
+    contaPlano();
+
+    $('#prev').innerHTML=D.erros.map(function(x,i){ return '<li><span>'+String(i+1).padStart(2,'0')+'</span>'+esc(x)+'</li>'; }).join('');
+    observa(document);
+  }
+
+  function gera(){
+    if(!T) return;
+    var s=ls.get(KS('g'))||{}, D=TRILHAS[T], el=$('#g-tipo'), id=el?el.value:'foto-0', p=tpl(id), v=valores();
+    var texto=preenche(p.p,v,false);
+    if(p.dp) texto+='\n\nDepois, na mesma conversa:\n'+p.dp.map(function(x){return '- '+preenche(x,v,false);}).join('\n');
+    $('#g-tit').textContent=p.t;
+    $('#g-out').textContent=texto;
+    $('#g-onde').textContent='Cole no '+p.ia.replace(' · ',' ou no ')+', junto com a foto base. '+(p.al||'Peça um ajuste por vez e confira na seção 07.');
+  }
+
+  /* ---------- contadores ---------- */
+  function conta(sel,nEl,bEl){ var a=$$(sel), k=a.filter(function(i){return i.checked;}).length, p=a.length?Math.round(k/a.length*100):0; $(nEl).textContent=p+'%'; $(bEl).style.width=p+'%'; }
+  function contaCf(){ conta('#cf input','#cf-n','#cf-b'); }
+  function contaPlano(){
+    $$('#etapas .etp').forEach(function(et){ var a=$$('input',et), k=a.filter(function(i){return i.checked;}).length;
+      $('.mini i',et).style.width=(a.length?k/a.length*100:0)+'%'; $('.mini-n',et).textContent=k+' de '+a.length; et.classList.toggle('feito',k===a.length&&k>0); });
+    conta('#etapas input','#pg-n','#pg-b');
+  }
+  $('#cf-zera').addEventListener('click',function(){ if(!T) return; ls.set(KS('cf'),{}); $$('#cf input').forEach(function(i){i.checked=false;}); contaCf(); });
+  $('#pg-zera').addEventListener('click',function(){ if(!T) return; if(!confirm('Desmarcar todo o passo a passo desta trilha?')) return; ls.set(KS('plano'),{}); $$('#etapas input').forEach(function(i){i.checked=false;}); contaPlano(); });
+
+  /* ---------- eventos ---------- */
+  function copia(t,b){ var old=b.innerHTML, ok=function(){ b.textContent='Copiado!'; setTimeout(function(){ b.innerHTML=old; },1600); };
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok,function(){}); else { var a=document.createElement('textarea'); a.value=t; document.body.appendChild(a); a.select(); try{document.execCommand('copy');ok();}catch(x){} a.remove(); } }
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('[data-cp]');
+    if(b&&T){ var p=tpl(b.dataset.cp), v=valores(), t=preenche(p.p,v,false); if(p.dp) t+='\n\nDepois, na mesma conversa:\n'+p.dp.map(function(x){return '- '+preenche(x,v,false);}).join('\n'); copia(t,b); }
+  });
+  $('#g-cop').addEventListener('click',function(){ if(T) copia($('#g-out').textContent,this); });
+  document.addEventListener('change',function(e){
+    var t=e.target; if(!T) return;
+    if(t.dataset.cf!=null){ var o=ls.get(KS('cf'))||{}; o[t.dataset.cf]=t.checked; ls.set(KS('cf'),o); contaCf(); }
+    if(t.dataset.p!=null){ var p=ls.get(KS('plano'))||{}; p[t.dataset.p]=t.checked; ls.set(KS('plano'),p); contaPlano(); }
+    if(t.dataset.g==='tipo'||t.dataset.g==='formato'){ var g=ls.get(KS('g'))||{}; g[t.dataset.g]=t.value; ls.set(KS('g'),g); if(t.dataset.g==='formato') atualizaCartoes(); gera(); }
+  });
+  var tmr;
+  document.addEventListener('input',function(e){
+    var t=e.target; if(!T||t.dataset.g==null||t.tagName==='SELECT') return;
+    var g=ls.get(KS('g'))||{}; g[t.dataset.g]=t.value; ls.set(KS('g'),g); gera();
+    clearTimeout(tmr); tmr=setTimeout(atualizaCartoes,400);
+  });
+  function atualizaCartoes(){ var D=TRILHAS[T], v=valores(); $('#p-foto').innerHTML=cartoes(D.fotos,'foto',v); $('#p-video').innerHTML=cartoes(D.videos,'video',v); $$('#p-foto .rv,#p-video .rv').forEach(function(x){x.classList.add('vis');}); }
+
+  /* ---------- liberação ---------- */
+  function libera(d,novo){
+    document.body.classList.add('liberado');
+    var pn=(d&&d.nome||'').split(' ')[0];
+    if(novo){
+      $('#ok-t').textContent=(pn?pn+', o':'O')+' manual '+(T?TRILHAS[T].de+' ':'')+'está liberado!';
+      $('#ok-p').textContent=(d.nl==='ja'?'Você já estava na newsletter Unique: continua recebendo':'E você já está na newsletter Unique: vai receber')+' cada post novo do blog direto no seu e-mail.';
+    } else {
+      $('#ok-t').textContent='Bem-vindo de volta'+(pn?', '+pn:'')+'!';
+      $('#ok-p').textContent='Os seus prompts e o seu passo a passo continuam de onde você parou.';
+    }
+    if(!T){ T='varejo'; }
+    marcaSel(T); render();
+  }
+  var salvo=ls.get(K);
+  if(T) marcaSel(T);
+  if(salvo) libera(salvo,false);
+
+  var f=$('#f-lib'), msg=$('.msg',f), bt=$('button[type=submit]',f);
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var sg=(f.querySelector('input[name=segmento]:checked')||{}).value;
+    var d={nome:f.nome.value.trim(),empresa:f.empresa.value.trim(),whatsapp:f.whatsapp.value.trim(),email:f.email.value.trim()};
+    if(!sg){msg.textContent='Escolha a sua trilha.';$('.seg-f input').focus();return;}
+    if(d.nome.length<2){msg.textContent='Informe o seu nome.';f.nome.focus();return;}
+    if(d.empresa.length<2){msg.textContent='Informe o nome da empresa.';f.empresa.focus();return;}
+    if(d.whatsapp.replace(/\D/g,'').length<10){msg.textContent='Confira o seu WhatsApp com DDD.';f.whatsapp.focus();return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)){msg.textContent='Confira o seu e-mail.';f.email.focus();return;}
+    if(!f.aceite.checked){msg.textContent='Para liberar, marque que concorda em receber os conteúdos e com a LGPD.';f.aceite.focus();return;}
+    bt.disabled=true; msg.textContent='';
+    fetch('/api/material',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({a:'liberar',material:MAT,segmento:sg,nome:d.nome,empresa:d.empresa,whatsapp:d.whatsapp,email:d.email,aceite:true,site:f.site.value})})
+      .then(function(r){return r.json().catch(function(){return {};});})
+      .then(function(r){
+        if(!r||!r.ok){bt.disabled=false;msg.textContent=(r&&r.erro)||'Não deu certo agora. Tente de novo em instantes.';return;}
+        T=sg; ls.set(KT,sg);
+        var v={nome:d.nome,empresa:d.empresa,nl:r.newsletter,data:new Date().toISOString()};
+        ls.set(K,v); libera(v,true);
+        var ok=$('.ok'); if(ok&&ok.scrollIntoView) ok.scrollIntoView({behavior:'smooth',block:'center'});
+      })
+      .catch(function(){bt.disabled=false;msg.textContent='Sem conexão. Tente de novo.';});
+  });
+
+  /* ---------- visualização ADM ---------- */
+  var NOMES={varejo:'Varejo',personalizado:'Personalizado'};
+  function dt(x){ try{return new Date(x).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}catch(e){return '';} }
+  fetch('/api/material?a=adm&material='+MAT,{credentials:'same-origin',cache:'no-store'}).then(function(r){return r.json();}).then(function(r){
+    if(r&&r.cliente){ document.body.classList.add('liberado'); if(!T){T='varejo';} marcaSel(T); render(); return; }
+    if(!r||!r.admin) return;
+    document.body.classList.add('modo-adm','liberado'); if(!T){T='varejo';} marcaSel(T); render();
+    var cont={varejo:0,personalizado:0}; (r.ultimos||[]).forEach(function(x){ if(cont[x.segmento]!=null) cont[x.segmento]++; });
+    var visitante=false, el=document.createElement('section'); el.className='admbar'; el.setAttribute('aria-label','Visualização ADM');
+    var linhas=(r.ultimos||[]).map(function(x){ var w=String(x.whatsapp||'').replace(/\D/g,''); if(w.length>=10&&w.length<=11) w='55'+w;
+      return '<tr><td>'+dt(x.data)+'</td><td>'+esc(NOMES[x.segmento]||'')+'</td><td>'+esc(x.nome)+'</td><td><a href="/area/admin/#empresas/'+encodeURIComponent(x.slug||'')+'">'+esc(x.empresa)+'</a></td><td>'+(w?'<a href="https://wa.me/'+w+'" target="_blank" rel="noopener">'+esc(x.whatsapp)+'</a>':'')+'</td><td>'+esc(x.email)+'</td></tr>'; }).join('');
+    el.innerHTML='<div class="wrap"><div><span class="sel"><i></i>Visualização ADM</span><p class="tx">Você vê o manual completo porque está logado no workspace. O visitante precisa se cadastrar.</p></div>'+
+      '<div class="num2"><div><b>'+(r.total||0)+'</b><small>cadastros</small></div><div><b>'+(r.hoje||0)+'</b><small>hoje</small></div><div><b>'+cont.varejo+'·'+cont.personalizado+'</b><small>varejo · personalizado</small></div></div>'+
+      '<div class="acs"><button class="btn sm verde" type="button" data-adm="lista">Ver cadastros</button><button class="btn sm" type="button" data-adm="vis">Ver como visitante</button><a class="btn sm" href="/area/admin/#crm">Abrir CRM</a></div></div>'+
+      '<div class="wrap lista">'+(linhas?'<div class="rolar"><table><thead><tr><th>Quando</th><th>Trilha</th><th>Nome</th><th>Empresa</th><th>WhatsApp</th><th>E-mail</th></tr></thead><tbody>'+linhas+'</tbody></table></div>':'<p class="vazio">Nenhum cadastro ainda.</p>')+'</div>';
+    var main=document.querySelector('main'); main.insertBefore(el,main.firstChild);
+    el.addEventListener('click',function(e){ var b=e.target.closest('[data-adm]'); if(!b) return;
+      if(b.dataset.adm==='lista'){ var a=el.classList.toggle('aberta'); b.textContent=a?'Fechar cadastros':'Ver cadastros'; }
+      if(b.dataset.adm==='vis'){ visitante=!visitante; document.body.classList.toggle('liberado',!visitante); b.textContent=visitante?'Ver como ADM':'Ver como visitante'; }
+    });
+  }).catch(function(){});
+})();
+</script>
+</body>
+</html>

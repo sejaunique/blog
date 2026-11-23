@@ -31,6 +31,13 @@ Cada envio para a branch `main` é publicado automaticamente na Vercel.
 - Todo o conteúdo das trilhas fica no objeto `TRILHAS`, no fim do `index.html`. Base: material do Notion (Modelo Catálogo de Venda, Bella Ravenna, Catálogo Brasil Texana, Tendas Aluban).
 - Capa de compartilhamento: `assets/og/catalogo-que-vende.jpg` (entrada em `tools/og_cliente.py`). Palavra no Instagram: CATÁLOGO (reserva em `api/instagram.js`; incluir também na planilha de iscas).
 
+## Manual "Catálogo com IA" (`/catalogo-com-ia/`)
+
+- Isca com cadastro (material `catalogo-com-ia` em `api/material.js`), trilhas `varejo` e `personalizado` (`?s=varejo` / `?s=personalizado`). Ligada à ferramenta Catálogo que vende: cartão na seção 02 do catálogo e cartão de volta no fim do manual.
+- Seções: qual IA para quê (Gemini, ChatGPT, Meta AI, Claude, editor de vídeo), foto base no celular, prompts de foto, gerador de prompt, prompts de vídeo, prompts de texto para o Claude, checklist de conferência e passo a passo em 7 passos.
+- Prompts no objeto `TRILHAS` (fim do `index.html`): `{campo}` é trocado pelo valor do gerador; `[texto]` aparece destacado para o usuário trocar. A trava `FIEL` vai em todo prompt que mexe na peça.
+- Capa: `assets/og/catalogo-com-ia.jpg`. Palavra no Instagram: "catálogo IA" (reserva em `api/instagram.js`; incluir na planilha de iscas).
+
 ## Prévia dos links (WhatsApp, Instagram, LinkedIn)
 
 Depois de publicar ou editar um post, rode `python3 tools/gerar_paginas.py`.

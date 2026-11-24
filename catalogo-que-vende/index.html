@@ -617,6 +617,8 @@ body.modo-adm .ok{display:none!important}
 .lkb{margin-top:clamp(28px,4vw,44px)}
 .lkb-cab h3{margin:8px 0 6px;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:900;letter-spacing:-.04em;color:var(--fg)}
 .lkb-cab p{margin:0 0 18px;color:var(--muted);max-width:62ch;line-height:1.55}
+.lkb-tit{margin:26px 0 4px;font-size:clamp(1.3rem,2.2vw,1.7rem);font-weight:900;letter-spacing:-.03em;color:var(--fg)}
+.lkb-sub{margin:0 0 14px;color:var(--muted);max-width:62ch;line-height:1.5}
 .lkb-gr{margin-bottom:22px}
 .lkb-gr>b{display:block;font-size:.7rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 .lkb-fs{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
@@ -953,7 +955,7 @@ body.modo-adm .ok{display:none!important}
     <p class="lead" id="tp-lead"></p>
     <div class="tipos" id="lista-tp"></div>
     <div class="lkb" id="lkb">
-      <div class="lkb-cab"><span class="spaced">Exemplos reais · Foto Lookbook</span><h3>Como fica na prática</h3><p id="lkb-p"></p></div>
+      <div class="lkb-cab"><span class="spaced">Exemplos reais · Lookbook e conceito</span><h3>Como fica na prática</h3><p id="lkb-p"></p></div>
       <div id="lkb-g"></div>
     </div>
     <a class="ia-promo rv" id="ia-promo" href="/catalogo-com-ia/">
@@ -1122,6 +1124,10 @@ body.modo-adm .ok{display:none!important}
 var TRILHAS={
 varejo:{
   nome:'Varejo e e-commerce', de:'do varejo', curto:'Varejo',
+  conceito:{p:'Agora o produto em uso, no mundo de quem compra: haras, fazenda, treino. A peça continua visível, mas quem vende é o clima.',grupos:[
+    ['Moda country',[['country/01-ambiente-da-marca','Ambiente da marca','Haras ao fundo: o cenário é o mundo de quem compra.'],['country/02-lifestyle','Lifestyle','Luz natural e sorriso: vende o estilo de vida, não só o moletom.'],['country/03-acessorio-em-uso','Acessório em uso','A bolsa aparece no look completo, no cenário rural.'],['country/04-detalhe-no-cenario','Detalhe no cenário','Close do bordado e do couro sem sair do clima da coleção.']]],
+    ['Fitness',[['fitness/01-em-movimento','Em movimento','Ângulo de baixo e céu aberto: energia de grupo.'],['fitness/02-emocao-real','Emoção real','Risada no meio do treino: a peça no uso de verdade.']]]
+  ]},
   lookbook:{p:'Fundo neutro, a peça inteira e as costas no mesmo enquadramento. Repare que cada foto responde a uma dúvida: caimento, comprimento, tecido ou como combinar.',grupos:[
     ['Moda country',[['country/01-jeans-frente','Frente','Cintura para baixo: a calça inteira, da cintura à barra.'],['country/02-jeans-costas','Costas','Mesmo enquadramento da frente: bolsos e caimento.'],['country/03-camisa-com-acessorios','Look completo','Chapéu e fivela vendem o conjunto, não só a camisa.'],['country/04-camisa-frente','Frente','Fundo neutro e mãos fora da peça: nada esconde o produto.']]],
     ['Fitness',[['fitness/01-detalhe-tecido','Detalhe','Close do cós, da textura e do bolso: substitui o toque.'],['fitness/02-corpo-inteiro-movimento','Corpo inteiro','Em movimento: mostra o caimento da saia.'],['fitness/03-costas','Costas','A logo e o decote das costas, com pose natural.']]]
@@ -1195,6 +1201,9 @@ varejo:{
 },
 personalizado:{
   nome:'Personalizado e uniformes', de:'do personalizado', curto:'Personalizado',
+  conceito:{p:'No personalizado, a foto conceito mostra a equipe vestida e trabalhando. É ela que faz o gestor se imaginar com o time uniformizado.',grupos:[
+    ['Equipe uniformizada',[['equipe/01-equipe-uniformizada','Equipe uniformizada','Time inteiro com a mesma identidade: é o que o gestor quer ver.'],['equipe/02-time-em-acao','Time em ação','O uniforme no movimento do dia a dia, não parado no cabide.']]]
+  ]},
   lookbook:{p:'Uniforme esportivo fotografado do jeito certo: corpo inteiro, costas com número, meio corpo e um close para cada acabamento (escudo, punho, faixa e selo). É isso que o comprador compara com o concorrente.',grupos:[
     ['Uniforme esportivo',[['esportivo/01-corpo-inteiro-frente','Corpo inteiro','O kit completo: camisa, short e meião.'],['esportivo/02-costas','Costas','Número e nome: a personalização aparece.'],['esportivo/03-tres-quartos','3/4','Mostra o recorte lateral e o caimento.'],['esportivo/04-meio-corpo','Meio corpo','Escudo, gola e textura do tecido na mesma foto.'],['esportivo/05-detalhe-manga','Detalhe','Punho, costura e textura em close.'],['esportivo/06-lateral','Lateral','A barra, o selo e o short juntos.'],['esportivo/07-detalhe-escudo-short','Detalhe','Escudo aplicado no short.'],['esportivo/08-detalhe-faixa-lateral','Detalhe','A faixa lateral personalizada.'],['esportivo/09-detalhe-selo','Detalhe','Selo de produto oficial: acabamento que justifica o preço.']]]
   ]},
@@ -1346,8 +1355,9 @@ var CAMISA='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l6 2v5h-3v
         '<div><p class="rg">'+esc(t.r)+'</p><div class="qt"><b>Quantidade</b><span>'+esc(t.q)+'</span></div></div></article>';
     }).join('');
     $('#fx-apoio').textContent=D.fx;
-    $('#lkb-p').textContent=D.lookbook.p;
-    $('#lkb-g').innerHTML=D.lookbook.grupos.map(function(g){ return '<div class="lkb-gr rv"><b>'+esc(g[0])+'</b><div class="lkb-fs">'+g[1].map(function(f){ return '<figure><img src="/assets/catalogo/lookbook/'+f[0]+'.jpg" alt="Exemplo de foto lookbook: '+esc(f[1])+'" loading="lazy" decoding="async"><figcaption><b>'+esc(f[1])+'</b>'+esc(f[2])+'</figcaption></figure>'; }).join('')+'</div></div>'; }).join('');
+    var galeria=function(pasta,G,tit){ return '<p class="lkb-tit">'+tit+'</p><p class="lkb-sub">'+esc(G.p)+'</p>'+G.grupos.map(function(g){ return '<div class="lkb-gr rv"><b>'+esc(g[0])+'</b><div class="lkb-fs">'+g[1].map(function(f){ return '<figure><img src="/assets/catalogo/'+pasta+'/'+f[0]+'.jpg" alt="Exemplo de '+esc(tit.toLowerCase())+': '+esc(f[1])+'" loading="lazy" decoding="async"><figcaption><b>'+esc(f[1])+'</b>'+esc(f[2])+'</figcaption></figure>'; }).join('')+'</div></div>'; }).join(''); };
+    $('#lkb-p').textContent='Peça por peça, o que cada foto resolve. Use como referência para o fotógrafo ou para a sua sessão no celular.';
+    $('#lkb-g').innerHTML=galeria('lookbook',D.lookbook,'Foto lookbook')+galeria('conceito',D.conceito,'Foto conceito');
     $('#ia-promo').href='/catalogo-com-ia/?s='+T;
 
     // 03 gerador

@@ -716,6 +716,7 @@ body.modo-adm .ok{display:none!important}
 .vnav a{font-size:.9rem;font-weight:700;text-decoration:none;color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:8px 14px;background:var(--card)}
 .vnav a:hover{border-color:var(--fg)}
 .tec,.lkb{scroll-margin-top:190px}
+.tec[hidden],.vnav a[hidden]{display:none!important}
 /* vídeos de referência e catálogo de referência */
 .vref{margin-top:8px}
 .vref-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
@@ -1073,7 +1074,7 @@ body.modo-adm .ok{display:none!important}
     <div class="cab"><span class="num">02</span><div><span class="k">O que fotografar e gravar</span><h2 id="tp-tit">Seis conteúdos, <span class="leve">seis trabalhos diferentes.</span></h2></div></div>
     <p class="lead" id="tp-lead"></p>
     <div class="tipos" id="lista-tp"></div>
-    <nav class="vnav" aria-label="Roteiros de vídeo comercial"><span>Roteiros de vídeo comercial</span><a href="#tecido">Tecido</a><a href="#vendas">Vendas</a><a href="#top10">Top 10 perguntas</a><a href="#kit">Kit de entrada</a><a href="#depoimentos">Depoimentos</a><a href="#entrega">Entrega</a><a href="#complementar">Pedido complementar</a><a href="#como-comprar">Como comprar</a><a href="#lkb">Exemplos de foto</a></nav>
+    <nav class="vnav" aria-label="Roteiros de vídeo comercial"><span>Roteiros de vídeo comercial</span><a href="#tecido">Tecido</a><a href="#vendas">Vendas</a><a href="#top10">Top 10 perguntas</a><a href="#kit">Kit de entrada</a><a href="#depoimentos">Depoimentos</a><a href="#entrega">Entrega</a><a href="#complementar">Pedido complementar</a><a href="#como-comprar">Como comprar</a><a href="#filtros" id="vnav-fil">Filtros do site</a><a href="#grupo-vip">Grupo VIP</a><a href="#varios-corpos">Várias modelos</a><a href="#lkb">Exemplos de foto</a></nav>
     <div class="tec rv" id="tecido">
       <div class="tec-cab">
         <span class="vtag">Vídeo de tecido</span>
@@ -1228,6 +1229,45 @@ body.modo-adm .ok{display:none!important}
       </div>
       <div class="vref-ig" style="margin-top:14px"><div><span class="vtag mg">Referência</span><p>Um tutorial curto de "como comprar no site", gravado na tela do celular.</p><a class="igc" href="https://www.tiktok.com/@moneiacessorios/video/7345109090965769477" target="_blank" rel="noopener"><b>Exemplo de tutorial de compra</b><span>Abrir no TikTok</span></a></div></div>
       <p class="tec-dica" style="margin-top:14px"><strong>No personalizado:</strong> o tutorial é "como pedir o seu orçamento": o que mandar (logo, quantidade, prazo, tamanhos), como aprovar o layout e como pagar o sinal.</p>
+    </div>
+    <div class="tec fil rv" id="filtros">
+      <div class="tec-cab">
+        <span class="vtag">Vídeo tutorial · só varejo</span>
+        <h3>Como usar os filtros <span class="leve">do site.</span></h3>
+        <p>A cliente entra, rola, não acha o tamanho dela e vai embora, ou manda "tem no M?" no WhatsApp. <strong>Um vídeo de 20 a 40 segundos mostrando o filtro de tamanho, cor e preço</strong> faz ela achar sozinha, e o vendedor ganha tempo.</p>
+      </div>
+      <ol class="aida tut-l"><li><span class="l">1</span><div><b>Abrir a categoria</b><p>Do menu até a lista de produtos, devagar.</p></div></li><li><span class="l">2</span><div><b>Tocar em Filtrar</b><p>Mostre onde fica o botão. Muita gente nunca viu.</p></div></li><li><span class="l">3</span><div><b>Escolher o tamanho</b><p>O filtro mais importante: só aparece o que tem no tamanho dela.</p></div></li><li><span class="l">4</span><div><b>Cor e preço</b><p>Combine dois filtros e mostre a lista diminuindo.</p></div></li><li><span class="l">5</span><div><b>Ordenar</b><p>Lançamentos primeiro, ou menor preço.</p></div></li><li><span class="l">6</span><div><b>Do filtro ao carrinho</b><p>Escolha uma peça e finalize, para o cliente ver o caminho inteiro.</p></div></li></ol>
+      <div class="tec-obj" style="margin-top:16px">
+        <div><small>Como gravar</small><ol><li>Gravação de tela do celular, na vertical</li><li>Um toque por vez, com um círculo marcando onde tocar</li><li>Legenda grande: "filtre pelo seu tamanho"</li></ol></div>
+        <div><small>Onde usar</small><ol><li>Resposta pronta para "tem no meu tamanho?"</li><li>Destaque "Como comprar" no Instagram</li><li>Anúncio para quem visitou o site e não comprou</li></ol></div>
+      </div>
+      <div class="vref-ig" style="margin-top:14px"><div><span class="vtag mg">Referência</span><p>Tutorial curto de como filtrar pelo tamanho no site.</p><a class="igc" href="https://www.tiktok.com/@carrinhaamarela/video/7304354552998907169" target="_blank" rel="noopener"><b>Exemplo de tutorial de filtros</b><span>Abrir no TikTok</span></a></div></div>
+    </div>
+    <div class="tec vip rv" id="grupo-vip">
+      <div class="tec-cab">
+        <span class="vtag mg">Vídeo convite</span>
+        <h3>Entre no grupo VIP <span class="leve">do WhatsApp.</span></h3>
+        <p>Seguidor do Instagram é público que o algoritmo empresta. <strong>Cliente no grupo VIP é público seu</strong>: recebe o lançamento primeiro, compra no dia e volta. O vídeo convite tem 15 a 30 segundos e uma única missão: fazer a pessoa tocar no link.</p>
+      </div>
+      <div class="tec-obj">
+        <div><small>O roteiro</small><ol><li>Gancho: "Quer ver os lançamentos antes de todo mundo?"</li><li>Três vantagens na tela, uma por vez: lançamento antecipado, condição só do grupo, reposição em primeira mão</li><li>Um motivo para entrar agora: vagas limitadas ou condição só para quem entrar esta semana</li><li>Chamada: "Toque no link da bio" ou "comente VIP que eu te mando o link"</li></ol></div>
+        <div><small>Regras do grupo, para dizer no convite</small><ol><li>Só a marca posta: nada de spam</li><li>Dia e horário fixos dos lançamentos</li><li>Condição que só existe no grupo, para valer a pena ficar</li><li>Saiu do grupo, perdeu a condição</li></ol></div>
+      </div>
+      <div class="vref-ig" style="margin-top:14px"><div><span class="vtag mg">Referência</span><p>Vídeo convite curto para um grupo de WhatsApp de uma marca de semijoias.</p><a class="igc" href="https://www.tiktok.com/@arts_semijoias/video/7447638881547062534" target="_blank" rel="noopener"><b>Exemplo de convite para grupo VIP</b><span>Abrir no TikTok</span></a></div></div>
+      <p class="tec-dica" style="margin-top:14px"><strong>No personalizado:</strong> o grupo vira uma lista de transmissão de compradores e RH, com os modelos novos e os prazos para as datas que exigem uniforme (início do ano, eventos, campanhas). O convite é o mesmo: uma vantagem clara e um motivo para entrar agora.</p>
+    </div>
+    <div class="tec corpos rv" id="varios-corpos">
+      <div class="tec-cab">
+        <span class="vtag">Vídeo várias modelos</span>
+        <h3>A mesma peça <span class="leve">em vários corpos.</span></h3>
+        <p>A pergunta que mais trava a compra de roupa on-line é "como vai ficar em mim?". <strong>O mesmo conjunto vestido por 3 a 5 pessoas de corpos e tamanhos diferentes</strong> responde isso em segundos: a cliente se acha no vídeo, descobre o tamanho dela e compra com segurança.</p>
+      </div>
+      <div class="tec-obj">
+        <div><small>O roteiro</small><ol><li>De 3 a 5 pessoas, do P ao GG (ou plus size), com o mesmo conjunto e a mesma cor</li><li>Cada uma entra com o mesmo movimento: giro, pose ou passo para a câmera</li><li>Na tela: nome, altura e o tamanho que veste ("Ana, 1,62 m, veste M")</li><li>Final com todas juntas e a chamada para o catálogo</li></ol></div>
+        <div><small>Onde usar</small><ol><li>Reels de lançamento da peça</li><li>Na página do produto, ao lado da tabela de medidas</li><li>Resposta pronta para "qual tamanho eu uso?"</li><li>Anúncio para públicos de manequins diferentes</li></ol></div>
+      </div>
+      <div class="vref-ig" style="margin-top:14px"><div><span class="vtag mg">Referência</span><p>O mesmo conjunto vestido por várias modelos, uma depois da outra.</p><a class="igc" href="https://www.tiktok.com/@/video/7291351913122008326" target="_blank" rel="noopener"><b>Exemplo: mesmo conjunto, várias modelos</b><span>Abrir no TikTok</span></a></div></div>
+      <p class="tec-dica" style="margin-top:14px"><strong>No personalizado:</strong> grave o uniforme na equipe real do cliente, com idades e corpos diferentes, ou com a sua equipe. Mostra que a modelagem veste todo mundo e ajuda o RH a escolher a grade de tamanhos.</p>
     </div>
     <div class="lkb" id="lkb">
       <div class="lkb-cab"><span class="spaced">Exemplos reais · Lookbook e conceito</span><h3>Como fica na prática</h3><p id="lkb-p"></p></div>
@@ -1667,6 +1707,7 @@ var CAMISA='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l6 2v5h-3v
     $('#lkb-p').textContent='Peça por peça, o que cada foto resolve. Use como referência para o fotógrafo ou para a sua sessão no celular.';
     $('#lkb-g').innerHTML=galeria('lookbook',D.lookbook,'Foto lookbook')+galeria('conceito',D.conceito,'Foto conceito');
     $('#ia-promo').href='/catalogo-com-ia/?s='+T;
+    $('#filtros').hidden=(T!=='varejo'); $('#vnav-fil').hidden=(T!=='varejo');
 
     // 03 gerador
     var lg=ls.get(KS('lg'))||{};

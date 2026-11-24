@@ -628,6 +628,63 @@ body.modo-adm .ok{display:none!important}
 .lkb-fs figcaption b{display:block;color:var(--fg);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:3px}
 @media (max-width:620px){.lkb-fs{grid-template-columns:1fr 1fr}}
 @media print{.lkb-fs{grid-template-columns:repeat(4,1fr)}.lkb-fs figure{break-inside:avoid}}
+/* vídeo de tecido */
+.tec{margin-top:clamp(28px,4vw,44px);background:var(--card);border:1px solid var(--line);border-radius:32px;padding:clamp(22px,3.4vw,40px)}
+.tec-cab h3{margin:12px 0 8px;font-size:clamp(1.8rem,3.4vw,2.8rem);font-weight:900;letter-spacing:-.045em;line-height:1;color:var(--fg)}
+.tec-cab h3 .leve{display:block;font-weight:200}
+.tec-cab p{margin:0;color:var(--muted);max-width:68ch;line-height:1.6}
+.tec-obj{display:grid;grid-template-columns:1fr 1.3fr;gap:14px;margin:20px 0}
+.tec-obj>div{background:var(--soft);border-radius:20px;padding:18px 20px}
+.tec-obj small{font-size:.64rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.tec-obj p{margin:6px 0 0;line-height:1.55}
+.tec-obj ol{margin:8px 0 0;padding-left:20px;display:grid;gap:5px;line-height:1.45}
+.tec-ic{display:block;width:100%;max-width:900px;height:auto;margin:6px auto 4px;background:#fff;border-radius:18px}
+.tec-car{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.tec-car li{display:grid;grid-template-columns:150px 1fr;gap:4px 14px;border:1px solid var(--line);border-radius:16px;padding:14px 16px;background:var(--bg)}
+.tec-car b{grid-row:span 2;font-size:1.05rem;font-weight:900;letter-spacing:-.02em}
+.tec-car span{font-size:.9rem;color:var(--muted)}
+.tec-car em{font-style:normal;font-size:.95rem;line-height:1.45}
+.tec-car em::before{content:"Como provar: ";font-weight:800;color:var(--verde-txt)}
+.tec-tab{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:18px;margin-top:20px;align-items:start}
+.tec-leg ul{margin:0;padding-left:18px;display:grid;gap:6px;line-height:1.5}
+.tec-dica{margin:12px 0 0;font-size:.92rem;padding:12px 14px;border-radius:14px;background:var(--soft)}
+.tec-tab table{width:100%;border-collapse:collapse;font-size:.95rem}
+.tec-tab caption{text-align:left;font-weight:900;font-size:1.05rem;letter-spacing:-.02em;padding:0 0 8px;color:var(--fg)}
+.tec-tab th,.tec-tab td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;font-variant-numeric:tabular-nums}
+.tec-tab thead th{font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.tec-tab tr.gp td{font-weight:800;color:var(--muted);background:var(--soft);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase}
+.tec-tab td:first-child{font-weight:800}
+@media (max-width:980px){.tec-obj,.tec-tab{grid-template-columns:1fr}.tec-car{grid-template-columns:1fr}}
+@media (max-width:620px){.tec-car li{grid-template-columns:1fr}.tec-car b{grid-row:auto}}
+@media print{.tec .vref-g{display:none!important}.tec-car li{break-inside:avoid}}
+/* vídeo de vendas */
+.aida{list-style:none;margin:0 0 8px;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.aida li{display:grid;grid-template-columns:auto 1fr;gap:12px;background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:16px}
+.aida .l{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-weight:900;font-size:1.4rem;background:#0b0b0c;color:var(--verde)}
+.aida b{display:block;font-size:1.1rem;font-weight:900}
+.aida small{display:block;font-size:.72rem;font-weight:800;letter-spacing:.12em;color:var(--muted);margin:2px 0 6px}
+.aida p{margin:0;font-size:.92rem;line-height:1.5}
+.segs2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.segs2>div{border-radius:22px;padding:20px 22px;background:#0b0b0c;color:#f5f5f5;display:grid;gap:6px}
+.segs2>div:nth-child(2){background:var(--marinho)}
+.segs2 small{font-size:.64rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--verde)}
+.segs2 b{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;letter-spacing:-.04em;line-height:1}
+.segs2 b span{font-weight:200;font-size:.6em}
+.segs2 p{margin:0;color:#d4d4d8;line-height:1.5}
+.tec-car.ben li{grid-template-columns:140px 1fr}
+.tec-car.ben b{grid-row:auto}
+.tec-car.ben em::before{content:"Como mostrar: "}
+@media (max-width:980px){.aida{grid-template-columns:1fr 1fr}.segs2{grid-template-columns:1fr}}
+@media (max-width:620px){.aida{grid-template-columns:1fr}.tec-car.ben li{grid-template-columns:1fr}}
+/* vídeo top 10 perguntas */
+.faq-l{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.faq-l li{display:grid;grid-template-columns:auto 1fr;gap:14px;background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:14px 16px}
+.faq-l li>span{font-size:1.6rem;font-weight:100;letter-spacing:-.05em;line-height:1;color:var(--magenta-txt);font-variant-numeric:tabular-nums}
+.faq-l b{display:block;font-size:1rem;font-weight:900;letter-spacing:-.01em}
+.faq-l p{margin:4px 0 0;font-size:.95rem;line-height:1.45;color:var(--muted)}
+.faq-l p.pend{color:var(--magenta-txt);font-weight:700}
+.faq-p{margin:8px 0 0;padding-left:20px;columns:2;column-gap:28px;line-height:1.6}
+@media (max-width:980px){.faq-l{grid-template-columns:1fr}.faq-p{columns:1}}
 /* vídeos de referência e catálogo de referência */
 .vref{margin-top:8px}
 .vref-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
@@ -985,6 +1042,70 @@ body.modo-adm .ok{display:none!important}
     <div class="cab"><span class="num">02</span><div><span class="k">O que fotografar e gravar</span><h2 id="tp-tit">Seis conteúdos, <span class="leve">seis trabalhos diferentes.</span></h2></div></div>
     <p class="lead" id="tp-lead"></p>
     <div class="tipos" id="lista-tp"></div>
+    <div class="tec rv" id="tecido">
+      <div class="tec-cab">
+        <span class="vtag">Vídeo de tecido</span>
+        <h3>Explique o tecido, <span class="leve">não só o produto.</span></h3>
+        <p>O erro mais comum é falar da peça ("o top é lindo, confortável") e esquecer do tecido. <strong>O vídeo de tecido diz o nome técnico, o que ele tem na composição e prova na frente da câmera o que isso faz.</strong> É o vídeo que justifica o preço e responde ao "esse tecido é bom?".</p>
+      </div>
+      <div class="tec-obj">
+        <div><small>Objetivo</small><p>Dar uma explicação técnica do tecido e fazer o cliente entender o nome e as características dele.</p></div>
+        <div><small>Roteiro de 30 a 60 segundos</small><ol><li>O nome técnico do tecido na tela</li><li>A composição: poliamida, elastano e gramatura</li><li>O que isso significa para quem usa</li><li>A prova prática, na frente da câmera</li><li>Em quais peças ele está, e a chamada para o catálogo</li></ol></div>
+      </div>
+      <img class="tec-ic" src="/assets/catalogo/tecido/caracteristicas.png" alt="Ícones das características do tecido: dry, UV, secagem rápida, macio, gelado, compressão, elástico, leveza e respirabilidade" loading="lazy" width="1536" height="680">
+      <p class="lkb-tit">Cada característica, uma prova</p>
+      <p class="lkb-sub">Não diga que o tecido é elástico: mostre quanto ele estica. Use os mesmos ícones no catálogo, na ficha do produto.</p>
+      <ul class="tec-car"><li><b>Elástico</b><span>Estica e volta ao lugar. Quem dá isso é o elastano.</span><em>Marque 10 cm na peça com fita métrica e estique até o limite: mostre quanto virou. Faça lado a lado: 9% de elastano contra 25%.</em></li><li><b>Compressão</b><span>Segura e modela sem apertar.</span><em>Vista e mostre o antes e o depois do contorno. Ou puxe o tecido com as duas mãos e solte: ele volta com força.</em></li><li><b>Dry</b><span>Puxa o suor da pele para fora.</span><em>Pingue uma gota d'água: ela se espalha e some, em vez de ficar parada em cima.</em></li><li><b>Secagem rápida</b><span>Seca em minutos, não em horas.</span><em>Molhe duas peças, uma de algodão e uma do tecido, pendure e mostre o cronômetro.</em></li><li><b>Respirabilidade</b><span>Deixa o ar passar.</span><em>Encoste o tecido na boca e sopre contra um papel fino ou uma vela: o papel mexe.</em></li><li><b>Gelado</b><span>Toque frio na pele.</span><em>Encoste no pescoço de alguém e mostre a reação. Com termômetro infravermelho, mostre os graus a menos.</em></li><li><b>UV</b><span>Bloqueia o sol.</span><em>Coloque um cartão ou miçangas que mudam de cor no sol embaixo do tecido: embaixo dele, não mudam.</em></li><li><b>Macio</b><span>Toque suave, sem aspereza.</span><em>Close da mão deslizando no tecido, comparando com uma malha comum.</em></li><li><b>Leveza</b><span>Quase não pesa.</span><em>Pese a peça numa balança de cozinha e mostre o número na tela.</em></li><li><b>Sem transparência</b><span>Não aparece nada no agachamento.</span><em>Agache contra a luz, de costas para a câmera, e mostre que nada aparece.</em></li></ul>
+      <div class="tec-tab">
+        <div class="tec-leg">
+          <p class="lkb-tit">Lendo a composição</p>
+          <ul><li><b>Poliamida:</b> toque, resistência e cor que dura.</li><li><b>Elastano:</b> elasticidade. Quanto mais, mais estica: 9% é firme, 25% é muito elástico.</li><li><b>Gramatura:</b> peso do tecido por metro quadrado. Mais alta, mais encorpado e menos transparente.</li><li><b>Canelado:</b> a textura em linhas, que aparece bem em close.</li></ul>
+          <p class="tec-dica">Use esta tabela no vídeo, uma linha por vez: "Nakay: 91% poliamida, 9% elastano, 285 g". Depois prove o que esses números fazem.</p>
+        </div>
+        <div class="rolar"><table><caption>Tecidos sintéticos de alta compressão</caption><thead><tr><th>Tecido</th><th>Poliamida</th><th>Elastano</th><th>Gramatura</th></tr></thead><tbody><tr class="gp"><td colspan="4">Alta compressão lisos</td></tr><tr><td>Nakay</td><td>91%</td><td>9%</td><td>285 g</td></tr><tr><td>Malha Emana</td><td>85%</td><td>15%</td><td>290 g</td></tr><tr><td>Atlanta</td><td>79,41%</td><td>20,59%</td><td>290 g</td></tr><tr><td>Double Fit</td><td>84%</td><td>16%</td><td>300 g</td></tr><tr><td>Moove</td><td>85%</td><td>15%</td><td>295 g</td></tr><tr><td>Nagoya</td><td>88%</td><td>12%</td><td>270 g</td></tr><tr><td>Athletic Power</td><td>84%</td><td>16%</td><td>270 a 300 g</td></tr><tr class="gp"><td colspan="4">Alta compressão canelados</td></tr><tr><td>Kapana</td><td>75,86%</td><td>24,14%</td><td>300 g</td></tr><tr><td>Saara</td><td>82%</td><td>18%</td><td>305 g</td></tr><tr><td>Wonder</td><td>76,8%</td><td>23,2%</td><td>290 g</td></tr><tr><td>Wave</td><td>75%</td><td>25%</td><td>290 g</td></tr></tbody></table></div>
+      </div>
+      <div class="vref-g" style="margin-top:16px">
+        <div class="vref-yt"><span class="vtag">Referência em vídeo</span><div class="yt"><iframe src="https://www.youtube-nocookie.com/embed/5vugDbPJNk8" title="Referência de vídeo de tecido" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe></div><a href="https://www.youtube.com/watch?v=5vugDbPJNk8" target="_blank" rel="noopener">Abrir no YouTube</a></div>
+        <div class="vref-ig"><div><span class="vtag mg">Referência no Instagram</span><p>Repare: quando o vídeo fala só da peça, falta a parte do tecido. Use a referência pelo formato e acrescente o nome técnico, a composição e a prova.</p><a class="igc" href="https://www.instagram.com/p/DHlKgLaOVns/" target="_blank" rel="noopener"><b>Exemplo de vídeo de tecido</b><span>Abrir no Instagram</span></a></div></div>
+      </div>
+    </div>
+    <div class="tec ven rv" id="vendas">
+      <div class="tec-cab">
+        <span class="vtag mg">Vídeo de vendas</span>
+        <h3>A política comercial <span class="leve">contada como história.</span></h3>
+        <p>Para quem vende no atacado ou para revenda: <strong>um vídeo de 5 a 6 minutos que apresenta a empresa e a política comercial e termina com o agendamento de uma conversa</strong>. Ele responde, de uma vez, o que o vendedor repete em todo primeiro atendimento.</p>
+      </div>
+      <div class="tec-obj">
+        <div><small>Objetivo</small><p>Apresentar a política comercial e atrair novos lojistas usando a técnica AIDA: Atenção, Interesse, Desejo e Ação.</p></div>
+        <div><small>Especificações</small><ol><li>Storytelling narrativo, não pergunta e resposta</li><li>Duração máxima de 5 a 6 minutos</li><li>Chamada final: agendar uma ligação ou videochamada</li></ol></div>
+      </div>
+      <p class="lkb-tit">O roteiro em AIDA</p>
+      <ol class="aida"><li><span class="l">A</span><div><b>Atenção</b><small>0:00 a 0:40</small><p>Abra com a história de um lojista: o problema que ele tinha (estoque parado, fornecedor atrasando, peça que volta) e a virada. Em uma frase, quem é a marca.</p></div></li><li><span class="l">I</span><div><b>Interesse</b><small>0:40 a 2:30</small><p>Quem é a empresa e os diferenciais. Como funciona a compra, o pedido mínimo de cada perfil e como é a entrega, contado como o caminho do pedido, não como regulamento.</p></div></li><li><span class="l">D</span><div><b>Desejo</b><small>2:30 a 4:30</small><p>Os benefícios, um por vez, com prova na tela: lucro, entrega, agilidade, qualidade, preço e atendimento VIP. Termine com o depoimento de um lojista.</p></div></li><li><span class="l">A</span><div><b>Ação</b><small>4:30 a 5:30</small><p>Convide para uma ligação ou videochamada: diga o que acontece nela, quanto tempo leva e como agendar. Um botão só, um caminho só.</p></div></li></ol>
+      <p class="lkb-tit">Dois perfis, duas regras de pedido mínimo</p>
+      <p class="lkb-sub">Exemplo de uma confecção de moda fitness no atacado. Mostre as duas regras com clareza: o lojista precisa se ver em uma delas.</p>
+      <div class="segs2">
+        <div><small>Revendedor comprovado</small><b>15 conjuntos <span>ou R$ 2.000</span></b><p>Comprova a revenda com redes sociais, site ou fachada da loja e lista de feedback de clientes.</p></div>
+        <div><small>Iniciante ou sem comprovação</small><b>20 conjuntos <span>ou R$ 2.500</span></b><p>Para quem está começando ou ainda não tem como comprovar a revenda.</p></div>
+      </div>
+      <p class="lkb-tit">Os benefícios, com prova</p>
+      <ul class="tec-car ben"><li><b>Lucro</b><em>Mostre a conta: custo do conjunto, preço de venda sugerido e a margem por peça.</em></li><li><b>Entrega</b><em>Mostre o pedido sendo separado, embalado e postado, com o prazo na tela.</em></li><li><b>Agilidade</b><em>Do pedido no WhatsApp à confirmação: quanto tempo leva, de verdade.</em></li><li><b>Qualidade</b><em>Close do tecido e da costura, e o vídeo de tecido em 10 segundos.</em></li><li><b>Preço</b><em>Compare com o que o lojista paga hoje, sem falar mal de ninguém.</em></li><li><b>Atendimento VIP</b><em>Apresente a pessoa que vai atender: nome, rosto e o WhatsApp direto.</em></li></ul>
+      <p class="tec-dica" style="margin-top:16px"><strong>No personalizado:</strong> troque os perfis de revenda pelas faixas de pedido (mínimo por modelo, prazo por quantidade) e a chamada final por "agende uma reunião para montar o seu orçamento". O roteiro em AIDA é o mesmo.</p>
+    </div>
+    <div class="tec faq rv" id="top10">
+      <div class="tec-cab">
+        <span class="vtag">Vídeo top 10 perguntas</span>
+        <h3>As 10 perguntas do atacado, <span class="leve">respondidas uma vez só.</span></h3>
+        <p>O vídeo de vendas conta uma história. Este faz o contrário: <strong>pergunta na tela, resposta direta em 10 a 15 segundos</strong>. Grave as 10 de uma vez e use de três jeitos: um vídeo único, uma série de Reels (uma pergunta por vídeo) e respostas prontas no WhatsApp.</p>
+      </div>
+      <div class="tec-obj">
+        <div><small>Como gravar</small><ol><li>A pergunta escrita na tela, como o cliente pergunta</li><li>A resposta em uma ou duas frases, olhando para a câmera</li><li>Uma imagem que prove a resposta (o pacote saindo, o lançamento da semana)</li><li>Sem enrolar: até 15 segundos por pergunta</li></ol></div>
+        <div><small>Onde usar</small><ol><li>Destaque "Dúvidas" no Instagram</li><li>Mensagem automática para quem chama pela primeira vez</li><li>O vendedor manda o vídeo da pergunta, em vez de digitar a resposta</li><li>Junto com o catálogo, no primeiro envio</li></ol></div>
+      </div>
+      <p class="lkb-tit">Exemplo: as 10 perguntas de uma confecção fitness no atacado</p>
+      <p class="lkb-sub">Troque pelas respostas da sua empresa. A que está entre colchetes precisa da sua resposta antes de gravar.</p>
+      <ol class="faq-l"><li><span>01</span><div><b>Qual a quantidade mínima para compra?</b><p>Para quem comprova revenda, 15 conjuntos. Para quem está começando e não comprova revenda, 20 conjuntos.</p></div></li><li><span>02</span><div><b>Envia para todo o Brasil?</b><p>Enviamos para todo o Brasil e para o exterior.</p></div></li><li><span>03</span><div><b>Como eu faço para revender a marca?</b><p class="pend">[Explique o passo a passo do cadastro de revendedor: o que mandar, quem aprova e quanto tempo leva.]</p></div></li><li><span>04</span><div><b>Quais tamanhos saem mais?</b><p>Depende do seu público, mas M e G saem bastante.</p></div></li><li><span>05</span><div><b>Quando tem lançamento?</b><p>Toda semana tem lançamento.</p></div></li><li><span>06</span><div><b>Qual a minha margem de lucro?</b><p>A partir de 100%.</p></div></li><li><span>07</span><div><b>O valor do catálogo já é o de atacado?</b><p>São os valores finais.</p></div></li><li><span>08</span><div><b>O frete é por conta do cliente?</b><p>Sim, o frete é por conta do cliente.</p></div></li><li><span>09</span><div><b>Quando tem reposição de tamanhos?</b><p>Não fazemos reposição: trabalhamos só com lançamentos, para oferecer variedade.</p></div></li><li><span>10</span><div><b>Quanto tempo para enviar o meu pedido?</b><p>Até 24 horas úteis depois do pagamento.</p></div></li></ol>
+      <div class="tec-dica" style="margin-top:16px"><strong>No personalizado, as 10 que mais aparecem:</strong><ol class="faq-p"><li>Qual o pedido mínimo por modelo?</li><li>Qual o prazo depois que eu aprovo o layout?</li><li>Vocês fazem a arte da logo?</li><li>Quais tecidos vocês trabalham?</li><li>Qual a diferença entre bordado, silk e DTF?</li><li>Dá para provar os tamanhos antes?</li><li>Posso misturar tamanhos e modelos no mesmo pedido?</li><li>Como é o pagamento?</li><li>Vocês entregam na minha cidade?</li><li>Dá para repor peças depois?</li></ol></div>
+    </div>
     <div class="lkb" id="lkb">
       <div class="lkb-cab"><span class="spaced">Exemplos reais · Lookbook e conceito</span><h3>Como fica na prática</h3><p id="lkb-p"></p></div>
       <div id="lkb-g"></div>

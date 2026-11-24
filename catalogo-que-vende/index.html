@@ -685,6 +685,17 @@ body.modo-adm .ok{display:none!important}
 .faq-l p.pend{color:var(--magenta-txt);font-weight:700}
 .faq-p{margin:8px 0 0;padding-left:20px;columns:2;column-gap:28px;line-height:1.6}
 @media (max-width:980px){.faq-l{grid-template-columns:1fr}.faq-p{columns:1}}
+/* depoimentos */
+.segs3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.segs3>div{border-radius:22px;padding:20px 22px;background:#0b0b0c;color:#f5f5f5;display:grid;gap:6px;align-content:start}
+.segs3>div:nth-child(2){background:var(--marinho)}.segs3>div:nth-child(3){background:var(--magenta)}
+.segs3 small{font-size:.62rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;opacity:.7}
+.segs3 b{font-size:1.6rem;font-weight:900;letter-spacing:-.04em}
+.segs3 p{margin:0;color:#e4e4e7;line-height:1.45}
+.segs3 em{font-style:normal;font-size:.92rem;line-height:1.45;border-top:1px solid rgba(255,255,255,.2);padding-top:8px;margin-top:4px}
+.segs3 em::before{content:"Pergunte: ";font-weight:800}
+.dep .aida{grid-template-columns:repeat(3,1fr)}
+@media (max-width:980px){.segs3,.dep .aida{grid-template-columns:1fr}}
 /* vídeos de referência e catálogo de referência */
 .vref{margin-top:8px}
 .vref-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
@@ -1129,6 +1140,19 @@ body.modo-adm .ok{display:none!important}
         <div><span class="no2">Revise antes de mandar</span><ul><li>A composição tem que ser a mesma no texto e na ficha da página. Uma peça com duas composições diferentes derruba a confiança no kit inteiro.</li><li>Diga o valor do kit, ou "consulte o seu consultor" com o botão do WhatsApp.</li><li>Na página de regras, cabe o contato e a chamada final.</li></ul></div>
       </div>
       <p class="tec-dica" style="margin-top:16px"><strong>No personalizado:</strong> o kit de entrada vira a peça piloto. Uma ou duas peças com a logo do cliente e um kit de prova de tamanhos, com valor simbólico, abatido no primeiro pedido. O roteiro do vídeo é o mesmo.</p>
+    </div>
+    <div class="tec dep rv" id="depoimentos">
+      <div class="tec-cab">
+        <span class="vtag mg">Vídeo e áudio de depoimento</span>
+        <h3>O cliente explica <span class="leve">por que escolheu você.</span></h3>
+        <p>Depoimento solto, de qualquer cliente, convence pouco. <strong>Depoimento por segmento convence muito: o lead se vê na pessoa que está falando.</strong> O objetivo é ter uma frequência de depoimentos, separados por perfil de cliente, com um vídeo de melhores momentos de cada um, pronto para o time usar todo dia.</p>
+      </div>
+      <p class="lkb-tit">Os segmentos e as perguntas de cada um</p>
+      <div class="segs3"><div><small>Segmento</small><b>Sacoleiros</b><p>Vende de porta em porta, no WhatsApp ou em grupos.</p><em>Quanto você lucra por peça? As clientes voltam a pedir? Como é receber o pedido?</em></div><div><small>Segmento</small><b>Lojistas</b><p>Tem loja física ou on-line e precisa de giro.</p><em>Como as peças giram na loja? O que as clientes comentam do tecido? Por que você continua comprando?</em></div><div><small>Segmento</small><b>Atacarejo</b><p>Compra volume e revende para outros revendedores.</p><em>Como é o prazo de entrega para volume? A margem compensa? Como é o atendimento na hora de repor a vitrine?</em></div></div>
+      <p class="lkb-tit">Do bruto ao vídeo que o time usa</p>
+      <ol class="aida"><li><span class="l">1</span><div><b>Captar cru</b><p>Grave a conversa inteira, sem cortar: celular apoiado, ou o áudio do WhatsApp mesmo. É do material bruto que saem as melhores frases.</p></div></li><li><span class="l">2</span><div><b>Perguntar certo</b><p>Faça as perguntas do segmento (acima) e peça para a pessoa responder em frase completa, repetindo a pergunta: &quot;Eu escolhi a marca porque…&quot;.</p></div></li><li><span class="l">3</span><div><b>Separar melhores momentos</b><p>Assista tudo e marque os trechos de 5 a 15 segundos que respondem a uma objeção: lucro, entrega, qualidade, atendimento.</p></div></li><li><span class="l">4</span><div><b>Editar</b><p>Um vídeo de melhores momentos por cliente, de 30 a 60 segundos. Se for áudio, coloque sobre a foto da cliente ou das peças, com legenda e a onda do som.</p></div></li><li><span class="l">5</span><div><b>Organizar</b><p>Uma pasta por segmento (sacoleiros, lojistas, atacarejo), com o arquivo cru e o editado, e o nome da cliente e da cidade no arquivo.</p></div></li><li><span class="l">6</span><div><b>Usar sempre</b><p>O vendedor manda o depoimento do mesmo perfil do lead: sacoleira recebe sacoleira, lojista recebe lojista. Combine uma frequência: um depoimento novo por semana nas redes.</p></div></li></ol>
+      <p class="tec-dica"><strong>Autorização:</strong> peça por escrito (pode ser no WhatsApp) para usar a voz, a imagem e o nome da cliente. A mensagem pronta está na seção 06.</p>
+      <p class="tec-dica" style="margin-top:10px"><strong>No personalizado:</strong> os segmentos viram nichos e cargos: o dono da empresa, o RH que compra o uniforme e o gestor da equipe. Cada um fala do que importa para ele: preço e prazo, padronização da equipe, durabilidade.</p>
     </div>
     <div class="lkb" id="lkb">
       <div class="lkb-cab"><span class="spaced">Exemplos reais · Lookbook e conceito</span><h3>Como fica na prática</h3><p id="lkb-p"></p></div>

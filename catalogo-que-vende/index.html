@@ -748,6 +748,26 @@ body.modo-adm .ok{display:none!important}
 @media (max-width:980px){.vref-g,.anat-crit{grid-template-columns:1fr}.anat-g{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:620px){.anat-g{grid-template-columns:1fr 1fr}}
 @media print{.vref{display:none!important}.anat-g figure{break-inside:avoid}}
+/* catálogo de referência do personalizado */
+.ifood{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ifood>div{border:1px solid var(--line);border-radius:20px;padding:18px 20px;background:var(--bg);display:grid;gap:6px;align-content:start}
+.ifood>div.on{background:#0b0b0c;color:#f5f5f5;border-color:#0b0b0c}
+.ifood small{font-size:.64rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.ifood .on small{color:var(--verde)}
+.ifood .ex{margin:0;font-size:1.25rem;font-weight:900;letter-spacing:-.02em;line-height:1.2}
+.ifood p{margin:0;line-height:1.5}
+.ifood em{font-style:normal;font-weight:800;font-size:.9rem;color:var(--magenta-txt)}
+.ifood .on em{color:var(--verde)}
+.sbp{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sbp li{display:grid;gap:10px;align-content:start;background:var(--bg);border:1px solid var(--line);border-radius:20px;padding:12px}
+.sbp figure{margin:0}
+.sbp img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px}
+.sbp li>div{padding:0 6px 6px;display:grid;gap:4px}
+.sbp span{font-size:1.4rem;font-weight:100;letter-spacing:-.05em;color:var(--magenta-txt);line-height:1}
+.sbp b{font-size:1.1rem;font-weight:900;letter-spacing:-.02em}
+.sbp p{margin:0;font-size:.95rem;line-height:1.5;color:var(--muted)}
+.anat[hidden]{display:none!important}
+@media (max-width:980px){.ifood,.sbp{grid-template-columns:1fr}}
 /* cartão do manual de IA */
 .ia-promo{margin-top:16px;display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;text-decoration:none;color:#f5f5f5;background:linear-gradient(120deg,#2b3384,#0b0b0c 75%);border-radius:28px;padding:clamp(22px,3vw,32px);transition:transform .2s}
 .ia-promo:hover{transform:translateY(-3px)}
@@ -1143,7 +1163,16 @@ body.modo-adm .ok{display:none!important}
     <div class="cab"><span class="num">04</span><div><span class="k">Estrutura do catálogo</span><h2>Página a página, <span class="leve">na ordem da decisão.</span></h2></div></div>
     <p class="lead" id="es-lead"></p>
     <div class="pags" id="pags"></div>
-    <div class="anat rv">
+    <div class="anat anat-pers rv" id="anat-pers" hidden>
+      <div class="anat-cab"><span class="spaced">Catálogo de referência · Personalizado</span><h3>As 8 peças de um catálogo de uniforme que vende</h3><p>Exemplo real de um catálogo de uniformes esportivos com 5 modelos. <strong>Cada modelo ocupa 3 páginas: a descrição comercial que dá vontade, a técnica que tira a dúvida e o visual com os combos.</strong> Em volta deles, o cardápio, o comparativo, a jornada, as condições e o voucher.</p></div>
+      <div class="ifood">
+        <div><small>Descrição técnica</small><p class="ex">"Pão, carne e queijo."</p><p>"Tecido Dry. Escudo em patch bordado. Gola V."</p><em>Informa. Serve para comparar.</em></div>
+        <div class="on"><small>Descrição comercial · técnica do iFood</small><p class="ex">"Pão levemente crocante, carne suculenta e queijo derretendo."</p><p>"O tecido Dry respira e deixa o corpo seco até o último minuto, o escudo bordado dá cara de clube profissional e a gola V fecha o visual."</p><em>Dá vontade. Serve para vender.</em></div>
+      </div>
+      <p class="tec-dica" style="margin:12px 0 18px">Use as duas, nesta ordem: a comercial primeiro, para criar o desejo, e a técnica logo depois, para justificar a escolha.</p>
+      <ol class="sbp"><li><figure><img src="/assets/catalogo/referencia-personalizado/01-capa-cardapio.jpg" alt="Página do catálogo de referência: Cardápio de 5 opções" loading="lazy"></figure><div><span>01</span><b>Cardápio de 5 opções</b><p>A capa já mostra os 5 modelos lado a lado, do mais simples ao topo de linha. Quem vê 5 opções raramente escolhe o mais barato e raramente o mais caro: escolhe o do meio. Monte a linha para que o modelo do meio seja o que você mais quer vender.</p></div></li><li><figure><img src="/assets/catalogo/referencia-personalizado/02-descricao-comercial.jpg" alt="Página do catálogo de referência: Descrição comercial: a técnica do iFood" loading="lazy"></figure><div><span>02</span><b>Descrição comercial: a técnica do iFood</b><p>Cada modelo abre com um texto que dá vontade, não com uma lista. O tecido não é só &quot;Dry&quot;: é o que &quot;mantém o corpo seco durante os jogos&quot;. O texto fecha com uma frase de desejo: &quot;É o uniforme que faltava no seu time.&quot;</p></div></li><li><figure><img src="/assets/catalogo/referencia-personalizado/03-descricao-tecnica.jpg" alt="Página do catálogo de referência: Descrição técnica" loading="lazy"></figure><div><span>03</span><b>Descrição técnica</b><p>Na página seguinte, a lista item por item, para quem compara: tecido, escudo, mangas, gola, recortes, selo e número. Fotos de perto de cada detalhe ao lado.</p></div></li><li><figure><img src="/assets/catalogo/referencia-personalizado/04-visual-combo.jpg" alt="Página do catálogo de referência: Visual e combo" loading="lazy"></figure><div><span>04</span><b>Visual e combo</b><p>O modelo montado em três combos: camisa sozinha, camisa com calção e o kit completo com meião. O cliente vê o time pronto e o ticket sobe.</p></div></li><li><figure><img src="/assets/catalogo/referencia-personalizado/05-comparativo.jpg" alt="Página do catálogo de referência: Comparativo" loading="lazy"></figure><div><span>05</span><b>Comparativo</b><p>Uma tabela com os 5 modelos lado a lado: tecido, escudo, logo, mangas, gola e recortes. Facilita a escolha e explica, sem falar em preço, por que um custa mais que o outro.</p></div></li><li><figure><img src="/assets/catalogo/referencia-personalizado/06-como-funciona.jpg" alt="Página do catálogo de referência: Jornada: como funciona" loading="lazy"></figure><div><span>06</span><b>Jornada: como funciona</b><p>As 9 etapas, da escolha da camisa à foto no Instagram: contrato, pagamento, layout, aprovação, produção, envio e entrega. A última etapa, a foto do time no Instagram, já combina com o cliente a prova social do próximo case.</p></div></li><li><figure><img src="/assets/catalogo/referencia-personalizado/07-condicoes.jpg" alt="Página do catálogo de referência: Condições: a política comercial" loading="lazy"></figure><div><span>07</span><b>Condições: a política comercial</b><p>Pedido mínimo por categoria, prazo depois do contrato, frete, forma de pagamento, grades de tamanho e o que já vem incluso. Tudo o que travaria o orçamento, respondido numa página.</p></div></li><li><figure><img src="/assets/catalogo/referencia-personalizado/08-voucher.jpg" alt="Página do catálogo de referência: Voucher de oportunidade" loading="lazy"></figure><div><span>08</span><b>Voucher de oportunidade</b><p>A última página é um cupom com desconto, valor mínimo, data de validade e limite por cliente. Cria urgência, dá um motivo para agir agora e ainda leva o cliente para o site.</p></div></li></ol>
+    </div>
+    <div class="anat rv" id="anat-var">
       <div class="anat-cab"><span class="spaced">Catálogo de referência</span><h3>Um produto, três páginas</h3><p>Um catálogo de moda fitness bem resolvido repete o mesmo ritmo em todos os produtos: <strong>a foto que dá desejo, a ficha que tira a dúvida e as cores que fecham a escolha</strong>. Copie o ritmo, não o visual.</p></div>
       <div class="anat-g">
         <figure><img src="/assets/catalogo/referencia/01-capa.jpg" alt="Capa do catálogo de referência" loading="lazy"><figcaption><b>Capa</b>Foto conceito forte, marca e nome da coleção. Nada mais.</figcaption></figure>
@@ -1367,15 +1396,17 @@ personalizado:{
   arq:['<b>POLO-PIQUET</b>_<b>MARINHO</b>_01-frente.jpg','<b>POLO-PIQUET</b>_<b>MARINHO</b>_02-costas.jpg','<b>TECNICA</b>_<b>BORDADO</b>_01-close.jpg','<b>TECNICA</b>_<b>BORDADO</b>_02-1metro.jpg','<b>CASE</b>_<b>CLINICA-VIDA</b>_01-equipe.jpg','<b>CASE</b>_<b>CLINICA-VIDA</b>_depoimento.mp4'],
   esLead:'O comprador de uniforme decide em outra ordem: <strong>confio, entendo o processo, escolho modelo e técnica, vejo alguém como eu, peço orçamento</strong>. As páginas marcadas como chave são as que mais faltam.',
   pags:[
-    ['Capa',['Equipe uniformizada real','O que você resolve, em uma frase','Logo e contato'],'cor',1],
+    ['Capa com o cardápio',['Os modelos lado a lado','Do mais simples ao topo de linha','O do meio é o que você quer vender'],'cor',1],
     ['Em números',['Anos de mercado','Empresas atendidas','Peças por mês','Nichos atendidos']],
     ['Como funciona',['1 Briefing · 2 Layout','3 Aprovação · 4 Produção','5 Entrega','O prazo de cada etapa'],'',1],
-    ['Modelos',['1 modelo por página','Frente, costas e lateral','Cores base e tamanhos','A ficha da seção 05']],
+    ['Modelos, em 3 páginas',['Descrição comercial que dá vontade','Descrição técnica item por item','Visual e combos: camisa, calção e meião'],'',1],
+    ['Comparativo',['Os modelos numa tabela','Tecido, escudo, gola e recortes','Explica a diferença de preço']],
     ['Tecidos',['Nome e gramatura','Toque e uso indicado','Foto de perto de cada um']],
     ['Técnicas',['Silk, bordado, DTF, sublimação','Foto do resultado','Onde usar e mínimo por técnica'],'mg'],
     ['Cases por nicho',['Saúde, indústria, eventos…','Desafio, solução, resultado','Depoimento e fotos'],'cor',1],
     ['Medidas e prova',['Tabela em centímetros','Kit de prova de tamanhos','Baby look e plus size']],
     ['Condições',['Pedido mínimo','Prazo após a aprovação','Pagamento e reposição'],'',1],
+    ['Voucher de oportunidade',['Desconto com data de validade','Valor mínimo e limite por cliente','Motivo para agir agora'],'mg'],
     ['Peça seu orçamento',['O que mandar: logo, quantidade, prazo','WhatsApp clicável','Nome do consultor'],'mg',1]
   ],
   fiLead:'No personalizado, a ficha é do modelo base. <strong>Tecido, técnica, mínimo e prazo ficam na página</strong>: quem lê já sabe se cabe no projeto antes de pedir o orçamento.',
@@ -1498,6 +1529,7 @@ var CAMISA='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l6 2v5h-3v
     $('#lkb-p').textContent='Peça por peça, o que cada foto resolve. Use como referência para o fotógrafo ou para a sua sessão no celular.';
     $('#lkb-g').innerHTML=galeria('lookbook',D.lookbook,'Foto lookbook')+galeria('conceito',D.conceito,'Foto conceito');
     $('#ia-promo').href='/catalogo-com-ia/?s='+T;
+    $('#anat-var').hidden=(T==='personalizado'); $('#anat-pers').hidden=(T!=='personalizado');
 
     // 03 gerador
     var lg=ls.get(KS('lg'))||{};

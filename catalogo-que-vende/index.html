@@ -628,6 +628,37 @@ body.modo-adm .ok{display:none!important}
 .lkb-fs figcaption b{display:block;color:var(--fg);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:3px}
 @media (max-width:620px){.lkb-fs{grid-template-columns:1fr 1fr}}
 @media print{.lkb-fs{grid-template-columns:repeat(4,1fr)}.lkb-fs figure{break-inside:avoid}}
+/* vídeos de referência e catálogo de referência */
+.vref{margin-top:8px}
+.vref-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.vref-yt,.vref-ig>div{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:18px;display:grid;gap:10px}
+.vref-ig{display:grid;gap:16px}
+.vref p{margin:0;color:var(--muted);line-height:1.5;font-size:.95rem}
+.vref-yt>a{font-weight:800;color:var(--fg)}
+.vtag{justify-self:start;font-size:.62rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;padding:7px 12px;border-radius:999px;background:var(--marinho);color:#fff}
+.vtag.mg{background:var(--magenta)}
+.yt{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.igc{display:grid;gap:2px;text-decoration:none;color:var(--fg);border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--soft)}
+.igc b{font-size:1rem}.igc span{font-size:.85rem;color:var(--muted)}
+.igc:hover{border-color:var(--fg)}
+.anat{margin-top:clamp(36px,5vw,56px)}
+.anat-cab h3{margin:8px 0 6px;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:900;letter-spacing:-.04em;color:var(--fg)}
+.anat-cab p{margin:0 0 18px;color:var(--muted);max-width:64ch;line-height:1.55}
+.anat-g{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.anat-g figure{margin:0;display:grid;gap:8px;align-content:start}
+.anat-g img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:14px;border:1px solid var(--line);box-shadow:6px 6px 0 var(--soft)}
+.anat-g figure.k img{border:2px solid var(--verde-txt)}
+.anat-g figcaption{font-size:.84rem;line-height:1.4;color:var(--muted)}
+.anat-g figcaption b{display:block;color:var(--fg);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:3px}
+.anat-crit{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.anat-crit>div{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px 20px}
+.anat-crit span{font-size:.64rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+.anat-crit .ok2{color:var(--verde-txt)}.anat-crit .no2{color:var(--magenta-txt)}
+.anat-crit ul{margin:10px 0 0;padding-left:18px;display:grid;gap:6px;line-height:1.45}
+@media (max-width:980px){.vref-g,.anat-crit{grid-template-columns:1fr}.anat-g{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:620px){.anat-g{grid-template-columns:1fr 1fr}}
+@media print{.vref{display:none!important}.anat-g figure{break-inside:avoid}}
 /* cartão do manual de IA */
 .ia-promo{margin-top:16px;display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;text-decoration:none;color:#f5f5f5;background:linear-gradient(120deg,#2b3384,#0b0b0c 75%);border-radius:28px;padding:clamp(22px,3vw,32px);transition:transform .2s}
 .ia-promo:hover{transform:translateY(-3px)}
@@ -957,6 +988,25 @@ body.modo-adm .ok{display:none!important}
     <div class="lkb" id="lkb">
       <div class="lkb-cab"><span class="spaced">Exemplos reais · Lookbook e conceito</span><h3>Como fica na prática</h3><p id="lkb-p"></p></div>
       <div id="lkb-g"></div>
+    <div class="vref rv" id="vref">
+      <p class="lkb-tit">Vídeos de referência</p>
+      <p class="lkb-sub">Os três tipos de vídeo, em exemplos reais. Mande para o videomaker junto com a lista de fotos.</p>
+      <div class="vref-g">
+        <div class="vref-yt">
+          <span class="vtag">Vídeo lookbook</span>
+          <div class="yt"><iframe src="https://www.youtube-nocookie.com/embed/6LE4xN0lUmQ?list=PLU_ncpLdfZCx9QDV13pRxDrTOl5gZbibS" title="Exemplo de vídeo lookbook" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+          <p>Peça girando, detalhe e caimento, um vídeo por produto, todos numa playlist.</p>
+          <a href="https://www.youtube.com/watch?v=6LE4xN0lUmQ&amp;list=PLU_ncpLdfZCx9QDV13pRxDrTOl5gZbibS" target="_blank" rel="noopener">Abrir a playlist no YouTube</a>
+        </div>
+        <div class="vref-ig">
+          <div><span class="vtag">Vídeo conceito</span><p>O produto em uso, no clima da marca: treino, rotina, estilo de vida. Veja os Reels destes perfis:</p>
+            <a class="igc" href="https://www.instagram.com/mfitgyn/" target="_blank" rel="noopener"><b>@mfitgyn</b><span>Moda fitness · Reels de coleção e lifestyle</span></a>
+            <a class="igc" href="https://www.instagram.com/txcbrand/" target="_blank" rel="noopener"><b>@txcbrand</b><span>Moda country · vídeos de campanha</span></a></div>
+          <div><span class="vtag mg">Vídeo trend</span><p>Formato do momento adaptado ao produto, para alcance nas redes.</p>
+            <a class="igc" href="https://www.instagram.com/reel/C4eFvE4hrdI/" target="_blank" rel="noopener"><b>Exemplo de Reels trend</b><span>Abrir no Instagram</span></a></div>
+        </div>
+      </div>
+    </div>
     </div>
     <a class="ia-promo rv" id="ia-promo" href="/catalogo-com-ia/">
       <span class="ia-sel">Novo · Manual</span>
@@ -1018,6 +1068,20 @@ body.modo-adm .ok{display:none!important}
     <div class="cab"><span class="num">04</span><div><span class="k">Estrutura do catálogo</span><h2>Página a página, <span class="leve">na ordem da decisão.</span></h2></div></div>
     <p class="lead" id="es-lead"></p>
     <div class="pags" id="pags"></div>
+    <div class="anat rv">
+      <div class="anat-cab"><span class="spaced">Catálogo de referência</span><h3>Um produto, três páginas</h3><p>Um catálogo de moda fitness bem resolvido repete o mesmo ritmo em todos os produtos: <strong>a foto que dá desejo, a ficha que tira a dúvida e as cores que fecham a escolha</strong>. Copie o ritmo, não o visual.</p></div>
+      <div class="anat-g">
+        <figure><img src="/assets/catalogo/referencia/01-capa.jpg" alt="Capa do catálogo de referência" loading="lazy"><figcaption><b>Capa</b>Foto conceito forte, marca e nome da coleção. Nada mais.</figcaption></figure>
+        <figure class="k"><img src="/assets/catalogo/referencia/02-produto-foto-principal.jpg" alt="Página da foto principal do produto" loading="lazy"><figcaption><b>Página 1 do produto</b>Foto lookbook de corpo inteiro e o nome em destaque.</figcaption></figure>
+        <figure class="k"><img src="/assets/catalogo/referencia/03-produto-ficha.jpg" alt="Página da ficha técnica do produto" loading="lazy"><figcaption><b>Página 2 do produto</b>Código, descrição, tecido, cuidados, "a modelo veste M" e o botão para o vídeo.</figcaption></figure>
+        <figure class="k"><img src="/assets/catalogo/referencia/04-produto-cores.jpg" alt="Página das cores do produto" loading="lazy"><figcaption><b>Página 3 do produto</b>Uma foto por cor, com o nome de cada uma.</figcaption></figure>
+        <figure><img src="/assets/catalogo/referencia/05-contracapa.jpg" alt="Contracapa do catálogo de referência" loading="lazy"><figcaption><b>Contracapa</b>Só a marca. Aqui cabia o contato e o botão do WhatsApp.</figcaption></figure>
+      </div>
+      <div class="anat-crit">
+        <div><span class="ok2">O que copiar</span><ul><li>O mesmo ritmo de 3 páginas em todos os produtos</li><li>Costas e detalhe na página da ficha</li><li>Botão "assista o vídeo" levando ao vídeo da peça</li><li>"A modelo veste tamanho M" na ficha</li></ul></div>
+        <div><span class="no2">O que faltou nele</span><ul><li>Preço e condição de compra</li><li>Tabela de medidas em centímetros</li><li>Contato e WhatsApp na última página</li><li>Peso: o PDF tem 39 MB e não abre no WhatsApp de muita gente</li></ul></div>
+      </div>
+    </div>
   </section>
 
   <!-- 05 -->

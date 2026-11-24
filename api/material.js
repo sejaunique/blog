@@ -51,6 +51,14 @@ const MATERIAIS = {
     tag: 'Rota do Atendimento',
     aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
   },
+  'material-de-apoio': {
+    titulo: 'Material de apoio que vende · Varejo, atacado e personalizado',
+    descricao: 'Os 18 materiais de apoio comercial pelo momento da venda, com roteiro de cada vídeo, exemplos reais e raio-x do kit.',
+    url: '/material-de-apoio/',
+    tag: 'Material de apoio',
+    segmentos: { varejo: 'Varejo e e-commerce', atacado: 'Atacado e revenda', personalizado: 'Personalizado e uniformes' },
+    aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
+  },
   'catalogo-com-ia': {
     titulo: 'Catálogo com IA · Manual para varejo e personalizado',
     descricao: 'Qual IA usar para cada foto e vídeo, a foto base no celular, prompts prontos para Gemini, ChatGPT e Meta AI, gerador de prompt, prompts de texto para o Claude e checklist de conferência.',

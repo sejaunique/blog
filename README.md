@@ -38,6 +38,13 @@ Cada envio para a branch `main` é publicado automaticamente na Vercel.
 - Prompts no objeto `TRILHAS` (fim do `index.html`): `{campo}` é trocado pelo valor do gerador; `[texto]` aparece destacado para o usuário trocar. A trava `FIEL` vai em todo prompt que mexe na peça.
 - Capa: `assets/og/catalogo-com-ia.jpg`. Palavra no Instagram: "catálogo IA" (reserva em `api/instagram.js`; incluir na planilha de iscas).
 
+## Ferramenta "Material de apoio que vende" (`/material-de-apoio/`)
+
+- Isca com cadastro (material `material-de-apoio`), 3 trilhas: `varejo`, `atacado`, `personalizado` (`?s=`).
+- 18 materiais em 5 momentos da venda (atrair, apresentar, convencer, comprar, recomprar). Cada cartão tem `data-t` com as trilhas em que aparece; trechos só de uma trilha usam `data-only` ou a classe `so-pers`.
+- Raio-x do kit no topo (salvo no aparelho), sincronizado com o "Já temos" de cada cartão.
+- Fotos de exemplo em `assets/catalogo/` (lookbook, conceito, referencia, kit, tecido). O Catálogo que vende aponta para esta página.
+
 ## Prévia dos links (WhatsApp, Instagram, LinkedIn)
 
 Depois de publicar ou editar um post, rode `python3 tools/gerar_paginas.py`.

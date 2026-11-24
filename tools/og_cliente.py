@@ -104,6 +104,9 @@ EXTRAS = [
     {"arquivo": "catalogo-com-ia.jpg", "rotulo": "Manual · Varejo e personalizado", "pill": "Material gratuito",
      "titulo": "Catálogo com IA", "chamada": "Catálogo com IA: sem estúdio, com o celular", "grifo": "com o celular",
      "descricao": "Qual IA usar, a foto base no celular, prompts de foto e vídeo para Gemini, ChatGPT e Meta AI, e checklist de conferência."},
+    {"arquivo": "material-de-apoio.jpg", "rotulo": "Ferramenta · Varejo, atacado e personalizado", "pill": "Material gratuito",
+     "titulo": "Material de apoio que vende", "chamada": "O material explica pelo vendedor", "grifo": "pelo vendedor",
+     "descricao": "Os 18 materiais de apoio comercial pelo momento da venda: catálogo, fotos, vídeos, depoimentos e tutoriais, com roteiro."},
 ]
 
 def chamada_html(p):

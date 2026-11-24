@@ -696,6 +696,26 @@ body.modo-adm .ok{display:none!important}
 .segs3 em::before{content:"Pergunte: ";font-weight:800}
 .dep .aida{grid-template-columns:repeat(3,1fr)}
 @media (max-width:980px){.segs3,.dep .aida{grid-template-columns:1fr}}
+/* pedido complementar */
+.linha{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;counter-reset:l}
+.linha li{position:relative;border:1px solid var(--line);background:var(--bg);border-radius:20px;padding:18px;display:grid;gap:4px;align-content:start}
+.linha li:not(:last-child)::after{content:"→";position:absolute;right:-12px;top:50%;transform:translateY(-50%);z-index:1;background:var(--card);width:22px;text-align:center;font-weight:900;color:var(--muted)}
+.linha small{font-size:.64rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.linha b{font-size:3rem;font-weight:900;letter-spacing:-.06em;line-height:1}
+.linha span{font-weight:700}
+.linha em{font-style:normal;font-size:.88rem;line-height:1.4;color:var(--muted);margin-top:6px}
+.linha li.on{background:var(--verde);border-color:var(--verde);color:#000}
+.linha li.on small,.linha li.on em{color:#000}
+@media (max-width:980px){.linha{grid-template-columns:1fr 1fr}.linha li::after{display:none}}
+@media (max-width:620px){.linha{grid-template-columns:1fr}}
+.tut .tut-l{grid-template-columns:repeat(4,1fr)}
+@media (max-width:980px){.tut .tut-l{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.tut .tut-l{grid-template-columns:1fr}}
+.vnav{margin-top:clamp(28px,4vw,44px);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.vnav span{font-size:.66rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-right:6px}
+.vnav a{font-size:.9rem;font-weight:700;text-decoration:none;color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:8px 14px;background:var(--card)}
+.vnav a:hover{border-color:var(--fg)}
+.tec,.lkb{scroll-margin-top:190px}
 /* vídeos de referência e catálogo de referência */
 .vref{margin-top:8px}
 .vref-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
@@ -1053,6 +1073,7 @@ body.modo-adm .ok{display:none!important}
     <div class="cab"><span class="num">02</span><div><span class="k">O que fotografar e gravar</span><h2 id="tp-tit">Seis conteúdos, <span class="leve">seis trabalhos diferentes.</span></h2></div></div>
     <p class="lead" id="tp-lead"></p>
     <div class="tipos" id="lista-tp"></div>
+    <nav class="vnav" aria-label="Roteiros de vídeo comercial"><span>Roteiros de vídeo comercial</span><a href="#tecido">Tecido</a><a href="#vendas">Vendas</a><a href="#top10">Top 10 perguntas</a><a href="#kit">Kit de entrada</a><a href="#depoimentos">Depoimentos</a><a href="#entrega">Entrega</a><a href="#complementar">Pedido complementar</a><a href="#como-comprar">Como comprar</a><a href="#lkb">Exemplos de foto</a></nav>
     <div class="tec rv" id="tecido">
       <div class="tec-cab">
         <span class="vtag">Vídeo de tecido</span>
@@ -1171,6 +1192,42 @@ body.modo-adm .ok{display:none!important}
         <div class="tec-leg"><ul><li><b>Só pedido completo entra na programação:</b> pagamento aprovado e todos os itens confirmados.</li><li>Termine o vídeo com a tabela na tela e a frase: "o seu pedido sai no próximo dia de coleta".</li><li>Mande o vídeo logo depois da confirmação do pagamento. É nesse momento que a ansiedade começa.</li></ul></div>
       </div>
       <p class="tec-dica" style="margin-top:16px"><strong>No personalizado:</strong> o vídeo vira "como funciona a produção e a entrega". Mostre o layout, a aprovação, o corte, a costura, a personalização, a conferência e a embalagem, com o prazo de cada etapa. É o vídeo que justifica os 15 dias.</p>
+    </div>
+    <div class="tec comp rv" id="complementar">
+      <div class="tec-cab">
+        <span class="vtag mg">Vídeo do pedido complementar</span>
+        <h3>Vendeu rápido? <span class="leve">Complete o pedido sem mínimo.</span></h3>
+        <p>O pedido complementar é a segunda venda mais fácil que existe: o lojista acabou de receber, testou e viu o que sai. <strong>Um vídeo curto, de 30 a 60 segundos, que explica a regra e dá vontade de completar o pedido</strong> enquanto a coleção está quente.</p>
+      </div>
+      <p class="lkb-tit">A regra numa linha do tempo</p>
+      <p class="lkb-sub">Exemplo real de uma confecção fitness no atacado. Mostre na tela exatamente assim, da esquerda para a direita.</p>
+      <ol class="linha">
+        <li><small>Pedido inicial</small><b>15</b><span>conjuntos, no mínimo</span></li>
+        <li class="on"><small>Até 7 dias após o envio</small><b>0</b><span>sem quantidade mínima</span><em>Enviou em 05/08? Complete até 12/08.</em></li>
+        <li><small>Depois dos 7 dias, no mesmo mês</small><b>13</b><span>conjuntos, no mínimo</span><em>Só 1 pedido complementar por pedido inicial.</em></li>
+        <li><small>Novo ciclo</small><b>15</b><span>conjuntos de novo</span><em>Depois do complementar, volta a regra inicial.</em></li>
+      </ol>
+      <div class="tec-obj" style="margin-top:16px">
+        <div><small>O roteiro</small><ol><li>Gancho: "As peças chegaram e já estão saindo? Então presta atenção."</li><li>A regra dos 7 dias, sem mínimo, com o exemplo de datas na tela</li><li>O que acontece depois dos 7 dias: mínimo de 13 e só uma vez</li><li>Chamada: "Mande hoje para o seu consultor o que quer completar."</li></ol></div>
+        <div><small>Quando mandar</small><ol><li>Junto com o código de rastreio</li><li>De novo, 3 dias depois da entrega, com a data limite escrita: "você tem até dia 12"</li><li>Para os vendedores: o lembrete vira tarefa no CRM, com a data do envio</li></ol></div>
+      </div>
+      <p class="tec-dica"><strong>No personalizado:</strong> o complementar é a reposição de tamanhos e de funcionários novos. Defina um prazo (por exemplo, 30 dias depois da entrega) em que a reposição sai sem pedido mínimo e com o mesmo layout já aprovado.</p>
+    </div>
+    <div class="tec tut rv" id="como-comprar">
+      <div class="tec-cab">
+        <span class="vtag">Vídeo tutorial de compra</span>
+        <h3>Como comprar <span class="leve">no site ou no aplicativo.</span></h3>
+        <p>Quem vende no atacado por plataforma (Vesti, loja B2B, site próprio) perde pedido no meio do caminho: o lojista trava no cadastro, não acha a grade ou não entende o mínimo. <strong>Um vídeo gravando a tela do celular, passo a passo, resolve isso de uma vez</strong> e libera o vendedor de explicar o mesmo processo a cada cliente novo.</p>
+      </div>
+      <p class="lkb-tit">O passo a passo para gravar</p>
+      <p class="lkb-sub">Grave a tela do celular, com a sua voz explicando. Um passo por cena, com o nome do passo escrito na tela. De 1 a 2 minutos no total.</p>
+      <ol class="aida tut-l"><li><span class="l">1</span><div><b>Abrir o link</b><p>O link da sua loja no app ou no site, e onde ele fica: bio, WhatsApp, catálogo.</p></div></li><li><span class="l">2</span><div><b>Fazer o cadastro</b><p>Os dados que pedem e o que mandar para comprovar a revenda.</p></div></li><li><span class="l">3</span><div><b>Esperar a aprovação</b><p>Quanto tempo leva e como o cliente fica sabendo que foi aprovado.</p></div></li><li><span class="l">4</span><div><b>Navegar no catálogo</b><p>Filtro por categoria, lançamentos da semana e como ver as fotos e o vídeo da peça.</p></div></li><li><span class="l">5</span><div><b>Montar o pedido</b><p>Escolher modelo, cor e grade de tamanhos, e ver o pedido mínimo sendo atingido no carrinho.</p></div></li><li><span class="l">6</span><div><b>Pagar</b><p>As formas de pagamento e o que acontece depois que o pagamento é aprovado.</p></div></li><li><span class="l">7</span><div><b>Acompanhar</b><p>Onde ver o status do pedido e o código de rastreio. Aqui entra o vídeo de entrega.</p></div></li></ol>
+      <div class="tec-obj" style="margin-top:16px">
+        <div><small>Dicas de gravação</small><ol><li>Use a gravação de tela do próprio celular, na vertical</li><li>Desacelere: toque devagar e espere a tela carregar</li><li>Marque com um círculo onde o cliente deve tocar</li><li>Faça um pedido real de teste, do começo ao fim</li></ol></div>
+        <div><small>Onde usar</small><ol><li>Primeira mensagem depois que o cadastro for aprovado</li><li>Destaque "Como comprar" no Instagram</li><li>Junto com o link do aplicativo, em todo envio de catálogo</li><li>Cortes de cada passo para responder dúvidas no WhatsApp</li></ol></div>
+      </div>
+      <div class="vref-ig" style="margin-top:14px"><div><span class="vtag mg">Referência</span><p>Um tutorial curto de "como comprar no site", gravado na tela do celular.</p><a class="igc" href="https://www.tiktok.com/@moneiacessorios/video/7345109090965769477" target="_blank" rel="noopener"><b>Exemplo de tutorial de compra</b><span>Abrir no TikTok</span></a></div></div>
+      <p class="tec-dica" style="margin-top:14px"><strong>No personalizado:</strong> o tutorial é "como pedir o seu orçamento": o que mandar (logo, quantidade, prazo, tamanhos), como aprovar o layout e como pagar o sinal.</p>
     </div>
     <div class="lkb" id="lkb">
       <div class="lkb-cab"><span class="spaced">Exemplos reais · Lookbook e conceito</span><h3>Como fica na prática</h3><p id="lkb-p"></p></div>

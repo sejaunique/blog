@@ -613,6 +613,19 @@ body.modo-adm .ok{display:none!important}
 .tp .qt span{font-weight:900;font-size:1.05rem;letter-spacing:-.02em}
 .tp .rg{font-size:.92rem;font-weight:800;line-height:1.4;color:var(--magenta-txt)}
 
+/* galeria de exemplos de lookbook */
+.lkb{margin-top:clamp(28px,4vw,44px)}
+.lkb-cab h3{margin:8px 0 6px;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:900;letter-spacing:-.04em;color:var(--fg)}
+.lkb-cab p{margin:0 0 18px;color:var(--muted);max-width:62ch;line-height:1.55}
+.lkb-gr{margin-bottom:22px}
+.lkb-gr>b{display:block;font-size:.7rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.lkb-fs{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.lkb-fs figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:grid;grid-template-rows:auto 1fr}
+.lkb-fs img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;background:#f2f2f4}
+.lkb-fs figcaption{padding:10px 12px 12px;font-size:.84rem;line-height:1.4;color:var(--muted)}
+.lkb-fs figcaption b{display:block;color:var(--fg);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:3px}
+@media (max-width:620px){.lkb-fs{grid-template-columns:1fr 1fr}}
+@media print{.lkb-fs{grid-template-columns:repeat(4,1fr)}.lkb-fs figure{break-inside:avoid}}
 /* cartão do manual de IA */
 .ia-promo{margin-top:16px;display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;text-decoration:none;color:#f5f5f5;background:linear-gradient(120deg,#2b3384,#0b0b0c 75%);border-radius:28px;padding:clamp(22px,3vw,32px);transition:transform .2s}
 .ia-promo:hover{transform:translateY(-3px)}
@@ -939,6 +952,10 @@ body.modo-adm .ok{display:none!important}
     <div class="cab"><span class="num">02</span><div><span class="k">O que fotografar e gravar</span><h2 id="tp-tit">Seis conteúdos, <span class="leve">seis trabalhos diferentes.</span></h2></div></div>
     <p class="lead" id="tp-lead"></p>
     <div class="tipos" id="lista-tp"></div>
+    <div class="lkb" id="lkb">
+      <div class="lkb-cab"><span class="spaced">Exemplos reais · Foto Lookbook</span><h3>Como fica na prática</h3><p id="lkb-p"></p></div>
+      <div id="lkb-g"></div>
+    </div>
     <a class="ia-promo rv" id="ia-promo" href="/catalogo-com-ia/">
       <span class="ia-sel">Novo · Manual</span>
       <div><b>Sem fotógrafo? Faça com IA.</b><p>Qual IA usar, a foto base no celular e prompts prontos para o Gemini, o ChatGPT e a Meta AI, de foto e de vídeo.</p></div>
@@ -1105,6 +1122,10 @@ body.modo-adm .ok{display:none!important}
 var TRILHAS={
 varejo:{
   nome:'Varejo e e-commerce', de:'do varejo', curto:'Varejo',
+  lookbook:{p:'Fundo neutro, a peça inteira e as costas no mesmo enquadramento. Repare que cada foto responde a uma dúvida: caimento, comprimento, tecido ou como combinar.',grupos:[
+    ['Moda country',[['country/01-jeans-frente','Frente','Cintura para baixo: a calça inteira, da cintura à barra.'],['country/02-jeans-costas','Costas','Mesmo enquadramento da frente: bolsos e caimento.'],['country/03-camisa-com-acessorios','Look completo','Chapéu e fivela vendem o conjunto, não só a camisa.'],['country/04-camisa-frente','Frente','Fundo neutro e mãos fora da peça: nada esconde o produto.']]],
+    ['Fitness',[['fitness/01-detalhe-tecido','Detalhe','Close do cós, da textura e do bolso: substitui o toque.'],['fitness/02-corpo-inteiro-movimento','Corpo inteiro','Em movimento: mostra o caimento da saia.'],['fitness/03-costas','Costas','A logo e o decote das costas, com pose natural.']]]
+  ]},
   rx:['Cada produto tem foto em fundo neutro, de frente e de costas','Todas as cores de cada modelo estão fotografadas, uma a uma','Cada modelo tem foto de detalhe: tecido, costura, estampa ou acabamento','Tem foto ou vídeo do produto em uso, no dia a dia do cliente','Cada produto mostra código, preço e tamanhos disponíveis','Tem tabela de medidas em centímetros, não só P, M e G','Diz como comprar: canal, pagamento, frete, troca e pedido mínimo','Abre rápido no celular: PDF com menos de 10 MB ou link','Foi atualizado nos últimos 90 dias, sem produto esgotado','Tem prova: cliente real usando, depoimento ou avaliação'],
   tpLead:'No digital, o cliente não pega na peça. <strong>Cada tipo de foto e vídeo responde a uma dúvida diferente</strong>: a cor, o caimento, a qualidade, o estilo. Se faltar um, a dúvida vira pergunta no WhatsApp, ou vira desistência.',
   fx:'Celular bom, janela grande e fundo liso resolvem 80% do catálogo. O que derruba a venda não é a câmera: é a cor que não foi fotografada, as costas que ninguém viu e o detalhe que ficou de fora.',
@@ -1174,6 +1195,9 @@ varejo:{
 },
 personalizado:{
   nome:'Personalizado e uniformes', de:'do personalizado', curto:'Personalizado',
+  lookbook:{p:'Uniforme esportivo fotografado do jeito certo: corpo inteiro, costas com número, meio corpo e um close para cada acabamento (escudo, punho, faixa e selo). É isso que o comprador compara com o concorrente.',grupos:[
+    ['Uniforme esportivo',[['esportivo/01-corpo-inteiro-frente','Corpo inteiro','O kit completo: camisa, short e meião.'],['esportivo/02-costas','Costas','Número e nome: a personalização aparece.'],['esportivo/03-tres-quartos','3/4','Mostra o recorte lateral e o caimento.'],['esportivo/04-meio-corpo','Meio corpo','Escudo, gola e textura do tecido na mesma foto.'],['esportivo/05-detalhe-manga','Detalhe','Punho, costura e textura em close.'],['esportivo/06-lateral','Lateral','A barra, o selo e o short juntos.'],['esportivo/07-detalhe-escudo-short','Detalhe','Escudo aplicado no short.'],['esportivo/08-detalhe-faixa-lateral','Detalhe','A faixa lateral personalizada.'],['esportivo/09-detalhe-selo','Detalhe','Selo de produto oficial: acabamento que justifica o preço.']]]
+  ]},
   rx:['Tem foto de cada modelo de peça em fundo neutro: camiseta, polo, jaleco, regata','Mostra os tecidos com nome, gramatura e indicação de uso','Mostra cada técnica (silk, bordado, sublimação, DTF) com foto do resultado','Tem cases: peças aplicadas com a marca de clientes reais, com autorização','Tem foto da equipe do cliente usando o uniforme no trabalho','Explica o processo: briefing, layout, aprovação, produção e entrega','Informa pedido mínimo, prazo de produção e condições','Tem tabela de medidas e oferece kit de prova de tamanhos','Tem números de prova: anos, empresas atendidas, peças entregues','Tem versão ou página por nicho: saúde, indústria, eventos, escolas, esporte'],
   tpLead:'No personalizado, o cliente precisa imaginar a própria marca na peça. <strong>Cada conteúdo prova uma coisa diferente</strong>: o modelo, o acabamento, a estrutura da fábrica e o resultado em alguém parecido com ele.',
   fx:'Mockup digital ajuda no orçamento, mas não substitui a foto real. Quem compra uniforme quer ver o bordado de perto, a equipe vestida e a prova de que você entrega no prazo.',
@@ -1322,6 +1346,8 @@ var CAMISA='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l6 2v5h-3v
         '<div><p class="rg">'+esc(t.r)+'</p><div class="qt"><b>Quantidade</b><span>'+esc(t.q)+'</span></div></div></article>';
     }).join('');
     $('#fx-apoio').textContent=D.fx;
+    $('#lkb-p').textContent=D.lookbook.p;
+    $('#lkb-g').innerHTML=D.lookbook.grupos.map(function(g){ return '<div class="lkb-gr rv"><b>'+esc(g[0])+'</b><div class="lkb-fs">'+g[1].map(function(f){ return '<figure><img src="/assets/catalogo/lookbook/'+f[0]+'.jpg" alt="Exemplo de foto lookbook: '+esc(f[1])+'" loading="lazy" decoding="async"><figcaption><b>'+esc(f[1])+'</b>'+esc(f[2])+'</figcaption></figure>'; }).join('')+'</div></div>'; }).join('');
     $('#ia-promo').href='/catalogo-com-ia/?s='+T;
 
     // 03 gerador

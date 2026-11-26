@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dra. Laura Scher · Diagnóstico de Vendas | Unique Consultoria</title>
+<meta name="description" content="Dashboard e análise narrativa do consultório Dra. Laura Scher (GestãoDS, mai/2023 a nov/2026), com plano de ações comportamentais.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#000000">
+<style>
+:root{color-scheme:light;--canvas:#f3f2f1;--card:#ffffff;--rail:#111111;--rail-text:#d6d6d6;--line:#e3e1df;--grid:#ecebea;--text:#191919;--text2:#5f5f5f;--text3:#8a8a8a;--s1:#257de0;--s2:#f47230;--s3:#00b894;--s4:#f2a600;--s5:#ee7fac;--s6:#008a17;--s7:#6a4ce2;--s8:#ec4647;--lost:#b9b6b2;--accent:#c2185b;--accent-soft:#fbe7ef;--good:#0a7d22;--warn:#b26b00;--bad:#c62828;--seq1:#cce3fd;--seq5:#0e3d7e;--shadow:0 1px 2px rgba(0,0,0,.06),0 1px 6px rgba(0,0,0,.04);}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])){color-scheme:dark;--canvas:#101010;--card:#1b1b1b;--rail:#000;--line:#2c2c2c;--grid:#262626;--text:#efefef;--text2:#b4b4b4;--text3:#8a8a8a;--s1:#338ced;--s2:#e76624;--s3:#00a888;--s4:#d28e05;--s5:#e24d8b;--s6:#0aac23;--s7:#9887ef;--s8:#eb6263;--lost:#4a4846;--accent:#f06292;--accent-soft:#3a1a27;--good:#4cc764;--warn:#e0a030;--bad:#ef6a6a;--seq1:#18314f;--seq5:#9dc8f7;--shadow:none}
+}
+:root[data-theme="dark"]{color-scheme:dark;--canvas:#101010;--card:#1b1b1b;--rail:#000;--line:#2c2c2c;--grid:#262626;--text:#efefef;--text2:#b4b4b4;--text3:#8a8a8a;--s1:#338ced;--s2:#e76624;--s3:#00a888;--s4:#d28e05;--s5:#e24d8b;--s6:#0aac23;--s7:#9887ef;--s8:#eb6263;--lost:#4a4846;--accent:#f06292;--accent-soft:#3a1a27;--good:#4cc764;--warn:#e0a030;--bad:#ef6a6a;--seq1:#18314f;--seq5:#9dc8f7;--shadow:none}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--canvas);color:var(--text);font:14px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif}
+a{color:inherit}
+/* top bar (identidade Unique) */.top{position:sticky;top:0;z-index:30;background:#000;color:#fff;display:flex;align-items:center;gap:14px;padding:10px 18px;border-bottom:1px solid #222}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;letter-spacing:.02em}
+.brand .u{width:28px;height:28px;border-radius:7px;background:#fff;color:#000;display:grid;place-items:center;font-weight:900}
+.brand small{display:block;font-weight:400;color:#aaa;font-size:11px;letter-spacing:.04em}
+.top .sp{flex:1}
+.top .cli{font-size:12px;color:#bbb;text-align:right}
+.top .cli b{color:#fff;font-weight:600}
+.iconbtn{background:#1d1d1d;border:1px solid #333;color:#eee;border-radius:8px;padding:6px 10px;cursor:pointer;font:inherit;font-size:12px}
+.iconbtn:hover{background:#2a2a2a}
+.menu-btn{display:none}
+/* layout */.app{display:flex;min-height:calc(100vh - 49px);background:linear-gradient(to right,var(--rail) 220px,transparent 220px)}
+@media (max-width:760px){.app{background:none}
+}
+.rail{width:220px;flex:none;background:var(--rail);color:var(--rail-text);padding:14px 10px;position:sticky;top:49px;height:calc(100vh - 49px);overflow:auto}
+.rail h6{margin:6px 10px 10px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#777;font-weight:600}
+.rail a{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:6px;text-decoration:none;color:var(--rail-text);font-size:13px;border-left:3px solid transparent}
+.rail a:hover{background:#1c1c1c}
+.rail a.on{background:#1f1f1f;color:#fff;border-left-color:var(--accent)}
+.rail a svg{width:16px;height:16px;flex:none;opacity:.85}
+.rail .foot{margin:18px 10px 0;font-size:11px;color:#777;line-height:1.5}
+main{flex:1;min-width:0;padding:16px 18px 40px}
+/* slicers */.slicers{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:14px;box-shadow:var(--shadow)}
+.slicer{display:flex;flex-direction:column;gap:3px;min-width:140px;flex:1}
+.slicer label{font-size:11px;color:var(--text2);font-weight:600;letter-spacing:.02em}
+.slicer select{font:inherit;font-size:13px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--text)}
+.slicers .clear{flex:none}
+.btn{font:inherit;font-size:12px;padding:7px 12px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--text);cursor:pointer}
+.btn:hover{border-color:var(--text3)}
+.filternote{font-size:12px;color:var(--text2);margin:-6px 0 12px 2px;min-height:18px}
+.filternote b{color:var(--accent)}
+/* pages */.page{display:none}
+.page.on{display:block}
+.ph{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px;margin:2px 0 12px}
+.ph h1{margin:0;font-size:22px;font-weight:700;letter-spacing:-.01em}
+.ph p{margin:2px 0 0;color:var(--text2);max-width:760px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(12,1fr)}
+.c3{grid-column:span 3}
+.c4{grid-column:span 4}
+.c5{grid-column:span 5}
+.c6{grid-column:span 6}
+.c7{grid-column:span 7}
+.c8{grid-column:span 8}
+.c12{grid-column:span 12}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;box-shadow:var(--shadow);min-width:0}
+.card h3{margin:0 0 2px;font-size:13px;font-weight:700}
+.card .sub{margin:0 0 8px;font-size:12px;color:var(--text2)}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--kc,var(--s1))}
+.kpi .l{font-size:11px;color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.kpi .v{font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi .d{font-size:12px;color:var(--text2)}
+/* narrative */.story{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:12px 16px;box-shadow:var(--shadow)}
+.story h4{margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent)}
+.story p{margin:0 0 8px}
+.story p:last-child{margin-bottom:0}
+.story .live{background:var(--accent-soft);border-radius:6px;padding:8px 10px;font-size:13px}
+.act{display:grid;gap:8px;margin-top:10px}
+.act div{display:flex;gap:10px;align-items:flex-start;background:var(--canvas);border-radius:6px;padding:8px 10px;font-size:13px}
+.act div b.tag{flex:none;font-size:10px;letter-spacing:.06em;text-transform:uppercase;background:var(--text);color:var(--card);border-radius:4px;padding:2px 6px;margin-top:2px}
+/* charts */.chart{width:100%;position:relative}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.ax{font-size:11px;fill:var(--text2)}
+.axl{stroke:var(--line)}
+.gl{stroke:var(--grid)}
+.lbl{font-size:11px;fill:var(--text);font-variant-numeric:tabular-nums}
+.lbl2{font-size:11px;fill:var(--text2)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--text2);margin:2px 0 6px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.hit{fill:transparent;cursor:default}
+.tip{position:fixed;z-index:60;pointer-events:none;background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:7px 9px;font-size:12px;box-shadow:0 4px 18px rgba(0,0,0,.18);max-width:260px;display:none;line-height:1.45}
+.tip b{font-weight:700}
+.tip .r{display:flex;justify-content:space-between;gap:14px}
+/* tables */.tw{overflow:auto;max-height:520px;border:1px solid var(--line);border-radius:6px}
+table{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
+th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--grid);white-space:nowrap}
+th{position:sticky;top:0;background:var(--card);font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.04em;cursor:pointer;user-select:none;z-index:1}
+td.n,th.n{text-align:right}
+tr:hover td{background:var(--canvas)}
+.bar-in{position:relative}
+.bar-in i{position:absolute;left:0;bottom:-5px;height:3px;border-radius:2px;background:var(--s1);opacity:.55}
+.chip{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;border:1px solid currentColor;white-space:nowrap}
+.chip.a,.chip.alta{color:var(--bad)}
+.chip.b,.chip.media{color:var(--warn)}
+.chip.c,.chip.baixa{color:var(--good)}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.tools input,.tools select{font:inherit;font-size:13px;padding:6px 9px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--text)}
+.tools input{flex:1;min-width:180px}
+/* checklist */.prog{height:8px;background:var(--grid);border-radius:4px;overflow:hidden;margin:6px 0 12px}
+.prog i{display:block;height:100%;background:var(--good);width:0;transition:width .3s}
+.ck{display:flex;gap:10px;align-items:flex-start;padding:9px 4px;border-bottom:1px solid var(--grid);cursor:pointer}
+.ck input{margin-top:3px;width:16px;height:16px;accent-color:var(--good);flex:none}
+.ck span small{display:block;color:var(--text2);font-size:12px}
+.ck.done span{text-decoration:line-through;color:var(--text3)}
+.hero{background:#000;color:#fff;border-radius:10px;padding:22px 22px 18px;margin-bottom:12px;position:relative;overflow:hidden}
+.hero h2{margin:0 0 6px;font-size:24px;line-height:1.2;max-width:760px;letter-spacing:-.01em}
+.hero p{margin:0;color:#cfcfcf;max-width:760px}
+.hero .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#f48fb1;margin-bottom:8px;font-weight:700}
+.hero svg.deco{position:absolute;right:-10px;top:-10px;width:260px;opacity:.9;pointer-events:none}
+.src li{margin-bottom:6px}
+.note{font-size:12px;color:var(--text2)}
+.sr{position:absolute;left:-9999px}
+footer.site{background:#000;color:#9a9a9a;padding:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+footer.site a{color:#fff;text-decoration:none}
+@media (max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}
+.c3{grid-column:span 6}
+.c4,.c5,.c7,.c8,.c6{grid-column:span 12}
+}
+@media (max-width:760px){.rail{position:fixed;left:0;top:49px;z-index:40;transform:translateX(-100%);transition:transform .2s;box-shadow:4px 0 20px rgba(0,0,0,.4)}
+.rail.open{transform:none}
+.menu-btn{display:inline-block}
+.top .cli{display:none}
+main{padding:12px 10px 30px}
+.kpis{grid-template-columns:repeat(2,1fr)}
+.c3{grid-column:span 12}
+.kpi .v{font-size:21px}
+.hero h2{font-size:19px}
+.hero svg.deco{width:150px;opacity:.35}
+.slicer{min-width:46%}
+}
+@media print{.top,.rail,.slicers{display:none}
+.page{display:block!important;page-break-after:always}
+}
+:root{--accent:#9c3d5c;--accent-soft:#f6e9ee}
+:root[data-theme="dark"]{--accent:#e08aa8;--accent-soft:#33202a}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])){--accent:#e08aa8;--accent-soft:#33202a}
+}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{font:inherit;font-size:12px;padding:6px 10px;border:0;background:var(--card);color:var(--text2);cursor:pointer}
+.seg button.on{background:var(--text);color:var(--card)}
+.mini{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media (max-width:760px){.mini{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <button class="iconbtn menu-btn" id="menuBtn" aria-label="Abrir menu">☰</button>
+  <a class="brand" href="https://sejaunique.com/"><span class="u">U</span><span>Unique<small>CONSULTORIA COMERCIAL</small></span></a>
+  <span class="sp"></span>
+  <div class="cli"><b>Consultório Dra. Laura Scher</b><br>Diagnóstico GestãoDS · mai/2023 → nov/2026</div>
+  <button class="iconbtn" id="themeBtn" aria-label="Alternar tema">◐ Tema</button>
+</header>
+<div class="app">
+<nav class="rail" id="rail" aria-label="Páginas do relatório">
+  <h6>Relatório</h6>
+  <a href="#visao" data-p="visao"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="1.5" width="5" height="5" rx="1"/><rect x="9.5" y="1.5" width="5" height="5" rx="1"/><rect x="1.5" y="9.5" width="5" height="5" rx="1"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/></svg>Visão geral</a>
+  <a href="#evolucao" data-p="evolucao"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 13.5l4-5 3 3 6-8"/></svg>Evolução mensal</a>
+  <a href="#procedimentos" data-p="procedimentos"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13l6-6M9 7l2-2 2 2-2 2zM2.5 14.5l1-1"/></svg>Procedimentos</a>
+  <a href="#clientes" data-p="clientes"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5.5" cy="5" r="2.5"/><circle cx="11.5" cy="6" r="2"/><path d="M1 14c0-3 2-4.5 4.5-4.5S10 11 10 14M10 10.5c2.5-.5 5 .5 5 3.5"/></svg>Clientes</a>
+  <a href="#sistema" data-p="sistema"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 8l2 2 4-4"/></svg>Saúde do sistema</a>
+  <a href="#plano" data-p="plano"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 8.5l3 3 8-8"/></svg>Plano de ações</a>
+  <a href="#metodo" data-p="metodo"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 1.5h7l3 3v10H3z"/><path d="M10 1.5v3h3"/></svg>Notas e fontes</a>
+  <div class="foot">Fonte: GestãoDS (Consultório Dra. Laura Scher), extraído em 24/11/2026.<br>Análise: Unique Consultoria Comercial.</div>
+</nav>
+<main>
+
+  <!-- VISÃO GERAL -->
+  <section class="page" id="p-visao">
+    <div class="hero">
+      <svg class="deco" viewBox="0 0 200 200" aria-hidden="true"><g fill="none" stroke-width="2">
+        <path d="M150 20c-22 26-30 44-30 58a30 30 0 0060 0c0-14-8-32-30-58z" stroke="#e8a5bd"/>
+        <path d="M150 50c-10 13-14 22-14 29a14 14 0 0028 0c0-7-4-16-14-29z" stroke="#f6cfdc"/>
+        <circle cx="92" cy="128" r="30" stroke="#d7b98e"/><circle cx="92" cy="128" r="16" stroke="#efdcc0"/>
+        <path d="M30 170c30-22 70-22 100 0M60 186c20-12 40-12 60 0" stroke="#c9a3b8"/>
+        <circle cx="172" cy="150" r="10" stroke="#a3c4bc"/></g></svg>
+      <div class="eyebrow">Consultório Dra. Laura Scher · diagnóstico do GestãoDS</div>
+      <h2>A receita cresce com a base fiel, mas a porta de entrada está fechando: novos pacientes caíram de ~60 para ~12 por mês.</h2>
+      <p>R$ 3,10 milhões nos últimos 12 meses (+5%), puxados pela toxina botulínica e por 99 pacientes VIP. Os números abaixo vêm do sistema GestãoDS; os filtros de período e visão recalculam os gráficos.</p>
+    </div>
+    <div class="kpis" id="kpis"></div>
+    <div class="grid">
+      <div class="card c8"><h3>Receita registrada por mês (R$ mil)</h3><p class="sub">Valores só passaram a ser lançados em jul/2024 · nov/26 parcial (até dia 24)</p><div class="chart" id="chRev"></div></div>
+      <div class="card c4"><h3>Receita 12 meses por linha</h3><p class="sub">dez/25 a nov/26</p><div class="chart" id="chMix"></div></div>
+      <div class="c12 story">
+        <h4>Leitura</h4>
+        <p><b>R$ 3,10 milhões em 12 meses, +5% sobre o ano anterior</b>, mesmo com novembro ainda incompleto. O ticket por atendimento pago saiu de ~R$ 2,1 mil (meados de 2024) para ~R$ 5 mil em 2026: o consultório vende planos e protocolos de maior valor.</p>
+        <p><b>O crescimento vem de quem já é paciente.</b> 99 VIPs ativos (8,7% dos clientes) geram 55,7% de toda a receita desde jul/24. É uma base fiel e valiosa, mas concentrada.</p>
+        <p><b>O alerta é a entrada.</b> Em 2023 chegavam ~60 pacientes novos por mês; hoje são ~12. Em 2026 foram 113 novos até novembro, contra 499 em 2023. Sem reposição, a base envelhece e a receita para de crescer em 12 a 24 meses.</p>
+        <div class="act">
+          <div><b class="tag">Ação</b><span><b>Receita desta semana:</b> 59 pacientes estão com o Botox "vencendo" (4–10 meses) e sem agendamento. Ligar e oferecer horário. A ~R$ 2,5 mil por aplicação, são até R$ 150 mil.</span></div>
+          <div><b class="tag">Ação</b><span><b>Meta de novos pacientes:</b> definir número mensal (sugestão: voltar a 25/mês em 6 meses) e registrar a origem de 100% dos novos.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVOLUÇÃO -->
+  <section class="page" id="p-evolucao">
+    <div class="ph"><div><h1>Evolução mensal</h1><p>Receita, ticket, novos pacientes e pendências mês a mês.</p></div>
+      <div class="seg" id="segPer"><button data-v="all" class="on">Tudo</button><button data-v="2024">2024</button><button data-v="2025">2025</button><button data-v="2026">2026</button><button data-v="12m">12 meses</button></div></div>
+    <div class="kpis" id="kpisEvol" style="grid-template-columns:repeat(4,1fr)"></div>
+    <div class="grid">
+      <div class="card c12"><h3>Atendimentos por mês</h3><p class="sub">Procedimentos e consultas</p><div class="legend"><span><i style="background:var(--s1)"></i>Procedimentos</span><span><i style="background:var(--s4)"></i>Consultas</span></div><div class="chart" id="chAtend"></div></div>
+      <div class="card c6"><h3>Novos pacientes por mês (1ª visita)</h3><p class="sub">Captação</p><div class="chart" id="chNovos"></div></div>
+      <div class="card c6"><h3>Ticket médio por atendimento pago (R$ mil)</h3><p class="sub">A partir de jul/2024</p><div class="chart" id="chTicket"></div></div>
+      <div class="card c12"><h3>% de atendimentos "Pendente"</h3><p class="sub">Sessões sem valor lançado. Em 2025 ficou perto de zero; voltou a subir em 2026.</p><div class="chart" id="chPend"></div></div>
+      <div class="c12 story">
+        <h4>Leitura</h4>
+        <p><b>O volume de atendimentos é estável</b> (~1.200 a 1.400 por ano). O que mudou foi o mix: consultas caíram de ~100/mês em 2023 para ~10/mês em 2026, e procedimentos subiram para 120–160/mês. A agenda está cheia de quem já é paciente.</p>
+        <p><b>Consulta é a porta de entrada.</b> Menos consultas significa menos pacientes novos. Em 2026 a média é de 10 novos por mês.</p>
+        <p><b>O ticket mais que dobrou</b>: R$ 2,1 mil (jul/24) → R$ 4,5–6,3 mil na maior parte de 2026. Planos de Botox e fios substituíram aplicações avulsas.</p>
+        <p><b>Pendências voltaram:</b> de 0% em 2025 para 40–68% a partir de jun/26. São sessões de pacote lançadas sem valor. O faturamento real não muda, mas o sistema perde a leitura de quanto cada paciente vale.</p>
+        <p class="live" id="liveEvol"></p>
+        <div class="act">
+          <div><b class="tag">Ação</b><span><b>Proteger a agenda de consultas:</b> reservar 6 a 8 horários de primeira consulta por semana, mesmo com a agenda cheia de procedimentos.</span></div>
+          <div><b class="tag">Ação</b><span><b>Janeiro é o mês fraco</b> (19 a 75 atendimentos): abrir a agenda de janeiro em novembro, com prioridade para retornos de Botox.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCEDIMENTOS -->
+  <section class="page" id="p-procedimentos">
+    <div class="ph"><div><h1>Procedimentos</h1><p>As linhas que mais vendem, o ticket de cada uma e o que os pacientes de Botox também compram.</p></div>
+      <div class="seg" id="segProc"><button data-v="12m" class="on">Últimos 12 meses</button><button data-v="all">Desde jul/24</button></div></div>
+    <div class="grid">
+      <div class="card c7"><h3>Receita por linha</h3><p class="sub">Rótulo: % da receita · clientes únicos</p><div class="chart" id="chLinha"></div></div>
+      <div class="card c5"><h3>Ticket por execução (R$ mil)</h3><p class="sub">Quanto vale cada vez que o procedimento é feito</p><div class="chart" id="chTkLinha"></div></div>
+      <div class="card c6"><h3>Cross-sell entre os 436 pacientes de toxina</h3><p class="sub">% que também comprou outra linha</p><div class="chart" id="chCross"></div></div>
+      <div class="card c6"><h3>Top 15 por frequência (12 meses)</h3><p class="sub">O que mais ocupa a agenda</p><div class="chart" id="chFreq"></div></div>
+      <div class="card c12"><h3>Top 30 procedimentos por receita (12 meses)</h3><p class="sub">Clique no cabeçalho para ordenar</p>
+        <div class="tools"><input id="pQ" placeholder="Buscar procedimento…" aria-label="Buscar procedimento"></div>
+        <div class="tw"><table id="tbProc"></table></div></div>
+      <div class="c12 story">
+        <h4>Leitura</h4>
+        <p><b>Toxina botulínica é o motor:</b> 43,8% da receita dos últimos 12 meses, 254 pacientes e 524 aplicações. Os planos (1º Botox do planejamento, PL2, PL3, Glowtox) transformaram uma aplicação de R$ 2,3 mil em um plano de R$ 5,4 a 9,8 mil.</p>
+        <p><b>Fios (V-Lift/C-Lift) têm o maior ticket</b> (R$ 7,8 mil por execução) e 18,7% da receita. O V-Lift sozinho fez R$ 366 mil em 35 execuções.</p>
+        <p><b>Há espaço para vender mais para quem já confia.</b> Só 23,6% dos pacientes de toxina fizeram skinbooster e 24,3% fizeram bioestimulador. 84 pacientes ativos só fazem toxina.</p>
+        <p><b>Retorno de Botox é o procedimento mais frequente</b> (422 em 12 meses) e quase não gera receita. É a melhor hora para apresentar o próximo passo do tratamento.</p>
+        <p class="live" id="liveProc"></p>
+        <div class="act">
+          <div><b class="tag">Ação</b><span><b>Retorno com proposta:</b> todo retorno de Botox termina com uma recomendação escrita (Regenera, skinbooster ou bioestimulador) e um horário sugerido.</span></div>
+          <div><b class="tag">Ação</b><span><b>Lista de cross-sell:</b> abordar os 84 pacientes ativos que só fazem toxina com um protocolo de pele de entrada.</span></div>
+          <div><b class="tag">Ação</b><span><b>Medir margem:</b> dar baixa de toxina (U), ácido hialurônico (ml) e fios em cada atendimento. Hoje o estoque utilizado é R$ 0 em 100% dos registros.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENTES -->
+  <section class="page" id="p-clientes">
+    <div class="ph"><div><h1>Clientes</h1><p>Quem gera a receita, quem está esfriando e quem nunca comprou.</p></div></div>
+    <div class="grid">
+      <div class="card c7"><h3>Segmentos: % dos clientes x % da receita</h3><p class="sub">1.135 pessoas com atendimento · receita desde jul/24</p><div class="legend"><span><i style="background:var(--lost)"></i>% dos clientes</span><span><i style="background:var(--accent)"></i>% da receita</span></div><div class="chart" id="chSeg"></div></div>
+      <div class="card c5"><h3>Frequência de visitas</h3><p class="sub">Datas distintas de atendimento por paciente</p><div class="chart" id="chFreqVis"></div></div>
+      <div class="card c12"><h3>Tabela de segmentos e ação recomendada</h3><p class="sub">Clique no cabeçalho para ordenar</p><div class="tw"><table id="tbSeg"></table></div></div>
+      <div class="card c4"><h3>Retenção por safra</h3><p class="sub">% que voltou e % que recomprou (pago)</p><div class="chart" id="chSafra"></div></div>
+      <div class="card c4"><h3>Faixa etária do cadastro</h3><p class="sub">1.675 pacientes</p><div class="chart" id="chIdade"></div></div>
+      <div class="card c4"><h3>Dia da semana dos atendimentos</h3><p class="sub">5.288 atendimentos</p><div class="chart" id="chDia"></div></div>
+      <div class="c12 story">
+        <h4>Leitura</h4>
+        <p><b>Regra 80/20 bem marcada:</b> os 126 VIPs (gasto ≥ R$ 18,4 mil desde jul/24) somam 66,9% da receita. Desses, 99 estão ativos e 83 já têm agendamento futuro. Os VIPs fazem em média 13,8 visitas.</p>
+        <p><b>27 VIPs estão esfriando ou perdidos</b> (sem visita há mais de 6 meses), com R$ 769 mil de histórico. Cada um vale em média R$ 28 mil.</p>
+        <p><b>A base fria é enorme:</b> 500 pessoas passaram só por consulta e nunca compraram procedimento pago, e 267 pagantes estão sem visita há mais de 1 ano. Juntos, são 68% dos clientes.</p>
+        <p><b>A retenção melhorou:</b> a safra jul/24–jun/25 voltou 75,4% e recomprou 52,9%; a de jul–nov/25, 78,8% e 54,1%. Quem entra hoje fica.</p>
+        <p><b>Agenda concentrada:</b> terça, quarta e quinta somam 92,5% dos atendimentos. Segunda e sexta estão praticamente livres.</p>
+        <p><b>Perfil:</b> 35–54 anos é o núcleo (715 pacientes, 43%). 946 pacientes são de Anápolis.</p>
+        <div class="act">
+          <div><b class="tag">Ação</b><span><b>Concierge VIP:</b> contato pessoal da Dra. ou da concierge com os 27 VIPs em risco/perdidos, com check-in e uma condição de retorno.</span></div>
+          <div><b class="tag">Ação</b><span><b>Ninguém sai sem o próximo horário:</b> paciente de toxina deixa a recepção com o retorno marcado (ciclo de 4–6 meses).</span></div>
+          <div><b class="tag">Ação</b><span><b>Usar segunda e sexta</b> para primeiras consultas e campanhas de reativação: capacidade ociosa que não compete com a agenda VIP.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SISTEMA -->
+  <section class="page" id="p-sistema">
+    <div class="ph"><div><h1>Saúde do sistema</h1><p>O quanto o GestãoDS está preenchido. Sem dado, não dá para medir marketing, margem nem caixa.</p></div></div>
+    <div class="grid">
+      <div class="card c7"><h3>Preenchimento por campo</h3><p class="sub">% preenchido · linha tracejada = meta</p><div class="chart" id="chSaude"></div></div>
+      <div class="card c5"><h3>Fila de correção de cadastro</h3><p class="sub">Por prioridade</p><div class="chart" id="chFila"></div>
+        <div class="tw" style="margin-top:12px"><table id="tbCrit"></table></div></div>
+      <div class="c12 story">
+        <h4>Leitura</h4>
+        <p><b>Só 27,6% dos cadastros estão completos</b> (CPF, telefone, e-mail, nascimento e cidade). Telefone está bom (93,6%), mas e-mail está em 33%: 246 pacientes ativos não têm e-mail.</p>
+        <p><b>Origem do paciente: 6%.</b> Só 8 dos 132 novos pacientes do ano têm origem registrada. Não dá para saber se o Instagram, a indicação ou o Google trazem pacientes, nem onde investir.</p>
+        <p><b>Estoque e financeiro estão fora do sistema.</b> Nenhum atendimento baixa insumo, e há 7 itens vencidos no estoque. O módulo financeiro não tem transações. Sem isso, não existe margem por procedimento nem fluxo de caixa.</p>
+        <p><b>281 sessões "Pendente" com R$ 0 em 2026</b>, quase todas de pacote (2º/3º Botox do planejamento, terapia capilar).</p>
+        <div class="act">
+          <div><b class="tag">Ação</b><span><b>Origem obrigatória</b> no cadastro de todo paciente novo, com lista fechada (Indicação de paciente, Indicação de médico, Instagram, Google, Evento, Outro).</span></div>
+          <div><b class="tag">Ação</b><span><b>Pacote lançado como pacote:</b> registrar o valor no plano e marcar as sessões como Pacote/Isento, nunca Pendente com R$ 0.</span></div>
+          <div><b class="tag">Ação</b><span><b>Completar os 272 cadastros prioritários</b> (VIP + ativos) na próxima visita: a recepção confirma e-mail, CPF e nascimento no check-in.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANO -->
+  <section class="page" id="p-plano">
+    <div class="ph"><div><h1>Plano de ações comportamentais</h1><p>O que muda na rotina da recepção, da concierge e da Dra. Marque o que já foi feito: o progresso fica salvo neste navegador.</p></div></div>
+    <div class="grid">
+      <div class="card c12"><h3>Jornada do paciente proposta</h3><p class="sub">Da primeira consulta à manutenção, sem deixar o paciente esfriar</p><div class="chart" id="flow"></div></div>
+      <div class="card c5"><h3>Checklist de implantação</h3><p class="sub" id="ckTxt"></p><div class="prog"><i id="ckBar"></i></div><div id="ckList"></div></div>
+      <div class="card c7"><h3>Banco de ações</h3><p class="sub">Filtre por frente ou prioridade. Cada ação nasce de um dado deste relatório.</p>
+        <div class="tools"><input id="aQ" placeholder="Buscar ação…" aria-label="Buscar ação"><select id="aPri" aria-label="Prioridade"><option value="">Todas as prioridades</option><option value="alta">Alta</option><option value="media">Média</option><option value="baixa">Baixa</option></select><select id="aArea" aria-label="Frente"><option value="">Todas as frentes</option></select></div>
+        <div class="tw"><table id="tbAcoes"></table></div></div>
+    </div>
+  </section>
+
+  <!-- METODO -->
+  <section class="page" id="p-metodo">
+    <div class="ph"><div><h1>Notas e fontes</h1><p>Como os números foram calculados e o que os dados não mostram.</p></div></div>
+    <div class="grid">
+      <div class="card c6"><h3>Definições</h3><ul class="src">
+        <li><b>Receita</b> = "Valor total" do atendimento no GestãoDS. Antes de jul/2024 os valores não eram lançados.</li>
+        <li><b>Atendimento com vários itens</b>: valor rateado igualmente entre os itens pagos.</li>
+        <li><b>VIP</b> = gasto ≥ R$ 18.400 desde jul/24 (top 20% dos pagantes). <b>Recência</b> = dias desde o último atendimento.</li>
+        <li><b>Novo cliente</b> = mês da primeira visita registrada.</li>
+        <li><b>12 meses</b> = dez/2025 a nov/2026 (novembro até o dia 24).</li></ul></div>
+      <div class="card c6"><h3>Limitações</h3><ul class="src">
+        <li>Sessões de pacote ficam como "Pendente" com R$ 0, então a receita por mês reflete quando o pacote foi pago.</li>
+        <li>Estoque e financeiro não são usados: não há custo, margem nem fluxo de caixa.</li>
+        <li>Origem do paciente registrada em só 6% dos novos.</li>
+        <li>Esta página não mostra nomes de pacientes. As listas nominais para executar as ações estão na planilha de bases do consultório.</li></ul></div>
+      <div class="card c12"><h3>Fonte</h3>
+        <p>Planilha "Diagnóstico GestãoDS — Consultório Dra. Laura Scher", extraída do GestãoDS em 24/11/2026 (cadastro de 1.675 pacientes e 5.288 atendimentos de mai/2023 a 24/11/2026).</p>
+        <p class="note">Análise e plano: Unique Consultoria Comercial · Carlos Ribeiro · 26/11/2026.</p></div>
+    </div>
+  </section>
+</main>
+</div>
+<footer class="site"><span>© 2026 <a href="https://sejaunique.com/">Unique Consultoria Comercial</a> · Growth Sales</span><span>Relatório preparado para o Consultório Dra. Laura Scher</span></footer>
+<div class="tip" id="tip"></div>
+<script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+const fmtN=n=>Math.round(n).toLocaleString("pt-BR");
+const fmtP=(n,d=1)=>(isFinite(n)?n:0).toLocaleString("pt-BR",{minimumFractionDigits:d,maximumFractionDigits:d})+"%";
+const fmtR=n=>"R$ "+Math.round(n).toLocaleString("pt-BR");
+const fmtRk=n=>"R$ "+(n/1000).toLocaleString("pt-BR",{maximumFractionDigits:1})+" mil";
+const fmtRm=n=>n>=1e6?"R$ "+(n/1e6).toLocaleString("pt-BR",{maximumFractionDigits:2})+" mi":fmtRk(n);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+// ---------- tooltip
+const tip=$("tip");
+function showTip(e,html){tip.innerHTML=html;tip.style.display="block";const x=e.clientX+14,y=e.clientY+14,w=tip.offsetWidth,h=tip.offsetHeight;
+  tip.style.left=Math.min(x,innerWidth-w-8)+"px";tip.style.top=(y+h>innerHeight?e.clientY-h-10:y)+"px"}
+function hideTip(){tip.style.display="none"}
+document.addEventListener("scroll",hideTip,{passive:true});
+function bindTips(root){root.querySelectorAll("[data-tip]").forEach(el=>{
+  el.addEventListener("mousemove",e=>showTip(e,el.getAttribute("data-tip")));el.addEventListener("mouseleave",hideTip);
+  el.addEventListener("touchstart",e=>{const t=e.touches[0];showTip(t,el.getAttribute("data-tip"))},{passive:true})})}
+const tr=(a,b)=>'<div class="r"><span>'+a+'</span><b>'+b+'</b></div>';
+const tipAgg=(t,a)=>'<b>'+esc(t)+'</b>'+tr("Leads",fmtN(a.n))+tr("Fechados",fmtN(a.f))+tr("Conversão",fmtP(a.conv))+tr("Receita",fmtRm(a.rev))+(a.tk?tr("Ticket médio",fmtRk(a.tk)):"");
+
+// ---------- primitivas de gráfico (SVG)
+const css=v=>"var(--"+v+")";
+function niceMax(v){if(v<=0)return 1;const p=Math.pow(10,Math.floor(Math.log10(v))),s=v/p;return(s<=1?1:s<=2?2:s<=2.5?2.5:s<=5?5:10)*p}
+function rbar(x,y,w,h,fill,top,tipH){ // retângulo com cantos 4px só na ponta
+  if(h<=0||w<=0)return"";const r=Math.min(4,w/2,h);
+  const d=top?`M${x},${y+h}V${y+r}Q${x},${y} ${x+r},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h}Z`:`M${x},${y}H${x+w}V${y+h}H${x}Z`;
+  return`<path d="${d}" fill="${fill}"${tipH?` data-tip="${esc(tipH)}"`:""}/>`}
+function hbar(x,y,w,h,fill,tipH){if(w<=0)return"";const r=Math.min(4,h/2,w);
+  return`<path d="M${x},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h-r}Q${x+w},${y+h} ${x+w-r},${y+h}H${x}Z" fill="${fill}"${tipH?` data-tip="${esc(tipH)}"`:""}/>`}
+// colunas (empilhadas ou simples). series:[{key,color}] ; data:[{label, values:{key:v}, tip}]
+function columns(el,data,series,o={}){
+  const W=o.w||760,H=o.h||260,m={t:18,r:8,b:o.rot?52:28,l:o.yfmt?44:36};const iw=W-m.l-m.r,ih=H-m.t-m.b;
+  const tot=data.map(d=>series.reduce((s,se)=>s+(d.values[se.key]||0),0));const ym=o.ymax||niceMax(Math.max(...tot,1));
+  const bw=iw/data.length,gap=Math.max(2,bw*(o.gap??.28)),cw=bw-gap;let g="";
+  for(let i=0;i<=4;i++){const v=ym*i/4,y=m.t+ih-ih*i/4;g+=`<line class="gl" x1="${m.l}" x2="${W-m.r}" y1="${y}" y2="${y}"/><text class="ax" x="${m.l-6}" y="${y+4}" text-anchor="end">${o.yfmt?o.yfmt(v):fmtN(v)}</text>`}
+  data.forEach((d,i)=>{let y=m.t+ih,x=m.l+i*bw+gap/2;const n=series.length;
+    series.forEach((se,j)=>{const v=d.values[se.key]||0,h=ih*v/ym;const isTop=series.slice(j+1).every(s2=>!(d.values[s2.key]>0));
+      y-=h;g+=rbar(x,y+(j>0?0:0),cw,Math.max(0,h-(j<n-1&&!isTop&&h>2?2:0)),se.color,isTop)});
+    if(o.top)g+=`<text class="lbl" x="${x+cw/2}" y="${y-5}" text-anchor="middle">${o.top(d,i)}</text>`;
+    const show=!o.every||i%o.every===0;
+    if(show)g+=o.rot?`<text class="ax" transform="translate(${x+cw/2},${m.t+ih+10}) rotate(-50)" text-anchor="end">${esc(d.label)}</text>`:`<text class="ax" x="${x+cw/2}" y="${m.t+ih+17}" text-anchor="middle">${esc(d.label)}</text>`;
+    g+=`<rect class="hit" x="${m.l+i*bw}" y="${m.t}" width="${bw}" height="${ih}" data-tip="${esc(d.tip||"")}"/>`});
+  g+=`<line class="axl" x1="${m.l}" x2="${W-m.r}" y1="${m.t+ih}" y2="${m.t+ih}"/>`;
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.aria||"")}">${g}</svg>`;bindTips(el)}
+// barras horizontais. data:[{label,v,lab,tip,color}]
+function hbars(el,data,o={}){
+  const W=o.w||560,row=o.row||30,m={t:6,r:o.r||120,b:6,l:o.l||170};const H=m.t+m.b+row*data.length,iw=W-m.l-m.r;
+  const xm=o.xmax||niceMax(Math.max(...data.map(d=>d.v),1));let g="";
+  data.forEach((d,i)=>{const y=m.t+i*row,bh=Math.min(16,row*.55),by=y+(row-bh)/2,w=iw*d.v/xm;
+    g+=`<text class="lbl" x="${m.l-8}" y="${y+row/2+4}" text-anchor="end">${esc(d.label)}</text>`;
+    g+=`<rect x="${m.l}" y="${by}" width="${iw}" height="${bh}" rx="3" fill="var(--grid)" opacity=".6"/>`;
+    g+=hbar(m.l,by,Math.max(w,1),bh,d.color||css("s1"));
+    g+=`<text class="lbl" x="${m.l+Math.max(w,1)+6}" y="${y+row/2+4}">${d.lab}</text>`;
+    g+=`<rect class="hit" x="0" y="${y}" width="${W}" height="${row}" data-tip="${esc(d.tip||"")}"/>`});
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.aria||"")}">${g}</svg>`;bindTips(el)}
+// linha
+function line(el,data,o={}){
+  const W=o.w||560,H=o.h||220,m={t:22,r:16,b:28,l:44};const iw=W-m.l-m.r,ih=H-m.t-m.b;
+  const ym=o.ymax||niceMax(Math.max(...data.map(d=>d.v),1));const x=i=>m.l+(data.length===1?iw/2:iw*i/(data.length-1)),y=v=>m.t+ih-ih*v/ym;let g="";
+  for(let i=0;i<=4;i++){const v=ym*i/4;g+=`<line class="gl" x1="${m.l}" x2="${W-m.r}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${m.l-6}" y="${y(v)+4}" text-anchor="end">${o.yfmt?o.yfmt(v):fmtN(v)}</text>`}
+  g+=`<path d="${data.map((d,i)=>(i?"L":"M")+x(i)+","+y(d.v)).join("")}" fill="none" stroke="${o.color||css("s1")}" stroke-width="2" stroke-linejoin="round"/>`;
+  data.forEach((d,i)=>{g+=`<circle cx="${x(i)}" cy="${y(d.v)}" r="4.5" fill="${o.color||css("s1")}" stroke="var(--card)" stroke-width="2"/>`;
+    g+=`<text class="lbl" x="${x(i)}" y="${y(d.v)-10}" text-anchor="middle">${o.lab?o.lab(d):fmtN(d.v)}</text><text class="ax" x="${x(i)}" y="${m.t+ih+17}" text-anchor="middle">${esc(d.label)}</text>`;
+    const bw=iw/Math.max(1,data.length-1);g+=`<rect class="hit" x="${x(i)-bw/2}" y="${m.t}" width="${bw}" height="${ih}" data-tip="${esc(d.tip||"")}"/>`});
+  g+=`<line class="axl" x1="${m.l}" x2="${W-m.r}" y1="${m.t+ih}" y2="${m.t+ih}"/>`;
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.aria||"")}">${g}</svg>`;bindTips(el)}
+// rosca simples (participação)
+function donutList(el,items){ // items [{label,v,color}]
+  const tot=items.reduce((s,i)=>s+i.v,0)||1;let a=-Math.PI/2,g="";const cx=90,cy=90,R=78,r=50;
+  items.forEach(it=>{const ang=it.v/tot*Math.PI*2;if(ang<=0)return;const a2=a+ang-0.012,lg=ang>Math.PI?1:0;
+    const p=(rr,t)=>[cx+rr*Math.cos(t),cy+rr*Math.sin(t)];const[a1x,a1y]=p(R,a),[b1x,b1y]=p(R,a2),[a2x,a2y]=p(r,a2),[b2x,b2y]=p(r,a);
+    g+=`<path d="M${a1x},${a1y}A${R},${R} 0 ${lg} 1 ${b1x},${b1y}L${a2x},${a2y}A${r},${r} 0 ${lg} 0 ${b2x},${b2y}Z" fill="${it.color}" data-tip="${esc('<b>'+it.label+'</b>'+tr('Receita',fmtRm(it.v))+tr('Participação',fmtP(it.v/tot*100)))}"/>`;a+=ang});
+  g+=`<text x="${cx}" y="${cy-2}" text-anchor="middle" class="lbl" style="font-size:15px;font-weight:700">${fmtRm(tot)}</text><text x="${cx}" y="${cy+15}" text-anchor="middle" class="lbl2">receita</text>`;
+  const leg=items.map(it=>`<div style="display:flex;justify-content:space-between;gap:8px;font-size:12px;padding:3px 0;border-bottom:1px solid var(--grid)"><span style="display:flex;gap:6px;align-items:center"><i style="width:10px;height:10px;border-radius:2px;background:${it.color};display:inline-block"></i>${esc(it.label)}</span><b>${fmtP(it.v/tot*100,0)}</b></div>`).join("");
+  el.innerHTML=`<div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><svg viewBox="0 0 180 180" style="width:160px;flex:none">${g}</svg><div style="flex:1;min-width:150px">${leg}</div></div>`;bindTips(el)}
+
+
+// ---------- dados (GestãoDS)
+// mês, atendimentos, receita, pagos, pendentes, isentos, consultas, procedimentos, únicos, novos, ticket, %pend
+const M=[["2023-05",134,null,0,120,14,83,51,84,83,null,89.6],["2023-06",120,null,0,110,10,64,56,87,56,null,91.7],["2023-07",148,null,0,124,24,111,37,118,72,null,83.8],["2023-08",171,null,0,145,26,127,44,134,79,null,84.8],["2023-09",131,null,0,115,16,90,41,109,54,null,87.8],["2023-10",175,null,0,139,36,119,56,129,59,null,79.4],["2023-11",151,null,0,137,14,96,55,115,51,null,90.7],["2023-12",158,null,0,119,39,111,47,118,45,null,75.3],["2024-01",19,null,0,10,9,15,4,18,0,null,52.6],["2024-02",72,null,0,67,5,49,23,65,33,null,93.1],["2024-03",139,null,0,113,26,87,52,109,42,null,81.3],["2024-04",123,null,0,101,22,73,50,88,35,null,82.1],["2024-05",147,null,0,107,40,94,53,111,39,null,72.8],["2024-06",128,null,0,97,31,62,66,105,29,null,75.8],["2024-07",122,54400,26,66,30,55,67,89,24,2092,54.1],["2024-08",107,164938,76,22,9,39,68,83,23,2170,20.6],["2024-09",109,157410,66,30,13,27,82,81,11,2385,27.5],["2024-10",149,248346,91,45,13,44,105,102,30,2729,30.2],["2024-11",118,201870,71,33,14,37,81,81,14,2843,28],["2024-12",110,180056,65,36,9,26,84,82,13,2770,32.7],["2025-01",75,135490,55,0,20,25,50,60,17,2267,0],["2025-02",112,238070,68,0,44,33,79,77,16,3347,0],["2025-03",109,221500,60,0,49,27,82,83,20,3428,0],["2025-04",109,234003,75,0,34,35,74,97,29,3109,0],["2025-05",124,236730,69,0,55,25,99,87,24,3425,0],["2025-06",106,207780,58,0,48,14,92,84,19,3562,0],["2025-07",159,321660,85,0,74,38,121,108,25,3576,0],["2025-08",121,272520,58,0,63,18,103,91,21,4495,0],["2025-09",141,332740,68,0,73,16,125,102,17,4749,0],["2025-10",129,307640,54,0,75,13,116,96,13,5490,0],["2025-11",114,265462,55,0,59,8,106,90,10,4753,0],["2025-12",130,281950,59,2,69,16,114,95,19,4501,1.5],["2026-01",29,36600,11,0,18,3,26,28,0,3245,0],["2026-02",100,213979,55,5,40,8,92,76,6,3725,5],["2026-03",137,280392,62,28,47,13,124,105,13,4473,20.4],["2026-04",141,311869,48,24,69,11,130,108,15,6331,17],["2026-05",147,343579,67,31,49,15,132,111,18,5047,21.1],["2026-06",131,231839,50,55,26,9,122,108,10,4449,42],["2026-07",106,238756,48,47,11,6,100,90,7,4787,44.3],["2026-08",138,251130,54,79,5,16,122,114,12,4651,57.2],["2026-09",149,389393,67,79,3,11,138,108,14,5812,53],["2026-10",172,397418,69,98,5,11,161,111,14,5579,57],["2026-11",78,124580,23,53,2,5,73,70,4,5417,67.9]].map(r=>({k:r[0],at:r[1],rev:r[2],pg:r[3],pend:r[4],ise:r[5],cons:r[6],proc:r[7],uni:r[8],novos:r[9],tk:r[10],pp:r[11]}));
+// linha, qtd, receita, clientes, ticket
+const L12=[["Toxina botulínica",524,1357011,254,2590],["Fios (V-Lift/C-Lift)",74,578625,64,7819],["Skinboosters / pele",236,376254,98,1594],["Preenchimento / AH",61,221163,43,3626],["Terapias capilares",130,150433,22,1157],["Ultrassom microfocado",27,120577,23,4466],["Lasers e tecnologias",38,76975,24,2026],["Consultas/Avaliações",191,71390,163,374],["Bioestimuladores",15,53808,14,3587],["Dermatologia clín./cirúrg.",41,45825,28,1118],["Peelings e estética",40,39225,18,981],["Retorno de Botox",422,9599,233,23]];
+const LALL=[["Toxina botulínica",1044,2712621,376,2598],["Fios (V-Lift/C-Lift)",217,1602050,151,7383],["Preenchimento / AH",185,582369,111,3148],["Skinboosters / pele",269,473699,108,1761],["Consultas/Avaliações",692,332825,507,481],["Bioestimuladores",98,304362,66,3106],["Ultrassom microfocado",74,270786,51,3659],["Terapias capilares",175,211625,26,1209],["Lasers e tecnologias",99,169625,63,1713],["Dermatologia clín./cirúrg.",103,107482,72,1044],["Peelings e estética",72,78227,37,1086],["Retorno de Botox",838,35829,347,43]];
+const LCOR={"Toxina botulínica":"s1","Fios (V-Lift/C-Lift)":"s2","Skinboosters / pele":"s3","Preenchimento / AH":"s5","Terapias capilares":"s4","Ultrassom microfocado":"s7","Consultas/Avaliações":"s6"};
+const TOP30=[["V-LIFT",35,365708,30,10449],["PLANO GLOWTOX",27,264996,24,9815],["1º BOTOX DO PLANEJAMENTO",46,248396,46,5400],["1º BOTOX PL3",30,196725,29,6558],["1º BOTOX PL2",26,143022,26,5501],["REFINAMENTO AH",33,140033,27,4243],["TERAPIA CAPILAR + LED",122,133258,18,1092],["PROTOCOLO REGENERA FULL FACE",58,114685,27,1977],["ULTHERAPY PRIME",25,113443,21,4538],["BOTOX",47,105865,41,2252],["BOTOX REPROGRAMAÇÃO MUSCULAR",13,93925,13,7225],["NCTF",88,91874,42,1044],["3º BOTOX DO PLANEJAMENTO",81,61267,80,756],["PROTOCOLO REGENERA PÁLPEBRA",52,60198,29,1158],["C-LIFT",11,57133,10,5194],["V-LIFT PASSO 1",11,51000,11,4636],["V-LIFT PASSO 2",10,48350,10,4835],["2º BOTOX DO PLANEJAMENTO",86,41359,86,481],["CONSULTA",76,40690,57,535],["PROFHILO",12,38500,11,3208],["2º BOTOX PL3",30,36050,30,1202],["V-LIFT ADVANCED",3,30750,3,10250],["PREENCHIMENTO CADA ML",8,27711,8,3464],["PREENCHIMENTO LABIAL",10,25869,9,2587],["GLOWTOX AVULSO",7,25800,6,3686],["PRIMEIRA CONSULTA",41,25580,41,624],["PROTOCOLO MELASMA",7,24350,5,3479],["BIOESTIMULADOR",8,23925,8,2991],["LASER CO2",9,23450,9,2606],["BIÓPSIA",18,22225,16,1235]];
+const FREQ=[["Retorno de Botox",422],["Terapia capilar + LED",122],["NCTF",88],["2º Botox do planejamento",86],["3º Botox do planejamento",81],["Consulta",76],["Avaliação",65],["Regenera full face",58],["Regenera pálpebra",52],["Botox",47],["1º Botox do planejamento",46],["Primeira consulta",41],["2º Botox PL2",35],["V-Lift",35],["Refinamento AH",33]];
+const CROSS=[["Fios (V-Lift/C-Lift)",146,33.5],["Preenchimento / AH",126,28.9],["Bioestimuladores",106,24.3],["Skinboosters / pele",103,23.6],["Ultrassom microfocado",67,15.4],["Lasers e tecnologias",46,10.6],["Peelings e estética",25,5.7],["Terapias capilares",18,4.1]];
+// segmento, clientes, receita desde jul/24, receita 12m, com agendamento, visitas, ação, %cli, %rec, status
+const SEG=[["VIP ativo (≤180 dias)",99,3830252,2118920,83,13.8,"Manter: agendar a próxima sessão antes de sair",8.7,55.7,"c"],["VIP em risco (181–365 dias)",13,416501,57000,2,10.1,"Contato pessoal da Dra./concierge",1.1,6.1,"a"],["VIP perdido (>365 dias)",14,352330,0,0,6.4,"Reativação VIP com condição exclusiva",1.2,5.1,"a"],["Pagante ativo (≤180 dias)",161,1255440,846775,93,6.1,"Garantir agendamento + complementar",14.2,18.2,"c"],["Pagante esfriando (181–365)",66,334190,78790,3,4.6,"Lembrete de manutenção",5.8,4.9,"b"],["Pagante inativo (>365)",267,693387,0,4,3.7,"Campanha de reativação",23.5,10.1,"b"],["Novo sem compra (90 dias)",5,0,0,0,1.2,"Converter consulta em plano",0.4,0,"b"],["Sem compra paga, ativo <1 ano",10,0,0,2,3.1,"Apresentar plano de tratamento",0.9,0,"b"],["Sem compra paga, inativo >1 ano",500,0,0,1,2,"Base fria: nutrição / campanhas",44.1,0,"b"]];
+const VIS=[["1 visita",338],["2",243],["3",117],["4",102],["5 a 9",200],["10 ou mais",135]];
+const SAFRA=[["mai/23–jun/24",677,66.3,17.7],["jul/24–jun/25",240,75.4,52.9],["jul/25–nov/25",85,78.8,54.1]];
+const IDADE=[["< 18",120],["18–24",92],["25–34",204],["35–44",422],["45–54",293],["55–64",178],["65+",122],["Sem data",244]];
+const DIA=[["Seg",74],["Ter",1878],["Qua",1235],["Qui",1779],["Sex",281],["Sáb",39],["Dom",2]];
+const SAUDE=[["Nome",100,90],["Telefone válido",93.6,90],["Data de nascimento",85.4,90],["CPF",69.7,90],["Cidade",67.7,90],["E-mail",33.1,90],["Cadastro 100% completo",27.6,90],["Origem do paciente (novos)",6.1,90],["Etiquetas",0.8,30],["Estoque nos atendimentos",0,100]];
+const FILA=[["Alta (VIP + ativos)",272,"s8"],["Média (atendidos, sem compra recente)",526,"s4"],["Baixa (nunca atendidos)",506,"s1"]];
+const CRIT=[["Pendentes com R$ 0 em 2026","281 sessões"],["Atendimentos com estoque","0 de 5.288"],["Transações no Financeiro","0"],["Itens vencidos no estoque","7"],["Telefones em mais de 1 cadastro","145"],["Nomes duplicados","29 registros"]];
+
+const sum=(a,f)=>a.reduce((s,x)=>s+(f(x)||0),0);
+const MESN=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+const lab=k=>{const[y,m]=k.split("-");return MESN[+m-1]+"/"+y.slice(2)};
+const W1=()=>innerWidth<760;
+
+// ---------- visão geral
+function visao(){
+  const K=[["Receita 12 meses","R$ 3,10 mi","+5,0% vs 12m anteriores","s3"],["Ticket médio","R$ 4.939","por atendimento pago (12m)","s2"],["Clientes pagantes","620","desde jul/24 · R$ 11,1 mil cada","s1"],["Novos pacientes","132","nos últimos 12 meses (~11/mês)","s8"],["Receita dos VIPs","55,7%","99 VIPs ativos","s7"],["Agendamento futuro","188","pacientes com horário marcado","s6"]];
+  $("kpis").innerHTML=K.map(k=>`<div class="kpi" style="--kc:var(--${k[3]})"><div class="l">${k[0]}</div><div class="v">${k[1]}</div><div class="d">${k[2]}</div></div>`).join("");
+  const R=M.filter(m=>m.rev!=null);
+  columns($("chRev"),R.map(m=>({label:lab(m.k),values:{r:m.rev/1000},tip:'<b>'+lab(m.k)+'</b>'+tr("Receita",fmtR(m.rev))+tr("Atendimentos",fmtN(m.at))+tr("Ticket pago",fmtR(m.tk))+tr("Novos pacientes",fmtN(m.novos))})),[{key:"r",color:css("accent")}],{w:900,h:260,gap:.25,rot:true,every:W1()?3:1,aria:"Receita por mês"});
+  const tot=sum(L12,x=>x[2]);const top=L12.slice(0,6),rest=tot-sum(top,x=>x[2]);
+  donutList($("chMix"),top.map(x=>({label:x[0],v:x[2],color:css(LCOR[x[0]]||"s7")})).concat([{label:"Outras linhas",v:rest,color:css("lost")}]));
+}
+// ---------- evolução
+let per="all";
+function evol(){
+  const R=M.filter(m=>per==="all"?true:per==="12m"?m.k>="2025-12":m.k.startsWith(per));
+  const rev=sum(R,m=>m.rev),pg=sum(R,m=>m.pg),nov=sum(R,m=>m.novos),at=sum(R,m=>m.at),pend=sum(R,m=>m.pend);
+  const K=[["Atendimentos",fmtN(at),fmtN(sum(R,m=>m.proc))+" procedimentos · "+fmtN(sum(R,m=>m.cons))+" consultas","s1"],["Receita registrada",rev?fmtRm(rev):"–",rev?"":"sem valores lançados no período","s3"],["Novos pacientes",fmtN(nov),fmtN(nov/R.length)+" por mês em média","s8"],["Pendentes",fmtP(at?pend/at*100:0,0),fmtN(pend)+" atendimentos sem valor","s4"]];
+  $("kpisEvol").innerHTML=K.map(k=>`<div class="kpi" style="--kc:var(--${k[3]})"><div class="l">${k[0]}</div><div class="v">${k[1]}</div><div class="d">${k[2]}</div></div>`).join("");
+  const tipM=m=>'<b>'+lab(m.k)+'</b>'+tr("Atendimentos",fmtN(m.at))+tr("Procedimentos",fmtN(m.proc))+tr("Consultas",fmtN(m.cons))+tr("Novos",fmtN(m.novos))+(m.rev!=null?tr("Receita",fmtR(m.rev)):"");
+  columns($("chAtend"),R.map(m=>({label:lab(m.k),values:{p:m.proc,c:m.cons},tip:tipM(m)})),[{key:"p",color:css("s1")},{key:"c",color:css("s4")}],{w:1000,h:250,gap:.25,rot:true,every:W1()&&R.length>14?3:1,aria:"Atendimentos"});
+  columns($("chNovos"),R.map(m=>({label:lab(m.k),values:{n:m.novos},tip:tipM(m)})),[{key:"n",color:css("s8")}],{w:560,h:230,gap:.25,rot:true,every:R.length>14?3:1,aria:"Novos"});
+  const T=R.filter(m=>m.tk!=null);
+  if(T.length)line($("chTicket"),T.map(m=>({label:lab(m.k),v:m.tk/1000,tip:tipM(m)})),{w:560,h:230,color:css("s2"),lab:(d)=>"",yfmt:v=>fmtN(v),aria:"Ticket"});else $("chTicket").innerHTML='<p class="note">Sem valores lançados neste período.</p>';
+  line($("chPend"),R.map(m=>({label:lab(m.k),v:m.pp,tip:tipM(m)+tr("% pendente",fmtP(m.pp))})),{w:1000,h:200,ymax:100,color:css("s4"),lab:()=>"",yfmt:v=>fmtN(v)+"%",aria:"% pendente"});
+  // rótulos de eixo do gráfico de linha ficam densos: esconder parte
+  ["chTicket","chPend"].forEach(id=>{const n=$(id).querySelectorAll("text.ax");const tk=[...n].filter(t=>t.getAttribute("text-anchor")==="middle");const step=tk.length>14?3:1;tk.forEach((t,i)=>{if(i%step)t.remove()})});
+  const best=R.filter(m=>m.rev!=null).sort((a,b)=>b.rev-a.rev)[0];
+  $("liveEvol").innerHTML=`<b>No período selecionado:</b> ${fmtN(at)} atendimentos, ${fmtN(nov)} pacientes novos${rev?`, ${fmtRm(rev)} registrados e ticket pago de ${fmtR(rev/(pg||1))}`:""}.${best?` Melhor mês: ${lab(best.k)} (${fmtR(best.rev)}).`:""}`;
+}
+// ---------- procedimentos
+let pv="12m";
+const pState={k:"rev",d:-1};
+function proc(){
+  const Ln=pv==="12m"?L12:LALL;const tot=sum(Ln,x=>x[2]);
+  hbars($("chLinha"),Ln.map(x=>({label:x[0],v:x[2]/1000,color:css(LCOR[x[0]]||"lost"),lab:fmtP(x[2]/tot*100)+" · "+fmtN(x[3])+" clientes",tip:'<b>'+esc(x[0])+'</b>'+tr("Receita",fmtR(x[2]))+tr("Execuções",fmtN(x[1]))+tr("Clientes",fmtN(x[3]))+tr("Ticket",fmtR(x[4]))})),{l:170,r:140,row:28,aria:"Receita por linha"});
+  const byT=Ln.filter(x=>x[4]>100).slice().sort((a,b)=>b[4]-a[4]);
+  hbars($("chTkLinha"),byT.map(x=>({label:x[0],v:x[4]/1000,color:css(LCOR[x[0]]||"lost"),lab:fmtR(x[4]),tip:'<b>'+esc(x[0])+'</b>'+tr("Ticket por execução",fmtR(x[4]))+tr("Receita por cliente",fmtR(x[2]/x[3]))})),{l:170,r:80,row:28,aria:"Ticket por linha"});
+  $("liveProc").innerHTML=`<b>${pv==="12m"?"Últimos 12 meses":"Desde jul/24"}:</b> ${fmtRm(tot)} em ${fmtN(sum(Ln,x=>x[1]))} execuções. Toxina ${fmtP(Ln[0][2]/tot*100)} da receita; fios ${fmtP(Ln.find(x=>x[0].startsWith("Fios"))[2]/tot*100)}.`;
+}
+function procFixos(){
+  hbars($("chCross"),CROSS.map(x=>({label:x[0],v:x[2],color:css(LCOR[x[0]]||"s7"),lab:fmtP(x[2])+" · "+fmtN(x[1]),tip:'<b>'+esc(x[0])+'</b>'+tr("Clientes de toxina que compraram",fmtN(x[1]))})),{xmax:50,l:170,r:80,row:28,aria:"Cross-sell"});
+  hbars($("chFreq"),FREQ.map(x=>({label:x[0],v:x[1],color:css(/Botox|BOTOX/i.test(x[0])?"s1":"s3"),lab:fmtN(x[1]),tip:'<b>'+esc(x[0])+'</b>'+tr("Execuções em 12m",fmtN(x[1]))})),{l:170,r:50,row:24,aria:"Frequência"});
+  drawProcT()}
+function drawProcT(){const q=($("pQ").value||"").toLowerCase();
+  const rows=TOP30.map(x=>({p:x[0],q:x[1],rev:x[2],c:x[3],tk:x[4]})).filter(r=>!q||r.p.toLowerCase().includes(q));
+  sortable($("tbProc"),[{k:"p",t:"Procedimento"},{k:"q",t:"Qtd.",n:1},{k:"rev",t:"Receita",n:1,bar:1,f:v=>fmtR(v)},{k:"c",t:"Clientes",n:1},{k:"tk",t:"Ticket",n:1,f:v=>fmtR(v)}],rows,pState)}
+$("pQ").addEventListener("input",drawProcT);
+// ---------- clientes
+const sState={k:"rec",d:-1};
+function clientes(){
+  const W=560,row=34,m={l:200,r:70};let g="";const iw=W-m.l-m.r;
+  SEG.forEach((s,i)=>{const y=6+i*row;g+=`<text class="lbl" x="${m.l-8}" y="${y+row/2+4}" text-anchor="end">${esc(s[0])}</text>`;
+    const w1=iw*s[7]/60,w2=iw*s[8]/60;g+=hbar(m.l,y+5,Math.max(w1,1),10,css("lost"))+hbar(m.l,y+17,Math.max(w2,1),10,css("accent"));
+    g+=`<text class="lbl2" x="${m.l+Math.max(w1,w2)+6}" y="${y+row/2+4}">${fmtP(s[7],0)} · ${fmtP(s[8],0)}</text><rect class="hit" x="0" y="${y}" width="${W}" height="${row}" data-tip="${esc('<b>'+s[0]+'</b>'+tr('Clientes',fmtN(s[1]))+tr('% clientes',fmtP(s[7]))+tr('% receita',fmtP(s[8]))+tr('Receita desde jul/24',fmtR(s[2]))+tr('Com agendamento',fmtN(s[4])))}"/>`});
+  $("chSeg").innerHTML=`<svg viewBox="0 0 ${W} ${12+row*SEG.length}" role="img" aria-label="Segmentos">${g}</svg>`;bindTips($("chSeg"));
+  hbars($("chFreqVis"),VIS.map(x=>({label:x[0],v:x[1],color:css("s1"),lab:fmtN(x[1])+" · "+fmtP(x[1]/1135*100,0),tip:'<b>'+x[0]+'</b>'+tr("Clientes",fmtN(x[1]))})),{w:400,l:80,r:90,row:34,aria:"Visitas"});
+  const rows=SEG.map(s=>({s:s[0],n:s[1],rec:s[2],r12:s[3],ag:s[4],vis:s[5],acao:s[6],st:s[9]}));
+  sortable($("tbSeg"),[{k:"s",t:"Segmento"},{k:"n",t:"Clientes",n:1},{k:"rec",t:"Receita desde jul/24",n:1,bar:1,f:v=>v?fmtR(v):"–"},{k:"r12",t:"Receita 12m",n:1,f:v=>v?fmtR(v):"–"},{k:"ag",t:"Com agendamento",n:1},{k:"vis",t:"Visitas méd.",n:1,f:v=>v.toLocaleString("pt-BR")},{k:"acao",t:"Ação recomendada",f:(v,r)=>`<span class="chip ${r.st==="a"?"alta":r.st==="b"?"media":"baixa"}">${r.st==="a"?"Urgente":r.st==="b"?"Reativar":"Manter"}</span> ${esc(v)}`}],rows,sState);
+  const Ws=360;let gs="";SAFRA.forEach((s,i)=>{const x0=40+i*105;const h1=150*s[2]/100,h2=150*s[3]/100;
+    gs+=rbar(x0,170-h1,40,h1,css("s1"),true)+rbar(x0+44,170-h2,40,h2,css("accent"),true)+`<text class="lbl" x="${x0+20}" y="${165-h1}" text-anchor="middle">${fmtN(s[2])}%</text><text class="lbl" x="${x0+64}" y="${165-h2}" text-anchor="middle">${fmtN(s[3])}%</text><text class="ax" x="${x0+42}" y="188" text-anchor="middle">${s[0]}</text><rect class="hit" x="${x0-4}" y="10" width="92" height="170" data-tip="${esc('<b>Safra '+s[0]+'</b>'+tr('Novos',fmtN(s[1]))+tr('Voltaram',fmtP(s[2]))+tr('Recompra paga',fmtP(s[3])))}"/>`});
+  $("chSafra").innerHTML=`<div class="legend"><span><i style="background:var(--s1)"></i>Voltou</span><span><i style="background:var(--accent)"></i>Recompra paga</span></div><svg viewBox="0 0 ${Ws} 196" role="img" aria-label="Retenção por safra"><line class="axl" x1="30" x2="350" y1="170" y2="170"/>${gs}</svg>`;bindTips($("chSafra"));
+  columns($("chIdade"),IDADE.map(x=>({label:x[0],values:{v:x[1]},tip:'<b>'+x[0]+'</b>'+tr("Pacientes",fmtN(x[1]))})),[{key:"v",color:css("s7")}],{w:380,h:220,gap:.3,top:d=>fmtN(d.values.v),aria:"Idade"});
+  columns($("chDia"),DIA.map(x=>({label:x[0],values:{v:x[1]},tip:'<b>'+x[0]+'</b>'+tr("Atendimentos",fmtN(x[1]))+tr("%",fmtP(x[1]/5288*100))})),[{key:"v",color:css("s3")}],{w:380,h:220,gap:.3,top:d=>fmtP(d.values.v/5288*100,0),aria:"Dia da semana"});
+}
+// ---------- sistema
+function sistema(){
+  const W=560,row=30,l=190,r=60,iw=W-l-r;let g="";
+  SAUDE.forEach((s,i)=>{const y=6+i*row,bh=14,by=y+(row-bh)/2,w=iw*s[1]/100;const c=s[1]>=s[2]?"good":s[1]>=s[2]*.7?"warn":"bad";
+    g+=`<text class="lbl" x="${l-8}" y="${y+row/2+4}" text-anchor="end">${esc(s[0])}</text><rect x="${l}" y="${by}" width="${iw}" height="${bh}" rx="3" fill="var(--grid)" opacity=".6"/>${hbar(l,by,Math.max(w,1),bh,css(c))}<line x1="${l+iw*s[2]/100}" x2="${l+iw*s[2]/100}" y1="${y+3}" y2="${y+row-3}" stroke="var(--text)" stroke-dasharray="3 2" stroke-width="1.5"/><text class="lbl" x="${l+iw+6}" y="${y+row/2+4}">${fmtP(s[1])}</text><rect class="hit" x="0" y="${y}" width="${W}" height="${row}" data-tip="${esc('<b>'+s[0]+'</b>'+tr('Preenchido',fmtP(s[1]))+tr('Meta',fmtP(s[2],0)))}"/>`});
+  $("chSaude").innerHTML=`<svg viewBox="0 0 ${W} ${12+row*SAUDE.length}" role="img" aria-label="Preenchimento">${g}</svg>`;bindTips($("chSaude"));
+  hbars($("chFila"),FILA.map(x=>({label:x[0].split(" (")[0],v:x[1],color:css(x[2]),lab:fmtN(x[1])+" cadastros",tip:'<b>'+esc(x[0])+'</b>'+tr("Cadastros",fmtN(x[1]))})),{l:70,r:110,row:32,w:420,aria:"Fila"});
+  $("tbCrit").innerHTML="<thead><tr><th>Ponto crítico</th><th class=\"n\">Situação</th></tr></thead><tbody>"+CRIT.map(c=>`<tr><td>${esc(c[0])}</td><td class="n"><span class="chip alta">${esc(c[1])}</span></td></tr>`).join("")+"</tbody>";
+}
+// ---------- plano
+function flow(){
+  const st=[["1ª","Primeira consulta","Origem registrada, cadastro completo e plano de tratamento por escrito."],["D0","Plano fechado","Pacote lançado com valor; sessões marcadas como Pacote."],["Saída","Próximo horário","Ninguém sai da recepção sem o retorno agendado."],["Retorno","Revisão + proposta","Retorno de Botox termina com a próxima recomendação."],["4–6m","Manutenção","Lembrete 2 semanas antes do ciclo vencer."],[">6m","Concierge","Sem visita há 6 meses: contato pessoal e condição de retorno."]];
+  const W=1000,H=170,n=st.length,bw=(W-20)/n;let g=`<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="var(--text3)"/></marker></defs>`;
+  st.forEach((s,i)=>{const x=10+i*bw,cx=x+bw/2;const c=i===2?"var(--accent)":"var(--s1)";
+    g+=`<circle cx="${cx}" cy="40" r="30" fill="var(--card)" stroke="${c}" stroke-width="2.5"/><text x="${cx}" y="45" text-anchor="middle" style="font-size:12px;font-weight:700" fill="${c}">${s[0]}</text>`;
+    if(i<n-1)g+=`<line x1="${cx+34}" y1="40" x2="${cx+bw-36}" y2="40" stroke="var(--text3)" stroke-width="2" marker-end="url(#ar)"/>`;
+    g+=`<text x="${cx}" y="88" text-anchor="middle" class="lbl" style="font-weight:700;font-size:13px">${s[1]}</text><foreignObject x="${x+6}" y="96" width="${bw-12}" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="font-size:11.5px;line-height:1.35;color:var(--text2);text-align:center">${s[2]}</div></foreignObject>`});
+  $("flow").innerHTML=`<div style="overflow-x:auto"><svg viewBox="0 0 ${W} ${H}" style="min-width:720px" role="img" aria-label="Jornada do paciente">${g}</svg></div>`}
+const AC=[
+ ["Contatar os 59 pacientes com Botox vencendo (4–10 meses) e sem agendamento","Receita rápida","alta","59 pacientes · ~R$ 2,5 mil por aplicação","Recepção","Esta semana"],
+ ["Contato pessoal com os 27 VIPs em risco/perdidos: check-in + condição de retorno","Receita rápida","alta","R$ 769 mil de histórico","Dra./Concierge","Esta semana"],
+ ["Nenhum paciente de toxina sai sem o próximo retorno agendado (ciclo 4–6 meses)","Retenção","alta","254 pacientes de toxina em 12 meses","Recepção","Imediato"],
+ ["Cross-sell para 84 pacientes ativos que só fazem toxina (Regenera, skinbooster, bioestimulador, AH)","Ticket","media","Só 23,6% dos pacientes de toxina fizeram skinbooster","Dra.","30 dias"],
+ ["Campanha de WhatsApp para 333 pagantes esfriando/inativos, por linha comprada","Reativação","media","R$ 1,03 mi de histórico","Marketing","30 dias"],
+ ["Follow-up das 504 pessoas que só fizeram consulta: plano + condição de 1º procedimento","Conversão","media","44% da base nunca comprou procedimento","Concierge","30 dias"],
+ ["Investigar a queda de novos pacientes e definir meta mensal","Captação","alta","~60/mês em 2023 → ~11/mês em 2026","Dra./Gestão","15 dias"],
+ ["Tornar obrigatória a 'Origem do paciente' no cadastro","Captação","alta","Só 6% dos novos com origem","Recepção","7 dias"],
+ ["Lançar valor do pacote e marcar sessões como Pacote/Isento","Sistema","alta","281 pendentes com R$ 0 em 2026","Recepção","7 dias"],
+ ["Completar e-mail, CPF e nascimento dos 272 cadastros prioritários","Sistema","media","Cadastro completo: 27,6%","Recepção","60 dias"],
+ ["Mesclar duplicados e padronizar 'Anápolis'","Sistema","baixa","29 nomes e 145 telefones repetidos","Recepção","60 dias"],
+ ["Dar baixa de estoque por atendimento e descartar os 7 vencidos","Gestão","media","0 de 5.288 atendimentos com estoque","Gestão","30 dias"],
+ ["Passar recebimentos pelo módulo Financeiro","Gestão","media","Financeiro sem transações","Gestão","30 dias"],
+ ["Campanha de aniversariantes e uso de etiquetas","Relacionamento","baixa","1.431 pacientes com nascimento","Marketing","60 dias"],
+ ["Reservar 6–8 horários de primeira consulta por semana (segunda e sexta)","Captação","alta","Consultas caíram de ~100 para ~10/mês; seg+sex = 6,7% da agenda","Dra./Recepção","Imediato"]];
+const KEY="laura-ck-v1";let ck={};try{ck=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){ck={}}
+function drawCK(){const done=AC.filter((_,i)=>ck[i]).length;$("ckBar").style.width=(done/AC.length*100)+"%";$("ckTxt").textContent=done+" de "+AC.length+" concluídas";
+  $("ckList").innerHTML=AC.map((c,i)=>`<label class="ck${ck[i]?" done":""}"><input type="checkbox" data-i="${i}"${ck[i]?" checked":""}><span>${esc(c[0])}<small>${esc(c[4])} · ${esc(c[5])}</small></span></label>`).join("");
+  $("ckList").querySelectorAll("input").forEach(inp=>inp.onchange=()=>{ck[inp.dataset.i]=inp.checked;try{localStorage.setItem(KEY,JSON.stringify(ck))}catch(e){}drawCK()})}
+[...new Set(AC.map(a=>a[1]))].forEach(a=>$("aArea").insertAdjacentHTML("beforeend",`<option>${esc(a)}</option>`));
+const aState={k:"p",d:1};const PR={alta:1,media:2,baixa:3},PL={alta:"Alta",media:"Média",baixa:"Baixa"};
+function drawAcoes(){const q=($("aQ").value||"").toLowerCase(),p=$("aPri").value,ar=$("aArea").value;
+  const rows=AC.map(a=>({a:a[0],ar:a[1],p:PR[a[2]],pk:a[2],dado:a[3],dono:a[4],prazo:a[5]})).filter(r=>(!q||(r.a+r.dado).toLowerCase().includes(q))&&(!p||r.pk===p)&&(!ar||r.ar===ar));
+  sortable($("tbAcoes"),[{k:"p",t:"Prior.",f:(v,r)=>`<span class="chip ${r.pk}">${PL[r.pk]}</span>`},{k:"a",t:"Ação",f:(v,r)=>`<b>${esc(v)}</b><br><span class="note">${esc(r.dado)}</span>`},{k:"ar",t:"Frente"},{k:"dono",t:"Dono"},{k:"prazo",t:"Prazo"}],rows,aState);
+  $("tbAcoes").querySelectorAll("td:nth-child(2)").forEach(td=>td.style.whiteSpace="normal")}
+["aQ","aPri","aArea"].forEach(i=>$(i).addEventListener(i==="aQ"?"input":"change",drawAcoes));
+function sortable(tb,cols,rows,state){
+  const draw=()=>{const s=state.k,dir=state.d;const rs=rows.slice().sort((a,b)=>{const x=a[s],y=b[s];return(typeof x==="number"?x-y:String(x).localeCompare(String(y),"pt"))*dir});
+    const mx={};cols.forEach(c=>{if(c.bar)mx[c.k]=Math.max(...rows.map(r=>r[c.k]||0),1)});
+    tb.innerHTML="<thead><tr>"+cols.map(c=>`<th class="${c.n?"n":""}" data-k="${c.k}">${c.t}${s===c.k?(dir>0?" ▲":" ▼"):""}</th>`).join("")+"</tr></thead><tbody>"+
+      rs.map(r=>"<tr>"+cols.map(c=>`<td class="${c.n?"n":""}">${c.bar?`<span class="bar-in" style="display:block"><i style="width:${(r[c.k]||0)/mx[c.k]*100}%"></i><span style="position:relative">${c.f?c.f(r[c.k],r):r[c.k]}</span></span>`:(c.f?c.f(r[c.k],r):esc(r[c.k]))}</td>`).join("")+"</tr>").join("")+"</tbody>";
+    tb.querySelectorAll("th").forEach(th=>th.onclick=()=>{const k=th.dataset.k;state.d=state.k===k?-state.d:-1;state.k=k;draw()})};draw()}
+// ---------- segmentados
+function seg(id,cb){$(id).querySelectorAll("button").forEach(b=>b.onclick=()=>{$(id).querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));cb(b.dataset.v)})}
+seg("segPer",v=>{per=v;evol()});seg("segProc",v=>{pv=v;proc()});
+// ---------- navegação e tema
+const PAGES=["visao","evolucao","procedimentos","clientes","sistema","plano","metodo"];
+function go(){const h=(location.hash||"#visao").slice(1);const p=PAGES.includes(h)?h:"visao";
+  PAGES.forEach(x=>$("p-"+x).classList.toggle("on",x===p));document.querySelectorAll(".rail a").forEach(a=>a.classList.toggle("on",a.dataset.p===p));$("rail").classList.remove("open");scrollTo(0,0)}
+addEventListener("hashchange",go);$("menuBtn").onclick=()=>$("rail").classList.toggle("open");
+const root=document.documentElement;let th=null;try{th=localStorage.getItem("laura-theme")}catch(e){}if(th)root.setAttribute("data-theme",th);
+$("themeBtn").onclick=()=>{const dark=root.getAttribute("data-theme")?root.getAttribute("data-theme")==="dark":matchMedia("(prefers-color-scheme: dark)").matches;const n=dark?"light":"dark";root.setAttribute("data-theme",n);try{localStorage.setItem("laura-theme",n)}catch(e){}};
+function all(){visao();evol();proc();procFixos();clientes();sistema()}
+let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(all,200)});
+flow();drawCK();drawAcoes();all();go();
+})();
+</script>
+</body>
+</html>

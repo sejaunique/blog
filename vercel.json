@@ -43,6 +43,11 @@
       "source": "/relatorios/coloratto-festas",
       "destination": "/relatorios/coloratto-festas/",
       "permanent": false
+    },
+    {
+      "source": "/relatorios/laura-scher",
+      "destination": "/relatorios/laura-scher/",
+      "permanent": false
     }
   ],
   "rewrites": [

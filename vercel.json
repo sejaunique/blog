@@ -48,6 +48,11 @@
       "source": "/relatorios/laura-scher",
       "destination": "/relatorios/laura-scher/",
       "permanent": false
+    },
+    {
+      "source": "/relatorios/gera-pneus",
+      "destination": "/relatorios/gera-pneus/",
+      "permanent": false
     }
   ],
   "rewrites": [

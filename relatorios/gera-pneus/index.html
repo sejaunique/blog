@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gera Pneus · Base de Clientes | Unique Consultoria</title>
+<meta name="description" content="Dashboard e análise da base de clientes da Gera Pneus, com plano de reativação, recorrência e fidelização.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: painel de gestão, direto, como um quadro de oficina antes da reunião
+   IDEA: a faixa de rodagem — pista de asfalto com marcação, cada página é um trecho
+   PICTURE: barra de 100% da base dividida por alcance (WhatsApp / corrigir / fixo / sem contato)
+   COLOUR and TYPE: asfalto grafite, branco, vermelho-pneu de acento, aço azul de apoio; Barlow Condensed + Barlow
+   LAYOUT: menu lateral estilo Power BI, cards em grade de 12, leitura e ações em cada página */
+:root{color-scheme:light dark;--bg:light-dark(#f4f5f7,#101215);--card:light-dark(#fff,#191c21);--ink:light-dark(#16181c,#eceef1);--mut:light-dark(#5b6270,#9aa2b0);--line:light-dark(#e3e6eb,#2a2f37);--asf:#1d2026;--red:#d62828;--blue:light-dark(#2563a8,#5b9be0);--ok:light-dark(#178a52,#3fc283);--warn:light-dark(#c27a00,#f0a733);--gray:light-dark(#aab1bd,#4d5562)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Barlow,system-ui,sans-serif;overflow-x:clip}
+.app{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100vh}
+nav{background:var(--asf);color:#e9ebef;padding:22px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:4px}
+.brand{font:700 26px/1 "Barlow Condensed",sans-serif;padding:0 10px 6px}.brand small{display:block;font:500 13px Barlow;color:#9aa2b0;margin-top:6px}
+.road{height:6px;margin:10px 10px 16px;background:repeating-linear-gradient(90deg,#fff 0 18px,transparent 18px 30px);opacity:.55}
+nav a{color:#cfd3da;text-decoration:none;padding:11px 12px;border-radius:8px;font-weight:500;min-height:44px;display:flex;align-items:center}
+nav a:hover{background:#2a2e36}nav a.on{background:var(--red);color:#fff}
+nav .foot{margin-top:auto;font-size:13px;color:#8a92a0;padding:10px}
+main{padding:clamp(18px,3vw,40px);max-width:1280px;width:100%}
+.page{display:none}.page.on{display:block}
+.ph h1{font:700 clamp(32px,4vw,46px)/1.05 "Barlow Condensed",sans-serif;margin:0 0 6px;text-wrap:balance}
+.ph p{color:var(--mut);margin:0 0 22px;max-width:70ch}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+.c3{grid-column:span 3}.c4{grid-column:span 4}.c5{grid-column:span 5}.c6{grid-column:span 6}.c7{grid-column:span 7}.c8{grid-column:span 8}.c12{grid-column:span 12}
+h3{margin:0 0 2px;font-size:17px}.sub{color:var(--mut);font-size:14px;margin:0 0 14px}
+.kpi .v{font:700 clamp(34px,4vw,44px)/1 "Barlow Condensed",sans-serif;white-space:nowrap}.kpi .l{color:var(--mut);font-size:14px;margin-top:6px}
+.kpi.hot .v{color:var(--red)}
+.stack100{display:flex;height:58px;border-radius:10px;overflow:hidden;margin:6px 0 12px}
+.stack100 div{display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:var(--mut)}.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.bars{display:grid;gap:9px}.bar{display:grid;grid-template-columns:minmax(0,11em) minmax(0,1fr) 5.5em;gap:10px;align-items:center;font-size:14px}
+.bar .t{height:16px;background:var(--line);border-radius:4px;overflow:hidden}.bar .t b{display:block;height:100%;border-radius:4px}
+.bar .n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}.bar .lb{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.story h4{margin:0 0 8px;font:700 22px "Barlow Condensed",sans-serif}.story p{margin:0 0 10px;max-width:80ch}
+.act{display:grid;gap:10px;margin-top:14px}.act>div{display:flex;gap:12px;align-items:flex-start;background:light-dark(#fdf1f1,#2a1718);border-radius:10px;padding:12px 14px}
+.tag{background:var(--red);color:#fff;font-size:12px;font-weight:600;padding:3px 8px;border-radius:5px;flex:none;margin-top:2px}
+table{width:100%;border-collapse:collapse;font-size:15px}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:13px;color:var(--mut);font-weight:600}td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.chip{font-size:12px;font-weight:600;padding:3px 8px;border-radius:20px;white-space:nowrap}.alta{background:var(--red);color:#fff}.media{background:var(--warn);color:#fff}.baixa{background:var(--gray);color:#fff}
+.prog{height:12px;background:var(--line);border-radius:6px;overflow:hidden;margin:8px 0 14px}.prog b{display:block;height:100%;background:var(--ok);width:0;transition:width .4s}
+.chk label{display:flex;gap:12px;align-items:flex-start;padding:10px 4px;border-bottom:1px solid var(--line);cursor:pointer;min-height:44px}
+.chk input{width:22px;height:22px;flex:none;accent-color:var(--ok);margin-top:1px}
+.chk label.done span{color:var(--mut);text-decoration:line-through}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.filters button{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:20px;padding:8px 14px;min-height:40px;cursor:pointer}
+.filters button.on{background:var(--asf);color:#fff;border-color:var(--asf)}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.timeline{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.timeline div{border-top:6px solid var(--red);padding-top:10px}.timeline b{font:700 20px "Barlow Condensed",sans-serif;display:block}
+.timeline div:nth-child(2){border-color:var(--warn)}.timeline div:nth-child(3){border-color:var(--blue)}.timeline div:nth-child(4){border-color:var(--ok)}
+ul.src{margin:0;padding-left:18px}ul.src li{margin-bottom:6px}
+.scroll{overflow-x:auto}
+@media(max-width:980px){.c3{grid-column:span 6}.c4,.c5,.c7,.c8{grid-column:span 12}.c6{grid-column:span 12}.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.app{display:block}nav{position:sticky;top:0;height:auto;flex-direction:row;overflow-x:auto;padding:8px;gap:4px;z-index:5}.brand,.road,nav .foot{display:none}nav a{flex:none;font-size:15px}}
+@media(max-width:600px){.c3{grid-column:span 6}.bar{grid-template-columns:minmax(0,8em) minmax(0,1fr) 4.6em}.stack100 div span{display:none}.timeline{grid-template-columns:minmax(0,1fr)}table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:8em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7.5em;margin-inline-start:-8em;white-space:normal;color:var(--mut)}.stack td:empty{display:none}}
+@media(prefers-reduced-motion:reduce){.prog b{transition:none}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<div class="app">
+<nav aria-label="Páginas">
+  <div class="brand">Gera Pneus<small>Base de clientes · 26/11/2026</small></div>
+  <div class="road"></div>
+  <a href="#visao">Visão geral</a>
+  <a href="#contato">Alcance por WhatsApp</a>
+  <a href="#cadastro">Qualidade do cadastro</a>
+  <a href="#territorio">Território</a>
+  <a href="#plano">Plano de ações</a>
+  <a href="#notas">Notas e método</a>
+  <a class="foot" href="https://sejaunique.com/" style="min-height:0;padding:10px">Unique Consultoria Comercial</a>
+</nav>
+<main>
+
+<section class="page" id="p-visao">
+  <div class="ph"><h1>2.122 clientes podem ser chamados no WhatsApp esta semana</h1>
+  <p>A Gera Pneus tem 3.171 clientes cadastrados. Dois em cada três têm celular. O que a base não tem é o histórico: não diz quem comprou o quê, nem quando voltou.</p></div>
+  <div class="grid">
+    <div class="card kpi c3"><div class="v">3.171</div><div class="l">clientes no cadastro</div></div>
+    <div class="card kpi c3"><div class="v">66,9%</div><div class="l">alcançáveis por WhatsApp (2.122)</div></div>
+    <div class="card kpi c3 hot"><div class="v">26,7%</div><div class="l">sem telefone e sem endereço real (848)</div></div>
+    <div class="card kpi c3 hot"><div class="v">0</div><div class="l">campos de compra, veículo ou data</div></div>
+    <div class="card c12"><h3>Para onde a base consegue ir hoje</h3><p class="sub">3.171 clientes pelo tipo de telefone cadastrado</p>
+      <div class="stack100" id="stk"></div><div class="legend" id="stkL"></div></div>
+    <div class="c12 story"><h4>Leitura</h4>
+      <p><b>A base é uma agenda, não um histórico.</b> O relatório traz nome, telefone, cidade e endereço. Faltam data da última visita, serviço feito, valor, placa, modelo e km. Sem isso não dá para saber quem é cliente fiel, quem sumiu e quem está na hora de trocar pneu.</p>
+      <p><b>Mesmo assim, já dá para vender.</b> São 1.905 celulares prontos e mais 217 no formato antigo, sem o 9, que se corrigem em minutos. Uma campanha de check-up gratuito para esse grupo gera visita sem precisar de desconto.</p>
+      <p><b>O cadastro do balcão precisa mudar.</b> 979 clientes estão sem telefone e 1.424 têm o mesmo endereço repetido. É sinal de cadastro feito às pressas para emitir a nota.</p>
+      <div class="act">
+        <div><b class="tag">Ação</b><span><b>Exportar o histórico de vendas e ordens de serviço</b> do sistema, com cliente, data, serviço, valor, placa e km. É esse arquivo que libera a régua de recorrência.</span></div>
+        <div><b class="tag">Ação</b><span><b>Disparar a reativação</b> para os 2.122 contatos de WhatsApp em lotes diários, com oferta de check-up gratuito.</span></div>
+        <div><b class="tag">Ação</b><span><b>Cadastro mínimo obrigatório no balcão:</b> celular, placa, modelo e km, mais o aceite para receber mensagens.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="p-contato">
+  <div class="ph"><h1>Seis em cada dez cadastros já têm WhatsApp pronto</h1><p>Telefones classificados pelo formato: celular com 9 dígitos, celular antigo com 8, fixo ou ausente.</p></div>
+  <div class="grid">
+    <div class="card c6"><h3>Tipo de telefone</h3><p class="sub">3.171 clientes</p><div class="bars" id="bTel"></div></div>
+    <div class="card c6"><h3>DDD dos telefones</h3><p class="sub">2.192 números válidos</p><div class="bars" id="bDdd"></div></div>
+    <div class="card c12"><h3>Grupos para campanha</h3><p class="sub">Como usar cada fatia da base</p>
+      <div class="scroll"><table class="stack"><thead><tr><th>Grupo</th><th class="r">Clientes</th><th>Canal</th><th>Primeiro passo</th><th>Prioridade</th></tr></thead><tbody id="tGrp"></tbody></table></div></div>
+    <div class="c12 story"><h4>Leitura</h4>
+      <p><b>94% dos números são do DDD 62.</b> É clientela local, de Goiânia e Trindade, o que favorece campanhas de bairro e visitas de rotina.</p>
+      <p><b>217 celulares estão sem o nono dígito.</b> São cadastros antigos. Basta acrescentar o 9 depois do DDD para virarem WhatsApp.</p>
+      <p><b>979 clientes não têm telefone nenhum.</b> Esses só voltam a ser alcançáveis quando passarem de novo pelo balcão.</p>
+      <div class="act">
+        <div><b class="tag">Ação</b><span><b>Lotes de 100 a 150 mensagens por dia</b>, do WhatsApp Business da loja, para não ter o número bloqueado. Quem responder vira prioridade de agenda.</span></div>
+        <div><b class="tag">Ação</b><span><b>Mensagem curta e pessoal:</b> nome do cliente, lembrete de que ele já foi atendido na Gera e convite para calibragem e inspeção gratuitas de pneus, freios e suspensão.</span></div>
+        <div><b class="tag">Ação</b><span><b>Salvar quem responder</b> com etiqueta (respondeu, agendou, compareceu, comprou) para medir a campanha.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="p-cadastro">
+  <div class="ph"><h1>Quase metade dos endereços é o mesmo endereço</h1><p>Qualidade do nome e do endereço em cada cadastro.</p></div>
+  <div class="grid">
+    <div class="card c6"><h3>Endereço</h3><p class="sub">3.171 clientes</p><div class="bars" id="bEnd"></div></div>
+    <div class="card c6"><h3>Nome</h3><p class="sub">3.171 clientes</p><div class="bars" id="bNome"></div></div>
+    <div class="card c12"><h3>Limpeza da base</h3><p class="sub">O que corrigir antes de qualquer campanha</p>
+      <div class="scroll"><table class="stack"><thead><tr><th>Problema</th><th class="r">Registros</th><th>Correção</th></tr></thead><tbody id="tLimp"></tbody></table></div></div>
+    <div class="c12 story"><h4>Leitura</h4>
+      <p><b>1.424 cadastros (44,9%) têm "Avenida Padre Feijó, Ipiranga".</b> Esse endereço é quase certamente o padrão do sistema ou o da própria loja, preenchido para fechar a nota. Some-se 746 cadastros sem endereço, e só 31,6% da base tem endereço real.</p>
+      <p><b>78 clientes estão cadastrados com o nome do carro</b> (Corolla, Hilux, HB20). Outros 165 têm só o primeiro nome ou um número ("Adriano 1", "Cliente 5"). Isso mostra atendimento rápido sem cadastro e impede qualquer mensagem pessoal.</p>
+      <p><b>50 fornecedores estão misturados</b> no mesmo cadastro, além de 24 telefones repetidos.</p>
+      <div class="act">
+        <div><b class="tag">Ação</b><span><b>Regra do balcão:</b> nenhum serviço é fechado sem nome completo, celular e placa. O modelo do carro vai no campo do veículo, não no nome.</span></div>
+        <div><b class="tag">Ação</b><span><b>Meta semanal de cadastro completo</b> para quem atende o balcão, conferida toda segunda.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="p-territorio">
+  <div class="ph"><h1>Tropical Ville e Vera Cruz concentram os clientes com endereço real</h1><p>Só os 1.001 cadastros com endereço de verdade (sem o endereço padrão).</p></div>
+  <div class="grid">
+    <div class="card c4"><h3>Cidade</h3><p class="sub">1.001 endereços reais</p><div class="bars" id="bCid"></div></div>
+    <div class="card c8"><h3>Bairros com mais clientes</h3><p class="sub">Top 12 entre os endereços reais</p><div class="bars" id="bBai"></div></div>
+    <div class="c12 story"><h4>Leitura</h4>
+      <p><b>A Gera vive da vizinhança.</b> Tropical Ville (194), Conjunto Vera Cruz (103) e Setor Maysa (74) somam 37% dos endereços reais. Trindade sozinha tem 346 clientes, mais de um terço desse grupo.</p>
+      <p><b>O raio de atuação é curto.</b> Isso favorece anúncio local por raio, panfleto e parceria com comércio do bairro, que custam pouco e falam com quem já passa na porta.</p>
+      <div class="act">
+        <div><b class="tag">Ação</b><span><b>Anúncio no Instagram e no Google num raio de 3 a 5 km</b>, com foco em Tropical Ville, Vera Cruz, Maysa e Jardim Real.</span></div>
+        <div><b class="tag">Ação</b><span><b>Parcerias de bairro:</b> autoescolas, motoristas de aplicativo, igrejas e associações de moradores (já há uma na base) com condição de grupo.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="p-plano">
+  <div class="ph"><h1>Plano: limpar, reativar, criar recorrência e fidelizar</h1><p>Quatro etapas em 90 dias. Cada ação nasce de um dado deste painel.</p></div>
+  <div class="grid">
+    <div class="card c12"><div class="timeline">
+      <div><b>Semana 1 · Limpar</b>Corrigir 217 números, separar 50 fornecedores, unir 24 duplicados e exportar o histórico de vendas.</div>
+      <div><b>Semanas 2 a 4 · Reativar</b>Check-up gratuito por WhatsApp para os 2.122 contatos, em lotes diários.</div>
+      <div><b>Mês 2 · Recorrência</b>Régua de lembretes por serviço e km, montada a partir do histórico.</div>
+      <div><b>Mês 3 · Fidelizar</b>Clube de vantagens, indicação, pós-venda e plano para frotas.</div>
+    </div></div>
+    <div class="card c6"><h3>Régua de recorrência por serviço</h3><p class="sub">Intervalos de referência de mercado; ajustar com a oficina</p>
+      <div class="scroll"><table class="stack"><thead><tr><th>Serviço</th><th>Lembrar a cada</th><th>Mensagem</th></tr></thead><tbody id="tRegua"></tbody></table></div></div>
+    <div class="card c6"><h3>Checklist da reunião</h3><p class="sub" id="progT">0 de 0 concluídas</p><div class="prog"><b id="progB"></b></div><div class="chk" id="chk"></div></div>
+    <div class="card c12"><h3>Todas as ações</h3><p class="sub">Filtre por etapa</p>
+      <div class="filters" id="fil"></div>
+      <div class="scroll"><table class="stack"><thead><tr><th>Ação</th><th>Etapa</th><th>Dado que justifica</th><th>Prioridade</th></tr></thead><tbody id="tAc"></tbody></table></div></div>
+    <div class="c12 story"><h4>Como medir</h4>
+      <p><b>Reativação:</b> % de respostas, agendamentos e comparecimentos por lote. <b>Recorrência:</b> % de clientes que voltaram em até 6 meses. <b>Cadastro:</b> % de atendimentos com celular, placa e km. <b>Fidelização:</b> número de clientes no clube e de indicações por mês.</p>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="p-notas">
+  <div class="ph"><h1>Notas e método</h1><p>De onde vieram os números e o que eles não mostram.</p></div>
+  <div class="grid">
+    <div class="card c6"><h3>Método</h3><ul class="src">
+      <li><b>Fonte:</b> relatório "Lista de Clientes" do sistema da Gera Pneus, 71 páginas, gerado em 26/11/2026.</li>
+      <li><b>Clientes:</b> categorias "Cliente" (3.163) e "Clientes potenciais" (8). Ficaram fora 50 fornecedores e 4 registros de outras categorias.</li>
+      <li><b>WhatsApp pronto:</b> celular com 11 dígitos começando em 9 depois do DDD. <b>Formato antigo:</b> 10 dígitos começando em 6 a 9.</li>
+      <li><b>Endereço padrão:</b> "Avenida Padre Feijó, Ipiranga", repetido em 1.424 cadastros.</li>
+      <li><b>Nome de carro:</b> nome igual a um modelo de veículo. <b>Incompleto:</b> uma palavra só, ou nome terminado em número.</li>
+    </ul></div>
+    <div class="card c6"><h3>Limitações</h3><ul class="src">
+      <li>O relatório não traz compras, valores, datas, veículos nem e-mail. Não há como medir frequência, ticket ou clientes perdidos.</li>
+      <li>Cerca de 1% das linhas veio quebrada na leitura do PDF (nomes longos de empresas). Não muda as proporções.</li>
+      <li>Não dá para confirmar se o endereço padrão é o da loja; vale conferir na reunião.</li>
+      <li>Ter celular não garante WhatsApp ativo; espere parte dos números desatualizados.</li>
+      <li>Nomes e telefones de clientes foram omitidos desta página.</li>
+    </ul></div>
+  </div>
+</section>
+
+<footer style="margin-top:28px;color:var(--mut);font-size:14px">© 2026 <a href="https://sejaunique.com/" style="color:inherit">Unique Consultoria Comercial</a> · Carlos Ribeiro · 26/11/2026</footer>
+</main>
+</div>
+<script>
+{
+const $=id=>document.getElementById(id);
+const fmt=n=>n.toLocaleString("pt-BR");
+const pct=(n,t)=>(n/t*100).toLocaleString("pt-BR",{maximumFractionDigits:1})+"%";
+const N=3171;
+const C={red:"var(--red)",blue:"var(--blue)",ok:"var(--ok)",warn:"var(--warn)",gray:"var(--gray)",asf:"#5b6270"};
+function bars(el,rows,tot){const mx=Math.max(...rows.map(r=>r[1]));
+  $(el).innerHTML=rows.map(r=>`<div class="bar"><span class="lb" title="${r[0]}">${r[0]}</span><span class="t"><b style="width:${r[1]/mx*100}%;background:${r[2]||C.blue}"></b></span><span class="n">${fmt(r[1])}${tot?" · "+pct(r[1],tot).replace(/,\d%/,"%"):""}</span></div>`).join("")}
+const TEL=[["WhatsApp pronto",1905,C.ok],["Celular sem o 9",217,C.warn],["Fixo",70,C.blue],["Sem telefone",979,C.gray]];
+$("stk").innerHTML=TEL.map(t=>`<div style="width:${t[1]/N*100}%;background:${t[2]}" title="${t[0]}: ${fmt(t[1])}"><span>${t[1]/N>.04?pct(t[1],N):""}</span></div>`).join("");
+$("stkL").innerHTML=TEL.map(t=>`<span><i style="background:${t[2]}"></i>${t[0]} · ${fmt(t[1])}</span>`).join("");
+bars("bTel",TEL,N);
+bars("bDdd",[["62 (Goiânia e região)",2064,C.blue],["64 (sul e sudoeste de GO)",67,C.asf],["61 (DF e entorno)",14,C.asf],["63 (Tocantins)",11,C.asf],["Outros DDDs",36,C.asf]],2192);
+bars("bEnd",[["Endereço real",1001,C.ok],["Endereço padrão repetido",1424,C.warn],["Sem endereço",746,C.gray]],N);
+bars("bNome",[["Nome completo",2909,C.ok],["Só primeiro nome ou número",165,C.warn],["Nome do carro",78,C.red],["Empresa (PJ)",19,C.blue]],N);
+bars("bCid",[["Goiânia",618,C.blue],["Trindade",346,C.red],["Outras cidades",37,C.asf]],1001);
+bars("bBai",[["Tropical Ville",194],["Conjunto Vera Cruz",103],["Setor Maysa",74],["Jardim Real",42],["Setor Jardim Marista",25],["Jardins Verona",24],["Jardim Ipanema",22],["Setor Ponta Kayana",22],["Setor Cristina",21],["Conj. Dona Íris II",19],["Res. Tempo Novo",18],["Res. Jardins do Cerrado 7",15]].map(b=>[b[0],b[1],C.blue]),1001);
+const GRP=[["WhatsApp pronto",1905,"WhatsApp","Reativação com check-up gratuito","a"],["Celular sem o 9",217,"WhatsApp após correção","Acrescentar o 9 e entrar no mesmo fluxo","a"],["Fixo",70,"Ligação","Ligar e pedir o celular atualizado","b"],["Só endereço, sem telefone",131,"Panfleto / visita de bairro","Entrar nas ações de território","c"],["Sem telefone e sem endereço",848,"Nenhum hoje","Atualizar quando voltar ao balcão","c"]];
+const ch=s=>`<span class="chip ${s==="a"?"alta":s==="b"?"media":"baixa"}">${s==="a"?"Alta":s==="b"?"Média":"Baixa"}</span>`;
+$("tGrp").innerHTML=GRP.map(g=>`<tr><td><b>${g[0]}</b></td><td class="r">${fmt(g[1])}</td><td>${g[2]}</td><td>${g[3]}</td><td>${ch(g[4])}</td></tr>`).join("");
+$("tLimp").innerHTML=[["Endereço padrão repetido",1424,"Atualizar no próximo atendimento; não usar para mala direta"],["Sem telefone",979,"Pedir celular a cada passagem pelo balcão"],["Sem endereço",746,"Pedir bairro no mínimo, para as ações de território"],["Celular sem o 9",217,"Corrigir em lote: DDD + 9 + número"],["Só primeiro nome ou número",165,"Completar o nome no próximo contato"],["Nome do carro no lugar do cliente",78,"Mover o modelo para o campo do veículo e pedir o nome"],["Fornecedores misturados",50,"Separar na categoria certa e tirar das campanhas"],["Telefones repetidos",24,"Unir os cadastros duplicados"]].map(r=>`<tr><td><b>${r[0]}</b></td><td class="r">${fmt(r[1])}</td><td>${r[2]}</td></tr>`).join("");
+$("tRegua").innerHTML=[["Calibragem","30 dias","Convite para calibrar de graça"],["Alinhamento e balanceamento","10 mil km ou 6 meses","Pneu gastando torto custa caro"],["Rodízio de pneus","10 mil km","Seus pneus duram mais com rodízio"],["Troca de óleo","5 a 10 mil km ou 6 meses","Está na hora da troca"],["Freios","Revisão a cada 6 meses","Check-up de pastilhas"],["Pneus novos","Pelo km rodado e desgaste","Oferta de jogo com condição de cliente"],["Bateria","A cada 2 anos de uso","Teste de bateria gratuito"]].map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("");
+const ACS=[
+["Exportar do sistema o histórico de vendas e OS (cliente, data, serviço, valor, placa, km)","Limpar","Base atual não tem nenhum dado de compra","a"],
+["Corrigir os 217 celulares sem o 9","Limpar","217 números no formato antigo","a"],
+["Separar os 50 fornecedores e unir os 24 telefones duplicados","Limpar","Fornecedores no cadastro de clientes","b"],
+["Regra do balcão: nome completo, celular, placa, modelo e km em todo atendimento","Limpar","979 sem telefone, 78 com nome de carro","a"],
+["Campanha de check-up gratuito por WhatsApp, 100 a 150 mensagens por dia","Reativar","2.122 contatos alcançáveis","a"],
+["Etiquetar respostas: respondeu, agendou, compareceu, comprou","Reativar","Hoje não há como medir retorno","a"],
+["Ligar para os 70 fixos e pedir o celular","Reativar","70 clientes só com fixo","b"],
+["Montar a régua de lembretes por serviço e km","Recorrência","Sem histórico, ninguém é lembrado de voltar","a"],
+["Mensagem 48 horas após o serviço, com pedido de avaliação no Google","Recorrência","Base local, decisão por confiança no bairro","b"],
+["Garantia estendida condicionada às revisões de alinhamento e rodízio","Recorrência","Transforma a compra de pneus em visitas futuras","b"],
+["Clube Gera: a cada 4 serviços, 1 alinhamento grátis","Fidelizar","Cria motivo para voltar sempre ao mesmo lugar","b"],
+["Indicação: quem indica ganha calibragem e balanceamento","Fidelizar","Clientela concentrada em poucos bairros","b"],
+["Plano para frotas e empresas com faturamento mensal","Fidelizar","19 empresas na base, como locadora e transportadora","b"],
+["Anúncio local por raio em Tropical Ville, Vera Cruz, Maysa e Jardim Real","Fidelizar","37% dos endereços reais em 3 bairros","c"]];
+const ET=["Todas","Limpar","Reativar","Recorrência","Fidelizar"];let et="Todas";
+function drawAc(){$("fil").innerHTML=ET.map(e=>`<button type="button" data-e="${e}" class="${e===et?"on":""}">${e}</button>`).join("");
+  $("tAc").innerHTML=ACS.filter(a=>et==="Todas"||a[1]===et).map(a=>`<tr><td><b>${a[0]}</b></td><td>${a[1]}</td><td>${a[2]}</td><td>${ch(a[3])}</td></tr>`).join("")}
+$("fil").addEventListener("click",e=>{const b=e.target.closest("button");if(b){et=b.dataset.e;drawAc()}});drawAc();
+const CK=["Mostrar que a base tem 3.171 clientes e só 66,9% alcançáveis","Combinar quem exporta o histórico de vendas e OS","Confirmar se a Av. Padre Feijó é o endereço da loja","Definir o texto da mensagem de check-up","Escolher quem responde o WhatsApp e agenda","Definir a meta de cadastro completo no balcão","Escolher o benefício do Clube Gera","Marcar a reunião de resultado do 1º lote"];
+let st={};try{st=JSON.parse(localStorage.getItem("gera-chk")||"{}")}catch(e){}
+function drawCk(){const d=CK.filter((c,i)=>st[i]).length;$("progT").textContent=`${d} de ${CK.length} concluídas`;$("progB").style.width=d/CK.length*100+"%";
+  $("chk").innerHTML=CK.map((c,i)=>`<label class="${st[i]?"done":""}"><input type="checkbox" data-i="${i}" ${st[i]?"checked":""}><span>${c}</span></label>`).join("")}
+$("chk").addEventListener("change",e=>{const i=e.target.dataset.i;st[i]=e.target.checked;try{localStorage.setItem("gera-chk",JSON.stringify(st))}catch(x){}drawCk()});drawCk();
+const PG=["visao","contato","cadastro","territorio","plano","notas"];
+function route(){const h=location.hash.slice(1);const p=PG.includes(h)?h:"visao";
+  document.querySelectorAll(".page").forEach(s=>s.classList.toggle("on",s.id==="p-"+p));
+  document.querySelectorAll("nav a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+p));window.scrollTo(0,0)}
+addEventListener("hashchange",route);route();
+}
+</script>
+</body>
+</html>

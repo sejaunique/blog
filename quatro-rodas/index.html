@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<script src="/assets/tema.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>As 4 Rodas do Comercial · Treinamento · Unique</title>
+<meta name="description" content="Treinamento dos 4 pilares comerciais pela analogia do carro: prospecção, fidelização, nutrição e recuperação. Batize cada roda com o nome de uma pessoa da sua vida, veja onde o seu comercial está desequilibrado e saia com o plano de 30 dias.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Unique Consultoria">
+<meta property="og:title" content="As 4 Rodas do Comercial · Treinamento">
+<meta property="og:description" content="Carro anda com três rodas? Anda, até quebrar. O treinamento dos 4 pilares comerciais com raio-x das rodas e plano de 30 dias. Gratuito para cadastrados.">
+<meta property="og:url" content="https://sejaunique.com/quatro-rodas/">
+<meta property="og:image" content="https://sejaunique.com/assets/og/quatro-rodas.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/casco.css">
+<style>
+:root{--rp:#e0055e;--rf:#2b3384;--rn:#00c864;--rr:#3a3a40}
+.w{max-width:1080px;margin-inline:auto;padding-inline:clamp(20px,4vw,36px)}
+.leve{font-weight:200;font-style:italic}
+.spaced{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--verde-txt)}
+.hero{background:#0b0b0c;color:#fff;padding:clamp(56px,9vw,110px) 0 clamp(48px,7vw,80px);overflow:hidden}
+.hero .in{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,4vw,56px);align-items:center}
+.hero .k{font-size:.78rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#00e676}
+.hero h1{font-size:clamp(2.4rem,6.2vw,4.6rem);line-height:.98;letter-spacing:-.04em;margin:18px 0 20px;font-weight:900;text-wrap:balance}
+.hero h1 .m{color:#ff3d8b}
+.hero p{font-size:clamp(1.05rem,2vw,1.25rem);line-height:1.6;max-width:600px;opacity:.85;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.chips span{font-size:.8rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:10px 15px;border-radius:999px;background:var(--c);color:#fff}
+.chips span.e{color:#0b0b0c}.chips span.b{background:#fff;color:#0b0b0c}
+.carro{width:100%;max-width:460px;justify-self:center}
+.carro text{font-family:Montserrat,sans-serif}
+.roda-g{transform-box:fill-box;transform-origin:center}
+.roda-g.solta{animation:treme .6s ease-in-out infinite alternate}
+@keyframes treme{from{transform:translateY(0) rotate(-6deg)}to{transform:translateY(6px) rotate(6deg)}}
+@media (prefers-reduced-motion:reduce){.roda-g{animation:none!important}}
+.sec{margin-top:clamp(48px,7vw,80px)}
+.sec>h2{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.05;letter-spacing:-.03em;margin:8px 0 10px;text-wrap:balance}
+.sec>p.lead{font-size:1.05rem;line-height:1.6;color:var(--muted);max-width:68ch;margin:0 0 22px}
+.citacao{margin:22px 0 0;padding:26px 28px;border-radius:24px;background:var(--soft);font-size:clamp(1.15rem,2.4vw,1.45rem);line-height:1.45;font-weight:600;letter-spacing:-.01em}
+.citacao small{display:block;margin-top:10px;font-size:.85rem;font-weight:600;color:var(--muted);letter-spacing:0}
+.batiza{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.batiza label{display:flex;flex-direction:column;gap:8px;border-radius:22px;padding:20px;border:2px solid var(--c);background:var(--card)}
+.batiza .t{font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--c)}
+.batiza b{font-size:1.1rem;line-height:1.3}
+.batiza small{font-size:.88rem;line-height:1.45;color:var(--muted)}
+.rr-c{--c:var(--fg)}
+input,textarea,select{font:inherit;font-size:1rem;padding:13px 15px;border-radius:14px;border:1.5px solid var(--line,#ddd);background:var(--bg,#fff);color:inherit;width:100%}
+.gate{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px);margin:clamp(32px,5vw,56px) auto;padding:clamp(24px,4vw,40px);border:2px solid var(--fg,#0b0b0c);border-radius:28px}
+.gate h2{font-size:clamp(1.6rem,3.6vw,2.3rem);line-height:1.08;letter-spacing:-.03em;margin:10px 0 14px}
+.gate ul{margin:16px 0 0;padding-left:20px;line-height:1.8}
+form{display:flex;flex-direction:column;gap:10px}
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.isca{position:absolute;left:-9999px}
+.aceite{display:flex;gap:10px;font-size:.78rem;line-height:1.5;opacity:.85}.aceite input{width:auto;margin-top:3px}
+button{font:inherit;font-weight:800;font-size:1rem;padding:15px 22px;border-radius:999px;border:0;background:#00e676;color:#0b0b0c;cursor:pointer}
+.msg{font-size:.85rem;min-height:1.2em;margin:0}
+.news{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:16px;background:var(--soft);font-size:.88rem;line-height:1.45}
+.news i{font-style:normal;font-size:1.3rem}
+#conteudo,.ok{display:none}
+body.liberado .gate{display:none}body.liberado #conteudo{display:block}body.liberado .ok{display:block}
+.ok{margin:32px auto 0;padding:22px 26px;border-radius:20px;background:#00e676;color:#0b0b0c}
+.ok b{font-size:1.15rem}
+.ordem{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;counter-reset:o}
+.ordem div{border-radius:20px;padding:20px;background:var(--c);color:#fff;position:relative}
+.ordem div.e{color:#0b0b0c}
+.ordem .n{font-size:2.6rem;font-weight:900;line-height:1;letter-spacing:-.05em;opacity:.9}
+.ordem b{display:block;margin-top:10px;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;opacity:.85}
+.ordem span{display:block;margin-top:4px;font-size:1.1rem;font-weight:800;line-height:1.2}
+.alerta{margin-top:14px;padding:16px 20px;border-radius:18px;border:2px solid var(--magenta-txt);font-size:1rem;line-height:1.5}
+.alerta b{color:var(--magenta-txt)}
+.roda{margin-top:clamp(56px,8vw,96px);border-radius:32px;overflow:hidden;border:2px solid var(--c)}
+.roda-topo{background:var(--c);color:#fff;padding:clamp(24px,4vw,40px);display:grid;grid-template-columns:auto 1fr;gap:clamp(16px,3vw,28px);align-items:center}
+.roda-topo.e{color:#0b0b0c}
+.pneu{width:clamp(72px,11vw,104px);height:auto}
+.roda-topo .t{font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;opacity:.85}
+.roda-topo h2{margin:6px 0 8px;font-size:clamp(1.8rem,4.4vw,2.9rem);line-height:1.02;letter-spacing:-.035em;font-weight:900;text-wrap:balance}
+.roda-topo p{margin:0;font-size:1.05rem;line-height:1.5;opacity:.92;max-width:62ch}
+.roda-corpo{padding:clamp(22px,4vw,40px);display:grid;gap:22px}
+.roda-corpo h3{margin:0 0 8px;font-size:1.2rem;letter-spacing:-.01em}
+.roda-corpo p{margin:0;line-height:1.6}
+.nome{font-weight:900;color:var(--c-txt,inherit);background:linear-gradient(transparent 62%,color-mix(in srgb,var(--c) 28%,transparent) 62%)}
+.roda-topo .nome{color:inherit;background:none;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:5px}
+.lado{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lado>div{border-radius:20px;padding:20px 22px;background:var(--soft)}
+.lado .vida b,.lado .venda b{display:block;font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}
+.lado .venda{background:color-mix(in srgb,var(--c) 10%,var(--card));border:1.5px solid color-mix(in srgb,var(--c) 40%,transparent)}
+.lado ul{margin:0;padding-left:18px;line-height:1.6}
+.frase{font-size:clamp(1.2rem,2.6vw,1.6rem);font-weight:800;line-height:1.25;letter-spacing:-.02em;border-left:6px solid var(--c);padding:4px 0 4px 18px;margin:0}
+.canais{display:flex;flex-wrap:wrap;gap:8px}
+.canais span{padding:10px 14px;border-radius:999px;border:1.5px solid var(--line);font-size:.9rem;font-weight:600;background:var(--card)}
+.gs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.gs div{border-radius:18px;padding:16px 18px;border:1.5px solid var(--line);background:var(--card)}
+.gs div:first-child{background:var(--rf);color:#fff;border-color:var(--rf)}
+.gs b{display:block;font-size:1.5rem;font-weight:900;letter-spacing:-.03em}
+.gs p{margin:6px 0 0;font-size:.88rem;line-height:1.45}
+.gs div:not(:first-child) p{color:var(--muted)}
+.acoes{display:grid;gap:8px}
+.acoes div{position:relative;padding:14px 16px 14px 40px;border-radius:16px;background:var(--soft);line-height:1.5}
+.acoes div::before{content:"→";position:absolute;left:16px;top:14px;font-weight:900;color:var(--c-txt,var(--c))}
+.msgs{display:grid;gap:10px}
+.msgbox{border-radius:18px;border:1.5px solid var(--line);padding:16px 18px;background:var(--card)}
+.msgbox b{display:block;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.msgbox p{font-style:italic;margin:0 0 10px}
+.bt2{background:transparent;border:1.5px solid var(--fg);color:var(--fg);font-size:.82rem;padding:9px 14px}
+.etapas{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.etapas span{padding:9px 13px;border-radius:999px;background:var(--soft);font-size:.85rem;font-weight:700}
+.etapas i{font-style:normal;color:var(--muted)}
+.d40{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.d40 div{border-radius:16px;padding:14px 16px;background:var(--soft);font-size:.92rem;line-height:1.45}
+.d40 b{display:block;font-size:1.6rem;font-weight:900;letter-spacing:-.04em;color:var(--verde-txt)}
+.raio{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,3vw,32px);align-items:center;border:2px solid var(--fg);border-radius:28px;padding:clamp(20px,3vw,32px)}
+.raio label{display:grid;grid-template-columns:120px 1fr 44px;gap:12px;align-items:center;font-weight:700;font-size:.92rem;margin-bottom:12px}
+.raio input[type=range]{padding:0;border:0;accent-color:var(--c);background:transparent}
+.raio output{font-weight:900;text-align:right}
+.raio .vered{margin-top:16px;padding:18px 20px;border-radius:18px;background:var(--soft);line-height:1.55}
+.raio .vered b{display:block;font-size:1.15rem;margin-bottom:4px}
+.checks{display:flex;flex-direction:column;gap:2px;border:1px solid var(--line);border-radius:22px;padding:14px 18px;background:var(--card)}
+.checks h4{margin:14px 4px 4px;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--c)}
+.checks label{display:flex;gap:12px;align-items:flex-start;padding:10px 4px;border-radius:8px;cursor:pointer;font-size:1rem;line-height:1.45}
+.checks input{width:22px;height:22px;margin-top:1px;accent-color:#00c864;flex:none;padding:0}
+.checks input:checked+span{color:var(--muted);text-decoration:line-through}
+.prog{display:flex;gap:14px;align-items:center;margin:0 0 14px}
+.prog .barra{flex:1;height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.prog .barra i{display:block;height:100%;width:0;background:#00c864;transition:width .4s}
+.prog b{min-width:60px;text-align:right}
+.diag{margin-top:96px;display:grid;grid-template-columns:1fr 1fr;background:var(--ink);color:var(--ink-fg);overflow:hidden;border-radius:28px}
+.diag .txt{padding:clamp(32px,5vw,64px);display:grid;gap:18px;align-content:center}
+.diag .spaced{color:var(--ink-muted)}
+.diag h2{font-size:clamp(2rem,4.4vw,3.2rem);line-height:1;font-weight:800;letter-spacing:-.04em;margin:0;text-wrap:balance}
+.diag p{color:var(--ink-muted);margin:0;max-width:46ch}
+.diag .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.diag .ctas .btn:not(.verde){color:var(--ink-fg)}
+.diag figure{margin:0;position:relative;min-height:360px}
+.diag figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1);-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%);mask-image:linear-gradient(90deg,transparent,#000 35%)}
+.alda{margin-top:72px;background:#fff;border-top:1px solid #e4e4e7;border-bottom:1px solid #e4e4e7;color:#2e2e2e;overflow:hidden}
+.alda-in{display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:center;padding-block:44px}
+.alda-pato{width:110px;height:auto;align-self:end;margin-bottom:-44px}
+.alda h2{margin:0 0 8px;font-size:clamp(1.6rem,3vw,2.3rem);font-weight:900;letter-spacing:-.035em;line-height:1.05;color:#2e2e2e}
+.alda h2 span{font-weight:300;font-style:italic}
+.alda p{margin:0;max-width:60ch;color:#4a4a4a}
+.alda-bts{display:grid;gap:10px}
+.alda-bt{background:#2e2e2e;color:#fff;border-color:#2e2e2e}
+.alda-bt2{color:#2e2e2e;border-color:#2e2e2e}
+.rp{--c:var(--rp);--c-txt:var(--magenta-txt)}.rf{--c:var(--rf);--c-txt:var(--marinho-txt)}.rn{--c:var(--rn);--c-txt:var(--verde-txt)}.rr{--c:var(--rr);--c-txt:var(--fg)}
+@media (max-width:860px){.hero .in,.gate,.diag,.alda-in,.raio,.lado{grid-template-columns:1fr}.alda-pato{display:none}.diag figure{min-height:240px}.ordem,.gs{grid-template-columns:repeat(2,minmax(0,1fr))}.d40{grid-template-columns:1fr 1fr}.carro{max-width:320px}}
+@media (max-width:640px){.duas,.batiza{grid-template-columns:1fr}.roda-topo{grid-template-columns:1fr}.raio label{grid-template-columns:100px 1fr 40px}}
+</style>
+</head>
+<body>
+<script src="/assets/casco.js"></script>
+<main>
+<section class="hero"><div class="w in">
+  <div>
+    <span class="k">Treinamento · Os 4 pilares comerciais da Unique</span>
+    <h1>Carro anda com três rodas? <span class="m">Anda.</span> <span class="leve" style="color:#00e676">Até quebrar.</span></h1>
+    <p>O seu comercial tem quatro rodas. Quando uma fica parada, as outras três fazem força dobrada, e um dia o carro não sai mais do lugar. Neste treinamento você dá nome a cada roda, entende o que cada uma pede e sai com o plano dos próximos 30 dias.</p>
+    <div class="chips"><span style="--c:#e0055e">Prospecção</span><span style="--c:#2b3384">Fidelização</span><span class="e" style="--c:#00e676">Nutrição</span><span class="b">Recuperação</span></div>
+  </div>
+  <svg class="carro" viewBox="-70 20 540 420" role="img" aria-label="Um carro visto de cima com as quatro rodas: prospecção, fidelização, nutrição e recuperação">
+    <rect x="96" y="40" width="208" height="380" rx="70" fill="#1a1a1e" stroke="#3a3a40" stroke-width="3"/>
+    <rect x="122" y="104" width="156" height="84" rx="22" fill="#2a2a30"/>
+    <rect x="122" y="290" width="156" height="64" rx="20" fill="#2a2a30"/>
+    <rect x="150" y="214" width="100" height="44" rx="12" fill="none" stroke="#3a3a40" stroke-width="2" stroke-dasharray="6 6"/>
+    <text x="200" y="242" text-anchor="middle" font-size="13" font-weight="800" fill="#a1a1a8" letter-spacing="2">COMERCIAL</text>
+    <g><g class="roda-g"><rect x="62" y="92" width="44" height="86" rx="16" fill="#e0055e"/><path d="M68 112h32M68 135h32M68 158h32" stroke="#0b0b0c" stroke-width="4" opacity=".35"/></g>
+      <text x="56" y="80" text-anchor="end" font-size="15" font-weight="800" fill="#fff">Prospecção</text></g>
+    <g><g class="roda-g"><rect x="294" y="92" width="44" height="86" rx="16" fill="#2b3384"/><path d="M300 112h32M300 135h32M300 158h32" stroke="#fff" stroke-width="4" opacity=".25"/></g>
+      <text x="344" y="80" font-size="15" font-weight="800" fill="#fff">Fidelização</text></g>
+    <g><g class="roda-g"><rect x="62" y="282" width="44" height="86" rx="16" fill="#00e676"/><path d="M68 302h32M68 325h32M68 348h32" stroke="#0b0b0c" stroke-width="4" opacity=".35"/></g>
+      <text x="56" y="396" text-anchor="end" font-size="15" font-weight="800" fill="#fff">Nutrição</text></g>
+    <g><g class="roda-g solta" id="rodaSolta"><rect x="294" y="282" width="44" height="86" rx="16" fill="#f5f5f5"/><path d="M300 302h32M300 325h32M300 348h32" stroke="#0b0b0c" stroke-width="4" opacity=".35"/></g>
+      <text x="344" y="396" font-size="15" font-weight="800" fill="#fff">Recuperação</text>
+      <text x="344" y="416" font-size="11" font-weight="700" fill="#ff3d8b" id="rodaAviso">parada</text></g>
+  </svg>
+</div></section>
+
+<div class="w">
+  <section class="sec">
+    <span class="spaced">A analogia</span>
+    <h2>Não dá para andar com uma roda. <span class="leve">Nem com três.</span></h2>
+    <p class="lead">Dá para rodar um tempo com três rodas, mas o carro estraga, e chega o dia em que não tem mais nem onde pôr a roda. No comercial é igual: a empresa que só prospecta, ou só atende quem chega, vive de esforço e não de método.</p>
+    <div class="ordem">
+      <div style="--c:#e0055e"><span class="n">P</span><b>Roda 1</b><span>Prospecção: ir atrás de quem nunca comprou</span></div>
+      <div style="--c:#2b3384"><span class="n">F</span><b>Roda 2</b><span>Fidelização: quem já compra de você</span></div>
+      <div class="e" style="--c:#00e676"><span class="n">N</span><b>Roda 3</b><span>Nutrição: tudo o que chega até você</span></div>
+      <div style="--c:#5e5e66"><span class="n">R</span><b>Roda 4</b><span>Recuperação: quem escapou das outras três</span></div>
+    </div>
+    <p class="citacao">“Cada roda vai ganhar o nome de uma pessoa da sua vida. Assim, quando alguém perguntar ‘e aí, falou com ele hoje?’, você sabe exatamente de qual pilar está falando.”<small>Carlos Ribeiro · Unique Consultoria</small></p>
+  </section>
+
+  <section class="sec">
+    <span class="spaced">Exercício 1 · Batize as suas rodas</span>
+    <h2>Quatro pessoas. <span class="leve">Quatro pilares.</span></h2>
+    <p class="lead">Escreva o primeiro nome que vier à cabeça em cada pergunta. Os nomes ficam só neste aparelho e aparecem em todo o treinamento, no lugar de cada pilar.</p>
+    <div class="batiza">
+      <label class="rp"><span class="t">Prospecção</span><b>Quem você admira muito e queria conversar com ele um dia?</b><small>Um empresário, um artista, alguém difícil de alcançar.</small><input id="n-p" maxlength="40" placeholder="Nome de quem você admira"></label>
+      <label class="rf"><span class="t">Fidelização</span><b>Quem você não pode perder de jeito nenhum?</b><small>Quem já está do seu lado e você precisa cuidar todo dia.</small><input id="n-f" maxlength="40" placeholder="Nome de quem você não pode perder"></label>
+      <label class="rn"><span class="t">Nutrição</span><b>Quem está chegando e depende de você para crescer?</b><small>Um filho, um sobrinho, alguém que você vai criar e ensinar.</small><input id="n-n" maxlength="40" placeholder="Nome de quem está chegando"></label>
+      <label class="rr rr-c"><span class="t" style="color:var(--fg)">Recuperação</span><b>Com quem você queria ter mais uma chance?</b><small>Alguém que se foi e com quem você faria tudo diferente.</small><input id="n-r" maxlength="40" placeholder="Nome de quem você queria de volta"></label>
+    </div>
+  </section>
+
+  <div class="gate" id="liberar">
+    <div>
+      <span class="spaced">Gratuito para cadastrados</span>
+      <h2>Libere o treinamento <span class="leve">e coloque as quatro rodas para girar.</span></h2>
+      <p>Preencha e o treinamento abre aqui mesmo, com os nomes que você escolheu.</p>
+      <ul>
+        <li>As 4 rodas explicadas com a analogia, uma a uma</li>
+        <li>A ordem de prioridade (e o erro que quase todo mundo comete)</li>
+        <li>Prospecção multicanal, grupos G1 a G4 e o desafio dos 40</li>
+        <li>Raio-x das rodas: onde o seu comercial está desequilibrado</li>
+        <li>Plano de 30 dias com checklist salvo no aparelho</li>
+      </ul>
+    </div>
+    <form id="f-lib" novalidate>
+      <div class="duas">
+        <input name="nome" autocomplete="name" placeholder="Seu nome" aria-label="Seu nome" maxlength="80" required>
+        <input name="empresa" autocomplete="organization" placeholder="Empresa" aria-label="Empresa" maxlength="80" required>
+      </div>
+      <input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="WhatsApp com DDD" aria-label="WhatsApp com DDD" maxlength="30" required>
+      <input name="email" type="email" autocomplete="email" placeholder="Seu melhor e-mail" aria-label="Seu e-mail" maxlength="120" required>
+      <input class="isca" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="news"><i aria-hidden="true">✉️</i><span>Ao se cadastrar, você também entra na <b>newsletter da Unique</b> e recebe cada post novo do blog no seu e-mail.</span></div>
+      <label class="aceite"><input type="checkbox" name="aceite" required><span>Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a <a href="/privacidade/" target="_blank" rel="noopener">Política de Privacidade</a>. Posso cancelar quando quiser.</span></label>
+      <button type="submit">Liberar o treinamento →</button>
+      <p class="msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+
+  <div class="ok"><b id="ok-t">Treinamento liberado!</b><p id="ok-p" style="margin:6px 0 0"></p></div>
+
+  <div id="conteudo">
+    <section class="sec">
+      <span class="spaced">Antes das rodas · A prioridade</span>
+      <h2>Dá para tirar alguém da lista? <span class="leve">Não. Mas tem ordem.</span></h2>
+      <p class="lead">Ninguém sai do seu coração, mas existe prioridade. No comercial também.</p>
+      <div class="ordem">
+        <div style="--c:#2b3384"><span class="n">1º</span><b>Fidelização</b><span class="x-f">quem você não pode perder</span></div>
+        <div class="e" style="--c:#00e676"><span class="n">2º</span><b>Nutrição</b><span class="x-n">quem está chegando</span></div>
+        <div style="--c:#5e5e66"><span class="n">3º</span><b>Recuperação</b><span class="x-r">quem você quer de volta</span></div>
+        <div style="--c:#e0055e"><span class="n">4º</span><b>Prospecção</b><span class="x-p">quem você admira</span></div>
+      </div>
+      <p class="alerta"><b>O erro mais comum:</b> inverter a ordem. A empresa põe toda a energia em correr atrás de <span class="x-p">quem admira</span> e esquece de cuidar de <span class="x-f">quem não pode perder</span>. Muito esforço de um lado, venda vazando do outro.</p>
+    </section>
+
+    <!-- RODA 1 -->
+    <article class="roda rp">
+      <div class="roda-topo">
+        <svg class="pneu" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="#0b0b0c"/><circle cx="50" cy="50" r="28" fill="#fff" opacity=".9"/><circle cx="50" cy="50" r="9" fill="#e0055e"/></svg>
+        <div><span class="t">Roda 1 · Prospecção</span><h2>Falar com <span class="nome x-p">quem você admira</span> é difícil.</h2><p>Prospecção é ir atrás de quem nunca comprou de você, na unha, sem tráfego. É difícil como mandar mensagem para alguém que você admira e que nem sabe que você existe.</p></div>
+      </div>
+      <div class="roda-corpo">
+        <div class="lado">
+          <div class="vida"><b>Na vida</b><p>Se você mandar uma única mensagem no direct de <span class="nome x-p">quem você admira</span>, ele responde? Provavelmente não. E se você ligar, comentar todo post (perguntando, elogiando, não como fã), mandar um presente com uma história que tem a ver com ele? E se descobrir que alguém que você conhece conhece ele? Ele estava a uma pessoa de você. Você só não tinha pensado onde procurar.</p></div>
+          <div class="venda"><b>Na venda</b><ul><li>Um canal só não prospecta ninguém.</li><li>A mesma mensagem repetida não prospecta ninguém.</li><li>Uma ligação só não prospecta ninguém.</li><li>Cada dia que passa com a cadência rodando, a chance aumenta.</li></ul></div>
+        </div>
+        <div><h3>Prospecção é multicanal</h3>
+          <div class="canais"><span>📞 Ligação</span><span>💬 WhatsApp</span><span>📸 Direct no Instagram</span><span>💭 Comentário nos posts</span><span>📦 Amostra</span><span>🎁 Presente com história</span><span>👏 Elogio sincero</span><span>🤝 “Quem aqui conhece?”</span></div></div>
+        <p class="frase">Não é sobre aceitação. É sobre o seu objetivo. São só negócios.</p>
+        <div class="lado">
+          <div><b style="display:block;margin-bottom:8px">Mire alto</b><p>Quando o seu alvo é <span class="nome x-p">quem você admira</span>, falar com o dono daquela empresa grande da sua cidade fica fácil. O medo diminui quando a régua sobe.</p></div>
+          <div><b style="display:block;margin-bottom:8px">Tenha um estímulo</b><p>Prospectar só por obrigação cansa, porque o prospect não te dá nada enquanto você tenta. Precisa de vontade de conseguir, como a admiração que você tem por <span class="nome x-p">quem você admira</span>. E se ele responder? Você vai querer alguém ainda maior.</p></div>
+        </div>
+        <div><h3>A conta que ninguém faz</h3><p>Cinco abordagens novas hoje viram dez contatos amanhã, porque os cinco de ontem ainda estão na cadência. Por isso a meta é por semana e o tempo é bloqueado na agenda.</p></div>
+        <div class="acoes">
+          <div>Meta inicial: <b>5 abordagens novas por dia, 20 por semana</b>, contando todos os canais.</div>
+          <div>Bloqueie <b>duas janelas fixas de 1 hora por semana</b> (ou 1 hora por dia) na agenda do time só para prospecção.</div>
+          <div>Defina quantas abordagens e quantas reuniões cada vendedor faz por semana e mostre o placar na reunião semanal.</div>
+          <div>Leia <b>Prospecção Fanática</b> (Jeb Blount), um capítulo por dia, junto com quem vende. Depois de cada capítulo, cada um fala o que pegou.</div>
+        </div>
+        <div class="msgs">
+          <div class="msgbox"><b>Quando o prospect parou de responder</b><p id="m1">Oi, [nome]! Tentei falar com você por aqui e pelo telefone essa semana. Sei que a rotina é corrida, por isso vou ser direto: separei uma proposta pensada para a [empresa] e queria só 10 minutos para te mostrar. Qual horário fica melhor para você, amanhã ou quinta?</p><button class="bt2" data-copia="m1">Copiar mensagem</button></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- RODA 2 -->
+    <article class="roda rf">
+      <div class="roda-topo">
+        <svg class="pneu" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="#0b0b0c"/><circle cx="50" cy="50" r="28" fill="#fff" opacity=".9"/><circle cx="50" cy="50" r="9" fill="#2b3384"/></svg>
+        <div><span class="t">Roda 2 · Fidelização</span><h2>Você não pode perder <span class="nome x-f">quem você não pode perder</span>.</h2><p>Fidelização é o cliente que já comprou de você, de R$ 1 a R$ 1 milhão. O objetivo é que ele compre sempre, compre mais e nunca vá embora.</p></div>
+      </div>
+      <div class="roda-corpo">
+        <div class="lado">
+          <div class="vida"><b>Na vida</b><p>Se você passar a semana inteira sem falar com <span class="nome x-f">quem você não pode perder</span>, vai ter carinho no fim de semana? Nunca. O que precisa? Conversar no dia a dia, dar atenção, ouvir, fazer o favor que ela pediu, mudar o que incomoda, saber o que ela quer para agradar. E, de vez em quando, chegar antes: “já reservei um jantar para a gente semana que vem”.</p></div>
+          <div class="venda"><b>Na venda</b><ul><li>Quantos clientes só falam com você quando querem fazer pedido?</li><li>Quantos compram e nem lembram o nome de quem atendeu?</li><li>Relacionamento é dos dois lados: quando existe, o cliente também cede no preço, no prazo e na espera.</li></ul></div>
+        </div>
+        <p class="frase">Os dois lados cedem. Mas só cede quem tem relacionamento.</p>
+        <div><h3>Não largue quem está com você para correr atrás de quem acabou de chegar</h3><p>Você está no jantar com quem sempre quis, e o celular avisa que outra pessoa começou a te seguir. Você larga a mesa? Não. A sua carteira merece a mesma lealdade: o cliente de hoje vem antes do lead novo.</p></div>
+        <div><h3>Separe a carteira como um campeonato: G1 a G4</h3>
+          <div class="gs">
+            <div><b>G1</b><p>O topo. Para tudo para atender, quebra regra da empresa se precisar.</p></div>
+            <div><b>G2</b><p>Também recebe exceção, mas com menos frequência.</p></div>
+            <div><b>G3</b><p>Para ganhar exceção, precisa ter histórico: volume, faturamento, pedidos.</p></div>
+            <div><b>G4</b><p>Precisa conquistar você também: parar de chorar preço e prazo.</p></div>
+          </div></div>
+        <div class="acoes">
+          <div>Siga, curta e comente os posts dos melhores clientes. Curtida serve para o churrasco e para o luto: mostra que você está presente.</div>
+          <div>Depois da entrega, pergunte se deu tudo certo e ensine o cliente a cuidar melhor do produto.</div>
+          <div>Sugira peças específicas para outro departamento ou outra necessidade do cliente.</div>
+          <div>Ofereça complemento em <b>todo</b> pedido e acompanhe quantos pedidos saem com mais de um item.</div>
+          <div>Antecipe datas: festa de fim de ano, aniversário da empresa, evento. Use sobra de material para criar um brinde a preço de custo.</div>
+        </div>
+        <div class="msgs">
+          <div class="msgbox"><b>Antecipação para um cliente G1</b><p id="m2">Oi, [nome]! Vai ter confraternização de fim de ano aí na [empresa]? Estou separando uma condição especial só para os nossos principais clientes: uma peça personalizada a preço de custo para a foto do time ficar bonita. Quer que eu te mande uma prévia?</p><button class="bt2" data-copia="m2">Copiar mensagem</button></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- RODA 3 -->
+    <article class="roda rn">
+      <div class="roda-topo e">
+        <svg class="pneu" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="#0b0b0c"/><circle cx="50" cy="50" r="28" fill="#fff" opacity=".9"/><circle cx="50" cy="50" r="9" fill="#00c864"/></svg>
+        <div><span class="t">Roda 3 · Nutrição</span><h2><span class="nome x-n">Quem está chegando</span> depende de você para crescer.</h2><p>Nutrição é tudo o que chega até você: indicação, tráfego, orgânico. Você não escolheu, chegou. Mas, depois que entrou, a responsabilidade é sua. Se parar de alimentar, ele não sobrevive.</p></div>
+      </div>
+      <div class="roda-corpo">
+        <div class="lado">
+          <div class="vida"><b>Na vida</b><p>Ninguém escolhe a cara de um filho. Ele chega do jeito que chega, e você cuida. Você explica a mesma coisa vinte vezes, faz vozinha, deita no chão, amassa a papinha se ele não consegue engolir. E, se alguém dissesse que vai ensinar <span class="nome x-n">quem está chegando</span> a andar de bicicleta melhor do que você, você ia deixar?</p></div>
+          <div class="venda"><b>Na venda</b><ul><li>Nutrir é dar argumento suficiente para o cliente entender que precisa comprar de você.</li><li>Você vai explicar o seu preço de novo, e de novo, porque você vale isso.</li><li>Se o concorrente está ensinando o seu lead, ele vai chamar o concorrente de pai.</li></ul></div>
+        </div>
+        <p class="frase">Se ele não consegue engolir, você amassa. Se o cliente não abre o PDF, você manda em foto.</p>
+        <div><h3>Adapte o jeito de alimentar</h3><p>Talvez o cliente não consiga abrir o PDF, o vídeo não carregue onde ele está ou ele não saiba negociar pelo WhatsApp. Então você manda foto, faz um vídeo curto, liga. E se um cliente reclamou de alguma coisa, pergunte: será que tem mais gente reclamando disso? Conserte o material.</p></div>
+        <div><h3>DNA: a política comercial</h3><p>Se alguém aparecer dizendo que quatro crianças são filhas suas, você aceita? Só com DNA. A política comercial é o seu DNA: se o cliente não fecha o pedido mínimo, ele não é seu. Você não vai sustentar um filho que não é seu. Escreva a política e siga, principalmente quando der medo de perder a venda.</p></div>
+        <div><h3>Comemore cada etapa</h3><p>Quando o filho fala “papai” ou dá o primeiro passo, você comemora, mesmo que ele ainda não tenha vencido na vida. No funil é igual: respondeu, comemora. Pediu orçamento, comemora. Ainda não comprou, mas está mais perto do fim do que do começo.</p>
+          <div class="etapas" style="margin-top:12px"><span>Lead</span><i>→</i><span>Qualificação</span><i>→</i><span>Orçamento</span><i>→</i><span>Negociação</span><i>→</i><span>Objeção</span><i>→</i><span>Vendido</span></div></div>
+        <div><h3>Organize, porque bebê tem rotina</h3><p>Ninguém põe o berço do lado do fogão, e ninguém dá de mamar sem saber que horas foi a última mamada. O lead também tem rotina: em que etapa está, quando foi o último contato, qual é o próximo passo. É para isso que existe o CRM.</p></div>
+        <div><h3>O desafio dos 40</h3><p>Você fala diferente com um bebê, com um cachorro e com um estrangeiro, porque cada um entende de um jeito. Cliente também: um olha a estampa, outro a costura, outro o conforto, outro quer o time bonito na foto. Por isso você precisa de 40 diferenciais de cada coisa, numa planilha à vista de todo o time. O vendedor não ama o seu produto como você ama; ele precisa ter os argumentos na mão.</p>
+          <div class="d40" style="margin-top:12px"><div><b>40</b>diferenciais da sua marca</div><div><b>40</b>de cada produto</div><div><b>40</b>da sua entrega</div><div><b>40</b>da sua qualidade</div><div><b>40</b>do seu processo</div><div><b>40</b>da sua embalagem</div></div></div>
+      </div>
+    </article>
+
+    <!-- RODA 4 -->
+    <article class="roda rr">
+      <div class="roda-topo">
+        <svg class="pneu" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="#3a3a40"/><circle cx="50" cy="50" r="28" fill="#fff" opacity=".9"/><circle cx="50" cy="50" r="9" fill="#5e5e66"/></svg>
+        <div><span class="t">Roda 4 · Recuperação</span><h2>Mais uma chance com <span class="nome x-r">quem você queria de volta</span>.</h2><p>Recuperação é trazer de volta quem escapou das outras três rodas: o prospect que sumiu, o lead que não evoluiu e o cliente que parou de comprar.</p></div>
+      </div>
+      <div class="roda-corpo">
+        <div class="lado">
+          <div class="vida"><b>Na vida</b><p>Se você tivesse mais uma conversa com <span class="nome x-r">quem você queria de volta</span>, faria muita coisa diferente. No comercial, essa chance existe: o cliente que parou de comprar ainda está ali, a uma mensagem de distância.</p></div>
+          <div class="venda"><b>Na venda</b><ul><li><span class="nome x-p">Quem você admira</span> não respondeu? Recupera.</li><li><span class="nome x-n">Quem está chegando</span> parou no orçamento? Recupera.</li><li><span class="nome x-f">Quem você não pode perder</span> disse que vai embora? Você aceita ou vai atrás?</li></ul></div>
+        </div>
+        <p class="frase">Recuperar dói, porque significa que a gente falhou em algum ponto. Mas é a receita mais rápida que existe.</p>
+        <div><h3>Às vezes você foi perfeito, mas não aos olhos dele</h3><p>Talvez o cliente nunca mais volte, e aí tem que aceitar. Mas nunca por você ter deixado de tentar. Recuperação é fazer um caminho para ele não te abandonar. E, quando um pilar fica muito à frente do outro (prospecção alta e recuperação baixa), é aqui que está o maior vazamento de venda.</p></div>
+        <div class="acoes">
+          <div>Liste os clientes sem comprar há <b>mais de 90 dias</b> e separe por volume de compra.</div>
+          <div>Pegue os <b>20 de maior valor</b> e comece uma régua de reativação com eles.</div>
+          <div>Registre o motivo de cada perda (preço, prazo, região, concorrente) para atacar a causa.</div>
+          <div>Faça de 3 a 5 tentativas em canais diferentes antes de dar o contato como perdido.</div>
+          <div>Volte nos orçamentos parados toda semana: quem viu e não respondeu ainda está na mesa.</div>
+        </div>
+        <div class="msgs">
+          <div class="msgbox"><b>Reativação de cliente parado</b><p id="m3">Oi, [nome]! Faz [tempo] desde o seu último pedido e senti sua falta por aqui. Aconteceu alguma coisa que a gente possa melhorar? Quero muito te ouvir. E, para a sua volta, separei uma condição especial: [oferta].</p><button class="bt2" data-copia="m3">Copiar mensagem</button></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- RAIO-X -->
+    <section class="sec">
+      <span class="spaced">Exercício 2 · Raio-x das rodas</span>
+      <h2>Como estão as suas quatro rodas <span class="leve">hoje?</span></h2>
+      <p class="lead">Dê uma nota de 0 a 100 para cada pilar, pensando no processo (o que é feito toda semana) e não no resultado do mês. A estrutura é a sua agenda, o seu tempo e as suas ferramentas para fazer as quatro rodas girarem.</p>
+      <div class="raio">
+        <div>
+          <label class="rp">Prospecção<input type="range" id="r-p" min="0" max="100" step="5" value="60"><output id="o-p">60</output></label>
+          <label class="rf">Fidelização<input type="range" id="r-f" min="0" max="100" step="5" value="40"><output id="o-f">40</output></label>
+          <label class="rn">Nutrição<input type="range" id="r-n" min="0" max="100" step="5" value="50"><output id="o-n">50</output></label>
+          <label class="rr" style="--c:#5e5e66">Recuperação<input type="range" id="r-r" min="0" max="100" step="5" value="20"><output id="o-r">20</output></label>
+          <label style="--c:#078a46">Estrutura<input type="range" id="r-e" min="0" max="100" step="5" value="30"><output id="o-e">30</output></label>
+        </div>
+        <div>
+          <svg viewBox="0 0 260 200" style="width:100%;max-width:340px;display:block;margin:auto" aria-hidden="true">
+            <rect x="70" y="20" width="120" height="160" rx="36" fill="var(--soft)" stroke="var(--line)" stroke-width="2"/>
+            <rect id="w-p" x="38" y="36" width="26" height="50" rx="10" fill="#e0055e"/>
+            <rect id="w-f" x="196" y="36" width="26" height="50" rx="10" fill="#2b3384"/>
+            <rect id="w-n" x="38" y="114" width="26" height="50" rx="10" fill="#00c864"/>
+            <rect id="w-r" x="196" y="114" width="26" height="50" rx="10" fill="#5e5e66"/>
+            <text id="t-e" x="130" y="106" text-anchor="middle" font-size="22" font-weight="900" fill="currentColor">30</text>
+            <text x="130" y="124" text-anchor="middle" font-size="9" font-weight="700" fill="var(--muted)" letter-spacing="1.5">ESTRUTURA</text>
+          </svg>
+          <div class="vered" id="vered"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLANO 30 DIAS -->
+    <section class="sec">
+      <span class="spaced">Plano de 30 dias</span>
+      <h2>As 4 rodas girando <span class="leve">a partir de amanhã.</span></h2>
+      <p class="lead">Marque conforme for fazendo. Fica salvo neste aparelho. Em 30 dias, revise as metas com base no que aconteceu.</p>
+      <div class="prog"><div class="barra"><i id="pb"></i></div><b id="pt">0 de 0</b></div>
+      <div class="checks" id="checks">
+        <h4 style="--c:var(--magenta-txt)">Prospecção</h4>
+        <label><input type="checkbox" id="c1"><span>Definir a meta de abordagens e reuniões por vendedor (comece com 20 abordagens por semana)</span></label>
+        <label><input type="checkbox" id="c2"><span>Bloquear as janelas fixas de prospecção na agenda do time</span></label>
+        <label><input type="checkbox" id="c3"><span>Começar a leitura de Prospecção Fanática, um capítulo por dia com quem vende</span></label>
+        <label><input type="checkbox" id="c4"><span>Mostrar o placar de prospecção na reunião semanal</span></label>
+        <h4 style="--c:var(--marinho-txt)">Fidelização</h4>
+        <label><input type="checkbox" id="c5"><span>Separar a carteira em G1, G2, G3 e G4</span></label>
+        <label><input type="checkbox" id="c6"><span>Seguir, curtir e comentar os posts dos clientes G1</span></label>
+        <label><input type="checkbox" id="c7"><span>Treinar o time para oferecer complemento em todo pedido</span></label>
+        <label><input type="checkbox" id="c8"><span>Criar uma oferta ou brinde de antecipação para os melhores clientes</span></label>
+        <h4 style="--c:var(--verde-txt)">Nutrição</h4>
+        <label><input type="checkbox" id="c9"><span>Escrever a política comercial (pedido mínimo, descontos, prazos)</span></label>
+        <label><input type="checkbox" id="c10"><span>Montar a planilha dos 40 diferenciais e deixar à vista do time</span></label>
+        <label><input type="checkbox" id="c11"><span>Organizar o material de valor: fotos, depoimentos e especificações em vários formatos</span></label>
+        <label><input type="checkbox" id="c12"><span>Registrar todo lead no CRM com etapa e próximo passo</span></label>
+        <h4 style="--c:var(--fg)">Recuperação</h4>
+        <label><input type="checkbox" id="c13"><span>Listar os clientes inativos há mais de 90 dias, separados por volume</span></label>
+        <label><input type="checkbox" id="c14"><span>Começar a régua de reativação com os 20 de maior valor</span></label>
+        <label><input type="checkbox" id="c15"><span>Retomar os orçamentos parados da semana</span></label>
+        <label><input type="checkbox" id="c16"><span>Registrar o motivo de cada venda perdida</span></label>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="bt2" id="ckZera" type="button">Recomeçar o checklist</button><button class="bt2" id="imprime" type="button">Imprimir</button></div>
+    </section>
+  </div>
+</div>
+
+<section class="w" aria-label="Diagnóstico comercial">
+  <div class="diag">
+    <div class="txt">
+      <span class="spaced">Próximo passo</span>
+      <h2>Qual é o score das 4 rodas <span class="leve">da sua empresa?</span></h2>
+      <p>Faça o diagnóstico. Em 10 a 15 minutos você responde sobre os 4 pilares do seu comercial e recebe um relatório com o score, os gargalos e um plano de ação.</p>
+      <div class="ctas"><a class="btn verde" href="/diagnostico/">Faça seu diagnóstico comercial <i class="ic" style="--i:var(--ic-seta)"></i></a>
+      <a class="btn" href="https://wa.me/5562996007574?text=Ol%C3%A1%2C%20Carlos%21%20Fiz%20o%20treinamento%20das%204%20Rodas%20do%20Comercial%20e%20quero%20conversar%20sobre%20o%20comercial%20da%20minha%20empresa." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Falar com o Carlos</a></div>
+    </div>
+    <figure><img src="/assets/fotos/palco.jpg" alt="Carlos Ribeiro em palestra, com microfone" width="1280" height="853" loading="lazy"></figure>
+  </div>
+</section>
+
+<section class="alda" aria-labelledby="h-alda">
+  <div class="w alda-in">
+    <img class="alda-pato" src="/diagnostico/relatorio/alda-pato.png" alt="" width="134" height="238" loading="lazy">
+    <div class="alda-tx">
+      <span class="spaced" style="display:block;margin-bottom:10px;color:#5e5e66">Alda.CRM</span>
+      <h2 id="h-alda">As quatro rodas <span>no mesmo painel.</span></h2>
+      <p>Prospecção com cadência, carteira separada por grupo, leads com etapa e próximo passo, e a lista de inativos pronta para recuperar. A plataforma feita para quem vende pelo WhatsApp, que a Unique usa para tirar o plano do papel.</p>
+    </div>
+    <div class="alda-bts">
+      <a class="btn alda-bt" href="https://aldacrm.com" target="_blank" rel="noopener">Conhecer o Alda.CRM <i class="ic" style="--i:var(--ic-seta-up)"></i></a>
+      <a class="btn alda-bt2" href="https://wa.me/5511920781458?text=Ol%C3%A1%21%20Vim%20pelo%20treinamento%204%20Rodas%20do%20Comercial%20da%20Unique%20e%20quero%20conhecer%20o%20Alda.CRM." target="_blank" rel="noopener"><i class="ic" style="--i:var(--ic-whatsapp)"></i>Falar com o Alda</a>
+    </div>
+  </div>
+</section>
+</main>
+<script>
+(function(){
+var store={get:function(k){try{return JSON.parse(localStorage.getItem(k)||'null');}catch(e){return null;}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+var $=function(s,c){return (c||document).querySelector(s);};
+var $$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s));};
+
+/* nomes das rodas */
+var PAD={p:'quem você admira',f:'quem você não pode perder',n:'quem está chegando',r:'quem você queria de volta'};
+var nomes=store.get('ua_rodas_nomes')||{};
+function aplica(){
+  Object.keys(PAD).forEach(function(k){
+    var v=(nomes[k]||'').trim();
+    $$('.x-'+k).forEach(function(el){
+      var base=el.getAttribute('data-pad')||el.textContent; el.setAttribute('data-pad',base);
+      el.textContent=v||base;
+    });
+  });
+}
+Object.keys(PAD).forEach(function(k){
+  var inp=$('#n-'+k); inp.value=nomes[k]||'';
+  inp.addEventListener('input',function(){nomes[k]=inp.value; store.set('ua_rodas_nomes',nomes); aplica();});
+});
+aplica();
+
+/* copiar */
+$$('[data-copia]').forEach(function(b){b.addEventListener('click',function(){
+  var txt=$('#'+b.getAttribute('data-copia')).textContent, lab=b.textContent;
+  var done=function(t){b.textContent=t;setTimeout(function(){b.textContent=lab;},1500);};
+  try{navigator.clipboard.writeText(txt).then(function(){done('Copiado');},function(){done('Copie à mão');});}catch(e){done('Copie à mão');}
+});});
+
+/* raio-x */
+var R=['p','f','n','r','e'], NOME={p:'Prospecção',f:'Fidelização',n:'Nutrição',r:'Recuperação'};
+var rx=store.get('ua_rodas_raio');
+if(rx) R.forEach(function(k){ if(rx[k]!=null) $('#r-'+k).value=rx[k]; });
+function raio(){
+  var v={}; R.forEach(function(k){v[k]=+$('#r-'+k).value; $('#o-'+k).textContent=v[k];});
+  store.set('ua_rodas_raio',v);
+  ['p','f','n','r'].forEach(function(k){ var el=$('#w-'+k), h=14+v[k]*.5; el.setAttribute('height',h); el.setAttribute('y',(k==='p'||k==='f'?61:139)-h/2); el.setAttribute('opacity',.35+v[k]/160); });
+  $('#t-e').textContent=v.e;
+  var ks=['p','f','n','r'].sort(function(a,b){return v[b]-v[a];}), hi=ks[0], lo=ks[3], gap=v[hi]-v[lo];
+  var media=Math.round((v.p+v.f+v.n+v.r)/4), t;
+  if(gap>=30) t='<b>Carro desequilibrado: '+gap+' pontos entre a roda mais forte e a mais fraca.</b>'+NOME[hi]+' está em '+v[hi]+' e '+NOME[lo]+' em '+v[lo]+'. Muito esforço de um lado, venda vazando do outro. Comece o plano de 30 dias pela roda de '+NOME[lo]+'.';
+  else if(media<50) t='<b>Rodas parelhas, mas murchas (média '+media+').</b>O carro anda reto, só que devagar. Escolha a roda de '+NOME[lo]+' para subir primeiro e coloque o tempo na agenda.';
+  else t='<b>Rodas equilibradas (média '+media+').</b>Agora é manter a rotina e subir a régua: mire mais alto na prospecção e aumente o ticket da carteira.';
+  if(v.e<40) t+=' <br><br>A estrutura está em '+v.e+': sem agenda, rotina e ferramenta, nenhuma roda gira sozinha. Bloqueie o tempo de cada pilar na semana.';
+  $('#vered').innerHTML=t;
+}
+R.forEach(function(k){$('#r-'+k).addEventListener('input',raio);}); raio();
+
+/* checklist */
+var saved=store.get('ua_rodas_checks')||{}, cks=$$('#checks input');
+function prog(){var n=cks.filter(function(c){return c.checked;}).length; $('#pb').style.width=(100*n/cks.length)+'%'; $('#pt').textContent=n+' de '+cks.length;}
+cks.forEach(function(cb){cb.checked=!!saved[cb.id];cb.addEventListener('change',function(){saved[cb.id]=cb.checked;store.set('ua_rodas_checks',saved);prog();});});
+$('#ckZera').addEventListener('click',function(){saved={};store.set('ua_rodas_checks',saved);cks.forEach(function(cb){cb.checked=false;});prog();});
+$('#imprime').addEventListener('click',function(){window.print();});
+prog();
+
+/* cadastro: mesmo fluxo das outras iscas (api/material.js) */
+var MAT='quatro-rodas', K='ua_mat_'+MAT;
+function libera(d,novo){
+  document.body.classList.add('liberado');
+  var pn=(d&&d.nome||'').split(' ')[0];
+  $('#ok-t').textContent=novo?(pn?pn+', o':'O')+' treinamento está liberado!':'Bem-vindo de volta'+(pn?', '+pn:'')+'!';
+  $('#ok-p').textContent=novo?'Leia roda por roda, faça o raio-x e marque o plano de 30 dias. Você também recebe cada post novo do blog no seu e-mail.':'O seu treinamento continua aqui, do jeito que você deixou.';
+}
+var salvo=store.get(K); if(salvo) libera(salvo,false);
+fetch('/api/material?a=adm&material='+MAT,{credentials:'same-origin',cache:'no-store'}).then(function(r){return r.json();}).then(function(r){ if(r&&r.admin) libera({nome:'Carlos'},false); else if(r&&r.cliente) libera({nome:r.nome||''},false); }).catch(function(){});
+var f=$('#f-lib'), msg=$('.msg',f), bt=$('button',f);
+f.addEventListener('submit',function(e){
+  e.preventDefault();
+  var d={nome:f.nome.value.trim(),empresa:f.empresa.value.trim(),whatsapp:f.whatsapp.value.trim(),email:f.email.value.trim()};
+  if(d.nome.length<2){msg.textContent='Informe o seu nome.';return;}
+  if(d.empresa.length<2){msg.textContent='Informe o nome da empresa.';return;}
+  if(d.whatsapp.replace(/\D/g,'').length<10){msg.textContent='Confira o seu WhatsApp com DDD.';return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)){msg.textContent='Confira o seu e-mail.';return;}
+  if(!f.aceite.checked){msg.textContent='Para liberar, marque que concorda com os termos.';return;}
+  bt.disabled=true; msg.textContent='';
+  fetch('/api/material',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({a:'liberar',material:MAT,nome:d.nome,empresa:d.empresa,whatsapp:d.whatsapp,email:d.email,aceite:true,site:f.site.value})})
+    .then(function(r){return r.json().catch(function(){return {};});})
+    .then(function(r){
+      if(!r||!r.ok){bt.disabled=false;msg.textContent=(r&&r.erro)||'Não deu certo agora. Tente de novo.';return;}
+      var vv={nome:d.nome,empresa:d.empresa,data:new Date().toISOString()}; store.set(K,vv); libera(vv,true);
+      window.scrollTo({top:$('.ok').offsetTop-90,behavior:'smooth'});
+    })
+    .catch(function(){bt.disabled=false;msg.textContent='Sem conexão. Tente de novo.';});
+});
+})();
+</script>
+</body>
+</html>

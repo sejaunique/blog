@@ -90,6 +90,13 @@ const MATERIAIS = {
     tag: 'Comissão OTE',
     aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
   },
+  'quatro-rodas': {
+    titulo: 'As 4 Rodas do Comercial · Treinamento',
+    descricao: 'Os 4 pilares comerciais pela analogia do carro: prospecção multicanal, carteira G1 a G4, nutrição com política comercial e desafio dos 40, recuperação, raio-x das rodas e plano de 30 dias.',
+    url: '/quatro-rodas/',
+    tag: '4 Rodas do Comercial',
+    aceite: 'Concordo em receber o blog, novidades, conteúdos e anúncios da Unique por e-mail e WhatsApp, e autorizo o tratamento dos meus dados conforme a LGPD (Lei 13.709/2018) e a Política de Privacidade. Posso cancelar quando quiser.'
+  },
   'mesa-aberta': {
     titulo: 'Mesa Aberta · Kit de Network',
     descricao: 'Raio-x da sua rede, calculadora de quanto vale uma indicação, mapa das 30 pessoas-chave, gerador de pedido de indicação e roteiro do 1 a 1.',

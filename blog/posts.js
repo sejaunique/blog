@@ -60,6 +60,93 @@ Antes de qualquer profissão, eu me vejo como alguém que está **construindo**.
    --------------------------------------------------------- */
 
 window.POSTS = [
+  {
+    slug: "quatro-perguntas",
+    capa: "assets/capa-quatro-perguntas.jpg",
+    titulo: "Responda 4 perguntas. ==O que isso tem a ver com vendas?==",
+    data: "2026-11-26",
+    categoria: "Vendas",
+    resumo: "Quatro perguntas sobre pessoas da sua vida. Responda com um nome em cada uma. Depois eu te mostro por que essas quatro pessoas são as quatro rodas do seu comercial.",
+    texto: `
+Antes de falar de vendas, eu quero que você faça um exercício comigo.
+
+São quatro perguntas. Não pula, não lê correndo. Responde cada uma com **um nome**. O primeiro que vier na cabeça.
+
+## 1. Quem você admira muito e queria conversar com ele um dia?
+
+Um empresário, um artista, alguém que você acompanha e que nem sabe que você existe. Aquela pessoa que, se te respondesse uma mensagem, você ia mostrar para todo mundo.
+
+## 2. Quem você não pode perder de jeito nenhum?
+
+Quem já está do seu lado. Quem você precisa cuidar todo dia, porque sem essa pessoa a sua vida não é a mesma.
+
+## 3. Quem está chegando e depende de você para crescer?
+
+Um filho, um sobrinho, alguém que acabou de entrar na sua vida e que, se você parar de cuidar, não se desenvolve.
+
+## 4. Com quem você queria ter mais uma chance?
+
+Alguém que se foi. Alguém com quem você faria muita coisa diferente, se tivesse mais uma conversa.
+
+Guardou os quatro nomes?
+
+Agora eu te pergunto: ==o que isso tem a ver com vendas?==
+
+Pensa um pouco antes de continuar.
+
+## Tem tudo a ver
+
+Fiz essas mesmas perguntas para um mentorado numa reunião. Ele respondeu sem pensar, e cada nome que ele falou virou um pilar do comercial dele.
+
+Um carro tem quatro rodas. Dá para andar com três? Dá. Até estragar. E chega um dia em que o carro não sai mais do lugar.
+
+O seu comercial também tem quatro rodas: **prospecção, fidelização, nutrição e recuperação**. E cada uma das suas respostas é uma delas.
+
+## A pessoa que você admira é a sua prospecção
+
+Falar com quem você admira é difícil. Uma mensagem no direct e ele não responde. Uma ligação e ele não atende.
+
+Mas e se você comentar nos posts dele, mandar um presente com uma história, ligar, perguntar quem conhece ele? Às vezes ele está a uma pessoa de você.
+
+Prospecção é isso: ir atrás de quem nunca comprou de você, por vários canais, todo dia. ==Não é sobre aceitação. É sobre o seu objetivo.==
+
+E tem um bônus: quando o seu alvo é alguém desse tamanho, falar com o dono daquela empresa grande da sua cidade fica fácil.
+
+## Quem você não pode perder é a sua fidelização
+
+Se você passar a semana inteira sem falar com essa pessoa, o fim de semana vai ser bom? Não vai.
+
+Relacionamento pede conversa no dia a dia, atenção, ouvir, ceder, antecipar. E o seu cliente é igual. Quantos clientes só falam com você quando querem fazer pedido? Quantos compram e nem lembram o nome de quem atendeu?
+
+> Os dois lados cedem. Mas só cede quem tem relacionamento.
+
+## Quem está chegando é a sua nutrição
+
+Ninguém escolhe a cara de um filho. Ele chega do jeito que chega, e aí a responsabilidade é sua. Você explica a mesma coisa vinte vezes. Faz vozinha. Amassa a papinha se ele não consegue engolir.
+
+O lead é a mesma coisa. Ele chegou por indicação, por tráfego, pelo Instagram. Você não escolheu, mas agora precisa alimentar: explicar o preço de novo, mandar em foto se ele não abre o PDF, ligar se ele não sabe negociar pelo WhatsApp. E comemorar cada passo, porque quem pediu orçamento já está mais perto do fim do que do começo.
+
+Se você não alimentar, ==o concorrente alimenta. E aí ele vai chamar o concorrente de pai.==
+
+## Quem se foi é a sua recuperação
+
+Se você tivesse mais uma conversa com essa pessoa, faria tudo diferente.
+
+No comercial, essa chance existe. O cliente que parou de comprar, o lead que travou no orçamento, o prospect que sumiu: estão todos a uma mensagem de distância. Recuperar dói, porque mostra onde a gente falhou. Mas é a receita mais rápida que existe.
+
+## E agora vem a pergunta difícil
+
+Dá para tirar alguém dessa lista? Não dá. Mas existe ordem: primeiro quem você não pode perder, depois quem está chegando, depois quem você quer de volta e, por último, quem você admira.
+
+O erro que eu mais vejo nas empresas é inverter tudo. O comercial inteiro correndo atrás de cliente novo, enquanto a carteira vai embora pela porta dos fundos sem ninguém perceber.
+
+Qual roda do seu carro está parada hoje?
+
+Montei um treinamento com a analogia completa. Você coloca os seus quatro nomes e eles aparecem no lugar de cada pilar. Tem o que fazer em cada roda, o raio-x para ver onde o seu comercial está desequilibrado e o plano dos próximos 30 dias.
+
+[material: As 4 Rodas do Comercial | Dê nome às quatro rodas e descubra qual está parada no seu comercial. | assets/capa-quatro-perguntas.jpg | As 4 rodas explicadas com a analogia; Prospecção multicanal e carteira G1 a G4; Política comercial, nutrição e o desafio dos 40; Raio-x das rodas do seu comercial; Plano de 30 dias com checklist | Quero o treinamento](/quatro-rodas/)
+`
+  },
 
   {
     slug: "black-zona",
@@ -1681,92 +1768,6 @@ Fonte da notícia: [Meio & Mensagem](https://www.meioemensagem.com.br/midia/como
    --------------------------------------------------------- */
 window.POSTS_ARQUIVADOS = [
   {
-    slug: "quatro-perguntas",
-    capa: "assets/capa-quatro-perguntas.jpg",
-    titulo: "Responda 4 perguntas. ==O que isso tem a ver com vendas?==",
-    data: "2026-11-26",
-    categoria: "Vendas",
-    resumo: "Quatro perguntas sobre pessoas da sua vida. Responda com um nome em cada uma. Depois eu te mostro por que essas quatro pessoas são as quatro rodas do seu comercial.",
-    texto: `
-Antes de falar de vendas, eu quero que você faça um exercício comigo.
-
-São quatro perguntas. Não pula, não lê correndo. Responde cada uma com **um nome**. O primeiro que vier na cabeça.
-
-## 1. Quem você admira muito e queria conversar com ele um dia?
-
-Um empresário, um artista, alguém que você acompanha e que nem sabe que você existe. Aquela pessoa que, se te respondesse uma mensagem, você ia mostrar para todo mundo.
-
-## 2. Quem você não pode perder de jeito nenhum?
-
-Quem já está do seu lado. Quem você precisa cuidar todo dia, porque sem essa pessoa a sua vida não é a mesma.
-
-## 3. Quem está chegando e depende de você para crescer?
-
-Um filho, um sobrinho, alguém que acabou de entrar na sua vida e que, se você parar de cuidar, não se desenvolve.
-
-## 4. Com quem você queria ter mais uma chance?
-
-Alguém que se foi. Alguém com quem você faria muita coisa diferente, se tivesse mais uma conversa.
-
-Guardou os quatro nomes?
-
-Agora eu te pergunto: ==o que isso tem a ver com vendas?==
-
-Pensa um pouco antes de continuar.
-
-## Tem tudo a ver
-
-Fiz essas mesmas perguntas para um mentorado numa reunião. Ele respondeu sem pensar, e cada nome que ele falou virou um pilar do comercial dele.
-
-Um carro tem quatro rodas. Dá para andar com três? Dá. Até estragar. E chega um dia em que o carro não sai mais do lugar.
-
-O seu comercial também tem quatro rodas: **prospecção, fidelização, nutrição e recuperação**. E cada uma das suas respostas é uma delas.
-
-## A pessoa que você admira é a sua prospecção
-
-Falar com quem você admira é difícil. Uma mensagem no direct e ele não responde. Uma ligação e ele não atende.
-
-Mas e se você comentar nos posts dele, mandar um presente com uma história, ligar, perguntar quem conhece ele? Às vezes ele está a uma pessoa de você.
-
-Prospecção é isso: ir atrás de quem nunca comprou de você, por vários canais, todo dia. ==Não é sobre aceitação. É sobre o seu objetivo.==
-
-E tem um bônus: quando o seu alvo é alguém desse tamanho, falar com o dono daquela empresa grande da sua cidade fica fácil.
-
-## Quem você não pode perder é a sua fidelização
-
-Se você passar a semana inteira sem falar com essa pessoa, o fim de semana vai ser bom? Não vai.
-
-Relacionamento pede conversa no dia a dia, atenção, ouvir, ceder, antecipar. E o seu cliente é igual. Quantos clientes só falam com você quando querem fazer pedido? Quantos compram e nem lembram o nome de quem atendeu?
-
-> Os dois lados cedem. Mas só cede quem tem relacionamento.
-
-## Quem está chegando é a sua nutrição
-
-Ninguém escolhe a cara de um filho. Ele chega do jeito que chega, e aí a responsabilidade é sua. Você explica a mesma coisa vinte vezes. Faz vozinha. Amassa a papinha se ele não consegue engolir.
-
-O lead é a mesma coisa. Ele chegou por indicação, por tráfego, pelo Instagram. Você não escolheu, mas agora precisa alimentar: explicar o preço de novo, mandar em foto se ele não abre o PDF, ligar se ele não sabe negociar pelo WhatsApp. E comemorar cada passo, porque quem pediu orçamento já está mais perto do fim do que do começo.
-
-Se você não alimentar, ==o concorrente alimenta. E aí ele vai chamar o concorrente de pai.==
-
-## Quem se foi é a sua recuperação
-
-Se você tivesse mais uma conversa com essa pessoa, faria tudo diferente.
-
-No comercial, essa chance existe. O cliente que parou de comprar, o lead que travou no orçamento, o prospect que sumiu: estão todos a uma mensagem de distância. Recuperar dói, porque mostra onde a gente falhou. Mas é a receita mais rápida que existe.
-
-## E agora vem a pergunta difícil
-
-Dá para tirar alguém dessa lista? Não dá. Mas existe ordem: primeiro quem você não pode perder, depois quem está chegando, depois quem você quer de volta e, por último, quem você admira.
-
-O erro que eu mais vejo nas empresas é inverter tudo. O comercial inteiro correndo atrás de cliente novo, enquanto a carteira vai embora pela porta dos fundos sem ninguém perceber.
-
-Qual roda do seu carro está parada hoje?
-
-Montei um treinamento com a analogia completa. Você coloca os seus quatro nomes e eles aparecem no lugar de cada pilar. Tem o que fazer em cada roda, o raio-x para ver onde o seu comercial está desequilibrado e o plano dos próximos 30 dias.
-
-[material: As 4 Rodas do Comercial | Dê nome às quatro rodas e descubra qual está parada no seu comercial. | assets/capa-quatro-perguntas.jpg | As 4 rodas explicadas com a analogia; Prospecção multicanal e carteira G1 a G4; Política comercial, nutrição e o desafio dos 40; Raio-x das rodas do seu comercial; Plano de 30 dias com checklist | Quero o treinamento](/quatro-rodas/)
-`
-  },  {
     slug: "quanto-custa-cada-venda",
     capa: "assets/capa-quanto-custa-cada-venda.jpg",
     titulo: "Seu vendedor é sócio do lucro. ==E do custo?==",

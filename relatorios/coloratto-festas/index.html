@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coloratto Festas · Comportamento de Vendas | Unique Consultoria</title>
+<meta name="description" content="Dashboard e análise narrativa do comportamento de vendas da Coloratto Festas (mar/2022 a nov/2026), com plano de ações comportamentais.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#000000">
+<style>
+:root{color-scheme:light;--canvas:#f3f2f1;--card:#ffffff;--rail:#111111;--rail-text:#d6d6d6;--line:#e3e1df;--grid:#ecebea;--text:#191919;--text2:#5f5f5f;--text3:#8a8a8a;--s1:#257de0;--s2:#f47230;--s3:#00b894;--s4:#f2a600;--s5:#ee7fac;--s6:#008a17;--s7:#6a4ce2;--s8:#ec4647;--lost:#b9b6b2;--accent:#c2185b;--accent-soft:#fbe7ef;--good:#0a7d22;--warn:#b26b00;--bad:#c62828;--seq1:#cce3fd;--seq5:#0e3d7e;--shadow:0 1px 2px rgba(0,0,0,.06),0 1px 6px rgba(0,0,0,.04);}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])){color-scheme:dark;--canvas:#101010;--card:#1b1b1b;--rail:#000;--line:#2c2c2c;--grid:#262626;--text:#efefef;--text2:#b4b4b4;--text3:#8a8a8a;--s1:#338ced;--s2:#e76624;--s3:#00a888;--s4:#d28e05;--s5:#e24d8b;--s6:#0aac23;--s7:#9887ef;--s8:#eb6263;--lost:#4a4846;--accent:#f06292;--accent-soft:#3a1a27;--good:#4cc764;--warn:#e0a030;--bad:#ef6a6a;--seq1:#18314f;--seq5:#9dc8f7;--shadow:none}
+}
+:root[data-theme="dark"]{color-scheme:dark;--canvas:#101010;--card:#1b1b1b;--rail:#000;--line:#2c2c2c;--grid:#262626;--text:#efefef;--text2:#b4b4b4;--text3:#8a8a8a;--s1:#338ced;--s2:#e76624;--s3:#00a888;--s4:#d28e05;--s5:#e24d8b;--s6:#0aac23;--s7:#9887ef;--s8:#eb6263;--lost:#4a4846;--accent:#f06292;--accent-soft:#3a1a27;--good:#4cc764;--warn:#e0a030;--bad:#ef6a6a;--seq1:#18314f;--seq5:#9dc8f7;--shadow:none}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--canvas);color:var(--text);font:14px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif}
+a{color:inherit}
+/* top bar (identidade Unique) */.top{position:sticky;top:0;z-index:30;background:#000;color:#fff;display:flex;align-items:center;gap:14px;padding:10px 18px;border-bottom:1px solid #222}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;letter-spacing:.02em}
+.brand .u{width:28px;height:28px;border-radius:7px;background:#fff;color:#000;display:grid;place-items:center;font-weight:900}
+.brand small{display:block;font-weight:400;color:#aaa;font-size:11px;letter-spacing:.04em}
+.top .sp{flex:1}
+.top .cli{font-size:12px;color:#bbb;text-align:right}
+.top .cli b{color:#fff;font-weight:600}
+.iconbtn{background:#1d1d1d;border:1px solid #333;color:#eee;border-radius:8px;padding:6px 10px;cursor:pointer;font:inherit;font-size:12px}
+.iconbtn:hover{background:#2a2a2a}
+.menu-btn{display:none}
+/* layout */.app{display:flex;min-height:calc(100vh - 49px);background:linear-gradient(to right,var(--rail) 220px,transparent 220px)}
+@media (max-width:760px){.app{background:none}
+}
+.rail{width:220px;flex:none;background:var(--rail);color:var(--rail-text);padding:14px 10px;position:sticky;top:49px;height:calc(100vh - 49px);overflow:auto}
+.rail h6{margin:6px 10px 10px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#777;font-weight:600}
+.rail a{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:6px;text-decoration:none;color:var(--rail-text);font-size:13px;border-left:3px solid transparent}
+.rail a:hover{background:#1c1c1c}
+.rail a.on{background:#1f1f1f;color:#fff;border-left-color:var(--accent)}
+.rail a svg{width:16px;height:16px;flex:none;opacity:.85}
+.rail .foot{margin:18px 10px 0;font-size:11px;color:#777;line-height:1.5}
+main{flex:1;min-width:0;padding:16px 18px 40px}
+/* slicers */.slicers{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:14px;box-shadow:var(--shadow)}
+.slicer{display:flex;flex-direction:column;gap:3px;min-width:140px;flex:1}
+.slicer label{font-size:11px;color:var(--text2);font-weight:600;letter-spacing:.02em}
+.slicer select{font:inherit;font-size:13px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--text)}
+.slicers .clear{flex:none}
+.btn{font:inherit;font-size:12px;padding:7px 12px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--text);cursor:pointer}
+.btn:hover{border-color:var(--text3)}
+.filternote{font-size:12px;color:var(--text2);margin:-6px 0 12px 2px;min-height:18px}
+.filternote b{color:var(--accent)}
+/* pages */.page{display:none}
+.page.on{display:block}
+.ph{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px;margin:2px 0 12px}
+.ph h1{margin:0;font-size:22px;font-weight:700;letter-spacing:-.01em}
+.ph p{margin:2px 0 0;color:var(--text2);max-width:760px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(12,1fr)}
+.c3{grid-column:span 3}
+.c4{grid-column:span 4}
+.c5{grid-column:span 5}
+.c6{grid-column:span 6}
+.c7{grid-column:span 7}
+.c8{grid-column:span 8}
+.c12{grid-column:span 12}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;box-shadow:var(--shadow);min-width:0}
+.card h3{margin:0 0 2px;font-size:13px;font-weight:700}
+.card .sub{margin:0 0 8px;font-size:12px;color:var(--text2)}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--kc,var(--s1))}
+.kpi .l{font-size:11px;color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.kpi .v{font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi .d{font-size:12px;color:var(--text2)}
+/* narrative */.story{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:12px 16px;box-shadow:var(--shadow)}
+.story h4{margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent)}
+.story p{margin:0 0 8px}
+.story p:last-child{margin-bottom:0}
+.story .live{background:var(--accent-soft);border-radius:6px;padding:8px 10px;font-size:13px}
+.act{display:grid;gap:8px;margin-top:10px}
+.act div{display:flex;gap:10px;align-items:flex-start;background:var(--canvas);border-radius:6px;padding:8px 10px;font-size:13px}
+.act div b.tag{flex:none;font-size:10px;letter-spacing:.06em;text-transform:uppercase;background:var(--text);color:var(--card);border-radius:4px;padding:2px 6px;margin-top:2px}
+/* charts */.chart{width:100%;position:relative}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.ax{font-size:11px;fill:var(--text2)}
+.axl{stroke:var(--line)}
+.gl{stroke:var(--grid)}
+.lbl{font-size:11px;fill:var(--text);font-variant-numeric:tabular-nums}
+.lbl2{font-size:11px;fill:var(--text2)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--text2);margin:2px 0 6px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.hit{fill:transparent;cursor:default}
+.tip{position:fixed;z-index:60;pointer-events:none;background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:7px 9px;font-size:12px;box-shadow:0 4px 18px rgba(0,0,0,.18);max-width:260px;display:none;line-height:1.45}
+.tip b{font-weight:700}
+.tip .r{display:flex;justify-content:space-between;gap:14px}
+/* tables */.tw{overflow:auto;max-height:520px;border:1px solid var(--line);border-radius:6px}
+table{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
+th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--grid);white-space:nowrap}
+th{position:sticky;top:0;background:var(--card);font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.04em;cursor:pointer;user-select:none;z-index:1}
+td.n,th.n{text-align:right}
+tr:hover td{background:var(--canvas)}
+.bar-in{position:relative}
+.bar-in i{position:absolute;left:0;bottom:-5px;height:3px;border-radius:2px;background:var(--s1);opacity:.55}
+.chip{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;border:1px solid currentColor;white-space:nowrap}
+.chip.a,.chip.alta{color:var(--bad)}
+.chip.b,.chip.media{color:var(--warn)}
+.chip.c,.chip.baixa{color:var(--good)}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.tools input,.tools select{font:inherit;font-size:13px;padding:6px 9px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--text)}
+.tools input{flex:1;min-width:180px}
+/* checklist */.prog{height:8px;background:var(--grid);border-radius:4px;overflow:hidden;margin:6px 0 12px}
+.prog i{display:block;height:100%;background:var(--good);width:0;transition:width .3s}
+.ck{display:flex;gap:10px;align-items:flex-start;padding:9px 4px;border-bottom:1px solid var(--grid);cursor:pointer}
+.ck input{margin-top:3px;width:16px;height:16px;accent-color:var(--good);flex:none}
+.ck span small{display:block;color:var(--text2);font-size:12px}
+.ck.done span{text-decoration:line-through;color:var(--text3)}
+.hero{background:#000;color:#fff;border-radius:10px;padding:22px 22px 18px;margin-bottom:12px;position:relative;overflow:hidden}
+.hero h2{margin:0 0 6px;font-size:24px;line-height:1.2;max-width:760px;letter-spacing:-.01em}
+.hero p{margin:0;color:#cfcfcf;max-width:760px}
+.hero .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#f48fb1;margin-bottom:8px;font-weight:700}
+.hero svg.deco{position:absolute;right:-10px;top:-10px;width:260px;opacity:.9;pointer-events:none}
+.src li{margin-bottom:6px}
+.note{font-size:12px;color:var(--text2)}
+.sr{position:absolute;left:-9999px}
+footer.site{background:#000;color:#9a9a9a;padding:18px;font-size:12px;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+footer.site a{color:#fff;text-decoration:none}
+@media (max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}
+.c3{grid-column:span 6}
+.c4,.c5,.c7,.c8,.c6{grid-column:span 12}
+}
+@media (max-width:760px){.rail{position:fixed;left:0;top:49px;z-index:40;transform:translateX(-100%);transition:transform .2s;box-shadow:4px 0 20px rgba(0,0,0,.4)}
+.rail.open{transform:none}
+.menu-btn{display:inline-block}
+.top .cli{display:none}
+main{padding:12px 10px 30px}
+.kpis{grid-template-columns:repeat(2,1fr)}
+.c3{grid-column:span 12}
+.kpi .v{font-size:21px}
+.hero h2{font-size:19px}
+.hero svg.deco{width:150px;opacity:.35}
+.slicer{min-width:46%}
+}
+@media print{.top,.rail,.slicers{display:none}
+.page{display:block!important;page-break-after:always}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <button class="iconbtn menu-btn" id="menuBtn" aria-label="Abrir menu">☰</button>
+  <a class="brand" href="https://sejaunique.com/"><span class="u">U</span><span>Unique<small>CONSULTORIA COMERCIAL</small></span></a>
+  <span class="sp"></span>
+  <div class="cli"><b>Coloratto Festas</b><br>Comportamento de vendas · mar/2022 → nov/2026</div>
+  <button class="iconbtn" id="themeBtn" aria-label="Alternar tema">◐ Tema</button>
+</header>
+<div class="app">
+<nav class="rail" id="rail" aria-label="Páginas do relatório">
+  <h6>Relatório</h6>
+  <a href="#visao" data-p="visao"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="1.5" width="5" height="5" rx="1"/><rect x="9.5" y="1.5" width="5" height="5" rx="1"/><rect x="1.5" y="9.5" width="5" height="5" rx="1"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/></svg>Visão geral</a>
+  <a href="#evolucao" data-p="evolucao"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 13.5l4-5 3 3 6-8"/></svg>Evolução</a>
+  <a href="#perdas" data-p="perdas"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h12M4 7h8M6 11h4"/></svg>Perdas e objeções</a>
+  <a href="#origem" data-p="origem"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 2v12M2 8h12"/></svg>Origem e cerimoniais</a>
+  <a href="#time" data-p="time"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5.5" cy="5" r="2.5"/><circle cx="11.5" cy="6" r="2"/><path d="M1 14c0-3 2-4.5 4.5-4.5S10 11 10 14M10 10.5c2.5-.5 5 .5 5 3.5"/></svg>Time de vendas</a>
+  <a href="#ciclo" data-p="ciclo"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M8 4v4l3 2"/></svg>Ciclo e follow-up</a>
+  <a href="#perfil" data-p="perfil"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 14s-5.5-3.2-5.5-7A3 3 0 018 5a3 3 0 015.5 2c0 3.8-5.5 7-5.5 7z"/></svg>Perfil do evento</a>
+  <a href="#plano" data-p="plano"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 8.5l3 3 8-8"/></svg>Plano de ações</a>
+  <a href="#metodo" data-p="metodo"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 1.5h7l3 3v10H3z"/><path d="M10 1.5v3h3"/></svg>Notas e fontes</a>
+  <div class="foot">Fonte: MeEventos (Coloratto Festas), extraído em 26/11/2026.<br>Análise: Unique Consultoria Comercial.</div>
+</nav>
+<main>
+  <div class="slicers" id="slicers">
+    <div class="slicer"><label for="fAno">Ano de entrada do lead</label><select id="fAno"></select></div>
+    <div class="slicer"><label for="fOrig">Origem (como conheceu)</label><select id="fOrig"></select></div>
+    <div class="slicer"><label for="fVend">Vendedor</label><select id="fVend"></select></div>
+    <div class="slicer"><label for="fTipo">Tipo de evento</label><select id="fTipo"></select></div>
+    <button class="btn clear" id="fClear">Limpar filtros</button>
+  </div>
+  <div class="filternote" id="filterNote"></div>
+
+  <!-- VISÃO GERAL -->
+  <section class="page" id="p-visao">
+    <div class="hero">
+      <svg class="deco" viewBox="0 0 200 200" aria-hidden="true">
+        <g fill="none" stroke-width="2">
+          <circle cx="150" cy="50" r="34" stroke="#f48fb1"/><circle cx="150" cy="50" r="20" stroke="#f8bbd0"/>
+          <path d="M150 16c10 14 10 54 0 68M116 50c14-10 54-10 68 0" stroke="#f48fb1"/>
+          <circle cx="95" cy="110" r="22" stroke="#ffcc80"/><circle cx="95" cy="110" r="10" stroke="#ffe0b2"/>
+          <circle cx="170" cy="140" r="16" stroke="#80cbc4"/>
+          <path d="M95 132c0 30 20 50 55 58M150 84c5 30 15 40 20 40" stroke="#81c784"/>
+          <path d="M120 160c10-6 22-4 28 4-10 6-22 4-28-4zM60 150c8-10 22-10 30-2-8 8-22 8-30 2z" stroke="#81c784"/>
+        </g>
+      </svg>
+      <div class="eyebrow">Coloratto Festas · diagnóstico de comportamento de vendas</div>
+      <h2>A Coloratto vende bem quando o lead chega indicado e é atendido rápido. O dinheiro está escapando no silêncio: 4 em cada 10 perdas não têm motivo registrado.</h2>
+      <p>679 orçamentos de março/2022 a novembro/2026, R$ 12,1 milhões contratados. Use os filtros no topo: todos os gráficos e números recalculam na hora.</p>
+    </div>
+    <div class="kpis" id="kpis"></div>
+    <div class="grid">
+      <div class="card c8"><h3>Leads por ano de entrada — fechados x não fecharam</h3><p class="sub">Barras empilhadas. Passe o mouse para ver a conversão.</p><div class="legend"><span><i style="background:var(--s1)"></i>Fechados</span><span><i style="background:var(--lost)"></i>Não fecharam</span></div><div class="chart" id="chYear"></div></div>
+      <div class="card c4"><h3>Receita contratada por origem</h3><p class="sub">Participação no faturamento fechado</p><div class="chart" id="chRevOrig"></div></div>
+      <div class="c12 story" id="stVisao">
+        <h4>Leitura</h4>
+        <p><b>Conversão de 29,9% e ticket médio de R$ 63,6 mil.</b> Em média, de cada 10 orçamentos, 3 viram contrato. Para um negócio de decoração de casamento de alto padrão, é uma taxa saudável. O problema não é a taxa: é o que acontece com os outros 7.</p>
+        <p><b>O motor da empresa é a indicação.</b> 63% de toda a receita veio de cerimoniais e fornecedores parceiros, com conversão de 39,3%. O Instagram traz volume (179 leads) mas converte 17,3%, menos da metade.</p>
+        <p><b>Alerta de agora:</b> em 26/11/2026 não há <b>nenhum</b> orçamento em negociação aberto no sistema, e outubro/2026 teve zero leads registrados. O volume anual caiu de ~170 leads (2022–2024) para 85 (2025 e 2026). O ticket subiu de R$ 49 mil para R$ 84 mil, o que segurou a receita, mas o funil está vazio.</p>
+        <p class="live" id="liveVisao"></p>
+        <div class="act">
+          <div><b class="tag">Ação</b><span><b>Reabrir o funil esta semana:</b> 33 orçamentos perdidos ainda têm evento no futuro (21 deles "Sem Motivo"). É a lista de reativação mais barata que existe: o casal ainda não casou.</span></div>
+          <div><b class="tag">Ação</b><span><b>Meta de entrada:</b> voltar a 14 leads/mês (média de 2022–2024). Hoje a média de 2026 é 7.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVOLUÇÃO -->
+  <section class="page" id="p-evolucao">
+    <div class="ph"><div><h1>Evolução</h1><p>Como volume, conversão e ticket se moveram mês a mês, pela data de entrada do lead.</p></div></div>
+    <div class="grid">
+      <div class="card c12"><h3>Leads por mês de entrada</h3><p class="sub">Cada barra é um mês. Azul = fechados; cinza = não fecharam.</p><div class="legend"><span><i style="background:var(--s1)"></i>Fechados</span><span><i style="background:var(--lost)"></i>Não fecharam</span></div><div class="chart" id="chMonth"></div></div>
+      <div class="card c6"><h3>Taxa de conversão por ano</h3><p class="sub">Fechados ÷ leads (%)</p><div class="chart" id="chConvYear"></div></div>
+      <div class="card c6"><h3>Ticket médio por ano (R$ mil)</h3><p class="sub">Receita contratada ÷ fechados com valor</p><div class="chart" id="chTicketYear"></div></div>
+      <div class="c12 story">
+        <h4>Leitura</h4>
+        <p><b>2024 foi o melhor ano de conversão (40,5%)</b> e 2023 o pior (22,9%), mesmo com o maior volume (188 leads). Volume alto sem processo derruba a taxa: em 2023 o time fez em média 6,4 follow-ups por orçamento e ainda perdeu 145.</p>
+        <p><b>De 2025 para cá o volume caiu pela metade e o ticket disparou</b> (R$ 76,9 mil em 2025, R$ 83,8 mil em 2026). A Coloratto está vendendo menos eventos, maiores. Isso é ótimo para margem, mas deixa a empresa dependente de poucos contratos por mês.</p>
+        <p><b>Sazonalidade:</b> picos de entrada em março, agosto e outubro/novembro. Março/2026 trouxe 27 leads e converteu só 11%: o pico chegou e o time não deu conta de atender.</p>
+        <p class="live" id="liveEvol"></p>
+        <div class="act">
+          <div><b class="tag">Ação</b><span><b>Plano de pico:</b> antes de março e agosto, reforçar atendimento (pré-qualificação por WhatsApp e agenda de visitas técnicas bloqueada). Em pico, ninguém espera mais de 1 hora por resposta.</span></div>
+          <div><b class="tag">Ação</b><span><b>Painel semanal de entrada:</b> leads novos, propostas enviadas, visitas marcadas. Semana com menos de 3 leads aciona prospecção ativa com cerimoniais.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERDAS -->
+  <section class="page" id="p-perdas">
+    <div class="ph"><div><h1>Perdas e objeções</h1><p>Por que os orçamentos não fecharam, de onde vinham e em que fase pararam.</p></div></div>
+    <div class="grid">
+      <div class="card c6"><h3>Pareto das objeções</h3><p class="sub">Quantidade de perdas por motivo e % acumulado (classe ABC)</p><div class="chart" id="chPareto"></div></div>
+      <div class="card c6"><h3>Objeção x origem do lead</h3><p class="sub">Mapa de calor: quanto mais escuro, mais perdas</p><div class="chart" id="chHeat"></div></div>
+      <div class="card c12"><h3>Objeção por ano de entrada</h3><p class="sub">Composição das perdas em cada ano (%)</p><div class="legend" id="lgObjYear"></div><div class="chart" id="chObjYear"></div></div>
+      <div class="c12 story">
+        <h4>Leitura</h4>
+        <p><b>O maior motivo de perda é "não sabemos".</b> "Sem Motivo" (138) + "Cliente não deu retorno" (40) = 37,4% das perdas. Sem saber a objeção, não dá para corrigir preço, proposta ou abordagem. É o maior ponto cego do processo.</p>
+        <p><b>Cada origem perde por um motivo diferente.</b> Leads indicados por cerimonial perdem principalmente para a <b>concorrência</b> (65 de 182): o cerimonial apresenta 2 ou 3 decoradores e a Coloratto entra na disputa. Leads do Instagram perdem por <b>preço</b> (43 de 148): chegam sem noção do investimento.</p>
+        <p><b>68 perdas foram encerradas pelo próprio sistema</b> após 45 dias sem contato. Não foi o cliente que disse não: o follow-up parou.</p>
+        <p><b>Preço como objeção caiu de 46 (2022) para 3 (2025)</b>, enquanto "Sem Motivo" subiu para 45 em 2025. Não significa que o preço deixou de pesar; significa que o registro piorou.</p>
+        <p class="live" id="livePerdas"></p>
+        <div class="act">
+          <div><b class="tag">Ação</b><span><b>Motivo obrigatório e real:</b> eliminar "Sem Motivo" do MeEventos. Ao perder, registrar: concorrente vencedor, valor da proposta dele e o que pesou (preço, estilo, prazo, relacionamento).</span></div>
+          <div><b class="tag">Ação</b><span><b>Script de perda:</b> mensagem de encerramento que pede o motivo com uma pergunta de múltipla escolha. Cliente responde em 10 segundos e a porta fica aberta.</span></div>
+          <div><b class="tag">Ação</b><span><b>Instagram com faixa de investimento:</b> antes de mandar proposta, apresentar o "a partir de" e confirmar se o casal está dentro. Corta a pesquisa de preço e o susto.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORIGEM -->
+  <section class="page" id="p-origem">
+    <div class="ph"><div><h1>Origem e cerimoniais</h1><p>De onde vêm os leads que fecham e quem são os parceiros que sustentam a receita.</p></div></div>
+    <div class="grid">
+      <div class="card c6"><h3>Conversão por origem</h3><p class="sub">% de leads que fecharam · rótulo mostra leads</p><div class="chart" id="chOrig"></div></div>
+      <div class="card c6"><h3>Com x sem cerimonial identificado</h3><p class="sub">Conversão e receita</p><div class="chart" id="chCer"></div></div>
+      <div class="card c12"><h3>Curva ABC dos cerimoniais</h3><p class="sub">Clique no cabeçalho para ordenar. Classe A = parceiros que somam até 80% da receita indicada.</p>
+        <div class="tools"><input id="cerQ" placeholder="Buscar cerimonial…" aria-label="Buscar cerimonial"><select id="cerABC" aria-label="Classe ABC"><option value="">Todas as classes</option><option>A</option><option>B</option><option>C</option></select></div>
+        <div class="tw"><table id="tbCer"></table></div></div>
+      <div class="c12 story">
+        <h4>Leitura</h4>
+        <p><b>Lead com cerimonial converte 38,4%; sem cerimonial, 22,4%.</b> E traz R$ 8,5 milhões dos R$ 12,1 milhões. O cerimonial é o principal canal de vendas da Coloratto, mesmo que não seja tratado como tal.</p>
+        <p><b>Risco de concentração:</b> Gabriela Baleeiro e Rafaelli Ferraz respondem por 59,2% da receita indicada (R$ 5 milhões). Se uma delas mudar de decorador preferido, a empresa perde um terço do faturamento.</p>
+        <p><b>Oportunidade escondida:</b> há mais de 40 cerimoniais com 1 a 7 indicações e conversão baixa. São parceiros que já confiam na Coloratto o bastante para indicar, mas não recebem atenção.</p>
+        <p><b>"Já era cliente" converte 41%</b> e indicação de cliente 30%, mas somam só 44 leads em quase 5 anos. Quase não existe programa de indicação de noivas.</p>
+        <p class="live" id="liveOrig"></p>
+        <div class="act">
+          <div><b class="tag">Ação</b><span><b>Programa de parceiros:</b> reunião trimestral com os 6 cerimoniais classe A, devolutiva de cada indicação (fechou ou por que não) e benefício claro por contrato fechado.</span></div>
+          <div><b class="tag">Ação</b><span><b>Desconcentrar:</b> meta de levar 3 cerimoniais da classe B para a A em 12 meses (visitas, portfólio exclusivo, convite para montagens).</span></div>
+          <div><b class="tag">Ação</b><span><b>Indicação de noivas:</b> 15 dias depois do evento, pedir depoimento e indicação com um mimo para a próxima noiva indicada.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIME -->
+  <section class="page" id="p-time">
+    <div class="ph"><div><h1>Time de vendas</h1><p>Desempenho por responsável pelo orçamento e qualidade do registro.</p></div></div>
+    <div class="grid">
+      <div class="card c6"><h3>Conversão por vendedor</h3><p class="sub">% de leads fechados · rótulo mostra leads</p><div class="chart" id="chVend"></div></div>
+      <div class="card c6"><h3>Perdas sem motivo real por vendedor</h3><p class="sub">(Sem Motivo + Cliente não deu retorno) ÷ perdas</p><div class="chart" id="chVendSM"></div></div>
+      <div class="card c12"><h3>Tabela de desempenho</h3><p class="sub">Clique no cabeçalho para ordenar</p><div class="tw"><table id="tbVend"></table></div></div>
+      <div class="c12 story">
+        <h4>Leitura</h4>
+        <p><b>Paula Couto tem a maior conversão (48,8%)</b> com 43 leads, e Maicon Luã vem em seguida (33,6%). Izabela de Faria carregou o maior volume (258 leads) com 28,7%.</p>
+        <p><b>Cada vendedor perde de um jeito.</b> Izabela perde para a concorrência (58 casos): ela recebe muito lead de cerimonial em disputa. Maicon perde por preço (31): precisa de mais ancoragem de valor antes do número. Ana Luiza tem 74% das perdas sem motivo real: não registra por que perdeu.</p>
+        <p><b>Ciclo zero e follow-up zero</b> (Ana Luiza, Paula, e boa parte da Gabriella) indicam orçamentos lançados já decididos. A negociação aconteceu no WhatsApp e o sistema virou cartório. Assim, a gestão não enxerga o que funciona.</p>
+        <p class="live" id="liveTime"></p>
+        <div class="act">
+          <div><b class="tag">Ação</b><span><b>Coaching individual:</b> Izabela — diferenciação contra concorrente; Maicon — apresentação de valor antes do preço; Ana Luiza — disciplina de registro.</span></div>
+          <div><b class="tag">Ação</b><span><b>Regra de ouro do CRM:</b> orçamento entra no MeEventos no primeiro contato, não depois de fechado. Reunião semanal de 30 min revisando o funil na tela.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CICLO -->
+  <section class="page" id="p-ciclo">
+    <div class="ph"><div><h1>Ciclo e follow-up</h1><p>Quanto tempo o lead leva para decidir e o que acontece quando a negociação esfria.</p></div></div>
+    <div class="grid">
+      <div class="card c6"><h3>Conversão por faixa de ciclo de venda</h3><p class="sub">Dias entre a entrada e a decisão</p><div class="chart" id="chCiclo"></div></div>
+      <div class="card c6"><h3>Conversão pela temperatura final</h3><p class="sub">Quando o funil é usado, ele prevê o resultado</p><div class="chart" id="chTemp"></div></div>
+      <div class="card c6"><h3>Antecedência do lead até o evento</h3><p class="sub">Conversão por faixa de meses</p><div class="chart" id="chAnt"></div></div>
+      <div class="card c6"><h3>Follow-ups registrados</h3><p class="sub">Conversão por número de atendimentos</p><div class="chart" id="chFU"></div></div>
+      <div class="c12 story">
+        <h4>Leitura</h4>
+        <p><b>Quem fecha, fecha rápido.</b> Mediana de 15 dias para fechar; quem perde leva 29,5 dias para ser encerrado. Lead que não decide em ~30 dias tende a ser perdido. Na faixa de 0–7 dias a conversão é 49,5%.</p>
+        <p><b>O lead chega 7 meses antes do evento</b> (mediana de 206 dias). Há tempo para nutrir, mas a decisão é tomada nas primeiras semanas: quem chega primeiro com proposta e visita técnica leva.</p>
+        <p><b>A temperatura funciona:</b> Negociação Quente fecha 60%, Morna 35%, Fria 22%. Mas 90% dos orçamentos nunca saíram da etapa FORMULÁRIO. A ferramenta existe; o hábito, não.</p>
+        <p><b>Visita técnica é o momento da verdade:</b> orçamentos que chegaram em "AGENDAR VT" fecharam 62,5%.</p>
+        <p class="live" id="liveCiclo"></p>
+        <div class="act">
+          <div><b class="tag">Ação</b><span><b>Cadência de 30 dias:</b> D0 proposta + convite de visita · D2 áudio pessoal · D5 referência de evento parecido · D10 ligação · D17 condição de fechamento com prazo · D25 mensagem de porta aberta pedindo o motivo.</span></div>
+          <div><b class="tag">Ação</b><span><b>Visita técnica em até 7 dias</b> após a proposta, sempre. É a etapa que mais converte.</span></div>
+          <div><b class="tag">Ação</b><span><b>Mover a etapa a cada contato</b> e marcar a temperatura. Revisar toda segunda os "Mornos" com mais de 15 dias.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERFIL -->
+  <section class="page" id="p-perfil">
+    <div class="ph"><div><h1>Perfil do evento</h1><p>Que tipo de evento e de tamanho a Coloratto vende melhor.</p></div></div>
+    <div class="grid">
+      <div class="card c6"><h3>Leads e conversão por tipo de evento</h3><p class="sub">Rótulo: conversão % · leads</p><div class="chart" id="chTipo"></div></div>
+      <div class="card c6"><h3>Ticket médio por nº de convidados (R$ mil)</h3><p class="sub">Rótulo mostra a conversão da faixa</p><div class="chart" id="chConv"></div></div>
+      <div class="c12 story">
+        <h4>Leitura</h4>
+        <p><b>Casamento é 85% dos leads e 88% da receita</b> (R$ 10,6 milhões). Aniversários convertem parecido (31,9%) com ticket próximo (R$ 59 mil): é um segundo mercado real, não um bico.</p>
+        <p><b>O ponto ótimo é 201–300 convidados:</b> maior conversão (35,1%) e ticket de R$ 88,8 mil. Acima de 300, o ticket dobra (R$ 181 mil) mas a conversão cai para 15,4%: são projetos que pedem outro processo de venda.</p>
+        <p class="live" id="livePerfil"></p>
+        <div class="act">
+          <div><b class="tag">Ação</b><span><b>Priorizar 200–300 convidados:</b> resposta imediata, visita técnica com sócia e portfólio específico desse porte.</span></div>
+          <div><b class="tag">Ação</b><span><b>Trilha premium para 300+:</b> reunião de briefing presencial antes da proposta e apresentação com moodboard 3D. Um contrato a mais por ano vale R$ 180 mil.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANO -->
+  <section class="page" id="p-plano">
+    <div class="ph"><div><h1>Plano de ações comportamentais</h1><p>O que muda no comportamento do time, na ordem certa. Marque o que já foi feito: o progresso fica salvo neste navegador.</p></div></div>
+    <div class="grid">
+      <div class="card c12"><h3>Fluxo de atendimento proposto</h3><p class="sub">Da entrada do lead à decisão em até 30 dias</p><div class="chart" id="flow"></div></div>
+      <div class="card c5"><h3>Checklist de implantação</h3><p class="sub" id="ckTxt"></p><div class="prog"><i id="ckBar"></i></div><div id="ckList"></div></div>
+      <div class="card c7"><h3>Banco de ações</h3><p class="sub">Filtre por prioridade ou área. Cada ação nasce de um dado deste relatório.</p>
+        <div class="tools"><input id="aQ" placeholder="Buscar ação…" aria-label="Buscar ação"><select id="aPri" aria-label="Prioridade"><option value="">Todas as prioridades</option><option value="alta">Alta</option><option value="media">Média</option><option value="baixa">Baixa</option></select><select id="aArea" aria-label="Área"><option value="">Todas as áreas</option></select></div>
+        <div class="tw"><table id="tbAcoes"></table></div></div>
+    </div>
+  </section>
+
+  <!-- METODO -->
+  <section class="page" id="p-metodo">
+    <div class="ph"><div><h1>Notas e fontes</h1><p>Como os números foram calculados e o que os dados não mostram.</p></div></div>
+    <div class="grid">
+      <div class="card c6"><h3>Definições</h3>
+        <ul class="src">
+          <li><b>Lead</b> = orçamento registrado no MeEventos. <b>Data de entrada</b> = primeiro registro do histórico (normalmente a proposta inicial).</li>
+          <li><b>Ciclo de venda</b> = dias entre entrada e decisão (aprovado ou finalizado). <b>Antecedência</b> = dias entre entrada e data do evento.</li>
+          <li><b>Follow-ups</b> = registros de atendimento ou WhatsApp no histórico.</li>
+          <li><b>Receita</b> = valor contratado do evento vinculado ao orçamento aprovado. 190 dos 203 fechados têm valor.</li>
+          <li><b>Curva ABC</b>: A = itens que somam até 80% do total; B = 80–95%; C = 5% finais.</li>
+          <li><b>Sem motivo real</b> = "Sem Motivo" + "Cliente não deu retorno".</li>
+        </ul></div>
+      <div class="card c6"><h3>Limitações</h3>
+        <ul class="src">
+          <li>37% das perdas não têm a objeção real registrada.</li>
+          <li>Desde 2024 quase não há follow-ups no sistema: muitos orçamentos são criados e decididos no mesmo dia, o que puxa o ciclo mediano para baixo.</li>
+          <li>90% dos orçamentos nunca saíram da etapa FORMULÁRIO; o funil só foi usado com consistência em 2022.</li>
+          <li>"Como conheceu" não informado em 152 leads (22%).</li>
+          <li>Nomes de clientes finais foram omitidos desta página. Cerimoniais com grafias diferentes foram unificados.</li>
+        </ul></div>
+      <div class="card c12"><h3>Fonte</h3>
+        <p>Planilha "Coloratto Festas — Comportamento de Vendas (Histórico Completo)", extraída do sistema MeEventos em 26/11/2026: relatório de orçamentos enviados/finalizados, página de cada um dos 679 orçamentos e relatório de pagamento de eventos.</p>
+        <p class="note">Análise e plano: Unique Consultoria Comercial · Carlos Ribeiro · 26/11/2026.</p></div>
+    </div>
+  </section>
+</main>
+</div>
+<footer class="site"><span>© 2026 <a href="https://sejaunique.com/">Unique Consultoria Comercial</a> · Growth Sales</span><span>Relatório preparado para Coloratto Festas</span></footer>
+<div class="tip" id="tip"></div>
+
+<script>
+const RAW=(()=>{const K={"0":["Casamento","Aniversário","Formatura","Corporativo","Bodas","Diversos","Debutante","Confraternização"],
+"1":["2022","2023","2024","2025","2026"],
+"2":["2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-09","2022-10","2022-11","2022-12","2023-01","2023-02","2023-03","2023-04","2023-05","2023-06","2023-07","2023-08","2023-09","2024-08","2023-10","2023-11","2023-12","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-11","2024-09","2024-10","2025-02","2024-12","2025-01","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-11","2025-10","2025-12","2026-01","2026-02","2026-03","2026-05","2026-04","2026-06","2026-08","2026-07","2026-09","2026-11"],
+"4":["Apenas Pesquisa de Preço","","Sem Motivo","Concorrência","Preço acima do desejado","Data Indisponível","Cliente não deu retorno"],
+"5":["Instagram/Facebook","Não Informado","Indicação de Fornecedor/Parceiro","Indicação de Cliente","Já era Cliente","Em outros Eventos","Pesquisa na Internet"],
+"6":["","Carol Pucinelli","Ana Quésia","Sávio e Sônia","Gabriela Baleeiro","Rafaelli Ferraz","Cida e Nathallya","Naiara Ribeiro","Jacqueline Ceciliano","Cristiane Rufino","Silvana","Andréia Lima","Dahir Rocha","Virginia Salles","Priscila Borges","Lozi (Alexandre/Márcia)","Demais cerimoniais","Aloha Fotografia","Amannda Ferreira","Denise","Val Queiroz","Agatha Santos","MARCELLA VELASCO","Gleyci Vasconcelos - Maestria","Weiller Carneiro","Andréa Noki","Bonfim","DEBORA LIMA (CERIMONIAL)","Raiza Martinez","Patrícia Cerimonial (telefone contato)","Suzani - Cerimonial","Arlete Medeiros","Jassanã Frazão"],
+"7":["Gabriella Farias","Maicon Luã","Izabela de Faria","Paula Couto","Ana Luiza","Carlos Ribeiro do Nascimento Filho","Patricia - DPTO FINANCEIRO"],
+"8":["MOODBOARD / PERFIL FLORAL","AGENDAR VT","AJUSTE PROPOSTA","FORMULÁRIO","FECHAR CONTRATO","AP. PROPOSTA","BRIEFING"],
+"9":["Negociação Fria","Negociação Quente","Negociação Morna","","FECHAR CONTRATO","AP. PROPOSTA","AJUSTE PROPOSTA","BRIEFING"]};
+const S="0,0,0,0,0,0,0,0,0,0,12,12,37,0,,0;0,0,0,1,1,1,0,0,1,1,100,1,162,0,31632.15,0;1,0,0,0,0,1,0,0,0,0,200,6,191,0,,0;0,0,0,0,2,1,0,0,2,2,230,8,198,0,,0;1,0,0,0,0,1,0,0,3,3,100,13,41,1,,0;0,0,0,0,3,1,0,0,3,3,120,0,84,0,,0;1,0,0,0,4,1,0,0,2,2,130,6,99,1,,0;0,0,0,0,0,1,0,0,0,0,130,6,128,0,,0;0,0,0,1,1,1,0,0,3,3,180,0,282,0,65346.6,0;1,0,0,1,1,1,0,0,3,3,150,0,107,0,50100.77,0;0,0,0,0,5,1,0,0,3,3,200,3,105,0,,0;0,0,0,0,0,1,0,0,3,3,130,10,173,0,,0;0,0,0,1,1,1,0,0,2,2,130,19,111,0,31046.3,0;1,0,0,0,3,1,0,0,0,0,230,9,251,0,,0;1,0,0,0,4,1,0,0,3,3,100,8,571,1,,0;0,0,0,0,4,0,0,1,0,0,0,13,107,2,,0;0,0,0,0,0,1,0,1,0,0,0,34,220,10,,0;0,0,0,1,1,0,0,1,0,0,0,19,149,4,32533,0;0,0,0,0,4,0,0,1,0,0,0,26,155,5,,0;0,0,0,0,0,1,0,1,3,3,0,29,425,3,,0;0,0,0,1,1,0,0,1,3,3,0,22,240,2,45982.52,0;0,0,0,0,2,1,0,1,3,3,0,8,163,3,,0;0,0,0,0,3,1,0,1,3,3,0,5,233,2,,0;0,0,0,0,4,1,0,1,3,3,0,5,184,3,,0;0,0,0,1,1,1,0,1,3,3,0,81,178,6,20816,0;0,0,0,0,0,1,0,1,3,3,0,20,493,6,,0;0,0,0,1,1,1,0,1,3,3,0,20,206,7,21789.9,0;1,0,0,0,4,1,0,1,3,3,0,13,31,3,,0;0,0,0,0,4,1,0,1,3,3,0,14,149,3,,0;0,0,0,0,0,1,0,1,3,3,0,18,183,4,,0;0,0,0,0,4,1,0,1,3,3,0,21,196,5,,0;0,0,0,0,4,1,0,1,3,3,0,18,117,4,,0;0,0,0,1,1,1,0,1,3,3,0,27,122,4,36307.6,0;0,0,1"
++",0,4,0,0,1,3,3,0,7,249,1,,0;0,0,1,0,4,2,1,1,3,3,0,22,383,8,,0;0,0,1,0,4,0,0,1,3,3,0,42,180,9,,0;0,0,1,0,5,2,2,1,3,3,0,49,145,8,,0;0,0,1,0,5,2,2,1,3,3,0,8,173,2,,0;0,0,1,1,1,0,3,1,3,3,0,23,123,4,40499.36,0;0,0,1,0,2,2,3,1,3,3,0,16,100,3,,0;0,0,1,1,1,2,4,1,3,3,0,20,,4,45313.3,0;0,0,1,0,2,0,0,1,3,3,0,51,,1,,1;0,0,1,0,2,2,0,1,3,3,0,6,115,1,,0;0,0,1,0,3,3,0,1,3,3,0,19,23,3,,0;0,0,1,1,1,2,5,1,3,3,0,40,168,4,17190.9,0;0,0,2,1,1,0,6,1,3,3,0,15,158,3,72982.5,0;0,0,2,0,2,0,0,1,3,3,0,29,411,2,,0;0,0,2,0,2,2,4,1,3,3,0,46,414,2,,0;0,0,2,1,1,2,5,1,3,3,0,13,148,1,58643.38,0;0,0,2,0,3,0,7,1,3,3,0,28,253,3,,0;0,0,2,0,4,2,8,1,3,3,0,11,165,1,,0;1,0,2,0,5,0,0,1,3,3,0,18,23,1,,0;0,0,2,0,2,0,0,1,3,3,50,637,662,2,,0;0,0,2,0,4,0,8,1,3,3,0,17,208,1,,0;0,0,2,1,1,2,5,1,3,3,0,30,187,2,55783.1,0;0,0,2,0,0,2,4,1,3,3,0,22,383,3,,0;0,0,3,0,0,0,6,1,3,3,0,30,387,6,,0;0,0,3,0,3,0,5,1,3,3,0,40,386,5,,0;0,0,3,1,1,2,5,1,3,3,0,47,444,7,66845,0;0,0,3,0,4,0,0,1,3,3,0,37,103,6,,0;0,0,3,0,3,0,5,1,3,3,0,14,369,2,,0;1,0,3,1,1,2,8,1,3,3,0,77,123,7,15074.2,0;0,0,3,0,4,2,5,1,3,3,0,5,84,2,,0;0,0,3,0,4,1,0,1,3,3,0,1,33,2,,0;0,0,3,0,3,1,0,1,3,3,0,37,43,7,,0;0,0,3,0,2,0,0,1,3,3,0,11,147,5,,0;0,0,3,0,0,0,9,1,3,3,0,34,167,7,,0;0,0,3,0"
++",0,0,3,1,3,3,0,42,333,8,,0;1,0,3,0,4,0,0,1,3,3,0,1,36,1,,0;0,0,3,1,1,2,5,1,3,3,0,6,408,2,42838.2,0;0,0,3,1,1,2,5,1,3,3,0,11,306,1,65170,0;0,0,3,0,3,0,0,1,3,3,0,6,79,2,,0;0,0,4,1,1,2,4,1,3,3,0,39,351,5,90629.94,0;0,0,4,0,4,0,10,1,3,3,0,55,417,8,,0;0,0,4,0,2,0,0,1,3,3,0,13,236,1,,0;0,0,4,0,4,1,11,1,0,0,0,42,319,4,,0;0,0,4,0,2,2,5,1,3,3,0,25,121,2,,0;0,0,4,0,0,0,0,1,3,3,0,26,261,3,,0;0,0,4,0,4,0,0,1,3,3,60,130,205,3,,0;0,0,4,0,4,2,9,1,3,3,0,53,316,7,,0;0,0,4,1,1,2,5,1,3,3,0,21,337,4,83406.8,0;0,0,4,1,1,2,4,1,3,3,0,4,386,1,63171.9,0;0,0,4,0,4,4,12,1,0,0,0,35,305,7,,0;0,0,4,1,1,4,9,1,3,3,0,,280,3,,0;0,0,4,0,4,0,0,1,3,3,0,33,86,3,,0;0,0,4,0,4,2,6,1,3,3,0,4,230,2,,0;0,0,5,0,4,2,5,1,3,3,0,20,120,3,,0;0,0,5,1,1,2,13,1,3,3,0,,72,1,20608.8,0;0,0,5,0,4,2,9,1,0,0,0,12,224,3,,0;0,0,5,0,3,2,5,1,0,0,0,33,93,6,,0;0,0,5,1,1,2,12,1,1,1,0,,324,4,60332,0;0,0,5,1,1,2,11,1,1,1,0,,345,5,110629.9,0;0,0,5,0,4,1,0,1,3,3,0,29,690,3,,0;0,0,5,1,1,2,5,1,0,0,0,68,303,9,52766.3,0;0,0,5,0,0,2,12,1,3,3,0,12,128,1,,0;0,0,5,0,2,2,14,1,3,3,0,35,317,2,,0;0,0,5,0,4,0,0,1,3,3,0,22,99,3,,0;0,0,5,0,0,0,0,1,3,3,0,7,52,1,,0;0,0,5,1,1,2,5,1,3,3,0,12,29,1,6850.85,0;0,0,5,0,3,2,9,1,0,0,0,27,240,5,,0;0,0,5,0,0,0,0,1,3,3,0,5,30,1,"
++",0;0,0,5,1,1,2,4,1,2,2,0,24,389,5,86069,0;0,0,5,1,1,2,11,1,3,3,0,33,303,4,56344,0;0,0,5,1,1,2,9,1,3,3,0,28,260,2,52438.3,0;2,0,5,0,4,0,0,1,3,3,0,11,106,3,,0;0,0,5,1,1,0,0,1,3,3,0,6,214,2,15742.2,0;0,0,5,1,1,2,4,1,2,2,0,43,303,4,76311.54,0;0,0,5,1,1,2,5,1,1,1,0,48,312,7,48916.86,0;0,0,5,1,1,2,4,1,1,1,0,42,319,5,51422,0;0,0,5,0,0,2,4,1,2,2,0,50,241,4,,0;3,0,5,0,0,0,0,1,3,3,0,5,12,1,,0;0,0,5,1,1,0,1,1,0,0,0,40,213,5,40514.7,0;0,0,5,0,4,1,0,1,3,3,0,4,30,2,,0;0,0,5,1,1,2,4,1,3,3,0,50,355,5,71595.5,0;0,0,5,0,2,2,15,1,3,3,0,101,299,6,,0;0,0,5,1,1,2,5,1,2,2,0,49,368,6,116661.4,0;0,0,5,1,1,2,6,1,3,3,0,79,370,5,90270,0;0,0,5,1,1,2,9,1,3,3,0,0,233,0,52020.5,0;0,0,6,0,4,2,14,1,3,3,0,43,390,2,,0;3,0,6,0,0,0,0,1,3,3,0,8,25,1,,0;1,0,6,0,4,0,0,1,3,3,0,3,3,2,,0;0,0,6,0,5,2,4,1,3,3,0,171,256,8,,0;4,0,6,0,4,0,0,0,3,3,150,8,215,1,,0;0,0,6,0,3,2,5,0,3,3,150,38,262,2,,0;0,0,6,0,5,2,1,0,3,3,250,35,346,5,,0;0,0,6,0,3,2,1,0,3,3,200,13,353,0,,0;0,0,6,1,1,1,0,0,3,3,80,15,19,1,14070.2,0;0,0,6,0,3,2,13,0,3,3,300,3,334,0,,0;1,0,6,1,1,1,0,0,3,3,120,4,61,1,10894,0;5,0,6,1,1,3,0,0,3,3,80,0,57,0,7658,0;1,0,6,0,0,1,0,0,3,3,100,10,29,0,,0;0,0,6,0,4,1,0,0,3,3,120,20,342,3,,0;0,0,6,0,4,2,5,0,3,3,100,23,161,1,,0;0,0,6,0"
++",4,2,1,0,3,3,200,19,218,2,,0;0,0,6,0,0,0,0,0,3,3,100,17,246,3,,0;0,0,6,0,2,2,5,0,3,3,200,61,266,3,,0;0,0,7,0,2,2,16,0,3,3,600,43,375,0,,0;0,0,7,0,4,2,1,0,3,3,75,4,25,1,,0;0,0,7,0,2,2,9,0,3,3,100,55,207,1,,0;0,0,7,1,1,1,0,0,3,3,150,44,228,6,56558,0;0,0,7,1,1,2,5,0,3,3,120,20,101,2,34467.14,0;0,0,7,0,3,2,4,0,3,3,0,66,291,1,,0;0,0,7,0,4,0,0,0,3,3,60,23,185,1,,0;0,0,7,0,4,1,0,0,3,3,70,22,96,3,,0;0,0,7,0,5,1,0,0,3,3,300,39,223,3,,0;0,0,7,0,0,4,0,0,3,3,200,32,280,1,,0;0,0,8,1,1,2,6,0,3,3,150,0,63,0,31666.2,0;0,0,8,0,3,2,5,0,3,3,250,60,247,4,,0;2,0,8,0,4,3,0,0,3,3,200,21,58,2,,0;0,0,8,1,1,0,0,0,3,3,70,32,253,4,67256.82,0;0,0,8,0,4,0,0,0,3,3,130,67,268,3,,0;0,0,8,1,1,2,5,0,3,3,120,7,199,1,76208,0;0,0,8,1,1,2,5,0,3,3,20,62,304,3,72280,0;0,0,8,0,2,0,0,0,3,3,150,26,296,1,,0;0,0,8,1,1,2,17,0,3,3,0,55,227,5,41605.3,0;0,0,8,0,4,0,0,0,3,3,0,55,269,3,,0;0,0,8,1,1,0,0,2,3,3,180,8,142,3,41000,0;0,0,8,0,4,3,0,2,3,3,200,28,313,4,,0;0,0,8,0,3,2,6,0,3,3,220,46,285,2,,0;0,0,8,0,3,0,0,2,3,3,170,21,176,3,,0;5,0,9,0,2,1,0,2,3,3,200,83,218,7,,0;0,0,9,1,1,2,4,2,3,3,200,79,376,7,71704,0;0,0,9,0,4,2,6,2,3,3,200,34,305,3,,0;0,0,9,0,0,1,0,2,3,3,200,31,144,2,,0;0,0,9,0,3,2,9,2,3,3,200,63,228,7,,0;0,0,9,1,1,2,15,2,"
++"3,3,200,71,150,8,75153,0;0,0,9,1,1,1,0,2,2,2,300,113,507,5,,0;0,0,9,0,4,2,18,0,3,3,0,52,169,2,,0;1,1,10,0,3,2,4,0,3,3,0,38,85,3,,0;0,1,10,0,2,2,6,0,3,3,0,73,253,3,,1;0,1,10,0,0,1,0,0,1,1,0,73,548,2,,0;0,1,10,0,3,0,0,0,3,3,70,19,110,1,,0;0,1,10,0,2,0,0,0,2,2,150,50,216,0,,1;0,1,10,0,0,0,0,0,1,1,0,64,271,1,,0;0,1,10,0,4,0,0,0,2,2,450,59,167,0,,0;0,1,10,0,3,0,0,0,3,3,300,46,237,1,,0;0,1,10,0,0,0,0,0,3,3,60,0,97,0,,0;0,1,10,0,2,2,6,0,1,1,250,70,524,1,,1;2,1,10,0,3,0,0,0,3,3,200,46,166,1,,0;1,1,10,1,1,0,0,0,3,3,0,0,1,0,3500,0;0,1,10,0,3,0,4,0,3,3,50,34,175,1,,0;0,1,10,0,4,2,16,2,1,1,150,43,138,7,,0;0,1,10,0,2,1,0,2,3,3,100,17,229,3,,0;0,1,10,0,3,1,0,2,3,3,200,2,502,0,,0;0,1,10,0,4,1,0,2,3,3,135,46,237,6,,0;0,1,10,0,3,1,0,2,3,3,35,22,207,5,,0;0,1,11,0,6,0,0,2,2,2,150,77,127,9,,0;0,1,11,0,2,0,0,2,0,0,200,36,395,5,,0;0,1,11,1,1,2,5,2,3,3,240,22,107,3,80137,0;0,1,11,0,2,0,0,2,3,3,200,22,59,4,,0;0,1,11,1,1,4,0,2,1,1,200,99,264,15,69799,0;0,1,11,0,2,0,0,2,2,2,300,41,220,5,,0;0,1,11,0,3,0,0,2,3,3,35,6,51,1,,0;6,1,11,1,1,5,0,2,1,1,150,70,137,8,36368,0;0,1,11,1,1,0,0,2,2,2,250,71,220,8,113930,0;0,1,11,1,1,1,0,2,3,3,100,22,119,4,20356,0;0,1,11,0,0,1,0,2,2,2,120,44,257,6,,0;1,1,11,0,4,3,0,2,2,2,12"
++"0,29,137,4,,0;0,1,11,0,2,1,0,2,3,3,200,34,347,4,,0;0,1,11,0,4,1,0,2,0,0,200,103,505,13,,0;0,1,11,0,4,2,19,2,2,2,150,49,206,6,,0;0,1,11,0,3,2,13,2,2,2,150,18,89,2,,0;0,1,12,0,3,2,9,2,0,0,250,29,212,3,,0;0,1,12,1,1,2,9,2,0,0,300,27,191,2,77306,0;0,1,12,0,6,2,4,2,3,3,250,94,428,17,,0;0,1,12,0,2,2,5,2,0,0,80,11,99,1,,0;3,1,12,1,1,1,0,2,3,3,200,0,5,0,14621.19,0;0,1,12,0,6,2,4,2,3,3,200,51,221,0,,0;0,1,12,0,2,1,0,2,3,3,200,19,411,1,,0;0,1,12,0,6,0,0,2,3,3,400,33,422,6,,0;0,1,12,0,3,2,1,2,3,3,200,34,491,5,,0;0,1,12,0,6,1,0,2,3,3,230,29,193,0,,0;0,1,12,0,6,0,0,2,3,3,200,37,401,0,,0;0,1,12,0,0,2,9,2,3,3,0,9,121,0,,0;0,1,12,0,4,2,5,2,3,3,300,91,233,0,,0;0,1,12,0,3,2,5,2,3,3,180,24,148,0,,0;0,1,12,0,4,0,0,2,3,3,200,18,124,0,,0;0,1,12,0,2,1,0,2,3,3,150,15,172,0,,0;0,1,12,0,2,2,16,2,3,3,150,2,206,1,,0;0,1,12,0,6,2,0,2,3,3,150,47,164,14,,0;0,1,12,1,1,1,0,2,3,3,150,85,369,0,87862.34,0;0,1,12,0,5,1,0,2,3,3,70,28,120,6,,0;1,1,13,0,6,2,5,2,3,3,150,21,95,0,,0;0,1,13,0,4,0,0,2,3,3,150,24,102,0,,0;0,1,13,0,6,0,0,2,0,0,200,89,437,0,,0;1,1,14,1,1,2,4,2,3,3,120,0,150,0,55574,0;0,1,13,1,1,0,0,2,0,0,300,78,367,12,71084.2,0;0,1,13,0,6,3,16,2,3,3,90,16,156,3,,0;0,1,13,1,1,2,13,2,3,3,150,71,185,0,58397,0;0,1,1"
++"3,1,1,5,0,2,3,3,150,42,491,13,,0;0,1,13,0,6,0,0,2,3,3,180,41,435,0,,0;0,1,13,0,3,2,4,2,3,3,200,44,397,0,,0;0,1,13,0,6,2,5,2,3,3,200,59,439,0,,0;3,1,13,0,6,5,0,2,3,3,150,16,17,3,,0;0,1,13,0,4,0,0,2,3,3,170,2,143,0,,0;0,1,13,0,6,2,9,2,3,3,150,81,400,0,,0;3,1,14,1,1,1,0,2,3,3,0,0,20,0,5076,0;0,1,14,1,1,2,0,2,1,1,250,57,480,14,68320,0;0,1,14,0,6,0,0,2,3,3,50,28,32,7,,0;0,1,14,0,4,2,0,2,3,3,150,14,89,4,,0;0,1,14,0,3,2,0,2,3,3,0,38,344,6,,0;0,1,14,0,2,2,5,2,3,3,300,34,157,10,,0;3,1,14,1,1,2,0,2,3,3,80,0,58,0,13960,0;0,1,14,0,4,0,0,2,3,3,70,38,561,8,,0;1,1,14,0,4,2,5,2,3,3,0,21,75,5,,0;0,1,14,0,4,1,0,2,3,3,85,21,35,6,,0;0,1,14,1,1,2,0,2,3,3,70,19,57,4,20532,0;0,1,14,0,3,1,0,2,1,1,190,91,390,18,,0;0,1,14,0,6,2,5,2,3,3,300,52,319,13,,0;1,1,14,0,4,0,0,2,3,3,230,21,367,4,,0;0,1,15,1,1,2,5,2,3,3,65,7,61,1,21417,0;0,1,15,0,4,0,0,2,3,3,250,21,368,6,,0;0,1,15,1,1,2,18,2,3,3,300,69,346,16,120000,0;0,1,15,1,1,2,4,2,3,3,0,27,74,5,60000,0;0,1,15,1,1,2,18,2,3,3,150,45,376,5,61660,0;2,1,15,0,2,0,0,2,3,3,2000,81,219,18,,0;7,1,15,0,3,3,0,0,3,3,150,5,18,0,,0;1,1,15,0,3,0,0,2,3,3,50,0,6,0,,0;0,1,15,0,6,2,0,2,3,3,0,49,299,9,,0;0,1,16,1,1,1,0,2,3,3,140,111,298,25,42000,0;0,1,15,0,3,1,0,2,3,3,250,62,290,13,,0"
++";1,1,15,0,3,0,0,2,3,3,80,21,116,7,,0;0,1,15,1,1,2,0,2,3,3,100,33,85,8,21240,0;0,1,15,0,3,2,0,2,3,3,250,59,330,15,,0;0,1,16,0,4,0,0,2,3,3,100,33,80,10,,0;0,1,16,0,2,0,0,2,3,3,250,70,355,14,,0;0,1,16,1,1,1,0,2,3,3,250,63,334,9,85780,0;0,1,16,0,6,0,0,2,3,3,130,34,395,8,,0;0,1,16,0,0,2,0,2,3,3,150,12,324,1,,0;0,1,16,0,3,2,14,2,3,3,150,77,345,21,,0;0,1,16,1,1,2,4,2,3,3,450,88,289,23,161798,0;0,1,16,1,1,2,5,2,3,3,220,109,324,0,85400,0;0,1,16,1,1,0,0,2,3,3,160,28,319,10,,0;0,1,16,0,2,2,6,2,3,3,200,69,193,10,,0;5,1,16,0,3,2,5,2,3,3,50,4,37,1,,0;0,1,16,1,1,2,6,2,3,3,220,27,235,10,140000,0;0,1,16,0,4,0,0,2,3,3,60,14,58,5,,0;0,1,16,0,3,2,5,2,3,3,200,47,343,9,,0;0,1,16,0,4,2,0,2,3,3,300,46,268,9,,0;1,1,16,0,2,1,0,2,3,3,160,45,330,13,,0;0,1,16,1,1,2,9,2,3,3,200,34,176,10,108000,0;0,1,17,0,6,0,0,2,3,3,60,40,416,7,,0;0,1,17,0,0,1,0,2,3,3,80,21,129,3,,0;1,1,17,1,1,1,0,2,3,3,80,4,19,1,10400,0;1,1,17,0,2,3,16,2,3,3,60,25,40,8,,0;0,1,17,0,4,2,9,2,3,3,140,38,180,9,,0;0,1,17,0,4,0,0,2,3,3,60,14,354,4,,0;0,1,17,0,6,2,0,2,3,3,130,50,290,9,,0;0,1,17,0,3,0,0,2,3,3,200,32,369,5,,0;0,1,17,0,2,0,0,2,3,3,200,15,418,3,,0;0,1,17,0,4,2,0,2,3,3,200,107,396,18,,0;1,1,17,0,4,1,0,2,3,3,21,26,44,6,,0;0,1,17,0,6,2,5,2,"
++"3,3,200,82,395,15,,0;0,1,17,0,0,2,6,2,3,3,180,29,289,5,,0;0,1,17,1,1,2,4,2,3,3,250,24,138,5,110656,0;1,1,17,0,2,2,15,2,3,3,200,166,283,11,,0;0,1,17,1,1,2,5,2,3,3,130,40,297,8,40000,0;0,1,17,0,3,2,5,2,3,3,150,12,50,3,,0;0,1,17,0,5,0,0,2,3,3,160,14,146,5,,0;0,1,17,0,6,0,0,2,3,3,230,41,214,12,,0;0,1,17,0,3,2,9,2,3,3,120,38,382,8,,0;5,1,17,0,5,3,0,2,3,3,30,7,19,3,,0;1,1,17,0,3,2,5,2,3,3,35,25,451,9,,0;0,1,18,0,4,0,0,2,3,3,50,35,236,10,,0;0,1,18,0,3,2,15,2,3,3,270,24,284,1,,0;0,1,18,1,1,2,5,2,3,3,160,19,253,4,55520,0;0,1,18,0,6,1,0,2,3,3,250,25,227,6,,0;0,1,18,0,4,2,5,2,3,3,200,32,338,7,,0;0,1,18,0,3,2,9,2,3,3,150,35,226,8,,0;0,1,18,0,6,0,0,2,3,3,80,18,51,5,,0;0,1,18,1,1,2,0,2,3,3,250,74,318,13,95083,0;0,2,19,1,1,0,0,2,3,3,200,0,374,0,75000,0;0,1,18,0,3,2,4,0,3,3,50,10,41,0,,0;0,1,18,0,4,2,14,2,3,3,60,21,264,5,,0;0,1,18,0,6,2,4,2,3,3,250,99,278,14,,0;0,1,18,0,6,2,4,2,3,3,150,119,259,17,,0;0,1,18,0,3,1,0,2,3,3,180,65,334,11,,0;0,1,18,0,3,2,9,2,3,3,200,27,226,6,,0;5,1,18,0,3,2,0,2,3,3,150,63,72,10,,0;0,1,18,0,2,2,4,2,3,3,200,74,363,12,,0;0,1,18,1,1,2,4,2,3,3,200,61,345,6,119700,0;0,1,20,0,3,0,0,2,3,3,150,7,67,0,,0;0,1,20,0,3,2,0,2,3,3,130,49,243,6,,0;1,1,20,1,1,3,0,0,3,3,160,0,11,0,30000,"
++"0;0,1,20,0,6,1,0,2,3,3,50,14,249,1,,0;0,1,20,1,1,2,0,2,3,3,0,58,236,6,38409,0;0,1,20,0,3,2,0,2,3,3,200,91,277,11,,0;0,1,20,0,6,0,0,2,3,3,250,21,180,2,,0;0,1,20,0,3,2,18,2,3,3,150,73,186,7,,0;0,1,20,0,3,0,0,2,3,3,100,7,-45259,0,,0;0,1,20,0,3,2,9,2,3,3,0,30,193,3,,0;0,1,20,0,6,1,0,2,3,3,80,64,320,8,,0;0,1,21,1,1,2,6,2,3,3,250,88,194,7,120000,0;0,1,21,0,3,2,1,2,3,3,0,66,257,9,,0;0,1,21,0,3,2,5,2,3,3,250,58,306,8,,0;0,1,21,0,6,1,0,2,3,3,250,0,243,0,,0;0,1,21,0,2,0,0,2,3,3,40,38,74,5,,0;1,1,21,1,1,2,0,2,3,3,200,64,173,10,95849,0;0,1,21,1,1,2,5,2,3,3,120,58,256,9,107775,0;1,1,21,1,1,1,0,2,3,3,0,0,4,0,47000,0;0,1,21,0,3,0,0,2,3,3,200,44,172,7,,0;0,1,21,0,3,1,0,2,3,3,200,57,261,7,,0;0,1,21,0,2,0,0,2,3,3,100,479,751,0,,1;0,1,22,0,4,1,0,2,3,3,150,0,54,0,,0;0,1,22,0,4,1,0,2,3,3,90,0,229,0,,0;0,1,22,0,4,2,8,2,3,3,100,0,117,0,,0;0,1,22,0,3,0,0,2,3,3,140,31,138,3,,0;7,1,22,0,6,0,0,2,3,3,15,0,5,0,,0;0,1,22,1,1,2,5,2,3,3,100,44,341,3,65143.5,0;0,1,22,0,3,2,6,2,3,3,200,25,208,4,,0;0,1,22,0,2,0,0,2,3,3,200,3,124,1,,0;0,1,22,1,1,3,0,2,3,3,0,0,37,0,52000,0;0,1,22,0,2,0,0,2,3,3,180,1,206,1,,0;0,1,22,0,3,0,0,2,3,3,400,22,213,3,,0;0,1,22,0,5,1,0,2,3,3,100,22,178,2,,0;0,1,22,0,3,2,4,2,3,3,0,82,241,12,,0;0"
++",1,22,0,2,0,0,2,3,3,180,60,191,8,,0;0,2,23,0,3,1,0,2,3,3,0,28,186,4,,0;0,2,23,0,6,1,0,2,3,3,200,15,172,3,,0;0,2,23,0,3,2,4,2,3,3,150,25,110,4,,0;0,2,23,1,1,2,6,2,3,3,200,70,234,11,64268,0;1,2,23,0,3,2,6,2,3,3,160,19,31,3,,0;0,2,23,0,3,2,0,2,3,3,300,54,185,8,,0;0,2,23,1,1,2,5,2,3,3,90,0,37,0,16800,0;0,2,23,0,3,3,0,2,3,3,180,46,226,7,,0;0,2,23,1,1,2,9,2,3,3,200,62,548,3,,0;0,2,23,0,0,1,0,2,3,3,190,20,122,2,,0;0,2,23,1,1,2,5,2,3,3,200,40,527,7,82656,0;0,2,24,0,2,0,0,2,3,3,80,18,189,4,,0;0,2,24,0,2,0,0,2,3,3,100,16,28,2,,0;0,2,24,0,4,0,0,2,3,3,130,16,92,2,,0;0,2,24,0,3,0,0,2,3,3,200,2,175,1,,0;0,2,24,0,2,0,0,2,3,3,15,2,14,1,,0;1,2,24,0,6,1,0,2,3,3,130,9,104,1,,0;0,2,24,0,4,0,0,2,3,3,65,23,119,5,,0;0,2,24,1,1,2,5,2,3,3,50,59,96,12,14000,0;0,2,24,1,1,2,9,2,3,3,250,18,112,2,8000,0;1,2,24,0,0,1,0,2,3,3,0,59,210,9,,0;0,2,24,1,1,2,4,2,3,3,200,58,266,7,97900,0;0,2,24,0,0,1,0,2,0,0,120,79,342,9,,0;1,2,24,0,4,0,0,2,3,3,85,24,78,6,,0;0,2,24,0,0,0,0,2,3,3,200,81,453,6,,0;0,2,24,0,4,0,0,2,3,3,100,59,175,10,,0;0,2,24,0,6,0,0,2,3,3,280,30,189,5,,0;0,2,24,0,3,1,0,2,3,3,26,22,75,6,,0;1,2,24,0,3,1,0,2,3,3,180,0,178,0,,0;0,2,24,0,3,2,13,2,3,3,150,42,199,5,,0;0,2,24,1,1,2,5,2,3,3,150,0,24,0,23990,0;0,2,2"
++"4,1,1,2,0,2,3,3,100,35,473,3,38749,0;0,2,25,0,4,0,0,2,3,3,170,37,198,5,,0;5,2,25,0,0,1,0,2,3,3,0,22,47,2,,0;0,2,25,1,1,2,0,2,3,3,70,16,248,1,20500,0;0,2,25,0,3,2,7,2,1,1,250,32,250,0,,0;0,2,26,0,0,1,0,2,3,3,140,0,58,0,,0;0,2,25,0,4,1,0,2,3,3,120,53,171,2,,0;0,2,25,1,1,1,0,2,3,3,180,35,402,2,60000,0;0,2,25,1,1,1,0,2,3,3,100,0,15,0,,0;0,2,27,0,3,2,4,2,3,3,120,0,402,0,,0;0,2,26,0,3,2,9,2,2,3,200,0,78,0,,0;0,2,27,1,1,2,7,2,3,3,150,0,388,0,55600,0;1,2,26,1,1,2,5,2,3,3,250,0,197,0,172716,0;0,2,27,0,4,0,0,2,3,3,35,0,198,0,,0;1,2,26,1,1,2,15,2,1,3,120,0,124,0,20870,0;0,2,28,0,2,2,4,2,3,3,150,0,186,0,,1;1,2,25,0,2,1,0,0,3,3,0,48,489,0,,1;0,2,26,0,4,2,3,2,3,3,150,39,190,1,,0;0,2,27,0,3,2,4,2,3,3,380,0,347,0,,0;0,2,26,1,1,1,0,2,3,3,120,24,256,1,20744,0;0,2,27,1,1,0,0,2,3,3,140,0,149,0,60580,0;0,2,26,1,1,2,20,0,3,3,180,0,113,0,87800,0;0,2,27,0,3,2,3,2,3,3,270,0,254,0,,0;0,2,26,0,2,2,7,2,3,3,120,50,464,0,,1;0,2,27,0,2,2,9,0,3,3,170,0,341,0,,0;0,2,26,0,2,1,0,0,3,3,60,12,43,0,,0;0,2,28,0,2,2,5,0,3,3,250,0,298,0,,1;0,2,27,0,6,2,5,0,3,3,60,0,69,0,,0;1,2,28,0,2,2,4,2,3,3,150,0,186,0,,1;0,2,28,0,2,2,9,2,3,3,170,0,327,0,,1;0,2,27,0,6,2,0,2,3,3,0,0,182,0,,0;0,2,27,0,4,3,0,2,3,3,200,0,270,0,,0;0,2,28,0,"
++"2,2,4,2,3,3,250,0,152,0,,1;0,2,27,1,1,2,0,2,3,3,0,0,74,0,9000,0;0,2,28,1,1,2,4,2,3,3,100,0,67,0,66682,0;1,2,27,1,1,2,0,2,3,3,0,27,127,0,53000,0;0,2,29,0,3,2,7,2,3,3,0,0,362,0,,0;0,2,29,0,2,2,16,2,3,3,150,0,426,0,,1;0,2,27,0,4,1,12,2,3,3,150,0,334,0,,0;1,2,27,1,1,3,0,2,3,3,60,0,212,0,25480,0;1,2,29,0,0,1,0,2,3,3,170,0,293,0,,0;0,2,28,0,0,1,0,2,3,3,100,19,59,0,,0;0,2,28,1,1,0,0,2,3,3,150,0,232,0,48190,0;0,2,29,1,1,2,5,2,3,3,80,0,116,0,13050,0;0,2,29,0,3,1,21,2,3,3,150,0,305,0,,0;0,2,28,1,1,2,4,2,3,3,0,0,15,0,7120,0;0,2,29,1,1,2,5,2,1,1,200,15,368,0,62200,0;0,2,29,1,1,2,4,2,3,3,250,0,292,0,147546,0;0,2,28,1,1,2,4,2,3,3,0,0,88,0,,0;0,2,28,1,1,0,10,0,3,3,190,0,234,0,105000,0;0,2,28,1,1,4,0,2,3,3,0,0,86,0,21141,0;0,2,28,0,2,2,16,3,3,3,180,0,232,0,,0;0,2,29,0,3,2,20,3,3,3,200,0,375,0,,0;0,2,30,0,3,2,15,3,3,3,100,0,243,0,,0;0,2,19,1,1,2,20,3,2,3,0,0,198,0,59690,0;0,2,29,1,1,2,9,3,3,3,150,0,85,0,46320,0;0,2,19,0,4,0,4,3,3,3,120,0,219,0,,0;0,2,31,1,1,2,22,3,3,3,170,0,353,0,50000,0;0,2,19,0,3,2,6,3,3,3,100,0,184,0,,0;0,2,19,0,0,2,16,3,3,3,150,0,208,0,,0;2,2,19,0,6,1,0,3,3,3,130,0,113,0,,0;0,2,19,1,1,2,7,3,3,3,150,0,256,0,36000,0;6,2,31,1,1,2,20,3,3,3,150,0,204,0,31500,0;0,2,31,1,1,2,7,3,3,3,2"
++"00,0,305,0,40320,0;0,2,19,0,4,2,16,3,3,3,200,0,269,0,,0;0,2,31,0,0,2,21,3,3,3,220,0,325,0,,0;0,2,31,0,3,2,5,3,3,3,200,0,312,0,,0;0,2,32,0,3,2,5,3,3,3,300,0,208,0,,0;0,2,19,1,1,2,5,3,3,3,120,0,108,0,22500,0;0,2,31,1,1,2,4,3,3,3,180,0,227,0,90000,0;0,2,31,0,3,2,7,3,3,3,110,0,274,0,,0;0,2,32,0,3,2,4,3,3,3,150,0,260,0,,0;0,2,31,0,0,2,4,3,3,3,250,0,194,0,,0;3,2,19,0,3,0,0,3,3,3,900,0,60,0,,0;1,2,32,1,1,2,4,3,3,3,150,0,116,0,50926,0;0,2,31,1,1,0,0,3,3,3,100,0,309,0,35000,0;5,2,19,1,1,3,0,3,3,3,0,0,2,0,4400,0;0,2,31,0,0,2,16,3,3,3,150,0,262,0,,0;0,2,31,1,1,2,5,3,3,3,90,0,101,0,18000,0;0,2,31,1,1,2,23,3,3,3,140,0,270,0,53000,0;0,2,31,1,1,2,16,3,3,3,300,0,304,0,,0;0,2,32,0,6,1,24,3,3,3,120,0,297,0,,0;0,3,33,0,3,1,0,3,3,3,200,0,375,0,,0;0,2,30,1,1,2,4,3,3,3,120,0,208,0,63287,0;4,2,31,0,0,0,0,3,3,3,0,0,102,0,,0;1,2,32,1,1,0,0,3,3,3,200,0,313,0,,0;7,2,30,1,1,3,0,3,3,3,300,0,55,0,80000,0;0,2,32,1,1,2,14,3,3,3,130,0,222,0,60000,0;0,2,32,1,1,2,25,3,3,3,250,0,211,0,63087,0;3,2,32,0,6,2,26,3,3,3,230,0,43,0,,0;7,2,32,0,3,1,0,3,3,3,400,0,31,0,,0;0,2,34,0,2,2,16,3,3,3,150,0,62,0,,1;0,2,30,1,1,2,4,3,3,3,150,0,227,0,73000,0;0,2,34,1,1,3,27,3,3,3,150,0,229,0,88428,0;3,2,32,1,1,3,0,0,3,3,0,0,0,0,1700,0;0,"
++"2,32,0,2,4,0,0,3,3,0,90,257,0,,1;0,2,32,0,2,2,28,0,3,3,200,62,285,0,,1;0,2,32,0,2,1,0,0,3,3,200,69,263,0,,1;0,2,32,0,3,2,4,0,3,3,200,50,221,0,,0;0,2,32,1,1,2,4,0,3,3,120,94,284,0,82600,0;0,2,32,0,4,0,0,0,3,3,200,37,333,0,,0;0,2,32,1,1,0,29,0,3,3,250,35,267,0,171592,0;0,2,32,0,4,0,16,0,3,3,130,34,309,0,,0;0,2,32,0,2,3,0,0,3,3,270,48,306,0,,1;0,2,32,0,2,1,0,0,3,3,100,84,174,0,,1;0,2,32,0,3,4,0,0,3,3,250,48,234,0,,0;0,2,30,1,1,2,18,0,3,3,150,2,33,0,52000,0;0,2,30,0,3,4,0,0,3,3,100,75,311,0,,0;0,2,30,0,0,1,0,0,3,3,170,40,199,0,,0;0,2,30,0,5,1,0,0,3,3,130,21,248,0,,0;0,2,30,1,1,1,0,0,3,3,250,14,275,0,109620,0;0,2,30,0,2,4,0,0,3,3,100,50,227,0,,1;0,2,30,1,1,0,0,0,3,3,50,0,233,0,40000,0;0,2,30,1,1,2,6,0,3,3,200,3,204,0,65570,0;0,2,30,1,1,2,0,0,3,3,30,17,77,0,35058,0;0,2,30,0,0,2,7,0,3,3,80,17,581,0,,0;0,2,30,1,1,2,4,0,3,3,160,48,168,0,97570,0;0,2,30,0,6,0,0,0,3,3,150,17,244,0,,0;0,2,30,0,0,2,6,0,3,3,200,60,211,0,,0;0,2,30,0,2,2,7,0,3,3,0,48,161,0,,1;0,2,30,1,1,2,4,0,3,3,100,30,280,0,89620,0;0,2,34,0,0,2,26,0,3,3,200,47,197,0,,0;0,3,35,0,2,2,4,0,3,3,200,47,255,0,,1;0,3,35,0,4,2,16,0,3,3,50,20,135,0,,0;0,3,35,0,2,0,0,0,3,3,200,53,283,0,,1;0,3,35,0,0,0,0,0,3,3,30,21,157,0,,0;0,3,35,0,0,0,0,0"
++",3,3,45,21,134,0,,0;0,3,33,1,1,2,5,0,3,3,72,0,75,0,24590,0;0,3,33,0,3,0,0,0,3,3,200,1,187,0,,0;1,3,36,1,1,4,0,0,3,3,100,0,32,0,30000,0;0,3,33,0,4,0,0,0,3,3,200,26,180,0,,0;0,3,33,0,0,0,0,0,3,3,150,35,179,0,,0;0,3,33,1,1,2,6,0,3,3,80,44,207,0,19629.8,0;0,3,36,0,3,2,4,0,3,3,170,43,150,0,,0;0,3,36,0,0,2,16,0,3,3,150,17,192,0,,0;0,3,36,1,1,0,0,0,3,3,80,68,114,0,37470,0;1,3,37,0,0,0,30,0,3,3,0,0,106,0,,0;0,3,36,1,1,0,0,0,3,3,170,5,147,0,85230,0;1,3,36,0,2,4,0,0,3,3,0,48,154,0,,1;0,3,36,0,0,0,0,0,3,3,250,32,161,0,,0;0,3,36,0,0,3,16,0,3,3,60,32,160,0,,0;0,3,37,0,2,0,0,0,3,3,250,48,172,0,,1;0,3,37,1,1,4,0,0,3,3,200,3,340,0,89300,0;0,3,37,0,3,2,5,0,3,3,150,22,200,0,,0;0,3,37,1,1,0,0,0,3,3,150,28,117,0,54817.5,0;0,3,37,1,1,0,0,0,3,3,250,56,172,0,93348,0;0,3,37,1,1,0,0,0,3,3,250,48,144,0,67400,0;0,3,37,1,1,0,0,0,3,3,250,0,122,0,69760,0;1,3,38,1,1,2,30,0,3,3,200,0,128,0,83000,0;0,3,38,1,1,2,4,0,3,3,250,1,159,0,143295,0;0,3,38,0,0,2,4,0,3,3,100,36,80,0,,0;0,3,38,1,1,2,4,0,3,3,250,0,157,0,94900,0;0,3,39,1,1,0,29,0,3,3,180,7,351,0,121200,0;0,3,39,0,3,2,7,0,3,3,280,40,373,0,,0;0,3,39,0,2,2,28,0,3,3,280,73,394,0,,1;0,3,39,0,2,2,4,0,3,3,0,60,233,0,,1;0,3,39,0,2,2,4,0,3,3,0,53,247,0,,1;0,3,39,1,1,2,4"
++",0,3,3,220,69,527,0,103489,0;0,3,40,0,2,0,0,0,3,3,200,48,221,0,,1;0,3,40,1,1,2,18,0,3,3,250,0,288,0,69751.92,0;0,3,40,0,2,3,16,4,3,3,70,53,42,0,,1;0,3,41,1,1,4,0,4,3,3,250,,271,0,,0;0,3,41,0,2,1,0,4,3,3,0,48,251,0,,1;0,3,41,0,2,1,0,4,3,3,0,48,347,0,,1;0,3,41,0,2,0,0,4,3,3,0,49,355,0,,1;1,3,41,0,2,0,0,4,3,3,160,48,186,0,,1;0,3,41,0,2,3,0,4,3,3,200,48,298,0,,1;0,3,41,0,2,2,4,4,3,3,0,48,325,0,,1;0,3,41,0,2,4,0,4,3,3,250,48,269,0,,1;0,3,41,0,2,2,7,4,3,3,130,48,318,0,,1;0,3,42,1,1,2,4,0,3,3,200,0,172,0,228300,0;0,3,42,1,1,1,0,4,3,3,70,19,101,0,,0;0,3,42,1,1,0,0,4,3,3,250,25,289,0,80870,0;0,3,42,0,2,1,0,4,3,3,200,50,135,0,,1;0,3,42,0,2,0,0,0,3,3,200,50,275,0,,1;0,3,42,0,2,1,0,4,3,3,150,49,358,0,,1;0,3,43,0,2,0,0,4,3,3,150,0,579,0,,1;0,3,42,0,2,2,1,4,3,3,250,48,361,0,,1;1,3,42,0,2,0,0,5,3,3,30,14,10,1,,0;0,3,42,0,2,0,0,4,3,3,160,48,235,0,,1;0,3,43,0,2,0,0,4,3,3,80,0,177,0,,1;0,3,43,0,2,0,0,4,3,3,200,0,313,0,,1;0,3,42,0,2,2,0,4,3,3,130,48,165,0,,1;0,3,43,0,2,0,0,4,3,3,150,0,299,0,,1;1,3,44,0,2,1,0,4,3,3,300,48,381,0,,1;0,3,44,0,2,2,4,4,3,3,0,48,339,0,,1;0,3,44,0,0,2,16,4,3,3,0,26,199,0,,0;0,3,44,0,2,2,21,4,3,3,0,48,353,0,,1;0,3,44,0,2,0,0,4,3,3,100,48,284,0,,1;0,3,44,0,2,2,31,4,3,3,130,49,"
++"152,0,,1;0,3,44,0,2,3,0,4,3,3,280,48,227,0,,1;0,3,44,0,2,0,0,4,3,3,10,48,178,0,,1;0,3,44,0,4,3,0,4,3,3,250,13,298,0,,0;0,3,44,0,2,3,0,4,3,3,300,49,250,0,,1;0,3,43,1,1,0,0,4,3,3,180,0,155,0,106251.89,0;0,3,45,0,2,0,0,4,3,3,100,0,540,0,,1;0,3,45,0,2,2,16,4,3,3,120,0,29,0,,1;0,3,44,0,2,3,0,4,3,3,280,49,217,0,,1;0,3,44,0,2,0,0,4,3,3,150,49,181,0,,1;0,3,44,0,2,0,0,4,3,3,180,49,183,0,,1;1,3,43,1,1,1,0,0,3,3,230,0,204,0,89300,0;0,3,45,0,0,2,4,4,3,3,0,90,269,0,,0;0,3,45,0,2,2,7,4,3,3,150,48,297,0,,1;0,3,45,0,2,0,0,4,3,3,200,48,213,0,,1;1,3,45,0,2,1,0,4,3,3,250,48,290,0,,1;1,3,45,0,2,1,0,4,3,3,70,48,98,0,,1;1,4,46,0,2,1,0,4,3,3,180,49,190,0,,1;1,4,46,0,2,1,0,4,3,3,300,59,211,0,,1;1,4,46,0,2,1,0,4,3,3,250,49,512,0,,1;1,4,46,1,1,1,0,0,3,3,450,48,158,0,200789.11,0;0,4,46,0,2,2,18,0,3,3,250,50,99,0,,0;0,4,47,0,2,2,32,4,3,3,250,49,173,0,,0;0,4,48,0,4,1,0,4,3,3,120,,61,0,,0;0,4,48,0,2,4,20,4,4,4,250,,173,0,,0;0,4,48,0,3,1,31,4,3,3,250,,39,0,,0;1,4,48,0,0,1,0,4,3,3,80,,-2,0,,0;0,4,48,0,0,1,24,4,3,3,250,,166,0,,0;1,4,48,0,0,1,0,4,3,3,60,,33,0,,0;0,4,48,0,2,4,0,4,5,5,200,86,171,0,,0;0,4,48,0,0,1,0,4,3,3,400,,75,0,,0;0,4,48,0,0,1,19,4,3,3,150,,362,0,,0;0,4,48,0,3,1,0,4,3,3,120,,222,0,,0;0,4,48,0,4,1,"
++"32,4,3,3,250,,124,0,,0;0,4,48,0,2,1,0,4,3,3,140,64,446,0,,0;0,4,48,1,1,2,1,0,3,3,120,0,435,0,110716.74,0;0,4,48,1,1,2,1,0,3,3,180,0,271,0,98727.95,0;0,4,48,0,3,2,4,0,5,5,200,53,453,0,,0;0,4,48,0,3,0,0,0,4,4,150,53,361,0,,0;0,4,48,0,4,0,0,0,3,3,200,,187,0,,0;0,4,48,0,3,2,6,0,4,4,200,,131,0,,0;0,4,48,0,4,0,0,0,3,3,350,,109,0,,0;0,4,48,0,4,0,0,0,3,3,200,,243,0,,0;0,4,48,0,3,0,0,0,3,3,180,,376,0,,0;0,4,48,0,0,0,0,0,2,6,70,,171,0,,0;0,4,48,0,3,2,18,0,3,3,150,,131,0,,0;1,4,49,0,4,0,0,0,5,3,120,,82,0,,0;0,4,48,0,4,3,16,0,4,4,150,,176,0,,0;0,4,48,0,2,2,20,0,4,4,140,,225,0,,0;0,4,48,0,3,2,4,0,3,3,100,,109,0,,0;0,4,48,1,1,2,5,0,3,3,200,28,152,0,85728,0;0,4,50,0,4,2,7,0,5,5,85,,376,0,,0;0,4,50,0,2,2,31,0,2,6,100,154,488,0,,0;0,4,50,0,2,0,0,0,5,5,150,49,453,0,,0;0,4,50,0,4,0,0,6,6,7,120,,159,0,,0;0,4,49,0,0,0,0,0,3,3,20,,25,0,,0;0,4,49,1,1,2,7,0,3,3,200,0,384,0,107840.3,0;0,4,49,0,3,2,6,0,3,3,150,,391,0,,0;0,4,49,0,2,0,0,0,3,3,200,50,123,0,,0;0,4,49,1,1,2,4,0,3,3,250,38,174,0,82900,0;0,4,49,1,1,2,4,0,3,3,200,9,132,0,131271.8,0;0,4,49,0,0,0,0,0,3,3,70,,62,0,,0;0,4,49,0,0,0,0,0,3,3,40,,97,0,,0;0,4,49,0,2,2,13,0,3,3,350,50,251,0,,0;0,4,49,0,0,2,28,0,3,3,200,,370,0,,0;0,4,49,0,2,2,7,0,3,3,150,50,3"
++"49,0,,0;0,4,49,0,0,2,23,0,3,3,150,,167,0,,0;0,4,49,0,2,0,0,0,3,3,180,50,370,0,,0;0,4,49,0,3,2,6,4,3,3,200,,155,0,,0;1,4,49,1,1,1,4,4,3,3,200,39,169,0,132053,0;1,4,51,0,2,1,0,4,3,3,200,49,355,0,,0;0,4,51,0,2,2,4,4,3,3,200,49,327,0,,0;1,4,51,0,4,2,6,4,3,3,0,,22,0,,0;3,4,51,0,2,6,0,4,3,3,0,49,16,0,,0;0,4,51,1,1,2,7,4,3,3,0,22,45,0,19290.25,0;1,4,52,0,2,0,0,4,3,3,0,0,117,0,,0;0,4,53,0,2,1,0,4,3,3,0,48,402,0,,0;0,4,53,0,2,1,0,4,3,3,150,48,432,0,,0;0,4,53,1,1,1,0,4,3,3,90,0,38,0,10600,0;0,4,53,0,2,1,31,4,3,3,150,50,419,0,,0;0,4,54,1,1,1,9,4,3,3,200,0,270,0,,0;0,4,54,1,1,1,4,4,3,3,250,0,247,0,115265.96,0;0,4,53,0,2,1,0,4,3,3,0,50,389,0,,0;0,4,52,0,3,2,4,4,3,3,0,,324,0,,0;0,4,52,1,1,1,4,4,3,3,0,0,282,0,99637.7,0;0,4,52,0,0,2,7,4,3,3,0,,373,0,,0;0,4,52,0,2,1,5,4,3,3,0,74,359,0,,0;0,4,52,0,2,1,13,4,3,3,0,53,338,0,,0;0,4,52,1,1,1,4,4,3,3,0,56,289,0,188337.31,0;0,4,52,1,1,1,7,4,3,3,0,41,205,0,84639.82,0;0,4,52,1,1,1,18,4,3,3,0,28,190,0,59000,0;1,4,54,0,0,1,0,4,3,3,0,,170,0,,0;0,4,52,0,2,1,0,4,3,3,0,74,356,0,,0;0,4,52,0,0,1,0,4,3,3,0,,324,0,,0;0,4,52,0,2,1,0,4,3,3,0,52,708,0,,0;0,4,54,1,1,0,1,4,3,3,80,0,388,0,91146.3,0;0,4,54,0,3,2,18,4,3,3,0,,337,0,,0;1,4,54,1,1,4,0,4,3,3,30,0,1,0,6242.07,0;0,"
++"4,54,1,1,0,0,4,3,3,35,0,52,0,17275.96,0;0,4,55,1,1,1,0,4,3,3,0,0,221,0,87410.35,0;0,4,55,1,1,1,0,4,3,3,0,0,228,0,0,0;1,4,55,1,1,1,0,4,3,3,0,0,187,0,115000,0";
+const C=[0,1,2,4,5,6,7,8,9];return S.split(';').map(l=>l.split(',').map((v,i)=>C.includes(i)?K[i][+v]:(i===3||i===15)?v==='1':v===''?null:+v))})();
+</script>
+<script>
+(function(){
+"use strict";
+// ---------- dados
+const F=["tipo","ano","mes","ok","mot","orig","cer","vend","etapa","temp","conv","ciclo","ant","fu","val","inat","reab"];
+const OUT="Outros";
+const D=RAW.map(r=>{const o={};F.forEach((k,i)=>o[k]=r[i]);
+  if(!["Izabela de Faria","Gabriella Farias","Maicon Luã","Ana Luiza","Paula Couto"].includes(o.vend))o.vend=OUT;
+  if(o.cer){o.cer=o.cer.replace(/\s*\(.*?\)\s*/g," ").replace(/\s+cerimonial$/i,"").trim();if(o.cer===o.cer.toUpperCase())o.cer=o.cer.toLowerCase().replace(/(^|\s)\S/g,c=>c.toUpperCase());}
+  if(o.mot==="Cliente não deu retorno")o.mot="Cliente não deu retorno";
+  return o;});
+const $=id=>document.getElementById(id);
+const fmtN=n=>Math.round(n).toLocaleString("pt-BR");
+const fmtP=(n,d=1)=>(isFinite(n)?n:0).toLocaleString("pt-BR",{minimumFractionDigits:d,maximumFractionDigits:d})+"%";
+const fmtR=n=>"R$ "+Math.round(n).toLocaleString("pt-BR");
+const fmtRk=n=>"R$ "+(n/1000).toLocaleString("pt-BR",{maximumFractionDigits:1})+" mil";
+const fmtRm=n=>n>=1e6?"R$ "+(n/1e6).toLocaleString("pt-BR",{maximumFractionDigits:2})+" mi":fmtRk(n);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const median=a=>{a=a.filter(x=>x!=null&&isFinite(x)).sort((x,y)=>x-y);if(!a.length)return NaN;const m=a.length>>1;return a.length%2?a[m]:(a[m-1]+a[m])/2};
+function agg(rows){const n=rows.length,f=rows.filter(r=>r.ok),wv=f.filter(r=>r.val>0),rev=wv.reduce((s,r)=>s+r.val,0);
+  return{n,f:f.length,l:n-f.length,conv:n?f.length/n*100:0,rev,tk:wv.length?rev/wv.length:0}}
+function group(rows,key,order){const m=new Map();rows.forEach(r=>{const k=typeof key==="function"?key(r):r[key];if(!m.has(k))m.set(k,[]);m.get(k).push(r)});
+  let ks=order?order.filter(k=>m.has(k)):[...m.keys()];return ks.map(k=>Object.assign({k},agg(m.get(k)),{rows:m.get(k)}))}
+// ---------- filtros
+const S={ano:"",orig:"",vend:"",tipo:""};
+function opts(el,vals,all){el.innerHTML='<option value="">'+all+'</option>'+vals.map(v=>'<option>'+esc(v)+'</option>').join("")}
+const uniqBy=(k,sortFn)=>{const c={};D.forEach(r=>c[r[k]]=(c[r[k]]||0)+1);return Object.keys(c).sort(sortFn||((a,b)=>c[b]-c[a]))};
+opts($("fAno"),uniqBy("ano",(a,b)=>a-b),"Todos os anos");
+opts($("fOrig"),uniqBy("orig"),"Todas as origens");
+opts($("fVend"),uniqBy("vend"),"Todos os vendedores");
+opts($("fTipo"),uniqBy("tipo"),"Todos os tipos");
+[["fAno","ano"],["fOrig","orig"],["fVend","vend"],["fTipo","tipo"]].forEach(([id,k])=>$(id).addEventListener("change",e=>{S[k]=e.target.value;render()}));
+$("fClear").onclick=()=>{for(const k in S)S[k]="";["fAno","fOrig","fVend","fTipo"].forEach(i=>$(i).value="");render()};
+const rowsF=()=>D.filter(r=>(!S.ano||r.ano===S.ano)&&(!S.orig||r.orig===S.orig)&&(!S.vend||r.vend===S.vend)&&(!S.tipo||r.tipo===S.tipo));
+const filtered=()=>Object.values(S).some(Boolean);
+
+// ---------- tooltip
+const tip=$("tip");
+function showTip(e,html){tip.innerHTML=html;tip.style.display="block";const x=e.clientX+14,y=e.clientY+14,w=tip.offsetWidth,h=tip.offsetHeight;
+  tip.style.left=Math.min(x,innerWidth-w-8)+"px";tip.style.top=(y+h>innerHeight?e.clientY-h-10:y)+"px"}
+function hideTip(){tip.style.display="none"}
+document.addEventListener("scroll",hideTip,{passive:true});
+function bindTips(root){root.querySelectorAll("[data-tip]").forEach(el=>{
+  el.addEventListener("mousemove",e=>showTip(e,el.getAttribute("data-tip")));el.addEventListener("mouseleave",hideTip);
+  el.addEventListener("touchstart",e=>{const t=e.touches[0];showTip(t,el.getAttribute("data-tip"))},{passive:true})})}
+const tr=(a,b)=>'<div class="r"><span>'+a+'</span><b>'+b+'</b></div>';
+const tipAgg=(t,a)=>'<b>'+esc(t)+'</b>'+tr("Leads",fmtN(a.n))+tr("Fechados",fmtN(a.f))+tr("Conversão",fmtP(a.conv))+tr("Receita",fmtRm(a.rev))+(a.tk?tr("Ticket médio",fmtRk(a.tk)):"");
+
+// ---------- primitivas de gráfico (SVG)
+const css=v=>"var(--"+v+")";
+function niceMax(v){if(v<=0)return 1;const p=Math.pow(10,Math.floor(Math.log10(v))),s=v/p;return(s<=1?1:s<=2?2:s<=2.5?2.5:s<=5?5:10)*p}
+function rbar(x,y,w,h,fill,top,tipH){ // retângulo com cantos 4px só na ponta
+  if(h<=0||w<=0)return"";const r=Math.min(4,w/2,h);
+  const d=top?`M${x},${y+h}V${y+r}Q${x},${y} ${x+r},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h}Z`:`M${x},${y}H${x+w}V${y+h}H${x}Z`;
+  return`<path d="${d}" fill="${fill}"${tipH?` data-tip="${esc(tipH)}"`:""}/>`}
+function hbar(x,y,w,h,fill,tipH){if(w<=0)return"";const r=Math.min(4,h/2,w);
+  return`<path d="M${x},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h-r}Q${x+w},${y+h} ${x+w-r},${y+h}H${x}Z" fill="${fill}"${tipH?` data-tip="${esc(tipH)}"`:""}/>`}
+// colunas (empilhadas ou simples). series:[{key,color}] ; data:[{label, values:{key:v}, tip}]
+function columns(el,data,series,o={}){
+  const W=o.w||760,H=o.h||260,m={t:18,r:8,b:o.rot?52:28,l:o.yfmt?44:36};const iw=W-m.l-m.r,ih=H-m.t-m.b;
+  const tot=data.map(d=>series.reduce((s,se)=>s+(d.values[se.key]||0),0));const ym=o.ymax||niceMax(Math.max(...tot,1));
+  const bw=iw/data.length,gap=Math.max(2,bw*(o.gap??.28)),cw=bw-gap;let g="";
+  for(let i=0;i<=4;i++){const v=ym*i/4,y=m.t+ih-ih*i/4;g+=`<line class="gl" x1="${m.l}" x2="${W-m.r}" y1="${y}" y2="${y}"/><text class="ax" x="${m.l-6}" y="${y+4}" text-anchor="end">${o.yfmt?o.yfmt(v):fmtN(v)}</text>`}
+  data.forEach((d,i)=>{let y=m.t+ih,x=m.l+i*bw+gap/2;const n=series.length;
+    series.forEach((se,j)=>{const v=d.values[se.key]||0,h=ih*v/ym;const isTop=series.slice(j+1).every(s2=>!(d.values[s2.key]>0));
+      y-=h;g+=rbar(x,y+(j>0?0:0),cw,Math.max(0,h-(j<n-1&&!isTop&&h>2?2:0)),se.color,isTop)});
+    if(o.top)g+=`<text class="lbl" x="${x+cw/2}" y="${y-5}" text-anchor="middle">${o.top(d,i)}</text>`;
+    const show=!o.every||i%o.every===0;
+    if(show)g+=o.rot?`<text class="ax" transform="translate(${x+cw/2},${m.t+ih+10}) rotate(-50)" text-anchor="end">${esc(d.label)}</text>`:`<text class="ax" x="${x+cw/2}" y="${m.t+ih+17}" text-anchor="middle">${esc(d.label)}</text>`;
+    g+=`<rect class="hit" x="${m.l+i*bw}" y="${m.t}" width="${bw}" height="${ih}" data-tip="${esc(d.tip||"")}"/>`});
+  g+=`<line class="axl" x1="${m.l}" x2="${W-m.r}" y1="${m.t+ih}" y2="${m.t+ih}"/>`;
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.aria||"")}">${g}</svg>`;bindTips(el)}
+// barras horizontais. data:[{label,v,lab,tip,color}]
+function hbars(el,data,o={}){
+  const W=o.w||560,row=o.row||30,m={t:6,r:o.r||120,b:6,l:o.l||170};const H=m.t+m.b+row*data.length,iw=W-m.l-m.r;
+  const xm=o.xmax||niceMax(Math.max(...data.map(d=>d.v),1));let g="";
+  data.forEach((d,i)=>{const y=m.t+i*row,bh=Math.min(16,row*.55),by=y+(row-bh)/2,w=iw*d.v/xm;
+    g+=`<text class="lbl" x="${m.l-8}" y="${y+row/2+4}" text-anchor="end">${esc(d.label)}</text>`;
+    g+=`<rect x="${m.l}" y="${by}" width="${iw}" height="${bh}" rx="3" fill="var(--grid)" opacity=".6"/>`;
+    g+=hbar(m.l,by,Math.max(w,1),bh,d.color||css("s1"));
+    g+=`<text class="lbl" x="${m.l+Math.max(w,1)+6}" y="${y+row/2+4}">${d.lab}</text>`;
+    g+=`<rect class="hit" x="0" y="${y}" width="${W}" height="${row}" data-tip="${esc(d.tip||"")}"/>`});
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.aria||"")}">${g}</svg>`;bindTips(el)}
+// linha
+function line(el,data,o={}){
+  const W=o.w||560,H=o.h||220,m={t:22,r:16,b:28,l:44};const iw=W-m.l-m.r,ih=H-m.t-m.b;
+  const ym=o.ymax||niceMax(Math.max(...data.map(d=>d.v),1));const x=i=>m.l+(data.length===1?iw/2:iw*i/(data.length-1)),y=v=>m.t+ih-ih*v/ym;let g="";
+  for(let i=0;i<=4;i++){const v=ym*i/4;g+=`<line class="gl" x1="${m.l}" x2="${W-m.r}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${m.l-6}" y="${y(v)+4}" text-anchor="end">${o.yfmt?o.yfmt(v):fmtN(v)}</text>`}
+  g+=`<path d="${data.map((d,i)=>(i?"L":"M")+x(i)+","+y(d.v)).join("")}" fill="none" stroke="${o.color||css("s1")}" stroke-width="2" stroke-linejoin="round"/>`;
+  data.forEach((d,i)=>{g+=`<circle cx="${x(i)}" cy="${y(d.v)}" r="4.5" fill="${o.color||css("s1")}" stroke="var(--card)" stroke-width="2"/>`;
+    g+=`<text class="lbl" x="${x(i)}" y="${y(d.v)-10}" text-anchor="middle">${o.lab?o.lab(d):fmtN(d.v)}</text><text class="ax" x="${x(i)}" y="${m.t+ih+17}" text-anchor="middle">${esc(d.label)}</text>`;
+    const bw=iw/Math.max(1,data.length-1);g+=`<rect class="hit" x="${x(i)-bw/2}" y="${m.t}" width="${bw}" height="${ih}" data-tip="${esc(d.tip||"")}"/>`});
+  g+=`<line class="axl" x1="${m.l}" x2="${W-m.r}" y1="${m.t+ih}" y2="${m.t+ih}"/>`;
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.aria||"")}">${g}</svg>`;bindTips(el)}
+// rosca simples (participação)
+function donutList(el,items){ // items [{label,v,color}]
+  const tot=items.reduce((s,i)=>s+i.v,0)||1;let a=-Math.PI/2,g="";const cx=90,cy=90,R=78,r=50;
+  items.forEach(it=>{const ang=it.v/tot*Math.PI*2;if(ang<=0)return;const a2=a+ang-0.012,lg=ang>Math.PI?1:0;
+    const p=(rr,t)=>[cx+rr*Math.cos(t),cy+rr*Math.sin(t)];const[a1x,a1y]=p(R,a),[b1x,b1y]=p(R,a2),[a2x,a2y]=p(r,a2),[b2x,b2y]=p(r,a);
+    g+=`<path d="M${a1x},${a1y}A${R},${R} 0 ${lg} 1 ${b1x},${b1y}L${a2x},${a2y}A${r},${r} 0 ${lg} 0 ${b2x},${b2y}Z" fill="${it.color}" data-tip="${esc('<b>'+it.label+'</b>'+tr('Receita',fmtRm(it.v))+tr('Participação',fmtP(it.v/tot*100)))}"/>`;a+=ang});
+  g+=`<text x="${cx}" y="${cy-2}" text-anchor="middle" class="lbl" style="font-size:15px;font-weight:700">${fmtRm(tot)}</text><text x="${cx}" y="${cy+15}" text-anchor="middle" class="lbl2">receita</text>`;
+  const leg=items.map(it=>`<div style="display:flex;justify-content:space-between;gap:8px;font-size:12px;padding:3px 0;border-bottom:1px solid var(--grid)"><span style="display:flex;gap:6px;align-items:center"><i style="width:10px;height:10px;border-radius:2px;background:${it.color};display:inline-block"></i>${esc(it.label)}</span><b>${fmtP(it.v/tot*100,0)}</b></div>`).join("");
+  el.innerHTML=`<div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><svg viewBox="0 0 180 180" style="width:160px;flex:none">${g}</svg><div style="flex:1;min-width:150px">${leg}</div></div>`;bindTips(el)}
+
+// ---------- ordens e cores fixas (cor segue a entidade)
+const ORIG=["Indicação de Fornecedor/Parceiro","Instagram/Facebook","Não Informado","Indicação de Cliente","Já era Cliente","Em outros Eventos","Pesquisa na Internet"];
+const ORIG_S={"Indicação de Fornecedor/Parceiro":"Indicação fornecedor","Instagram/Facebook":"Instagram/Facebook","Não Informado":"Não informado","Indicação de Cliente":"Indicação cliente","Já era Cliente":"Já era cliente","Em outros Eventos":"Outros eventos","Pesquisa na Internet":"Pesquisa internet"};
+const MOT=["Sem Motivo","Concorrência","Preço acima do desejado","Apenas Pesquisa de Preço","Cliente não deu retorno","Data Indisponível"];
+const MOTC={"Sem Motivo":"s8","Concorrência":"s1","Preço acima do desejado":"s2","Apenas Pesquisa de Preço":"s4","Cliente não deu retorno":"s5","Data Indisponível":"s7"};
+const VEND=["Izabela de Faria","Gabriella Farias","Maicon Luã","Ana Luiza","Paula Couto",OUT];
+const MES=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+
+// ---------- render por página
+function render(){
+  const R=rowsF(),A=agg(R),L=R.filter(r=>!r.ok);
+  const parts=[];if(S.ano)parts.push("ano "+S.ano);if(S.orig)parts.push(ORIG_S[S.orig]||S.orig);if(S.vend)parts.push(S.vend);if(S.tipo)parts.push(S.tipo);
+  $("filterNote").innerHTML=filtered()?`Filtro ativo: <b>${esc(parts.join(" · "))}</b> — ${fmtN(A.n)} de ${fmtN(D.length)} orçamentos. Os textos de leitura falam do histórico completo; o quadro rosa de cada página mostra o recorte filtrado.`:"Sem filtro: histórico completo de 679 orçamentos.";
+  const sm=L.filter(r=>r.mot==="Sem Motivo"||r.mot==="Cliente não deu retorno").length;
+  const cF=median(R.filter(r=>r.ok).map(r=>r.ciclo)),cL=median(L.map(r=>r.ciclo));
+  // KPIs
+  const K=[["Leads",fmtN(A.n),"orçamentos recebidos","s1"],["Fechados",fmtN(A.f),fmtN(A.l)+" não fecharam","s6"],["Conversão",fmtP(A.conv),"fechados ÷ leads","s7"],["Receita contratada",fmtRm(A.rev),"orçamentos fechados","s3"],["Ticket médio",fmtRk(A.tk),"por evento fechado","s2"],["Perdas sem motivo",fmtP(L.length?sm/L.length*100:0),fmtN(sm)+" de "+fmtN(L.length)+" perdas","s8"]];
+  $("kpis").innerHTML=K.map(k=>`<div class="kpi" style="--kc:var(--${k[3]})"><div class="l">${k[0]}</div><div class="v">${k[1]}</div><div class="d">${k[2]}</div></div>`).join("");
+  // ano
+  const Y=group(R,"ano",["2022","2023","2024","2025","2026"]);
+  columns($("chYear"),Y.map(y=>({label:y.k,values:{f:y.f,l:y.l},tip:tipAgg(y.k,y)})),[{key:"f",color:css("s1")},{key:"l",color:css("lost")}],{w:innerWidth<760?420:760,h:innerWidth<760?300:240,gap:.45,top:d=>fmtN(d.values.f+d.values.l)+" · "+fmtP((d.values.f/(d.values.f+d.values.l))*100,0),aria:"Leads por ano"});
+  const O=group(R.filter(r=>r.ok),"orig",ORIG);const OC=["s1","s2","s3","s4","s5","s7","s6"];
+  donutList($("chRevOrig"),O.map(o=>({label:ORIG_S[o.k],v:o.rev,color:css(OC[ORIG.indexOf(o.k)])})).filter(o=>o.v>0));
+  const best=Y.slice().sort((a,b)=>b.conv-a.conv)[0];
+  $("liveVisao").innerHTML=filtered()?`<b>No recorte filtrado:</b> ${fmtN(A.n)} leads, ${fmtN(A.f)} fechados (${fmtP(A.conv)}), ${fmtRm(A.rev)} em receita e ticket de ${fmtRk(A.tk)}. Ciclo mediano: ${isFinite(cF)?fmtN(cF):"–"} dias para fechar e ${isFinite(cL)?fmtN(cL):"–"} para perder.${best?` Melhor ano: ${best.k} (${fmtP(best.conv)}).`:""}`:`<b>Em números:</b> ciclo mediano de ${fmtN(cF)} dias para fechar e ${fmtP(cL,1).replace("%","")} dias para perder. Filtre por origem ou vendedor para ver o comportamento de cada recorte.`;
+  // mês
+  const months=[];for(let y=2022;y<=2026;y++)for(let m=1;m<=12;m++){const k=y+"-"+String(m).padStart(2,"0");if(k>="2022-03"&&k<="2026-11")months.push(k)}
+  const M=new Map(group(R,"mes").map(g=>[g.k,g]));
+  columns($("chMonth"),months.map(k=>{const g=M.get(k)||{n:0,f:0,l:0,conv:0,rev:0,tk:0};const[yy,mm]=k.split("-");return{label:MES[+mm-1]+"/"+yy.slice(2),values:{f:g.f,l:g.l},tip:tipAgg(MES[+mm-1]+"/"+yy,g)}}),[{key:"f",color:css("s1")},{key:"l",color:css("lost")}],{w:1000,h:260,gap:.2,rot:true,every:innerWidth<760?3:1,aria:"Leads por mês"});
+  line($("chConvYear"),Y.map(y=>({label:y.k,v:y.conv,tip:tipAgg(y.k,y)})),{ymax:60,yfmt:v=>fmtN(v)+"%",lab:d=>fmtP(d.v),color:css("s7"),aria:"Conversão por ano"});
+  line($("chTicketYear"),Y.map(y=>({label:y.k,v:y.tk/1000,tip:tipAgg(y.k,y)})),{yfmt:v=>fmtN(v),lab:d=>fmtN(d.v)+" mil",color:css("s3"),aria:"Ticket por ano"});
+  const pk=[...M.values()].sort((a,b)=>b.n-a.n)[0];
+  $("liveEvol").innerHTML=filtered()?`<b>No recorte filtrado:</b> ${Y.map(y=>y.k+": "+fmtN(y.n)+" leads, "+fmtP(y.conv,0)).join(" · ")}.${pk?` Mês de maior entrada: ${pk.k} (${fmtN(pk.n)} leads).`:""}`:`<b>Mês recorde de entrada:</b> ${pk.k} com ${fmtN(pk.n)} leads. Melhor mês de conversão com volume: ago/2022 (53%, 32 leads).`;
+  // pareto
+  const P=MOT.map(k=>({k,n:L.filter(r=>r.mot===k).length})).sort((a,b)=>b.n-a.n);let acc=0;const tl=L.length||1;
+  hbars($("chPareto"),P.map(p=>{acc+=p.n;const pa=acc/tl*100;const cls=pa<=80||acc-p.n===0?"A":pa<=95?"B":"C";return{label:p.k,v:p.n,color:css(MOTC[p.k]),lab:fmtN(p.n)+" · "+fmtP(p.n/tl*100,0)+" (acum. "+fmtP(pa,0)+") "+cls,tip:'<b>'+esc(p.k)+'</b>'+tr("Perdas",fmtN(p.n))+tr("% das perdas",fmtP(p.n/tl*100))+tr("% acumulado",fmtP(pa))+tr("Classe",cls)}}),{l:170,r:150,aria:"Pareto"});
+  // heat
+  heat($("chHeat"),L);
+  // objeção por ano 100%
+  $("lgObjYear").innerHTML=MOT.map(k=>`<span><i style="background:var(--${MOTC[k]})"></i>${k}</span>`).join("");
+  const YL=group(L,"ano",["2022","2023","2024","2025","2026"]);
+  columns($("chObjYear"),YL.map(y=>{const v={};MOT.forEach(k=>v[k]=y.n?y.rows.filter(r=>r.mot===k).length/y.n*100:0);return{label:y.k+" ("+y.n+")",values:v,tip:'<b>Perdas de '+y.k+'</b>'+MOT.map(k=>tr(k,fmtN(y.rows.filter(r=>r.mot===k).length)+" · "+fmtP(v[k],0))).join("")}}),MOT.map(k=>({key:k,color:css(MOTC[k])})),{ymax:100,w:1000,h:260,gap:.4,yfmt:v=>fmtN(v)+"%",aria:"Objeção por ano"});
+  const top=P[0];const inat=L.filter(r=>r.inat).length;
+  $("livePerdas").innerHTML=`<b>${filtered()?"No recorte filtrado":"Em números"}:</b> ${fmtN(L.length)} perdas. Motivo nº 1: ${top&&top.n?esc(top.k)+" ("+fmtP(top.n/tl*100,0)+")":"–"}. ${fmtN(inat)} encerradas automaticamente por 45 dias sem contato.`;
+  // origem
+  const OG=group(R,"orig",ORIG);
+  hbars($("chOrig"),OG.map(o=>({label:ORIG_S[o.k],v:o.conv,color:css(OC[ORIG.indexOf(o.k)]),lab:fmtP(o.conv)+" · "+fmtN(o.n)+" leads",tip:tipAgg(o.k,o)})),{xmax:100,l:140,r:130,aria:"Conversão por origem"});
+  const CG=group(R,r=>r.cer?"Com cerimonial":"Sem cerimonial",["Com cerimonial","Sem cerimonial"]);
+  hbars($("chCer"),CG.flatMap((c,i)=>[{label:c.k+" · conv.",v:c.conv,color:css(i?"lost":"s1"),lab:fmtP(c.conv)+" · "+fmtN(c.n)+" leads",tip:tipAgg(c.k,c)}]),{xmax:100,l:160,r:130,row:40,aria:"Com x sem cerimonial"});
+  const cg2=$("chCer");cg2.insertAdjacentHTML("beforeend",`<div class="kpis" style="grid-template-columns:1fr 1fr;margin:10px 0 0">${CG.map((c,i)=>`<div class="kpi" style="--kc:var(--${i?"lost":"s1"})"><div class="l">${c.k}</div><div class="v">${fmtRm(c.rev)}</div><div class="d">ticket ${fmtRk(c.tk)}</div></div>`).join("")}</div>`);
+  cerTable(R);
+  const com=CG.find(c=>c.k==="Com cerimonial"),sem=CG.find(c=>c.k==="Sem cerimonial");
+  $("liveOrig").innerHTML=`<b>${filtered()?"No recorte filtrado":"Em números"}:</b> com cerimonial ${com?fmtP(com.conv):"–"} de conversão, sem cerimonial ${sem?fmtP(sem.conv):"–"}. ${com&&sem&&sem.conv>0?"Diferença de "+fmtN(com.conv/sem.conv*100-100)+"% a favor da indicação.":""}`;
+  // vendedores
+  const VG=group(R,"vend",VEND);const VC=["s1","s2","s3","s5","s7","lost"];
+  hbars($("chVend"),VG.map(v=>({label:v.k,v:v.conv,color:css(VC[VEND.indexOf(v.k)]),lab:fmtP(v.conv)+" · "+fmtN(v.n)+" leads",tip:tipAgg(v.k,v)})),{xmax:100,l:120,r:130,aria:"Conversão por vendedor"});
+  hbars($("chVendSM"),VG.filter(v=>v.l>0).map(v=>{const s=v.rows.filter(r=>!r.ok&&(r.mot==="Sem Motivo"||r.mot==="Cliente não deu retorno")).length;const p=s/v.l*100;return{label:v.k,v:p,color:p>=50?css("bad"):p>=30?css("warn"):css("good"),lab:fmtP(p,0)+" · "+fmtN(s)+" de "+fmtN(v.l),tip:'<b>'+esc(v.k)+'</b>'+tr("Perdas",fmtN(v.l))+tr("Sem motivo real",fmtN(s))+tr("%",fmtP(p))}}),{xmax:100,l:120,r:110,aria:"Sem motivo por vendedor"});
+  vendTable(VG);
+  const bv=VG.filter(v=>v.n>=15).sort((a,b)=>b.conv-a.conv)[0];
+  $("liveTime").innerHTML=`<b>${filtered()?"No recorte filtrado":"Em números"}:</b> ${bv?`maior conversão (mín. 15 leads): ${esc(bv.k)} com ${fmtP(bv.conv)}.`:"poucos dados no recorte."} ${VG.map(v=>esc(v.k.split(" ")[0])+" "+fmtN(v.n)).join(" · ")} leads.`;
+  // ciclo
+  const band=r=>r.ciclo==null?"Sem decisão":r.ciclo<=7?"0–7 dias":r.ciclo<=15?"8–15 dias":r.ciclo<=30?"16–30 dias":r.ciclo<=60?"31–60 dias":r.ciclo<=90?"61–90 dias":"90+ dias";
+  const CB=group(R,band,["0–7 dias","8–15 dias","16–30 dias","31–60 dias","61–90 dias","90+ dias","Sem decisão"]);
+  hbars($("chCiclo"),CB.map(c=>({label:c.k,v:c.conv,color:css("s1"),lab:fmtP(c.conv)+" · "+fmtN(c.n)+" leads",tip:tipAgg(c.k,c)})),{xmax:100,l:100,r:130,aria:"Ciclo"});
+  const TG=group(R,r=>r.temp||"Sem alteração de funil",["Negociação Quente","Negociação Morna","Negociação Fria","Sem alteração de funil"]);
+  const TC={"Negociação Quente":"s8","Negociação Morna":"s4","Negociação Fria":"s1","Sem alteração de funil":"lost"};
+  hbars($("chTemp"),TG.map(t=>({label:t.k.replace("Negociação ",""),v:t.conv,color:css(TC[t.k]),lab:fmtP(t.conv)+" · "+fmtN(t.n)+" leads",tip:tipAgg(t.k,t)})),{xmax:100,l:150,r:130,row:34,aria:"Temperatura"});
+  const ab=r=>r.ant==null?null:r.ant<=90?"até 3 meses":r.ant<=180?"3–6 meses":r.ant<=365?"6–12 meses":r.ant<=545?"12–18 meses":"18+ meses";
+  const AG=group(R.filter(r=>ab(r)),ab,["até 3 meses","3–6 meses","6–12 meses","12–18 meses","18+ meses"]);
+  hbars($("chAnt"),AG.map(c=>({label:c.k,v:c.conv,color:css("s3"),lab:fmtP(c.conv)+" · "+fmtN(c.n)+" leads",tip:tipAgg(c.k,c)})),{xmax:100,l:100,r:130,aria:"Antecedência"});
+  const fb=r=>{const f=r.fu||0;return f===0?"0":f<=2?"1–2":f<=5?"3–5":f<=10?"6–10":"11+"};
+  const FG=group(R,fb,["0","1–2","3–5","6–10","11+"]);
+  hbars($("chFU"),FG.map(c=>({label:c.k+" follow-ups",v:c.conv,color:css("s7"),lab:fmtP(c.conv)+" · "+fmtN(c.n)+" leads",tip:tipAgg(c.k+" follow-ups",c)})),{xmax:100,l:110,r:130,aria:"Follow-ups"});
+  const antM=median(R.map(r=>r.ant));
+  $("liveCiclo").innerHTML=`<b>${filtered()?"No recorte filtrado":"Em números"}:</b> fecha em ${isFinite(cF)?fmtN(cF):"–"} dias (mediana), perde em ${isFinite(cL)?fmtN(cL):"–"}. Antecedência mediana de ${isFinite(antM)?fmtN(antM):"–"} dias (~${isFinite(antM)?fmtN(antM/30):"–"} meses) entre o lead e o evento.`;
+  // perfil
+  const TP=group(R,"tipo").sort((a,b)=>b.n-a.n);
+  hbars($("chTipo"),TP.map(t=>({label:t.k,v:t.n,color:css("s1"),lab:fmtP(t.conv,0)+" · "+fmtN(t.n)+" leads",tip:tipAgg(t.k,t)})),{l:110,r:120,aria:"Tipo"});
+  const cb=r=>r.conv==null||r.conv===0?"Não informado":r.conv<=100?"até 100":r.conv<=150?"101–150":r.conv<=200?"151–200":r.conv<=300?"201–300":"300+";
+  const CV=group(R,cb,["até 100","101–150","151–200","201–300","300+","Não informado"]);
+  columns($("chConv"),CV.map(c=>({label:c.k,values:{t:c.tk/1000},tip:tipAgg(c.k+" convidados",c),conv:c.conv})),[{key:"t",color:css("s3")}],{w:560,h:240,gap:.4,top:(d)=>fmtN(d.values.t)+" mil · "+fmtP(d.conv,0),aria:"Ticket por convidados"});
+  const bc=CV.filter(c=>c.n>=10).sort((a,b)=>b.conv-a.conv)[0];
+  $("livePerfil").innerHTML=`<b>${filtered()?"No recorte filtrado":"Em números"}:</b> ${bc?`faixa de maior conversão (mín. 10 leads): ${bc.k} convidados, ${fmtP(bc.conv)} e ticket ${fmtRk(bc.tk)}.`:"poucos dados no recorte."}`;
+}
+function heat(el,L){
+  const cols=ORIG.filter(o=>L.some(r=>r.orig===o)).slice(0,5);const W=560,cw=(W-150)/cols.length,rh=30,H=36+rh*MOT.length;let g="";
+  const max=Math.max(1,...MOT.flatMap(m=>cols.map(o=>L.filter(r=>r.mot===m&&r.orig===o).length)));
+  cols.forEach((o,j)=>g+=`<text class="ax" x="${150+j*cw+cw/2}" y="14" text-anchor="middle">${esc((ORIG_S[o]||o).replace("Indicação fornecedor","Fornecedor").replace("Instagram/Facebook","Instagram").replace("Não informado","N/inform.").replace("Indicação cliente","Ind. cliente").replace("Já era cliente","Ex-cliente"))}</text>`);
+  MOT.forEach((m,i)=>{const y=24+i*rh;g+=`<text class="lbl" x="142" y="${y+rh/2+4}" text-anchor="end">${esc(m.replace("Preço acima do desejado","Preço acima").replace("Apenas Pesquisa de Preço","Pesquisa de preço").replace("Cliente não deu retorno","Não deu retorno"))}</text>`;
+    cols.forEach((o,j)=>{const v=L.filter(r=>r.mot===m&&r.orig===o).length,t=v/max;const x=150+j*cw;
+      g+=`<rect x="${x+1}" y="${y+1}" width="${cw-2}" height="${rh-2}" rx="3" fill="color-mix(in oklab, var(--seq5) ${Math.round(8+t*92)}%, var(--seq1))" data-tip="${esc('<b>'+m+'</b>'+tr(ORIG_S[o]||o,fmtN(v)+' perdas'))}"/><text x="${x+cw/2}" y="${y+rh/2+4}" text-anchor="middle" style="font-size:11px;font-variant-numeric:tabular-nums" fill="${t>.5?"var(--card)":"var(--text)"}">${v}</text>`})});
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Objeção por origem">${g}</svg>`;bindTips(el)}
+// ---------- tabelas ordenáveis
+function sortable(tb,cols,rows,state){
+  const draw=()=>{const s=state.k,dir=state.d;const rs=rows.slice().sort((a,b)=>{const x=a[s],y=b[s];return(typeof x==="number"?x-y:String(x).localeCompare(String(y),"pt"))*dir});
+    const mx={};cols.forEach(c=>{if(c.bar)mx[c.k]=Math.max(...rows.map(r=>r[c.k]||0),1)});
+    tb.innerHTML="<thead><tr>"+cols.map(c=>`<th class="${c.n?"n":""}" data-k="${c.k}">${c.t}${s===c.k?(dir>0?" ▲":" ▼"):""}</th>`).join("")+"</tr></thead><tbody>"+
+      rs.map(r=>"<tr>"+cols.map(c=>`<td class="${c.n?"n":""}">${c.bar?`<span class="bar-in" style="display:block"><i style="width:${(r[c.k]||0)/mx[c.k]*100}%"></i><span style="position:relative">${c.f?c.f(r[c.k],r):r[c.k]}</span></span>`:(c.f?c.f(r[c.k],r):esc(r[c.k]))}</td>`).join("")+"</tr>").join("")+"</tbody>";
+    tb.querySelectorAll("th").forEach(th=>th.onclick=()=>{const k=th.dataset.k;state.d=state.k===k?-state.d:-1;state.k=k;draw()})};draw()}
+const cerState={k:"rev",d:-1};
+function cerTable(R){
+  const G=group(R.filter(r=>r.cer),"cer").sort((a,b)=>b.rev-a.rev);const tot=G.reduce((s,g)=>s+g.rev,0)||1;let acc=0;
+  let rows=G.map(g=>{const pa0=acc/tot*100;acc+=g.rev;const pa=acc/tot*100;const L=g.rows.filter(r=>!r.ok);const mc={};L.forEach(r=>mc[r.mot]=(mc[r.mot]||0)+1);const tm=Object.entries(mc).sort((a,b)=>b[1]-a[1])[0];
+    return{cer:g.k,n:g.n,f:g.f,conv:g.conv,rev:g.rev,tk:g.tk,part:g.rev/tot*100,acc:pa,abc:g.rev<=0?"C":pa0<80?"A":pa0<95?"B":"C",obj:tm?tm[0]+" ("+tm[1]+")":"–"}});
+  const q=($("cerQ").value||"").toLowerCase(),c=$("cerABC").value;rows=rows.filter(r=>(!q||r.cer.toLowerCase().includes(q))&&(!c||r.abc===c));
+  sortable($("tbCer"),[{k:"cer",t:"Cerimonial"},{k:"abc",t:"Classe",f:v=>`<span class="chip ${v.toLowerCase()}">${v}</span>`},{k:"n",t:"Leads",n:1},{k:"f",t:"Fechados",n:1},{k:"conv",t:"Conversão",n:1,f:v=>fmtP(v)},{k:"rev",t:"Receita",n:1,bar:1,f:v=>fmtR(v)},{k:"tk",t:"Ticket",n:1,f:v=>v?fmtR(v):"–"},{k:"part",t:"% receita",n:1,f:v=>fmtP(v)},{k:"obj",t:"Principal objeção"}],rows,cerState)}
+$("cerQ").addEventListener("input",()=>cerTable(rowsF()));$("cerABC").addEventListener("change",()=>cerTable(rowsF()));
+const vState={k:"n",d:-1};
+function vendTable(VG){
+  const rows=VG.map(v=>{const L=v.rows.filter(r=>!r.ok),F=v.rows.filter(r=>r.ok);const s=L.filter(r=>r.mot==="Sem Motivo"||r.mot==="Cliente não deu retorno").length;const mc={};L.forEach(r=>mc[r.mot]=(mc[r.mot]||0)+1);const tm=Object.entries(mc).sort((a,b)=>b[1]-a[1])[0];
+    const avg=a=>a.length?a.reduce((x,y)=>x+(y||0),0)/a.length:0;
+    return{v:v.k,n:v.n,f:v.f,conv:v.conv,rev:v.rev,tk:v.tk,cf:median(F.map(r=>r.ciclo)),fu:avg(v.rows.map(r=>r.fu)),obj:tm?tm[0]+" ("+tm[1]+")":"–",sm:L.length?s/L.length*100:0}});
+  sortable($("tbVend"),[{k:"v",t:"Vendedor"},{k:"n",t:"Leads",n:1},{k:"f",t:"Fechados",n:1},{k:"conv",t:"Conversão",n:1,f:v=>fmtP(v)},{k:"rev",t:"Receita",n:1,bar:1,f:v=>fmtR(v)},{k:"tk",t:"Ticket",n:1,f:v=>v?fmtR(v):"–"},{k:"cf",t:"Ciclo med. (d)",n:1,f:v=>isFinite(v)?fmtN(v):"–"},{k:"fu",t:"Follow-ups méd.",n:1,f:v=>v.toLocaleString("pt-BR",{maximumFractionDigits:1})},{k:"obj",t:"Principal objeção"},{k:"sm",t:"Sem motivo real",n:1,f:v=>`<span class="chip ${v>=50?"alta":v>=30?"media":"baixa"}">${fmtP(v,0)}</span>`}],rows,vState)}
+
+// ---------- plano: fluxo, checklist, banco de ações
+function flow(){
+  const st=[["D0","Lead entra","Registrar no MeEventos na hora. Origem e cerimonial obrigatórios."],["1 h","Resposta","Áudio pessoal + 3 perguntas de qualificação (data, convidados, faixa)."],["D1–D2","Proposta","Com 'a partir de' validado e convite para visita técnica."],["≤ D7","Visita técnica","Etapa que mais converte (62,5%). Marcar temperatura."],["D10–D17","Follow-up","Ligação, referência de evento parecido, condição com prazo."],["D25–30","Decisão","Fecha, ou encerra com motivo real e porta aberta."]];
+  const W=1000,H=170,n=st.length,bw=(W-20)/n;let g=`<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="var(--text3)"/></marker></defs>`;
+  st.forEach((s,i)=>{const x=10+i*bw,cx=x+bw/2;const c=i===3?"var(--accent)":"var(--s1)";
+    g+=`<circle cx="${cx}" cy="40" r="30" fill="var(--card)" stroke="${c}" stroke-width="2.5"/><text x="${cx}" y="45" text-anchor="middle" style="font-size:12px;font-weight:700" fill="${c}">${s[0]}</text>`;
+    if(i<n-1)g+=`<line x1="${cx+34}" y1="40" x2="${cx+bw-36}" y2="40" stroke="var(--text3)" stroke-width="2" marker-end="url(#ar)"/>`;
+    g+=`<text x="${cx}" y="88" text-anchor="middle" class="lbl" style="font-weight:700;font-size:13px">${s[1]}</text>`;
+    g+=`<foreignObject x="${x+6}" y="96" width="${bw-12}" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="font-size:11.5px;line-height:1.35;color:var(--text2);text-align:center">${s[2]}</div></foreignObject>`});
+  $("flow").innerHTML=`<div style="overflow-x:auto"><svg viewBox="0 0 ${W} ${H}" style="min-width:720px" role="img" aria-label="Fluxo de atendimento">${g}</svg></div>`}
+const CK=[["Tirar 'Sem Motivo' das opções de perda no MeEventos","Campos novos: concorrente vencedor e diferença de preço"],["Exportar a lista dos 33 perdidos com evento futuro","Começar pelos 21 'Sem Motivo'"],["Mandar a mensagem de reativação para a lista","Áudio pessoal, sem desconto na primeira mensagem"],["Publicar a cadência de 30 dias para o time","D0, D2, D5, D10, D17, D25"],["Regra: orçamento entra no sistema no 1º contato","Nada de lançar só depois de fechado"],["Reunião semanal de funil (30 min, segunda)","Revisar Mornos com +15 dias"],["Definir o 'a partir de' para leads do Instagram","Por faixa de convidados"],["Agendar reunião com os 6 cerimoniais classe A","Devolutiva das indicações do ano"],["Escolher 3 cerimoniais classe B para desenvolver","Plano de relacionamento de 12 meses"],["Coaching individual com cada vendedor","Izabela, Maicon e Ana Luiza primeiro"],["Criar pedido de depoimento + indicação pós-evento","15 dias após o evento"],["Plano de pico para março e agosto","Escala de atendimento e agenda de VT"]];
+const KEY="coloratto-ck-v1";let ck={};try{ck=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){ck={}}
+function drawCK(){const done=CK.filter((_,i)=>ck[i]).length;$("ckBar").style.width=(done/CK.length*100)+"%";$("ckTxt").textContent=done+" de "+CK.length+" concluídas";
+  $("ckList").innerHTML=CK.map((c,i)=>`<label class="ck${ck[i]?" done":""}"><input type="checkbox" data-i="${i}"${ck[i]?" checked":""}><span>${esc(c[0])}<small>${esc(c[1])}</small></span></label>`).join("");
+  $("ckList").querySelectorAll("input").forEach(inp=>inp.onchange=()=>{ck[inp.dataset.i]=inp.checked;try{localStorage.setItem(KEY,JSON.stringify(ck))}catch(e){}drawCK()})}
+const AC=[
+ ["Reativar 33 perdidos com evento ainda no futuro","Reativação","alta","33 perdidos têm evento futuro; 21 são 'Sem Motivo'. 9 de 19 reabertos já viraram venda.","Comercial","Esta semana"],
+ ["Motivo de perda obrigatório e real","Processo","alta","37,4% das perdas sem objeção registrada","Gestão","7 dias"],
+ ["Cadência de follow-up de 30 dias","Follow-up","alta","Perdidos levam 29,5 dias; 68 encerrados por 45 dias sem contato","Comercial","7 dias"],
+ ["Resposta em até 1 hora e proposta em 48 h","Velocidade","alta","Decisão em 0–7 dias converte 49,5%","Comercial","Imediato"],
+ ["Visita técnica em até 7 dias após a proposta","Velocidade","alta","Etapa AGENDAR VT converte 62,5%","Comercial","Imediato"],
+ ["Lançar orçamento no 1º contato e mover etapa a cada conversa","Processo","alta","90% dos orçamentos parados em FORMULÁRIO","Gestão","7 dias"],
+ ["Reunião semanal de funil","Gestão","media","Temperatura prevê resultado: Quente 60% x Fria 22%","Gestão","Toda segunda"],
+ ["Programa de parceiros para cerimoniais classe A","Parceiros","alta","Indicação = 63% da receita e 39,3% de conversão","Sócias","30 dias"],
+ ["Desenvolver 3 cerimoniais classe B","Parceiros","media","Top 2 cerimoniais = 59,2% da receita indicada","Sócias","90 dias"],
+ ["Diferenciação contra concorrente em leads indicados","Proposta","alta","Concorrência = objeção nº 1 nos indicados (65 de 182)","Comercial","30 dias"],
+ ["'A partir de' e qualificação para leads do Instagram","Marketing","media","Instagram converte 17,3%; preço é a objeção nº 1 (43)","Marketing","30 dias"],
+ ["Coaching individual por padrão de perda","Pessoas","media","Izabela: concorrência · Maicon: preço · Ana Luiza: 74% sem motivo","Gestão","30 dias"],
+ ["Plano de pico (março e agosto)","Capacidade","media","Mar/2026: 27 leads e só 11% de conversão","Gestão","Antes de mar/2027"],
+ ["Trilha premium para 300+ convidados","Proposta","baixa","Ticket R$ 181 mil, conversão 15,4%","Sócias","60 dias"],
+ ["Foco em 200–300 convidados","Proposta","media","Melhor conversão (35,1%) e ticket de R$ 88,8 mil","Comercial","30 dias"],
+ ["Programa de indicação de noivas","Reativação","baixa","Já era cliente converte 41%, mas só 44 leads em 5 anos","Marketing","60 dias"],
+ ["Meta de entrada: 14 leads/mês","Gestão","alta","Volume caiu de ~170/ano para 85/ano; 0 orçamentos abertos hoje","Sócias","Imediato"]];
+[...new Set(AC.map(a=>a[1]))].forEach(a=>$("aArea").insertAdjacentHTML("beforeend",`<option>${esc(a)}</option>`));
+const aState={k:"p",d:1};const PR={alta:1,media:2,baixa:3},PL={alta:"Alta",media:"Média",baixa:"Baixa"};
+function drawAcoes(){const q=($("aQ").value||"").toLowerCase(),p=$("aPri").value,ar=$("aArea").value;
+  const rows=AC.map(a=>({a:a[0],ar:a[1],p:PR[a[2]],pk:a[2],dado:a[3],dono:a[4],prazo:a[5]})).filter(r=>(!q||(r.a+r.dado).toLowerCase().includes(q))&&(!p||r.pk===p)&&(!ar||r.ar===ar));
+  sortable($("tbAcoes"),[{k:"p",t:"Prior.",f:(v,r)=>`<span class="chip ${r.pk}">${PL[r.pk]}</span>`},{k:"a",t:"Ação",f:(v,r)=>`<b>${esc(v)}</b><br><span class="note" style="white-space:normal">${esc(r.dado)}</span>`},{k:"ar",t:"Área"},{k:"dono",t:"Dono"},{k:"prazo",t:"Prazo"}],rows,aState);
+  $("tbAcoes").querySelectorAll("td:nth-child(2)").forEach(td=>td.style.whiteSpace="normal")}
+["aQ","aPri","aArea"].forEach(i=>$(i).addEventListener(i==="aQ"?"input":"change",drawAcoes));
+
+// ---------- navegação
+const PAGES=["visao","evolucao","perdas","origem","time","ciclo","perfil","plano","metodo"];
+function go(){const h=(location.hash||"#visao").slice(1);const p=PAGES.includes(h)?h:"visao";
+  PAGES.forEach(x=>$("p-"+x).classList.toggle("on",x===p));document.querySelectorAll(".rail a").forEach(a=>a.classList.toggle("on",a.dataset.p===p));
+  $("slicers").style.display=$("filterNote").style.display=(p==="plano"||p==="metodo")?"none":"";$("rail").classList.remove("open");scrollTo(0,0)}
+addEventListener("hashchange",go);$("menuBtn").onclick=()=>$("rail").classList.toggle("open");
+// tema
+const root=document.documentElement;let th=null;try{th=localStorage.getItem("coloratto-theme")}catch(e){}if(th)root.setAttribute("data-theme",th);
+$("themeBtn").onclick=()=>{const dark=root.getAttribute("data-theme")?root.getAttribute("data-theme")==="dark":matchMedia("(prefers-color-scheme: dark)").matches;const n=dark?"light":"dark";root.setAttribute("data-theme",n);try{localStorage.setItem("coloratto-theme",n)}catch(e){}};
+let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(render,200)});
+flow();drawCK();drawAcoes();render();go();
+})();
+</script>
+</body>
+</html>

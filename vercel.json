@@ -38,6 +38,11 @@
       "source": "/pages/superbolla/black",
       "destination": "/pages/superbolla/black/",
       "permanent": false
+    },
+    {
+      "source": "/relatorios/coloratto-festas",
+      "destination": "/relatorios/coloratto-festas/",
+      "permanent": false
     }
   ],
   "rewrites": [
